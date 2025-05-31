@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# filepath: /Users/vuhung/Desktop/ACU/Algorithms-in-Python/run-all-py.py
+# filepath: ./run-all-py.py
 
 import os
 import subprocess

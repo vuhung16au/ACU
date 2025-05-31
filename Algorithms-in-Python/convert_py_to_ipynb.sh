@@ -2,7 +2,8 @@
 
 # Script to convert all Python files to Jupyter notebooks
 # Navigate to the main project directory
-cd /Users/vuhung/Desktop/ACU/Algorithms-in-Python
+# cd ../Algorithms-in-Python
+cd .
 
 # Find all Python files and convert them to Jupyter notebooks
 for py_file in $(find . -name "*.py" | sort); do
