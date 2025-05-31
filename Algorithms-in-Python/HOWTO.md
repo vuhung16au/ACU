@@ -6,10 +6,9 @@ This guide will help you get started with the Algorithms-in-Python repository. F
 Open your terminal and run:
 
 ```zsh
-git clone <repository-url>
-cd Algorithms-in-Python
+git clone https://github.com/vuhung16au/ACU.git
+cd ACU/Algorithms-in-Python
 ```
-Replace `<repository-url>` with the actual URL of this repository.
 
 ## 2. Set Up Python
 Make sure you have Python 3 installed. You can check your Python version with:
@@ -37,11 +36,24 @@ The output will appear in your terminal. Follow any on-screen prompts for input 
 ## 5. Change the Code and Experiment
 Open any `.py` file in your favorite code editor (such as VS Code). Modify the code, save your changes, and run the file again to see how your changes affect the results.
 
-# # Convert .py to Jupyter Notebooks 
+## 6. Convert .py to Jupyter Notebooks 
 
 - install a virtual environtment named `.venv`
 - .venv/bin/python -m pip install p2j
 - p2j filename.py
+
+## 7. Using Jupyter Notebooks in Google Colab
+
+The repository already contains Jupyter Notebook (.ipynb) versions of all Python files. You can easily run these in Google Colab:
+
+1. Open [Google Colab](https://colab.research.google.com/)
+2. Click on "File" > "Open notebook"
+3. Select the "GitHub" tab
+4. Enter the repository URL: `https://github.com/vuhung16au/ACU`
+5. Navigate to the Algorithms-in-Python directory and select the notebook (.ipynb file) you want to open
+6. The notebook will open in Colab and you can run the cells directly in your browser
+
+This is a convenient way to experiment with the algorithms without installing anything on your local machine.
 
 ---
 
