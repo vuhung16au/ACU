@@ -1,12 +1,12 @@
-# Chapter 15: Graph Structures and Applications
-# This tutorial introduces graphs for beginners with simple, well-commented examples.
+## Chapter 15: Graph Structures and Applications
+## This tutorial introduces graphs for beginners with simple, well-commented examples.
 
-# 1. What is a Graph?
+## 1. What is a Graph?
 # A graph is a collection of nodes (vertices) and connections (edges) between them.
 # Graphs can be directed or undirected, weighted or unweighted.
 
-# 2. Graph Representation: Adjacency List
-# We'll use a dictionary to represent a simple undirected graph.
+## 2. Graph Representation: Adjacency List
+## We'll use a dictionary to represent a simple undirected graph.
 
 graph = {
     'A': ['B', 'C'],
@@ -17,7 +17,7 @@ graph = {
     'F': ['C', 'E']
 }
 
-# 3. Graph Traversal: Breadth-First Search (BFS)
+## 3. Graph Traversal: Breadth-First Search (BFS)
 from collections import deque
 
 def bfs_traversal(graph, start_node):
@@ -37,7 +37,7 @@ def bfs_traversal(graph, start_node):
 
 bfs_traversal(graph, 'A')
 
-# 4. Graph Traversal: Depth-First Search (DFS)
+## 4. Graph Traversal: Depth-First Search (DFS)
 def dfs_traversal(graph, start_node, visited=None):
     if visited is None:
         visited = set()
@@ -52,7 +52,7 @@ def dfs_traversal(graph, start_node, visited=None):
 
 dfs_traversal(graph, 'A')
 
-# 5. Shortest Path: BFS for Unweighted Graphs
+## 5. Shortest Path: BFS for Unweighted Graphs
 def shortest_path_bfs(graph, start, goal):
     """Find the shortest path from start to goal using BFS."""
     queue = deque([(start, [start])])
@@ -71,8 +71,8 @@ def shortest_path_bfs(graph, start, goal):
 path = shortest_path_bfs(graph, 'A', 'F')
 print("Shortest path from A to F:", path)
 
-# 6. Minimum Spanning Tree (MST): Simple Example with Kruskal's Algorithm
-# For simplicity, we'll use a small weighted undirected graph and a basic Kruskal's algorithm implementation.
+## 6. Minimum Spanning Tree (MST): Simple Example with Kruskal's Algorithm
+## For simplicity, we'll use a small weighted undirected graph and a basic Kruskal's algorithm implementation.
 
 edges = [
     ('A', 'B', 4),
@@ -122,10 +122,10 @@ print("Minimum Spanning Tree (Kruskal's algorithm):")
 for u, v, w in mst:
     print(f"Edge {u}-{v} with weight {w}")
 
-# 7. Key Points
-# - Graphs are used in navigation, social networks, scheduling, and more.
-# - Traversal (BFS, DFS) is fundamental for exploring graphs.
-# - BFS finds shortest paths in unweighted graphs.
-# - MST algorithms (like Kruskal's) find the cheapest way to connect all nodes.
+## 7. Key Points
+## - Graphs are used in navigation, social networks, scheduling, and more.
+## - Traversal (BFS, DFS) is fundamental for exploring graphs.
+## - BFS finds shortest paths in unweighted graphs.
+## - MST algorithms (like Kruskal's) find the cheapest way to connect all nodes.
 
-# End of Chapter 15: Graph Structures and Applications tutorial
+## End of Chapter 15: Graph Structures and Applications tutorial

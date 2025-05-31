@@ -1,7 +1,7 @@
-# Chapter 13: Binary Search Trees (BST)
-# This tutorial introduces binary search trees for beginners with simple, well-commented examples.
+## Chapter 13: Binary Search Trees (BST)
+## This tutorial introduces binary search trees for beginners with simple, well-commented examples.
 
-# 1. What is a Binary Search Tree?
+## 1. What is a Binary Search Tree?
 # A BST is a tree where each node has at most two children.
 # For any node, all values in the left subtree are less, and all values in the right subtree are greater.
 
@@ -11,7 +11,7 @@ class BSTNode:
         self.left = None    # Left child
         self.right = None   # Right child
 
-# 2. Insertion in BST
+## 2. Insertion in BST
 def insert_bst(root, value):
     """Insert a value into the BST and return the root."""
     if root is None:
@@ -23,14 +23,14 @@ def insert_bst(root, value):
     # If value == root.value, do nothing (no duplicates in this example)
     return root
 
-# 3. Inorder Traversal (prints values in sorted order)
+## 3. Inorder Traversal (prints values in sorted order)
 def inorder_traversal(node):
     if node:
         inorder_traversal(node.left)
         print(node.value, end=" ")
         inorder_traversal(node.right)
 
-# 4. Deletion in BST
+## 4. Deletion in BST
 def delete_bst(root, value):
     """Delete a value from the BST and return the new root."""
     if root is None:
@@ -53,8 +53,8 @@ def delete_bst(root, value):
         root.right = delete_bst(root.right, min_larger_node.value)
     return root
 
-# 5. Example Usage
-# Create a BST and perform operations
+## 5. Example Usage
+## Create a BST and perform operations
 values_to_insert = [50, 30, 70, 20, 40, 60, 80]
 bst_root = None
 for val in values_to_insert:
@@ -70,9 +70,9 @@ print("BST after deleting 70:")
 inorder_traversal(bst_root)
 print()
 
-# 6. Key Points
-# - BSTs allow fast search, insertion, and deletion (average O(log n) time).
-# - Inorder traversal of a BST gives sorted order.
-# - Deletion handles three cases: leaf, one child, two children.
+## 6. Key Points
+## - BSTs allow fast search, insertion, and deletion (average O(log n) time).
+## - Inorder traversal of a BST gives sorted order.
+## - Deletion handles three cases: leaf, one child, two children.
 
-# End of Chapter 13: Binary Search Trees tutorial
+## End of Chapter 13: Binary Search Trees tutorial

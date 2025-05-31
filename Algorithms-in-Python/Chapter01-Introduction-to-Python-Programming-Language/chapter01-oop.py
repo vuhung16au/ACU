@@ -1,6 +1,6 @@
-# Python Object-Oriented Programming (OOP) Tutorial for Beginners
+## Python Object-Oriented Programming (OOP) Tutorial for Beginners
 
-# --- Python Classes and Objects ---
+## Python Classes and Objects
 # A class is like a blueprint for creating objects (instances).
 # An object is an instance of a class.
 
@@ -23,7 +23,7 @@ dog = Animal("Dog", "Woof")
 cat.speak()  # Output: Cat says Meow
 dog.speak()  # Output: Dog says Woof
 
-# --- Python Polymorphism ---
+## Python Polymorphism
 # Polymorphism allows different classes to be used with the same interface.
 # For example, different animal classes can have their own speak() method.
 
@@ -47,7 +47,7 @@ for animal in animals:
 
 # Polymorphism makes code flexible and easy to extend!
 
-# --- Python Inheritance Example ---
+## Python Inheritance Example
 # Inheritance allows a class (child) to inherit attributes and methods from another class (parent).
 
 # Parent class

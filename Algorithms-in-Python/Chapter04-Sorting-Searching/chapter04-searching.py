@@ -1,6 +1,6 @@
-# Python Searching Algorithms Tutorial for Beginners
+## Python Searching Algorithms Tutorial for Beginners
 
-# --- Linear Search ---
+## Linear Search
 # Linear search checks each element in the list one by one until it finds the target value.
 
 def linear_search(search_list, target):
@@ -19,7 +19,7 @@ if result != -1:
 else:
     print(f"Linear Search: {target_number} not found in the list.")
 
-# --- Binary Search ---
+## Binary Search
 # Binary search works only on sorted lists.
 # It repeatedly divides the search interval in half.
 

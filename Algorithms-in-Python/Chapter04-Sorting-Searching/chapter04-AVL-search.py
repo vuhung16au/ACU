@@ -1,10 +1,6 @@
-# Python AVL Tree Tutorial for Beginners
-# Reference: https://www.w3schools.com/python/python_dsa_avltrees.asp
+## Python AVL Tree Tutorial for Beginners
 
-# An AVL tree is a self-balancing binary search tree.
-# Each node keeps track of its height, and the tree balances itself after insertions and deletions.
-
-# Node class for AVL Tree
+## Node class for AVL Tree
 class AVLNode:
     def __init__(self, key):
         self.key = key
@@ -12,7 +8,7 @@ class AVLNode:
         self.right = None
         self.height = 1  # New node is initially added at leaf
 
-# AVL Tree class with insert and search
+## AVL Tree class with insert and search
 class AVLTree:
     # Insert a node
     def insert(self, root, key):

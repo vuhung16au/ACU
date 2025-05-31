@@ -1,7 +1,7 @@
-# Chapter 4: Simple Sorting and Searching Algorithms
-# This tutorial introduces basic sorting and searching algorithms for beginners.
+## Chapter 4: Simple Sorting and Searching Algorithms
+## This tutorial introduces basic sorting and searching algorithms for beginners.
 
-# 1. Linear Search
+## 1. Linear Search
 # Linear search checks each element in the list until it finds the target value.
 def linear_search(numbers, target):
     """Return the index of target in numbers, or -1 if not found."""
@@ -17,8 +17,8 @@ if search_result != -1:
 else:
     print("Linear Search: 9 not found.")
 
-# 2. Binary Search
-# Binary search works on sorted lists. It repeatedly divides the list in half to find the target.
+## 2. Binary Search
+## Binary search works on sorted lists. It repeatedly divides the list in half to find the target.
 def binary_search(sorted_numbers, target):
     """Return the index of target in sorted_numbers, or -1 if not found."""
     left = 0
@@ -40,8 +40,8 @@ if binary_result != -1:
 else:
     print("Binary Search: 7 not found.")
 
-# 3. Bubble Sort
-# Bubble sort repeatedly steps through the list, compares adjacent elements, and swaps them if they are in the wrong order.
+## 3. Bubble Sort
+## Bubble sort repeatedly steps through the list, compares adjacent elements, and swaps them if they are in the wrong order.
 def bubble_sort(numbers):
     """Sort the list using bubble sort and return the sorted list."""
     n = len(numbers)
@@ -57,8 +57,8 @@ print("Bubble Sort: Before sorting:", unsorted_list)
 sorted_bubble = bubble_sort(unsorted_list.copy())
 print("Bubble Sort: After sorting:", sorted_bubble)
 
-# 4. Selection Sort
-# Selection sort repeatedly finds the minimum element and moves it to the beginning.
+## 4. Selection Sort
+## Selection sort repeatedly finds the minimum element and moves it to the beginning.
 def selection_sort(numbers):
     """Sort the list using selection sort and return the sorted list."""
     n = len(numbers)
@@ -75,8 +75,8 @@ print("Selection Sort: Before sorting:", unsorted_list2)
 sorted_selection = selection_sort(unsorted_list2.copy())
 print("Selection Sort: After sorting:", sorted_selection)
 
-# 5. Insertion Sort
-# Insertion sort builds the sorted list one item at a time.
+## 5. Insertion Sort
+## Insertion sort builds the sorted list one item at a time.
 def insertion_sort(numbers):
     """Sort the list using insertion sort and return the sorted list."""
     for i in range(1, len(numbers)):
@@ -93,4 +93,4 @@ print("Insertion Sort: Before sorting:", unsorted_list3)
 sorted_insertion = insertion_sort(unsorted_list3.copy())
 print("Insertion Sort: After sorting:", sorted_insertion)
 
-# End of Chapter 4: Sorting and Searching Algorithms
+## End of Chapter 4: Sorting and Searching Algorithms

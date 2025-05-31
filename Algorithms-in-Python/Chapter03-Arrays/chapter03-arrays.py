@@ -1,7 +1,7 @@
-# Chapter 3: One-Dimensional and Two-Dimensional Arrays
-# This tutorial introduces arrays (lists) in Python for beginners.
+## Chapter 3: One-Dimensional and Two-Dimensional Arrays
+## This tutorial introduces arrays (lists) in Python for beginners.
 
-# 1. One-Dimensional Arrays (Lists)
+## 1. One-Dimensional Arrays (Lists)
 # Creating a list of numbers
 numbers = [10, 20, 30, 40, 50]
 print("Original list:", numbers)
@@ -33,7 +33,7 @@ average = total / len(numbers)
 print("Sum:", total)
 print("Average:", average)
 
-# 2. Two-Dimensional Arrays (Lists of Lists)
+## 2. Two-Dimensional Arrays (Lists of Lists)
 # Creating a 2D array (matrix)
 matrix = [
     [1, 2, 3],
@@ -60,7 +60,7 @@ for row in matrix:
         print(value, end=" ")
     print()  # Newline after each row
 
-# 3. Common Applications
+## 3. Common Applications
 # Example: Find the maximum value in a list
 
 def find_max_in_list(numbers_list):
@@ -80,4 +80,4 @@ for row_index, row in enumerate(matrix):
     row_sum = sum(row)
     print(f"Row {row_index + 1} sum:", row_sum)
 
-# End of Chapter 3: Arrays tutorial
+## End of Chapter 3: Arrays tutorial

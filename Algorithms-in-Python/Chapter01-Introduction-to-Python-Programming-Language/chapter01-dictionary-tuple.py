@@ -1,6 +1,6 @@
-# Python Dictionary and Tuple Tutorial for Beginners
+## Python Dictionary and Tuple Tutorial for Beginners
 
-# --- Tuples ---
+## Tuples
 # A tuple is an ordered, immutable collection of items.
 # You cannot change the items in a tuple after it is created.
 
@@ -16,7 +16,7 @@ print("Tuple example (week days):", week_days)
 first_day = week_days[0]
 print("The first day of the week is:", first_day)
 
-# --- Dictionaries ---
+## Dictionaries
 # A dictionary is a collection of key-value pairs.
 # Keys must be unique and immutable (like strings or numbers).
 

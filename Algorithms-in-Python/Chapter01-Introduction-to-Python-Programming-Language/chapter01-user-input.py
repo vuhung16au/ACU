@@ -1,4 +1,6 @@
-# Python User Input Tutorial for Beginners
+## Python User Input Tutorial for Beginners
+
+## Getting user input
 
 # Ask the user to enter their name
 user_name = input("What is your name? ")  # input() always returns a string

@@ -37,6 +37,12 @@ The output will appear in your terminal. Follow any on-screen prompts for input 
 ## 5. Change the Code and Experiment
 Open any `.py` file in your favorite code editor (such as VS Code). Modify the code, save your changes, and run the file again to see how your changes affect the results.
 
+# # Convert .py to Jupyter Notebooks 
+
+- install a virtual environtment named `.venv`
+- .venv/bin/python -m pip install p2j
+- p2j filename.py
+
 ---
 
 Feel free to explore all chapters, try out the algorithms, and learn by doing!

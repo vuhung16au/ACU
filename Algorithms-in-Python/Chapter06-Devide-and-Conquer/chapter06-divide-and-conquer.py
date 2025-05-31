@@ -1,11 +1,11 @@
-# Chapter 6: Divide and Conquer
-# This tutorial introduces the divide and conquer paradigm for beginners with simple, well-commented examples.
+## Chapter 6: Divide and Conquer
+## This tutorial introduces the divide and conquer paradigm for beginners with simple, well-commented examples.
 
-# 1. What is Divide and Conquer?
+## 1. What is Divide and Conquer?
 # Divide and conquer is a problem-solving technique that breaks a problem into smaller subproblems, solves each subproblem, and then combines the results.
 
-# 2. Example: Merge Sort
-# Merge sort is a classic divide and conquer algorithm for sorting a list.
+## 2. Example: Merge Sort
+## Merge sort is a classic divide and conquer algorithm for sorting a list.
 
 def merge_sort(numbers):
     """Sort a list using merge sort algorithm."""
@@ -41,8 +41,8 @@ print("Merge Sort: Before sorting:", unsorted_list)
 sorted_list = merge_sort(unsorted_list)
 print("Merge Sort: After sorting:", sorted_list)
 
-# 3. Example: Quick Sort
-# Quick sort is another divide and conquer algorithm for sorting a list.
+## 3. Example: Quick Sort
+## Quick sort is another divide and conquer algorithm for sorting a list.
 
 def quick_sort(numbers):
     """Sort a list using quick sort algorithm."""
@@ -59,10 +59,10 @@ print("Quick Sort: Before sorting:", unsorted_list2)
 sorted_list2 = quick_sort(unsorted_list2)
 print("Quick Sort: After sorting:", sorted_list2)
 
-# 4. Key Points About Divide and Conquer
-# - Divide: Break the problem into smaller subproblems.
-# - Conquer: Solve each subproblem recursively.
-# - Combine: Merge the solutions of subproblems to get the final answer.
-# - Commonly used in sorting, searching, and many other algorithms.
+## 4. Key Points About Divide and Conquer
+## - Divide: Break the problem into smaller subproblems.
+## - Conquer: Solve each subproblem recursively.
+## - Combine: Merge the solutions of subproblems to get the final answer.
+## - Commonly used in sorting, searching, and many other algorithms.
 
-# End of Chapter 6: Divide and Conquer tutorial
+## End of Chapter 6: Divide and Conquer tutorial

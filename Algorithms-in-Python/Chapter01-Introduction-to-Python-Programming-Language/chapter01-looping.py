@@ -1,6 +1,6 @@
-# Python Looping Tutorial for Beginners
+## Python Looping Tutorial for Beginners
 
-# --- For Loop Example ---
+## For Loop Example
 # A for loop is used to repeat actions a specific number of times or to go through items in a list.
 
 # Print numbers from 1 to 5 using a for loop
@@ -12,7 +12,7 @@ fruits = ["apple", "banana", "cherry"]
 for fruit in fruits:
     print("I like", fruit)
 
-# --- While Loop Example ---
+## While Loop Example
 # A while loop repeats as long as a condition is True.
 
 # Print numbers from 1 to 5 using a while loop

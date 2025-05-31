@@ -1,6 +1,6 @@
-# Python If ... Else and Switch Tutorial for Beginners
+## Python If ... Else and Switch Tutorial for Beginners
 
-# --- If ... Else Example ---
+## If ... Else Example
 # If ... else statements let you run code only if a condition is true.
 
 user_age = 18
@@ -22,7 +22,7 @@ elif score >= 70:
 else:
     print("Grade: D or below")
 
-# --- Python's version of 'switch': match-case (Python 3.10+) ---
+## Python's version of 'switch': match-case (Python 3.10+) ---
 # match-case is similar to switch-case in other languages
 # Let's use it to print the day of the week
 
@@ -46,7 +46,7 @@ match day_number:
     case _:
         print("Invalid day number")
 
-# --- Another match-case example ---
+## Another match-case example
 # Let's match a color and print a message
 color = "red"
 

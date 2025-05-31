@@ -1,12 +1,12 @@
-# Chapter 7: Backtracking Techniques
-# This tutorial introduces backtracking for beginners with simple, well-commented examples.
+## Chapter 7: Backtracking Techniques
+## This tutorial introduces backtracking for beginners with simple, well-commented examples.
 
-# 1. What is Backtracking?
+## 1. What is Backtracking?
 # Backtracking is a problem-solving technique that tries to build a solution step by step,
 # removing solutions that fail to satisfy the problem constraints as soon as possible.
 
-# 2. Example: The N-Queens Problem
-# Place N queens on an N x N chessboard so that no two queens threaten each other.
+## 2. Example: The N-Queens Problem
+## Place N queens on an N x N chessboard so that no two queens threaten each other.
 
 # Helper function to print the chessboard
 
@@ -64,9 +64,9 @@ def n_queens_solver(n):
 n_queens_solver(4)
 # n_queens_solver(8)
 
-# 3. Key Points About Backtracking
-# - Backtracking is useful for constraint satisfaction problems (like puzzles, games, and combinations).
-# - It tries all possible options and backtracks when a constraint is violated.
-# - The N-Queens problem is a classic example.
+## 3. Key Points About Backtracking
+## - Backtracking is useful for constraint satisfaction problems (like puzzles, games, and combinations).
+## - It tries all possible options and backtracks when a constraint is violated.
+## - The N-Queens problem is a classic example.
 
-# End of Chapter 7: Backtracking Techniques tutorial
+## End of Chapter 7: Backtracking Techniques tutorial

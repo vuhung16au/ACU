@@ -1,6 +1,6 @@
-# Python Sorting Algorithms Tutorial for Beginners
+## Python Sorting Algorithms Tutorial for Beginners
 
-# --- Bubble Sort ---
+## Bubble Sort
 # Bubble sort repeatedly steps through the list, compares adjacent elements, and swaps them if they are in the wrong order.
 def bubble_sort(arr):
     n = len(arr)
@@ -10,7 +10,7 @@ def bubble_sort(arr):
                 arr[j], arr[j + 1] = arr[j + 1], arr[j]
     return arr
 
-# --- Selection Sort ---
+## Selection Sort
 # Selection sort repeatedly finds the minimum element and moves it to the sorted part of the list.
 def selection_sort(arr):
     n = len(arr)
@@ -22,7 +22,7 @@ def selection_sort(arr):
         arr[i], arr[min_idx] = arr[min_idx], arr[i]
     return arr
 
-# --- Insertion Sort ---
+## Insertion Sort
 # Insertion sort builds the sorted list one item at a time.
 def insertion_sort(arr):
     for i in range(1, len(arr)):
@@ -34,7 +34,7 @@ def insertion_sort(arr):
         arr[j + 1] = key
     return arr
 
-# --- Quick Sort ---
+## Quick Sort
 # Quick sort is a divide-and-conquer algorithm that partitions the list and sorts the partitions.
 def quick_sort(arr):
     if len(arr) <= 1:
@@ -45,7 +45,7 @@ def quick_sort(arr):
     right = [x for x in arr if x > pivot]
     return quick_sort(left) + middle + quick_sort(right)
 
-# --- Counting Sort ---
+## Counting Sort
 # Counting sort works for non-negative integers and counts the occurrences of each value.
 def counting_sort(arr):
     if not arr:
@@ -59,7 +59,7 @@ def counting_sort(arr):
         sorted_arr.extend([num] * freq)
     return sorted_arr
 
-# --- Radix Sort ---
+## Radix Sort
 # Radix sort sorts numbers digit by digit, starting from the least significant digit.
 def radix_sort(arr):
     if not arr:
@@ -86,7 +86,7 @@ def counting_sort_by_digit(arr, exp):
         count[index] -= 1
     return output
 
-# --- Merge Sort ---
+## Merge Sort
 # Merge sort is a divide-and-conquer algorithm that splits the list and merges sorted halves.
 def merge_sort(arr):
     if len(arr) <= 1:

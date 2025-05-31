@@ -1,7 +1,7 @@
-# Chapter 10: Some Simple Linear Data Structures
-# This tutorial introduces stacks, queues, and linked lists for beginners with simple, well-commented examples.
+## Chapter 10: Some Simple Linear Data Structures
+## This tutorial introduces stacks, queues, and linked lists for beginners with simple, well-commented examples.
 
-# 1. Stack (LIFO: Last In, First Out)
+## 1. Stack (LIFO: Last In, First Out)
 # You can use a Python list as a stack.
 
 stack = []  # Create an empty stack
@@ -14,8 +14,8 @@ popped_item = stack.pop()  # Pop the top item (30)
 print("Popped item:", popped_item)
 print("Stack after pop:", stack)
 
-# 2. Queue (FIFO: First In, First Out)
-# You can use collections.deque for an efficient queue.
+## 2. Queue (FIFO: First In, First Out)
+## You can use collections.deque for an efficient queue.
 from collections import deque
 
 queue = deque()  # Create an empty queue
@@ -28,8 +28,8 @@ dequeued_item = queue.popleft()  # Dequeue the front item (1)
 print("Dequeued item:", dequeued_item)
 print("Queue after dequeue:", list(queue))
 
-# 3. Singly Linked List
-# A linked list is a sequence of nodes, each containing data and a reference to the next node.
+## 3. Singly Linked List
+## A linked list is a sequence of nodes, each containing data and a reference to the next node.
 
 class Node:
     def __init__(self, data):
@@ -67,9 +67,9 @@ linked_list.append(300)
 print("Linked list contents:")
 linked_list.print_list()
 
-# 4. Key Points
-# - Stack: Use for undo features, backtracking, etc.
-# - Queue: Use for task scheduling, breadth-first search, etc.
-# - Linked List: Useful for dynamic memory allocation, easy insertions/deletions.
+## 4. Key Points
+## - Stack: Use for undo features, backtracking, etc.
+## - Queue: Use for task scheduling, breadth-first search, etc.
+## - Linked List: Useful for dynamic memory allocation, easy insertions/deletions.
 
-# End of Chapter 10: Simple Linear Data Structures tutorial
+## End of Chapter 10: Simple Linear Data Structures tutorial
