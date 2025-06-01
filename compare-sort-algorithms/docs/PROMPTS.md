@@ -36,6 +36,10 @@ Update
 
 Ensure that the performance comparison includes all these sorting algorithms across the same languages (Python, C++, Java, JavaScript, Go, C).
 
+When you  add new files, please follow the existing naming conventions and directory structure.
+
+
+
 # Prompt 05
 
 Lesson learned: We should have a better project structure before we start implementing new features or algorithms.
