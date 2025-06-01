@@ -1,6 +1,8 @@
-# Sorting Algorithms Comparison Study
+# Sorting Algorithms Comparison Study (Updated June 2025)
 
 This document presents a comprehensive comparison of various sorting algorithms implemented in multiple programming languages.
+
+> **Latest Update:** For the most recent performance findings, refer to our [Performance Summary 2025](PERFORMANCE-SUMMARY-2025.md) and [Multi-Size Performance Study](MULTI_SIZE_PERFORMANCE_STUDY.md).
 
 ## Sorting Algorithms Included
 
@@ -70,11 +72,11 @@ Each sorting algorithm is implemented in a way that:
 To run the performance comparison:
 
 ```bash
-cd scripts
-./run_comparison.sh
+./scripts/run_comparison.sh
 ```
 
 This script will:
+
 1. Generate random data if it doesn't exist
 2. Compile and run each implementation
 3. Collect and analyze the results

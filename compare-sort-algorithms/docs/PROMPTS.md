@@ -1,3 +1,15 @@
+# Prompt 11 
+
+run
+
+#file:run_comparison.sh
+#file:run_complete_study.sh
+#file:run_multi_size_comparison.sh
+
+and update our findings under #file:docs folder
+
+pls note that we are testing multiple number data points (config / #file:number-of-data-points.txt )
+
 # Prompt 10 
 
 For all `scripts/*sh`

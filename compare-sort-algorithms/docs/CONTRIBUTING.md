@@ -64,10 +64,10 @@ Write clear and descriptive commit messages that explain the purpose of your cha
 
 Before submitting a pull request, please test your changes:
 
-1. Generate test datasets using `scripts/generate_data.py`
+1. Generate test datasets using `python3 scripts/generate_data.py` from the root folder
 2. Run your implementation against these datasets
 3. Verify that results are correct and performance is as expected
-4. Run the comparison script to see how your changes stack up against other implementations
+4. Run the comparison script (`./scripts/run_comparison.sh`) to see how your changes stack up against other implementations
 
 ## Questions?
 

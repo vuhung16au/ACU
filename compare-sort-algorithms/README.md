@@ -1,6 +1,10 @@
-# Sorting Algorithms Performance Comparison
+# Sorting Algorithms Performance Comparison (2025)
 
-This project compares the performance of various sorting algorithm implementations across multiple programming languages including Python, C++, Java, JavaScript, Go, and C. The following sorting algorithms are implemented:
+This project compares the performance of various sorting algorithm implementations across multiple programming languages including Python, C++, Java, JavaScript, Go, and C. The project includes multi-size performance testing (N = 10, 100K, 250K, 500K).
+
+> **Latest Update (June 2025):** Complete multi-size performance comparison now available! [See the results](docs/PERFORMANCE-SUMMARY-2025.md)
+
+The following sorting algorithms are implemented:
 
 - Bubble Sort
 - Selection Sort
@@ -94,11 +98,36 @@ This project compares the performance of various sorting algorithm implementatio
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
 
+## Key Performance Findings (June 2025)
+
+Our latest multi-size performance comparison study revealed:
+
+- **Fastest Algorithm:** Counting Sort in C achieved 206.8M elements/second with 500K dataset
+- **Best General-Purpose Algorithm:** Quick Sort demonstrated excellent performance across all languages
+- **Quadratic Impact:** O(n²) algorithms became impractical beyond tiny datasets (N > 10)
+- **Language Performance:** Low-level languages (C, C++) significantly outperformed interpreted languages
+- **Scaling Characteristics:** Linear algorithms (Counting, Radix) showed the best scaling properties
+
+### Performance Highlights (N = 500K elements)
+
+| Algorithm | C | C++ | Go | JavaScript | Java | Python |
+|-----------|---|-----|----|-----------|----- |--------|
+| Counting Sort | 206.8M/s | 100.4M/s | 87.2M/s | 38.1M/s | 57.3M/s | 1.7M/s |
+| Radix Sort | 75.4M/s | 74.0M/s | 40.2M/s | 13.4M/s | 19.6M/s | 0.7M/s |
+| Quick Sort | 16.5M/s | 18.1M/s | 17.7M/s | 10.6M/s | 15.6M/s | 0.7M/s |
+| Merge Sort | 7.8M/s | 19.9M/s | 10.4M/s | 4.6M/s | 9.7M/s | 0.5M/s |
+
+*Numbers represent elements sorted per second (higher is better)*
+
+For comprehensive results and analysis, see [docs/PERFORMANCE-SUMMARY-2025.md](docs/PERFORMANCE-SUMMARY-2025.md) and [docs/MULTI_SIZE_PERFORMANCE_STUDY.md](docs/MULTI_SIZE_PERFORMANCE_STUDY.md).
+
 ## Documentation
 
 For more detailed information on how to run the implementations and tests, see [docs/HOWTO.md](docs/HOWTO.md).
 
 For information on how to contribute to the project, see [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md).
+
+For a complete list of documentation, see [docs/README.md](docs/README.md).
 
 For guidance on which sorting algorithm to use for different scenarios, see [docs/ALGORITHM-PERFORMANCE-GUIDE.md](docs/ALGORITHM-PERFORMANCE-GUIDE.md).
 
