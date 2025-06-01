@@ -121,6 +121,16 @@ This will:
 4. Compile and display results
 5. Save consolidated results to `analysis/consolidated_results.txt`
 
+### Running with Multiple Repeats (Averaging Results)
+
+To get more accurate performance measurements, you can run each test multiple times and average the results using the `--repeat` option (default: 5):
+
+```bash
+./scripts/run-all.sh --repeat 7
+```
+
+This will run each test 7 times for every language and algorithm, then calculate and save the average time taken.
+
 ## Running Multi-Size Comparison
 
 To test performance across multiple dataset sizes:

@@ -13,6 +13,10 @@ echo ""
 BASE_DIR=$(cd "$(dirname "$0")/.." && pwd)
 echo "Base directory: $BASE_DIR"
 
+# Set data size (default to 100000 if not provided)
+DATA_SIZE=${1:-100000}
+echo "Using data size: $DATA_SIZE"
+
 # Define sorting algorithms
 ALGORITHMS=("bubble" "selection" "insertion" "quick" "merge" "counting" "radix")
 ALGORITHM_NAMES=("Bubble Sort" "Selection Sort" "Insertion Sort" "Quick Sort" "Merge Sort" "Counting Sort" "Radix Sort")
@@ -47,21 +51,21 @@ run_algorithm_tests() {
     echo ""
     
     # Check if this is bubble sort with a large dataset
-    # Get dataset size from the filename
-    local dataset_file="$BASE_DIR/datasets/random_list_100000.txt"
-    local data_size=$(echo "$dataset_file" | grep -o '[0-9]\+')
+    # Get dataset size from the environment variable
+    local dataset_file="$BASE_DIR/datasets/random_list_${DATA_SIZE}.txt"
+    local data_size=${DATA_SIZE}
     
     # Skip bubble, insertion, and selection sort for large datasets (N > 10000)
     if [[ ("$algo" == "bubble" || "$algo" == "insertion" || "$algo" == "selection") && "$data_size" -gt 10000 ]]; then
         echo "Skipping $algo_name for large dataset (N=$data_size)..."
         
         # Create N/A result files for the skipped algorithm
-        echo "Execution time: N/A (skipped for large dataset)" > $BASE_DIR/results/results_python_${algo}.txt
-        echo "Execution time: N/A (skipped for large dataset)" > $BASE_DIR/results/results_cpp_${algo}.txt
-        echo "Execution time: N/A (skipped for large dataset)" > $BASE_DIR/results/results_java_${algo}.txt
-        echo "Execution time: N/A (skipped for large dataset)" > $BASE_DIR/results/results_javascript_${algo}.txt
-        echo "Execution time: N/A (skipped for large dataset)" > $BASE_DIR/results/results_go_${algo}.txt
-        echo "Execution time: N/A (skipped for large dataset)" > $BASE_DIR/results/results_c_${algo}.txt
+        echo "Execution time: N/A (skipped for large dataset)" > $BASE_DIR/results/results_python_${algo}_${DATA_SIZE}.txt
+        echo "Execution time: N/A (skipped for large dataset)" > $BASE_DIR/results/results_cpp_${algo}_${DATA_SIZE}.txt
+        echo "Execution time: N/A (skipped for large dataset)" > $BASE_DIR/results/results_java_${algo}_${DATA_SIZE}.txt
+        echo "Execution time: N/A (skipped for large dataset)" > $BASE_DIR/results/results_javascript_${algo}_${DATA_SIZE}.txt
+        echo "Execution time: N/A (skipped for large dataset)" > $BASE_DIR/results/results_go_${algo}_${DATA_SIZE}.txt
+        echo "Execution time: N/A (skipped for large dataset)" > $BASE_DIR/results/results_c_${algo}_${DATA_SIZE}.txt
         
         echo "Created N/A result files for $algo_name (N=$data_size)"
         echo ""
@@ -70,7 +74,7 @@ run_algorithm_tests() {
     
     # Run Python implementation
     echo "Running Python $algo_name..."
-    python3 $BASE_DIR/src/${algo}_sort.py -c $BASE_DIR/config/number-of-data-points.txt -d $BASE_DIR/datasets/random_list_100000.txt -r $BASE_DIR/results/results_python_${algo}.txt
+    python3 $BASE_DIR/src/${algo}_sort.py -c $BASE_DIR/config/number-of-data-points.txt -d $BASE_DIR/datasets/random_list_${DATA_SIZE}.txt -r $BASE_DIR/results/results_python_${algo}_${DATA_SIZE}.txt
     if [ $? -ne 0 ]; then
         echo "Warning: Python $algo_name implementation failed"
     fi
@@ -82,7 +86,7 @@ run_algorithm_tests() {
     if [ $? -ne 0 ]; then
         echo "Warning: C++ $algo_name compilation failed"
     else
-        $BASE_DIR/src/${algo}_sort_cpp $BASE_DIR/datasets/random_list_100000.txt $BASE_DIR/results/results_cpp_${algo}.txt
+        $BASE_DIR/src/${algo}_sort_cpp $BASE_DIR/datasets/random_list_${DATA_SIZE}.txt $BASE_DIR/results/results_cpp_${algo}_${DATA_SIZE}.txt
         if [ $? -ne 0 ]; then
             echo "Warning: C++ $algo_name implementation failed"
         fi
@@ -98,7 +102,7 @@ run_algorithm_tests() {
     if [ $? -ne 0 ]; then
         echo "Warning: Java $algo_name compilation failed"
     else
-        java -cp src ${java_class} datasets/random_list_100000.txt results/results_java_${algo}.txt
+        java -cp src ${java_class} datasets/random_list_${DATA_SIZE}.txt results/results_java_${algo}_${DATA_SIZE}.txt
         if [ $? -ne 0 ]; then
             echo "Warning: Java $algo_name implementation failed"
         fi
@@ -108,7 +112,7 @@ run_algorithm_tests() {
     # Run JavaScript implementation
     echo "Running JavaScript $algo_name..."
     cd $BASE_DIR
-    node src/${algo}_sort.js datasets/random_list_100000.txt results/results_javascript_${algo}.txt
+    node src/${algo}_sort.js datasets/random_list_${DATA_SIZE}.txt results/results_javascript_${algo}_${DATA_SIZE}.txt
     if [ $? -ne 0 ]; then
         echo "Warning: JavaScript $algo_name implementation failed"
     fi
@@ -116,7 +120,7 @@ run_algorithm_tests() {
 
     # Run Go implementation
     echo "Running Go $algo_name..."
-    /opt/homebrew/bin/go run $BASE_DIR/src/${algo}_sort.go -file $BASE_DIR/datasets/random_list_100000.txt -output $BASE_DIR/results/results_go_${algo}.txt
+    /opt/homebrew/bin/go run $BASE_DIR/src/${algo}_sort.go -file $BASE_DIR/datasets/random_list_${DATA_SIZE}.txt -output $BASE_DIR/results/results_go_${algo}_${DATA_SIZE}.txt
     if [ $? -ne 0 ]; then
         echo "Warning: Go $algo_name implementation failed"
     fi
@@ -129,7 +133,7 @@ run_algorithm_tests() {
     if [ $? -ne 0 ]; then
         echo "Warning: C $algo_name compilation failed"
     else
-        ./src/${algo}_sort_c datasets/random_list_100000.txt results/results_c_${algo}.txt
+        ./src/${algo}_sort_c datasets/random_list_${DATA_SIZE}.txt results/results_c_${algo}_${DATA_SIZE}.txt
         if [ $? -ne 0 ]; then
             echo "Warning: C $algo_name implementation failed"
         fi
@@ -151,11 +155,11 @@ echo ""
 
 # Create consolidated results file
 mkdir -p $BASE_DIR/analysis
-cat > $BASE_DIR/analysis/consolidated_results.txt << EOF
+cat > $BASE_DIR/analysis/consolidated_results_${DATA_SIZE}.txt << EOF
 Sorting Algorithms Performance Comparison Results
 =========================================
 Date: $(date)
-Data Size: 100,000 integers
+Data Size: $(printf "%'d" ${DATA_SIZE}) integers
 
 Individual Results:
 EOF
@@ -166,13 +170,13 @@ for i in "${!ALGORITHMS[@]}"; do
     algo="${ALGORITHMS[$i]}"
     algo_name="${ALGORITHM_NAMES[$i]}"
     
-    if [ -f "$BASE_DIR/results/results_python_${algo}.txt" ]; then
+    if [ -f "$BASE_DIR/results/results_python_${algo}_${DATA_SIZE}.txt" ]; then
         echo "${algo_name}:" 
-        cat $BASE_DIR/results/results_python_${algo}.txt
-        echo "" >> $BASE_DIR/analysis/consolidated_results.txt
-        echo "Python (${algo_name}):" >> $BASE_DIR/analysis/consolidated_results.txt
-        cat $BASE_DIR/results/results_python_${algo}.txt >> $BASE_DIR/analysis/consolidated_results.txt
-        echo "" >> $BASE_DIR/analysis/consolidated_results.txt
+        cat $BASE_DIR/results/results_python_${algo}_${DATA_SIZE}.txt
+        echo "" >> $BASE_DIR/analysis/consolidated_results_${DATA_SIZE}.txt
+        echo "Python (${algo_name}):" >> $BASE_DIR/analysis/consolidated_results_${DATA_SIZE}.txt
+        cat $BASE_DIR/results/results_python_${algo}_${DATA_SIZE}.txt >> $BASE_DIR/analysis/consolidated_results_${DATA_SIZE}.txt
+        echo "" >> $BASE_DIR/analysis/consolidated_results_${DATA_SIZE}.txt
     else
         echo "Python ${algo_name} results not found"
     fi
@@ -185,12 +189,12 @@ for i in "${!ALGORITHMS[@]}"; do
     algo="${ALGORITHMS[$i]}"
     algo_name="${ALGORITHM_NAMES[$i]}"
     
-    if [ -f "$BASE_DIR/results/results_cpp_${algo}.txt" ]; then
+    if [ -f "$BASE_DIR/results/results_cpp_${algo}_${DATA_SIZE}.txt" ]; then
         echo "${algo_name}:" 
-        cat $BASE_DIR/results/results_cpp_${algo}.txt
-        echo "C++ (${algo_name}):" >> $BASE_DIR/analysis/consolidated_results.txt
-        cat $BASE_DIR/results/results_cpp_${algo}.txt >> $BASE_DIR/analysis/consolidated_results.txt
-        echo "" >> $BASE_DIR/analysis/consolidated_results.txt
+        cat $BASE_DIR/results/results_cpp_${algo}_${DATA_SIZE}.txt
+        echo "C++ (${algo_name}):" >> $BASE_DIR/analysis/consolidated_results_${DATA_SIZE}.txt
+        cat $BASE_DIR/results/results_cpp_${algo}_${DATA_SIZE}.txt >> $BASE_DIR/analysis/consolidated_results_${DATA_SIZE}.txt
+        echo "" >> $BASE_DIR/analysis/consolidated_results_${DATA_SIZE}.txt
     else
         echo "C++ ${algo_name} results not found"
     fi
@@ -203,12 +207,12 @@ for i in "${!ALGORITHMS[@]}"; do
     algo="${ALGORITHMS[$i]}"
     algo_name="${ALGORITHM_NAMES[$i]}"
     
-    if [ -f "$BASE_DIR/results/results_java_${algo}.txt" ]; then
+    if [ -f "$BASE_DIR/results/results_java_${algo}_${DATA_SIZE}.txt" ]; then
         echo "${algo_name}:" 
-        cat $BASE_DIR/results/results_java_${algo}.txt
-        echo "Java (${algo_name}):" >> $BASE_DIR/analysis/consolidated_results.txt
-        cat $BASE_DIR/results/results_java_${algo}.txt >> $BASE_DIR/analysis/consolidated_results.txt
-        echo "" >> $BASE_DIR/analysis/consolidated_results.txt
+        cat $BASE_DIR/results/results_java_${algo}_${DATA_SIZE}.txt
+        echo "Java (${algo_name}):" >> $BASE_DIR/analysis/consolidated_results_${DATA_SIZE}.txt
+        cat $BASE_DIR/results/results_java_${algo}_${DATA_SIZE}.txt >> $BASE_DIR/analysis/consolidated_results_${DATA_SIZE}.txt
+        echo "" >> $BASE_DIR/analysis/consolidated_results_${DATA_SIZE}.txt
     else
         echo "Java ${algo_name} results not found"
     fi
@@ -221,12 +225,12 @@ for i in "${!ALGORITHMS[@]}"; do
     algo="${ALGORITHMS[$i]}"
     algo_name="${ALGORITHM_NAMES[$i]}"
     
-    if [ -f "$BASE_DIR/results/results_javascript_${algo}.txt" ]; then
+    if [ -f "$BASE_DIR/results/results_javascript_${algo}_${DATA_SIZE}.txt" ]; then
         echo "${algo_name}:" 
-        cat $BASE_DIR/results/results_javascript_${algo}.txt
-        echo "JavaScript (${algo_name}):" >> $BASE_DIR/analysis/consolidated_results.txt
-        cat $BASE_DIR/results/results_javascript_${algo}.txt >> $BASE_DIR/analysis/consolidated_results.txt
-        echo "" >> $BASE_DIR/analysis/consolidated_results.txt
+        cat $BASE_DIR/results/results_javascript_${algo}_${DATA_SIZE}.txt
+        echo "JavaScript (${algo_name}):" >> $BASE_DIR/analysis/consolidated_results_${DATA_SIZE}.txt
+        cat $BASE_DIR/results/results_javascript_${algo}_${DATA_SIZE}.txt >> $BASE_DIR/analysis/consolidated_results_${DATA_SIZE}.txt
+        echo "" >> $BASE_DIR/analysis/consolidated_results_${DATA_SIZE}.txt
     else
         echo "JavaScript ${algo_name} results not found"
     fi
@@ -239,12 +243,12 @@ for i in "${!ALGORITHMS[@]}"; do
     algo="${ALGORITHMS[$i]}"
     algo_name="${ALGORITHM_NAMES[$i]}"
     
-    if [ -f "$BASE_DIR/results/results_go_${algo}.txt" ]; then
+    if [ -f "$BASE_DIR/results/results_go_${algo}_${DATA_SIZE}.txt" ]; then
         echo "${algo_name}:" 
-        cat $BASE_DIR/results/results_go_${algo}.txt
-        echo "Go (${algo_name}):" >> $BASE_DIR/analysis/consolidated_results.txt
-        cat $BASE_DIR/results/results_go_${algo}.txt >> $BASE_DIR/analysis/consolidated_results.txt
-        echo "" >> $BASE_DIR/analysis/consolidated_results.txt
+        cat $BASE_DIR/results/results_go_${algo}_${DATA_SIZE}.txt
+        echo "Go (${algo_name}):" >> $BASE_DIR/analysis/consolidated_results_${DATA_SIZE}.txt
+        cat $BASE_DIR/results/results_go_${algo}_${DATA_SIZE}.txt >> $BASE_DIR/analysis/consolidated_results_${DATA_SIZE}.txt
+        echo "" >> $BASE_DIR/analysis/consolidated_results_${DATA_SIZE}.txt
     else
         echo "Go ${algo_name} results not found"
     fi
@@ -257,12 +261,12 @@ for i in "${!ALGORITHMS[@]}"; do
     algo="${ALGORITHMS[$i]}"
     algo_name="${ALGORITHM_NAMES[$i]}"
     
-    if [ -f "$BASE_DIR/results/results_c_${algo}.txt" ]; then
+    if [ -f "$BASE_DIR/results/results_c_${algo}_${DATA_SIZE}.txt" ]; then
         echo "${algo_name}:" 
-        cat $BASE_DIR/results/results_c_${algo}.txt
-        echo "C (${algo_name}):" >> $BASE_DIR/analysis/consolidated_results.txt
-        cat $BASE_DIR/results/results_c_${algo}.txt >> $BASE_DIR/analysis/consolidated_results.txt
-        echo "" >> $BASE_DIR/analysis/consolidated_results.txt
+        cat $BASE_DIR/results/results_c_${algo}_${DATA_SIZE}.txt
+        echo "C (${algo_name}):" >> $BASE_DIR/analysis/consolidated_results_${DATA_SIZE}.txt
+        cat $BASE_DIR/results/results_c_${algo}_${DATA_SIZE}.txt >> $BASE_DIR/analysis/consolidated_results_${DATA_SIZE}.txt
+        echo "" >> $BASE_DIR/analysis/consolidated_results_${DATA_SIZE}.txt
     else
         echo "C ${algo_name} results not found"
     fi
@@ -275,6 +279,7 @@ echo "==================="
 
 # Create a summary table
 export BASE_DIR="$BASE_DIR"
+export DATA_SIZE="$DATA_SIZE"
 export ALGORITHMS="${ALGORITHMS[*]}"
 export ALGORITHM_NAMES="${ALGORITHM_NAMES[*]}"
 python3 << 'EOF'
@@ -293,6 +298,7 @@ def extract_time(filename):
     return None
 
 basedir = os.environ.get('BASE_DIR', os.getcwd())
+data_size = os.environ.get('DATA_SIZE', '100000')  # Get data size from environment
 
 # Get algorithms list from environment
 algorithms = os.environ.get('ALGORITHMS', '').split()
@@ -321,7 +327,7 @@ for lang in languages:
         elif lang == 'Python':
             prefix = 'results_python_'
             
-        filename = f"{basedir}/results/{prefix}{algo}.txt"
+        filename = f"{basedir}/results/{prefix}{algo}_{data_size}.txt"
         time = extract_time(filename)
         if time is not None:
             display_name = algorithm_display.get(algo, algo.capitalize() + ' Sort')
@@ -351,7 +357,7 @@ if results:
             print(f"{lang:<30} {time:<12.6f} {relative:<15.2f}x")
     
     # Add to consolidated results
-    with open(f"{basedir}/analysis/consolidated_results.txt", 'a') as f:
+    with open(f"{basedir}/analysis/consolidated_results_{data_size}.txt", 'a') as f:
         f.write("\nPerformance Ranking (fastest to slowest):\n")
         f.write("=" * 65 + "\n")
         f.write(f"{'Language/Algorithm':<30} {'Time (sec)':<12} {'Relative Speed':<15}\n")
@@ -386,7 +392,7 @@ if results:
             elif language == 'Python':
                 prefix = 'results_python_'
                 
-            filename = f"{basedir}/results/{prefix}{algo}.txt"
+            filename = f"{basedir}/results/{prefix}{algo}_{data_size}.txt"
             time = extract_time(filename)
             if time is not None:
                 display_name = algorithm_display.get(algo, algo.capitalize() + ' Sort')
@@ -417,7 +423,7 @@ if results:
                     print(f"{algo:<20} {time:<12.6f} {relative:<15.2f}x")
             
             # Add to consolidated results
-            with open(f"{basedir}/analysis/consolidated_results.txt", 'a') as f:
+            with open(f"{basedir}/analysis/consolidated_results_{data_size}.txt", 'a') as f:
                 f.write(f"\n{language} Algorithm Performance:\n")
                 f.write("=" * 50 + "\n")
                 f.write(f"{'Algorithm':<20} {'Time (sec)':<12} {'Relative Speed':<15}\n")
@@ -434,7 +440,7 @@ else:
 EOF
 
 echo ""
-echo "All results saved to analysis/consolidated_results.txt"
+echo "All results saved to analysis/consolidated_results_${DATA_SIZE}.txt"
 echo ""
 echo "Cleaning up compiled files..."
 rm -f $BASE_DIR/src/*_sort_cpp $BASE_DIR/src/*.class $BASE_DIR/src/*_sort_c
