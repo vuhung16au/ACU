@@ -1,5 +1,0 @@
-C++ Quick Sort Results
-Data size: 10
-Execution time: 0.000000 seconds
-Elements per second: inf
-Sorted correctly: true

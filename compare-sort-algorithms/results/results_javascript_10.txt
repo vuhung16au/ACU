@@ -1,5 +1,0 @@
-JavaScript Quick Sort Results
-Data size: 10
-Execution time: 0.000117 seconds
-Elements per second: 85531
-Sorted correctly: true

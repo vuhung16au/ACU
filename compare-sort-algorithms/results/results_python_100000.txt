@@ -1,5 +1,0 @@
-Python Quick Sort Results
-Data size: 100000
-Execution time: 0.115489 seconds
-Elements per second: 865880
-Sorted correctly: True

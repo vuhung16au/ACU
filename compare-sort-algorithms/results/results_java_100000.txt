@@ -1,5 +1,0 @@
-Java Quick Sort Results
-Data size: 100000
-Execution time: 0.008285 seconds
-Elements per second: 12070431
-Sorted correctly: true
