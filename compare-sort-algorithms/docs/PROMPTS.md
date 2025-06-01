@@ -1,0 +1,144 @@
+# Use a build tool 
+
+Gradle?
+
+# Prompt 7 
+
+create a srcipts/run-all.sh script to do everything
+
+add an option to clean data/results
+
+generate data script
+
+run comparision script
+
+update documentations
+
+# Prompt 6 
+
+We have implemented Quick Sort in Python, C++, Java, and JavaScript, Go, and C.
+
+Similarly, please implement the comparions for the following sort algorithms:
+
+- Bubble Sort
+- Selection Sort
+- Insertion Sort
+- Quick Sort
+- Counting Sort
+- Radix Sort
+- Merge Sort
+
+Update 
+- code implementations
+- performance scripts
+- analysis scripts
+- documentation
+
+Ensure that the performance comparison includes all these sorting algorithms across the same languages (Python, C++, Java, JavaScript, Go, C).
+
+# Prompt 05
+
+Lesson learned: We should have a better project structure before we start implementing new features or algorithms.
+
+Restructure the project my moving files to new directories for better organization.
+
+- Move all Quick Sort implementations to a new directory named `src`
+- Move all performance scripts to a new directory named `scripts`
+- Move all configuration files to a new directory named `config`
+- Move all data files to a new directory named `datasets`
+- Move all analysis files to a new directory named `analysis`
+- Move all findings to a new directory named `docs`
+
+Create a file named `README.md` in the root directory and explain the project structure and how to run the Quick Sort implementations and performance tests.
+
+Create a file named `docs/CONTRIBUTING.md` in the root directory and explain how to contribute to the project.
+
+Create a file named `LICENSE.md` in the root directory and specify the license for the project (we use MIT License).
+
+Create a file `docs/HOWTO.md` and explain how to run the Quick Sort implementations and performance tests.
+
+Update all scripts and implementations to reflect the new directory structure.
+
+# Prompt 04 
+
+Please add Go, C implementations of Quick Sort to the existing study.
+
+- Update the performance comparison to include these new languages.
+- Create new source files for each language:
+  - `quick_sort.go`
+  - `quick_sort.c`
+
+C compiler: gcc
+Go compiler: /opt/homebrew/bin/go
+
+Rerun the performance tests with the new implementations and update the findings accordingly.
+
+# Prompt 03
+
+Currently, 
+the number number of datapoints N = 10, 100K, 1M are hardcoded in the code implementations of Quick Sort in Python, C++, Java, and JavaScript.
+
+I want to make the number of datapoints N configurable by reading it from a configuration file named `number-of-data-points.txt`.
+
+`number-of-data-points.txt` (pls create this file) sample content:
+```
+10
+100000
+250000
+500000
+```
+Pls update the Quick Sort implementations in Python, C++, Java, and JavaScript to read the number of datapoints N from this configuration file.
+
+Rerun the Quick Sort implementations in Python, C++, Java, and JavaScript using the new configuration.
+
+# Prompt 02
+
+For number of datapoints N = 10, 100K, 1M 
+
+Generate 1M random integers and save them to a file named `random_list_N.txt`.
+
+Rerun the Quick Sort implementations in Python, C++, Java, and JavaScript using this new dataset.
+
+
+Run comparisons and performance analysis again:
+For N = 10, 100K, 1M 
+and update the findings based on the new data size.
+
+# Prompt 01 
+
+Please help me do the following tasks:
+
+Objectives:
+- Compare the run time of Quick Sort in Python and C++ Java, JavaScript
+- Analyze the performance differences between these languages for Quick Sort
+- Provide insights on which language performs better for Quick Sort and why
+- Provide a summary of the findings
+- Provide a conclusion based on the analysis
+- Provide recommendations for future work or improvements
+
+1. Write a program in Python that generate a random list of 100K integers. Save it to a file #random_list.txt
+
+2. Write a Quick Sort implementation in Python that reads the list from the file, sorts it, and measures the time taken to sort. #file: quick_sort.py
+
+```python
+3. Write a similar Quick Sort implementation in C++ that reads the same list from the file, sorts it, and measures the time taken to sort. #File: quick_sort.cpp
+
+4. Write a similar Quick Sort implementation in Java that reads the same list from the file, sorts it, and measures the time taken to sort. #file: QuickSort.java
+
+5. Write a similar Quick Sort implementation in JavaScript that reads the same list from the file, sorts it, and measures the time taken to sort. #file: quick_sort.js
+
+6. Compare the run times of the Quick Sort implementations in Python, C++, Java, and JavaScript.
+7. Analyze the performance differences between these languages for Quick Sort.
+8. Provide insights on which language performs better for Quick Sort and why.
+9. Provide a summary of the findings.
+10. Provide a conclusion based on the analysis.
+11. Provide recommendations for future work or improvements.
+
+Write build scripts for each language to automate the process of running the Quick Sort implementations and measuring their performance.
+and save the results to a file.
+
+Compilers and Interpreters:
+- I have Python 3.13.3 installed.
+- I have a C++ compiler installed (g++).
+- I have Java installed (JDK 24).
+- I have Node.js installed (for JavaScript).

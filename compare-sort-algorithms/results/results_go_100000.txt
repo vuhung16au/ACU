@@ -1,0 +1,5 @@
+Go Quick Sort Results
+Data size: 100000
+Execution time: 0.005209 seconds
+Elements per second: 19195700
+Sorted correctly: true

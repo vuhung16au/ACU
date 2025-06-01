@@ -1,0 +1,5 @@
+C Quick Sort Results
+Data size: 10
+Execution time: 0.000001 seconds
+Elements per second: 10000000
+Sorted correctly: true

@@ -1,0 +1,60 @@
+Quick Sort Performance Comparison Results
+=========================================
+Date: Sun  1 Jun 2025 12:37:49 AEST
+Data Size: 100,000 integers
+
+Individual Results:
+
+Python:
+Python Quick Sort Results
+Data size: 100000
+Execution time: 0.113219 seconds
+Elements per second: 883247
+Sorted correctly: True
+
+C++:
+C++ Quick Sort Results
+Data size: 100000
+Execution time: 0.461137 seconds
+Elements per second: 216855
+Sorted correctly: true
+
+Java:
+Java Quick Sort Results
+Data size: 100000
+Execution time: 0.008372 seconds
+Elements per second: 11944636
+Sorted correctly: true
+
+JavaScript:
+JavaScript Quick Sort Results
+Data size: 100000
+Execution time: 0.012914 seconds
+Elements per second: 7743259
+Sorted correctly: true
+
+Go:
+Go Quick Sort Results
+Data size: 100000
+Execution time: 0.005014 seconds
+Elements per second: 19942665
+Sorted correctly: true
+
+C:
+C Quick Sort Results
+Data size: 100000
+Execution time: 0.005847 seconds
+Elements per second: 17102788
+Sorted correctly: true
+
+
+Performance Ranking (fastest to slowest):
+=============================================
+Language     Time (sec)   Relative Speed 
+----------------------------------------
+Go           0.005014     1.00           x
+C            0.005847     1.17           x
+Java         0.008372     1.67           x
+JavaScript   0.012914     2.58           x
+Python       0.113219     22.58          x
+C++          0.461137     91.97          x

@@ -1,0 +1,5 @@
+Python Quick Sort Results
+Data size: 100000
+Execution time: 0.108899 seconds
+Elements per second: 918280
+Sorted correctly: True

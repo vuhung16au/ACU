@@ -1,0 +1,5 @@
+C Quick Sort Results
+Data size: 500000
+Execution time: 0.031119 seconds
+Elements per second: 16067354
+Sorted correctly: true

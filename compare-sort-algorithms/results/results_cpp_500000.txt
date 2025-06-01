@@ -1,0 +1,5 @@
+C++ Quick Sort Results
+Data size: 500000
+Execution time: 0.028300 seconds
+Elements per second: 17667845
+Sorted correctly: true
