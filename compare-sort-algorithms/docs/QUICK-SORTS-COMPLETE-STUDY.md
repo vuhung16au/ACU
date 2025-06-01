@@ -102,6 +102,12 @@ JavaScript ▓▓▓ (0.047355s)
 Python     ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ (0.695836s)
 ```
 
+## Performance Visualization
+
+The following log-log plot visualizes the execution time vs. data size for each algorithm and language:
+
+![Sorting Algorithm Performance: Execution Time vs. Data Size (log-log)](sorting_performance_loglog.png)
+
 ## Detailed Analysis by Language
 
 ### 🏆 Go - Most Consistent Performance

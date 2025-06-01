@@ -118,3 +118,20 @@ For a complete list of documentation, see [docs/README.md](docs/README.md).
 For guidance on which sorting algorithm to use for different scenarios, see [docs/ALGORITHM-PERFORMANCE-GUIDE.md](docs/ALGORITHM-PERFORMANCE-GUIDE.md).
 
 For a comprehensive comparison of all sorting algorithms, see [docs/SORTING-ALGORITHMS-COMPARISON.md](docs/SORTING-ALGORITHMS-COMPARISON.md).
+
+## Visualization of Results
+
+The following log-log plot visualizes the execution time vs. data size for each algorithm and language:
+
+![Sorting Algorithm Performance: Execution Time vs. Data Size (log-log)](docs/sorting_performance_loglog.png)
+
+To generate this plot, use the provided Python script:
+
+```bash
+python3 -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
+python3 scripts/visualize_results.py
+```
+
+This will generate a log-log plot of execution time vs. data size for each algorithm and language, saved as `docs/sorting_performance_loglog.png`.

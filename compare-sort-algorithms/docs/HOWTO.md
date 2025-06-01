@@ -186,3 +186,23 @@ This will:
 
 You can customize the dataset sizes by editing the `config/number-of-data-points.txt` file.
 Each line should contain a single integer representing a dataset size to test.
+
+## Visualizing Results
+
+To generate a log-log plot of execution time vs. data size for all algorithms and languages:
+
+1. (Recommended) Create and activate a Python virtual environment:
+
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate  # On Windows: venv\\Scripts\\activate
+   pip install -r requirements.txt
+   ```
+
+2. Run the visualization script:
+
+   ```bash
+   python3 scripts/visualize_results.py
+   ```
+
+   This will save the plot as `docs/sorting_performance_loglog.png`.

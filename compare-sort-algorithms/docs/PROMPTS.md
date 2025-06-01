@@ -1,3 +1,11 @@
+# Visualisation 
+
+Visualisation of the performance results.
+Create a file `scripts/visualize_results.py` that generates a log-log plot of execution time vs. data size for each algorithm and language. Use `seaborn` for plotting.
+
+A log-log plot of execution time vs. data size would clearly show the asymptotic behavior of each algorithm and confirm their theoretical time complexities.
+
+
 # Prompt 11 
 
 run

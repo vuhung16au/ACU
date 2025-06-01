@@ -4,6 +4,12 @@
 
 This document provides a summary of the performance benchmarks for various sorting algorithms implemented in different programming languages.
 
+## Performance Visualization
+
+The following log-log plot visualizes the execution time vs. data size for each algorithm and language:
+
+![Sorting Algorithm Performance: Execution Time vs. Data Size (log-log)](sorting_performance_loglog.png)
+
 ## Overview
 
 The benchmarks compare the following sorting algorithms:
@@ -27,10 +33,24 @@ Across implementations in:
 
 ## Overall Performance Ranking
 
-The following table shows the overall performance ranking of different implementations:
+The following table shows the overall performance ranking of different implementations (N = 500,000, fastest for each language/algorithm):
 
-| Rank | Language/Algorithm | Time (seconds) | Relative Speed |
-|------|-------------------|----------------|----------------|
+| Rank | Language/Algorithm      | Time (seconds) | Relative Speed |
+|------|------------------------|----------------|----------------|
+| 1    | C / Counting Sort      | 0.00242        | 1.0×           |
+| 2    | C++ / Counting Sort    | 0.00498        | 2.1×           |
+| 3    | Go / Counting Sort     | 0.00573        | 2.4×           |
+| 4    | Java / Counting Sort   | 0.00873        | 3.6×           |
+| 5    | JavaScript / Counting Sort | 0.01312    | 5.4×           |
+| 6    | Python / Counting Sort | 0.29412        | 121.6×         |
+| 7    | C++ / Quick Sort       | 0.02768        | 11.4×          |
+| 8    | Go / Quick Sort        | 0.02829        | 11.7×          |
+| 9    | C / Quick Sort         | 0.03031        | 12.5×          |
+| 10   | Java / Quick Sort      | 0.03209        | 13.3×          |
+| 11   | JavaScript / Quick Sort| 0.04736        | 19.6×          |
+| 12   | Python / Quick Sort    | 0.69584        | 287.6×         |
+
+*Note: O(n²) algorithms (Bubble, Selection, Insertion) were not run on large datasets due to impractical runtimes.*
 
 ## Algorithm-specific Performance
 
