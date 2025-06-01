@@ -1,90 +1,76 @@
-# Sorting Algorithms Performance Comparison (2025)
-
-This project compares the performance of various sorting algorithm implementations across multiple programming languages including Python, C++, Java, JavaScript, Go, and C. The project includes multi-size performance testing (N = 10, 100K, 250K, 500K).
-
-> **Latest Update (June 2025):** Complete multi-size performance comparison now available! [See the results](docs/PERFORMANCE-SUMMARY-2025.md)
-
-The following sorting algorithms are implemented:
-
-- Bubble Sort
-- Selection Sort
-- Insertion Sort
-- Quick Sort
-- Counting Sort
-- Radix Sort
-- Merge Sort
-
-## Project Structure
-
-- `src/`: Contains all sorting algorithm implementations
-  - Bubble Sort: `bubble_sort.py`, `bubble_sort.cpp`, `BubbleSort.java`, `bubble_sort.js`, `bubble_sort.go`, `bubble_sort.c`
-  - Selection Sort: `selection_sort.py`, `selection_sort.cpp`, `SelectionSort.java`, `selection_sort.js`, `selection_sort.go`, `selection_sort.c`
-  - Insertion Sort: `insertion_sort.py`, `insertion_sort.cpp`, `InsertionSort.java`, `insertion_sort.js`, `insertion_sort.go`, `insertion_sort.c`
-  - Quick Sort: `quick_sort.py`, `quick_sort.cpp`, `QuickSort.java`, `quick_sort.js`, `quick_sort.go`, `quick_sort.c`
-  - Counting Sort: `counting_sort.py`, `counting_sort.cpp`, `CountingSort.java`, `counting_sort.js`, `counting_sort.go`, `counting_sort.c`
-  - Radix Sort: `radix_sort.py`, `radix_sort.cpp`, `RadixSort.java`, `radix_sort.js`, `radix_sort.go`, `radix_sort.c`
-  - Merge Sort: `merge_sort.py`, `merge_sort.cpp`, `MergeSort.java`, `merge_sort.js`, `merge_sort.go`, `merge_sort.c`
-
-- `scripts/`: Contains all performance test and utility scripts
-  - `generate_data.py`: Generates random datasets for testing
-  - `run_comparison.sh`: Runs performance tests across all implementations
-  - `run_multi_size_comparison.sh`: Runs tests with multiple data sizes
-  - `run_complete_study.sh`: Runs a comprehensive benchmarking study
-  - `analyze_results.py`: Analyzes and summarizes test results
-
-- `config/`: Contains configuration files
-  - `number-of-data-points.txt`: Defines dataset sizes for testing
-
-- `datasets/`: Contains generated random datasets for testing
-  - `random_list_{size}.txt`: Random integer datasets of different sizes
-  - `random_list.txt`: Default dataset (copy of the 100,000 elements dataset)
-
-- `results/`: Contains raw performance results
-  - `results_{language}.txt`: Results for each programming language implementation
-  - `results_{language}_{algorithm}.txt`: Algorithm-specific results for certain language implementations
-
-- `analysis/`: Contains analysis reports and consolidated results
-  - `consolidated_results_{size}.txt`: Combined results for specific dataset sizes
-  - `performance_analysis.txt`: Detailed performance analysis
-
-- `docs/`: Contains documentation and findings
-  - `HOWTO.md`: Instructions for running tests and implementations
-  - `CONTRIBUTING.md`: Guidelines for contributing to the project
-  - `QUICK-SORTS-COMPLETE-STUDY.md`: Comprehensive study of Quick Sort performance
-  - `SORTING-ALGORITHMS-COMPARISON.md`: Comparison of all sorting algorithms
-  - `MULTI_SIZE_PERFORMANCE_STUDY.md`: Performance analysis across different dataset sizes
-
 ## Quick Start
 
-1. Generate random datasets:
+1. Run the all-in-one script to generate data, run comparisons, and update documentation:
 
    ```bash
-   python3 scripts/generate_data.py
+   ./scripts/run-all.sh
    ```
 
-2. Run performance comparison for all sorting algorithms:
+   To run each test multiple times and average the results (e.g., 7 times):
 
    ```bash
-   ./scripts/run_comparison.sh
+   ./scripts/run-all.sh --repeat 7
    ```
 
-3. View consolidated results:
+2. View consolidated results for a specific size (e.g., 100,000):
 
    ```bash
-   cat analysis/consolidated_results.txt
+   cat analysis/consolidated_results_100000.txt
    ```
 
-4. View detailed analysis:
+3. View the performance summary:
 
    ```bash
-   cat analysis/performance_analysis.txt
+   cat docs/PERFORMANCE-SUMMARY-2025.md
    ```
 
-5. View sorting algorithms comparison:
+4. View multi-size comparison study:
 
    ```bash
-   cat docs/SORTING-ALGORITHMS-COMPARISON.md
+   cat docs/MULTI_SIZE_PERFORMANCE_STUDY.md
    ```
+
+## Usage
+
+This repository provides scripts to run and compare sorting algorithm implementations across languages.
+
+### Quick Start
+
+Run all tests with default settings:
+
+```bash
+./scripts/run-all.sh
+```
+
+### Additional Options
+
+The main script (`run-all.sh`) supports several options:
+
+- `--clean` - Clean all generated datasets and results
+- `--clean-results` - Clean only results files
+- `--clean-datasets` - Clean only dataset files
+- `--generate-only` - Generate datasets but don't run comparisons
+- `--sizes SIZE1,SIZE2,...` - Run tests only for specific data sizes (comma-separated)
+
+#### Examples
+
+```bash
+# Clean all data and start fresh
+./scripts/run-all.sh --clean
+
+# Run only for small dataset (faster testing)
+./scripts/run-all.sh --sizes 5000
+
+# Generate data without running tests
+./scripts/run-all.sh --generate-only
+```
+
+### Data Sizes
+
+The following data sizes are currently configured for testing:
+10, 5,000, 10,000, 100,000, 250,000, 500,000, 1,000,000, 1,500,000
+
+Last updated: 01 June 2025
 
 ## Requirements
 
