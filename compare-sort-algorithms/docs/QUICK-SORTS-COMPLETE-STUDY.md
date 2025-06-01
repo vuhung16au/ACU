@@ -36,38 +36,40 @@ This comprehensive study compares Quick Sort implementations across six programm
 
 ## Performance Results
 
+> **Note:** Lower is better/faster
+
 ### Execution Time Comparison (100K Elements)
 
 | Rank | Language   | Time (seconds) | Relative Speed | Elements/Second |
 |------|------------|----------------|----------------|-----------------|
-| 1    | **Go**     | 0.005074       | 1.00x          | 19,709,933      |
+| 1    | **Go**     | 🟢 0.005074    | 1.00x          | 19,709,933      |
 | 2    | **C**      | 0.006338       | 1.25x          | 15,777,848      |
 | 3    | **Java**   | 0.008395       | 1.65x          | 11,911,261      |
 | 4    | **JavaScript** | 0.012704   | 2.50x          | 7,871,691       |
-| 5    | **C++**    | 0.692495       | 136.48x        | 144,405         |
+| 5    | **C++**    | 🔴 0.692495    | 136.48x        | 144,405         |
 | 6    | **Python** | 0.111931       | 22.06x         | 893,408         |
 
 ### Execution Time Comparison (250K Elements)
 
 | Rank | Language   | Time (seconds) | Relative Speed | Elements/Second |
 |------|------------|----------------|----------------|-----------------|
-| 1    | **C**      | 0.013363       | 1.00x          | 18,708,374      |
+| 1    | **C**      | 🟢 0.013363    | 1.00x          | 18,708,374      |
 | 2    | **Go**     | 0.013375       | 1.00x          | 18,692,113      |
 | 3    | **Java**   | 0.017002       | 1.27x          | 14,704,585      |
 | 4    | **JavaScript** | 0.026071   | 1.95x          | 9,589,368       |
 | 5    | **Python** | 0.302724       | 22.65x         | 825,835         |
-| 6    | **C++**    | 2.858428       | 213.91x        | 87,461          |
+| 6    | **C++**    | 🔴 2.858428    | 213.91x        | 87,461          |
 
 ### Execution Time Comparison (500K Elements)
 
 | Rank | Language   | Time (seconds) | Relative Speed | Elements/Second |
 |------|------------|----------------|----------------|-----------------|
-| 1    | **C++**    | 0.027675       | 1.00x          | 18,066,847      |
+| 1    | **C++**    | 🟢 0.027675    | 1.00x          | 18,066,847      |
 | 2    | **Go**     | 0.028290       | 1.02x          | 17,673,934      |
 | 3    | **C**      | 0.030308       | 1.10x          | 16,497,294      |
 | 4    | **Java**   | 0.032093       | 1.16x          | 15,579,863      |
 | 5    | **JavaScript** | 0.047355   | 1.71x          | 10,558,557      |
-| 6    | **Python** | 0.695836       | 25.14x         | 718,560         |
+| 6    | **Python** | 🔴 0.695836    | 25.14x         | 718,560         |
 
 ### Performance Visualization (100K Elements)
 

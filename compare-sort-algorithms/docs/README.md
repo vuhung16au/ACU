@@ -30,12 +30,12 @@ This directory contains comprehensive documentation for the sorting algorithms p
 
 For datasets of N = 500,000 integers:
 
-| Algorithm | C | C++ | Go | Java | JavaScript | Python |
-|-----------|---|-----|----|----- |-----------|--------|
-| Quick Sort | 16.5M/s | 18.1M/s | 17.7M/s | 15.6M/s | 10.6M/s | 0.7M/s |
-| Merge Sort | 7.8M/s | 19.9M/s | 10.4M/s | 9.7M/s | 4.6M/s | 0.5M/s |
-| Counting Sort | 206.8M/s | 100.4M/s | 87.2M/s | 57.3M/s | 38.1M/s | 1.7M/s |
-| Radix Sort | 75.4M/s | 74.0M/s | 40.2M/s | 19.6M/s | 13.4M/s | 0.7M/s |
+| Algorithm    | C         | C++       | Go        | Java      | JavaScript | Python   |
+|-------------|-----------|-----------|-----------|-----------|------------|----------|
+| Quick Sort  | 16.5M/s   | 18.1M/s   | 17.7M/s   | 15.6M/s   | 10.6M/s    | <span style="color:red; font-weight:bold">0.7M/s</span> |
+| Merge Sort  | 7.8M/s    | <span style="color:green; font-weight:bold">19.9M/s</span>   | 10.4M/s   | 9.7M/s    | 4.6M/s     | <span style="color:red; font-weight:bold">0.5M/s</span> |
+| Counting Sort | <span style="color:green; font-weight:bold">206.8M/s</span> | 100.4M/s  | 87.2M/s   | 57.3M/s   | 38.1M/s    | 1.7M/s   |
+| Radix Sort  | 75.4M/s   | 74.0M/s   | 40.2M/s   | 19.6M/s   | 13.4M/s    | <span style="color:red; font-weight:bold">0.7M/s</span> |
 
 *Elements per second (higher is better)*
 

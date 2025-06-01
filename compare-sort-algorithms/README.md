@@ -96,14 +96,14 @@ Our latest multi-size performance comparison study revealed:
 
 ### Performance Highlights (N = 500K elements)
 
-| Algorithm | C | C++ | Go | JavaScript | Java | Python |
-|-----------|---|-----|----|-----------|----- |--------|
-| Counting Sort | 206.8M/s | 100.4M/s | 87.2M/s | 38.1M/s | 57.3M/s | 1.7M/s |
-| Radix Sort | 75.4M/s | 74.0M/s | 40.2M/s | 13.4M/s | 19.6M/s | 0.7M/s |
-| Quick Sort | 16.5M/s | 18.1M/s | 17.7M/s | 10.6M/s | 15.6M/s | 0.7M/s |
-| Merge Sort | 7.8M/s | 19.9M/s | 10.4M/s | 4.6M/s | 9.7M/s | 0.5M/s |
+| Algorithm    | C         | C++       | Go       | JavaScript | Java     | Python   |
+|--------------|-----------|-----------|----------|------------|----------|----------|
+| Counting Sort| **206.8M/s** | 100.4M/s  | 87.2M/s  | 38.1M/s    | 57.3M/s  | `1.7M/s` |
+| Radix Sort   | **75.4M/s**  | 74.0M/s   | 40.2M/s  | 13.4M/s    | 19.6M/s  | `0.7M/s` |
+| Quick Sort   | 16.5M/s   | **18.1M/s**   | 17.7M/s  | 10.6M/s    | 15.6M/s  | `0.7M/s` |
+| Merge Sort   | `7.8M/s`    | **19.9M/s**   | 10.4M/s  | 4.6M/s     | 9.7M/s   | 0.5M/s   |
 
-*Numbers represent elements sorted per second (higher is better)*
+*Numbers represent elements sorted per second. **Bold = highest (best)**, `Monospace = lowest (worst)`. Higher is better/faster.*
 
 For comprehensive results and analysis, see [docs/PERFORMANCE-SUMMARY-2025.md](docs/PERFORMANCE-SUMMARY-2025.md) and [docs/MULTI_SIZE_PERFORMANCE_STUDY.md](docs/MULTI_SIZE_PERFORMANCE_STUDY.md).
 

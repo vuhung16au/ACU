@@ -88,13 +88,13 @@ The following table provides a comprehensive comparison of the time and space co
 
 | Algorithm      | Best Case Time | Average Case Time | Worst Case Time | Space Complexity | Stable? |
 |---------------|----------------|------------------|-----------------|-----------------|---------|
-| Bubble Sort   | O(n)           | O(n²)            | O(n²)           | O(1)            | Yes     |
-| Selection Sort| O(n²)          | O(n²)            | O(n²)           | O(1)            | No      |
+| <span style="color:red">Bubble Sort</span>   | O(n)           | O(n²)            | O(n²)           | O(1)            | Yes     |
+| <span style="color:red">Selection Sort</span>| O(n²)          | O(n²)            | O(n²)           | O(1)            | No      |
 | Insertion Sort| O(n)           | O(n²)            | O(n²)           | O(1)            | Yes     |
-| Quick Sort    | O(n log n)     | O(n log n)       | O(n²)           | O(log n) (avg)  | No      |
+| <span style="color:green">Quick Sort</span>    | O(n log n)     | O(n log n)       | O(n²)           | O(log n) (avg)  | No      |
 | Counting Sort | O(n + k)       | O(n + k)         | O(n + k)        | O(k)            | Yes     |
 | Radix Sort    | O(d(n + k))    | O(d(n + k))      | O(d(n + k))     | O(n + k)        | Yes     |
-| Merge Sort    | O(n log n)     | O(n log n)       | O(n log n)      | O(n)            | Yes     |
+| <span style="color:green">Merge Sort</span>    | O(n log n)     | O(n log n)       | O(n log n)      | O(n)            | Yes     |
 
 **Notes:**
 
