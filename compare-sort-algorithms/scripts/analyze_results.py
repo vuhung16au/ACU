@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Performance Analysis and Reporting Script
-Analyzes the Quick Sort performance results and generates comprehensive insights.
+Analyzes the sorting algorithms performance results and generates comprehensive insights.
 """
 import os
 import re
@@ -20,7 +20,13 @@ class PerformanceAnalyzer:
             'Java': '../results/results_java.txt',
             'JavaScript': '../results/results_javascript.txt',
             'Go': '../results/results_go.txt',
-            'C': '../results/results_c.txt'
+            'C (Quick Sort)': '../results/results_c_quick.txt',
+            'C (Bubble Sort)': '../results/results_c_bubble.txt',
+            'C (Selection Sort)': '../results/results_c_selection.txt',
+            'C (Insertion Sort)': '../results/results_c_insertion.txt',
+            'C (Merge Sort)': '../results/results_c_merge.txt',
+            'C (Counting Sort)': '../results/results_c_counting.txt',
+            'C (Radix Sort)': '../results/results_c_radix.txt'
         }
         
         for lang, filename in files.items():
@@ -34,10 +40,14 @@ class PerformanceAnalyzer:
         
         result = {}
         
-        # Extract execution time
-        time_match = re.search(r'Execution time: ([\d.]+) seconds', content)
-        if time_match:
-            result['execution_time'] = float(time_match.group(1))
+        # Check if the result contains N/A
+        if "N/A" in content:
+            result['execution_time'] = "N/A"
+        else:
+            # Extract execution time
+            time_match = re.search(r'Execution time: ([\d.]+) seconds', content)
+            if time_match:
+                result['execution_time'] = float(time_match.group(1))
         
         # Extract data size
         size_match = re.search(r'Data size: (\d+)', content)
@@ -62,7 +72,7 @@ class PerformanceAnalyzer:
             return "No results found to analyze."
         
         analysis = []
-        analysis.append("QUICK SORT PERFORMANCE ANALYSIS")
+        analysis.append("SORTING ALGORITHMS PERFORMANCE ANALYSIS")
         analysis.append("=" * 50)
         analysis.append("")
         
@@ -75,24 +85,49 @@ class PerformanceAnalyzer:
             if 'execution_time' in data:
                 time = data['execution_time']
                 times.append((lang, time))
-                analysis.append(f"{lang:<12}: {time:.6f} seconds")
+                if time == "N/A":
+                    analysis.append(f"{lang:<12}: N/A (skipped for large dataset)")
+                else:
+                    analysis.append(f"{lang:<12}: {time:.6f} seconds")
         
         analysis.append("")
         
+        # Define default values for variables that need to be defined even if there are no valid times
+        fastest_lang = "N/A"
+        fastest_time = 0  # Using 0 as default will cause errors in division, but we'll handle that
+        slowest_lang = "N/A"
+        slowest_time = 0
+        sorted_times = []
+        
         if times:
-            # Sort by performance
-            times.sort(key=lambda x: x[1])
-            fastest_lang, fastest_time = times[0]
-            slowest_lang, slowest_time = times[-1]
+            # Filter out N/A values for sorting
+            numeric_times = [t for t in times if t[1] != "N/A"]
+            na_times = [t for t in times if t[1] == "N/A"]
+            
+            # Sort only numeric values by performance
+            if numeric_times:
+                numeric_times.sort(key=lambda x: x[1])
+                fastest_lang, fastest_time = numeric_times[0]
+                slowest_lang, slowest_time = numeric_times[-1]
+                
+                # Combine sorted numeric results with N/A results at the end
+                sorted_times = numeric_times + na_times
+            else:
+                sorted_times = na_times
             
             analysis.append("2. PERFORMANCE RANKING")
             analysis.append("-" * 25)
             analysis.append(f"{'Rank':<6} {'Language':<12} {'Time (sec)':<12} {'vs Fastest':<12}")
             analysis.append("-" * 45)
             
-            for i, (lang, time) in enumerate(times, 1):
-                relative = time / fastest_time
-                analysis.append(f"{i:<6} {lang:<12} {time:<12.6f} {relative:<12.2f}x")
+            for i, (lang, time) in enumerate(sorted_times, 1):
+                if time == "N/A":
+                    analysis.append(f"{i:<6} {lang:<12} {'N/A':<12} {'N/A':<12}")
+                elif fastest_time > 0:  # Make sure we don't divide by zero
+                    relative = time / fastest_time
+                    analysis.append(f"{i:<6} {lang:<12} {time:<12.6f} {relative:<12.2f}x")
+                else:
+                    analysis.append(f"{i:<6} {lang:<12} {time:<12.6f} {'N/A':<12}")
             
             analysis.append("")
             
@@ -100,32 +135,64 @@ class PerformanceAnalyzer:
             analysis.append("3. PERFORMANCE INSIGHTS")
             analysis.append("-" * 25)
             
-            analysis.append(f"• Fastest: {fastest_lang} ({fastest_time:.6f} seconds)")
-            analysis.append(f"• Slowest: {slowest_lang} ({slowest_time:.6f} seconds)")
-            analysis.append(f"• Speed difference: {slowest_time/fastest_time:.2f}x")
+            if fastest_time != 0 and fastest_lang != "N/A":
+                analysis.append(f"• Fastest: {fastest_lang} ({fastest_time:.6f} seconds)")
+            else:
+                analysis.append("• Fastest: N/A")
+                
+            if slowest_time != 0 and slowest_lang != "N/A":
+                analysis.append(f"• Slowest: {slowest_lang} ({slowest_time:.6f} seconds)")
+            else:
+                analysis.append("• Slowest: N/A")
+                
+            if fastest_time > 0 and slowest_time > 0:
+                analysis.append(f"• Speed difference: {slowest_time/fastest_time:.2f}x")
+            else:
+                analysis.append("• Speed difference: N/A")
             
-            # Calculate statistics
-            time_values = [t[1] for t in times]
-            if len(time_values) > 1:
-                analysis.append(f"• Average time: {statistics.mean(time_values):.6f} seconds")
-                analysis.append(f"• Standard deviation: {statistics.stdev(time_values):.6f} seconds")
+            # Calculate statistics (only for numeric values)
+            numeric_values = [t[1] for t in times if t[1] != "N/A"]
+            if len(numeric_values) > 1:
+                analysis.append(f"• Average time: {statistics.mean(numeric_values):.6f} seconds")
+                if len(numeric_values) > 2:
+                    analysis.append(f"• Standard deviation: {statistics.stdev(numeric_values):.6f} seconds")
             
             analysis.append("")
         
         # Language-specific analysis
-        analysis.append("4. LANGUAGE-SPECIFIC ANALYSIS")
+        analysis.append("4. LANGUAGE AND ALGORITHM ANALYSIS")
         analysis.append("-" * 32)
         
         language_insights = {
             'Python': "Interpreted language with dynamic typing. Generally slower but highly readable and maintainable.",
             'C++': "Compiled language with manual memory management. Typically fastest due to low-level optimizations.",
             'Java': "Compiled to bytecode, runs on JVM. Good performance with automatic memory management.",
-            'JavaScript': "Interpreted/JIT compiled. Performance varies by engine (V8 is highly optimized)."
+            'JavaScript': "Interpreted/JIT compiled. Performance varies by engine (V8 is highly optimized).",
+            'Go': "Compiled language with garbage collection, designed for concurrency and performance.",
+            'C': "Low-level compiled language with manual memory management. Typically very fast."
+        }
+        
+        algorithm_insights = {
+            'Quick Sort': "Divide-and-conquer algorithm with average O(n log n) complexity. Good for general-purpose sorting.",
+            'Bubble Sort': "Simple comparison-based algorithm with O(n²) complexity. Inefficient for large datasets.",
+            'Selection Sort': "Simple comparison-based algorithm with O(n²) complexity. Performs poorly on large datasets.",
+            'Insertion Sort': "Simple comparison-based algorithm with O(n²) complexity. Efficient for small or nearly sorted data.",
+            'Merge Sort': "Divide-and-conquer algorithm with O(n log n) complexity. Stable sort with predictable performance.",
+            'Counting Sort': "Non-comparative integer sorting algorithm with O(n+k) complexity where k is the range of input.",
+            'Radix Sort': "Non-comparative integer sorting algorithm with O(d*(n+k)) complexity where d is the number of digits."
         }
         
         for lang in self.results:
             analysis.append(f"\n{lang}:")
-            analysis.append(f"  {language_insights.get(lang, 'No specific insights available.')}")
+            
+            # Extract base language (Python, C++, Java, etc.)
+            base_lang = lang.split(' ')[0]
+            analysis.append(f"  {language_insights.get(base_lang, 'No specific language insights available.')}")
+            
+            # Extract algorithm name if present (e.g., "C (Quick Sort)" -> "Quick Sort")
+            if '(' in lang and ')' in lang:
+                algo = lang[lang.find('(')+1:lang.find(')')]
+                analysis.append(f"  {algorithm_insights.get(algo, 'No specific algorithm insights available.')}")
             
             if lang in self.results and 'elements_per_second' in self.results[lang]:
                 eps = self.results[lang]['elements_per_second']
@@ -155,44 +222,103 @@ class PerformanceAnalyzer:
         
         analysis.append("")
         
+        # Algorithm performance analysis
+        analysis.append("6. ALGORITHM COMPARISON")
+        analysis.append("-" * 25)
+        
+        # Group results by algorithm type
+        algo_times = {}
+        for lang, result in self.results.items():
+            if 'execution_time' not in result:
+                continue
+                
+            if '(' in lang and ')' in lang:
+                algo = lang[lang.find('(')+1:lang.find(')')]
+                if algo not in algo_times:
+                    algo_times[algo] = []
+                algo_times[algo].append((lang, result['execution_time']))
+            elif lang == 'Python' or lang == 'C++' or lang == 'Java' or lang == 'JavaScript' or lang == 'Go':
+                # These are all Quick Sort implementations
+                if 'Quick Sort' not in algo_times:
+                    algo_times['Quick Sort'] = []
+                algo_times['Quick Sort'].append((lang, result['execution_time']))
+        
+        # Analyze algorithm performance
+        for algo, times_list in algo_times.items():
+            if times_list:
+                analysis.append(f"\n{algo} Performance:")
+                
+                # Filter out N/A values for sorting and statistics
+                numeric_times = [t for t in times_list if t[1] != "N/A"]
+                na_times = [t for t in times_list if t[1] == "N/A"]
+                
+                # Only sort and calculate stats if we have numeric values
+                if numeric_times:
+                    numeric_times.sort(key=lambda x: x[1])  # Sort by execution time
+                    fastest = numeric_times[0]
+                    slowest = numeric_times[-1]
+                    
+                    analysis.append(f"  • Fastest: {fastest[0]} ({fastest[1]:.6f} seconds)")
+                    analysis.append(f"  • Slowest: {slowest[0]} ({slowest[1]:.6f} seconds)")
+                    analysis.append(f"  • Speed difference: {slowest[1]/fastest[1]:.2f}x")
+                    
+                    # Calculate statistics
+                    time_values = [t[1] for t in numeric_times]
+                    if len(time_values) > 1:
+                        analysis.append(f"  • Average time: {statistics.mean(time_values):.6f} seconds")
+                        if len(time_values) > 2:
+                            analysis.append(f"  • Standard deviation: {statistics.stdev(time_values):.6f} seconds")
+                
+                # List any N/A entries
+                if na_times:
+                    analysis.append(f"  • Skipped implementations (too large): {', '.join(t[0] for t in na_times)}")
+        
+        analysis.append("\n")
+        
         # Conclusions
-        analysis.append("6. CONCLUSIONS")
+        analysis.append("7. CONCLUSIONS")
         analysis.append("-" * 15)
         
         if times:
+            # Language performance conclusions
             cpp_time = next((t for lang, t in times if lang == 'C++'), None)
+            c_time = next((t for lang, t in times if lang.startswith('C (')), None)
             python_time = next((t for lang, t in times if lang == 'Python'), None)
             
-            analysis.append("• C++ is expected to be the fastest due to:")
-            analysis.append("  - Native compilation and aggressive optimization")
-            analysis.append("  - Manual memory management")
-            analysis.append("  - No runtime overhead")
+            analysis.append("• Language Performance:")
+            analysis.append("  - C & C++ typically offer the best performance due to direct compilation to machine code")
+            analysis.append("  - Go provides good performance with simplified memory management")
+            analysis.append("  - Java's JIT compilation offers competitive performance")
+            analysis.append("  - JavaScript's V8 engine can sometimes rival compiled languages")
+            analysis.append("  - Python generally has lower performance due to interpretation overhead")
             analysis.append("")
             
-            analysis.append("• Java performance should be competitive due to:")
-            analysis.append("  - JIT compilation optimizations")
-            analysis.append("  - Mature JVM technology")
-            analysis.append("")
-            
-            analysis.append("• JavaScript may surprise with good performance due to:")
-            analysis.append("  - V8 engine's advanced optimizations")
-            analysis.append("  - JIT compilation")
-            analysis.append("")
-            
-            analysis.append("• Python is expected to be slowest due to:")
-            analysis.append("  - Interpreted nature")
-            analysis.append("  - Dynamic typing overhead")
-            analysis.append("  - GIL (Global Interpreter Lock) limitations")
+            # Algorithm performance conclusions
+            analysis.append("• Algorithm Performance:")
+            analysis.append("  - O(n log n) algorithms (Quick Sort, Merge Sort) are fastest for general-purpose sorting")
+            analysis.append("  - O(n²) algorithms (Bubble, Selection, Insertion) perform poorly on large datasets")
+            analysis.append("  - Non-comparative algorithms (Counting, Radix) can be very fast for specific data distributions")
+            analysis.append("  - Quick Sort typically offers best average-case performance but has worst-case concerns")
+            analysis.append("  - Merge Sort provides consistent performance with stable sorting guarantees")
         
         analysis.append("")
         
         # Recommendations
-        analysis.append("7. RECOMMENDATIONS")
+        analysis.append("8. RECOMMENDATIONS")
         analysis.append("-" * 20)
-        analysis.append("• For performance-critical applications: Use C++")
-        analysis.append("• For balanced performance and productivity: Use Java")
-        analysis.append("• For web applications: JavaScript (Node.js) is viable")
-        analysis.append("• For rapid prototyping and development: Python")
+        analysis.append("• Language recommendations:")
+        analysis.append("  - For performance-critical applications: Use C/C++")
+        analysis.append("  - For balanced performance and concurrency: Use Go")
+        analysis.append("  - For enterprise applications: Use Java")
+        analysis.append("  - For web applications: JavaScript (Node.js) is viable")
+        analysis.append("  - For rapid prototyping and development: Python")
+        analysis.append("")
+        analysis.append("• Algorithm recommendations:")
+        analysis.append("  - General purpose sorting: Quick Sort or Merge Sort")
+        analysis.append("  - Small datasets: Insertion Sort")
+        analysis.append("  - When stability matters: Merge Sort")
+        analysis.append("  - Integer data with limited range: Counting Sort")
+        analysis.append("  - Integer data with large range: Radix Sort")
         analysis.append("")
         analysis.append("• Future improvements:")
         analysis.append("  - Test with different input patterns (sorted, reverse-sorted)")
@@ -200,6 +326,8 @@ class PerformanceAnalyzer:
         analysis.append("  - Test with different data sizes")
         analysis.append("  - Profile memory usage")
         analysis.append("  - Test parallel/multi-threaded implementations")
+        analysis.append("  - Optimize algorithm implementations (e.g., Hybrid sorts)")
+        analysis.append("  - Analyze sorting algorithm stability")
         
         return "\n".join(analysis)
     

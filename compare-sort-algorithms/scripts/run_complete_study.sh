@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# Master script to run complete Quick Sort performance comparison
+# Master script to run complete sorting algorithm performance comparison
 # This script executes all steps and generates comprehensive analysis
 
 echo "=========================================="
-echo "COMPLETE QUICK SORT PERFORMANCE STUDY"
+echo "COMPLETE SORTING ALGORITHMS PERFORMANCE STUDY"
 echo "=========================================="
 echo ""
 
@@ -51,3 +51,12 @@ echo "cat performance_analysis.txt"
 echo ""
 echo "To view the quick summary:"
 echo "cat consolidated_results.txt"
+echo ""
+echo "Algorithms included in this study:"
+echo "1. Bubble Sort"
+echo "2. Selection Sort"
+echo "3. Insertion Sort"
+echo "4. Quick Sort"
+echo "5. Merge Sort"
+echo "6. Counting Sort"
+echo "7. Radix Sort"

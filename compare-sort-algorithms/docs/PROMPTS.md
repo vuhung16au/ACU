@@ -1,8 +1,24 @@
-# Use a build tool 
+# Prompt 10 
+
+For all `scripts/*sh`
+When number of data points N > 10000, don't run any bubble programs (for all languages)
+Show results as "N/A"
+
+Note that bubble sort has O(n^2) and is too slow to run for large datasets
+
+# Prompt 09: Run test several time
+
+Currently, we run the performance tests only once for each language.
+
+We should run the performance tests multiple times to get a more accurate measurement of the performance differences between the languages.
+
+Add an option to the `scripts/run-all.sh` script to run the performance tests multiple times (e.g., default 5 times) and calculate the average time taken for each language.
+
+# Prompt 08 Use a build tool 
 
 Gradle?
 
-# Prompt 7 
+# Prompt 07 
 
 create a srcipts/run-all.sh script to do everything
 
@@ -14,12 +30,19 @@ run comparision script
 
 update documentations
 
-# Prompt 6 
+# Prompt 06 
+
+TODO: Note: This prompt is too big to process in one go. Please break it down into smaller parts.
+
+- Breakdown by language and algorithm
+- Breakdown by language and script
+- Breakdown by making documentation updates
 
 We have implemented Quick Sort in Python, C++, Java, and JavaScript, Go, and C.
 
 Similarly, please implement the comparions for the following sort algorithms:
 
+Note: 
 - Bubble Sort
 - Selection Sort
 - Insertion Sort
@@ -37,7 +60,6 @@ Update
 Ensure that the performance comparison includes all these sorting algorithms across the same languages (Python, C++, Java, JavaScript, Go, C).
 
 When you  add new files, please follow the existing naming conventions and directory structure.
-
 
 
 # Prompt 05

@@ -1,6 +1,14 @@
-# How to Run Quick Sort Implementations and Performance Tests
+# How to Run Sorting Algorithm Implementations and Performance Tests
 
-This guide explains how to run the Quick Sort implementations and performance tests in this project.
+This guide explains how to run the various sorting algorithm implementations and performance tests in this project. The following algorithms are included:
+
+- Bubble Sort
+- Selection Sort
+- Insertion Sort
+- Quick Sort
+- Counting Sort
+- Radix Sort
+- Merge Sort
 
 ## Prerequisites
 
@@ -35,50 +43,72 @@ python3 generate_data.py 1000000
 
 ## Running Individual Implementations
 
-You can run each implementation individually:
+You can run each implementation individually for any of the sorting algorithms. Below are examples using different algorithms for each language:
 
 ### Python:
 ```bash
 cd src
-python3 quick_sort.py
+python3 quick_sort.py     # Quick Sort example
+python3 bubble_sort.py    # Bubble Sort example
+python3 merge_sort.py     # Merge Sort example
+# Other algorithms: selection_sort.py, insertion_sort.py, counting_sort.py, radix_sort.py
 ```
 
 ### C++:
 ```bash
 cd src
 g++ -O2 -std=c++17 -o quick_sort_cpp quick_sort.cpp
-./quick_sort_cpp
+./quick_sort_cpp          # Quick Sort example
+
+# Other algorithms:
+# g++ -O2 -std=c++17 -o bubble_sort_cpp bubble_sort.cpp
+# g++ -O2 -std=c++17 -o selection_sort_cpp selection_sort.cpp
+# etc.
 ```
 
 ### Java:
 ```bash
 cd src
 javac QuickSort.java
-java -cp . QuickSort
+java -cp . QuickSort      # Quick Sort example
+
+# Other algorithms:
+# javac BubbleSort.java
+# java -cp . BubbleSort
+# etc.
 ```
 
 ### JavaScript:
 ```bash
 cd src
-node quick_sort.js
+node quick_sort.js        # Quick Sort example
+node bubble_sort.js       # Bubble Sort example
+# Other algorithms: selection_sort.js, insertion_sort.js, etc.
 ```
 
 ### Go:
 ```bash
 cd src
-go run quick_sort.go
+go run quick_sort.go      # Quick Sort example
+go run merge_sort.go      # Merge Sort example
+# Other algorithms: bubble_sort.go, selection_sort.go, etc.
 ```
 
 ### C:
 ```bash
 cd src
 gcc -O2 -o quick_sort_c quick_sort.c
-./quick_sort_c
+./quick_sort_c            # Quick Sort example
+
+# Other algorithms:
+# gcc -O2 -o bubble_sort_c bubble_sort.c
+# gcc -O2 -o selection_sort_c selection_sort.c
+# etc.
 ```
 
 ## Running Performance Comparison
 
-To run a performance comparison across all implementations:
+To run a performance comparison across all implementations of all sorting algorithms:
 
 ```bash
 cd scripts
@@ -87,7 +117,7 @@ cd scripts
 
 This will:
 1. Generate test data (if not already available)
-2. Build and run all implementations
+2. Build and run all implementations of all sorting algorithms
 3. Measure execution time for each
 4. Compile and display results
 5. Save consolidated results to `analysis/consolidated_results.txt`
@@ -105,7 +135,7 @@ This will run each implementation against datasets of different sizes and save s
 
 ## Running Complete Study
 
-For a comprehensive benchmark study:
+For a comprehensive benchmark study of all sorting algorithms:
 
 ```bash
 cd scripts
@@ -113,10 +143,13 @@ cd scripts
 ```
 
 This will:
-1. Run all implementations on all dataset sizes
-2. Generate detailed analysis reports
-3. Create visualization data
-4. Save comprehensive study results to `docs/QUICK-SORTS-COMPLETE-STUDY.md`
+1. Run all sorting algorithm implementations on all dataset sizes
+2. Generate detailed analysis reports for each algorithm
+3. Create visualization data comparing algorithm performance
+4. Save comprehensive study results to documentation files:
+   - Quick Sort specific study: `docs/QUICK-SORTS-COMPLETE-STUDY.md`
+   - All algorithms comparison: `docs/SORTING-ALGORITHMS-COMPARISON.md`
+   - Multi-size performance study: `docs/MULTI_SIZE_PERFORMANCE_STUDY.md`
 
 ## Analyzing Results
 
@@ -136,7 +169,10 @@ This will:
 
 - Quick results summary: `cat analysis/consolidated_results.txt`
 - Detailed analysis: `cat analysis/performance_analysis.txt`
-- Complete study report: `cat docs/QUICK-SORTS-COMPLETE-STUDY.md`
+- Complete Quick Sort study: `cat docs/QUICK-SORTS-COMPLETE-STUDY.md`
+- Sorting algorithms comparison: `cat docs/SORTING-ALGORITHMS-COMPARISON.md`
+- Multi-size performance study: `cat docs/MULTI_SIZE_PERFORMANCE_STUDY.md`
+- Algorithm selection guide: `cat docs/ALGORITHM-PERFORMANCE-GUIDE.md`
 
 ## Customizing Tests
 
