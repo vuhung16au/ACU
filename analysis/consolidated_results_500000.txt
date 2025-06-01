@@ -1,0 +1,52 @@
+Quick Sort Performance Comparison Results - Dataset Size: 500000 (extra-large)
+=====================================================================
+Date: Sun  1 Jun 2025 13:42:13 AEST
+Data Size: 500000 integers
+
+Individual Results:
+
+Python:
+Python Quick Sort Results
+Data size: 500000
+Execution time: 0.699642 seconds
+Elements per second: 714651
+Sorted correctly: True
+
+C++:
+C++ Quick Sort Results
+Data size: 500000
+Execution time: 0.028092 seconds
+Elements per second: 17798662
+Sorted correctly: true
+
+Java:
+Java Quick Sort Results
+Data size: 500000
+Execution time: 0.033414 seconds
+Elements per second: 14963993
+Sorted correctly: true
+
+JavaScript:
+JavaScript Quick Sort Results
+Data size: 500000
+Execution time: 0.048800 seconds
+Elements per second: 10245928
+Sorted correctly: true
+
+Go:
+Go Quick Sort Results
+Data size: 500000
+Execution time: 0.028504 seconds
+Elements per second: 17541449
+Sorted correctly: true
+
+C:
+C Quick Sort Results
+Data size: 500000
+Execution time: 0.027753 seconds
+Elements per second: 18016070
+Sorted correctly: true
+
+Performance Ranking (fastest to slowest):
+=============================================
+No valid results found for size 500000

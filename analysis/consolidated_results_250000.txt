@@ -1,0 +1,52 @@
+Quick Sort Performance Comparison Results - Dataset Size: 250000 (large)
+=====================================================================
+Date: Sun  1 Jun 2025 13:42:10 AEST
+Data Size: 250000 integers
+
+Individual Results:
+
+Python:
+Python Quick Sort Results
+Data size: 250000
+Execution time: 0.329972 seconds
+Elements per second: 757641
+Sorted correctly: True
+
+C++:
+C++ Quick Sort Results
+Data size: 250000
+Execution time: 0.013280 seconds
+Elements per second: 18825301
+Sorted correctly: true
+
+Java:
+Java Quick Sort Results
+Data size: 250000
+Execution time: 0.017433 seconds
+Elements per second: 14340310
+Sorted correctly: true
+
+JavaScript:
+JavaScript Quick Sort Results
+Data size: 250000
+Execution time: 0.025528 seconds
+Elements per second: 9793057
+Sorted correctly: true
+
+Go:
+Go Quick Sort Results
+Data size: 250000
+Execution time: 0.013371 seconds
+Elements per second: 18697705
+Sorted correctly: true
+
+C:
+C Quick Sort Results
+Data size: 250000
+Execution time: 0.013280 seconds
+Elements per second: 18825301
+Sorted correctly: true
+
+Performance Ranking (fastest to slowest):
+=============================================
+No valid results found for size 250000

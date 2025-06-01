@@ -1,5 +1,5 @@
 Python Quick Sort Results
 Data size: 250000
-Execution time: 0.307884 seconds
-Elements per second: 811994
+Execution time: 0.329972 seconds
+Elements per second: 757641
 Sorted correctly: True
