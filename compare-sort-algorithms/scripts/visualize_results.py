@@ -70,9 +70,7 @@ g.set(xscale="log", yscale="log")
 g.set_axis_labels("Data Size (log)", "Execution Time (s, log)")
 plt.title("Sorting Algorithm Performance: Execution Time vs. Data Size (log-log)")
 
-# Move legend outside the plot using FacetGrid's legend method
-handles, labels = g.ax.get_legend_handles_labels()
-g.ax.legend(handles=handles, labels=labels, loc='center left', bbox_to_anchor=(1.02, 0.5), borderaxespad=0., frameon=True)
+g.add_legend(bbox_to_anchor=(1.02, 0.5), loc='center left', frameon=True)
 plt.tight_layout(rect=(0, 0, 0.8, 1))  # Leave space for legend
 
 # Save the figure to the docs directory
