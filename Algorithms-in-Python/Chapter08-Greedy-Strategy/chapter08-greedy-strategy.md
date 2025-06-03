@@ -75,7 +75,6 @@ def min_coins_greedy(coins, amount):
 - Modify activity selection to return the actual activities, not just the count.
 
 ## Further Readings & Connections
-- [Khan Academy: Greedy Algorithms](https://www.khanacademy.org/computing/computer-science/algorithms/greedy-algorithms)
 - [GeeksforGeeks: Greedy Algorithms](https://www.geeksforgeeks.org/greedy-algorithms/)
 - Learn about dynamic programming (see Chapter 9) for problems where greedy fails.
 

@@ -73,7 +73,6 @@ def min_coins_dp(coins, amount):
 - Try DP for the knapsack problem.
 
 ## Further Readings & Connections
-- [Khan Academy: Dynamic Programming](https://www.khanacademy.org/computing/computer-science/algorithms/dynamic-programming/a/dynamic-programming)
 - [GeeksforGeeks: Dynamic Programming](https://www.geeksforgeeks.org/dynamic-programming/)
 - Learn about greedy algorithms (see Chapter 8) and recursion (see Chapter 5).
 

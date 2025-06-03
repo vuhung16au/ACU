@@ -109,7 +109,7 @@ for row_index, row in enumerate(matrix):
 
 ## Further Readings & Connections
 - [Python Lists (W3Schools)](https://www.w3schools.com/python/python_lists.asp)
-- [Arrays vs. Lists (GeeksforGeeks)](https://www.geeksforgeeks.org/python-list-vs-array-when-to-use/)
+- [Arrays vs. Lists (GeeksforGeeks)](https://www.geeksforgeeks.org/difference-between-list-and-array-in-python/)
 - Learn about more advanced data structures like stacks and queues (see Chapter 10).
 - Explore algorithms for searching and sorting arrays (see Chapter 4).
 

@@ -82,7 +82,6 @@ else:
 - Try visualizing the parent array after each union.
 
 ## Further Readings & Connections
-- [Khan Academy: Disjoint Sets](https://www.khanacademy.org/computing/computer-science/algorithms/graph-representation/a/disjoint-sets)
 - [GeeksforGeeks: Disjoint Set (Union-Find)](https://www.geeksforgeeks.org/disjoint-set-data-structures/)
 - Learn about graphs and minimum spanning trees (see Chapter 15).
 

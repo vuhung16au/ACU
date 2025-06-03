@@ -108,7 +108,6 @@ flowchart TD
 - Write a backtracking algorithm for the subset sum problem.
 
 ## Further Readings & Connections
-- [Khan Academy: Backtracking](https://www.khanacademy.org/computing/computer-science/algorithms/backtracking/a/backtracking-intro)
 - [GeeksforGeeks: Backtracking](https://www.geeksforgeeks.org/backtracking-algorithms/)
 - Learn about recursion (see Chapter 5) and dynamic programming (see Chapter 9).
 

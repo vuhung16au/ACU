@@ -93,7 +93,6 @@ def delete_bst(root, value):
 - Try implementing a self-balancing BST (see AVL trees in Chapter 4).
 
 ## Further Readings & Connections
-- [Khan Academy: Binary Search Trees](https://www.khanacademy.org/computing/computer-science/algorithms/trees/a/binary-search-trees)
 - [GeeksforGeeks: Binary Search Tree](https://www.geeksforgeeks.org/binary-search-tree-data-structure/)
 - Learn about AVL trees (see Chapter 4) and heaps (see Chapter 11).
 

@@ -133,7 +133,6 @@ def kruskal_mst(edges):
 - Try Prim's algorithm for minimum spanning tree.
 
 ## Further Readings & Connections
-- [Khan Academy: Graphs](https://www.khanacademy.org/computing/computer-science/algorithms/graphs/a/graphs-intro)
 - [GeeksforGeeks: Graph Data Structure](https://www.geeksforgeeks.org/graph-data-structure-and-algorithms/)
 - Learn about disjoint sets (see Chapter 14) and Dijkstra's algorithm (shortest path in weighted graphs).
 

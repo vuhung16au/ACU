@@ -81,7 +81,6 @@ node2.next = node3
 - Try reversing a linked list.
 
 ## Further Readings & Connections
-- [Khan Academy: Stacks and Queues](https://www.khanacademy.org/computing/computer-science/algorithms/stacks-and-queues)
 - [GeeksforGeeks: Linked List](https://www.geeksforgeeks.org/data-structures/linked-list/)
 - Learn about more advanced data structures like trees (see Chapter 12) and graphs (see Chapter 15).
 

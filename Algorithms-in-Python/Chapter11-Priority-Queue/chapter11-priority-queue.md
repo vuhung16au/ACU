@@ -66,8 +66,7 @@ while priority_queue_with_tasks:
 - Try using a priority queue to sort a list.
 
 ## Further Readings & Connections
-- [Khan Academy: Heaps and Priority Queues](https://www.khanacademy.org/computing/computer-science/algorithms/heap/a/heap-intro)
-- [GeeksforGeeks: Priority Queue](https://www.geeksforgeeks.org/priority-queue-data-structure/)
+- [GeeksforGeeks: Priority Queue](https://www.geeksforgeeks.org/priority-queue-set-1-introduction/)
 - Learn about graphs and shortest path algorithms (see Chapter 15).
 
 ---

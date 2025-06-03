@@ -89,7 +89,6 @@ def count_nodes(node):
 - Try building a tree from a list of values.
 
 ## Further Readings & Connections
-- [Khan Academy: Trees](https://www.khanacademy.org/computing/computer-science/algorithms/trees/a/introduction-to-trees)
 - [GeeksforGeeks: Binary Tree](https://www.geeksforgeeks.org/binary-tree-data-structure/)
 - Learn about binary search trees (see Chapter 13) and heaps (see Chapter 11).
 
