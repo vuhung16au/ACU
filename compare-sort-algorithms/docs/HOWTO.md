@@ -206,3 +206,71 @@ To generate a log-log plot of execution time vs. data size for all algorithms an
    ```
 
    This will save the plot as `docs/sorting_performance_loglog.png`.
+
+## Using the Makefile
+
+The project includes a Makefile to automate building, running, analyzing, and visualizing sorting algorithm benchmarks. Below is an overview of the main Makefile rules and how to use them:
+
+### Main Targets
+
+- **all**: Runs the full workflow: build, run, analyze, visualize, and update docs.
+  ```bash
+  make all
+  ```
+- **build**: Compiles all C, C++, and Java sorting implementations.
+  ```bash
+  make build
+  ```
+- **run**: Runs the main Python script to execute all benchmarks.
+  ```bash
+  make run
+  ```
+- **analyze**: Analyzes benchmark results using a Python script.
+  ```bash
+  make analyze
+  ```
+- **visualize**: Generates plots/visualizations from results.
+  ```bash
+  make visualize
+  ```
+- **docs**: Updates documentation using a Python script.
+  ```bash
+  make docs
+  ```
+- **clean**: Removes build artifacts, result files, analysis, and generated images.
+  ```bash
+  make clean
+  ```
+
+### Additional Targets
+
+- **generate-data**: Generates datasets for testing.
+  ```bash
+  make generate-data
+  ```
+- **all-scripts**: Runs all scripts in sequence: generate data, run, analyze, visualize, docs.
+  ```bash
+  make all-scripts
+  ```
+- **shell**: Runs the main shell script (`run-all.sh`).
+  ```bash
+  make shell
+  ```
+- **comparison**: Runs the performance comparison shell script.
+  ```bash
+  make comparison
+  ```
+- **multi-size-comparison**: Runs the multi-size comparison shell script.
+  ```bash
+  make multi-size-comparison
+  ```
+- **complete-study**: Runs the complete study shell script.
+  ```bash
+  make complete-study
+  ```
+- **venv**: Sets up a Python virtual environment and installs requirements for visualization.
+  ```bash
+  make venv
+  ```
+
+You can use these Makefile rules to automate the workflow for building, running, analyzing, and visualizing sorting algorithm benchmarks. For example, to run the entire workflow from scratch, simply use `make all` or `make all-scripts`.
