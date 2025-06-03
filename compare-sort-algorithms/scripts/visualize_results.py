@@ -25,6 +25,9 @@ EXEC_TIME_LINE = re.compile(r'Execution time: ([\d\.]+) seconds')
 records = []
 for fname in RESULT_FILES:
     path = os.path.join(RESULTS_DIR, fname)
+    if not os.path.exists(path):
+        print(f"Warning: {path} does not exist. Skipping.")
+        continue
     with open(path, 'r') as f:
         lang = algo = None
         data_size = exec_time = None
