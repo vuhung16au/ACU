@@ -68,9 +68,9 @@ The main script (`run-all.sh`) supports several options:
 ### Data Sizes
 
 The following data sizes are currently configured for testing:
-100,000
+5,000, 10,000, 100,000, 250,000, 500,000, 1,000,000, 1,500,000
 
-Last updated: 01 June 2025
+Last updated: 04 June 2025
 
 ## Requirements
 

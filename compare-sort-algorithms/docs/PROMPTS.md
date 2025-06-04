@@ -1,3 +1,111 @@
+# Deliver comparison result with `run_comparison.py`
+
+Based on the analysis ` analysis/consolidated_results_xxxx.txt`, e.g ` analysis/consolidated_results_500000.txt`
+create a comparision file 
+
+`docs`/comparison-{date-time-stamp}.md
+
+to compare the run time of all languages. 
+
+lower run time is faster = better
+higher run time is lower = worst
+
+Compare by language;
+Indicate winner with 🟢  
+indicate slowest with 🔴 
+```
+Step 8: Compiling results...
+==========================================
+Performance Comparison Results
+==========================================
+
+Python Results:
+Merge Sort:
+Execution times: 1.211798, 1.234813 seconds
+Average execution time: 1.223305 seconds
+
+
+C++ Results:
+Merge Sort:
+Execution times: 0.218342, 0.090515 seconds
+Average execution time: 0.154428 seconds
+
+
+Java Results:
+Merge Sort:
+Execution times: 0.199077, 0.164881 seconds
+Average execution time: 0.181979 seconds
+
+
+JavaScript Results:
+Merge Sort:
+Execution times: 0.201896, 0.196876 seconds
+Average execution time: 0.199386 seconds
+
+
+Go Results:
+Merge Sort:
+Execution times: 0.124041, 0.180287 seconds
+Average execution time: 0.152164 seconds
+
+
+C Results:
+Merge Sort:
+Execution times: 0.235194, 0.103373 seconds
+Average execution time: 0.169284 seconds
+
+
+Performance Summary:
+===================
+No valid results found
+
+All results saved to analysis/consolidated_results_500000.txt
+
+```
+
+# add new option --help
+
+and provide a help message, example syntax how to run the program
+
+# add an option: --generate-data
+
+Y/N
+Yes/No
+True/False
+
+default=false (don't re-generate data)
+
+if --generate-data set to Y, Yes or True,
+run generate_data.py
+
+# add an option: --repeat=N
+
+example
+
+--repeat=5 
+
+the program will run the sort algorithm 5 times, take the average run time and deliver a report.
+
+# add options --algorithm , --language 
+
+for example, 
+
+if I want to compare C++, Java when sorting with counting sort, I run 
+
+run_comparison.py --algorithm  counting --language=cpp,java
+
+
+# Change option `data_size` to `size` (--size)
+
+by default, `--size` will be read from config/number-of-data-points.txt
+if --size is specified, use the results 
+
+for example
+
+run_comparison.py --algorithm  counting --language=cpp,java --size=250000,500000
+
+will compare cpp, java with counting sort for 2 datasets with size of 250k and 500k
+
 # Visualisation 
 
 Visualisation of the performance results.

@@ -12,26 +12,72 @@ class PerformanceAnalyzer:
         self.results = {}
         self.load_results()
     
+    def get_result_file(self, lang, algo, size):
+        # Compose the expected filename patterns
+        base = f"results_{lang.lower()}_{algo.lower()}_{size}"
+        avg_file = os.path.join("../results", f"{base}_avg.txt")
+        single_file = os.path.join("../results", f"{base}.txt")
+        if os.path.exists(avg_file):
+            return avg_file
+        elif os.path.exists(single_file):
+            return single_file
+        else:
+            return None
+
     def load_results(self):
-        """Load performance results from all result files."""
-        files = {
-            'Python': '../results/results_python.txt',
-            'C++': '../results/results_cpp.txt',
-            'Java': '../results/results_java.txt',
-            'JavaScript': '../results/results_javascript.txt',
-            'Go': '../results/results_go.txt',
-            'C (Quick Sort)': '../results/results_c_quick.txt',
-            'C (Bubble Sort)': '../results/results_c_bubble.txt',
-            'C (Selection Sort)': '../results/results_c_selection.txt',
-            'C (Insertion Sort)': '../results/results_c_insertion.txt',
-            'C (Merge Sort)': '../results/results_c_merge.txt',
-            'C (Counting Sort)': '../results/results_c_counting.txt',
-            'C (Radix Sort)': '../results/results_c_radix.txt'
+        """Load performance results from all result files, preferring *_avg.txt files."""
+        # Define the mapping of language/algorithm to (lang, algo) and expected size
+        # For demonstration, let's assume size is provided or fixed (e.g., 500000)
+        # In practice, you may want to pass size as an argument or detect it
+        size = 500000  # <-- You may want to make this dynamic
+        lang_algo_map = {
+            'Python (Bubble Sort)':    ('python', 'bubble'),
+            'Python (Selection Sort)': ('python', 'selection'),
+            'Python (Insertion Sort)': ('python', 'insertion'),
+            'Python (Quick Sort)':     ('python', 'quick'),
+            'Python (Merge Sort)':     ('python', 'merge'),
+            'Python (Counting Sort)':  ('python', 'counting'),
+            'Python (Radix Sort)':     ('python', 'radix'),
+            'C++ (Bubble Sort)':       ('cpp', 'bubble'),
+            'C++ (Selection Sort)':    ('cpp', 'selection'),
+            'C++ (Insertion Sort)':    ('cpp', 'insertion'),
+            'C++ (Quick Sort)':        ('cpp', 'quick'),
+            'C++ (Merge Sort)':        ('cpp', 'merge'),
+            'C++ (Counting Sort)':     ('cpp', 'counting'),
+            'C++ (Radix Sort)':        ('cpp', 'radix'),
+            'Java (Bubble Sort)':      ('java', 'bubble'),
+            'Java (Selection Sort)':   ('java', 'selection'),
+            'Java (Insertion Sort)':   ('java', 'insertion'),
+            'Java (Quick Sort)':       ('java', 'quick'),
+            'Java (Merge Sort)':       ('java', 'merge'),
+            'Java (Counting Sort)':    ('java', 'counting'),
+            'Java (Radix Sort)':       ('java', 'radix'),
+            'JavaScript (Bubble Sort)':    ('javascript', 'bubble'),
+            'JavaScript (Selection Sort)': ('javascript', 'selection'),
+            'JavaScript (Insertion Sort)': ('javascript', 'insertion'),
+            'JavaScript (Quick Sort)':     ('javascript', 'quick'),
+            'JavaScript (Merge Sort)':     ('javascript', 'merge'),
+            'JavaScript (Counting Sort)':  ('javascript', 'counting'),
+            'JavaScript (Radix Sort)':     ('javascript', 'radix'),
+            'Go (Bubble Sort)':        ('go', 'bubble'),
+            'Go (Selection Sort)':     ('go', 'selection'),
+            'Go (Insertion Sort)':     ('go', 'insertion'),
+            'Go (Quick Sort)':         ('go', 'quick'),
+            'Go (Merge Sort)':         ('go', 'merge'),
+            'Go (Counting Sort)':      ('go', 'counting'),
+            'Go (Radix Sort)':         ('go', 'radix'),
+            'C (Bubble Sort)':         ('c', 'bubble'),
+            'C (Selection Sort)':      ('c', 'selection'),
+            'C (Insertion Sort)':      ('c', 'insertion'),
+            'C (Quick Sort)':          ('c', 'quick'),
+            'C (Merge Sort)':          ('c', 'merge'),
+            'C (Counting Sort)':       ('c', 'counting'),
+            'C (Radix Sort)':          ('c', 'radix'),
         }
-        
-        for lang, filename in files.items():
-            if os.path.exists(filename):
-                self.results[lang] = self.parse_result_file(filename)
+        for label, (lang, algo) in lang_algo_map.items():
+            result_file = self.get_result_file(lang, algo, size)
+            if result_file:
+                self.results[label] = self.parse_result_file(result_file)
     
     def parse_result_file(self, filename):
         """Parse a result file and extract performance metrics."""

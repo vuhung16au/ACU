@@ -6,8 +6,10 @@ import random
 import sys
 import os
 import shutil
+import argparse
+import glob
 
-def generate_random_list(size=100000, min_val=1, max_val=1000000):
+def generate_random_list(size=100000, min_val=1, max_val=5000000):
     """Generate a list of random integers."""
     return [random.randint(min_val, max_val) for _ in range(size)]
 
@@ -37,56 +39,70 @@ def generate_dataset(size, name):
     print()
 
 if __name__ == "__main__":
-    # Read data point sizes from configuration file
-    def read_data_points_config():
-        script_dir = os.path.dirname(os.path.abspath(__file__))
-        project_root = os.path.dirname(script_dir) if os.path.basename(script_dir) == 'scripts' else os.getcwd()
-        config_file = os.path.join(project_root, 'config', 'number-of-data-points.txt')
-        """Read data point sizes from configuration file."""
+    parser = argparse.ArgumentParser(description="Generate random integer datasets.")
+    parser.add_argument(
+        "--size",
+        type=str,
+        help="Comma-separated list of sizes to generate (e.g., 1000,5000,10000). Overrides config file if specified.",
+    )
+    parser.add_argument(
+        "--clean",
+        action="store_true",
+        help="Delete all datasets/random_list_*.txt files and exit."
+    )
+    args, unknown = parser.parse_known_args()
+
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    project_root = os.path.dirname(script_dir) if os.path.basename(script_dir) == 'scripts' else os.getcwd()
+    datasets_dir = os.path.join(project_root, 'datasets')
+
+    if args.clean:
+        pattern = os.path.join(datasets_dir, "random_list_*.txt")
+        files = glob.glob(pattern)
+        if not files:
+            print("No files to delete.")
+        else:
+            for file in files:
+                try:
+                    os.remove(file)
+                    print(f"Deleted {file}")
+                except Exception as e:
+                    print(f"Failed to delete {file}: {e}")
+        print("Cleanup complete.")
+        sys.exit(0)
+
+    if args.size:
         try:
-            with open(config_file, 'r') as f:
-                return [int(line.strip()) for line in f if line.strip()]
-        except FileNotFoundError:
-            print(f"Error: {config_file} not found. Using default sizes.")
-            return [10, 100000, 1000000]
-    
-    # Allow command line argument to specify which dataset(s) to generate
-    if len(sys.argv) > 1:
-        size = int(sys.argv[1])
-        name = f"{size}_elements"
-        generate_dataset(size, name)
+            data_sizes = [int(s.strip()) for s in args.size.split(",") if s.strip()]
+        except ValueError:
+            print("Error: --size must be a comma-separated list of integers.")
+            sys.exit(1)
+        print("Generating datasets for performance comparison...")
+        print("Configuration loaded from --size argument")
+        print("=" * 60)
     else:
         # Read sizes from configuration file
+        def read_data_points_config():
+            script_dir = os.path.dirname(os.path.abspath(__file__))
+            project_root = os.path.dirname(script_dir) if os.path.basename(script_dir) == 'scripts' else os.getcwd()
+            config_file = os.path.join(project_root, 'config', 'number-of-data-points.txt')
+            """Read data point sizes from configuration file."""
+            try:
+                with open(config_file, 'r') as f:
+                    return [int(line.strip()) for line in f if line.strip()]
+            except FileNotFoundError:
+                print(f"Error: {config_file} not found. Please create this file with the desired dataset sizes (one per line). Aborting.")
+                sys.exit(1)
         data_sizes = read_data_points_config()
         print("Generating datasets for performance comparison...")
         print("Configuration loaded from config/number-of-data-points.txt")
         print("=" * 60)
-        
-        for size in data_sizes:
-            name = f"{size}_elements"
-            generate_dataset(size, name)
-        
-        print("All datasets generated successfully!")
-        print("Files created:")
-        for size in data_sizes:
-            print(f"  - datasets/random_list_{size}.txt")
-            
-        # Also create the default random_list.txt for backward compatibility
-        script_dir = os.path.dirname(os.path.abspath(__file__))
-        project_root = os.path.dirname(script_dir) if os.path.basename(script_dir) == 'scripts' else os.getcwd()
-        datasets_dir = os.path.join(project_root, 'datasets')
-        
-        if 100000 in data_sizes:
-            print("\nCreating backward compatibility file...")
-            src_file = os.path.join(datasets_dir, "random_list_100000.txt")
-            dst_file = os.path.join(datasets_dir, "random_list.txt")
-            shutil.copy(src_file, dst_file)
-            print("Created datasets/random_list.txt (copy of random_list_100000.txt)")
-        else:
-            # Use the first size if 100000 is not in the list
-            first_size = data_sizes[0]
-            print(f"\nCreating backward compatibility file using size {first_size}...")
-            src_file = os.path.join(datasets_dir, f"random_list_{first_size}.txt")
-            dst_file = os.path.join(datasets_dir, "random_list.txt")
-            shutil.copy(src_file, dst_file)
-            print(f"Created datasets/random_list.txt (copy of random_list_{first_size}.txt)")
+    
+    for size in data_sizes:
+        name = f"{size}_elements"
+        generate_dataset(size, name)
+    
+    print("All datasets generated successfully!")
+    print("Files created:")
+    for size in data_sizes:
+        print(f"  - datasets/random_list_{size}.txt")

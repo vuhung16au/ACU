@@ -121,6 +121,62 @@ This will:
 4. Compile and display results
 5. Save consolidated results to `analysis/consolidated_results.txt`
 
+### Using run_comparison.py
+
+The project includes a Python script (`run_comparison.py`) that provides more flexibility and options for running performance comparisons:
+
+```bash
+python3 scripts/run_comparison.py [OPTIONS]
+```
+
+#### Available Options
+
+- `--size SIZE1,SIZE2`: Comma-separated list of data sizes to test (e.g., 100000,250000). If not specified, uses config/number-of-data-points.txt
+- `--algorithm ALGOS`: Comma-separated list of algorithms to test (e.g., quick,merge). Default: all algorithms
+- `--language LANGS`: Comma-separated list of languages to test (e.g., cpp,java). Default: all languages
+- `--generate-data Y/N`: Whether to re-generate data before running (Y/Yes/True to enable, default: False)
+- `--repeat N`: Number of times to repeat each test and average the results (default: 1)
+- `--help`: Show help message and exit
+
+#### Examples
+
+Run all algorithms in all languages with default settings:
+```bash
+python3 scripts/run_comparison.py
+```
+
+Test specific algorithms in specific languages:
+```bash
+python3 scripts/run_comparison.py --algorithm=counting,quick --language=cpp,java
+```
+
+Test with specific data sizes:
+```bash
+python3 scripts/run_comparison.py --size=100000,250000,500000
+```
+
+Force data regeneration before running:
+```bash
+python3 scripts/run_comparison.py --generate-data=Y
+```
+
+Run each test multiple times and average results:
+```bash
+python3 scripts/run_comparison.py --repeat=5
+```
+
+#### Output
+
+The script will:
+1. Generate test data (if requested)
+2. Run the specified algorithms in the specified languages
+3. Display real-time progress and results
+4. Save detailed results to `analysis/consolidated_results_{SIZE}.txt`
+5. Generate a comparison markdown file in the `docs` directory
+
+Available algorithms: bubble, selection, insertion, quick, merge, counting, radix
+Available languages: python, cpp, java, javascript, go, c
+
 ### Running with Multiple Repeats (Averaging Results)
 
 To get more accurate performance measurements, you can run each test multiple times and average the results using the `--repeat` option (default: 5):
@@ -129,7 +185,59 @@ To get more accurate performance measurements, you can run each test multiple ti
 ./scripts/run-all.sh --repeat 7
 ```
 
+Or using the Python version:
+
+```bash
+python3 scripts/run-all.py --repeat 7
+```
+
 This will run each test 7 times for every language and algorithm, then calculate and save the average time taken.
+
+## Using the Python Benchmarking Suite
+
+The project includes a Python implementation of the benchmarking suite that provides all the functionality of the bash scripts but with better cross-platform compatibility and extensibility.
+
+### Basic Usage
+
+Run the full benchmark suite with default settings:
+
+```bash
+python3 scripts/run-all.py
+```
+
+### Command Line Options
+
+The Python script supports the following options:
+
+- `--clean`: Clean all generated datasets and results
+- `--clean-results`: Clean only results files
+- `--clean-datasets`: Clean only dataset files
+- `--generate-only`: Generate datasets but don't run comparisons
+- `--sizes SIZE1,SIZE2,...`: Run tests only for specific data sizes (comma-separated)
+- `--repeat N`: Repeat each test N times and average the results (default: 5)
+- `--help`: Show help message
+
+### Examples
+
+Clean all previous data and start fresh:
+```bash
+python3 scripts/run-all.py --clean
+```
+
+Generate datasets without running comparisons:
+```bash
+python3 scripts/run-all.py --generate-only
+```
+
+Run tests only for specific data sizes:
+```bash
+python3 scripts/run-all.py --sizes 10000,100000
+```
+
+Run each test 10 times and average the results:
+```bash
+python3 scripts/run-all.py --repeat 10
+```
 
 ## Running Multi-Size Comparison
 
