@@ -1,125 +1,282 @@
+# Comprehensive List of Algorithms
 
-# List of Algorithms by Topics
+## 1. Core Data Structures and Basic Algorithms
 
-Here is a comprehensive list of algorithms categorized by topics. Each topic includes various algorithms and techniques that are essential for understanding and implementing algorithms in Python.
-
-# Lists
-
-- Print Alternates in List
+### Arrays and Lists
+#### Basic Operations [Basic Level]
 - Search in a List
-- Largest Element
 - Reverse List
 - Check for Sorted List
+- Largest Element
 - Second Largest in an Array
+
+#### Advanced Operations [Medium Level]
 - First Repeating Element
 - Count Zeros in Sorted Binary Array
 - Floor in a Sorted Array
 - Maximum in Bitonic Array
-- Check for Sorted Array
 - Segregate 0s and 1s
 - Wave Array
 - Merge Two Sorted Arrays
 - Intersection of Two Sorted Arrays
 
-# Strings
+#### Sorting Algorithms
+- Quick Sort (with different pivot selection strategies) [Medium]
+- Merge Sort (with in-place optimization) [Medium]
+- Heap Sort [Medium]
+- Counting Sort [Basic]
+- Radix Sort [Medium]
+- Bucket Sort [Basic]
+- Tim Sort [Advanced]
+- Shell Sort [Medium]
+- Cycle Sort [Medium]
+- Pigeonhole Sort [Basic]
+
+#### Searching Algorithms
+- Binary Search (with variations) [Medium]
+  - First/Last occurrence
+  - Count occurrences
+  - Peak element
+  - Search in rotated array
+- Jump Search [Basic]
+- Interpolation Search [Medium]
+- Exponential Search [Medium]
+- Fibonacci Search [Medium]
+- Ternary Search [Medium]
+
+#### Array Manipulation
+- Kadane's Algorithm (Maximum Subarray Sum) [Medium]
+- Dutch National Flag Algorithm [Medium]
+- Boyer-Moore Voting Algorithm [Advanced]
+- Sliding Window Techniques [Medium]
+- Two Pointer Techniques [Medium]
+- Prefix Sum and Difference Array [Basic]
+- Range Queries [Advanced]
+  - Sparse Table
+  - Square Root Decomposition
+  - Mo's Algorithm
+
+### Strings
+#### Basic Operations [Basic Level]
 - Reverse a String
 - Check for Binary
 - Camel Case Conversion
 - Check for Panagram
 - Check for Palindrome
 
-# Sets
+#### Pattern Matching [Advanced Level]
+- Knuth-Morris-Pratt (KMP)
+- Rabin-Karp
+- Boyer-Moore
+- Z Algorithm
+- Aho-Corasick
+- Suffix Automaton
+- Manacher's Algorithm
+- Rolling Hash
+
+#### String Processing [Medium Level]
+- Longest Common Substring
+- Longest Palindromic Substring
+- Longest Repeated Substring
+- String Compression
+- String Permutations
+- Anagrams
+- String Distance Metrics
+  - Levenshtein Distance
+  - Hamming Distance
+  - Jaro-Winkler Distance
+
+### Sets and Dictionaries
+#### Set Operations [Basic Level]
 - Check for Subset
 - Check for Disjoint
 - Union of Two Arrays
 - Intersection of Two Arrays
 - Pair with Given Sum
 
-# Dictionary
+#### Dictionary Operations [Medium Level]
 - Max Distance Between Two Occurrences
-- Intersection of Two Arrays
 - 2 Sum – Count pairs with given sum
 - Count pairs with given difference
 - Minimum Removals for no common
 
+## 2. Advanced Data Structures
 
-# Recursion
-- Print N to 1 without loop
-- Print N Fibonacci Numbers
-- Factorial of a Number
-- Tower of Hanoi
-- Generate Parentheses
-
-
-# Stack
+### Stack and Queue
+#### Stack Operations [Basic Level]
 - Parenthesis Checker
 - Evaluation of Postfix Expression
 - Next Greater Element
 - Buildings Facing The Sun
 - Stock Span Problem
 
-
-# Queue
+#### Queue Operations [Medium Level]
 - Stack using Two Queues
 - Sliding Window Maximum
 - BFS of Graph
 - Maximum score from at most K jumps
 - Rotten Oranges
 
-
-# Linked List
+### Linked List
+#### Basic Operations [Basic Level]
 - Length of Linked List
 - Search in Linked List
 - Nth Node from End
 - Middle of Linked List
 - Reverse Linked List
 
-# Tree
-- Inorder Traversal
-- Preorder Traversal
-- Postorder Traversal
+#### Advanced Operations [Medium Level]
+- Detect Cycle in Linked List
+- Merge K Sorted Linked Lists
+- LRU Cache Implementation
+- Flatten a Multilevel Linked List
+
+### Tree
+#### Binary Tree [Basic Level]
+- Inorder/Preorder/Postorder Traversal
 - Level Order Traversal
 - Height of Binary Tree
+- Check for BST
+
+#### Binary Tree Advanced [Medium Level]
+- Morris Traversal
+- Threaded Binary Tree
+- Binary Tree to DLL
+- Binary Tree to Circular DLL
+- Binary Tree to BST
+- Binary Tree to Sum Tree
+- Binary Tree to Mirror Tree
+- Binary Tree to Balanced BST
+
+#### Binary Search Tree [Medium Level]
 - Search a node in BST
 - Minimum in BST
 - Floor in BST
 - Inorder Successor in BST
-- Check for BST
+- Self-Balancing BST
+  - AVL Tree [Advanced]
+  - Red-Black Tree [Advanced]
+  - B-Tree [Advanced]
+  - Splay Tree [Advanced]
+- BST Operations
+  - Insert/Delete
+  - Find Kth Largest/Smallest
+  - Count nodes in range
+  - Merge two BSTs
+  - Split BST
 
-# Heap
+#### Advanced Tree Structures [Advanced Level]
+- Segment Tree
+  - Range Sum Query
+  - Range Minimum Query
+  - Lazy Propagation
+- Fenwick Tree (Binary Indexed Tree)
+- Trie
+  - Standard Trie
+  - Compressed Trie
+  - Suffix Trie
+- K-D Tree
+- Quad Tree
+- Oct Tree
+
+### Heap
+#### Basic Operations [Basic Level]
 - Check if Binary Tree is Heap
 - Check if Array is Heap
 - Heap Sort
 - K Largest Elements
 - Sort Nearly Sorted Array
 
-# Graphs
+#### Advanced Operations [Medium Level]
+- Merge K Sorted Arrays
+- Find Median in a Stream
+- K-th Largest Element in a Stream
+
+## 3. Graph Algorithms
+
+### Basic Operations [Basic Level]
 - BFS of Graph
 - DFS of Graph
 - Topological Sort
 - Number of Islands
 - Check for Bipartite
 
-# Dynamic Programming
+### Shortest Path [Advanced Level]
+- Dijkstra's Algorithm
+  - With Fibonacci Heap
+  - With Binary Heap
+  - With Dial's Algorithm
+- Bellman-Ford
+- Floyd-Warshall
+- Johnson's Algorithm
+- A* Search
+- Bidirectional Search
+
+### Minimum Spanning Tree [Medium Level]
+- Kruskal's Algorithm
+- Prim's Algorithm
+- Boruvka's Algorithm
+- Reverse-Delete Algorithm
+
+### Network Flow [Advanced Level]
+- Ford-Fulkerson
+- Edmonds-Karp
+- Dinic's Algorithm
+- Push-Relabel
+- Min-Cut Max-Flow
+- Bipartite Matching
+- Hungarian Algorithm
+
+### Graph Traversal [Medium Level]
+- DFS with applications
+  - Cycle Detection
+  - Topological Sort
+  - Strongly Connected Components
+  - Articulation Points
+  - Bridges
+- BFS with applications
+  - Shortest Path in Unweighted Graph
+  - Level Order Traversal
+  - Bipartite Check
+  - Multi-source BFS
+
+## 4. Algorithmic Paradigms
+
+### Dynamic Programming
+#### Classic Problems [Medium Level]
 - Nth Fibonacci Number
 - Nth Tribonacci Number
 - Climbing Stairs
 - Weighted Climbing Stairs
 - Nth Catalan Number
+- Longest Common Subsequence
+- Longest Increasing Subsequence
+- Matrix Chain Multiplication
+- 0/1 Knapsack
+- Coin Change
+- Rod Cutting
+- Longest Palindromic Subsequence
+- Edit Distance
 
-# Bitwise
-- What is Bitwise Algorithms?
-- Bitwise Operators / Basics of Bit manipulation
-- Bitwise AND Operator (&)
-- Bitwise OR Operator (|)
-- Bitwise XOR Operator (^)
-- Bitwise NOT Operator (!~)
-- Left-Shift (<<)
-- Right-Shift (>>)
-- Application of Bit Operators
-- Important Practice Problems on Bitwise Algorithm
+#### Advanced DP [Advanced Level]
+- Digit DP
+  - Count numbers with digit sum
+  - Count numbers with specific properties
+- Tree DP
+  - Maximum independent set
+  - Maximum matching
+- DP on Graphs
+  - Hamiltonian Path
+  - Traveling Salesman
+- DP with Bitmask
+  - Assignment Problem
+  - TSP with Bitmask
+- DP with Matrix Exponentiation
+  - Fibonacci with Matrix
+  - Linear Recurrence
 
-# Backtracking
+### Backtracking
+#### Basic Problems [Medium Level]
 - N-Queen Problem
 - Solve Sudoku
 - M-coloring problem
@@ -127,203 +284,111 @@ Here is a comprehensive list of algorithms categorized by topics. Each topic inc
 - The Knight's tour problem
 - Permutation of given String
 
-# Dynamic Programming
-- Longest Common Subsequence (LCS): This is used in day to day life to find difference between two files (diff utility)
-- Edit Distance : Checks how close to strings are. Can we be useful in implementing Google's did you mean type feature.
-- Longest Increasing Subsequence : There are plenty of variations of this problem that arise in real world.
-- Bellman–Ford Shortest Path: Finds the shortest path from a given source to all other vertices.
-- Floyd Warshall : Finds shortest path from every pair of vertices.
-- Knapsack Problem: Determines the maximum value of items that can be placed in a knapsack with a given capacity.
-- Matrix Chain Multiplication: Optimizes the order of matrix multiplication to minimize the number of operations.
-- Fibonacci Sequence: Calculates the nth Fibonacci number.
+#### Advanced Problems [Advanced Level]
+- Word Break Problem
+- Hamiltonian Cycle
+- Subset Sum Problem
+- Partition Problem
+- Tug of War
 
-# Mathematical Algorithms
+### Bitwise Algorithms
+#### Basic Operations [Basic Level]
+- Bitwise Operators
+- Bitwise AND/OR/XOR/NOT
+- Left/Right Shift
 
-## GCD and LCM:
+#### Advanced Operations [Medium Level]
+- Single Number Problem
+- Power of Two
+- Count Set Bits
+- Bit Manipulation Tricks
+- Bitwise Algorithms for Competitive Programming
 
-- GCD of Two Numbers
-- LCM of Two Numbers
-- LCM of array
-- GCD of array
-- Basic and Extended Euclidean
-- Stein’s Algorithm for GCD
-- GCD, LCM and Distributive Property
-- Count pairs with gcd (A, B) as B
-- GCD of floating point numbers
-- Series with largest GCD and sum equals to n
-- Largest Subset with GCD 1
-- Summation of GCD of all the pairs up to N
+## 5. Mathematical Algorithms
 
-## Divisibility & Large Numbers:
-- Divisibility by 3
-- Divisibility by 4
-- Divisibility by 6
-- Divisibility by 7
-- Divisibility by 9
-- Divisibility by 11
-- Divisibility by 12
-- Divisibility by 13
-- Divisibility by 15
-- Divisibility by 29
-
-## Series:
-- Juggler Sequence
-- Padovan Sequence
-- Aliquot Sequence
-- Moser-de Bruijn Sequence
-- Stern-Brocot Sequence
-- Newman-Conway Sequence
-- Sylvester’s sequence
-- Recaman’s sequence
-- Sum of 2, 22, 222, ………
-- Sum of 1^2 + 3^2 + 5^2 + . . . + (2*n – 1)^2
-- Sum of 0.6, 0.06, 0.006, 0.0006, …to n terms
-- n-th term of 2, 12, 36, 80, 150….
-
-## Number Digits:
-- Minimum digits to remove to make a number Perfect Square
-- Print first k digits of 1/n where n is a positive integer
-- Check if a given number can be represented in given a no. of digits in any base
-- Find element using minimum segments in Seven Segment Display
-- Find next greater number with same set of digits
-- Check if a number is jumbled or not
-- Numbers having difference with digit sum more than s
-- Total numbers with no repeated digits in a range
-- K-th digit in ‘a’ raised to power ‘b’
-
-## Algebra:
-- Program to add two polynomials
-- Multiply two polynomials
-- Find number of solutions of a linear equation of n variables
-- Calculate the Discriminant Value
-- Program for dot product and cross product of two vectors
-- Iterated Logarithm log*(n)
-- Program to find correlation coefficient
-- Program for Muller Method
-- Number of non-negative integral solutions of a + b + c = n
-- Generate Pythagorean Triplets
-
-## Number System:
-- Exponential notation of a decimal number
-- Check if a number is power of k using base changing method
-- Convert a binary number to hexadecimal number
-- Program for decimal to hexadecimal conversion
-- Converting a Real Number (between 0 and 1) to Binary String
-- Convert from any base to decimal and vice versa
-- Decimal to binary conversion without using arithmetic operators
-
-## Prime Numbers & Primality Tests:
-- Prime Numbers
-- Left-Truncatable Prime
-- Mersenne Prime
-- Super Prime
-- Hardy-Ramanujan Theorem
-- Rosser’s Theorem
-- Fermat’s little theorem
-- Introduction to Primality Test and School Method
-- Vantieghems Theorem for Primality Test
-- AKS Primality Test
-- Lucas Primality Test
-
-## Prime Factorization & Divisors:
-- Prime factors
-- Smith Numbers
-- Sphenic Number
-- Hoax Number
-- k-th prime factor of a given number
-- Pollard’s Rho Algorithm for Prime Factorization
-- Finding power of prime number p in n!
-- Find all divisors of a natural number
-- Find numbers with n-divisors in a given range
-
-## Modular Arithmetic:
-- Modular Exponentiation (Power in Modular Arithmetic)
-- Modular multiplicative inverse
-- Modular Division
-- Euler’s criterion (Check if square root under modulo p exists)
-- Find sum of modulo K of first N natural number
-- How to compute mod of a big number?
-- Exponential Squaring (Fast Modulo Multiplication)
-- Trick for modular division ( (x1 * x2 …. xn) / b ) mod (m)
-
-## Factorial:
-- Program for factorial of a number
-- Legendre’s formula (Given p and n, find the largest x such that p^x divides n!)
-- Count trailing zeroes in factorial of a number
-- Factorial of a large number
-- Primorial of a number
-- Find maximum power of a number that divides a factorial
-- Largest power of k in n! (factorial) where k may not be prime
-- Check if a number is a Krishnamurthy Number or not
-- Last non-zero digit of a factorial
-- Count digits in a factorial using Logarithm
-## Fibonacci Numbers:
-- Fibonacci Numbers
-- Interesting facts about Fibonacci numbers
-- Zeckendorf’s Theorem (Non-Neighbouring Fibonacci Representation)
-- Finding nth Fibonacci Number using Golden Ratio
-- Matrix Exponentiation
-- Fibonacci Coding
-- Cassini’s Identity
-- Tail Recursion for Fibonacci
-
-## Catalan Numbers:
-- Catalan numbers
-- Applications of Catalan Numbers
-- Dyck path
-- Succinct Encoding of Binary Tree
-- Find the number of valid parentheses expressions of given length
-
-## nCr Computations:
-- Binomial Coefficient
-- Introduction and Dynamic Programming solution to compute nCr%p
-- Program to calculate value of nCr
-- Rencontres Number (Counting partial derangements)
-- Sum of squares of binomial coefficients
-- Space and time efficient Binomial Coefficient
-- Horner’s Method for Polynomial Evaluation
-
-## Set Theory:
-- Power Set
-- Minimize the absolute difference of sum of two subsets
-- Sum of all subsets of a set formed by first n natural numbers
-- Sum of average of all subsets
-- Bell Numbers (Number of ways to Partition a Set)
-## Sieve Algorithms:
+### Number Theory [Medium Level]
+#### Prime Number Algorithms
 - Sieve of Eratosthenes
 - Segmented Sieve
-- Sieve of Atkin
-- Sieve of Sundaram to print all primes smaller than n
-- Sieve of Eratosthenes in O(n) time complexity
-- Prime Factorization using Sieve O(log n) for multiple queries
+- Miller-Rabin Primality Test
+- AKS Primality Test
 
-## Euler Totient Function:
-- Euler’s Totient Function
-- Optimized Euler Totient Function for Multiple Evaluations
-- Euler’s Totient function for all numbers smaller than or equal to n
-- Primitive root of a prime number n modulo n
-- Euler’s Four Square Identity
+#### GCD and LCM
+- Euclidean Algorithm
+- Extended Euclidean Algorithm
+- Stein's Algorithm
 
-## Chinese Remainder Theorem:
-- Introduction to Chinese Remainder Theorem
-- Implementation of Chinese Remainder theorem (Inverse Modulo based implementation)
-- Cyclic Redundancy Check and Modulo-2 Division
-- Using Chinese Remainder Theorem to Combine Modular equations
+#### Modular Arithmetic
+- Modular Exponentiation
+- Modular Multiplicative Inverse
+- Chinese Remainder Theorem
 
-# Some Practice Problems:
-- Interquartile Range (IQR)
-- Simulated Annealing
-- Pseudo Random Number Generator (PRNG)
-- Square root of a number using log
-- Find ways an Integer can be expressed as sum of n-th power of unique natural numbers
-- N-th root of a number
-- Fast Fourier Transformation for polynomial multiplication
-- Find Harmonic mean using Arithmetic mean and Geometric mean
-- Double Base Palindrome
-- Program for Derivative of a Polynomial
-- Sgn value of a polynomial
-- Check if a number is a power of another number
-- Program to evaluate simple expressions
-- Make a fair coin from a biased coin
-- Implement *, – and / operations using only + arithmetic operator
+### Combinatorics [Medium Level]
+- Binomial Coefficient
+- Catalan Numbers
+- Stirling Numbers
+- Bell Numbers
+- Eulerian Numbers
+- Derangements
+- Inclusion-Exclusion Principle
+
+### Geometry [Advanced Level]
+- Convex Hull
+  - Graham Scan
+  - Jarvis March
+  - Quick Hull
+- Line Intersection
+- Point in Polygon
+- Closest Pair of Points
+- Voronoi Diagrams
+- Delaunay Triangulation
+
+## 6. Advanced Algorithms
+
+### Machine Learning [Advanced Level]
+- K-Means Clustering
+- Linear Regression
+- Decision Trees
+- Random Forest
+- Support Vector Machines
+- Neural Networks
+- Gradient Descent
+- Principal Component Analysis
+
+### Cryptography [Advanced Level]
+- RSA Algorithm
+- AES Encryption
+- SHA Hashing
+- Diffie-Hellman
+- Elliptic Curve Cryptography
+- Digital Signatures
+- Hash Functions
+- Block Ciphers
+
+### Compression [Advanced Level]
+- Huffman Coding
+- Run-Length Encoding
+- LZ77/LZ78
+- Burrows-Wheeler Transform
+- Arithmetic Coding
+- Delta Encoding
+- Dictionary Compression
+- Image Compression Algorithms
+
+### Game Theory [Advanced Level]
+- Minimax Algorithm
+- Alpha-Beta Pruning
+- Monte Carlo Tree Search
+- Nim Game
+- Grundy Numbers
+
+### Computational Geometry [Advanced Level]
+- Convex Hull
+- Line Intersection
+- Point in Polygon
+- Closest Pair of Points
+- Voronoi Diagrams
+- Delaunay Triangulation
+- Line Segment Intersection
+- Polygon Triangulation
 
