@@ -4,42 +4,87 @@
 #include <chrono>
 #include <iomanip>
 #include <algorithm>
+#include <random>
 
 class QuickSort {
-public:
-    static void sort(std::vector<int>& arr, int low = 0, int high = -1) {
-        if (high == -1) {
-            high = arr.size() - 1;
-        }
-        
-        if (low < high) {
-            int pivotIndex = partition(arr, low, high);
-            
-            // Recursively sort elements before and after partition
-            sort(arr, low, pivotIndex - 1);
-            sort(arr, pivotIndex + 1, high);
+private:
+    static const int INSERTION_SORT_THRESHOLD = 10;
+    
+    // Insertion sort for small subarrays
+    static void insertionSort(std::vector<int>& arr, int low, int high) {
+        for (int i = low + 1; i <= high; i++) {
+            int key = arr[i];
+            int j = i - 1;
+            while (j >= low && arr[j] > key) {
+                arr[j + 1] = arr[j];
+                j--;
+            }
+            arr[j + 1] = key;
         }
     }
-
-private:
-    static int partition(std::vector<int>& arr, int low, int high) {
-        // Choose the rightmost element as pivot
-        int pivot = arr[high];
+    
+    // Choose a good pivot using median-of-three
+    static int choosePivot(std::vector<int>& arr, int low, int high) {
+        int mid = low + (high - low) / 2;
         
-        // Index of smaller element
-        int i = low - 1;
+        // Sort low, mid, high
+        if (arr[low] > arr[mid])
+            std::swap(arr[low], arr[mid]);
+        if (arr[low] > arr[high])
+            std::swap(arr[low], arr[high]);
+        if (arr[mid] > arr[high])
+            std::swap(arr[mid], arr[high]);
         
-        for (int j = low; j < high; j++) {
-            // If current element is smaller than or equal to pivot
-            if (arr[j] <= pivot) {
+        // Place pivot at high-1
+        std::swap(arr[mid], arr[high - 1]);
+        return arr[high - 1];
+    }
+    
+    // Three-way partition to handle duplicates efficiently
+    static std::pair<int, int> partition(std::vector<int>& arr, int low, int high) {
+        int pivot = choosePivot(arr, low, high);
+        
+        // Three-way partition
+        int lt = low;      // Elements < pivot
+        int gt = high - 1; // Elements > pivot
+        int i = low;       // Current element
+        
+        while (i <= gt) {
+            if (arr[i] < pivot) {
+                std::swap(arr[lt++], arr[i++]);
+            } else if (arr[i] > pivot) {
+                std::swap(arr[i], arr[gt--]);
+            } else {
                 i++;
-                std::swap(arr[i], arr[j]);
             }
         }
         
-        // Place pivot in correct position
-        std::swap(arr[i + 1], arr[high]);
-        return i + 1;
+        return {lt, gt};
+    }
+    
+    // Optimized quick sort implementation
+    static void quickSort(std::vector<int>& arr, int low, int high) {
+        while (high - low > INSERTION_SORT_THRESHOLD) {
+            auto [lt, gt] = partition(arr, low, high);
+            
+            // Recursively sort smaller partition first
+            if (lt - low < high - gt) {
+                quickSort(arr, low, lt - 1);
+                low = gt + 1;
+            } else {
+                quickSort(arr, gt + 1, high);
+                high = lt - 1;
+            }
+        }
+        
+        // Use insertion sort for small subarrays
+        insertionSort(arr, low, high);
+    }
+
+public:
+    static void sort(std::vector<int>& arr) {
+        if (arr.size() <= 1) return;
+        quickSort(arr, 0, arr.size() - 1);
     }
 };
 
@@ -130,3 +175,4 @@ int main(int argc, char* argv[]) {
     
     return 0;
 }
+

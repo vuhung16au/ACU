@@ -1,3 +1,55 @@
+# Update `scripts/*.py` to support Rust
+
+We have added `Rust` comparison and `run_comparison.py` now supports Rust.
+
+pls check and update other `srcipts/.*py` to support Rust
+
+# Add Rust to the comparison (Reviewed/Updated by Cursor/Claude)
+
+I need to add Rust support to my sorting algorithm comparison project. Here's what I need:
+
+1. First, help me modify the Makefile to add Rust support:
+   - Add Rust executable targets
+   - Add compilation rules using rustc
+   - Update clean target to remove Rust artifacts
+   - Add Rust to the build dependencies
+
+2. Then, help me create Rust implementations of these sorting algorithms:
+   - bubble_sort.rs
+   - insertion_sort.rs
+   - selection_sort.rs
+   - merge_sort.rs
+   - quick_sort.rs
+   - counting_sort.rs
+   - radix_sort.rs
+
+   Each implementation should:
+   - Follow Rust best practices
+   - Include proper error handling
+   - Use Rust's type system effectively
+   - Include performance optimizations
+   - Match the interface of other language implementations
+
+3. Finally, help me modify these Python scripts:
+   - run_comparison.py: Add Rust execution and timing
+   - analyze_results.py: Include Rust in analysis
+   - visualize_results.py: Add Rust to visualizations
+   - generate-json-results.py: Include Rust data
+
+The goal is to have Rust implementations that can be compared fairly with the existing implementations in C, C++, Java, Go, JavaScript, and Python.
+
+Please help me implement these changes one at a time, starting with the Makefile modifications.
+
+# I want to add Rust to the comparison (human)
+
+help me with a plan 
+
+- Change Makefile 
+- add rust (.rs) codes under `src` 
+- change other `scripts/*.py`
+
+create a prompt for me (will talk with Cursor) 
+
 # Include the following sections to the output `analysis/performance_analysis.md` from the source `analyze_results.py`
 
 - Performance metrics (execution time, elements/second)

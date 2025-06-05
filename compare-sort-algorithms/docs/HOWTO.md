@@ -19,6 +19,7 @@ Make sure you have the following installed:
 - Java Development Kit (JDK)
 - Node.js
 - Go compiler
+- Rust compiler (rustc)
 
 ## Generating Test Data
 
@@ -91,6 +92,22 @@ node src/bubble_sort.js       # Bubble Sort example
 go run src/quick_sort.go      # Quick Sort example
 go run src/merge_sort.go      # Merge Sort example
 # Other algorithms: bubble_sort.go, selection_sort.go, etc.
+```
+
+### Rust
+
+```bash
+# Compile and run a specific algorithm
+rustc -O src/quick_sort.rs -o quick_sort_rust
+./quick_sort_rust            # Quick Sort example
+
+# Or run directly with rustc
+rustc -O src/quick_sort.rs && ./quick_sort_rust
+
+# Other algorithms:
+# rustc -O src/bubble_sort.rs -o bubble_sort_rust
+# rustc -O src/selection_sort.rs -o selection_sort_rust
+# etc.
 ```
 
 ### C

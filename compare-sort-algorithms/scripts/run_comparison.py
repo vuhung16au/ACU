@@ -18,7 +18,7 @@ ALGORITHM_NAMES = [
     "Bubble Sort", "Selection Sort", "Insertion Sort", "Quick Sort",
     "Merge Sort", "Counting Sort", "Radix Sort"
 ]
-LANGUAGES = ["Python", "C++", "Java", "JavaScript", "Go", "C"]
+LANGUAGES = ["Python", "C++", "Java", "JavaScript", "Go", "C", "Rust"]
 
 # --- Argument Parsing ---
 def parse_args():
@@ -49,7 +49,8 @@ def clean_files(base_dir, data_size):
         f"{base_dir}/results/*.md",
         f"{base_dir}/src/*_sort_cpp",
         f"{base_dir}/src/*.class",
-        f"{base_dir}/src/*_sort_c"
+        f"{base_dir}/src/*_sort_c",
+        f"{base_dir}/src/*_sort_rust"  # Add Rust executables to clean
     ]:
         for file in list_files(pattern):
             try:
@@ -85,7 +86,7 @@ Examples:
   python scripts/run_comparison.py --help
 
 Available algorithms: bubble, selection, insertion, quick, merge, counting, radix
-Available languages: python, cpp, java, javascript, go, c
+Available languages: python, cpp, java, javascript, go, c, rust
 """)
         return
     BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -117,7 +118,8 @@ Available languages: python, cpp, java, javascript, go, c
         selected_algo_names = ALGORITHM_NAMES
     # Parse language filter
     lang_map = {
-        'python': 'Python', 'cpp': 'C++', 'java': 'Java', 'javascript': 'JavaScript', 'go': 'Go', 'c': 'C'
+        'python': 'Python', 'cpp': 'C++', 'java': 'Java', 'javascript': 'JavaScript', 
+        'go': 'Go', 'c': 'C', 'rust': 'Rust'
     }
     if args.language:
         langs = [l.strip().lower() for l in args.language.split(',') if l.strip()]
@@ -295,6 +297,28 @@ Available languages: python, cpp, java, javascript, go, c
                         if any(errs):
                             print(f"Warning: C {algo_name} implementation failed\n{errs}")
                 print("")
+            # Rust
+            if 'Rust' in selected_langs:
+                print(f"Compiling and running Rust {algo_name}...")
+                rust_src = f"{BASE_DIR}/src/{algo}_sort.rs"
+                rust_bin = f"{BASE_DIR}/src/{algo}_sort_rust"
+                if os.path.exists(rust_src):
+                    ret, out, err = run_cmd(["rustc", "-O", "-o", rust_bin, rust_src])
+                    if ret != 0:
+                        print(f"Warning: Rust {algo_name} compilation failed\n{err}")
+                    else:
+                        times, outs, errs = repeat_and_time([
+                            rust_bin,
+                            dataset_file,
+                            f"{BASE_DIR}/results/results_rust_{algo}_{DATA_SIZE}.txt"
+                        ])
+                        avg_time = sum(times) / len(times)
+                        with open(f"{BASE_DIR}/results/results_rust_{algo}_{DATA_SIZE}.txt", "w") as f:
+                            f.write(f"Execution times: {', '.join(f'{t:.6f}' for t in times)} seconds\n")
+                            f.write(f"Average execution time: {avg_time:.6f} seconds\n")
+                        if any(errs):
+                            print(f"Warning: Rust {algo_name} implementation failed\n{errs}")
+                print("")
 
         # Run all algorithms
         for algo, algo_name in zip(selected_algos, selected_algo_names):
@@ -339,6 +363,7 @@ Available languages: python, cpp, java, javascript, go, c
         append_results("JavaScript", "results_javascript_")
         append_results("Go", "results_go_")
         append_results("C", "results_c_")
+        append_results("Rust", "results_rust_")
 
         # Step 4: Performance summary (reuse the Python code from the shell script)
         print("Performance Summary:")
@@ -372,6 +397,8 @@ Available languages: python, cpp, java, javascript, go, c
                     prefix = 'results_go_'
                 elif lang == 'Python':
                     prefix = 'results_python_'
+                elif lang == 'Rust':
+                    prefix = 'results_rust_'
                 filename = f"{BASE_DIR}/results/{prefix}{algo}_{DATA_SIZE}.txt"
                 time = extract_time(filename)
                 if time is not None:
@@ -423,6 +450,8 @@ Available languages: python, cpp, java, javascript, go, c
                         prefix = 'results_go_'
                     elif language == 'Python':
                         prefix = 'results_python_'
+                    elif language == 'Rust':
+                        prefix = 'results_rust_'
                     filename = f"{BASE_DIR}/results/{prefix}{algo}_{DATA_SIZE}.txt"
                     time = extract_time(filename)
                     if time is not None:
@@ -482,6 +511,8 @@ Available languages: python, cpp, java, javascript, go, c
                     prefix = 'results_go_'
                 elif lang == 'Python':
                     prefix = 'results_python_'
+                elif lang == 'Rust':
+                    prefix = 'results_rust_'
                 filename = f"{BASE_DIR}/results/{prefix}{algo}_{DATA_SIZE}.txt"
                 if os.path.exists(filename):
                     with open(filename) as f:

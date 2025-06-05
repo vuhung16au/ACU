@@ -14,6 +14,13 @@ DATASETS_DIR := datasets
 C_BUBBLE := $(SRC_DIR)/bubble_sort_c
 CPP_BUBBLE := $(SRC_DIR)/bubble_sort_cpp
 JAVA_BUBBLE := $(SRC_DIR)/BubbleSort.class
+RUST_BUBBLE := $(SRC_DIR)/bubble_sort_rust
+RUST_INSERTION := $(SRC_DIR)/insertion_sort_rust
+RUST_SELECTION := $(SRC_DIR)/selection_sort_rust
+RUST_MERGE := $(SRC_DIR)/merge_sort_rust
+RUST_QUICK := $(SRC_DIR)/quick_sort_rust
+RUST_COUNTING := $(SRC_DIR)/counting_sort_rust
+RUST_RADIX := $(SRC_DIR)/radix_sort_rust
 
 # Main targets
 all: scripts
@@ -32,7 +39,7 @@ data: venv
 	python3 $(SCRIPTS_DIR)/generate_data.py
 
 # Build sorting algorithm implementations
-build: $(C_BUBBLE) $(CPP_BUBBLE) $(JAVA_BUBBLE)
+build: $(C_BUBBLE) $(CPP_BUBBLE) $(JAVA_BUBBLE) $(RUST_BUBBLE) $(RUST_INSERTION) $(RUST_SELECTION) $(RUST_MERGE) $(RUST_QUICK) $(RUST_COUNTING) $(RUST_RADIX)
 
 $(C_BUBBLE): $(SRC_DIR)/bubble_sort.c
 	gcc -O2 -o $@ $<
@@ -42,6 +49,28 @@ $(CPP_BUBBLE): $(SRC_DIR)/bubble_sort.cpp
 
 $(JAVA_BUBBLE): $(SRC_DIR)/BubbleSort.java
 	javac $<
+
+# Rust compilation rules
+$(RUST_BUBBLE): $(SRC_DIR)/bubble_sort.rs
+	rustc -O -o $@ $<
+
+$(RUST_INSERTION): $(SRC_DIR)/insertion_sort.rs
+	rustc -O -o $@ $<
+
+$(RUST_SELECTION): $(SRC_DIR)/selection_sort.rs
+	rustc -O -o $@ $<
+
+$(RUST_MERGE): $(SRC_DIR)/merge_sort.rs
+	rustc -O -o $@ $<
+
+$(RUST_QUICK): $(SRC_DIR)/quick_sort.rs
+	rustc -O -o $@ $<
+
+$(RUST_COUNTING): $(SRC_DIR)/counting_sort.rs
+	rustc -O -o $@ $<
+
+$(RUST_RADIX): $(SRC_DIR)/radix_sort.rs
+	rustc -O -o $@ $<
 
 # Run performance comparisons
 run: data build
@@ -71,10 +100,10 @@ scripts: venv data build run analyze visualize docs
 # Clean build artifacts, results, analysis, and documentation images
 clean:
 	rm -f $(C_BUBBLE) $(CPP_BUBBLE) $(SRC_DIR)/*.class
+	rm -f $(RUST_BUBBLE) $(RUST_INSERTION) $(RUST_SELECTION) $(RUST_MERGE) $(RUST_QUICK) $(RUST_COUNTING) $(RUST_RADIX)
 	rm -f $(RESULTS_DIR)/*.txt $(RESULTS_DIR)/*.md $(ANALYSIS_DIR)/*.txt $(DOCS_DIR)/*.png
 	rm -f $(DATASETS_DIR)/*.txt
 	rm -f images/*.png
-
 
 # Additional targets for specific comparisons
 .PHONY: comparison multi-size-comparison complete-study

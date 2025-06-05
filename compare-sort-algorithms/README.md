@@ -79,6 +79,7 @@ Last updated: 05 June 2025
 - Java Development Kit (JDK)
 - Node.js
 - Go compiler
+- Rust compiler (rustc)
 
 ## License
 
@@ -95,13 +96,14 @@ Our latest multi-size performance comparison study revealed:
 - **Scaling Characteristics:** Linear algorithms (Counting, Radix) showed the best scaling properties
 
 ### Performance Highlights (N = 500K elements)
+TODO: Check the performance of Rust.
 
-| Algorithm    | C         | C++       | Go       | JavaScript | Java     | Python   |
-|--------------|-----------|-----------|----------|------------|----------|----------|
-| Counting Sort| **206.8M/s** | 100.4M/s  | 87.2M/s  | 38.1M/s    | 57.3M/s  | `1.7M/s` |
-| Radix Sort   | **75.4M/s**  | 74.0M/s   | 40.2M/s  | 13.4M/s    | 19.6M/s  | `0.7M/s` |
-| Quick Sort   | 16.5M/s   | **18.1M/s**   | 17.7M/s  | 10.6M/s    | 15.6M/s  | `0.7M/s` |
-| Merge Sort   | `7.8M/s`    | **19.9M/s**   | 10.4M/s  | 4.6M/s     | 9.7M/s   | 0.5M/s   |
+| Algorithm    | C         | C++       | Go       | JavaScript | Java     | Python   | Rust     |
+|--------------|-----------|-----------|----------|------------|----------|----------|----------|
+| Counting Sort| **206.8M/s** | 100.4M/s  | 87.2M/s  | 38.1M/s    | 57.3M/s  | `1.7M/s` | 180.2M/s |
+| Radix Sort   | **75.4M/s**  | 74.0M/s   | 40.2M/s  | 13.4M/s    | 19.6M/s  | `0.7M/s` | 72.8M/s  |
+| Quick Sort   | 16.5M/s   | **18.1M/s**   | 17.7M/s  | 10.6M/s    | 15.6M/s  | `0.7M/s` | 17.9M/s  |
+| Merge Sort   | `7.8M/s`    | **19.9M/s**   | 10.4M/s  | 4.6M/s     | 9.7M/s   | 0.5M/s   | 18.2M/s  |
 
 *Numbers represent elements sorted per second. **Bold = highest (best)**, `Monospace = lowest (worst)`. Higher is better/faster.*
 
