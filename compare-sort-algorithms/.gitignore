@@ -2,6 +2,8 @@
 # Uncomment if needed:
 # datasets/random_list*.txt
 
+number-of-data-points.txt
+
 images/
 
 # Results and analysis (if they can be regenerated)
