@@ -86,6 +86,7 @@ generate-json-results:
 	python3 $(SCRIPTS_DIR)/generate-json-results.py
 
 # Visualize results
+visualise: visualize
 visualize: analyze
 	mkdir -p $(DOCS_DIR)
 	python3 $(SCRIPTS_DIR)/visualize_results.py
@@ -118,3 +119,5 @@ multi-size-comparison: data build
 # Run complete study
 complete-study: data build
 	bash $(SCRIPTS_DIR)/run_complete_study.sh
+
+
