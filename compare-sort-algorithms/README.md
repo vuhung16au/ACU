@@ -142,3 +142,21 @@ make visualize
 ```
 
 This will generate a log-log plot of execution time vs. data size for each algorithm and language, saved as `images/*.png`.
+
+# System Information
+
+| Language | Version | Full Info |
+|----------|---------|-----------|
+| .NET | 9.0.201 | .NET SDK version 9.0.201 |
+| C (GCC) | 17.0.0 | Apple clang version 17.0.0 (clang-1700.0.13.5), Target: arm64-apple-darwin24.5.0 |
+| C++ (G++) | 17.0.0 | Apple clang version 17.0.0 (clang-1700.0.13.5), Target: arm64-apple-darwin24.5.0 |
+| Rust | 1.87.0 | rustc 1.87.0 (17067e9ac 2025-05-09) (Homebrew) |
+| Java | 24.0.1 | openjdk version "24.0.1" 2025-04-15, OpenJDK Runtime Environment Temurin-24.0.1+9 |
+| Python | 3.13.4 | Python 3.13.4 |
+| Node.js | 22.15.0 | v22.15.0 |
+| Go | 1.24.3 | go version go1.24.3 darwin/arm64 |
+
+```bash
+uname -a
+Darwin 24.5.0 Darwin Kernel Version 24.5.0: Tue Apr 22 19:54:49 PDT 2025; root:xnu-11417.121.6~2/RELEASE_ARM64_T6000 arm64
+```
