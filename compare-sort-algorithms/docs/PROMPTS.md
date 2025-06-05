@@ -1,3 +1,91 @@
+# Generate results in json formats 
+
+
+Add a new Makefile target `generate-json-results` that runs a script `scripts/generate-json-results.py`.
+
+The script should:
+- Read all analysis result files (e.g., `analysis/consolidated_results_*.txt`)
+- For each dataset size, extract:  
+  - `dataset size`
+  - `language`
+  - `algorithm`
+  - `time` (seconds)
+- Output a single JSON file: `results/results-<date-time-stamp>.json`
+- Sort the results by dataset size, language, and algorithm
+-  If a result is missing, skip or mark as `"N/A"`
+- Add any required dependencies to `requirements.txt`
+
+**Example Makefile target:**
+```makefile
+generate-json-results: analyze
+	python3 scripts/generate-json-results.py
+```
+
+**Example output:**
+```json
+[
+  {"dataset_size": 10000, "language": "python", "algorithm": "quick", "time": 0.12},
+  {"dataset_size": 10000, "language": "cpp", "algorithm": "quick", "time": 0.01}
+]
+```
+
+# Per-languages and per-algorithms visualization
+
+We have `sorting_performance_loglog.png` generated. this file contains the comparisons for all languages and sort performance.
+
+I want to breakdown the comparions
+
+- Compare the performances of the same sorting algorithms when running with different languages 
+- Compare the performances of the same language when running with sorting algorithms
+
+Help me refactor the code and generate different multiple .png files, one for each language and one for each algorithm.
+
+
+
+# Update  "Quick Sort Performance Comparison" section in "comparison-2025-06-05-122733.md" (implmented by `run_comparison.py`)
+
+In "comparison-2025-06-05-122733.md"
+
+the table "Quick Sort Performance Comparison" should have the following columns 
+
+- Rank
+- Language
+- Time (seconds)
+- Relative speed 
+- Elements/Second
+
+where
+- Rank: sort fastest to slowest (ranks: 1, 2, 3, 4, 5, 6,)
+- Language: C++, C, Java...
+- Average Time (seconds): Time to run the sorts
+- Relative speed: Rank #1 is "1.00x", Rank #2 is "1.20x" indicates that the language ranked #2 is 1.20 times slower than the language in rank #1 
+- Elements/Second: How many items sorted in a second
+
+# Update `run_comparison.py`
+
+so that it read all dataset sizes defined in `number-of-data-points.txt`
+and deliver the results in docs/`comparison-2025-06-05-121646.md`
+
+Currently, it only report for dataset size of 1000000 (only one)
+
+
+`number-of-data-points.txt` looks like: 
+```
+10000
+100000
+250000
+500000
+1000000
+``` 
+
+our report should look like:
+
+
+
+
+
+
+
 # Deliver comparison result with `run_comparison.py`
 
 Based on the analysis ` analysis/consolidated_results_xxxx.txt`, e.g ` analysis/consolidated_results_500000.txt`
