@@ -68,16 +68,9 @@ The main script (`run-all.sh`) supports several options:
 ### Data Sizes
 
 The following data sizes are currently configured for testing:
-5,000, 10,000, 100,000, 250,000, 500,000, 1,000,000, 1,500,000
+1,000, 10,000, 50,000, 100,000, 250,000, 500,000
 
-**Note:** For dataset sizes greater than 10,000 elements, the following sorting algorithms are skipped and not benchmarked as they are too slow for large data:
-- Bubble Sort
-- Insertion Sort
-- Selection Sort
-
-The script will write "N/A (skipped for large dataset)" in the results for these algorithms and sizes.
-
-Last updated: 04 June 2025
+Last updated: 05 June 2025
 
 ## Requirements
 

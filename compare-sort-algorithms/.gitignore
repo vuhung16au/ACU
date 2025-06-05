@@ -2,6 +2,8 @@
 # Uncomment if needed:
 # datasets/random_list*.txt
 
+images/
+
 # Results and analysis (if they can be regenerated)
 # Uncomment if needed:
 results/*

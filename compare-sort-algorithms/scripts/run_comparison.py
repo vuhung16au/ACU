@@ -10,6 +10,7 @@ import shutil
 import subprocess
 import argparse
 from datetime import datetime
+import re
 
 # --- Configuration ---
 ALGORITHMS = ["bubble", "selection", "insertion", "quick", "merge", "counting", "radix"]
@@ -44,7 +45,7 @@ def ensure_dir(path):
 def clean_files(base_dir, data_size):
     # Remove previous results and compiled files
     for pattern in [
-        f"{base_dir}/results/results_*.txt",
+        # f"{base_dir}/results/results_*.txt",  # <-- Commented out to preserve .txt result files
         f"{base_dir}/results/*.md",
         f"{base_dir}/src/*_sort_cpp",
         f"{base_dir}/src/*.class",
@@ -206,9 +207,8 @@ Available languages: python, cpp, java, javascript, go, c
                     else:
                         times, outs, errs = repeat_and_time([
                             cpp_bin,
-                            "-c", f"{BASE_DIR}/config/number-of-data-points.txt",
-                            "-d", dataset_file,
-                            "-r", f"{BASE_DIR}/results/results_cpp_{algo}_{DATA_SIZE}.txt"
+                            dataset_file,
+                            f"{BASE_DIR}/results/results_cpp_{algo}_{DATA_SIZE}.txt"
                         ])
                         avg_time = sum(times) / len(times)
                         with open(f"{BASE_DIR}/results/results_cpp_{algo}_{DATA_SIZE}.txt", "w") as f:
@@ -229,9 +229,8 @@ Available languages: python, cpp, java, javascript, go, c
                     else:
                         times, outs, errs = repeat_and_time([
                             "java", "-cp", "src", java_class,
-                            "-c", f"{BASE_DIR}/config/number-of-data-points.txt",
-                            "-d", f"datasets/random_list_{DATA_SIZE}.txt",
-                            "-r", f"results/results_java_{algo}_{DATA_SIZE}.txt"
+                            dataset_file,
+                            f"results/results_java_{algo}_{DATA_SIZE}.txt"
                         ], cwd=BASE_DIR)
                         avg_time = sum(times) / len(times)
                         with open(f"{BASE_DIR}/results/results_java_{algo}_{DATA_SIZE}.txt", "w") as f:
@@ -247,9 +246,8 @@ Available languages: python, cpp, java, javascript, go, c
                 if os.path.exists(js_src):
                     times, outs, errs = repeat_and_time([
                         "node", js_src,
-                        "-c", f"{BASE_DIR}/config/number-of-data-points.txt",
-                        "-d", dataset_file,
-                        "-r", f"{BASE_DIR}/results/results_javascript_{algo}_{DATA_SIZE}.txt"
+                        dataset_file,
+                        f"{BASE_DIR}/results/results_javascript_{algo}_{DATA_SIZE}.txt"
                     ], cwd=BASE_DIR)
                     avg_time = sum(times) / len(times)
                     with open(f"{BASE_DIR}/results/results_javascript_{algo}_{DATA_SIZE}.txt", "w") as f:
@@ -287,9 +285,8 @@ Available languages: python, cpp, java, javascript, go, c
                     else:
                         times, outs, errs = repeat_and_time([
                             c_bin,
-                            "-c", f"{BASE_DIR}/config/number-of-data-points.txt",
-                            "-d", dataset_file,
-                            "-r", f"{BASE_DIR}/results/results_c_{algo}_{DATA_SIZE}.txt"
+                            dataset_file,
+                            f"{BASE_DIR}/results/results_c_{algo}_{DATA_SIZE}.txt"
                         ])
                         avg_time = sum(times) / len(times)
                         with open(f"{BASE_DIR}/results/results_c_{algo}_{DATA_SIZE}.txt", "w") as f:
@@ -346,7 +343,6 @@ Available languages: python, cpp, java, javascript, go, c
         # Step 4: Performance summary (reuse the Python code from the shell script)
         print("Performance Summary:")
         print("===================")
-        import re
         def extract_time(filename):
             if os.path.exists(filename):
                 with open(filename, 'r') as f:
@@ -487,41 +483,42 @@ Available languages: python, cpp, java, javascript, go, c
                 elif lang == 'Python':
                     prefix = 'results_python_'
                 filename = f"{BASE_DIR}/results/{prefix}{algo}_{DATA_SIZE}.txt"
-                avg_time = None
                 if os.path.exists(filename):
                     with open(filename) as f:
-                        lines = f.readlines()
-                        for line in lines:
-                            if line.lower().startswith('average execution time:'):
-                                try:
-                                    avg_time = float(line.split(':')[1].strip().split()[0])
-                                except Exception:
-                                    avg_time = None
-                                break
-                if avg_time is not None:
-                    algo_results[algo].append((lang, avg_time))
+                        content = f.read()
+                        if "N/A" in content:
+                            continue
+                        match = re.search(r'Average execution time: ([\d.]+) seconds', content)
+                        if match:
+                            avg_time = float(match.group(1))
+                            algo_results[algo].append((lang, avg_time))
+
         with open(comparison_path, 'w') as f:
             f.write(f"# Sorting Algorithms Performance Comparison\n\n")
             f.write(f"Date: {dt_str}\n\n")
             f.write(f"## Data Size: {DATA_SIZE:,} elements\n\n")
+            
             for algo in selected_algos:
                 if not algo_results[algo]:
                     continue
+                    
                 display_name = ALGORITHM_NAMES[ALGORITHMS.index(algo)]
                 f.write(f"### {display_name} Performance Comparison\n\n")
                 f.write(f"This report compares the average run time of {display_name} across all languages for {DATA_SIZE:,} elements.\n\n")
+                
                 sorted_results = sorted(algo_results[algo], key=lambda x: x[1])
                 fastest = sorted_results[0][1]
                 slowest = sorted_results[-1][1]
                 
-                # Write the new table format
+                # Write the table header
                 f.write("| Rank | Language | Time (seconds) | Relative Speed | Elements/Second |\n")
                 f.write("|------|----------|----------------|----------------|----------------|\n")
                 
+                # Write the table rows
                 for rank, (lang, t) in enumerate(sorted_results, 1):
                     relative_speed = f"{t/fastest:.2f}x"
                     elements_per_second = f"{DATA_SIZE/t:,.0f}"
-                    time_str = f"{t:<.6f}"
+                    time_str = f"{t:.6f}"
                     if t == fastest:
                         time_str = f"🟢 {time_str}"
                     elif t == slowest:
@@ -532,10 +529,13 @@ Available languages: python, cpp, java, javascript, go, c
                 f.write(f"- 🟢 **Fastest**: {sorted_results[0][0]}\n")
                 f.write(f"- 🔴 **Slowest**: {sorted_results[-1][0]}\n\n")
                 f.write("Lower run time is better (faster). Higher run time is worse (slower).\n\n---\n\n")
+                
+                # Write raw data
                 f.write("**Raw Data:**\n\n")
                 for lang, t in sorted_results:
                     f.write(f"- {lang}: {t:.6f} s\n")
                 f.write(f"\n*Generated: {dt_str}*\n\n")
+        
         print(f"Comparison markdown generated: {comparison_path}\n")
         # Clean up compiled files
         clean_files(BASE_DIR, DATA_SIZE)

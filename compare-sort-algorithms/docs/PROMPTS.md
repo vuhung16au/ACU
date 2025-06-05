@@ -1,5 +1,37 @@
-# Generate results in json formats 
+# Include the following sections to the output `analysis/performance_analysis.md` from the source `analyze_results.py`
 
+- Performance metrics (execution time, elements/second)
+- Statistical analysis (mean, standard deviation)
+- Comparative analysis between languages and algorithms
+- Scaling analysis across different dataset sizes
+- Practical recommendations for algorithm selection
+
+For Performance Ranking
+- Ranks all implementations from fastest to slowest
+- Shows relative performance compared to the fastest implementation
+- Format: Rank | Language | Time (sec) | vs Fastest
+
+Execution Time Comparison
+- Lists execution times for each language/algorithm combination
+- Shows "N/A" for skipped implementations (e.g., for large datasets)
+
+Language and Algorithm Analysis
+- Provides insights for each programming language
+- Includes algorithm-specific analysis
+- Shows throughput (elements/second) for each implementation
+
+Cross-Size Performance Analysis
+- Analyzes how performance scales with different data sizes
+- Shows performance ratios between different dataset sizes
+- Provides scaling factors
+For Performance Insights
+- Identifies fastest and slowest implementations
+- Calculates speed difference between fastest and slowest
+- Provides statistical analysis:
+- Average execution time
+- Standard deviation (if more than 2 valid results)
+
+# Generate results in json formats 
 
 Add a new Makefile target `generate-json-results` that runs a script `scripts/generate-json-results.py`.
 
