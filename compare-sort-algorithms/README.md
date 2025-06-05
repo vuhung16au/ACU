@@ -125,15 +125,12 @@ For a comprehensive comparison of all sorting algorithms, see [docs/SORTING-ALGO
 
 The following log-log plot visualizes the execution time vs. data size for each algorithm and language:
 
-![Sorting Algorithm Performance: Execution Time vs. Data Size (log-log)](docs/sorting_performance_loglog.png)
+![Quick Sorting Algorithm Performance: Execution Time vs. Data Size (log-log)](docs/merge_sort_across_languages.png)
 
 To generate this plot, use the provided Python script:
 
 ```bash
-python3 -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-pip install -r requirements.txt
-python3 scripts/visualize_results.py
+make visualize
 ```
 
-This will generate a log-log plot of execution time vs. data size for each algorithm and language, saved as `docs/sorting_performance_loglog.png`.
+This will generate a log-log plot of execution time vs. data size for each algorithm and language, saved as `images/*.png`.

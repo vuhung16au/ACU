@@ -85,6 +85,13 @@ class PerformanceAnalyzer:
             'C (Merge Sort)':          ('c', 'merge'),
             'C (Counting Sort)':       ('c', 'counting'),
             'C (Radix Sort)':          ('c', 'radix'),
+            'Rust (Bubble Sort)':      ('rust', 'bubble'),
+            'Rust (Selection Sort)':   ('rust', 'selection'),
+            'Rust (Insertion Sort)':   ('rust', 'insertion'),
+            'Rust (Quick Sort)':       ('rust', 'quick'),
+            'Rust (Merge Sort)':       ('rust', 'merge'),
+            'Rust (Counting Sort)':    ('rust', 'counting'),
+            'Rust (Radix Sort)':       ('rust', 'radix'),
         }
         
         # Initialize results structure
@@ -305,7 +312,8 @@ class PerformanceAnalyzer:
                 'Java': "Compiled to bytecode, runs on JVM. Good performance with automatic memory management.",
                 'JavaScript': "Interpreted/JIT compiled. Performance varies by engine (V8 is highly optimized).",
                 'Go': "Compiled language with garbage collection, designed for concurrency and performance.",
-                'C': "Low-level compiled language with manual memory management. Typically very fast."
+                'C': "Low-level compiled language with manual memory management. Typically very fast.",
+                'Rust': "Systems programming language with memory safety guarantees. Excellent performance with zero-cost abstractions."
             }
             algorithm_insights = {
                 'Quick Sort': "Divide-and-conquer algorithm with average O(n log n) complexity. Good for general-purpose sorting.",

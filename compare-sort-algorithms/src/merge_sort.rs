@@ -86,7 +86,7 @@ fn main() -> io::Result<()> {
     
     // Read data from file
     println!("Reading data from file...");
-    let mut data = read_numbers_from_file(filename)?;
+    let data = read_numbers_from_file(filename)?;
     println!("Data size: {} integers", data.len());
     
     // Create a copy for sorting (to preserve original)

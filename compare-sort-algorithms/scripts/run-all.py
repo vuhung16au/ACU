@@ -86,7 +86,7 @@ def clean_results():
     print(f"{Colors.GREEN}All result files removed.{Colors.RESET}")
     
     # Remove compiled files
-    for file_pattern in ["*_sort_cpp", "*.class", "*_sort_c"]:
+    for file_pattern in ["*_sort_cpp", "*.class", "*_sort_c", "*_sort_rust"]:
         for file in glob.glob(os.path.join(BASE_DIR, "src", file_pattern)):
             os.remove(file)
     print(f"{Colors.GREEN}All compiled files removed.{Colors.RESET}")

@@ -99,8 +99,8 @@ scripts: venv data build run analyze visualize docs
 
 # Clean build artifacts, results, analysis, and documentation images
 clean:
-	rm -f $(C_BUBBLE) $(CPP_BUBBLE) $(SRC_DIR)/*.class
-	rm -f $(RUST_BUBBLE) $(RUST_INSERTION) $(RUST_SELECTION) $(RUST_MERGE) $(RUST_QUICK) $(RUST_COUNTING) $(RUST_RADIX)
+	rm -f $(SRC_DIR)/*_c $(SRC_DIR)/*_cpp $(SRC_DIR)/*.class
+	rm -f $(SRC_DIR)/*_rust
 	rm -f $(RESULTS_DIR)/*.txt $(RESULTS_DIR)/*.md $(ANALYSIS_DIR)/*.txt $(DOCS_DIR)/*.png
 	rm -f $(DATASETS_DIR)/*.txt
 	rm -f images/*.png

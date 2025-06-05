@@ -10,7 +10,7 @@ DEFAULT_ALGORITHMS = ["bubble", "selection", "insertion", "quick", "merge", "cou
 DEFAULT_ALGORITHM_NAMES = ["Bubble Sort", "Selection Sort", "Insertion Sort", "Quick Sort", "Merge Sort", "Counting Sort", "Radix Sort"]
 
 # Languages and result file patterns
-LANGUAGES = ["Python", "C++", "Java", "JavaScript", "Go", "C"]
+LANGUAGES = ["Python", "C++", "Java", "JavaScript", "Go", "C", "Rust"]
 
 RESULTS_DIR = "results"
 ANALYSIS_DIR = "analysis"
@@ -48,7 +48,7 @@ def clean_previous_results():
             for f in os.listdir(d):
                 if f.startswith("results_") or f.startswith("consolidated_results_") or f.startswith("performance_analysis_"):
                     os.remove(os.path.join(d, f))
-    for ext in ["_sort_cpp", ".class", "_sort_c"]:
+    for ext in ["_sort_cpp", ".class", "_sort_c", "_sort_rust"]:
         for f in os.listdir(SRC_DIR):
             if f.endswith(ext):
                 os.remove(os.path.join(SRC_DIR, f))
@@ -105,7 +105,7 @@ def generate_analysis_for_size(size, name, algorithms, algorithm_names):
             out.write("-"*45 + "\n")
             out.write(f"{algo_name} Results:\n")
             out.write("-"*45 + "\n")
-            languages = ["Python", "C++", "Java", "JavaScript", "Go", "C"]
+            languages = ["Python", "C++", "Java", "JavaScript", "Go", "C", "Rust"]
             files = [
                 f"{RESULTS_DIR}/results_python_{algo}_{size}.txt",
                 f"{RESULTS_DIR}/results_cpp_{algo}_{size}.txt",
@@ -113,6 +113,7 @@ def generate_analysis_for_size(size, name, algorithms, algorithm_names):
                 f"{RESULTS_DIR}/results_javascript_{algo}_{size}.txt",
                 f"{RESULTS_DIR}/results_go_{algo}_{size}.txt",
                 f"{RESULTS_DIR}/results_c_{algo}_{size}.txt",
+                f"{RESULTS_DIR}/results_rust_{algo}_{size}.txt",
             ]
             for lang, file in zip(languages, files):
                 out.write(f"{lang}:\n")
@@ -403,7 +404,7 @@ def main():
         run_tests_for_size(size, name, algorithms, algorithm_names)
     generate_comprehensive_analysis(sizes, size_names, algorithms, algorithm_names)
     print("\nCleaning up compiled files...")
-    for ext in ["_sort_cpp", ".class", "_sort_c"]:
+    for ext in ["_sort_cpp", ".class", "_sort_c", "_sort_rust"]:
         for f in os.listdir(SRC_DIR):
             if f.endswith(ext):
                 os.remove(os.path.join(SRC_DIR, f))
