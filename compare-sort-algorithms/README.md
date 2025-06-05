@@ -125,7 +125,7 @@ For a comprehensive comparison of all sorting algorithms, see [docs/SORTING-ALGO
 
 The following log-log plot visualizes the execution time vs. data size for each algorithm and language:
 
-![Quick Sorting Algorithm Performance: Execution Time vs. Data Size (log-log)](docs/merge_sort_across_languages.png)
+![Merge Sorting Algorithm Performance: Execution Time vs. Data Size (log-log)](docs/merge_sort_across_languages.png)
 
 To generate this plot, use the provided Python script:
 

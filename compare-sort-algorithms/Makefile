@@ -101,7 +101,7 @@ scripts: venv data build run analyze visualize docs
 clean:
 	rm -f $(SRC_DIR)/*_c $(SRC_DIR)/*_cpp $(SRC_DIR)/*.class
 	rm -f $(SRC_DIR)/*_rust
-	rm -f $(RESULTS_DIR)/*.txt $(RESULTS_DIR)/*.md $(ANALYSIS_DIR)/*.txt $(DOCS_DIR)/*.png
+	rm -f $(RESULTS_DIR)/*.txt $(RESULTS_DIR)/*.md $(ANALYSIS_DIR)/*.txt
 	rm -f $(DATASETS_DIR)/*.txt
 	rm -f images/*.png
 
