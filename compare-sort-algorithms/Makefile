@@ -88,6 +88,7 @@ run: data build
 	python3 $(SCRIPTS_DIR)/run_comparison.py
 
 # Analyze results
+analyse: analyze
 analyze: run
 	mkdir -p $(ANALYSIS_DIR)
 	python3 $(SCRIPTS_DIR)/analyze_results.py

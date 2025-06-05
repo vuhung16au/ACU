@@ -62,12 +62,16 @@ Write clear and descriptive commit messages that explain the purpose of your cha
 
 ## Testing
 
-Before submitting a pull request, please test your changes:
+Before submitting a pull request, please test your changes using the following commands from the root directory:
 
-1. Generate test datasets using `python3 scripts/generate_data.py` from the root folder
-2. Run your implementation against these datasets
-3. Verify that results are correct and performance is as expected
-4. Run the comparison script (`./scripts/run_comparison.sh`) to see how your changes stack up against other implementations
+1. Clean the project: `make clean`
+2. Run analysis: `make analyze`
+3. Generate visualizations: `make visualise`
+
+These commands will:
+- Clean any previous build artifacts
+- Run the analysis scripts to test your implementation
+- Generate visualizations to compare performance
 
 ## Questions?
 
