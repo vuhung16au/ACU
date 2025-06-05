@@ -1,15 +1,23 @@
 ## Quick Start
 
+0. Quick start (clean, analyze, visualize):
+
+Edit `config/number-of-data-points.txt` to set the number of data points to sort, then run:
+
+   ```bash
+   make clean ; make analyze; make visualize
+   ```
+
 1. Run the all-in-one script to generate data, run comparisons, and update documentation:
 
    ```bash
-   ./scripts/run-all.sh
+   python scripts/run_all.py
    ```
 
    To run each test multiple times and average the results (e.g., 7 times):
 
    ```bash
-   ./scripts/run-all.sh --repeat 7
+   python scripts/run_all.py --repeat 7
    ```
 
 2. View consolidated results for a specific size (e.g., 100,000):
@@ -39,12 +47,12 @@ This repository provides scripts to run and compare sorting algorithm implementa
 Run all tests with default settings:
 
 ```bash
-./scripts/run-all.sh
+python scripts/run_all.py
 ```
 
 ### Additional Options
 
-The main script (`run-all.sh`) supports several options:
+The main script (`run_all.py`) supports several options:
 
 - `--clean` - Clean all generated datasets and results
 - `--clean-results` - Clean only results files
@@ -56,13 +64,13 @@ The main script (`run-all.sh`) supports several options:
 
 ```bash
 # Clean all data and start fresh
-./scripts/run-all.sh --clean
+python scripts/run_all.py --clean
 
 # Run only for small dataset (faster testing)
-./scripts/run-all.sh --sizes 5000
+python scripts/run_all.py --sizes 5000
 
 # Generate data without running tests
-./scripts/run-all.sh --generate-only
+python scripts/run_all.py --generate-only
 ```
 
 ### Data Sizes
