@@ -7,30 +7,31 @@ import re
 from datetime import datetime
 from pathlib import Path
 
-def parse_result_file(file_path):
-    """Parse a single result file and extract relevant information."""
+def parse_consolidated_result_file(file_path):
+    """Parse a consolidated result file and extract relevant information for all languages, including C#."""
     results = []
-    current_size = None
-    
+    data_size = None
     with open(file_path, 'r') as f:
-        for line in f:
-            # Try to match dataset size
-            size_match = re.search(r'Dataset size: (\d+)', line)
-            if size_match:
-                current_size = int(size_match.group(1))
-                continue
-                
-            # Try to match language and algorithm results
-            result_match = re.search(r'(\w+)\s+(\w+)\s+sort:\s+([\d.]+)\s+seconds', line)
-            if result_match and current_size:
-                language, algorithm, time = result_match.groups()
+        content = f.read()
+        # Extract data size
+        size_match = re.search(r'Data Size: ([\d,]+) integers', content)
+        if size_match:
+            data_size = int(size_match.group(1).replace(',', ''))
+        # Find all language/algorithm headers
+        lang_algo_header = re.compile(r'^(\w[\w#\+]+) \(([^)]+)\):', re.MULTILINE)
+        exec_time_line = re.compile(r'Average execution time: ([\d\.]+) seconds')
+        for match in lang_algo_header.finditer(content):
+            lang, algo = match.group(1), match.group(2)
+            start_pos = match.end()
+            time_match = exec_time_line.search(content[start_pos:])
+            if time_match and data_size:
+                exec_time = float(time_match.group(1))
                 results.append({
-                    'dataset_size': current_size,
-                    'language': language.lower(),
-                    'algorithm': algorithm.lower(),
-                    'time': float(time)
+                    'dataset_size': data_size,
+                    'language': lang.lower(),
+                    'algorithm': algo.lower().replace(' sort', ''),
+                    'time': exec_time
                 })
-    
     return results
 
 def main():
@@ -48,7 +49,7 @@ def main():
     # Parse all result files
     all_results = []
     for file_path in analysis_files:
-        results = parse_result_file(file_path)
+        results = parse_consolidated_result_file(file_path)
         all_results.extend(results)
     
     # Sort results by dataset size, language, and algorithm

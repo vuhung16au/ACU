@@ -20,6 +20,7 @@ Make sure you have the following installed:
 - Node.js
 - Go compiler
 - Rust compiler (rustc)
+- .NET 9.0 SDK (for C#)
 
 ## Generating Test Data
 
@@ -120,6 +121,18 @@ gcc -O2 -o quick_sort_c src/quick_sort.c
 # gcc -O2 -o bubble_sort_c src/bubble_sort.c
 # gcc -O2 -o selection_sort_c src/selection_sort.c
 # etc.
+```
+
+### C#
+
+All C# sorting algorithms are implemented in a single .NET project. To run a specific algorithm, use:
+
+```bash
+# Example: Run Bubble Sort in C#
+dotnet run --project src/SortAlgorithmsCs -- bubble datasets/random_list_1000.txt results/results_cs_bubble_1000.txt
+
+# Replace 'bubble' with any of: bubble, insertion, selection, merge, quick, counting, radix
+# The first argument is the algorithm, followed by the input dataset and output result file.
 ```
 
 ## Running Performance Comparison

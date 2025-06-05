@@ -92,6 +92,13 @@ class PerformanceAnalyzer:
             'Rust (Merge Sort)':       ('rust', 'merge'),
             'Rust (Counting Sort)':    ('rust', 'counting'),
             'Rust (Radix Sort)':       ('rust', 'radix'),
+            'C# (Bubble Sort)':        ('cs', 'bubble'),
+            'C# (Selection Sort)':     ('cs', 'selection'),
+            'C# (Insertion Sort)':     ('cs', 'insertion'),
+            'C# (Quick Sort)':         ('cs', 'quick'),
+            'C# (Merge Sort)':         ('cs', 'merge'),
+            'C# (Counting Sort)':      ('cs', 'counting'),
+            'C# (Radix Sort)':         ('cs', 'radix'),
         }
         
         # Initialize results structure
@@ -313,7 +320,8 @@ class PerformanceAnalyzer:
                 'JavaScript': "Interpreted/JIT compiled. Performance varies by engine (V8 is highly optimized).",
                 'Go': "Compiled language with garbage collection, designed for concurrency and performance.",
                 'C': "Low-level compiled language with manual memory management. Typically very fast.",
-                'Rust': "Systems programming language with memory safety guarantees. Excellent performance with zero-cost abstractions."
+                'Rust': "Systems programming language with memory safety guarantees. Excellent performance with zero-cost abstractions.",
+                'C#': "Compiled to .NET Intermediate Language, runs on the .NET runtime. Offers good performance, modern language features, and automatic memory management."
             }
             algorithm_insights = {
                 'Quick Sort': "Divide-and-conquer algorithm with average O(n log n) complexity. Good for general-purpose sorting.",

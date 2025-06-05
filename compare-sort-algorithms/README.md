@@ -47,12 +47,12 @@ This repository provides scripts to run and compare sorting algorithm implementa
 Run all tests with default settings:
 
 ```bash
-python scripts/run_all.py
+./scripts/run-all.sh
 ```
 
 ### Additional Options
 
-The main script (`run_all.py`) supports several options:
+The main script (`run-all.sh`) supports several options:
 
 - `--clean` - Clean all generated datasets and results
 - `--clean-results` - Clean only results files
@@ -64,21 +64,21 @@ The main script (`run_all.py`) supports several options:
 
 ```bash
 # Clean all data and start fresh
-python scripts/run_all.py --clean
+./scripts/run-all.sh --clean
 
 # Run only for small dataset (faster testing)
-python scripts/run_all.py --sizes 5000
+./scripts/run-all.sh --sizes 5000
 
 # Generate data without running tests
-python scripts/run_all.py --generate-only
+./scripts/run-all.sh --generate-only
 ```
 
 ### Data Sizes
 
 The following data sizes are currently configured for testing:
-1,000, 10,000, 50,000, 100,000, 250,000, 500,000
+10, 100, 1,000, 10,000
 
-Last updated: 05 June 2025
+Last updated: 06 June 2025
 
 ## Requirements
 
@@ -88,6 +88,7 @@ Last updated: 05 June 2025
 - Node.js
 - Go compiler
 - Rust compiler (rustc)
+- .NET 9.0 SDK (for C#)
 
 ## License
 
@@ -104,14 +105,14 @@ Our latest multi-size performance comparison study revealed:
 - **Scaling Characteristics:** Linear algorithms (Counting, Radix) showed the best scaling properties
 
 ### Performance Highlights (N = 500K elements)
-TODO: Check the performance of Rust.
+TODO: Check the performance of Rust, C#.
 
-| Algorithm    | C         | C++       | Go       | JavaScript | Java     | Python   | Rust     |
-|--------------|-----------|-----------|----------|------------|----------|----------|----------|
-| Counting Sort| **206.8M/s** | 100.4M/s  | 87.2M/s  | 38.1M/s    | 57.3M/s  | `1.7M/s` | 180.2M/s |
-| Radix Sort   | **75.4M/s**  | 74.0M/s   | 40.2M/s  | 13.4M/s    | 19.6M/s  | `0.7M/s` | 72.8M/s  |
-| Quick Sort   | 16.5M/s   | **18.1M/s**   | 17.7M/s  | 10.6M/s    | 15.6M/s  | `0.7M/s` | 17.9M/s  |
-| Merge Sort   | `7.8M/s`    | **19.9M/s**   | 10.4M/s  | 4.6M/s     | 9.7M/s   | 0.5M/s   | 18.2M/s  |
+| Algorithm    | C         | C++       | Go       | JavaScript | Java     | Python   | Rust     | C#      |
+|--------------|-----------|-----------|----------|------------|----------|----------|----------|----------|
+| Counting Sort| **206.8M/s** | 100.4M/s  | 87.2M/s  | 38.1M/s    | 57.3M/s  | `1.7M/s` | 180.2M/s | (see docs) |
+| Radix Sort   | **75.4M/s**  | 74.0M/s   | 40.2M/s  | 13.4M/s    | 19.6M/s  | `0.7M/s` | 72.8M/s  | (see docs) |
+| Quick Sort   | 16.5M/s   | **18.1M/s**   | 17.7M/s  | 10.6M/s    | 15.6M/s  | `0.7M/s` | 17.9M/s  | (see docs) |
+| Merge Sort   | `7.8M/s`    | **19.9M/s**   | 10.4M/s  | 4.6M/s     | 9.7M/s   | 0.5M/s   | 18.2M/s  | (see docs) |
 
 *Numbers represent elements sorted per second. **Bold = highest (best)**, `Monospace = lowest (worst)`. Higher is better/faster.*
 
@@ -159,4 +160,16 @@ This will generate a log-log plot of execution time vs. data size for each algor
 ```bash
 uname -a
 Darwin 24.5.0 Darwin Kernel Version 24.5.0: Tue Apr 22 19:54:49 PDT 2025; root:xnu-11417.121.6~2/RELEASE_ARM64_T6000 arm64
+```
+
+### C#
+
+All C# sorting algorithms are implemented in a single .NET project using .NET 9.0. To run a specific algorithm:
+
+```bash
+# Example: Run Bubble Sort in C#
+dotnet run --project src/SortAlgorithmsCs -- bubble datasets/random_list_1000.txt results/results_cs_bubble_1000.txt
+
+# Replace 'bubble' with any of: bubble, insertion, selection, merge, quick, counting, radix
+# The first argument is the algorithm, followed by the input dataset and output result file.
 ```

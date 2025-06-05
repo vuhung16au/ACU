@@ -28,7 +28,7 @@ def get_result_files():
     return [f'consolidated_results_{size}.txt' for size in sizes]
 
 # Regular expressions to extract relevant data
-LANG_ALGO_HEADER = re.compile(r'^(\w+) \(([^)]+)\):', re.MULTILINE)
+LANG_ALGO_HEADER = re.compile(r'^(\w[\w#+]*) \(([^)]+)\):', re.MULTILINE)
 EXEC_TIME_LINE = re.compile(r'Average execution time: ([\d\.]+) seconds')
 DATA_SIZE_LINE = re.compile(r'Data Size: ([\d,]+) integers')
 
@@ -64,6 +64,16 @@ for fname in get_result_files():
 
 # Create DataFrame
 results_df = pd.DataFrame(records)
+
+# Patch: Normalize language names for consistency (e.g., C#, C++)
+def normalize_language(lang):
+    if lang.lower() in ['c#', 'cs', 'csharp']:
+        return 'C#'
+    if lang.lower() in ['c++', 'cpp']:
+        return 'C++'
+    return lang
+
+results_df['Language'] = results_df['Language'].apply(normalize_language)
 
 if results_df.empty:
     print("No data found to plot. Please run the performance comparisons first.")

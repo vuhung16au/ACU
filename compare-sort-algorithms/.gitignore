@@ -2,6 +2,14 @@
 # Uncomment if needed:
 # datasets/random_list*.txt
 
+src/SortAlgorithmsCs/bin/
+src/SortAlgorithmsCs/obj/
+src/SortAlgorithmsCs/SortAlgorithmsCs.csproj.user
+src/SortAlgorithmsCs/SortAlgorithmsCs.csproj.vspscc
+src/SortAlgorithmsCs/SortAlgorithmsCs.csproj.vssscc
+src/SortAlgorithmsCs/SortAlgorithmsCs.csproj.vstemplate
+src/SortAlgorithmsCs/SortAlgorithmsCs.csproj.vstemplate
+
 number-of-data-points.txt
 
 images/

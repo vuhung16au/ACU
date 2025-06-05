@@ -21,6 +21,13 @@ RUST_MERGE := $(SRC_DIR)/merge_sort_rust
 RUST_QUICK := $(SRC_DIR)/quick_sort_rust
 RUST_COUNTING := $(SRC_DIR)/counting_sort_rust
 RUST_RADIX := $(SRC_DIR)/radix_sort_rust
+CSHARP_BUBBLE := $(SRC_DIR)/bubble_sort_cs
+CSHARP_INSERTION := $(SRC_DIR)/insertion_sort_cs
+CSHARP_SELECTION := $(SRC_DIR)/selection_sort_cs
+CSHARP_MERGE := $(SRC_DIR)/merge_sort_cs
+CSHARP_QUICK := $(SRC_DIR)/quick_sort_cs
+CSHARP_COUNTING := $(SRC_DIR)/counting_sort_cs
+CSHARP_RADIX := $(SRC_DIR)/radix_sort_cs
 
 # Main targets
 all: scripts
@@ -39,7 +46,7 @@ data: venv
 	python3 $(SCRIPTS_DIR)/generate_data.py
 
 # Build sorting algorithm implementations
-build: $(C_BUBBLE) $(CPP_BUBBLE) $(JAVA_BUBBLE) $(RUST_BUBBLE) $(RUST_INSERTION) $(RUST_SELECTION) $(RUST_MERGE) $(RUST_QUICK) $(RUST_COUNTING) $(RUST_RADIX)
+build: $(C_BUBBLE) $(CPP_BUBBLE) $(JAVA_BUBBLE) $(RUST_BUBBLE) $(RUST_INSERTION) $(RUST_SELECTION) $(RUST_MERGE) $(RUST_QUICK) $(RUST_COUNTING) $(RUST_RADIX) $(CSHARP_BUBBLE) $(CSHARP_INSERTION) $(CSHARP_SELECTION) $(CSHARP_MERGE) $(CSHARP_QUICK) $(CSHARP_COUNTING) $(CSHARP_RADIX)
 
 $(C_BUBBLE): $(SRC_DIR)/bubble_sort.c
 	gcc -O2 -o $@ $<
@@ -71,6 +78,10 @@ $(RUST_COUNTING): $(SRC_DIR)/counting_sort.rs
 
 $(RUST_RADIX): $(SRC_DIR)/radix_sort.rs
 	rustc -O -o $@ $<
+
+# C# compilation rules
+$(CSHARP_BUBBLE) $(CSHARP_INSERTION) $(CSHARP_SELECTION) $(CSHARP_MERGE) $(CSHARP_QUICK) $(CSHARP_COUNTING) $(CSHARP_RADIX):
+	dotnet build src/SortAlgorithmsCs/SortAlgorithmsCs.csproj -c Release
 
 # Run performance comparisons
 run: data build
@@ -105,6 +116,7 @@ clean:
 	rm -f $(RESULTS_DIR)/*.txt $(RESULTS_DIR)/*.md $(ANALYSIS_DIR)/*.txt
 	rm -f $(DATASETS_DIR)/*.txt
 	rm -f images/*.png
+	rm -rf $(SRC_DIR)/bin $(SRC_DIR)/obj $(SRC_DIR)/SortAlgorithmsCs/bin $(SRC_DIR)/SortAlgorithmsCs/obj
 
 # Additional targets for specific comparisons
 .PHONY: comparison multi-size-comparison complete-study

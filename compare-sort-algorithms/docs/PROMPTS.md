@@ -1,3 +1,36 @@
+# Add C# (.cs) to our sorting benchmark project 
+
+  I want to add C# (dotnet) to my sorting algorithm comparison project. Here’s what I need:
+ 
+  1. **Update the Makefile:**
+       Add build and run targets for C# sorting algorithms using dotnet 9.0.
+       Update the clean target to remove C# build artifacts.
+       Add C# to the build dependencies.
+ 
+  2. **Add C# implementations** for these sorting algorithms under `src/`:
+       bubble_sort.cs
+       insertion_sort.cs
+       selection_sort.cs
+       merge_sort.cs
+       quick_sort.cs
+       counting_sort.cs
+       radix_sort.cs
+       **Important:** The C# code for each algorithm should be as similar as possible to the C++ implementation in terms of logic, structure, and input/output format, while following C# best practices and .NET conventions.
+ 
+  3. **Update the Python scripts**:
+       `run_comparison.py`: Add C# execution and timing.
+       `analyze_results.py`: Include C# in the analysis.
+       `visualize_results.py`: Add C# to the visualizations.
+       `generate json results.py`: Include C# data in the JSON output.
+  4. **Update the README.md**
+  5. ** Update **HOWTO.md**
+  
+  The goal is to have C# implementations that can be compared fairly with the existing C, C++, Java, Go, JavaScript, Python, and Rust implementations.
+ 
+  Please help me implement these changes one at a time, starting with the Makefile modifications.
+
+
+
 # Update `scripts/*.py` to support Rust
 
 We have added `Rust` comparison and `run_comparison.py` now supports Rust.
