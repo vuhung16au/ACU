@@ -10,7 +10,7 @@ DEFAULT_ALGORITHMS = ["bubble", "selection", "insertion", "quick", "merge", "cou
 DEFAULT_ALGORITHM_NAMES = ["Bubble Sort", "Selection Sort", "Insertion Sort", "Quick Sort", "Merge Sort", "Counting Sort", "Radix Sort"]
 
 # Languages and result file patterns
-LANGUAGES = ["Python", "C++", "Java", "JavaScript", "Go", "C", "Rust"]
+LANGUAGES = ["Python", "C++", "Java", "JavaScript", "Go", "C", "Rust", "C#", "PHP"]
 
 RESULTS_DIR = "results"
 ANALYSIS_DIR = "analysis"
@@ -105,7 +105,7 @@ def generate_analysis_for_size(size, name, algorithms, algorithm_names):
             out.write("-"*45 + "\n")
             out.write(f"{algo_name} Results:\n")
             out.write("-"*45 + "\n")
-            languages = ["Python", "C++", "Java", "JavaScript", "Go", "C", "Rust"]
+            languages = ["Python", "C++", "Java", "JavaScript", "Go", "C", "Rust", "C#", "PHP"]
             files = [
                 f"{RESULTS_DIR}/results_python_{algo}_{size}.txt",
                 f"{RESULTS_DIR}/results_cpp_{algo}_{size}.txt",
@@ -114,6 +114,8 @@ def generate_analysis_for_size(size, name, algorithms, algorithm_names):
                 f"{RESULTS_DIR}/results_go_{algo}_{size}.txt",
                 f"{RESULTS_DIR}/results_c_{algo}_{size}.txt",
                 f"{RESULTS_DIR}/results_rust_{algo}_{size}.txt",
+                f"{RESULTS_DIR}/results_cs_{algo}_{size}.txt",
+                f"{RESULTS_DIR}/results_php_{algo}_{size}.txt",
             ]
             for lang, file in zip(languages, files):
                 out.write(f"{lang}:\n")

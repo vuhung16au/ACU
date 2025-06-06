@@ -1,6 +1,6 @@
 # Makefile for Sorting Algorithm Comparison Project
 
-.PHONY: all build run analyze visualize docs clean venv venv-clean data scripts
+.PHONY: all build run analyze visualize docs clean venv venv-clean data scripts check-php-files
 
 # Directories
 SRC_DIR := src
@@ -9,6 +9,9 @@ RESULTS_DIR := results
 ANALYSIS_DIR := analysis
 DOCS_DIR := docs
 DATASETS_DIR := datasets
+
+# PHP executable path
+PHP := /opt/homebrew/bin/php
 
 # Executables (add more as needed)
 C_BUBBLE := $(SRC_DIR)/bubble_sort_c
@@ -29,8 +32,35 @@ CSHARP_QUICK := $(SRC_DIR)/quick_sort_cs
 CSHARP_COUNTING := $(SRC_DIR)/counting_sort_cs
 CSHARP_RADIX := $(SRC_DIR)/radix_sort_cs
 
+# PHP files (no build needed, just check existence)
+PHP_FILES := $(SRC_DIR)/bubble_sort.php \
+             $(SRC_DIR)/insertion_sort.php \
+             $(SRC_DIR)/selection_sort.php \
+             $(SRC_DIR)/merge_sort.php \
+             $(SRC_DIR)/quick_sort.php \
+             $(SRC_DIR)/counting_sort.php \
+             $(SRC_DIR)/radix_sort.php
+
 # Main targets
 all: scripts
+
+# Check PHP version
+check-php:
+	@echo "Checking PHP version..."
+	@$(PHP) -v
+	@echo "PHP version check completed."
+
+# Check PHP files exist and are executable
+check-php-files: $(PHP_FILES)
+	@echo "Checking PHP files..."
+	@for file in $(PHP_FILES); do \
+		if [ ! -f $$file ]; then \
+			echo "Error: $$file does not exist"; \
+			exit 1; \
+		fi; \
+		chmod +x $$file; \
+	done
+	@echo "PHP files check completed."
 
 # Set up Python virtual environment and install requirements
 venv:

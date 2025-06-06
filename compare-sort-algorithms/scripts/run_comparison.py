@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Sorting Algorithms Performance Comparison Script (Python version)
-This script runs different sorting algorithm implementations in Python, C++, Java, JavaScript, Go, and C
+This script runs different sorting algorithm implementations in Python, C++, Java, JavaScript, Go, C, Rust, C#, and PHP
 and compares their performance.
 """
 import os
@@ -18,7 +18,7 @@ ALGORITHM_NAMES = [
     "Bubble Sort", "Selection Sort", "Insertion Sort", "Quick Sort",
     "Merge Sort", "Counting Sort", "Radix Sort"
 ]
-LANGUAGES = ["Python", "C++", "Java", "JavaScript", "Go", "C", "Rust", "C#"]
+LANGUAGES = ["Python", "C++", "Java", "JavaScript", "Go", "C", "Rust", "C#", "PHP"]
 
 # --- Argument Parsing ---
 def parse_args():
@@ -86,7 +86,7 @@ Examples:
   python scripts/run_comparison.py --help
 
 Available algorithms: bubble, selection, insertion, quick, merge, counting, radix
-Available languages: python, cpp, java, javascript, go, c, rust, cs
+Available languages: python, cpp, java, javascript, go, c, rust, cs, php
 """)
         return
     BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -119,7 +119,7 @@ Available languages: python, cpp, java, javascript, go, c, rust, cs
     # Parse language filter
     lang_map = {
         'python': 'Python', 'cpp': 'C++', 'java': 'Java', 'javascript': 'JavaScript', 
-        'go': 'Go', 'c': 'C', 'rust': 'Rust', 'cs': 'C#', 'csharp': 'C#'
+        'go': 'Go', 'c': 'C', 'rust': 'Rust', 'cs': 'C#', 'csharp': 'C#', 'php': 'PHP'
     }
     if args.language:
         langs = [l.strip().lower() for l in args.language.split(',') if l.strip()]
@@ -338,6 +338,23 @@ Available languages: python, cpp, java, javascript, go, c, rust, cs
                     if any(errs):
                         print(f"Warning: C# {algo_name} implementation failed\n{errs}")
                 print("")
+            # PHP
+            if 'PHP' in selected_langs:
+                print(f"Running PHP {algo_name}...")
+                php_src = f"{BASE_DIR}/src/{algo}_sort.php"
+                if os.path.exists(php_src):
+                    times, outs, errs = repeat_and_time([
+                        "/opt/homebrew/bin/php", php_src,
+                        dataset_file,
+                        f"{BASE_DIR}/results/results_php_{algo}_{DATA_SIZE}.txt"
+                    ])
+                    avg_time = sum(times) / len(times)
+                    with open(f"{BASE_DIR}/results/results_php_{algo}_{DATA_SIZE}.txt", "w") as f:
+                        f.write(f"Execution times: {', '.join(f'{t:.6f}' for t in times)} seconds\n")
+                        f.write(f"Average execution time: {avg_time:.6f} seconds\n")
+                    if any(errs):
+                        print(f"Warning: PHP {algo_name} implementation failed\n{errs}")
+                print("")
 
         # Run all algorithms
         for algo, algo_name in zip(selected_algos, selected_algo_names):
@@ -384,6 +401,7 @@ Available languages: python, cpp, java, javascript, go, c, rust, cs
         append_results("C", "results_c_")
         append_results("Rust", "results_rust_")
         append_results("C#", "results_cs_")
+        append_results("PHP", "results_php_")
 
         # Step 4: Performance summary (reuse the Python code from the shell script)
         print("Performance Summary:")
@@ -421,6 +439,8 @@ Available languages: python, cpp, java, javascript, go, c, rust, cs
                     prefix = 'results_rust_'
                 elif lang == 'C#':
                     prefix = 'results_cs_'
+                elif lang == 'PHP':
+                    prefix = 'results_php_'
                 filename = f"{BASE_DIR}/results/{prefix}{algo}_{DATA_SIZE}.txt"
                 time = extract_time(filename)
                 if time is not None:
@@ -476,6 +496,8 @@ Available languages: python, cpp, java, javascript, go, c, rust, cs
                         prefix = 'results_rust_'
                     elif language == 'C#':
                         prefix = 'results_cs_'
+                    elif language == 'PHP':
+                        prefix = 'results_php_'
                     filename = f"{BASE_DIR}/results/{prefix}{algo}_{DATA_SIZE}.txt"
                     time = extract_time(filename)
                     if time is not None:
@@ -539,6 +561,8 @@ Available languages: python, cpp, java, javascript, go, c, rust, cs
                     prefix = 'results_rust_'
                 elif lang == 'C#':
                     prefix = 'results_cs_'
+                elif lang == 'PHP':
+                    prefix = 'results_php_'
                 filename = f"{BASE_DIR}/results/{prefix}{algo}_{DATA_SIZE}.txt"
                 if os.path.exists(filename):
                     with open(filename) as f:

@@ -144,6 +144,34 @@ make visualize
 
 This will generate a log-log plot of execution time vs. data size for each algorithm and language, saved as `images/*.png`.
 
+
+### C#
+
+All C# sorting algorithms are implemented in a single .NET project using .NET 9.0. To run a specific algorithm:
+
+```bash
+# Example: Run Bubble Sort in C#
+dotnet run --project src/SortAlgorithmsCs -- bubble datasets/random_list_1000.txt results/results_cs_bubble_1000.txt
+
+# Replace 'bubble' with any of: bubble, insertion, selection, merge, quick, counting, radix
+# The first argument is the algorithm, followed by the input dataset and output result file.
+```
+
+### PHP
+
+- Memory limit set to 1GB for handling large arrays
+- Execution time limit of 5 minutes (300 seconds)
+
+To run a specific algorithm:
+
+```bash
+# Example: Run Bubble Sort in PHP
+php src/bubble_sort.php < datasets/random_list_1000.txt > results/results_php_bubble_1000.txt
+
+# Replace 'bubble' with any of: bubble, insertion, selection, merge, quick, counting, radix
+# The input is read from stdin and output is written to stdout
+```
+
 # System Information
 
 | Language | Version | Full Info |
@@ -156,6 +184,7 @@ This will generate a log-log plot of execution time vs. data size for each algor
 | Python | 3.13.4 | Python 3.13.4 |
 | Node.js | 22.15.0 | v22.15.0 |
 | Go | 1.24.3 | go version go1.24.3 darwin/arm64 |
+| PHP | 8.4.8 | PHP 8.4.8 (cli) (built: Jun  3 2025 16:29:26) (NTS) / Zend Engine v4.4.8 |
 
 ```bash
 uname -a

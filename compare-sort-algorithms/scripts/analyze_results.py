@@ -99,6 +99,13 @@ class PerformanceAnalyzer:
             'C# (Merge Sort)':         ('cs', 'merge'),
             'C# (Counting Sort)':      ('cs', 'counting'),
             'C# (Radix Sort)':         ('cs', 'radix'),
+            'PHP (Bubble Sort)':       ('php', 'bubble'),
+            'PHP (Selection Sort)':    ('php', 'selection'),
+            'PHP (Insertion Sort)':    ('php', 'insertion'),
+            'PHP (Quick Sort)':        ('php', 'quick'),
+            'PHP (Merge Sort)':        ('php', 'merge'),
+            'PHP (Counting Sort)':     ('php', 'counting'),
+            'PHP (Radix Sort)':        ('php', 'radix'),
         }
         
         # Initialize results structure
@@ -321,7 +328,8 @@ class PerformanceAnalyzer:
                 'Go': "Compiled language with garbage collection, designed for concurrency and performance.",
                 'C': "Low-level compiled language with manual memory management. Typically very fast.",
                 'Rust': "Systems programming language with memory safety guarantees. Excellent performance with zero-cost abstractions.",
-                'C#': "Compiled to .NET Intermediate Language, runs on the .NET runtime. Offers good performance, modern language features, and automatic memory management."
+                'C#': "Compiled to .NET Intermediate Language, runs on the .NET runtime. Offers good performance, modern language features, and automatic memory management.",
+                'PHP': "Interpreted language with dynamic typing. Generally slower but highly readable and maintainable."
             }
             algorithm_insights = {
                 'Quick Sort': "Divide-and-conquer algorithm with average O(n log n) complexity. Good for general-purpose sorting.",
@@ -422,6 +430,7 @@ class PerformanceAnalyzer:
             analysis.append("  - Java's JIT compilation becomes more effective with larger sizes")
             analysis.append("  - JavaScript's performance varies more with size")
             analysis.append("  - Python's performance gap increases with size")
+            analysis.append("  - PHP's performance is comparable to Python for smaller datasets")
             analysis.append("")
             analysis.append("• Algorithm Selection Guidelines:")
             analysis.append("  - Small datasets (< 10,000): Any algorithm is suitable")
