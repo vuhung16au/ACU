@@ -73,4 +73,4 @@ The LeNet family of networks, developed by Yann LeCun and colleagues in the late
 
 ## License
 
-[MIT License](LICENSE)
+[MIT License](LICENSE.md)
