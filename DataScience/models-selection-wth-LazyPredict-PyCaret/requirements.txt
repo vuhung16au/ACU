@@ -1,0 +1,11 @@
+# Core data science libraries with flexible versioning
+numpy
+pandas
+scikit-learn
+scipy
+
+# Machine learning frameworks
+lazypredict
+pycaret>=3.0.0
+
+# Dependencies will be automatically handled by pip

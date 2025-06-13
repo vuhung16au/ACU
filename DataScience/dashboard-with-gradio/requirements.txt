@@ -1,0 +1,6 @@
+polars
+numpy
+gradio 
+pandas 
+matplotlib 
+cachetools
