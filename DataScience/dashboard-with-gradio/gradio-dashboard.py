@@ -2372,8 +2372,8 @@ def create_dashboard():
     default_start_date = pd.to_datetime(min_date)
     default_end_date = pd.to_datetime(max_date)
 
-    # Create Gradio Blocks interface with custom CSS
-    with gr.Blocks(css="""
+    # Create Gradio Blocks interface with custom CSS and Citrus theme
+    with gr.Blocks(theme=gr.themes.Citrus(), css="""
         footer {display: none !important;}  /* Hide the footer */
         .tabs {border: none !important;}    /* Remove borders from tabs */
         .gr-plot {border: none !important; box-shadow: none !important;}  /* Remove borders from plots */
