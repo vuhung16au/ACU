@@ -1137,5 +1137,17 @@ def create_dashboard():
     df = filter_data(start_date, end_date, selected_category)
     st.dataframe(df, use_container_width=True)
 
+    # Footer
+    st.markdown(
+        """
+        <hr style='margin-top: 2em; margin-bottom: 1em;'/>
+        <div style='text-align: center; font-size: 1.1em;'>
+            🚀 Live demo: <a href='https://dashboard-with-app-2nznrexscxmu6ckqpht2tr.streamlit.app/' target='_blank'>https://dashboard-with-app-2nznrexscxmu6ckqpht2tr.streamlit.app/</a><br/>
+            💻 GitHub: <a href='https://github.com/vuhung16au/ACU/tree/main/DataScience/dashboard-with-streamlit' target='_blank'>https://github.com/vuhung16au/ACU/tree/main/DataScience/dashboard-with-streamlit</a>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
 if __name__ == "__main__":
     create_dashboard() 
