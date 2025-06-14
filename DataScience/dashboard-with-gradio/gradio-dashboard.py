@@ -768,6 +768,9 @@ def create_customer_heatmap(start_date, end_date, category):
         aggfunc='sum'
     ).fillna(0)
     
+    # Ensure all values are numeric
+    pivot_data = pivot_data.astype(float)
+    
     # Create heatmap using Seaborn
     plt.figure(figsize=(12, 10))
     sns.heatmap(
