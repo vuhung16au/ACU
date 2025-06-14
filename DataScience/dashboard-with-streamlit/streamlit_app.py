@@ -835,7 +835,6 @@ def create_team_performance_metrics(start_date, end_date, category):
         go.Indicator(
             mode="number",
             value=team_metrics['Total Revenue'],
-            title={'text': "Total Revenue ($)"},
             number={'prefix': "$", 'valueformat': ",.2f"}
         ),
         row=1, col=1
@@ -845,7 +844,6 @@ def create_team_performance_metrics(start_date, end_date, category):
         go.Indicator(
             mode="number",
             value=team_metrics['Total Orders'],
-            title={'text': "Total Orders"},
             number={'valueformat': ",.0f"}
         ),
         row=1, col=2
@@ -855,7 +853,6 @@ def create_team_performance_metrics(start_date, end_date, category):
         go.Indicator(
             mode="number",
             value=team_metrics['Total Customers'],
-            title={'text': "Total Customers"},
             number={'valueformat': ",.0f"}
         ),
         row=2, col=1
@@ -865,7 +862,6 @@ def create_team_performance_metrics(start_date, end_date, category):
         go.Indicator(
             mode="number",
             value=team_metrics['Conversion Rate'],
-            title={'text': "Conversion Rate"},
             number={'suffix': "%", 'valueformat': ".1f"}
         ),
         row=2, col=2
@@ -962,6 +958,14 @@ def create_price_volume_analysis(start_date, end_date, category):
     
     return fig
 
+def format_millions(value):
+    """
+    Format a number in millions with $ sign, e.g., $6,564M for 6,564,000.
+    """
+    if value >= 1_000_000:
+        return f"${value/1_000_000:,.0f}M"
+    return f"${value:,.2f}"
+
 def create_dashboard():
     st.title("📊 Sales Analytics Dashboard")
     load_csv_data()
@@ -982,9 +986,12 @@ def create_dashboard():
     # First row of metrics
     col1, col2, col3, col4 = st.columns(4)
     with col1:
-        st.metric("Total Revenue", stats['total_revenue']['formatted'], 
-                 f"{stats['total_revenue']['arrow']} {abs(stats['total_revenue']['trend']):.1f}%", 
-                 delta_color=stats['total_revenue']['color'])
+        short_val = format_millions(stats['total_revenue']['value'])
+        full_val = stats['total_revenue']['formatted']
+        st.markdown(
+            f'<div title="{full_val}"><b>Total Revenue</b><br><span style="font-size:2em">{short_val}</span></div>',
+            unsafe_allow_html=True
+        )
     with col2:
         st.metric("Total Orders", stats['total_orders']['formatted'], 
                  f"{stats['total_orders']['arrow']} {abs(stats['total_orders']['trend']):.1f}%", 
@@ -994,7 +1001,25 @@ def create_dashboard():
                  f"{stats['avg_order_value']['arrow']} {abs(stats['avg_order_value']['trend']):.1f}%", 
                  delta_color=stats['avg_order_value']['color'])
     with col4:
-        st.metric("Top Category", stats['top_category']['formatted'])
+        import re
+        match = re.search(r"\\(([^)]+)\\)", stats['top_category']['formatted'])
+        if match:
+            full_cat_val = match.group(1)
+            try:
+                short_cat_val = format_millions(float(full_cat_val.replace('$','').replace(',','')))
+            except:
+                short_cat_val = full_cat_val
+            cat_name = stats['top_category']['formatted'].split(' (')[0]
+            short_display = f"{cat_name} ({short_cat_val})"
+            st.markdown(
+                f'<div title="{stats["top_category"]["formatted"]}"><b>Top Category</b><br>{short_display}</div>',
+                unsafe_allow_html=True
+            )
+        else:
+            st.markdown(
+                f'<div title="{stats["top_category"]["formatted"]}"><b>Top Category</b><br>{stats["top_category"]["formatted"]}</div>',
+                unsafe_allow_html=True
+            )
     
     # Second row of metrics
     col5, col6, col7, col8 = st.columns(4)
