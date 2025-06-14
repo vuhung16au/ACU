@@ -63,9 +63,9 @@ def load_csv_data():
         "profit": "float"
     }
     
-    # Load the CSV file with appropriate settings
+    # Load the CSV file from URL with appropriate settings
     csv_data = pd.read_csv(
-        "./sales_data/sales_data.csv",
+        "https://raw.githubusercontent.com/vuhung16au/ACU/refs/heads/main/DataScience/dashboard-with-streamlit/sales_data/sales_data.csv",
         parse_dates=["order_date"],  # Automatically parse order_date column as datetime
         dayfirst=False,              # Specify that dates are in YYYY-MM-DD format
         date_format="%Y-%m-%d",      # Provide explicit date format
