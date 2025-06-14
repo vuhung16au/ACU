@@ -240,6 +240,200 @@ def get_dashboard_stats(start_date, end_date, category):
         'fulfillment_time': {'value': fulfillment_time, 'trend': ft_pct, 'formatted': fmt_days(fulfillment_time), 'arrow': ft, 'color': ft_color},
     }
 
+def get_additional_metrics(start_date, end_date, category):
+    """
+    Calculate additional metrics for the dashboard including profitability, customer, order quality, and operational metrics.
+    Returns:
+        dict: Dictionary containing all additional metrics with their values, trends, and formatting
+    """
+    df = filter_data(start_date, end_date, category)
+    if df.empty:
+        return {
+            'profitability': {
+                'profit_margin': {'value': 0, 'trend': 0, 'formatted': "0%", 'arrow': '', 'color': 'gray'},
+                'avg_profit_per_order': {'value': 0, 'trend': 0, 'formatted': "$0.00", 'arrow': '', 'color': 'gray'},
+                'profit_by_category': {'value': {}, 'trend': 0, 'formatted': "N/A", 'arrow': '', 'color': 'gray'}
+            },
+            'customer': {
+                'avg_customer_age': {'value': 0, 'trend': 0, 'formatted': "0", 'arrow': '', 'color': 'gray'},
+                'customer_segment_dist': {'value': {}, 'trend': 0, 'formatted': "N/A", 'arrow': '', 'color': 'gray'},
+                'payment_method_dist': {'value': {}, 'trend': 0, 'formatted': "N/A", 'arrow': '', 'color': 'gray'}
+            },
+            'order_quality': {
+                'avg_rating': {'value': 0, 'trend': 0, 'formatted': "0.0", 'arrow': '', 'color': 'gray'},
+                'discount_rate': {'value': 0, 'trend': 0, 'formatted': "0%", 'arrow': '', 'color': 'gray'},
+                'payment_status_dist': {'value': {}, 'trend': 0, 'formatted': "N/A", 'arrow': '', 'color': 'gray'}
+            },
+            'operational': {
+                'shipping_method_dist': {'value': {}, 'trend': 0, 'formatted': "N/A", 'arrow': '', 'color': 'gray'},
+                'order_status_dist': {'value': {}, 'trend': 0, 'formatted': "N/A", 'arrow': '', 'color': 'gray'},
+                'store_performance': {'value': {}, 'trend': 0, 'formatted': "N/A", 'arrow': '', 'color': 'gray'}
+            }
+        }
+
+    # Calculate profitability metrics
+    total_profit = df['profit'].sum()
+    total_revenue = df['total'].sum()
+    profit_margin = (total_profit / total_revenue * 100) if total_revenue else 0
+    avg_profit_per_order = total_profit / df['order_id'].nunique() if not df.empty else 0
+    profit_by_category = df.groupby('categories')['profit'].sum().to_dict()
+
+    # Calculate customer metrics
+    avg_customer_age = df['customer_age'].mean()
+    customer_segment_dist = df['customer_segment'].value_counts(normalize=True).to_dict()
+    payment_method_dist = df['payment_method'].value_counts(normalize=True).to_dict()
+
+    # Calculate order quality metrics
+    avg_rating = df['rating'].mean()
+    discount_rate = (df['discount'].sum() / df['total'].sum() * 100) if df['total'].sum() else 0
+    payment_status_dist = df['payment_status'].value_counts(normalize=True).to_dict()
+
+    # Calculate operational metrics
+    shipping_method_dist = df['shipping_method'].value_counts(normalize=True).to_dict()
+    order_status_dist = df['order_status'].value_counts(normalize=True).to_dict()
+    store_performance = df.groupby(['store_id', 'store_region'])['total'].sum().to_dict()
+
+    # Get previous period for trends
+    prev_start, prev_end = get_previous_period(start_date, end_date)
+    prev_df = filter_data(prev_start, prev_end, category)
+
+    # Calculate previous period metrics
+    if not prev_df.empty:
+        prev_total_profit = prev_df['profit'].sum()
+        prev_total_revenue = prev_df['total'].sum()
+        prev_profit_margin = (prev_total_profit / prev_total_revenue * 100) if prev_total_revenue else 0
+        prev_avg_profit_per_order = prev_total_profit / prev_df['order_id'].nunique()
+        prev_avg_customer_age = prev_df['customer_age'].mean()
+        prev_avg_rating = prev_df['rating'].mean()
+        prev_discount_rate = (prev_df['discount'].sum() / prev_df['total'].sum() * 100) if prev_df['total'].sum() else 0
+    else:
+        prev_profit_margin = prev_avg_profit_per_order = prev_avg_customer_age = prev_avg_rating = prev_discount_rate = 0
+
+    # Helper functions for formatting
+    def fmt_percentage(val):
+        return f"{val:.1f}%"
+    
+    def fmt_currency(val):
+        return f"${val:,.2f}"
+    
+    def fmt_float(val):
+        return f"{val:.1f}"
+
+    # Calculate trends and format metrics
+    def calculate_trend(current, previous):
+        if previous == 0:
+            return 0, '', 'gray'
+        trend = ((current - previous) / previous * 100)
+        arrow = '▲' if trend > 0 else '▼'
+        color = 'green' if trend > 0 else 'red'
+        return trend, arrow, color
+
+    # Profitability metrics
+    pm_trend, pm_arrow, pm_color = calculate_trend(profit_margin, prev_profit_margin)
+    apo_trend, apo_arrow, apo_color = calculate_trend(avg_profit_per_order, prev_avg_profit_per_order)
+
+    # Customer metrics
+    age_trend, age_arrow, age_color = calculate_trend(avg_customer_age, prev_avg_customer_age)
+
+    # Order quality metrics
+    rating_trend, rating_arrow, rating_color = calculate_trend(avg_rating, prev_avg_rating)
+    disc_trend, disc_arrow, disc_color = calculate_trend(discount_rate, prev_discount_rate)
+
+    return {
+        'profitability': {
+            'profit_margin': {
+                'value': profit_margin,
+                'trend': pm_trend,
+                'formatted': fmt_percentage(profit_margin),
+                'arrow': pm_arrow,
+                'color': pm_color
+            },
+            'avg_profit_per_order': {
+                'value': avg_profit_per_order,
+                'trend': apo_trend,
+                'formatted': fmt_currency(avg_profit_per_order),
+                'arrow': apo_arrow,
+                'color': apo_color
+            },
+            'profit_by_category': {
+                'value': profit_by_category,
+                'trend': 0,
+                'formatted': "See Chart",
+                'arrow': '',
+                'color': 'gray'
+            }
+        },
+        'customer': {
+            'avg_customer_age': {
+                'value': avg_customer_age,
+                'trend': age_trend,
+                'formatted': fmt_float(avg_customer_age),
+                'arrow': age_arrow,
+                'color': age_color
+            },
+            'customer_segment_dist': {
+                'value': customer_segment_dist,
+                'trend': 0,
+                'formatted': "See Chart",
+                'arrow': '',
+                'color': 'gray'
+            },
+            'payment_method_dist': {
+                'value': payment_method_dist,
+                'trend': 0,
+                'formatted': "See Chart",
+                'arrow': '',
+                'color': 'gray'
+            }
+        },
+        'order_quality': {
+            'avg_rating': {
+                'value': avg_rating,
+                'trend': rating_trend,
+                'formatted': fmt_float(avg_rating),
+                'arrow': rating_arrow,
+                'color': rating_color
+            },
+            'discount_rate': {
+                'value': discount_rate,
+                'trend': disc_trend,
+                'formatted': fmt_percentage(discount_rate),
+                'arrow': disc_arrow,
+                'color': disc_color
+            },
+            'payment_status_dist': {
+                'value': payment_status_dist,
+                'trend': 0,
+                'formatted': "See Chart",
+                'arrow': '',
+                'color': 'gray'
+            }
+        },
+        'operational': {
+            'shipping_method_dist': {
+                'value': shipping_method_dist,
+                'trend': 0,
+                'formatted': "See Chart",
+                'arrow': '',
+                'color': 'gray'
+            },
+            'order_status_dist': {
+                'value': order_status_dist,
+                'trend': 0,
+                'formatted': "See Chart",
+                'arrow': '',
+                'color': 'gray'
+            },
+            'store_performance': {
+                'value': store_performance,
+                'trend': 0,
+                'formatted': "See Chart",
+                'arrow': '',
+                'color': 'gray'
+            }
+        }
+    }
+
 def get_data_for_table(start_date, end_date, category):
     """
     Prepare data for display in the data table component.
@@ -2083,18 +2277,57 @@ def update_dashboard(start_date, end_date, category):
     team_performance_path = create_team_performance_metrics(start_date, end_date, category)
     marketing_sales_path = create_marketing_sales_correlation(start_date, end_date, category)
     price_volume_path = create_price_volume_analysis(start_date, end_date, category)
-    # ... existing code ...
+
+    # Get metrics
     stats = get_dashboard_stats(start_date, end_date, category)
+    additional_metrics = get_additional_metrics(start_date, end_date, category)
     table_data = get_data_for_table(start_date, end_date, category)
+
     def metric_html(label, stat):
         arrow = f'<span style="color:{stat["color"]};font-size:1.2em">{stat["arrow"]}</span>' if stat["arrow"] else ''
         trend = f'<span style="color:{stat["color"]};font-size:0.9em">{stat["trend"]:+.1f}%</span>' if isinstance(stat["trend"], (int, float)) and stat["trend"] != 0 else ''
         return f'<div style="padding:8px 0"><b>{label}</b><br><span style="font-size:1.3em">{stat["formatted"]} {arrow}</span> {trend}</div>'
-    total_revenue_html = metric_html("Total Revenue", stats['total_revenue'])
-    total_orders_html = metric_html("Total Orders", stats['total_orders'])
-    avg_order_value_html = metric_html("Average Order Value", stats['avg_order_value'])
-    top_category_html = metric_html("Top Category", stats['top_category'])
-    fulfillment_time_html = metric_html("Time to Fulfillment", stats['fulfillment_time'])
+
+    # Create HTML for key metrics
+    key_metrics_html = f"""
+    <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; margin-bottom: 20px;">
+        {metric_html("Total Revenue", stats['total_revenue'])}
+        {metric_html("Total Orders", stats['total_orders'])}
+        {metric_html("Average Order Value", stats['avg_order_value'])}
+        {metric_html("Top Category", stats['top_category'])}
+        {metric_html("Time to Fulfillment", stats['fulfillment_time'])}
+    </div>
+    """
+
+    # Create HTML for additional metrics
+    additional_metrics_html = f"""
+    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 20px;">
+        <div class="metric-section">
+            <h3>Profitability Metrics</h3>
+            {metric_html("Profit Margin", additional_metrics['profitability']['profit_margin'])}
+            {metric_html("Avg Profit/Order", additional_metrics['profitability']['avg_profit_per_order'])}
+        </div>
+        <div class="metric-section">
+            <h3>Customer Metrics</h3>
+            {metric_html("Avg Customer Age", additional_metrics['customer']['avg_customer_age'])}
+            {metric_html("Top Customer Segment", additional_metrics['customer']['customer_segment_dist'])}
+        </div>
+        <div class="metric-section">
+            <h3>Order Quality</h3>
+            {metric_html("Average Rating", additional_metrics['order_quality']['avg_rating'])}
+            {metric_html("Discount Rate", additional_metrics['order_quality']['discount_rate'])}
+        </div>
+        <div class="metric-section">
+            <h3>Operational Metrics</h3>
+            {metric_html("Shipping Methods", additional_metrics['operational']['shipping_method_dist'])}
+            {metric_html("Order Status", additional_metrics['operational']['order_status_dist'])}
+        </div>
+    </div>
+    """
+
+    # Combine all HTML
+    metrics_html = key_metrics_html + additional_metrics_html
+
     return (
         revenue_over_time_path,
         revenue_by_category_path,
@@ -2118,11 +2351,7 @@ def update_dashboard(start_date, end_date, category):
         marketing_sales_path,
         price_volume_path,
         table_data,
-        total_revenue_html,
-        total_orders_html,
-        avg_order_value_html,
-        top_category_html,
-        fulfillment_time_html
+        metrics_html
     )
 
 def create_dashboard():
@@ -2148,6 +2377,21 @@ def create_dashboard():
         footer {display: none !important;}  /* Hide the footer */
         .tabs {border: none !important;}    /* Remove borders from tabs */
         .gr-plot {border: none !important; box-shadow: none !important;}  /* Remove borders from plots */
+        .metric-section {
+            background: #222;
+            color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .metric-section h3 {
+            margin-top: 0;
+            color: #2c3e50;
+            font-size: 1.1em;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
     """) as dashboard:
         
         # Dashboard title
@@ -2176,13 +2420,8 @@ def create_dashboard():
         # Section title for key metrics
         gr.Markdown("# Key Metrics")
 
-        # Key metrics display row
-        with gr.Row():
-            total_revenue = gr.HTML(label="Total Revenue")
-            total_orders = gr.HTML(label="Total Orders")
-            avg_order_value = gr.HTML(label="Average Order Value")
-            top_category = gr.HTML(label="Top Category")
-            fulfillment_time = gr.HTML(label="Time to Fulfillment")
+        # Key metrics display
+        metrics_display = gr.HTML(label="Dashboard Metrics")
 
         # Section title for visualizations
         gr.Markdown("# Visualisations")
@@ -2243,82 +2482,41 @@ def create_dashboard():
                     with gr.Tab("Abandonment Points"):
                         abandonment_image = gr.Image(label="Abandonment Points Analysis", container=False)
             
-            # Performance vs Targets
-            with gr.Tab("Performance vs Targets"):
+            # Performance Analysis
+            with gr.Tab("Performance Analysis"):
                 with gr.Tabs():
-                    with gr.Tab("Progress Gauges"):
-                        gauge_charts_image = gr.Image(label="Progress Toward Sales Goals", container=False)
+                    with gr.Tab("Performance vs Targets"):
+                        gauge_charts_image = gr.Image(label="Performance vs Targets", container=False)
                     with gr.Tab("Variance Analysis"):
-                        variance_analysis_image = gr.Image(label="Variance Analysis: Actual vs. Target", container=False)
+                        variance_analysis_image = gr.Image(label="Variance Analysis", container=False)
             
-            # Sales Representative Performance
-            with gr.Tab("Sales Rep Performance"):
+            # Team Performance
+            with gr.Tab("Team Performance"):
                 with gr.Tabs():
                     with gr.Tab("Individual Performance"):
-                        individual_performance_image = gr.Image(label="Individual Sales Rep Performance", container=False)
-                    with gr.Tab("Team Performance"):
+                        individual_performance_image = gr.Image(label="Individual Performance Comparison", container=False)
+                    with gr.Tab("Team Metrics"):
                         team_performance_image = gr.Image(label="Team Performance Metrics", container=False)
             
-            # Correlation Analysis
-            with gr.Tab("Correlation Analysis"):
+            # Marketing & Pricing
+            with gr.Tab("Marketing & Pricing"):
                 with gr.Tabs():
-                    with gr.Tab("Marketing vs. Sales"):
-                        marketing_sales_image = gr.Image(label="Marketing Spend vs. Sales Outcomes", container=False)
-                    with gr.Tab("Price vs. Volume"):
-                        price_volume_image = gr.Image(label="Price Changes vs. Order Volume", container=False)
+                    with gr.Tab("Marketing Impact"):
+                        marketing_sales_image = gr.Image(label="Marketing Impact on Sales", container=False)
+                    with gr.Tab("Price-Volume Analysis"):
+                        price_volume_image = gr.Image(label="Price-Volume Analysis", container=False)
 
-        # Section title for raw data table
-        gr.Markdown("# Raw Data")
-        
-        # Data table for displaying filtered dataset
-        data_table = gr.DataFrame(
-            label="Sales Data",
-            type="pandas",  # Use pandas DataFrame type
-            interactive=False  # Make it read-only
-        )
+        # Data table section
+        gr.Markdown("# Detailed Data")
+        data_table = gr.Dataframe(label="Transaction Data")
 
-        # Set up event handlers for when filters change
-        for f in [start_date, end_date, category_filter]:
-            f.change(
-                fn=lambda s, e, c: update_dashboard(s, e, c),  # Update dashboard when filter changes
-                inputs=[start_date, end_date, category_filter],  # Input components
-                outputs=[
-                    revenue_over_time_image, 
-                    revenue_by_category_image, 
-                    top_products_image,
-                    sales_trends_monthly_image,
-                    sales_trends_quarterly_image,
-                    yoy_comparison_image,
-                    geo_map_image,
-                    customer_heatmap_image,
-                    product_scatter_image,
-                    product_mix_image,
-                    customer_segment_image,
-                    customer_ltv_image,
-                    retention_churn_image,
-                    conversion_funnel_image,
-                    abandonment_image,
-                    gauge_charts_image,
-                    variance_analysis_image,
-                    individual_performance_image,
-                    team_performance_image,
-                    marketing_sales_image,
-                    price_volume_image,
-                    data_table,
-                    total_revenue, 
-                    total_orders,
-                    avg_order_value, 
-                    top_category,
-                    fulfillment_time
-                ]  # Output components to update
-            )
-
-        # Initialize the dashboard with default values when it loads
+        # Set up event handlers
         dashboard.load(
-            fn=lambda: update_dashboard(default_start_date, default_end_date, "All Categories"),
+            fn=update_dashboard,
+            inputs=[start_date, end_date, category_filter],
             outputs=[
-                revenue_over_time_image, 
-                revenue_by_category_image, 
+                revenue_over_time_image,
+                revenue_by_category_image,
                 top_products_image,
                 sales_trends_monthly_image,
                 sales_trends_quarterly_image,
@@ -2339,13 +2537,41 @@ def create_dashboard():
                 marketing_sales_image,
                 price_volume_image,
                 data_table,
-                total_revenue, 
-                total_orders,
-                avg_order_value, 
-                top_category,
-                fulfillment_time
+                metrics_display
             ]
         )
+
+        # Update dashboard when filters change
+        for component in [start_date, end_date, category_filter]:
+            component.change(
+                fn=update_dashboard,
+                inputs=[start_date, end_date, category_filter],
+                outputs=[
+                    revenue_over_time_image,
+                    revenue_by_category_image,
+                    top_products_image,
+                    sales_trends_monthly_image,
+                    sales_trends_quarterly_image,
+                    yoy_comparison_image,
+                    geo_map_image,
+                    customer_heatmap_image,
+                    product_scatter_image,
+                    product_mix_image,
+                    customer_segment_image,
+                    customer_ltv_image,
+                    retention_churn_image,
+                    conversion_funnel_image,
+                    abandonment_image,
+                    gauge_charts_image,
+                    variance_analysis_image,
+                    individual_performance_image,
+                    team_performance_image,
+                    marketing_sales_image,
+                    price_volume_image,
+                    data_table,
+                    metrics_display
+                ]
+            )
 
     return dashboard
 
