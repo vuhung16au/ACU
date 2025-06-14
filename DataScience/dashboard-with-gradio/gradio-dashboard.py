@@ -136,39 +136,109 @@ def filter_data(start_date, end_date, category):
 
     return df
 
+def get_previous_period(start_date, end_date):
+    """
+    Given a start and end date, return the previous period of the same length.
+    """
+    if isinstance(start_date, str):
+        start_date = datetime.datetime.strptime(start_date, '%Y-%m-%d').date()
+    if isinstance(end_date, str):
+        end_date = datetime.datetime.strptime(end_date, '%Y-%m-%d').date()
+    delta = end_date - start_date
+    prev_end = start_date - datetime.timedelta(days=1)
+    prev_start = prev_end - delta
+    return prev_start, prev_end
+
 def get_dashboard_stats(start_date, end_date, category):
     """
-    Calculate key statistics for the dashboard based on filtered data.
-    
-    Args:
-        start_date: The starting date for filtering
-        end_date: The ending date for filtering
-        category: The selected category
-    
+    Calculate key statistics for the dashboard based on filtered data, including trends and fulfillment time.
     Returns:
-        tuple: (total_revenue, total_orders, avg_order_value, top_category)
+        dict: {metric_name: {value, trend, formatted, ...}}
     """
-    # Get filtered data based on parameters
     df = filter_data(start_date, end_date, category)
     if df.empty:
-        return (0, 0, 0, "N/A")  # Return default values if no data matches the filters
-
-    # Calculate revenue as price times quantity
-    df['revenue'] = (df['price'] * df['quantity']).round(2)  # Round to 2 decimal places
-    
-    # Calculate key metrics
-    total_revenue = df['revenue'].sum()  # Sum of all revenue
-    total_orders = df['order_id'].nunique()  # Count of unique orders
-    # Calculate average order value (avoid division by zero) and round to 2 decimal places
+        return {
+            'total_revenue': {'value': 0, 'trend': 0, 'formatted': "$0.00", 'arrow': '', 'color': 'gray'},
+            'total_orders': {'value': 0, 'trend': 0, 'formatted': "0", 'arrow': '', 'color': 'gray'},
+            'avg_order_value': {'value': 0, 'trend': 0, 'formatted': "$0.00", 'arrow': '', 'color': 'gray'},
+            'top_category': {'value': "N/A", 'trend': 0, 'formatted': "N/A", 'arrow': '', 'color': 'gray'},
+            'fulfillment_time': {'value': 0, 'trend': 0, 'formatted': "0 days", 'arrow': '', 'color': 'gray'},
+        }
+    df['revenue'] = (df['price'] * df['quantity']).round(2)
+    total_revenue = df['revenue'].sum()
+    total_orders = df['order_id'].nunique()
     avg_order_value = round(total_revenue / total_orders, 2) if total_orders else 0
-
-    # Find the top-performing category by revenue
     cat_revenues = df.groupby('categories')['revenue'].sum().round(2).sort_values(ascending=False)
     top_category = cat_revenues.index[0] if not cat_revenues.empty else "N/A"
-
-    # Return the capitalized top category or the original value if it's "N/A"
-    return (total_revenue, total_orders, avg_order_value, 
-            top_category.capitalize() if isinstance(top_category, str) and top_category != "N/A" else top_category)
+    # Fulfillment time
+    if 'delivery_date' in df.columns:
+        try:
+            df['delivery_date'] = pd.to_datetime(df['delivery_date'], errors='coerce')
+            df['order_date'] = pd.to_datetime(df['order_date'], errors='coerce')
+            df['fulfillment_days'] = (df['delivery_date'] - df['order_date']).dt.days
+            fulfillment_time = df['fulfillment_days'].mean()
+        except Exception:
+            fulfillment_time = None
+    else:
+        fulfillment_time = None
+    fulfillment_time = round(fulfillment_time, 2) if fulfillment_time is not None else 0
+    # Previous period for trend
+    prev_start, prev_end = get_previous_period(start_date, end_date)
+    prev_df = filter_data(prev_start, prev_end, category)
+    if not prev_df.empty:
+        prev_df['revenue'] = (prev_df['price'] * prev_df['quantity']).round(2)
+        prev_total_revenue = prev_df['revenue'].sum()
+        prev_total_orders = prev_df['order_id'].nunique()
+        prev_avg_order_value = round(prev_total_revenue / prev_total_orders, 2) if prev_total_orders else 0
+        prev_cat_revenues = prev_df.groupby('categories')['revenue'].sum().round(2).sort_values(ascending=False)
+        prev_top_category = prev_cat_revenues.index[0] if not prev_cat_revenues.empty else "N/A"
+        if 'delivery_date' in prev_df.columns:
+            try:
+                prev_df['delivery_date'] = pd.to_datetime(prev_df['delivery_date'], errors='coerce')
+                prev_df['order_date'] = pd.to_datetime(prev_df['order_date'], errors='coerce')
+                prev_df['fulfillment_days'] = (prev_df['delivery_date'] - prev_df['order_date']).dt.days
+                prev_fulfillment_time = prev_df['fulfillment_days'].mean()
+            except Exception:
+                prev_fulfillment_time = None
+        else:
+            prev_fulfillment_time = None
+        prev_fulfillment_time = round(prev_fulfillment_time, 2) if prev_fulfillment_time is not None else 0
+    else:
+        prev_total_revenue = prev_total_orders = prev_avg_order_value = 0
+        prev_top_category = "N/A"
+        prev_fulfillment_time = 0
+    # Helper for trend
+    def trend_arrow(val, prev):
+        if prev == 0 and val == 0:
+            return '', 0, 'gray'
+        if val > prev:
+            return '▲', (val - prev) / prev * 100 if prev else 100, 'green'
+        elif val < prev:
+            return '▼', (val - prev) / prev * 100 if prev else -100, 'red'
+        else:
+            return '', 0, 'gray'
+    # Format numbers
+    def fmt_currency(val):
+        return f"${val:,.2f}"
+    def fmt_int(val):
+        return f"{int(val):,}"
+    def fmt_days(val):
+        return f"{val:.2f} days" if val else "0 days"
+    # Compose metrics
+    tr, tr_pct, tr_color = trend_arrow(total_revenue, prev_total_revenue)
+    to, to_pct, to_color = trend_arrow(total_orders, prev_total_orders)
+    ao, ao_pct, ao_color = trend_arrow(avg_order_value, prev_avg_order_value)
+    ft, ft_pct, ft_color = trend_arrow(fulfillment_time, prev_fulfillment_time)
+    # Top category trend: up if same as previous, down if changed
+    tc_arrow = '▲' if top_category == prev_top_category and top_category != "N/A" else ('▼' if top_category != prev_top_category and prev_top_category != "N/A" else '')
+    tc_color = 'green' if tc_arrow == '▲' else ('red' if tc_arrow == '▼' else 'gray')
+    return {
+        'total_revenue': {'value': total_revenue, 'trend': tr_pct, 'formatted': fmt_currency(total_revenue), 'arrow': tr, 'color': tr_color},
+        'total_orders': {'value': total_orders, 'trend': to_pct, 'formatted': fmt_int(total_orders), 'arrow': to, 'color': to_color},
+        'avg_order_value': {'value': avg_order_value, 'trend': ao_pct, 'formatted': fmt_currency(avg_order_value), 'arrow': ao, 'color': ao_color},
+        'top_category': {'value': top_category.capitalize() if isinstance(top_category, str) and top_category != "N/A" else top_category, 'trend': tc_arrow, 'formatted': top_category.capitalize() if isinstance(top_category, str) and top_category != "N/A" else top_category, 'arrow': tc_arrow, 'color': tc_color},
+        'fulfillment_time': {'value': fulfillment_time, 'trend': ft_pct, 'formatted': fmt_days(fulfillment_time), 'arrow': ft, 'color': ft_color},
+    }
 
 def get_data_for_table(start_date, end_date, category):
     """
@@ -1973,24 +2043,13 @@ def create_price_volume_analysis(start_date, end_date, category):
 def update_dashboard(start_date, end_date, category):
     """
     Main function to update all dashboard components when filters change.
-    
-    Args:
-        start_date: The starting date for filtering
-        end_date: The ending date for filtering
-        category: The selected category
-    
     Returns:
-        tuple: Paths to plot images and data for all dashboard components
+        tuple: Paths to plot images and data for all dashboard components, plus HTML for metrics
     """
-    # Get key statistics
-    total_revenue, total_orders, avg_order_value, top_category = get_dashboard_stats(start_date, end_date, category)
-
-    # Generate data for each plot
+    # Restore plot/image variable generation
     revenue_data = get_plot_data(start_date, end_date, category)
     category_data = get_revenue_by_category(start_date, end_date, category)
     top_products_data = get_top_products(start_date, end_date, category)
-
-    # Create the original plots
     revenue_over_time_path = create_matplotlib_figure(
         revenue_data, 'date', 'revenue',
         "Revenue Over Time", "Date", "Revenue"
@@ -2003,46 +2062,36 @@ def update_dashboard(start_date, end_date, category):
         top_products_data, 'product_names', 'revenue',
         "Top Products", "Revenue", "Product Name", orientation='h'
     )
-
-    # Create new visualizations
-    # Sales Trends
     sales_trends_monthly_path = create_sales_trends_plot(start_date, end_date, category, 'month')
     sales_trends_quarterly_path = create_sales_trends_plot(start_date, end_date, category, 'quarter')
     yoy_comparison_path = create_yoy_comparison_plot(start_date, end_date, category, 'revenue')
-    
-    # Geographic Analysis
     geo_map_path = create_geo_map_visualization(start_date, end_date, category)
     customer_heatmap_path = create_customer_heatmap(start_date, end_date, category)
-    
-    # Product Performance
     product_scatter_path = create_product_scatter_plot(start_date, end_date, category)
     product_mix_path = create_product_mix_pie_chart(start_date, end_date, category)
-    
-    # Customer Insights
     customer_segment_path = create_customer_segmentation_chart(start_date, end_date, category)
     customer_ltv_path = create_customer_ltv_visualization(start_date, end_date, category)
     retention_churn_path = create_retention_churn_analysis(start_date, end_date, category)
-    
-    # Funnel Analysis
     conversion_funnel_path = create_conversion_rates_funnel(start_date, end_date, category)
     abandonment_path = create_abandonment_visualization(start_date, end_date, category)
-    
-    # Performance vs Targets
     gauge_charts_path = create_gauge_charts(start_date, end_date, category)
     variance_analysis_path = create_variance_analysis(start_date, end_date, category)
-    
-    # Sales Representative Performance
     individual_performance_path = create_individual_performance_comparison(start_date, end_date, category)
     team_performance_path = create_team_performance_metrics(start_date, end_date, category)
-    
-    # Correlation Analysis
     marketing_sales_path = create_marketing_sales_correlation(start_date, end_date, category)
     price_volume_path = create_price_volume_analysis(start_date, end_date, category)
-
-    # Get data for the data table
+    # ... existing code ...
+    stats = get_dashboard_stats(start_date, end_date, category)
     table_data = get_data_for_table(start_date, end_date, category)
-
-    # Return all components that need to be updated
+    def metric_html(label, stat):
+        arrow = f'<span style="color:{stat["color"]};font-size:1.2em">{stat["arrow"]}</span>' if stat["arrow"] else ''
+        trend = f'<span style="color:{stat["color"]};font-size:0.9em">{stat["trend"]:+.1f}%</span>' if isinstance(stat["trend"], (int, float)) and stat["trend"] != 0 else ''
+        return f'<div style="padding:8px 0"><b>{label}</b><br><span style="font-size:1.3em">{stat["formatted"]} {arrow}</span> {trend}</div>'
+    total_revenue_html = metric_html("Total Revenue", stats['total_revenue'])
+    total_orders_html = metric_html("Total Orders", stats['total_orders'])
+    avg_order_value_html = metric_html("Average Order Value", stats['avg_order_value'])
+    top_category_html = metric_html("Top Category", stats['top_category'])
+    fulfillment_time_html = metric_html("Time to Fulfillment", stats['fulfillment_time'])
     return (
         revenue_over_time_path,
         revenue_by_category_path,
@@ -2066,10 +2115,11 @@ def update_dashboard(start_date, end_date, category):
         marketing_sales_path,
         price_volume_path,
         table_data,
-        total_revenue,
-        total_orders,
-        avg_order_value,
-        top_category
+        total_revenue_html,
+        total_orders_html,
+        avg_order_value_html,
+        top_category_html,
+        fulfillment_time_html
     )
 
 def create_dashboard():
@@ -2125,10 +2175,11 @@ def create_dashboard():
 
         # Key metrics display row
         with gr.Row():
-            total_revenue = gr.Number(label="Total Revenue", value=0)
-            total_orders = gr.Number(label="Total Orders", value=0)
-            avg_order_value = gr.Number(label="Average Order Value", value=0)
-            top_category = gr.Textbox(label="Top Category", value="N/A")
+            total_revenue = gr.HTML(label="Total Revenue")
+            total_orders = gr.HTML(label="Total Orders")
+            avg_order_value = gr.HTML(label="Average Order Value")
+            top_category = gr.HTML(label="Top Category")
+            fulfillment_time = gr.HTML(label="Time to Fulfillment")
 
         # Section title for visualizations
         gr.Markdown("# Visualisations")
@@ -2254,7 +2305,8 @@ def create_dashboard():
                     total_revenue, 
                     total_orders,
                     avg_order_value, 
-                    top_category
+                    top_category,
+                    fulfillment_time
                 ]  # Output components to update
             )
 
@@ -2287,7 +2339,8 @@ def create_dashboard():
                 total_revenue, 
                 total_orders,
                 avg_order_value, 
-                top_category
+                top_category,
+                fulfillment_time
             ]
         )
 

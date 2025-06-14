@@ -180,3 +180,5 @@ This project uses Gradio because it provides a straightforward way to create an 
 # Screenshots
 
 ![Dashboard Screenshot](gradio-dashboard.png)
+
+More screenshots under `images/` folder.
