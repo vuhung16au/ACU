@@ -88,6 +88,10 @@ order_id,order_date,customer_id,customer_name,product_id,product_names,categorie
 
 In this dashboard application, these libraries work together to provide efficient data processing (Polars), an interactive web interface (Gradio), and performance optimization through caching (Cachetools).
 
+## Faker
+
+[Faker](https://faker.readthedocs.io/en/master/) is a Python package that generates fake data for various purposes, such as testing or populating databases. It can create realistic-looking data for names, addresses, dates, and more. 
+
 ## Project Files
 
 ### generate-synthetic-data.py

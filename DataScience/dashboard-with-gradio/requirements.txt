@@ -4,3 +4,10 @@ gradio
 pandas 
 matplotlib 
 cachetools
+faker
+plotly
+seaborn
+folium
+geopy
+scikit-learn
+kaleido
