@@ -1,4 +1,4 @@
-# Gradio Dashboard
+# Sales Performance Dashboard Using Gradio
 
 This repo details how to construct a modern data dashboard using Python and the Gradio library. We focus on building interactive web applications for data insights, using a synthetic sales dataset as an example. The dashboard features include filters for dates and categories, key metric displays, data visualizations, and a raw data table. The article also provides a comparison between Gradio and Streamlit, noting Gradio's ease of use for machine learning model interfaces compared to Streamlit's more general data application capabilities. Code snippets are included for dataset generation, Gradio installation, and dashboard creation.
 
@@ -33,17 +33,17 @@ This repo details how to construct a modern data dashboard using Python and the 
 The generated dataset looks like this:
 
 ```
-head sales_data/sales_data.csv            
-order_id,order_date,customer_id,customer_name,product_id,product_names,categories,quantity,price,total
-0,2021-04-05,211,Customer_28394,210,Cabinet,Office,9,19.1,171.9
-1,2022-12-29,614,Customer_31982,206,Paper,Stationery,2,25.37,50.74
-2,2021-10-26,127,Customer_29215,208,Notebook,Stationery,9,41.18,370.62
-3,2021-05-08,921,Customer_32061,203,Chair,Office,4,6.7,26.8
-4,2021-07-18,786,Customer_28641,208,Notebook,Stationery,6,98.02,588.12
-5,2023-06-12,778,Customer_21592,211,Plastic Cups,Sundry,7,39.96,279.72
-6,2023-06-04,239,Customer_5325,203,Chair,Office,4,65.83,263.32
-7,2024-08-20,280,Customer_31323,207,Pen,Stationery,8,47.32,378.56
-8,2021-05-04,244,Customer_24531,211,Plastic Cups,Sundry,5,60.97,304.85
+
+order_id,order_date,customer_id,customer_name,product_id,product_names,categories,quantity,price,total,shipping_method,delivery_date,order_status,customer_segment,customer_location,customer_age,product_cost,discount,rating,sales_rep,campaign_id,store_id,store_region,payment_method,payment_status,profit
+1,2023-06-27,8911,Kayla Armstrong,206,Premium Daily Planner,Stationery,10,26.79,267.93,Standard,2023-07-07,Processing,Retail,Bakertown,54,16.16,0.0,5,Jeffrey Peters,"",4,Southeast,Bank Transfer,Paid,106.33
+2,2020-02-19,8554,Claire Phillips,203,Ergonomic Wireless Mouse,Computing,6,58.57,351.41,Standard,2020-02-27,Completed,Retail,Lake Brittany,35,29.38,17.57,5,Sean Foster,SUMMER23,24,Southeast,Credit Card,Paid,157.56
+3,2021-07-01,7389,Shannon Perez,212,Fast Wireless Charging Pad,Tech Accessories,3,46.37,139.1,Standard,2021-07-09,Completed,Retail,Sheppardside,28,31.93,0.0,2,James King,"",15,Southwest,Credit Card,Paid,43.31
+4,2021-03-20,3133,Andrew Garcia,214,Voice-Controlled Smart Speaker,Smart Home,7,121.21,848.48,Standard,2021-03-28,Completed,Retail,New Michelle,29,70.59,84.85,5,Steven Spencer,"",7,Southwest,Credit Card,Paid,269.5
+5,2024-01-07,2188,Lori Gonzalez,210,Water-Resistant Laptop Backpack,Travel,9,81.87,736.81,Standard,2024-01-17,Processing,Retail,Meganport,41,55.84,0.0,1,Andrew Campbell,HOLIDAY23,26,Southeast,Credit Card,Failed,234.25
+6,2023-09-09,7346,Caitlin Newton,207,Professional Art Markers Set,Stationery,4,34.47,137.89,Standard,2023-09-18,Completed,Retail,New John,44,19.84,6.89,4,Jon Haley,"",30,West,Apple Pay,Paid,51.64
+7,2024-11-12,4253,Rhonda Nixon,212,Fast Wireless Charging Pad,Tech Accessories,8,48.91,391.25,Express,2024-11-17,Completed,Wholesale,Johnsonborough,35,29.82,0.0,4,Andrew Campbell,"",3,Midwest,Credit Card,Paid,152.69
+8,2020-06-22,3556,Blake Winters,204,Smart LED Desk Lamp,Accessories,10,48.91,489.14,Standard,2020-06-30,Completed,Retail,East Michaelville,22,25.19,0.0,4,Jeffrey Peters,HOLIDAY23,37,Midwest,PayPal,Paid,237.24
+9,2022-04-20,4718,Darren Roberts,206,Premium Daily Planner,Stationery,6,23.31,139.84,Standard,2022-04-29,Completed,Retail,Lake Courtneyfurt,26,15.09,27.97,5,David Roberson,HOLIDAY23,34,Southeast,Credit Card,Paid,21.33
 ```
 5. **Run the Gradio dashboard:**
 
@@ -77,14 +77,19 @@ order_id,order_date,customer_id,customer_name,product_id,product_names,categorie
 - **Customizable**: Control layout and styling to match your needs
 - **Integration**: Works well with popular ML frameworks and data libraries
 
-### Cachetools
+### Additional Libraries
 
-[Cachetools](https://pypi.org/project/cachetools/) provides various memoizing collections and decorators, including variants of the Python standard library's `@lru_cache` function decorator. Benefits include:
-
-- **Performance Optimization**: Cache expensive function calls to avoid redundant computation
-- **Memory Management**: Control cache size with LRU (Least Recently Used), TTL (Time To Live), and other eviction strategies
-- **Flexibility**: Different cache types for different use cases
-- **Thread Safety**: Optional thread-safe implementations
+- **Plotly**: Interactive data visualization library for creating dynamic and interactive plots
+- **Seaborn**: Statistical data visualization library built on top of matplotlib
+- **Folium**: Python wrapper for Leaflet.js to create interactive maps
+- **Geopy**: Python library for geocoding and distance calculations
+- **Scikit-learn**: Machine learning library for data analysis and modeling
+- **Kaleido**: Static image export for Plotly figures
+- **Cachetools**: Provides various memoizing collections and decorators for performance optimization
+- **Faker**: Generates fake data for testing and development purposes
+- **Pandas**: Data manipulation and analysis library (used alongside Polars for specific operations)
+- **NumPy**: Fundamental package for scientific computing with Python
+- **Matplotlib**: Comprehensive library for creating static, animated, and interactive visualizations
 
 In this dashboard application, these libraries work together to provide efficient data processing (Polars), an interactive web interface (Gradio), and performance optimization through caching (Cachetools).
 
@@ -103,6 +108,7 @@ This script generates a synthetic sales dataset that simulates real-world busine
 - Dates
 - Customer demographics
 - Regional information
+- Geographic coordinates for mapping
 
 The generated data is saved to `sales_data/sales_data.csv` and serves as the foundation for the dashboard visualizations.
 
@@ -110,9 +116,12 @@ The generated data is saved to `sales_data/sales_data.csv` and serves as the fou
 
 This is the main application script that:
 
-- Loads and processes the sales data using Polars
+- Loads and processes the sales data using Polars and Pandas
 - Creates an interactive web interface with Gradio
 - Implements filters, visualizations, and data tables
+- Provides interactive maps using Folium
+- Generates statistical insights using Scikit-learn
+- Creates dynamic visualizations with Plotly and Seaborn
 - Utilizes caching for performance optimization
 
 When run, this script starts a web server that hosts the dashboard interface, making it accessible through your web browser.
@@ -120,6 +129,10 @@ When run, this script starts a web server that hosts the dashboard interface, ma
 ### sales_data/
 
 Directory containing the generated synthetic dataset used by the dashboard.
+
+### images/
+
+Directory containing screenshots and visualizations of the dashboard.
 
 ## Gradio vs. Streamlit Comparison
 
@@ -179,6 +192,7 @@ This project uses Gradio because it provides a straightforward way to create an 
 
 # Screenshots
 
-![Dashboard Screenshot](gradio-dashboard.png)
+![Dashboard Screenshot](images/gradio-dashboard.png)
+
 
 More screenshots under `images/` folder.
