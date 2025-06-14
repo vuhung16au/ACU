@@ -114,6 +114,10 @@ Feel free to submit issues and enhancement requests!
 - Plotly: For creating interactive visualizations
 - Python: Core programming language
 
+## Demo
+
+A live demo can be found at https://dashboard-with-app-2nznrexscxmu6ckqpht2tr.streamlit.app/
+
 ## Screenshots
 
 ![streamlit-dashboard](./images/streamlit-dashboard.png)
