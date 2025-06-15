@@ -1,0 +1,6 @@
+pandas
+SQLAlchemy
+matplotlib
+ipython
+jupyter
+matplotlib
