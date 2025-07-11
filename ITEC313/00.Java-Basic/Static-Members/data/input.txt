@@ -1,0 +1,38 @@
+# Static Members Configuration Data
+# This file contains sample configuration data for demonstrating static members
+
+# Application Settings
+app_name=StaticDemoApp
+max_instances=10
+timeout_seconds=30
+debug_mode=true
+
+# Connection Settings
+default_host=localhost
+default_port=8080
+max_connections=50
+
+# Performance Settings
+response_timeout=5000
+retry_attempts=3
+cache_enabled=true
+
+# Logging Settings
+log_level=INFO
+log_file=static_demo.log
+console_output=true
+
+# Sample data for processing
+data_point_1=100.5
+data_point_2=250.75
+data_point_3=75.25
+data_point_4=300.0
+data_point_5=125.5
+
+# Configuration validation examples
+valid_host=example.com
+invalid_host=
+valid_port=9000
+invalid_port=99999
+valid_timeout=60
+invalid_timeout=0 
