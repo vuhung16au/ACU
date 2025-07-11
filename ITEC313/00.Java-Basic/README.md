@@ -168,9 +168,3 @@ make run
 make help
 ```
 
----
-
-## 🧹 Maintenance
-
-- This `README.md` replaces the previous `PROJECT_INDEX.md`.  
-- Please delete `PROJECT_INDEX.md` from the repository. 
