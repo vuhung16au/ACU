@@ -1,0 +1,4 @@
+# Sample input data for Variable-Scope project
+42
+100
+-7 
