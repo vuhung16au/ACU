@@ -1,1 +1,5 @@
-# Sample input for Loop-Control project 
+85,92,78,95,88,100,76,89,94,87
+1,2,3,4,5,6,7,8,9,10
+valid1,invalid,valid2,,valid3,null,valid4
+apple,banana,cherry,date,elderberry
+10,20,30,40,50,60,70,80,90,100 
