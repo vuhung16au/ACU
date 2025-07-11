@@ -1,0 +1,5 @@
+# input.txt
+# Sample input data for manual verification examples
+3 4
+10 2
+10 0 

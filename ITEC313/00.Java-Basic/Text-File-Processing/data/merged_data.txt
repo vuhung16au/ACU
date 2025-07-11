@@ -1,0 +1,19 @@
+=== MERGED DATA ===
+
+NAMES:
+  - Alice
+  - Bob
+  - Charlie
+  - Diana
+  - Eve
+  - Frank
+  - Grace
+
+CITIES:
+  - Sydney
+  - Melbourne
+  - Brisbane
+  - Perth
+  - Adelaide
+
+=== END OF MERGED DATA ===

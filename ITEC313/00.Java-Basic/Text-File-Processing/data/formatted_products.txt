@@ -1,0 +1,5 @@
+Product: Laptop     | Price: $1200   | Category: Electronics
+Product: Phone      | Price: $800    | Category: Electronics
+Product: Tablet     | Price: $500    | Category: Electronics
+Product: Monitor    | Price: $300    | Category: Electronics
+Product: Keyboard   | Price: $50     | Category: Accessories

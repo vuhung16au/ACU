@@ -1,0 +1,62 @@
+# Input data for Switch Statement testing
+# Format: type,value,expected_output
+
+# Grade testing
+GRADE,95,A
+GRADE,87,B
+GRADE,73,C
+GRADE,65,D
+GRADE,45,F
+GRADE,100,A
+
+# Day testing
+DAY,1,Monday
+DAY,2,Tuesday
+DAY,3,Wednesday
+DAY,4,Thursday
+DAY,5,Friday
+DAY,6,Saturday
+DAY,7,Sunday
+DAY,8,Invalid
+
+# Number conversion
+NUMBER,1,One
+NUMBER,2,Two
+NUMBER,3,Three
+NUMBER,4,Four
+NUMBER,5,Five
+NUMBER,6,Unknown
+
+# Character testing
+CHAR,a,Vowel
+CHAR,e,Vowel
+CHAR,i,Vowel
+CHAR,o,Vowel
+CHAR,u,Vowel
+CHAR,b,Consonant
+CHAR,c,Consonant
+CHAR,d,Consonant
+
+# Temperature testing
+TEMP,-5,Heavy coat
+TEMP,15,Light jacket
+TEMP,25,T-shirt
+TEMP,35,Shorts
+TEMP,45,Summer clothes
+
+# Age testing
+AGE,5,Toddler
+AGE,12,Child
+AGE,18,Teenager
+AGE,25,Young Adult
+AGE,35,Adult
+AGE,50,Middle-aged
+AGE,65,Senior
+AGE,80,Elderly
+
+# Calculator testing
+CALC,10+5,15.0
+CALC,20-4,16.0
+CALC,15*3,45.0
+CALC,8/2,4.0
+CALC,10/0,Infinity 

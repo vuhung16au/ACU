@@ -1,0 +1,5 @@
+Hello from Java!
+This is a sample file created by Example1.
+Line 3: Learning file I/O operations.
+Line 4: Understanding Java vs Python differences.
+Line 5: End of sample content.

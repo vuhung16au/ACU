@@ -1,0 +1,9 @@
+=== FILE STATISTICS ===
+File: application.log
+Total lines: 10
+Error lines: 2
+Warning lines: 2
+Info lines: 4
+Debug lines: 2
+Average line length: 52.40
+Error rate: 20.0%

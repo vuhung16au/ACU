@@ -1,0 +1,5 @@
+Output file created by Example1
+Current timestamp: 2025-07-12T00:14:32.052022
+Java version: 24.0.1
+Operating system: Mac OS X
+User home directory: /Users/vuhung

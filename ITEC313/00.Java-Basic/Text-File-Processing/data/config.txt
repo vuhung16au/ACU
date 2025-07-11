@@ -1,0 +1,5 @@
+# Application Configuration
+app.name=TextProcessor
+app.version=1.0
+max.file.size=1024
+encoding=UTF-8

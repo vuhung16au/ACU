@@ -1,0 +1,4 @@
+# Backup file created due to missing original
+# Original file: data/nonexistent.txt
+# Created: Sat Jul 12 00:14:37 AEST 2025
+default.content=backup_value

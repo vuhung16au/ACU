@@ -1,0 +1,8 @@
+This is a sample output file.
+Created by Java TextFileProcessing program.
+Timestamp: Sat Jul 12 00:14:29 AEST 2025
+Java version: 24.0.1
+
+--- Additional Content ---
+This content was appended to the existing file.
+Append timestamp: Sat Jul 12 00:14:29 AEST 2025
