@@ -1,0 +1,6 @@
+# input.txt
+# Sample data file for Operators-Expressions project
+# Not used for input (per project restrictions), but included for completeness
+10
+20
+30 
