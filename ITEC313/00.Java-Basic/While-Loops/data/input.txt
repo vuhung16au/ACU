@@ -1,0 +1,7 @@
+1
+2
+3
+4
+5
+# This file contains sample numbers for demonstration purposes in While-Loops examples.
+# Not used for user input, only for file reading demonstration. 
