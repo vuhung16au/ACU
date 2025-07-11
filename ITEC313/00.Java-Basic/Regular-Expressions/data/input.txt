@@ -1,0 +1,5 @@
+This is a sample input file.
+Order 123: 4 apples, 56 bananas
+Contact: student@university.edu
+Date: 2024-06-01
+SSN: 123-45-6789 

@@ -1,26 +1,26 @@
-# Regular-Expressions - Makefile
-# Course: ITEC313 - Object-Oriented Programming
+# Makefile for Regular-Expressions project
+JAVAC=javac
+JAVA=java
+SRC=RegularExpressions.java
+EXAMPLES=examples/Example1.java examples/Example2.java examples/Advanced.java
+CLASSES=RegularExpressions.class examples/Example1.class examples/Example2.class examples/Advanced.class
 
-JAVAC = javac
-JAVA = java
-MAIN_CLASS = RegularExpressions
+all: $(CLASSES)
 
-.PHONY: all compile run clean help
+%.class: %.java
+	$(JAVAC) $<
 
-all: compile
+run: RegularExpressions.class
+	$(JAVA) RegularExpressions
 
-compile:
-	$(JAVAC) $(MAIN_CLASS).java
+run-example1: examples/Example1.class
+	$(JAVA) -cp examples Example1
 
-run: compile
-	$(JAVA) $(MAIN_CLASS)
+run-example2: examples/Example2.class
+	$(JAVA) -cp examples Example2
+
+run-advanced: examples/Advanced.class
+	$(JAVA) -cp examples Advanced
 
 clean:
-	rm -f *.class examples/*.class tests/*.class
-
-help:
-	@echo "Available targets:"
-	@echo "  compile - Compile the program"
-	@echo "  run     - Compile and run the program"
-	@echo "  clean   - Remove compiled files"
-	@echo "  help    - Show this help"
+	rm -f *.class examples/*.class
