@@ -1,0 +1,40 @@
+# Sample data for Polymorphism demonstration
+# This file contains various data types that can be processed polymorphically
+
+# Animal data
+Dog,Buddy,3,Golden Retriever
+Cat,Whiskers,2,true
+Bird,Tweety,1,0.5
+Dog,Rex,4,German Shepherd
+Cat,Fluffy,3,false
+
+# Shape data
+Circle,Red,5.0
+Rectangle,Blue,4.0,6.0
+Triangle,Green,3.0,4.0,5.0
+Circle,Yellow,2.5
+Rectangle,Purple,4.0,4.0
+
+# Payment data
+CreditCard,CUST001,100.0,USD,1234567890123456,12/25,123
+PayPal,CUST002,50.0,USD,user@example.com,password
+BankTransfer,CUST003,200.0,USD,1234567890,987654321,Chase Bank
+
+# Number data for processing
+10
+25
+50
+100
+250
+
+# String data for processing
+hello
+world
+java
+polymorphism
+inheritance
+
+# Vehicle data
+Car,Toyota,2020,4
+Motorcycle,Harley,2019,false
+Car,Honda,2021,2 
