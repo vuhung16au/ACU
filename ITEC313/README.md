@@ -225,13 +225,7 @@ Each programming assignment should include a Makefile with the following targets
 
 ## 📄 License
 
-This repository contains educational material for ITEC313. The code is provided for learning purposes and should not be redistributed without permission.
-
-## 📧 Contact
-
-- **Course**: ITEC313 - Object-Oriented Programming
-- **Institution**: Australian Catholic University (ACU)
-- **Year**: 2025
+MIT
 
 ---
 
