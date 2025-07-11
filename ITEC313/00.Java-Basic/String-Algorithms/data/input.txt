@@ -1,0 +1,4 @@
+Java is fun and powerful
+A man, a plan, a canal: Panama
+hello world
+racecar 
