@@ -1,0 +1,4 @@
+apple,banana,apple,orange,banana,apple,grape,apple
+64,34,25,12,22,11,90
+Alice,Charlie,Bob,David,Eve,Frank,Grace
+10,20,30,40,50,60,70,80,90,100 

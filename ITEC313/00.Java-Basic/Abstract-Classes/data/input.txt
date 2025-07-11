@@ -1,0 +1,22 @@
+# Sample input data for Abstract-Classes project
+
+# Shape data for testing
+Circle,Red,5.0
+Rectangle,Blue,4.0,6.0
+Triangle,Green,3.0,4.0,5.0
+Circle,Yellow,3.5
+Rectangle,Purple,2.5,8.0
+Triangle,Orange,6.0,8.0,10.0
+
+# Animal data for testing
+Dog,Buddy,3,Golden Retriever
+Cat,Whiskers,2,true
+Dog,Max,4,Labrador
+Cat,Fluffy,1,false
+Dog,Rex,5,German Shepherd
+Cat,Mittens,3,true
+
+# Employee data for testing
+FullTime,John Smith,FT001,50000.0,5000.0,3
+PartTime,Jane Doe,PT001,0.0,20,25.0
+Contract,Bob Johnson,CT001,60000.0,12,10000.0 

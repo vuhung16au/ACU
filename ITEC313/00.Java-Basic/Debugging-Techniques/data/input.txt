@@ -1,0 +1,1 @@
+# Sample input for Debugging-Techniques project 

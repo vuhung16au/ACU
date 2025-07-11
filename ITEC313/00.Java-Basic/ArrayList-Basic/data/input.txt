@@ -1,0 +1,5 @@
+apple,banana,orange,grape,kiwi
+1,2,3,4,5,6,7,8,9,10
+red,green,blue,yellow,purple,orange
+85.5,92.0,78.5,95.0,88.5,91.0,87.5
+true,false,true,true,false,true 

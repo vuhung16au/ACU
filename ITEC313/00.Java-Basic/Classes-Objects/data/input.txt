@@ -1,0 +1,10 @@
+Alice Johnson,20,S12345,Computer Science
+Bob Smith,19,S12346,Mathematics
+Carol Davis,21,S12347,Physics
+David Wilson,20,S12348,Chemistry
+Emma Brown,19,S12349,IT
+Frank Miller,20,S12350,IT
+Grace Lee,22,S12351,Engineering
+Henry Chen,21,S12352,Computer Science
+Ivy Rodriguez,20,S12353,Mathematics
+Jack Thompson,19,S12354,Physics 

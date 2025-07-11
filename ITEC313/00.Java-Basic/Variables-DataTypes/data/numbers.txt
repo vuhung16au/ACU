@@ -1,0 +1,39 @@
+# Sample numeric data for parsing examples
+# This file contains various numeric formats for testing type conversion
+
+# Integer numbers
+42
+-17
+0
+2147483647
+
+# Floating-point numbers
+3.14159
+-2.718
+1.23e4
+6.022e23
+-4.5e-10
+
+# Hexadecimal numbers (without 0x prefix)
+FF
+A1B2
+DEAD
+BEEF
+
+# Binary representations (without 0b prefix)
+101010
+1111
+10000001
+
+# Boolean values
+true
+false
+TRUE
+FALSE
+
+# Mixed data for error handling
+invalid_number
+12.34.56
++inf
+-inf
+NaN
