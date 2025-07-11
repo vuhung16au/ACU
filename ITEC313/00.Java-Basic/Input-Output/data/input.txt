@@ -1,1 +1,8 @@
-# Sample input for Input-Output project 
+Hello World! This is a sample input file for the Input-Output project.
+It contains multiple lines of text to demonstrate file reading capabilities.
+Each line can be processed differently depending on the I/O method used.
+This file is used by various examples in the project to show different reading techniques.
+The content includes numbers like 42, 3.14, and text that can be parsed.
+Some lines have special characters and formatting to test different scenarios.
+This demonstrates how Java handles different types of input data.
+The file ends with this final line for completeness. 

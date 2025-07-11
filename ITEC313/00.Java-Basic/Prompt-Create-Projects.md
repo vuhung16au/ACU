@@ -1,7 +1,7 @@
 
 
 {folder}
-Input-Output
+Instance-Variables
 {/folder}
 
 Finish implemtation for the {folder}
