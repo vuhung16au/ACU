@@ -16,7 +16,7 @@ run: compile
 	$(JAVA) $(MAIN_CLASS)
 
 clean:
-	rm -f *.class examples/*.class tests/*.class
+	rm -f *.class examples/*.class
 
 help:
 	@echo "Available targets:"
