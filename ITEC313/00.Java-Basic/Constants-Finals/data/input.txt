@@ -1,1 +1,29 @@
-# Sample input for Constants-Finals project 
+# Sample input data for Constants-Finals examples
+# This file contains test data for demonstrating constants and final variables
+
+# Employee data
+EMP001,John Doe,Engineering,75000
+EMP002,Jane Smith,Marketing,65000
+EMP003,Bob Johnson,Sales,70000
+EMP004,Alice Brown,HR,60000
+EMP005,Mike Wilson,Engineering,80000
+
+# Configuration settings
+MAX_EMPLOYEES=1000
+BASE_SALARY=50000
+TAX_RATE=0.25
+BONUS_RATE=0.15
+RETIREMENT_RATE=0.06
+
+# Account data
+ACC123456,ACTIVE,5000.0
+ACC789012,INACTIVE,0.0
+ACC345678,PENDING,2500.0
+ACC901234,COMPLETED,10000.0
+
+# Validation rules
+MIN_ACCOUNT_LENGTH=8
+MAX_ACCOUNT_LENGTH=16
+MIN_BALANCE=0.0
+MAX_BALANCE=1000000.0
+TIMEOUT_SECONDS=30 

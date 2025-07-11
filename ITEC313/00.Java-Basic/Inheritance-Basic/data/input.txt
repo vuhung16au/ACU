@@ -1,1 +1,23 @@
-# Sample input for Inheritance-Basic project 
+# Sample data for Inheritance-Basic project
+# This file contains sample data for demonstrating inheritance concepts
+
+# Animal data for inheritance examples
+Animal,Dog,Buddy,3,Golden Retriever
+Animal,Cat,Whiskers,2,Persian
+Animal,Bird,Polly,1,Parrot
+
+# Vehicle data for constructor chaining examples
+Vehicle,Car,Toyota Camry,2022,Sedan
+Vehicle,Car,Honda Civic,2021,Sedan
+Vehicle,ElectricCar,Tesla Model 3,2023,Sedan,350
+Vehicle,ElectricCar,Nissan Leaf,2022,Hatchback,150
+
+# Employee data for method overriding examples
+Employee,Manager,Jane Smith,80000,Engineering
+Employee,Developer,Bob Johnson,70000,Java
+Employee,Developer,Alice Brown,75000,Python
+
+# Shape data for polymorphism examples
+Shape,Circle,5.0
+Shape,Rectangle,4.0,6.0
+Shape,Triangle,3.0,4.0,5.0 

@@ -13,14 +13,10 @@
  * Date: July 11, 2025
  */
 
-import java.util.Scanner;
-
 public class IfElseConditions {
     
     public static void main(String[] args) {
         System.out.println("=== If-Else Conditions Demo ===\n");
-        
-        Scanner scanner = new Scanner(System.in);
         
         // Demonstrate basic if-else
         demonstrateBasicIfElse();
@@ -34,11 +30,15 @@ public class IfElseConditions {
         // Demonstrate ternary operator
         demonstrateTernaryOperator();
         
-        // Interactive examples
-        interactiveGradeExample(scanner);
-        interactiveAgeCategory(scanner);
+        // Demonstrate grade calculation with predefined scores
+        demonstrateGradeCalculation();
         
-        scanner.close();
+        // Demonstrate age categorization
+        demonstrateAgeCategorization();
+        
+        // Demonstrate complex business logic
+        demonstrateBusinessLogic();
+        
         System.out.println("\n=== Demo Complete ===");
     }
     
@@ -163,111 +163,142 @@ public class IfElseConditions {
         System.out.println();
     }
     
-    public static void interactiveGradeExample(Scanner scanner) {
-        System.out.println("5. INTERACTIVE GRADE CALCULATOR");
-        System.out.println("===============================");
+    public static void demonstrateGradeCalculation() {
+        System.out.println("5. GRADE CALCULATION EXAMPLES");
+        System.out.println("=============================");
         
-        System.out.print("Enter your test score (0-100): ");
-        while (!scanner.hasNextInt()) {
-            System.out.print("Please enter a valid number: ");
-            scanner.next();
+        // Test different scores
+        int[] scores = {95, 87, 73, 65, 45};
+        
+        for (int score : scores) {
+            System.out.printf("Score: %d%n", score);
+            
+            // Calculate grade
+            char letterGrade;
+            String description;
+            
+            if (score >= 90) {
+                letterGrade = 'A';
+                description = "Excellent";
+            } else if (score >= 80) {
+                letterGrade = 'B';
+                description = "Good";
+            } else if (score >= 70) {
+                letterGrade = 'C';
+                description = "Average";
+            } else if (score >= 60) {
+                letterGrade = 'D';
+                description = "Below Average";
+            } else {
+                letterGrade = 'F';
+                description = "Failing";
+            }
+            
+            // Display results
+            System.out.printf("Letter Grade: %c%n", letterGrade);
+            System.out.printf("Description: %s%n", description);
+            
+            // Additional feedback
+            if (score >= 60) {
+                System.out.println("Congratulations! You passed!");
+            } else {
+                System.out.println("You need to retake the test.");
+            }
+            System.out.println();
         }
-        int score = scanner.nextInt();
-        scanner.nextLine(); // Consume newline
-        
-        // Validate input
-        if (score < 0 || score > 100) {
-            System.out.println("Invalid score! Score must be between 0 and 100.");
-            return;
-        }
-        
-        // Calculate grade
-        char letterGrade;
-        String description;
-        
-        if (score >= 90) {
-            letterGrade = 'A';
-            description = "Excellent";
-        } else if (score >= 80) {
-            letterGrade = 'B';
-            description = "Good";
-        } else if (score >= 70) {
-            letterGrade = 'C';
-            description = "Average";
-        } else if (score >= 60) {
-            letterGrade = 'D';
-            description = "Below Average";
-        } else {
-            letterGrade = 'F';
-            description = "Failing";
-        }
-        
-        // Display results
-        System.out.printf("Score: %d%n", score);
-        System.out.printf("Letter Grade: %c%n", letterGrade);
-        System.out.printf("Description: %s%n", description);
-        
-        // Additional feedback
-        if (score >= 60) {
-            System.out.println("Congratulations! You passed!");
-        } else {
-            System.out.println("You need to retake the test.");
-        }
-        
-        System.out.println();
     }
     
-    public static void interactiveAgeCategory(Scanner scanner) {
+    public static void demonstrateAgeCategorization() {
         System.out.println("6. AGE CATEGORY CLASSIFIER");
         System.out.println("==========================");
         
-        System.out.print("Enter your age: ");
-        while (!scanner.hasNextInt()) {
-            System.out.print("Please enter a valid age: ");
-            scanner.next();
-        }
-        int age = scanner.nextInt();
-        scanner.nextLine(); // Consume newline
+        // Test different ages
+        int[] ages = {1, 8, 16, 25, 70};
         
-        if (age < 0 || age > 150) {
-            System.out.println("Invalid age entered!");
-            return;
+        for (int age : ages) {
+            System.out.printf("Age: %d%n", age);
+            
+            String category;
+            String activities;
+            
+            if (age < 2) {
+                category = "Infant";
+                activities = "Sleeping, feeding, basic motor development";
+            } else if (age < 13) {
+                category = "Child";
+                activities = "Playing, learning, school activities";
+            } else if (age < 20) {
+                category = "Teenager";
+                activities = "High school, sports, socializing";
+            } else if (age < 60) {
+                category = "Adult";
+                activities = "Career, family, responsibilities";
+            } else {
+                category = "Senior";
+                activities = "Retirement, leisure, wisdom sharing";
+            }
+            
+            System.out.printf("Category: %s%n", category);
+            System.out.printf("Typical activities: %s%n", activities);
+            
+            // Special conditions
+            if (age >= 18) {
+                System.out.println("✓ Eligible to vote");
+            }
+            if (age >= 21) {
+                System.out.println("✓ Legal drinking age (in some countries)");
+            }
+            if (age >= 65) {
+                System.out.println("✓ Eligible for senior discounts");
+            }
+            System.out.println();
+        }
+    }
+    
+    public static void demonstrateBusinessLogic() {
+        System.out.println("7. BUSINESS LOGIC EXAMPLES");
+        System.out.println("===========================");
+        
+        // E-commerce discount logic
+        double purchaseAmount = 150.0;
+        boolean isVIP = true;
+        boolean isFirstTime = false;
+        
+        System.out.printf("Purchase Amount: $%.2f%n", purchaseAmount);
+        System.out.printf("VIP Customer: %b%n", isVIP);
+        System.out.printf("First Time Customer: %b%n", isFirstTime);
+        
+        double discount = 0.0;
+        
+        // Complex discount calculation
+        if (purchaseAmount >= 200) {
+            discount = 0.20; // 20% discount for large purchases
+        } else if (purchaseAmount >= 100) {
+            discount = 0.10; // 10% discount for medium purchases
+        } else if (purchaseAmount >= 50) {
+            discount = 0.05; // 5% discount for small purchases
         }
         
-        String category;
-        String activities;
-        
-        if (age < 2) {
-            category = "Infant";
-            activities = "Sleeping, feeding, basic motor development";
-        } else if (age < 13) {
-            category = "Child";
-            activities = "Playing, learning, school activities";
-        } else if (age < 20) {
-            category = "Teenager";
-            activities = "High school, sports, socializing";
-        } else if (age < 60) {
-            category = "Adult";
-            activities = "Career, family, responsibilities";
-        } else {
-            category = "Senior";
-            activities = "Retirement, leisure, wisdom sharing";
+        // Additional VIP discount
+        if (isVIP) {
+            discount += 0.05; // Extra 5% for VIP
         }
         
-        System.out.printf("Age: %d%n", age);
-        System.out.printf("Category: %s%n", category);
-        System.out.printf("Typical activities: %s%n", activities);
+        // First-time customer bonus
+        if (isFirstTime) {
+            discount += 0.03; // Extra 3% for first-time customers
+        }
         
-        // Special conditions
-        if (age >= 18) {
-            System.out.println("✓ Eligible to vote");
+        // Cap discount at 30%
+        if (discount > 0.30) {
+            discount = 0.30;
         }
-        if (age >= 21) {
-            System.out.println("✓ Legal drinking age (in some countries)");
-        }
-        if (age >= 65) {
-            System.out.println("✓ Eligible for senior discounts");
-        }
+        
+        double finalPrice = purchaseAmount * (1 - discount);
+        
+        System.out.printf("Discount Rate: %.1f%%%n", discount * 100);
+        System.out.printf("Final Price: $%.2f%n", finalPrice);
+        System.out.printf("Total Savings: $%.2f%n", purchaseAmount - finalPrice);
         
         System.out.println();
     }

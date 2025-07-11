@@ -1,1 +1,12 @@
-# Sample input for Custom-Exceptions project 
+25
+user@example.com
+ORD-001
+100.50
+-5
+invalid-email
+200
+null
+empty
+abc
+123
+dangerous 

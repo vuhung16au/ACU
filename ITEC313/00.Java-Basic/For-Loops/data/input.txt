@@ -1,1 +1,28 @@
-# Sample input for For-Loops project 
+# Sample input data for For-Loops project
+# This file contains sample data that can be processed using for loops
+
+# Numbers for counting exercises
+1,2,3,4,5,6,7,8,9,10
+
+# Student scores for array processing
+85,92,78,96,88,91,87,94,89,93
+
+# Colors for string array examples
+red,green,blue,yellow,purple,orange,pink,brown
+
+# Prices for calculation exercises
+19.99,29.99,39.99,49.99,59.99,69.99
+
+# Words for string processing
+hello,world,java,programming,object,oriented
+
+# Grades for conditional processing
+65,85,95,75,90,80,70,88,92,78
+
+# Coordinates for nested loop examples
+(0,0),(0,1),(0,2),(1,0),(1,1),(1,2),(2,0),(2,1),(2,2)
+
+# Matrix data for 2D array processing
+1,2,3
+4,5,6
+7,8,9 

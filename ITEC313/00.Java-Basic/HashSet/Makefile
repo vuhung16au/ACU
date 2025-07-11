@@ -3,7 +3,7 @@
 
 JAVAC = javac
 JAVA = java
-MAIN_CLASS = HashSet
+MAIN_CLASS = HashSetDemo
 
 .PHONY: all compile run clean help
 

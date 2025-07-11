@@ -1,1 +1,20 @@
-# Sample input for Debugging-Techniques project 
+# Sample input data for debugging demonstrations
+# This file contains test data that can be used to demonstrate debugging techniques
+
+# Numbers for array processing debugging
+1,2,3,4,5,6,7,8,9,10
+
+# Names for string processing debugging
+Alice,Bob,Charlie,Diana,Eve,Frank,Grace,Henry
+
+# Mixed data for complex debugging scenarios
+user1:25:alice@example.com
+user2:30:bob@example.com
+user3:-5:invalid-email
+user4:150:charlie@example.com
+
+# Performance test data
+1000,2000,3000,4000,5000
+
+# Error-prone data for exception debugging
+null,empty,zero,negative,-1,0,1 

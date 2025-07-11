@@ -1,1 +1,11 @@
-# Sample input for Constructors project 
+Student Data Examples:
+Alice Johnson,20,3.8
+Bob Smith,19,3.5
+Charlie Brown,21,3.2
+Diana Prince,22,3.9
+Eve Wilson,20,3.6
+Frank Miller,23,3.4
+Grace Lee,24,3.7
+Henry Adams,19,3.3
+Ivy Chen,21,3.8
+Jack Wilson,22,3.5 

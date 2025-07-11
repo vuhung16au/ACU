@@ -7,9 +7,9 @@
  * It demonstrates the basic structure of a Java program and serves as
  * an introduction to Java programming fundamentals.
  * 
- * Author: ITEC313 Student
+ * Author: XYZ
  * Date: July 11, 2025
- * Course: ITEC313 - Object-Oriented Programming
+ * Course: XYZ
  */
 public class HelloWorld {
     

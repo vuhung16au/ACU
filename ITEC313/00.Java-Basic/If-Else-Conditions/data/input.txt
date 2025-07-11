@@ -1,0 +1,37 @@
+# Sample input data for If-Else Conditions examples
+# Format: type,value,description
+
+# Temperature data for weather examples
+temperature,25,Moderate temperature
+temperature,35,Hot temperature
+temperature,5,Cold temperature
+temperature,15,Cool temperature
+
+# Age data for age categorization
+age,18,Legal adult
+age,12,Child
+age,25,Young adult
+age,70,Senior citizen
+age,2,Infant
+
+# Score data for grade calculation
+score,95,Excellent score
+score,87,Good score
+score,73,Average score
+score,65,Below average score
+score,45,Failing score
+
+# Boolean conditions
+condition,true,Positive condition
+condition,false,Negative condition
+
+# String comparisons
+string,Alice,Common name
+string,Bob,Another common name
+string,Charlie,Less common name
+
+# Numeric ranges
+number,42,Answer to everything
+number,100,Perfect score
+number,0,Zero value
+number,-5,Negative value 

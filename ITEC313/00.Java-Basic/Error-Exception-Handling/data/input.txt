@@ -1,1 +1,6 @@
-# Sample input for Error-Exception-Handling project 
+Hello World! This is sample data for exception handling examples.
+123
+456
+789
+abc
+def 

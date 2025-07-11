@@ -1,0 +1,12 @@
+Line 1: This is buffered writing
+Line 2: This is buffered writing
+Line 3: This is buffered writing
+Line 4: This is buffered writing
+Line 5: This is buffered writing
+Line 6: This is buffered writing
+Line 7: This is buffered writing
+Line 8: This is buffered writing
+Line 9: This is buffered writing
+Line 10: This is buffered writing
+Special characters: á é í ó ú ñ
+Unicode: Hello

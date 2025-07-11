@@ -1,1 +1,19 @@
-# Sample input for File-Handling project 
+# Sample input file for File-Handling project
+# This file contains various types of data for testing file operations
+
+Hello World! This is a sample text file.
+It contains multiple lines of text for testing file reading operations.
+
+Line 3: Testing line-by-line reading
+Line 4: Another line with some content
+Line 5: Final line of the sample file
+
+Numbers: 1, 2, 3, 4, 5
+Special characters: á é í ó ú ñ
+Unicode: Hello World in different languages
+
+This file is used to demonstrate:
+- Basic file reading operations
+- Line-by-line processing
+- Character-by-character reading
+- File content analysis 

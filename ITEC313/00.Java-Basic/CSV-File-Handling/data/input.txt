@@ -1,1 +1,2 @@
-# Sample input for CSV-File-Handling project 
+Sample text data for CSV file handling examples.
+This file contains various data formats that can be processed into CSV format. 

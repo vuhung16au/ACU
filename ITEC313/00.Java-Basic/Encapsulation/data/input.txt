@@ -1,1 +1,22 @@
-# Sample input for Encapsulation project 
+# Sample input data for Encapsulation project
+
+# Student data
+Alice Johnson,20,S12345
+Bob Smith,22,S12346
+Carol Davis,19,S12347
+
+# Bank account data
+1234567890,1000.50
+9876543210,2500.75
+5555555555,500.25
+
+# Temperature conversion data
+25.0,77.0,298.15
+0.0,32.0,273.15
+100.0,212.0,373.15
+
+# Shopping cart data
+Laptop,999.99,1
+Mouse,29.99,2
+Keyboard,89.99,1
+Monitor,299.99,1 

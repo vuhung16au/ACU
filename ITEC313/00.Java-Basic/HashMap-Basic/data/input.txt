@@ -1,1 +1,32 @@
-# Sample input for HashMap-Basic project 
+# Sample input data for HashMap-Basic project
+# This file contains sample data that can be used to populate HashMaps
+
+# Student grades data
+Alice,95
+Bob,87
+Charlie,92
+Diana,89
+Eve,91
+
+# Country populations (in millions)
+China,1439
+India,1380
+United States,331
+Indonesia,274
+Pakistan,221
+
+# Product prices
+Apple,0.50
+Banana,0.30
+Orange,0.75
+Grapes,2.99
+Milk,3.49
+
+# Course codes and names
+CS101,Introduction to Programming
+CS201,Data Structures
+CS301,Algorithms
+MATH101,Calculus I
+MATH201,Linear Algebra
+PHYS101,Mechanics
+PHYS201,Electromagnetism 

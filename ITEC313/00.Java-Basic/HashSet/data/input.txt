@@ -1,1 +1,26 @@
-# Sample input for HashSet project 
+# Sample input data for HashSet demonstrations
+# Each line contains comma-separated values that can be used to create HashSets
+
+# Colors for basic operations
+red,green,blue,yellow,purple,orange,cyan,magenta
+
+# Numbers for set operations
+1,2,3,4,5,6,7,8,9,10
+
+# Names for duplicate removal example
+Alice,Bob,Charlie,David,Eve,Frank,Alice,Bob,Alice
+
+# Email addresses for real-world example
+alice@example.com,bob@example.com,charlie@example.com,david@example.com,eve@example.com,alice@example.com,bob@example.com
+
+# Fruits for iteration examples
+apple,banana,orange,grape,kiwi,mango,pineapple,apple,banana
+
+# Student data for custom objects
+Alice,25
+Bob,30
+Charlie,22
+David,28
+Eve,24
+Alice,25
+Bob,30 

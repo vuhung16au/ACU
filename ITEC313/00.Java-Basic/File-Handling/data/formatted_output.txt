@@ -1,0 +1,12 @@
+Language: Java
+Version: 8
+Pi value: 3.14159
+Combined: Java version 8
+
+Data Table:
+Name	Age	City
+John	25	New York
+Alice	30	London
+Bob	35	Paris
+
+Generated on: Fri Jul 11 22:21:11 AEST 2025
