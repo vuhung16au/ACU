@@ -1,0 +1,5 @@
+Hello, World!
+Java is fun.
+apple,banana,cherry
+   padded string   
+Order 123: 5 apples, 7 bananas, 42 oranges. 

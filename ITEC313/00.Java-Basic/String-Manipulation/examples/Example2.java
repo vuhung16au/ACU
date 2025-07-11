@@ -1,0 +1,14 @@
+// Example2.java
+// Demonstrates replacing substrings in Java
+// Python comparison included
+
+public class Example2 {
+    public static void main(String[] args) {
+        String sentence = "I like apples. Apples are tasty.";
+        // Replace all occurrences of 'apples' (case-insensitive) with 'bananas'
+        String replaced = sentence.replaceAll("(?i)apples", "bananas");
+        System.out.println("Original: " + sentence);
+        System.out.println("Replaced: " + replaced);
+        // In Python: replaced = sentence.replace('apples', 'bananas')
+    }
+} 
