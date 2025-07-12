@@ -1,0 +1,95 @@
+/* Main application styles */
+.root {
+    -fx-background-color: #f0f0f0;
+    -fx-font-family: "System", sans-serif;
+}
+
+/* Title styling */
+.title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}
+
+/* Demo container styling */
+.demo-container {
+    -fx-background-color: white;
+    -fx-border-color: #ccc;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);
+}
+
+/* Button styling */
+.styled-button {
+    -fx-background-color: linear-gradient(#ff5400, #be1d00);
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20 10 20;
+    -fx-border-color: #333;
+    -fx-border-width: 2;
+    -fx-border-radius: 30;
+}
+
+.styled-button:hover {
+    -fx-background-color: linear-gradient(#ff6a00, #d42300);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.styled-button:pressed {
+    -fx-background-color: linear-gradient(#cc4400, #990000);
+}
+
+/* Rectangle styling */
+.styled-rectangle {
+    -fx-fill: linear-gradient(#e6f3ff, #0066cc);
+    -fx-stroke: #003d7a;
+    -fx-stroke-width: 3;
+    -fx-arc-width: 15;
+    -fx-arc-height: 15;
+}
+
+/* Circle styling */
+.styled-circle {
+    -fx-fill: radial-gradient(center 30% 30%, radius 80%, #ffeb99, #ff9900);
+    -fx-stroke: #cc7700;
+    -fx-stroke-width: 3;
+}
+
+/* Rotation pane */
+.rotating-pane {
+    -fx-background-color: linear-gradient(#ffcccc, #ff6666);
+    -fx-border-color: #cc0000;
+    -fx-border-width: 2;
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+}
+
+/* Slider styling */
+.slider {
+    -fx-show-tick-labels: true;
+    -fx-show-tick-marks: true;
+}
+
+/* Label styling */
+.section-label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}
+
+.info-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: #666;
+}
+
+.rotation-label {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}
