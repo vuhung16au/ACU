@@ -150,3 +150,5 @@ java --module-path /path/to/javafx/lib --add-modules javafx.controls,javafx.fxml
 ## Screenshots
 
 ![JavaFX Button Demo](images/JavaFx-Button-Demo.png)
+
+![Maven Plugin JavaFX Run](images/maven-plugin-javafx-run.png)
