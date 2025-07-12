@@ -1,0 +1,214 @@
+/* JavaFX Controls Demo Stylesheet */
+
+.root {
+    -fx-background-color: #f5f5f5;
+    -fx-font-family: "Arial", "Helvetica", sans-serif;
+}
+
+/* Tab styling */
+.tab-pane {
+    -fx-tab-min-width: 150px;
+}
+
+.tab {
+    -fx-background-color: #e0e0e0;
+    -fx-border-color: #cccccc;
+}
+
+.tab:selected {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #007acc;
+}
+
+.tab-header-area .tab-header-background {
+    -fx-background-color: #f0f0f0;
+}
+
+/* Button styling */
+.button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 8px 16px;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #45a049;
+}
+
+.button:pressed {
+    -fx-background-color: #3d8b40;
+}
+
+/* Special button colors */
+.button.media-control {
+    -fx-background-color: #2196F3;
+}
+
+.button.media-control:hover {
+    -fx-background-color: #1976D2;
+}
+
+.button.game-reset {
+    -fx-background-color: #FF9800;
+}
+
+.button.game-reset:hover {
+    -fx-background-color: #F57C00;
+}
+
+/* Text field styling */
+.text-field, .text-area, .password-field {
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 3px;
+    -fx-background-radius: 3px;
+    -fx-padding: 5px;
+}
+
+.text-field:focused, .text-area:focused, .password-field:focused {
+    -fx-border-color: #007acc;
+    -fx-border-width: 2px;
+}
+
+/* ComboBox styling */
+.combo-box {
+    -fx-background-color: white;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 3px;
+    -fx-background-radius: 3px;
+}
+
+.combo-box:hover {
+    -fx-border-color: #007acc;
+}
+
+/* ListView styling */
+.list-view {
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 3px;
+    -fx-background-radius: 3px;
+}
+
+.list-cell:selected {
+    -fx-background-color: #007acc;
+    -fx-text-fill: white;
+}
+
+.list-cell:hover {
+    -fx-background-color: #e3f2fd;
+}
+
+/* CheckBox and RadioButton styling */
+.check-box, .radio-button {
+    -fx-font-size: 14px;
+    -fx-padding: 5px;
+}
+
+.check-box:selected .box, .radio-button:selected .radio {
+    -fx-background-color: #007acc;
+}
+
+/* Slider styling */
+.slider .track {
+    -fx-background-color: #e0e0e0;
+}
+
+.slider .thumb {
+    -fx-background-color: #007acc;
+}
+
+.slider:hover .thumb {
+    -fx-background-color: #005999;
+}
+
+/* ScrollBar styling */
+.scroll-bar .track {
+    -fx-background-color: #f0f0f0;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #cccccc;
+}
+
+.scroll-bar:hover .thumb {
+    -fx-background-color: #007acc;
+}
+
+/* Label styling */
+.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+}
+
+.label.section-header {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #007acc;
+}
+
+/* Tic-Tac-Toe game styling */
+.game-button {
+    -fx-background-color: #e3f2fd;
+    -fx-border-color: #007acc;
+    -fx-border-width: 2px;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-min-width: 80px;
+    -fx-min-height: 80px;
+}
+
+.game-button:hover {
+    -fx-background-color: #bbdefb;
+}
+
+.game-button.x-player {
+    -fx-text-fill: #d32f2f;
+    -fx-background-color: #ffebee;
+}
+
+.game-button.o-player {
+    -fx-text-fill: #388e3c;
+    -fx-background-color: #e8f5e8;
+}
+
+/* Container styling */
+.content-pane {
+    -fx-padding: 20px;
+    -fx-spacing: 15px;
+}
+
+.section-container {
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-background-color: white;
+    -fx-padding: 15px;
+}
+
+/* Media player styling */
+.media-view {
+    -fx-border-color: #333333;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+}
+
+.media-controls {
+    -fx-background-color: #f5f5f5;
+    -fx-padding: 10px;
+    -fx-spacing: 10px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+/* Animation for interactive elements */
+.button, .combo-box, .text-field, .text-area, .password-field {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 2, 0, 0, 1);
+}
+
+.button:hover, .combo-box:hover, .text-field:focused, .text-area:focused, .password-field:focused {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 4, 0, 0, 2);
+}

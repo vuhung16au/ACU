@@ -1,0 +1,95 @@
+# JavaFX Controls and Multimedia Demo
+
+# Logs
+logs/
+*.log
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# IDE - IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# IDE - Eclipse
+.project
+.classpath
+.settings/
+bin/
+
+# IDE - NetBeans
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# IDE - Visual Studio Code
+.vscode/
+*.code-workspace
+
+# JavaFX
+.javafx-cache/
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+hs_err_pid*
+
+# Package Files
+*.dmg
+*.pkg
+*.deb
+*.rpm
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+*~
+
+# Backup files
+*.bak
+*.backup
+
+# Media files (if using local media)
+*.mp4
+*.avi
+*.mov
+*.mp3
+*.wav
+*.aac
+!sample.*
+
+# Documentation build
+docs/_build/
+
+# Test results
+TEST-*.xml
+testng-results.xml
