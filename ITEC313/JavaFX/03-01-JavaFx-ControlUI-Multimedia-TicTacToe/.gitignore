@@ -79,13 +79,13 @@ Thumbs.db
 *.backup
 
 # Media files (if using local media)
-*.mp4
-*.avi
-*.mov
-*.mp3
-*.wav
-*.aac
-!sample.*
+# *.mp4
+# *.avi
+# *.mov
+# *.mp3
+# *.wav
+# *.aac
+# !sample.*
 
 # Documentation build
 docs/_build/
