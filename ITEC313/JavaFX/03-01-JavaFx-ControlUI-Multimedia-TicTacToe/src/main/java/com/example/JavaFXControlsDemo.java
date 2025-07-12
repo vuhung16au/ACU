@@ -364,11 +364,12 @@ public class JavaFXControlsDemo extends Application {
             } else {
                 // Try alternative path relative to project root
                 mediaFile = new java.io.File("../media/sound-design-elements-sfx-ps-022-302865.mp3");
+
                 if (mediaFile.exists()) {
                     mediaUrl = mediaFile.toURI().toString();
                 } else {
                     // Try with full workspace path
-                    mediaFile = new java.io.File("/Users/vuhung/00.Work/02.ACU/github/ITEC313/JavaFX/03-01-JavaFx-ControlUI-Multimedia/media/sound-design-elements-sfx-ps-022-302865.mp3");
+                    mediaFile = new java.io.File("https://github.com/vuhung16au/ACU/raw/refs/heads/main/ITEC313/JavaFX/03-01-JavaFx-ControlUI-Multimedia-TicTacToe/media/sound-design-elements-sfx-ps-022-302865.mp3");
                     if (mediaFile.exists()) {
                         mediaUrl = mediaFile.toURI().toString();
                     } else {
