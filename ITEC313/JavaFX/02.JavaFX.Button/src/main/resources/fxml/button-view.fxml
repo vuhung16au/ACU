@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<!--
+    FXML file defines the User Interface structure
+    This file describes the Scene content - what goes inside the Scene
+    
+    The Scene contains:
+    - Root container (VBox in this case)
+    - Child nodes (Labels, Buttons, etc.)
+-->
+
+<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/11.0.1" 
+      xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="com.acu.javafx.controller.ButtonController">
+   
+   <!-- Padding around the entire VBox -->
+   <padding>
+      <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+   </padding>
+   
+   <!-- Title Label -->
+   <Label text="JavaFX Button Demo">
+      <font>
+         <Font name="System Bold" size="24.0" />
+      </font>
+   </Label>
+   
+   <!-- Subtitle explaining the concepts -->
+   <Label text="Demonstrating Stage, Scene, and Button Node" 
+          style="-fx-text-fill: #666666;">
+      <font>
+         <Font size="14.0" />
+      </font>
+   </Label>
+   
+   <!-- Status Label - shows feedback when buttons are clicked -->
+   <Label fx:id="statusLabel" text="Welcome to JavaFX!" 
+          style="-fx-text-fill: #2196F3; -fx-font-weight: bold;">
+      <font>
+         <Font size="16.0" />
+      </font>
+   </Label>
+   
+   <!-- Click Counter Label -->
+   <Label fx:id="clickCountLabel" text="Click count: 0" 
+          style="-fx-text-fill: #FF9800;">
+      <font>
+         <Font size="14.0" />
+      </font>
+   </Label>
+   
+   <!-- Button Container -->
+   <HBox alignment="CENTER" spacing="15.0">
+      
+      <!-- Main Action Button -->
+      <Button fx:id="clickMeButton" 
+              text="Click Me!" 
+              onAction="#onClickMeButtonClick"
+              prefWidth="120.0"
+              prefHeight="40.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      
+      <!-- Reset Button -->
+      <Button fx:id="resetButton" 
+              text="Reset" 
+              onAction="#onResetButtonClick"
+              prefWidth="80.0"
+              prefHeight="40.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      
+   </HBox>
+   
+   <!-- Information Section -->
+   <VBox alignment="CENTER" spacing="10.0" 
+         style="-fx-background-color: #f5f5f5; -fx-background-radius: 10;">
+      <padding>
+         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+      </padding>
+      
+      <Label text="JavaFX Architecture:" style="-fx-font-weight: bold;">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Label>
+      
+      <Label text="• Stage = The Window (top-level container)" 
+             style="-fx-text-fill: #333333;">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      
+      <Label text="• Scene = The Content Area (holds all UI elements)" 
+             style="-fx-text-fill: #333333;">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      
+      <Label text="• Button = A Node (interactive UI element)" 
+             style="-fx-text-fill: #333333;">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      
+   </VBox>
+   
+</VBox>
