@@ -2,7 +2,15 @@
 
 ## Project Overview
 
-Create a comprehensive JavaFX application that demonstrates the fundamental concepts of JavaFX panes, UI controls, and shapes. This project serves as an educational example showcasing how to build cross-platform JavaFX applications with proper build configuration.
+Create a comprehensive JavaFX application that demonstrates the fundamental concepts of JavaFX includes the following {features}: 
+
+{features}
+- panes, 
+- UI controls, 
+- shapes. 
+{/features}
+
+This project serves as an educational example showcasing how to build cross-platform JavaFX applications with proper build configuration.
 
 ## Application Requirements
 
@@ -70,7 +78,6 @@ The project must be buildable and runnable on:
 
 - **`run.sh`**: Unix/Linux/macOS execution script
 - **`run.bat`**: Windows batch execution script
-- **`run_direct.sh`**: Direct Java execution without Maven (optional)
 
 ### Project Structure
 
@@ -80,8 +87,8 @@ src/
 │   ├── java/
 │   │   └── com/example/
 │   │       ├── Launcher.java          # Application entry point
-│   │       ├── ShapesDemo.java        # Main application class
-│   │       └── SimpleShapesDemo.java  # Alternative simple version
+│   │       ├── XYZ.java        # Main application class
+│   │       └── XYZ.java  # Alternative simple version
 │   └── resources/
 │       └── (CSS files, images, etc.)
 ├── test/
