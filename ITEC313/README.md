@@ -1,6 +1,6 @@
 # ITEC313 - Object-Oriented Programming
 
-This repository contains coursework and projects for **ITEC313 - Object-Oriented Programming** course. The repository is organized to provide a comprehensive learning path through Java programming fundamentals and object-oriented programming concepts.
+This repository contains additional resources and projects for **ITEC313 - Advanced Programming Concepts** course. The repository is organized to provide a comprehensive learning path through Java programming fundamentals and object-oriented programming concepts.
 
 ## 📁 Repository Structure
 
@@ -136,17 +136,21 @@ This program demonstrates:
 
 ### Recommended IDEs
 
-1. **IntelliJ IDEA** (Recommended)
+1. **Visual Studio Code** (Recommended)
+   - Lightweight editor with Java extensions
+   - Good for beginners
+
+2. **IntelliJ IDEA** 
    - Professional IDE with excellent Java support
    - Built-in debugging and profiling tools
 
-2. **Eclipse**
+3. **Eclipse**
    - Free, open-source IDE
    - Extensive plugin ecosystem
 
-3. **Visual Studio Code**
-   - Lightweight editor with Java extensions
-   - Good for beginners
+4. Other options:
+   - **NetBeans**: Good for Java EE development
+   - **BlueJ**: Educational IDE for beginners
 
 ### Build Tools
 
@@ -182,46 +186,6 @@ If you're a student in this course:
 5. Test your code before submitting
 6. Create a pull request with a clear description
 
-## 📝 Assignment Guidelines
-
-### Code Submission
-
-1. **File Organization**: Keep files in appropriate directories
-2. **Naming Convention**: Use descriptive names for files and classes
-3. **Documentation**: Include comprehensive comments and Javadoc
-4. **Testing**: Ensure your code compiles and runs correctly
-5. **Clean Code**: Remove unnecessary files before submission
-
-### Makefile Usage
-
-Each programming assignment should include a Makefile with the following targets:
-- `compile`: Compile the Java source files
-- `run`: Execute the main program
-- `clean`: Remove compiled files
-- `help`: Display usage information
-
-## 🐛 Troubleshooting
-
-### Common Issues
-
-1. **"javac not found"**
-   - Solution: Install JDK and ensure it's in your PATH
-
-2. **"Class not found"**
-   - Solution: Check classpath and ensure files are compiled
-
-3. **"Make command not found"**
-   - Solution: Install GNU Make or use manual compilation
-
-4. **Permission denied**
-   - Solution: Check file permissions with `ls -la`
-
-### Getting Help
-
-- Check the course documentation in `00.Overview-Preparation/`
-- Review error messages carefully
-- Use debugging techniques taught in class
-- Ask questions during office hours or class discussions
 
 ## 📄 License
 
