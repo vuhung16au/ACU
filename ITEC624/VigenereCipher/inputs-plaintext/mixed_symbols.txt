@@ -1,0 +1,1 @@
+Password123! Username: admin@example.com. Secret key: ABC123XYZ789. PIN: 5678. Token: JWT_TOKEN_HERE. API_KEY = sk_test_123456789abcdef. Remember: Never share these credentials!

@@ -1,0 +1,4 @@
+# Vigenère Cipher Key
+# This file contains the key for the Vigenère cipher.
+# The key is a sequence of letters that will be used to encrypt and decrypt messages.
+K = "security"

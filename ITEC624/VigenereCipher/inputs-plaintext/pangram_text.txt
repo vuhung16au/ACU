@@ -1,0 +1,1 @@
+The quick brown fox jumps over the lazy dog. This pangram contains every letter of the alphabet at least once. It is commonly used for testing typewriters, computer keyboards, and font displays. The phrase has been around since the late 1800s and continues to be a useful tool for testing.
