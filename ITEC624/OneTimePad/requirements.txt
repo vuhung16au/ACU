@@ -1,0 +1,9 @@
+# OneTimePad Project Requirements
+# 
+# This project uses only Python standard library modules.
+# No external dependencies are required for the core functionality.
+#
+# For development and testing, you might want to add:
+# pytest>=7.0.0
+# black>=22.0.0
+# flake8>=4.0.0
