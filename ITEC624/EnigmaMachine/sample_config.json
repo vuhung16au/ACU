@@ -1,0 +1,9 @@
+{
+  "rotors": ["I", "II", "III"],
+  "positions": ["A", "B", "C"],
+  "ring_settings": [1, 1, 1],
+  "plugboard": ["AB", "CD", "EF", "GH", "IJ"],
+  "reflector": "B",
+  "description": "Sample Enigma Machine Configuration",
+  "notes": "This is a sample configuration file demonstrating the JSON format for Enigma machine settings."
+} 

@@ -1,0 +1,4 @@
+- https://enigma.virtualcolossus.co.uk/VirtualEnigma/
+- https://palloks.2ix.de/enigma/enigma-u_v262_en.html
+- https://www.101computing.net/enigma-machine-emulator/
+- https://brilliant.org/wiki/enigma-machine/
