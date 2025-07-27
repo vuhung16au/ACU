@@ -1,7 +1,21 @@
-# Implement Enigma Machine using Python
+# Step 1: Help me with a plan to crack engima machine 
+
+``` 
+Cracking the Enigma Code
+A major flaw with the Enigma code was that a letter could never be encoded as itself. In other words, an “M” would never be encoded as an “M.” This was a huge flaw in the Enigma code because it gave codebreakers a piece of information they could use to decrypt messages. If the codebreakers could guess a word or phrase that would probably appear in the message, they could use this information to start breaking the code. Because the Germans always sent a weather report at the beginning of the message, and usually included the phrase “Heil Hitler” at the end of the message, there were phrases decrypters knew to look for. [8]Decoders could compare a given phrase to the letters in the code, and if a letter in the phrase matched up with a letter in the code, they knew that that part of the code did not contain the phrase. The decoders could then begin cracking the code with a process of elimination approach.
+``` 
+
+refer to the link below: 
+https://brilliant.org/wiki/enigma-machine/
+
+Write the plan to `CRACK_ENIGMA_MACHINE.md`
+
+# Step 0: Implement Enigma Machine using Python
 
 - Python implementation of the Enigma machine, a cipher device used in World War II.
 - This is a command-line tool that simulates the operation of the Enigma machine.
+
+
 
 ## Inputs:
   - Text to be encrypted or decrypted.
