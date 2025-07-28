@@ -62,6 +62,35 @@ The validation script checks:
 - ✅ Package structure integrity
 - ✅ Relative import compatibility
 
+### Verify Notebooks
+To ensure all Jupyter notebooks can execute without errors:
+
+```bash
+# Test all notebooks
+make verify-notebooks
+
+# Quick verification with shorter timeout
+make verify-notebooks-quick
+
+# Verbose output for debugging
+make verify-notebooks-verbose
+
+# Test setup and dependencies
+make test-setup
+```
+
+The notebook verification system:
+- ✅ Executes all notebooks in the `notebooks/` directory
+- ✅ Reports execution time and any errors
+- ✅ Provides detailed error reporting for debugging
+- ✅ Supports excluding specific notebooks during development
+- ✅ Can generate JSON reports for CI/CD integration
+
+For more details, see [NOTEBOOK_VERIFICATION.md](NOTEBOOK_VERIFICATION.md).
+- ✅ All Python modules can be imported without errors
+- ✅ Package structure integrity
+- ✅ Relative import compatibility
+
 ## ⚡ Quick Start
 
 ```python

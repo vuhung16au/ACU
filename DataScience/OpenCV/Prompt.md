@@ -1,3 +1,23 @@
+# Create a script to verify that all `notebooks/*.ipynb` can run without errors,
+
+No need for unit tests, just ensure they execute without issues.
+
+# Pls implement the notebooks
+
+``` 
+├── notebooks/                         # Jupyter notebooks for tutorials
+│   ├── 01_basic_operations.ipynb
+│   ├── 02_image_filtering.ipynb
+│   ├── 03_transformations.ipynb 
+│   ├── 04_morphological_ops.ipynb
+│   ├── 05_feature_detection.ipynb
+│   ├── 06_color_processing.ipynb
+│   ├── 07_advanced_techniques.ipynb
+│   └── 08_practical_applications.ipynb
+``` 
+
+The first one (01_basic_operations.ipynb) is completed. 
+
 # Create License.md and claim it to be MIT License
 
 # Create a .gitignore file for this Python script
