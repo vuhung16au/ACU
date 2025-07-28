@@ -1,3 +1,18 @@
+# Notes: run with virtual environment
+
+e.g: 
+/Users/vuhung/00.Work/02.ACU/github/DataScience/OpenCV/.venv/bin/python examples/color_processing_demo.py
+
+# Replace the author 
+
+Current: Color Processing Demo - OpenCV Image Processing Collection
+New author: Color Processing Demo - Vu Hung Nguyen
+
+folders to modify: 
+- `examples` 
+- `src`
+- `notebooks`
+
 # Create a script to verify that all `examples/*.py` can run without errors,
 
 No need for unit tests, just ensure they execute without issues.
