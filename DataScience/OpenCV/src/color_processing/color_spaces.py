@@ -110,6 +110,78 @@ def rgb_to_gray(image: np.ndarray) -> np.ndarray:
         return image
 
 
+def rgb_to_gray_average(image: np.ndarray) -> np.ndarray:
+    """
+    Convert RGB image to grayscale using simple average method.
+    
+    Args:
+        image: Input RGB image (BGR format)
+        
+    Returns:
+        Grayscale image
+    """
+    if image is None:
+        raise ValueError("Input image cannot be None")
+    
+    if len(image.shape) != 3:
+        raise ValueError("Input image must be 3-channel")
+    
+    # Simple average of RGB channels (note: OpenCV uses BGR)
+    return np.mean(image, axis=2).astype(np.uint8)
+
+
+def rgb_to_gray_luminance(image: np.ndarray) -> np.ndarray:
+    """
+    Convert RGB image to grayscale using luminance method.
+    
+    Args:
+        image: Input RGB image (BGR format)
+        
+    Returns:
+        Grayscale image
+    """
+    if image is None:
+        raise ValueError("Input image cannot be None")
+    
+    if len(image.shape) != 3:
+        raise ValueError("Input image must be 3-channel")
+    
+    # Luminance method with weights for BGR format
+    b, g, r = cv2.split(image.astype(np.float32))
+    gray = 0.07 * b + 0.72 * g + 0.21 * r
+    return np.clip(gray, 0, 255).astype(np.uint8)
+
+
+def rgb_to_gray_custom(image: np.ndarray, weights: list = [0.299, 0.587, 0.114]) -> np.ndarray:
+    """
+    Convert RGB image to grayscale using custom weights.
+    
+    Args:
+        image: Input RGB image (BGR format)
+        weights: Custom weights for [B, G, R] channels
+        
+    Returns:
+        Grayscale image
+    """
+    if image is None:
+        raise ValueError("Input image cannot be None")
+    
+    if len(image.shape) != 3:
+        raise ValueError("Input image must be 3-channel")
+    
+    if len(weights) != 3:
+        raise ValueError("Weights must be a list of 3 values")
+    
+    if abs(sum(weights) - 1.0) > 0.01:
+        # Normalize weights if they don't sum to 1
+        weights = [w / sum(weights) for w in weights]
+    
+    # Apply custom weights to BGR channels
+    b, g, r = cv2.split(image.astype(np.float32))
+    gray = weights[0] * b + weights[1] * g + weights[2] * r
+    return np.clip(gray, 0, 255).astype(np.uint8)
+
+
 def rgb_to_yuv(image: np.ndarray) -> np.ndarray:
     """
     Convert RGB image to YUV color space.

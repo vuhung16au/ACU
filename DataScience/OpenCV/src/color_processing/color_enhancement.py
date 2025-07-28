@@ -58,6 +58,92 @@ def gamma_correction(image: np.ndarray, gamma: float = 1.0) -> np.ndarray:
     return cv2.LUT(image, table)
 
 
+def adjust_brightness(image: np.ndarray, beta: float = 0) -> np.ndarray:
+    """
+    Adjust brightness of an image.
+    
+    Args:
+        image: Input image
+        beta: Brightness offset (0 = no change, positive = brighter, negative = darker)
+        
+    Returns:
+        Brightness adjusted image
+    """
+    if image is None:
+        raise ValueError("Input image cannot be None")
+    
+    return cv2.convertScaleAbs(image, alpha=1.0, beta=beta)
+
+
+def adjust_contrast(image: np.ndarray, alpha: float = 1.0) -> np.ndarray:
+    """
+    Adjust contrast of an image.
+    
+    Args:
+        image: Input image
+        alpha: Contrast factor (1.0 = no change, > 1.0 = higher contrast, < 1.0 = lower contrast)
+        
+    Returns:
+        Contrast adjusted image
+    """
+    if image is None:
+        raise ValueError("Input image cannot be None")
+    
+    return cv2.convertScaleAbs(image, alpha=alpha, beta=0)
+
+
+def adjust_color_temperature(image: np.ndarray, temperature: float = 1.0) -> np.ndarray:
+    """
+    Adjust color temperature of an image.
+    
+    Args:
+        image: Input image
+        temperature: Temperature factor (1.0 = no change, > 1.0 = warmer, < 1.0 = cooler)
+        
+    Returns:
+        Color temperature adjusted image
+    """
+    if image is None:
+        raise ValueError("Input image cannot be None")
+    
+    # Convert to float for calculations
+    img_float = image.astype(np.float32)
+    
+    if temperature > 1.0:
+        # Make warmer (increase red, decrease blue)
+        img_float[:, :, 2] *= temperature  # Red channel
+        img_float[:, :, 0] /= temperature  # Blue channel
+    else:
+        # Make cooler (decrease red, increase blue)
+        img_float[:, :, 2] *= temperature  # Red channel
+        img_float[:, :, 0] /= temperature  # Blue channel
+    
+    # Clip values and convert back to uint8
+    return np.clip(img_float, 0, 255).astype(np.uint8)
+
+
+def white_balance_correction(image: np.ndarray, method: str = 'gray_world') -> np.ndarray:
+    """
+    Apply white balance correction using specified method.
+    
+    Args:
+        image: Input image
+        method: White balance method ('gray_world' or 'perfect_reflector')
+        
+    Returns:
+        White balance corrected image
+    """
+    if image is None:
+        raise ValueError("Input image cannot be None")
+    
+    if method == 'gray_world':
+        return white_balance_gray_world(image)
+    elif method == 'perfect_reflector':
+        return white_balance_perfect_reflector(image)
+    else:
+        raise ValueError(f"Unknown white balance method: {method}")
+
+
 def white_balance_gray_world(image: np.ndarray) -> np.ndarray:
     """
     Apply gray world white balance correction.
