@@ -1,3 +1,19 @@
+# Split `02_image_filtering.ipynb` 
+
+into multiple files, each focusing on a specific image filtering technique.
+
+Don't delete or modify the logic, just split the content into separate files for better organization.
+
+New file names should be:
+- 02_01_gaussian_blur.ipynb
+- 02_02_edge_detection.ipynb
+- 02_03_noise_reduction.ipynb
+- 02_04_custom_kernels.ipynb
+- 02_05_custom_kernels_practical.ipynb
+- 02_06_practical_applications.ipynb
+- 02_07_exercises.ipynb
+
+
 # Create a script to verify that all `notebooks/*.ipynb` can run without errors,
 
 No need for unit tests, just ensure they execute without issues.
