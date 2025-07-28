@@ -15,6 +15,8 @@ If no image path is provided, the script will use a sample image.
 import sys
 import os
 import numpy as np
+import cv2
+from typing import Optional
 
 # Add the src directory to the path so we can import our modules
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
@@ -52,7 +54,7 @@ def create_sample_image() -> np.ndarray:
     return image
 
 
-def demonstrate_basic_operations(image_path: str = None):
+def demonstrate_basic_operations(image_path: Optional[str] = None):
     """Demonstrate various basic image operations."""
     
     print("=" * 60)
@@ -193,7 +195,6 @@ def demonstrate_basic_operations(image_path: str = None):
 
 def main():
     """Main function to run the demo."""
-    import cv2  # Import here to check if OpenCV is available
     
     # Get image path from command line argument
     image_path = None
