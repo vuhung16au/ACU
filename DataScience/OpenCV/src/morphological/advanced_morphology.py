@@ -389,4 +389,95 @@ def compare_advanced_morphology(image: np.ndarray, kernel_size: int = 3) -> dict
         'thinned': thin(gray, kernel)
     }
     
-    return results 
+    return results
+
+
+def find_endpoints(skeleton: np.ndarray) -> np.ndarray:
+    """
+    Find endpoints in a skeletonized binary image.
+    
+    Args:
+        skeleton: Binary skeleton image
+        
+    Returns:
+        Binary image with endpoint pixels marked
+    """
+    if skeleton is None:
+        raise ValueError("Input skeleton cannot be None")
+    
+    # Convert to binary if needed
+    if len(skeleton.shape) == 3:
+        skeleton = cv2.cvtColor(skeleton, cv2.COLOR_BGR2GRAY)
+    
+    # Ensure binary
+    _, skeleton = cv2.threshold(skeleton, 127, 255, cv2.THRESH_BINARY)
+    
+    # Define kernel for endpoint detection
+    # An endpoint has only one neighbor
+    kernel = np.array([[1, 1, 1],
+                      [1, 0, 1],
+                      [1, 1, 1]], dtype=np.uint8)
+    
+    # Count neighbors for each pixel
+    neighbors = cv2.filter2D(skeleton, -1, kernel)
+    
+    # Endpoints have exactly one neighbor
+    endpoints = np.zeros_like(skeleton)
+    endpoints[(skeleton == 255) & (neighbors == 255)] = 255
+    
+    return endpoints
+
+
+def find_branch_points(skeleton: np.ndarray) -> np.ndarray:
+    """
+    Find branch points in a skeletonized binary image.
+    
+    Args:
+        skeleton: Binary skeleton image
+        
+    Returns:
+        Binary image with branch point pixels marked
+    """
+    if skeleton is None:
+        raise ValueError("Input skeleton cannot be None")
+    
+    # Convert to binary if needed
+    if len(skeleton.shape) == 3:
+        skeleton = cv2.cvtColor(skeleton, cv2.COLOR_BGR2GRAY)
+    
+    # Ensure binary
+    _, skeleton = cv2.threshold(skeleton, 127, 255, cv2.THRESH_BINARY)
+    
+    # Define kernel for branch point detection
+    kernel = np.array([[1, 1, 1],
+                      [1, 0, 1],
+                      [1, 1, 1]], dtype=np.uint8)
+    
+    # Count neighbors for each pixel
+    neighbors = cv2.filter2D(skeleton, -1, kernel)
+    
+    # Branch points have 3 or more neighbors
+    branch_points = np.zeros_like(skeleton)
+    branch_points[(skeleton == 255) & (neighbors >= 3 * 255)] = 255
+    
+    return branch_points
+
+
+def morphological_gradient(image: np.ndarray, kernel: Optional[np.ndarray] = None) -> np.ndarray:
+    """
+    Apply morphological gradient operation (dilation - erosion).
+    
+    Args:
+        image: Input image
+        kernel: Structuring element (if None, uses 3x3 rectangle)
+        
+    Returns:
+        Morphological gradient image
+    """
+    if image is None:
+        raise ValueError("Input image cannot be None")
+    
+    if kernel is None:
+        kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
+    
+    return cv2.morphologyEx(image, cv2.MORPH_GRADIENT, kernel) 
