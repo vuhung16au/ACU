@@ -15,6 +15,8 @@ If no image path is provided, the script will use a sample image.
 import sys
 import os
 import numpy as np
+import cv2
+
 
 # Add the src directory to the path so we can import our modules
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
@@ -25,8 +27,6 @@ from basic_operations import image_io, display, basic_transforms
 
 def create_sample_image() -> np.ndarray:
     """Create a sample image with various features for filtering demonstration."""
-    import cv2
-    
     # Create a base image with gradients and shapes
     height, width = 400, 500
     image = np.zeros((height, width, 3), dtype=np.uint8)
@@ -112,18 +112,18 @@ def demonstrate_edge_detection(image: np.ndarray):
     print("✓ Applied Canny edge detection (low and high thresholds)")
     
     # Sobel operators
-    sobel_x = edge_detection.sobel_operator(gray, 1, 0, ksize=3)
-    sobel_y = edge_detection.sobel_operator(gray, 0, 1, ksize=3)
-    sobel_combined = edge_detection.sobel_operator(gray, 1, 1, ksize=3)
+    sobel_x = edge_detection.sobel_edge_detection(gray, 1, 0, ksize=3)
+    sobel_y = edge_detection.sobel_edge_detection(gray, 0, 1, ksize=3)
+    sobel_combined = edge_detection.sobel_edge_detection(gray, 1, 1, ksize=3)
     print("✓ Applied Sobel operators (X, Y, and combined)")
     
     # Laplacian
-    laplacian = edge_detection.laplacian_operator(gray, ksize=3)
+    laplacian = edge_detection.laplacian_edge_detection(gray, ksize=3)
     print("✓ Applied Laplacian operator")
     
     # Scharr operator
-    scharr_x = edge_detection.scharr_operator(gray, 1, 0)
-    scharr_y = edge_detection.scharr_operator(gray, 0, 1)
+    scharr_x = edge_detection.scharr_edge_detection(gray, 1, 0)
+    scharr_y = edge_detection.scharr_edge_detection(gray, 0, 1)
     print("✓ Applied Scharr operators (X and Y)")
     
     # Display results
@@ -140,6 +140,24 @@ def demonstrate_edge_detection(image: np.ndarray):
     return edge_results, edge_titles
 
 
+def add_noise_to_image(image: np.ndarray, noise_type: str = 'gaussian') -> np.ndarray:
+    """Add noise to an image for demonstration purposes."""
+    if noise_type == 'gaussian':
+        noise = np.random.normal(0, 25, image.shape).astype(np.int16)
+        noisy = np.clip(image.astype(np.int16) + noise, 0, 255).astype(np.uint8)
+        return noisy
+    elif noise_type == 'salt_pepper':
+        noisy = image.copy()
+        # Salt noise
+        salt_coords = np.random.random(image.shape[:2]) < 0.025
+        noisy[salt_coords] = 255
+        # Pepper noise
+        pepper_coords = np.random.random(image.shape[:2]) < 0.025
+        noisy[pepper_coords] = 0
+        return noisy
+    return image
+
+
 def demonstrate_noise_reduction(image: np.ndarray):
     """Demonstrate noise reduction techniques."""
     print("\n" + "="*50)
@@ -147,22 +165,22 @@ def demonstrate_noise_reduction(image: np.ndarray):
     print("="*50)
     
     # Add different types of noise for demonstration
-    noisy_gaussian = noise_reduction.add_gaussian_noise(image, 0, 30)
-    noisy_salt_pepper = noise_reduction.add_salt_pepper_noise(image, 0.05)
+    noisy_gaussian = add_noise_to_image(image, 'gaussian')
+    noisy_salt_pepper = add_noise_to_image(image, 'salt_pepper')
     print("✓ Created noisy test images")
     
     # Denoise using different methods
-    denoised_gaussian = noise_reduction.gaussian_denoising(noisy_gaussian)
-    denoised_median = noise_reduction.median_denoising(noisy_gaussian)
-    denoised_bilateral = noise_reduction.bilateral_denoising(noisy_gaussian)
+    denoised_gaussian = noise_reduction.denoise_gaussian(noisy_gaussian)
+    denoised_median = noise_reduction.denoise_median(noisy_gaussian)
+    denoised_bilateral = noise_reduction.denoise_bilateral(noisy_gaussian)
     print("✓ Applied denoising to Gaussian noise")
     
     # Handle salt and pepper noise
-    denoised_salt_pepper = noise_reduction.median_denoising(noisy_salt_pepper)
+    denoised_salt_pepper = noise_reduction.denoise_median(noisy_salt_pepper)
     print("✓ Applied median filtering to salt & pepper noise")
     
     # Non-local means denoising
-    denoised_nlm = noise_reduction.non_local_means_denoising(noisy_gaussian)
+    denoised_nlm = noise_reduction.denoise_nlm(noisy_gaussian)
     print("✓ Applied Non-local means denoising")
     
     # Display results
@@ -189,27 +207,28 @@ def demonstrate_advanced_filtering(image: np.ndarray):
     gray = image_io.convert_color_space(image, cv2.COLOR_BGR2GRAY)
     
     # Multi-scale edge detection
-    edges_multi = edge_detection.multi_scale_edge_detection(gray)
+    edges_multi_dict = edge_detection.multi_scale_edge_detection(gray)
+    edges_multi = edges_multi_dict['scale_1']  # Use scale 1 for display
     print("✓ Applied multi-scale edge detection")
     
-    # Adaptive thresholding
-    adaptive_thresh = edge_detection.adaptive_thresholding(gray)
-    print("✓ Applied adaptive thresholding")
+    # Adaptive edge detection
+    adaptive_edges = edge_detection.adaptive_edge_detection(gray)
+    print("✓ Applied adaptive edge detection")
     
-    # Morphological edge detection
-    morph_edges = edge_detection.morphological_edge_detection(gray)
-    print("✓ Applied morphological edge detection")
+    # Combined edge detection
+    combined_edges = edge_detection.combine_edge_detectors(gray)
+    print("✓ Applied combined edge detection")
     
     # Display results
-    advanced_results = [gray, edges_multi, adaptive_thresh, morph_edges]
-    advanced_titles = ["Grayscale", "Multi-scale Edges", "Adaptive Threshold", "Morphological Edges"]
+    advanced_results = [gray, edges_multi, adaptive_edges, combined_edges]
+    advanced_titles = ["Grayscale", "Multi-scale Edges", "Adaptive Edges", "Combined Edges"]
     
     display.show_comparison(advanced_results, advanced_titles, figsize=(16, 4))
     
     return advanced_results, advanced_titles
 
 
-def demonstrate_image_filtering(image_path: str = None):
+def demonstrate_image_filtering(image_path: str | None = None):
     """Demonstrate various image filtering techniques."""
     
     print("=" * 60)
@@ -280,8 +299,6 @@ def demonstrate_image_filtering(image_path: str = None):
 
 def main():
     """Main function to run the demo."""
-    import cv2  # Import here to check if OpenCV is available
-    
     # Get image path from command line argument
     image_path = None
     if len(sys.argv) > 1:
