@@ -27,6 +27,7 @@ from basic_operations import image_io, display, basic_transforms
 
 def create_sample_image() -> np.ndarray:
     """Create a sample image with various features for filtering demonstration."""
+    import cv2  # Explicit import to fix scoping issue
     # Create a base image with gradients and shapes
     height, width = 400, 500
     image = np.zeros((height, width, 3), dtype=np.uint8)
@@ -62,6 +63,7 @@ def demonstrate_smoothing_filters(image: np.ndarray):
     print("="*50)
     
     # Convert to grayscale for some operations
+    import cv2  # Explicit import to fix scoping issue
     gray = image_io.convert_color_space(image, cv2.COLOR_BGR2GRAY)
     
     # Gaussian blur
@@ -104,6 +106,7 @@ def demonstrate_edge_detection(image: np.ndarray):
     print("="*50)
     
     # Convert to grayscale
+    import cv2  # Explicit import to fix scoping issue
     gray = image_io.convert_color_space(image, cv2.COLOR_BGR2GRAY)
     
     # Canny edge detection
@@ -204,6 +207,7 @@ def demonstrate_advanced_filtering(image: np.ndarray):
     print("ADVANCED FILTERING")
     print("="*50)
     
+    import cv2  # Explicit import to fix scoping issue
     gray = image_io.convert_color_space(image, cv2.COLOR_BGR2GRAY)
     
     # Multi-scale edge detection
