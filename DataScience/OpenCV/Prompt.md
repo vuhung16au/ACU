@@ -1,3 +1,7 @@
+# Create a script to verify that all `examples/*.py` can run without errors,
+
+No need for unit tests, just ensure they execute without issues.
+
 # Split `02_image_filtering.ipynb` 
 
 into multiple files, each focusing on a specific image filtering technique.

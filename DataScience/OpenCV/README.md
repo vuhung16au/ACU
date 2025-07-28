@@ -17,7 +17,7 @@ This repository provides:
 - [Module Overview](#module-overview)
 - [Tutorials](#tutorials)
 - [Examples](#examples)
-- [Contributing](#contributing)
+- [Verification Tools](#verification-tools)
 - [License](#license)
 
 ## 🚀 Installation
@@ -61,6 +61,27 @@ The validation script checks:
 - ✅ All Python modules can be imported without errors
 - ✅ Package structure integrity
 - ✅ Relative import compatibility
+
+### Verify Examples
+To ensure all example scripts can run without errors:
+
+```bash
+# Using the shell script (recommended)
+./verify_examples.sh
+
+# Or manually with virtual environment
+source venv/bin/activate
+python verify_examples.py
+```
+
+The verification system:
+- ✅ Tests all Python files in the `examples/` directory
+- ✅ Sets up proper import paths automatically
+- ✅ Provides timeout protection for complex demos
+- ✅ Reports detailed error messages for debugging
+- ✅ Shows summary of passed/failed files
+
+For more details, see [VERIFICATION_README.md](VERIFICATION_README.md).
 
 ### Verify Notebooks
 To ensure all Jupyter notebooks can execute without errors:
@@ -211,6 +232,64 @@ python examples/edge_detection_demo.py
 python examples/batch_image_processing.py --input_dir sample_images/original/
 ```
 
+## 🔍 Verification Tools
+
+This project includes comprehensive verification tools to ensure code quality and functionality:
+
+### Example Verification
+Verify that all example scripts can execute without errors:
+
+```bash
+# Quick verification with shell script
+./verify_examples.sh
+
+# Manual verification
+source venv/bin/activate
+python verify_examples.py
+```
+
+**Features:**
+- ✅ Tests all 8 example files in `examples/` directory
+- ✅ Automatic virtual environment setup
+- ✅ Proper import path configuration
+- ✅ Timeout protection (30s regular, 60s for advanced demos)
+- ✅ Detailed error reporting and debugging info
+- ✅ Summary statistics with pass/fail counts
+
+**Expected Output:**
+```
+🚀 Starting verification of examples/*.py files...
+Found 8 Python files to verify:
+  - advanced_techniques_demo.py
+  - basic_operations_demo.py
+  - color_processing_demo.py
+  - feature_detection_demo.py
+  - image_filtering_demo.py
+  - morphological_ops_demo.py
+  - practical_applications_demo.py
+  - transformations_demo.py
+
+✅ All example files passed verification!
+```
+
+### Module Validation
+Validate that all source modules can be imported correctly:
+
+```bash
+python validate_src_modules.py
+```
+
+### Notebook Verification
+Ensure all Jupyter notebooks execute properly:
+
+```bash
+make verify-notebooks
+```
+
+For detailed documentation on verification tools, see:
+- [VERIFICATION_README.md](VERIFICATION_README.md) - Example verification details
+- [NOTEBOOK_VERIFICATION.md](NOTEBOOK_VERIFICATION.md) - Notebook verification details
+
 ## 🔧 Usage Patterns
 
 ### Function Signature Convention
@@ -290,9 +369,7 @@ pytest --cov=src tests/
 - **Optimization**: Critical functions include optimized implementations
 - **Benchmarking**: Performance tests are available in `tests/performance/`
 
-## 🤝 Contributing
 
-We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
 
 ### Development Workflow
 1. Fork the repository
@@ -308,11 +385,6 @@ We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.
 - Add comprehensive docstrings
 - Include type hints where appropriate
 
-## 📖 References
-
-- [OpenCV Python Documentation](https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html)
-- [TutorialsPoint OpenCV Tutorial](https://www.tutorialspoint.com/opencv_python/index.htm)
-- [OpenCV Python Tutorials](https://opencv-python-tutroals.readthedocs.io/)
 
 ## 📄 License
 
@@ -333,11 +405,21 @@ If you have questions or need help:
 python validate_src_modules.py
 ```
 
-This will help identify:
+**Example Scripts Not Working?** Use the verification tools:
+```bash
+# Test all example scripts
+./verify_examples.sh
+
+# Check specific issues
+python verify_examples.py
+```
+
+These tools will help identify:
 - Missing dependencies
 - Import path issues
 - Package structure problems
 - Relative import conflicts
+- Example script execution errors
 
 ## 🎯 Roadmap
 
