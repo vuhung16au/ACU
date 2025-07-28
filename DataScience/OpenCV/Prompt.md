@@ -1,3 +1,12 @@
+# Create docs 
+
+- `docs/examples/` for example scripts (e.g., `color_processing_demo.py`)
+- `docs/notebooks/` for Jupyter notebooks (e.g., `01_basic_operations.ipynb`)
+- `docs/src/` for source code modules (e.g., `basic_operations/image_io.py`)
+- `docs/sample_images/` for sample images (e.g., `original/`, `processed/`)
+- `docs/requirements.txt` for dependencies
+- `docs/verification/` for scripts to verify code execution (e.g., `verify_examples.py`, `verify_notebooks.py`, `verify_src.py`)
+
 # Notes: run with virtual environment
 
 e.g: 

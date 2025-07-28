@@ -15,6 +15,8 @@ If no image path is provided, the script will use a sample image.
 import sys
 import os
 import numpy as np
+import cv2
+
 
 # Add the src directory to the path so we can import our modules
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
