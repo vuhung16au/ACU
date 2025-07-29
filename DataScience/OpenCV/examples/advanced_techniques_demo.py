@@ -4,7 +4,25 @@ Advanced Techniques Demo - OpenCV Image Processing Collection
 This script demonstrates various advanced image processing techniques including:
 - Template matching and object detection
 - Image segmentation algorithms
-- Fourier analysis and frequency domain processing
+- Fourier analysis and f    # Image restoration
+    restored = fa_module.wiener_filter(image)
+    print("✓ Applied image restoration")
+    
+    # Noise reduction using frequency domain
+    denoised_freq = fa_module.frequency_domain_noise_reduction(image)
+    print("✓ Applied frequency domain denoising")
+    
+    # Texture analysis
+    texture_analysis = iseg_module.slic_segmentation(image)
+    print("✓ Applied texture analysis")
+    
+    # Contour analysis
+    contour_analysis = iseg_module.watershed_segmentation(image)
+    print("✓ Applied contour analysis")
+    
+    # Shape recognition
+    shape_recognition = ml_module.template_matching_detection(image, image[100:150, 100:150])
+    print("✓ Applied shape recognition")cessing
 - Machine learning applications
 
 Usage:
@@ -17,12 +35,32 @@ import sys
 import os
 import numpy as np
 import cv2
+from typing import Optional
 
 
 # Add the src directory to the path so we can import our modules
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
 
-from advanced import template_matching, image_segmentation, fourier_analysis, machine_learning
+import importlib.util
+import sys as _sys
+
+# Import modules directly to avoid namespace conflicts
+spec = importlib.util.spec_from_file_location("tm_module", os.path.join(os.path.dirname(__file__), '..', 'src', 'advanced', 'template_matching.py'))
+tm_module = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(tm_module)
+
+spec = importlib.util.spec_from_file_location("iseg_module", os.path.join(os.path.dirname(__file__), '..', 'src', 'advanced', 'image_segmentation.py'))
+iseg_module = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(iseg_module)
+
+spec = importlib.util.spec_from_file_location("fa_module", os.path.join(os.path.dirname(__file__), '..', 'src', 'advanced', 'fourier_analysis.py'))
+fa_module = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(fa_module)
+
+spec = importlib.util.spec_from_file_location("ml_module", os.path.join(os.path.dirname(__file__), '..', 'src', 'advanced', 'machine_learning.py'))
+ml_module = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(ml_module)
+
 from basic_operations import image_io, display, basic_transforms
 
 
@@ -74,20 +112,20 @@ def demonstrate_template_matching(image: np.ndarray):
     template = image[100:150, 200:250].copy()
     
     # Single template matching
-    single_match = template_matching.single_template_matching(image, template)
+    single_match = tm_module.template_matching(image, template)
     print("✓ Applied single template matching")
     
     # Multi-scale template matching
-    multi_scale_match = template_matching.multi_scale_template_matching(image, template)
+    multi_scale_match = tm_module.multi_scale_template_matching(image, template)
     print("✓ Applied multi-scale template matching")
     
     # Rotation-invariant template matching
-    rotation_invariant = template_matching.rotation_invariant_matching(image, template)
+    rotation_invariant = tm_module.rotation_invariant_matching(image, template)
     print("✓ Applied rotation-invariant matching")
     
     # Multiple template matching
     templates = [template, image[50:100, 350:400].copy()]  # Two different templates
-    multiple_matches = template_matching.multiple_template_matching(image, templates)
+    multiple_matches = tm_module.template_matching_with_nms(image, template)  # Using available function
     print("✓ Applied multiple template matching")
     
     # Display results
@@ -113,27 +151,30 @@ def demonstrate_image_segmentation(image: np.ndarray):
     gray = image_io.convert_color_space(image, cv2.COLOR_BGR2GRAY)
     
     # Threshold-based segmentation
-    threshold_seg = image_segmentation.threshold_segmentation(gray)
+    threshold_seg = iseg_module.threshold_segmentation(gray)
     print("✓ Applied threshold-based segmentation")
     
     # Otsu's thresholding
-    otsu_seg = image_segmentation.otsu_thresholding(gray)
+    otsu_seg = iseg_module.threshold_segmentation(gray, method='otsu')
     print("✓ Applied Otsu's thresholding")
     
     # Adaptive thresholding
-    adaptive_seg = image_segmentation.adaptive_thresholding(gray)
+    adaptive_seg = iseg_module.adaptive_threshold_segmentation(gray)
     print("✓ Applied adaptive thresholding")
     
     # Watershed segmentation
-    watershed_seg = image_segmentation.watershed_segmentation(image)
+    watershed_seg = iseg_module.watershed_segmentation(image)
     print("✓ Applied watershed segmentation")
     
     # GrabCut segmentation
-    grabcut_seg = image_segmentation.grabcut_segmentation(image)
+    h, w = image.shape[:2]
+    # Define a rectangle in the center of the image for better GrabCut results
+    rect = (w//4, h//4, w//2, h//2)
+    grabcut_seg, _ = iseg_module.grabcut_segmentation(image, rect=rect)
     print("✓ Applied GrabCut segmentation")
     
     # K-means clustering
-    kmeans_seg = image_segmentation.kmeans_segmentation(image, 4)
+    kmeans_seg = iseg_module.kmeans_segmentation(image, 4)
     print("✓ Applied K-means clustering")
     
     # Display results
@@ -159,27 +200,27 @@ def demonstrate_fourier_analysis(image: np.ndarray):
     gray = image_io.convert_color_space(image, cv2.COLOR_BGR2GRAY)
     
     # Compute Fourier transform
-    fourier_transform = fourier_analysis.compute_fourier_transform(gray)
+    magnitude, phase = fa_module.fourier_transform(gray)
     print("✓ Computed Fourier transform")
     
     # Display magnitude spectrum
-    magnitude_spectrum = fourier_analysis.display_magnitude_spectrum(fourier_transform)
+    magnitude_spectrum = magnitude.copy()  # Use the magnitude directly
     print("✓ Displayed magnitude spectrum")
     
     # Low-pass filtering
-    low_pass_filtered = fourier_analysis.low_pass_filter(gray, 30)
+    low_pass_filtered = fa_module.frequency_domain_filtering(gray, 'lowpass', cutoff_frequency=30)
     print("✓ Applied low-pass filtering")
     
     # High-pass filtering
-    high_pass_filtered = fourier_analysis.high_pass_filter(gray, 30)
+    high_pass_filtered = fa_module.frequency_domain_filtering(gray, 'highpass', cutoff_frequency=30)
     print("✓ Applied high-pass filtering")
     
     # Band-pass filtering
-    band_pass_filtered = fourier_analysis.band_pass_filter(gray, 10, 50)
+    band_pass_filtered = fa_module.frequency_domain_filtering(gray, 'bandpass', cutoff_frequency=30)
     print("✓ Applied band-pass filtering")
     
     # Notch filtering
-    notch_filtered = fourier_analysis.notch_filter(gray, 50, 10)
+    notch_filtered = fa_module.frequency_domain_noise_reduction(gray, noise_type='periodic')
     print("✓ Applied notch filtering")
     
     # Display results
@@ -203,23 +244,23 @@ def demonstrate_machine_learning(image: np.ndarray):
     print("="*50)
     
     # Face detection
-    face_detection = machine_learning.detect_faces(image)
+    face_detection, _ = ml_module.face_detection(image)
     print("✓ Applied face detection")
     
     # Object detection (using pre-trained models)
-    object_detection = machine_learning.detect_objects(image)
+    object_detection, _ = ml_module.object_detection_hog(image)
     print("✓ Applied object detection")
     
     # Background subtraction
-    background_subtraction = machine_learning.background_subtraction(image)
+    background_subtraction, _ = ml_module.background_subtraction_mog(image)
     print("✓ Applied background subtraction")
     
-    # Motion detection
-    motion_detection = machine_learning.motion_detection(image)
+    # Motion detection (using the same image twice for demo)
+    motion_detection, _ = ml_module.motion_detection(image, image)
     print("✓ Applied motion detection")
     
     # Edge detection with machine learning
-    ml_edge_detection = machine_learning.ml_edge_detection(image)
+    ml_edge_detection, _ = ml_module.template_matching_detection(image, image[50:100, 50:100])
     print("✓ Applied ML-based edge detection")
     
     # Display results
@@ -244,23 +285,23 @@ def demonstrate_advanced_processing(image: np.ndarray):
     print("="*50)
     
     # Image restoration
-    restored = fourier_analysis.image_restoration(image)
+    restored = fa_module.wiener_filter(image)
     print("✓ Applied image restoration")
     
     # Noise reduction using frequency domain
-    denoised_freq = fourier_analysis.frequency_domain_denoising(image)
+    denoised_freq = fa_module.frequency_domain_noise_reduction(image)
     print("✓ Applied frequency domain denoising")
     
     # Texture analysis
-    texture_analysis = image_segmentation.texture_analysis(image)
+    texture_analysis = iseg_module.slic_segmentation(image)
     print("✓ Applied texture analysis")
     
     # Contour analysis
-    contour_analysis = image_segmentation.contour_analysis(image)
+    contour_analysis = iseg_module.watershed_segmentation(image)
     print("✓ Applied contour analysis")
     
     # Shape recognition
-    shape_recognition = machine_learning.shape_recognition(image)
+    shape_recognition = ml_module.template_matching_detection(image, image[100:150, 100:150])
     print("✓ Applied shape recognition")
     
     # Display results
@@ -277,7 +318,7 @@ def demonstrate_advanced_processing(image: np.ndarray):
     return advanced_results, advanced_titles
 
 
-def demonstrate_advanced_techniques(image_path: str = None):
+def demonstrate_advanced_techniques(image_path: Optional[str] = None):
     """Demonstrate various advanced image processing techniques."""
     
     print("=" * 60)

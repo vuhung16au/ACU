@@ -50,12 +50,21 @@ def face_detection(image: np.ndarray, cascade_path: Optional[str] = None,
     # Detect faces
     faces = face_cascade.detectMultiScale(gray, scale_factor, min_neighbors, minSize=min_size)
     
+    # Handle case when no faces are detected (faces becomes empty tuple)
+    if isinstance(faces, tuple) and len(faces) == 0:
+        faces = np.array([])
+    
     # Draw rectangles around faces
     result = image.copy()
     for (x, y, w, h) in faces:
         cv2.rectangle(result, (x, y), (x+w, y+h), (255, 0, 0), 2)
     
-    return result, faces.tolist()
+    # Convert to list properly
+    faces_list = []
+    if len(faces) > 0:
+        faces_list = [tuple(face) for face in faces]
+    
+    return result, faces_list
 
 
 def eye_detection(image: np.ndarray, cascade_path: Optional[str] = None,
@@ -166,12 +175,21 @@ def object_detection_hog(image: np.ndarray, win_stride: Tuple[int, int] = (8, 8)
     # Detect objects
     detections, weights = hog.detectMultiScale(image, winStride=win_stride, padding=padding, scale=scale)
     
+    # Handle case when no objects are detected
+    if isinstance(detections, tuple) and len(detections) == 0:
+        detections = np.array([])
+    
     # Draw rectangles around detections
     result = image.copy()
     for (x, y, w, h) in detections:
         cv2.rectangle(result, (x, y), (x+w, y+h), (0, 255, 0), 2)
     
-    return result, detections.tolist()
+    # Convert to list properly
+    detections_list = []
+    if len(detections) > 0:
+        detections_list = [tuple(detection) for detection in detections]
+    
+    return result, detections_list
 
 
 def background_subtraction_mog(image: np.ndarray, history: int = 500,

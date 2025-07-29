@@ -1,3 +1,13 @@
+# Non-interactive running for all `examples/*py`
+
+Current behavior: 
+- When running `examples/*py`, it executes the script and displays results in a window, which requires manual closing.
+- The script does not automatically close the display window after showing results.
+
+Expected behavior:
+- When running `examples/*py`, it should not display any windows or require manual interaction.
+- The script should run all operations and save results to files without displaying them.
+
 # Create docs 
 
 - `docs/examples/` for example scripts (e.g., `color_processing_demo.py`)
