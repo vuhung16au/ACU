@@ -1,3 +1,26 @@
+# Implement unit test for `streamlit/components/*py`
+
+- Implement unit test for `streamlit/components/basic_operations.py`
+- Implement unit test for `streamlit/components/image_filtering.py`
+- Implement unit test for `streamlit/components/transformations.py`
+- Implement unit test for `streamlit/components/morphological.py`
+- Implement unit test for `streamlit/components/feature_detection.py`
+- Implement unit test for `streamlit/components/color_processing.py`
+- Implement unit test for `streamlit/components/advanced_techniques.py`
+- Implement unit test for `streamlit/components/practical_applications.py`
+
+Input image: `sample_images/original/demo_image.jpg`
+
+# Implement the OCR feature 
+
+Implement the OCR feature in the "Practical Applications" section. 
+
+- Use `tesseract` to implement the OCR feature. 
+- Use `EasyOCR` to implement the OCR feature. 
+
+
+
+
 # (Ask GPT) Refactor `streamlit/components.py`
 
 - Refactor the code to be more modular and reusable. 

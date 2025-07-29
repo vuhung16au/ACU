@@ -185,11 +185,31 @@ class PracticalApplicationsComponent(BaseComponent, OperationMixin):
                         self.create_download(processed, "background_subtraction.png", "Download Background Subtraction")
             
             elif cv_task == "OCR":
-                ocr_method = st.selectbox("OCR Method", ["Tesseract", "EasyOCR"])
+                ocr_method = st.selectbox("OCR Method", ["Tesseract", "EasyOCR"], 
+                                        help="Tesseract: Fast and lightweight. EasyOCR: More accurate but slower.")
+                
+                # OCR preprocessing options
+                with st.expander("OCR Preprocessing Options"):
+                    apply_preprocessing = st.checkbox("Apply Image Preprocessing", value=True,
+                                                   help="Apply denoising and thresholding for better OCR results")
+                    confidence_threshold = st.slider("Confidence Threshold (EasyOCR)", 0.1, 1.0, 0.5, 0.1,
+                                                  help="Minimum confidence for text detection (EasyOCR only)")
+                
                 if st.button("Perform OCR"):
-                    result = self._perform_ocr_demo(image, ocr_method)
-                    if result is not None:
-                        st.success(f"OCR Result: {result}")
+                    with st.spinner(f"Performing OCR with {ocr_method}..."):
+                        result = self._perform_ocr_demo(image, ocr_method, apply_preprocessing, confidence_threshold)
+                        if result is not None:
+                            st.success("OCR completed successfully!")
+                            st.text_area("OCR Result:", result, height=200)
+                            
+                            # Add download option for OCR result
+                            if result and result != "No text detected in the image." and not result.startswith("OCR Error"):
+                                st.download_button(
+                                    label="Download OCR Result as Text",
+                                    data=result,
+                                    file_name=f"ocr_result_{ocr_method.lower()}.txt",
+                                    mime="text/plain"
+                                )
     
     # Helper methods for practical applications
     @OperationMixin.safe_operation
@@ -385,11 +405,99 @@ class PracticalApplicationsComponent(BaseComponent, OperationMixin):
         return result
     
     @OperationMixin.safe_operation
-    def _perform_ocr_demo(self, image: np.ndarray, method: str) -> Optional[str]:
-        """Demo OCR."""
-        # For demo purposes, we'll return a placeholder result
-        # In practice, this would use Tesseract or EasyOCR
-        return f"Demo OCR result using {method}"
+    def _perform_ocr_demo(self, image: np.ndarray, method: str, apply_preprocessing: bool = True, confidence_threshold: float = 0.5) -> Optional[str]:
+        """Perform OCR using Tesseract or EasyOCR."""
+        try:
+            if method == "Tesseract":
+                return self._perform_ocr_tesseract(image, apply_preprocessing)
+            elif method == "EasyOCR":
+                return self._perform_ocr_easyocr(image, apply_preprocessing, confidence_threshold)
+            else:
+                return f"Unsupported OCR method: {method}"
+        except Exception as e:
+            return f"OCR Error: {str(e)}"
+    
+    def _perform_ocr_tesseract(self, image: np.ndarray, apply_preprocessing: bool = True) -> str:
+        """Perform OCR using Tesseract."""
+        try:
+            import pytesseract
+            
+            # Convert to grayscale for better OCR
+            gray = self.convert_to_grayscale(image)
+            
+            if apply_preprocessing:
+                # Apply some preprocessing to improve OCR accuracy
+                # Denoise
+                denoised = cv2.fastNlMeansDenoising(gray)
+                
+                # Apply threshold to get binary image
+                _, binary = cv2.threshold(denoised, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+                
+                # Perform OCR on preprocessed image
+                text = pytesseract.image_to_string(binary, config='--psm 6')
+            else:
+                # Perform OCR on original grayscale image
+                text = pytesseract.image_to_string(gray, config='--psm 6')
+            
+            # Clean up the text
+            text = text.strip()
+            
+            if not text:
+                return "No text detected in the image."
+            
+            return text
+            
+        except ImportError:
+            return "Tesseract not installed. Please install pytesseract and tesseract-ocr."
+        except Exception as e:
+            return f"Tesseract OCR Error: {str(e)}"
+    
+    def _perform_ocr_easyocr(self, image: np.ndarray, apply_preprocessing: bool = True, confidence_threshold: float = 0.5) -> str:
+        """Perform OCR using EasyOCR."""
+        try:
+            import easyocr
+            
+            # Initialize EasyOCR reader (English)
+            reader = easyocr.Reader(['en'])
+            
+            # Apply preprocessing if requested
+            if apply_preprocessing:
+                # Convert to grayscale
+                gray = self.convert_to_grayscale(image)
+                
+                # Apply denoising
+                denoised = cv2.fastNlMeansDenoising(gray)
+                
+                # Apply adaptive threshold
+                binary = cv2.adaptiveThreshold(denoised, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2)
+                
+                # Convert back to BGR for EasyOCR
+                processed_image = cv2.cvtColor(binary, cv2.COLOR_GRAY2BGR)
+            else:
+                processed_image = image
+            
+            # Perform OCR
+            results = reader.readtext(processed_image)
+            
+            # Extract text from results
+            if not results:
+                return "No text detected in the image."
+            
+            # Combine all detected text
+            text_parts = []
+            for (bbox, text, confidence) in results:
+                if confidence > confidence_threshold:  # Use user-defined confidence threshold
+                    text_parts.append(text)
+            
+            if not text_parts:
+                return f"No text detected with confidence above {confidence_threshold}."
+            
+            return " ".join(text_parts)
+            
+        except ImportError:
+            return "EasyOCR not installed. Please install easyocr."
+        except Exception as e:
+            return f"EasyOCR Error: {str(e)}"
     
     @OperationMixin.safe_operation
     def _detect_tumors_demo(self, image: np.ndarray) -> Optional[np.ndarray]:

@@ -3,4 +3,13 @@ opencv-python>=4.8.0
 numpy>=1.21.0
 matplotlib>=3.5.0
 pillow>=8.3.0
-plotly>=5.0.0 
+plotly>=5.0.0
+pytesseract>=0.3.10
+easyocr>=1.7.0
+
+# Note: pytesseract requires Tesseract OCR engine to be installed on the system
+# For macOS: brew install tesseract
+# For Ubuntu/Debian: sudo apt-get install tesseract-ocr
+# For Windows: Download from https://github.com/UB-Mannheim/tesseract/wiki
+
+# Note: If EasyOCR is not found, try reinstalling: pip install easyocr --upgrade 
