@@ -1,3 +1,18 @@
+# Rename `examples/*py` files 
+
+With numbering, e.g: 
+
+- `01_basic_operations.py`, 
+- `02_image_filtering.py`, 
+- `03_transformations.py`, 
+- `04_morphological_ops.py`, 
+- `05_feature_detection.py`, 
+- `06_color_processing.py`, 
+- `07_advanced_techniques.py`, 
+- `08_practical_applications.py`
+
+also update the `verify_examples.py` script to verify the new file names. 
+
 # Non-interactive running for all `examples/*py`
 
 Current behavior: 
