@@ -47,17 +47,22 @@ The project is buildable and runnable on:
 │   │   │       ├── DirectorySize.java          # Directory size calculator
 │   │   │       ├── TowerOfHanoi.java          # Tower of Hanoi solver
 │   │   │       └── ComputeFactorialTailRecursion.java # Tail recursion
-│   │   └── resources/
+│   │   └── resources/                          # Application resources
 │   └── test/
-│       └── java/
-├── pom.xml                                # Maven build configuration
-├── run.sh                                 # Unix/Linux/macOS execution script
-├── run.bat                                # Windows execution script
-├── README.md                              # This file
+│       └── java/                              # Test files (empty)
 ├── docs/
-│   ├── architecture.md                    # Architecture documentation
-│   └── concepts.md                        # Concepts and design decisions
-└── .gitignore                            # Git ignore rules
+│   ├── architecture.md                        # Architecture documentation
+│   └── concepts.md                            # Concepts and design decisions
+├── target/                                    # Maven build output
+├── pom.xml                                    # Maven build configuration
+├── Makefile                                   # CLI build and execution
+├── run.sh                                     # Unix/Linux/macOS execution script
+├── run.bat                                    # Windows execution script
+├── README.md                                  # This file
+├── README-Lecture-06.md                       # Lecture-specific documentation
+├── PROJECT_SUMMARY.md                         # Project overview
+├── Prompt.md                                  # Development prompt
+└── .gitignore                                 # Git ignore rules
 ```
 
 ## Quick Start
@@ -65,12 +70,13 @@ The project is buildable and runnable on:
 ### Prerequisites
 
 1. **Java 24** (OpenJDK or Oracle JDK)
-2. **Maven 3.9+**
-3. **Git** (for cloning)
+2. **Maven 3.9+** (for JavaFX GUI mode)
+3. **Make** (for CLI mode)
+4. **Git** (for cloning)
 
 ### Installation and Running
 
-#### Option 1: Using Build Scripts (Recommended)
+#### Option 1: Using Build Scripts (Recommended for GUI)
 
 **On macOS/Linux:**
 ```bash
@@ -83,7 +89,55 @@ chmod +x run.sh
 run.bat
 ```
 
-#### Option 2: Manual Maven Commands
+#### Option 2: Using Makefile (CLI Mode)
+
+The project includes a comprehensive Makefile for command-line execution of individual recursion algorithms.
+
+**Build all algorithms:**
+```bash
+make build
+```
+
+**Run all algorithms:**
+```bash
+make run
+```
+
+**Run individual algorithms:**
+```bash
+# Factorial
+make run-factorial
+
+# Tail-recursive factorial
+make run-factorial-tail
+
+# Fibonacci
+make run-fibonacci
+
+# Directory size calculator
+make run-directory-size
+
+# Binary search
+make run-binary-search
+
+# Selection sort
+make run-selection-sort
+
+# Tower of Hanoi
+make run-tower-of-hanoi
+```
+
+**Clean compiled files:**
+```bash
+make clean
+```
+
+**Show available commands:**
+```bash
+make help
+```
+
+#### Option 3: Manual Maven Commands (GUI Mode)
 
 ```bash
 # Clone the repository (if not already done)
@@ -97,7 +151,7 @@ mvn clean compile
 mvn javafx:run
 ```
 
-#### Option 3: Direct Java Execution
+#### Option 4: Direct Java Execution (GUI Mode)
 
 ```bash
 # Build the project
@@ -109,7 +163,9 @@ java -jar target/recursion-demo-1.0.0.jar
 
 ## Usage
 
-1. **Launch the Application**: Run the application using one of the methods above
+### GUI Mode (JavaFX Application)
+
+1. **Launch the Application**: Run the application using one of the GUI methods above
 2. **Select Algorithm**: Choose an algorithm from the dropdown menu
 3. **Enter Input**: Provide appropriate input based on the selected algorithm:
    - **Factorial**: Enter a non-negative integer (e.g., 5)
@@ -120,6 +176,58 @@ java -jar target/recursion-demo-1.0.0.jar
    - **Tower of Hanoi**: Enter number of disks (e.g., 3)
 4. **Run Algorithm**: Click "Run Algorithm" to see the results
 5. **View Output**: Results are displayed in the output area
+
+### CLI Mode (Command Line)
+
+Each algorithm can be run individually from the command line using the Makefile:
+
+**Factorial:**
+```bash
+make run-factorial
+# Enter a non-negative integer when prompted
+```
+
+**Fibonacci:**
+```bash
+make run-fibonacci
+# Enter an index when prompted
+```
+
+**Directory Size:**
+```bash
+make run-directory-size
+# Enter a directory path when prompted
+```
+
+**Binary Search:**
+```bash
+make run-binary-search
+# Enter a number to search when prompted
+```
+
+**Selection Sort:**
+```bash
+make run-selection-sort
+# Enter numbers separated by spaces when prompted
+```
+
+**Tower of Hanoi:**
+```bash
+make run-tower-of-hanoi
+# Enter number of disks when prompted
+```
+
+**Tail-Recursive Factorial:**
+```bash
+make run-factorial-tail
+# Enter a non-negative integer when prompted
+```
+
+**Run All Algorithms:**
+```bash
+make run
+# This will execute all algorithms sequentially
+```
 
 ## Algorithm Details
 
@@ -162,7 +270,7 @@ java -jar target/recursion-demo-1.0.0.jar
 
 ## Build Configuration
 
-### Maven Configuration
+### Maven Configuration (GUI Mode)
 
 The project uses Maven with the following key features:
 
@@ -172,10 +280,20 @@ The project uses Maven with the following key features:
 - **Platform detection** for native libraries
 - **Executable JAR** creation with Maven Shade plugin
 
+### Makefile Configuration (CLI Mode)
+
+The project includes a comprehensive Makefile for command-line execution:
+
+- **Individual algorithm execution** - Run each algorithm separately
+- **Batch execution** - Run all algorithms sequentially
+- **Clean build system** - Remove compiled files easily
+- **Help system** - Show available commands
+- **Cross-platform compatibility** - Works on Unix-like systems
+
 ### Platform-Specific Considerations
 
 - **macOS**: Supports both Intel and Apple Silicon architectures
-- **Windows**: Supports x86_64 and ARM64 architectures
+- **Windows**: Supports x86_64 and ARM64 architectures (GUI mode only)
 - **Linux**: Supports x86_64 and ARM64 architectures
 
 ## Development
@@ -185,7 +303,8 @@ The project uses Maven with the following key features:
 1. Create a new Java class in `src/main/java/com/acu/javafx/recursion/`
 2. Implement the algorithm with appropriate static methods
 3. Add the algorithm to the `RecursionDemo.java` application
-4. Update the documentation
+4. Update the Makefile to include the new algorithm
+5. Update the documentation
 
 ### Testing
 
@@ -195,7 +314,20 @@ mvn test
 
 # Run with coverage
 mvn jacoco:prepare-agent test jacoco:report
+
+# Test CLI mode
+make run
 ```
+
+### Makefile Integration
+
+When adding new algorithms, update the Makefile:
+
+1. Add the Java source file to `JAVA_SOURCES`
+2. Add the class name to `CLASS_NAMES`
+3. Create a new run target (e.g., `run-new-algorithm`)
+4. Add the target to the `.PHONY` declaration
+5. Update the help target with the new command
 
 ## Troubleshooting
 
@@ -204,12 +336,15 @@ mvn jacoco:prepare-agent test jacoco:report
 1. **JavaFX not found**: Ensure JavaFX dependencies are properly configured
 2. **Platform-specific issues**: Check that the correct platform dependencies are included
 3. **Memory issues**: Increase JVM heap size if needed: `-Xmx2g`
+4. **Make not found**: Install Make on your system (usually pre-installed on Unix-like systems)
+5. **CLI compilation errors**: Ensure Java is in your PATH and accessible
 
 ### Platform-Specific Notes
 
 - **macOS**: May require additional permissions for file system access
-- **Windows**: Ensure proper PATH configuration for Java and Maven
+- **Windows**: Ensure proper PATH configuration for Java and Maven (GUI mode only for CLI)
 - **Linux**: May need additional system libraries for JavaFX
+- **CLI Mode**: Works best on Unix-like systems (macOS, Linux)
 
 ## Contributing
 
@@ -234,4 +369,8 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - **v1.0.0**: Initial release with all seven recursion algorithms
 - Cross-platform support for macOS, Windows, and Linux
 - JavaFX-based user interface
-- Comprehensive documentation and build scripts 
+- Comprehensive documentation and build scripts
+- **v1.1.0**: Added CLI mode with Makefile support
+- Individual algorithm execution via command line
+- Batch execution capabilities
+- Enhanced documentation for both GUI and CLI modes 

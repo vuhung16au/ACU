@@ -6,12 +6,10 @@ Save your files to the folder same as `README.md`
 Create a JavaFX application that demonstrates the use of 
 
 - https://liveexample.pearsoncmg.com/html/ComputeFactorial.html
-- https://liveexample.pearsoncmg.com/html/ComputeFibonacci.html
 - https://liveexample.pearsoncmg.com/html/RecursiveSelectionSort.html
 - https://liveexample.pearsoncmg.com/html/RecursiveBinarySearch.html
 - https://liveexample.pearsoncmg.com/html/DirectorySize.html
 - https://liveexample.pearsoncmg.com/html/TowerOfHanoi.html
-- https://liveexample.pearsoncmg.com/html/ComputeFactorial.html
 - https://liveexample.pearsoncmg.com/html/ComputeFactorialTailRecursion.html
 -> please fetch (e.gusing wget, curl)the code from the links above and use the same classnames here.
 when you got the code from the links, don't combine the code from the links into one file, keep the code as it is and use the same classnames here.
