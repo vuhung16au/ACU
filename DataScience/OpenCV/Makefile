@@ -83,6 +83,17 @@ clean:
 	@echo "Delete all files in sample_images/processed/ (if any)"
 	rm -rf sample_images/processed/*
 
+	@echo "Delete all files in .pytest_cache/ (if any)"
+	rm -rf .pytest_cache/
+
+	@echo "Delete all files in .venv/ (if any)"
+	rm -rf .venv/
+	rm -rf streamlit/.venv/
+
+	@echo "Delete all __pycache__ directories (if any)"
+	rm -rf streamlit/__pycache__/
+	rm -rf streamlit/.pytest_cache/
+
 	@echo "✅ Cleanup completed!"
 
 # Example targets for specific scenarios
