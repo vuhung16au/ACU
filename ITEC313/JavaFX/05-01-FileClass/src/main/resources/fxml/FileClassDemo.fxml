@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="com.acu.javafx.fileclass.FileClassDemoController"
+      spacing="10">
+    <padding>
+        <Insets top="15" right="15" bottom="15" left="15"/>
+    </padding>
+    
+    <!-- Header -->
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="JavaFX File Class Demo" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="Help" onAction="#showHelp" styleClass="help-button"/>
+        <Button text="Clear Output" onAction="#clearOutput" styleClass="clear-button"/>
+    </HBox>
+    
+    <!-- Main Content -->
+    <TabPane fx:id="tabPane" VBox.vgrow="ALWAYS">
+        
+        <!-- TestFileClass Tab -->
+        <Tab text="TestFileClass" closable="false">
+            <VBox spacing="10">
+                <padding>
+                    <Insets top="10" right="10" bottom="10" left="10"/>
+                </padding>
+                <Label text="Test File Properties" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                <Label text="This demonstrates the File class properties and methods."/>
+                
+                <GridPane hgap="10" vgap="5">
+                    <Label text="File Path:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <TextField fx:id="filePathField" promptText="Enter file path" 
+                              GridPane.rowIndex="0" GridPane.columnIndex="1" 
+                              HBox.hgrow="ALWAYS"/>
+                    <Button text="Test File Properties" onAction="#testFileProperties"
+                            GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                </GridPane>
+                
+                <Label text="This will test properties like existence, size, permissions, etc." 
+                       style="-fx-font-style: italic;"/>
+            </VBox>
+        </Tab>
+        
+        <!-- WriteData Tab -->
+        <Tab text="WriteData" closable="false">
+            <VBox spacing="10">
+                <padding>
+                    <Insets top="10" right="10" bottom="10" left="10"/>
+                </padding>
+                <Label text="Write Data to File" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                <Label text="This demonstrates writing data to a file using PrintWriter."/>
+                
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Button text="Write Data" onAction="#writeData" styleClass="primary-button"/>
+                    <Label text="Creates scores.txt with sample data"/>
+                </HBox>
+                
+                <Label text="This will create a file with formatted output using print() and println()." 
+                       style="-fx-font-style: italic;"/>
+            </VBox>
+        </Tab>
+        
+        <!-- WriteDataWithAutoClose Tab -->
+        <Tab text="WriteDataWithAutoClose" closable="false">
+            <VBox spacing="10">
+                <padding>
+                    <Insets top="10" right="10" bottom="10" left="10"/>
+                </padding>
+                <Label text="Write Data with Auto-Close" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                <Label text="This demonstrates try-with-resources for automatic resource management."/>
+                
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Button text="Write Data with Auto-Close" onAction="#writeDataWithAutoClose" 
+                            styleClass="primary-button"/>
+                    <Label text="Creates scores.txt using try-with-resources"/>
+                </HBox>
+                
+                <Label text="This automatically closes the PrintWriter when the try block exits." 
+                       style="-fx-font-style: italic;"/>
+            </VBox>
+        </Tab>
+        
+        <!-- ReadData Tab -->
+        <Tab text="ReadData" closable="false">
+            <VBox spacing="10">
+                <padding>
+                    <Insets top="10" right="10" bottom="10" left="10"/>
+                </padding>
+                <Label text="Read Data from File" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                <Label text="This demonstrates reading data from a file using Scanner."/>
+                
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Button text="Read Data" onAction="#readData" styleClass="primary-button"/>
+                    <Label text="Reads from scores.txt (create it first with WriteData)"/>
+                </HBox>
+                
+                <Label text="This reads formatted data using Scanner's next() and nextInt() methods." 
+                       style="-fx-font-style: italic;"/>
+            </VBox>
+        </Tab>
+        
+        <!-- ReplaceText Tab -->
+        <Tab text="ReplaceText" closable="false">
+            <VBox spacing="10">
+                <padding>
+                    <Insets top="10" right="10" bottom="10" left="10"/>
+                </padding>
+                <Label text="Replace Text in File" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                <Label text="This demonstrates text replacement in files using try-with-resources."/>
+                
+                <GridPane hgap="10" vgap="5">
+                    <Label text="Source File:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <TextField fx:id="sourceFileField" promptText="Enter source file" 
+                              GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                    
+                    <Label text="Target File:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <TextField fx:id="targetFileField" promptText="Enter target file" 
+                              GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                    
+                    <Label text="Old String:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                    <TextField fx:id="oldStringField" promptText="Enter string to replace" 
+                              GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                    
+                    <Label text="New String:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                    <TextField fx:id="newStringField" promptText="Enter replacement string" 
+                              GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                </GridPane>
+                
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Button text="Create Sample File" onAction="#createSampleFile" styleClass="secondary-button"/>
+                    <Button text="Replace Text" onAction="#replaceText" styleClass="primary-button"/>
+                    <Button text="Demonstrate Replace Text" onAction="#demonstrateReplaceText" styleClass="secondary-button"/>
+                </HBox>
+                
+                <Label text="This reads from one file and writes to another with text replacement." 
+                       style="-fx-font-style: italic;"/>
+            </VBox>
+        </Tab>
+        
+    </TabPane>
+    
+    <!-- Output Area -->
+    <VBox spacing="5">
+        <Label text="Output:" style="-fx-font-weight: bold;"/>
+        <TextArea fx:id="outputArea" editable="false" wrapText="true" 
+                  prefRowCount="15" VBox.vgrow="ALWAYS"/>
+    </VBox>
+    
+</VBox> 
