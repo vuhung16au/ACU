@@ -29,3 +29,7 @@ sphinx-rtd-theme>=1.0.0
 tqdm>=4.62.0
 pillow>=8.3.0
 imageio>=2.9.0
+
+# For verification  
+jupyter 
+nbconvert

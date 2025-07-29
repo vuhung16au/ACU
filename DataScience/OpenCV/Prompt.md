@@ -1,3 +1,10 @@
+# Update `Makefile` 
+
+Add a new target `verify-examples` to verify the examples by running `verify_examples.py` script. 
+
+Als update "Make help" target to include the new target. 
+
+
 # Create a list of important terms in OpenCV
 
 - Save the reponse to `docs/important_terms.md`

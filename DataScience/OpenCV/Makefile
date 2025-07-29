@@ -1,6 +1,6 @@
-# Makefile for OpenCV notebook verification
+# Makefile for OpenCV notebook, example, and verification
 
-.PHONY: help verify-notebooks verify-notebooks-verbose verify-notebooks-quick test-setup clean
+.PHONY: help verify-notebooks verify-notebooks-verbose verify-notebooks-quick verify-examples test-setup clean
 
 help:
 	@echo "OpenCV Notebooks Verification"
@@ -10,6 +10,7 @@ help:
 	@echo "  verify-notebooks        - Verify all notebooks can execute without errors"
 	@echo "  verify-notebooks-verbose - Verify with verbose output"
 	@echo "  verify-notebooks-quick  - Quick verification with shorter timeout"
+	@echo "  verify-examples         - Verify all example scripts can execute without errors"
 	@echo "  test-setup              - Test if all dependencies are installed"
 	@echo "  clean                   - Clean up temporary files"
 	@echo ""
@@ -32,6 +33,11 @@ verify-notebooks-quick:
 	@echo "🔍 Quick notebook verification..."
 	python3 verify_notebooks.py --timeout 120 $(if $(EXCLUDE),--exclude $(EXCLUDE))
 
+# Verify examples using Python script
+verify-examples:
+	@echo "🔍 Verifying examples with Python script..."
+	python3 verify_examples.py $(if $(TIMEOUT),--timeout $(TIMEOUT)) $(if $(EXCLUDE),--exclude $(EXCLUDE))
+
 # Alternative using bash script
 verify-notebooks-bash:
 	@echo "🔍 Verifying notebooks with bash script..."
@@ -50,6 +56,19 @@ test-setup:
 
 # Install dependencies if missing
 install-deps:
+	@echo "Deactivate any existing virtual environment..."
+	deactivate || true
+
+	@echo "Remove any existing .venv directory..."
+	rm -rf .venv || true
+
+	@echo "Building virtual environment..."
+	python3.13 -m venv .venv
+	source .venv/bin/activate
+
+	@echo "Installing dependencies..."
+	pip install -r requirements.txt
+
 	@echo "📦 Installing notebook verification dependencies..."
 	pip install jupyter nbconvert
 	@echo "✅ Dependencies installed!"
@@ -60,6 +79,10 @@ clean:
 	find . -name "*.tmp" -delete
 	find . -name "*_temp.ipynb" -delete
 	find . -name "notebook_verification_report.json" -delete
+
+	@echo "Delete all files in sample_images/processed/ (if any)"
+	rm -rf sample_images/processed/*
+
 	@echo "✅ Cleanup completed!"
 
 # Example targets for specific scenarios
