@@ -1,3 +1,21 @@
+# Create a list of important terms in OpenCV
+
+- Save the reponse to `docs/important_terms.md`
+
+The term should be list in 8 sections: 
+
+- Basic Operations
+- Image Filtering
+- Transformations
+- Morphological Operations
+- Feature Detection
+
+- Color Processing
+- Advanced Techniques
+- Practical Applications
+
+Explain each term in 1-2 sentences, briefly. 
+
 # Rename `examples/*py` files 
 
 With numbering, e.g: 
