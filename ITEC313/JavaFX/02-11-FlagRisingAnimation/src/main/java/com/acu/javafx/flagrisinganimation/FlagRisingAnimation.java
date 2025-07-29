@@ -30,7 +30,7 @@ public class FlagRisingAnimation extends Application {
         Pane pane = new Pane();
         
         // Add an image view and add it to pane
-        Image image = new Image(getClass().getResourceAsStream("/image/us.gif"));
+        Image image = new Image(getClass().getResourceAsStream("/image/au.gif"));
         ImageView imageView = new ImageView(image);
         pane.getChildren().add(imageView);
         
