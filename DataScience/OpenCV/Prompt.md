@@ -9,7 +9,8 @@
 - Implement unit test for `streamlit/components/advanced_techniques.py`
 - Implement unit test for `streamlit/components/practical_applications.py`
 
-Input image: `sample_images/original/demo_image.jpg`
+Input image: 
+`sample_images/original/demo_image.jpg`
 
 # Implement the OCR feature 
 

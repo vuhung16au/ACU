@@ -17,7 +17,7 @@ class ImageFilteringComponent(BaseComponent, OperationMixin):
     
     def render(self, image: np.ndarray) -> None:
         """Render the image filtering section."""
-        st.header("�� Image Filtering")
+        st.header("🔍 Image Filtering")
         
         if not self.validate_input(image):
             self.show_warning("Please upload an image to start experimenting with image filtering.")
@@ -105,7 +105,7 @@ class ImageFilteringComponent(BaseComponent, OperationMixin):
     
     def _render_noise_reduction_section(self, image: np.ndarray) -> None:
         """Render noise reduction section."""
-        st.subheader("�� Noise Reduction")
+        st.subheader("🔍 Noise Reduction")
         noise_col1, noise_col2 = st.columns(2)
         
         with noise_col1:
