@@ -1,4 +1,4 @@
-package com.example;
+package com.acu.javafx.rotate;
 
 /**
  * Launcher class to start the JavaFX application.
@@ -13,4 +13,4 @@ public class Launcher {
     public static void main(String[] args) {
         NodeStyleRotateDemo.main(args);
     }
-}
+} 

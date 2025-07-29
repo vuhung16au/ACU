@@ -1,4 +1,4 @@
-package com.example;
+package com.acu.javafx.rotate;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -37,4 +37,4 @@ public class SimpleNodeStyleRotateDemo extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-}
+} 
