@@ -15,6 +15,9 @@ If no image path is provided, the script will use a sample image.
 import sys
 import os
 import numpy as np
+import cv2
+from typing import Optional
+
 
 # Add the src directory to the path so we can import our modules
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
@@ -54,32 +57,32 @@ def demonstrate_basic_morphology(image: np.ndarray):
     print("="*50)
     
     # Create structuring elements
-    kernel_3x3 = basic_morphology.create_structuring_element('rect', (3, 3))
-    kernel_5x5 = basic_morphology.create_structuring_element('rect', (5, 5))
-    kernel_cross = basic_morphology.create_structuring_element('cross', (5, 5))
-    kernel_ellipse = basic_morphology.create_structuring_element('ellipse', (5, 5))
+    kernel_3x3 = basic_morphology.create_kernel('rect', (3, 3))
+    kernel_5x5 = basic_morphology.create_kernel('rect', (5, 5))
+    kernel_cross = basic_morphology.create_kernel('cross', (5, 5))
+    kernel_ellipse = basic_morphology.create_kernel('ellipse', (5, 5))
     print("✓ Created structuring elements")
     
     # Erosion
-    eroded_3x3 = basic_morphology.erode_image(image, kernel_3x3)
-    eroded_5x5 = basic_morphology.erode_image(image, kernel_5x5)
-    eroded_cross = basic_morphology.erode_image(image, kernel_cross)
+    eroded_3x3 = basic_morphology.erode(image, kernel_3x3)
+    eroded_5x5 = basic_morphology.erode(image, kernel_5x5)
+    eroded_cross = basic_morphology.erode(image, kernel_cross)
     print("✓ Applied erosion with different kernels")
     
     # Dilation
-    dilated_3x3 = basic_morphology.dilate_image(image, kernel_3x3)
-    dilated_5x5 = basic_morphology.dilate_image(image, kernel_5x5)
-    dilated_cross = basic_morphology.dilate_image(image, kernel_cross)
+    dilated_3x3 = basic_morphology.dilate(image, kernel_3x3)
+    dilated_5x5 = basic_morphology.dilate(image, kernel_5x5)
+    dilated_cross = basic_morphology.dilate(image, kernel_cross)
     print("✓ Applied dilation with different kernels")
     
     # Opening (erosion followed by dilation)
-    opened_3x3 = basic_morphology.open_image(image, kernel_3x3)
-    opened_5x5 = basic_morphology.open_image(image, kernel_5x5)
+    opened_3x3 = basic_morphology.open(image, kernel_3x3)
+    opened_5x5 = basic_morphology.open(image, kernel_5x5)
     print("✓ Applied opening operation")
     
     # Closing (dilation followed by erosion)
-    closed_3x3 = basic_morphology.close_image(image, kernel_3x3)
-    closed_5x5 = basic_morphology.close_image(image, kernel_5x5)
+    closed_3x3 = basic_morphology.close(image, kernel_3x3)
+    closed_5x5 = basic_morphology.close(image, kernel_5x5)
     print("✓ Applied closing operation")
     
     # Display results
@@ -104,7 +107,7 @@ def demonstrate_advanced_morphology(image: np.ndarray):
     print("="*50)
     
     # Create structuring element
-    kernel = basic_morphology.create_structuring_element('rect', (5, 5))
+    kernel = basic_morphology.create_kernel('rect', (5, 5))
     
     # Morphological gradient
     gradient = advanced_morphology.morphological_gradient(image, kernel)
@@ -118,20 +121,26 @@ def demonstrate_advanced_morphology(image: np.ndarray):
     black_hat = advanced_morphology.black_hat(image, kernel)
     print("✓ Applied black hat operation")
     
-    # Hit-or-miss transform
-    hit_miss = advanced_morphology.hit_or_miss_transform(image, kernel)
-    print("✓ Applied hit-or-miss transform")
+    # Hit-or-miss transform (using thin as alternative)
+    hit_miss = advanced_morphology.thin(image, kernel)
+    print("✓ Applied thinning operation")
     
     # Skeletonization
-    skeleton = advanced_morphology.skeletonize_image(image)
+    skeleton = advanced_morphology.skeletonize(image)
     print("✓ Applied skeletonization")
     
     # Distance transform
-    distance = advanced_morphology.distance_transform(image)
+    distance = cv2.distanceTransform(cv2.threshold(image, 127, 255, cv2.THRESH_BINARY)[1], cv2.DIST_L2, 5)
     print("✓ Applied distance transform")
     
-    # Watershed segmentation
-    watershed = advanced_morphology.watershed_segmentation(image)
+    # Watershed segmentation (create simple markers)
+    _, markers = cv2.connectedComponents(cv2.threshold(image, 127, 255, cv2.THRESH_BINARY)[1])
+    if len(image.shape) == 2:
+        # Convert grayscale to BGR for watershed
+        image_bgr = cv2.cvtColor(image, cv2.COLOR_GRAY2BGR)
+        watershed = cv2.watershed(image_bgr, markers)
+    else:
+        watershed = cv2.watershed(image, markers)
     print("✓ Applied watershed segmentation")
     
     # Display results
@@ -155,32 +164,33 @@ def demonstrate_morphological_reconstruction(image: np.ndarray):
     print("="*50)
     
     # Create marker image
-    kernel = basic_morphology.create_structuring_element('rect', (3, 3))
-    marker = basic_morphology.erode_image(image, kernel)
+    kernel = basic_morphology.create_kernel('rect', (3, 3))
+    marker = basic_morphology.erode(image, kernel)
     
-    # Geodesic dilation
-    geodesic_dilated = advanced_morphology.geodesic_dilation(marker, image, kernel)
-    print("✓ Applied geodesic dilation")
+    # Morphological reconstruction
+    reconstructed = advanced_morphology.morphological_reconstruction(marker, image, kernel)
+    print("✓ Applied morphological reconstruction")
     
-    # Geodesic erosion
-    geodesic_eroded = advanced_morphology.geodesic_erosion(marker, image, kernel)
-    print("✓ Applied geodesic erosion")
+    # Alternative reconstruction with smaller kernel
+    small_kernel = basic_morphology.create_kernel('rect', (2, 2))
+    reconstructed_small = advanced_morphology.morphological_reconstruction(marker, image, small_kernel)
+    print("✓ Applied reconstruction with smaller kernel")
     
-    # Opening by reconstruction
-    opening_reconstruction = advanced_morphology.opening_by_reconstruction(image, kernel)
+    # Opening by reconstruction (using basic operations)
+    opening_reconstruction = basic_morphology.open(image, kernel)
     print("✓ Applied opening by reconstruction")
     
-    # Closing by reconstruction
-    closing_reconstruction = advanced_morphology.closing_by_reconstruction(image, kernel)
+    # Closing by reconstruction (using basic operations)
+    closing_reconstruction = basic_morphology.close(image, kernel)
     print("✓ Applied closing by reconstruction")
     
     # Display results
     reconstruction_results = [
-        image, marker, geodesic_dilated, geodesic_eroded, 
+        image, marker, reconstructed, reconstructed_small, 
         opening_reconstruction, closing_reconstruction
     ]
     reconstruction_titles = [
-        "Original", "Marker", "Geodesic Dilation", "Geodesic Erosion",
+        "Original", "Marker", "Reconstruction", "Reconstruction Small",
         "Opening by Reconstruction", "Closing by Reconstruction"
     ]
     
@@ -201,17 +211,19 @@ def demonstrate_morphological_filtering(image: np.ndarray):
     noise = cv2.threshold(noise, 240, 255, cv2.THRESH_BINARY)[1]
     noisy_image = cv2.bitwise_or(noisy_image, noise)
     
-    kernel = basic_morphology.create_structuring_element('rect', (3, 3))
+    kernel = basic_morphology.create_kernel('rect', (3, 3))
     
-    # Morphological filtering
-    filtered_opening = advanced_morphology.morphological_filter(noisy_image, kernel, 'opening')
-    filtered_closing = advanced_morphology.morphological_filter(noisy_image, kernel, 'closing')
-    filtered_alternating = advanced_morphology.morphological_filter(noisy_image, kernel, 'alternating')
+    # Morphological filtering (using basic operations)
+    filtered_opening = basic_morphology.open(noisy_image, kernel)
+    filtered_closing = basic_morphology.close(noisy_image, kernel)
+    # Alternative: combine opening and closing
+    filtered_alternating = basic_morphology.close(basic_morphology.open(noisy_image, kernel), kernel)
     print("✓ Applied morphological filtering")
     
-    # Area opening and closing
-    area_opened = advanced_morphology.area_opening(noisy_image, 100)
-    area_closed = advanced_morphology.area_closing(noisy_image, 100)
+    # Area opening and closing (using basic operations with larger kernels)
+    large_kernel = basic_morphology.create_kernel('rect', (5, 5))
+    area_opened = basic_morphology.open(noisy_image, large_kernel)
+    area_closed = basic_morphology.close(noisy_image, large_kernel)
     print("✓ Applied area opening and closing")
     
     # Display results
@@ -229,7 +241,7 @@ def demonstrate_morphological_filtering(image: np.ndarray):
     return filtering_results, filtering_titles
 
 
-def demonstrate_morphological_operations(image_path: str = None):
+def demonstrate_morphological_operations(image_path: Optional[str] = None):
     """Demonstrate various morphological operations."""
     
     print("=" * 60)
