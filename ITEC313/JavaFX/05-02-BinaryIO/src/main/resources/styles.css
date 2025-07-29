@@ -1,0 +1,155 @@
+/* Binary I/O Demo - Modern CSS Styles */
+
+.root {
+    -fx-background-color: linear-gradient(to bottom right, #ecf0f1, #bdc3c7);
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+/* Main layout styling */
+.vbox {
+    -fx-background-color: transparent;
+}
+
+/* Title styling */
+.label {
+    -fx-text-fill: #2c3e50;
+}
+
+/* Button styling */
+.button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 2, 0, 0, 1);
+    -fx-transition: all 0.2s ease-in-out;
+}
+
+.button:hover {
+    -fx-background-color: #2980b9;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0, 0, 2);
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
+
+.button:pressed {
+    -fx-background-color: #1f5f8b;
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}
+
+/* TextArea styling */
+.text-area {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #bdc3c7;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-font-family: "Monaco", "Consolas", "Courier New", monospace;
+    -fx-font-size: 12px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 2, 0, 0, 1);
+}
+
+.text-area .content {
+    -fx-background-color: #ffffff;
+    -fx-padding: 10px;
+}
+
+.text-area:focused {
+    -fx-border-color: #3498db;
+    -fx-border-width: 2px;
+}
+
+/* GridPane styling */
+.grid-pane {
+    -fx-background-color: transparent;
+}
+
+/* Tooltip styling */
+.tooltip {
+    -fx-background-color: #34495e;
+    -fx-text-fill: white;
+    -fx-font-size: 11px;
+    -fx-background-radius: 3px;
+    -fx-padding: 5px;
+}
+
+/* ScrollBar styling */
+.scroll-bar {
+    -fx-background-color: #ecf0f1;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #bdc3c7;
+    -fx-background-radius: 3px;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: #95a5a6;
+}
+
+/* Scene styling */
+.scene {
+    -fx-background-color: linear-gradient(to bottom right, #ecf0f1, #bdc3c7);
+}
+
+/* Custom styles for specific elements */
+.title-label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+}
+
+.description-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #7f8c8d;
+}
+
+.output-area {
+    -fx-font-family: "Monaco", "Consolas", "Courier New", monospace;
+    -fx-font-size: 12px;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #bdc3c7;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+/* Animation effects */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.fade-in {
+    -fx-opacity: 0;
+    -fx-animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+/* Success/Error message styling */
+.success-message {
+    -fx-text-fill: #27ae60;
+    -fx-font-weight: bold;
+}
+
+.error-message {
+    -fx-text-fill: #e74c3c;
+    -fx-font-weight: bold;
+}
+
+/* Responsive design adjustments */
+@media (max-width: 800px) {
+    .button {
+        -fx-font-size: 10px;
+        -fx-pref-width: 150px;
+        -fx-pref-height: 40px;
+    }
+    
+    .title-label {
+        -fx-font-size: 20px;
+    }
+    
+    .description-label {
+        -fx-font-size: 12px;
+    }
+} 
