@@ -1,4 +1,4 @@
-package com.example;
+package com.acu.javafx.shape;
 
 import javafx.application.Application;
 import javafx.scene.Scene;

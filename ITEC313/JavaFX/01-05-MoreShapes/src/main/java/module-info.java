@@ -1,8 +1,8 @@
-module com.example.moreshapes {
+module com.acu.javafx.shape {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.graphics;
     
-    exports com.example;
-    opens com.example to javafx.fxml;
+    exports com.acu.javafx.shape;
+    opens com.acu.javafx.shape to javafx.fxml;
 } 

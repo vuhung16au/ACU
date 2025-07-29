@@ -1,4 +1,4 @@
-package com.example;
+package com.acu.javafx.shape;
 
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
