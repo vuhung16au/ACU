@@ -14,5 +14,3 @@ pytest-cov
 # For macOS: brew install tesseract
 # For Ubuntu/Debian: sudo apt-get install tesseract-ocr
 # For Windows: Download from https://github.com/UB-Mannheim/tesseract/wiki
-
-# Note: If EasyOCR is not found, try reinstalling: pip install easyocr --upgrade 
