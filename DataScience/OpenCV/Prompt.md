@@ -1,3 +1,13 @@
+# (ask for) Ideas to improve this repo 
+
+This repo started as I want to learn about opencv. 
+
+Help me improve this repo, adding more contents. 
+
+The target audience: Machine learning, computer vision, AI engineers. 
+
+Level of difficulty: Intermediate, advanced
+
 # Update `Makefile` 
 
 Add a new target `verify-examples` to verify the examples by running `verify_examples.py` script. 
