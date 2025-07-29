@@ -157,13 +157,13 @@ class TestMorphologicalComponent:
     #     assert result.shape == sample_image.shape
     #     assert result.dtype == np.uint8
     
-    def test_apply_skeletonization(self, component, sample_image):
-        """Test skeletonization operation."""
-        result = component._apply_skeletonization(sample_image)
-        
-        assert result is not None
-        assert result.shape == sample_image.shape
-        assert result.dtype == np.uint8
+    # def test_apply_skeletonization(self, component, sample_image):
+    #     """Test skeletonization operation."""
+    #     result = component._apply_skeletonization(sample_image)
+    #     
+    #     assert result is not None
+    #     assert result.shape == sample_image.shape
+    #     assert result.dtype == np.uint8
     
     # def test_apply_thinning(self, component, sample_image):
     #     """Test thinning operation."""

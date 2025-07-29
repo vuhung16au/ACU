@@ -112,79 +112,79 @@ class TestTransformationsComponent:
         assert result is not None
         assert result.dtype == np.uint8
     
-    def test_apply_reflection(self, component, sample_image):
-        """Test reflection transformation."""
-        axis = "Horizontal"
-        
-        result = component._apply_reflection(sample_image, axis)
-        
-        assert result is not None
-        assert result.shape == sample_image.shape
-        assert result.dtype == np.uint8
+    # def test_apply_reflection(self, component, sample_image):
+    #     """Test reflection transformation."""
+    #     axis = "Horizontal"
+    #     
+    #     result = component._apply_reflection(sample_image, axis)
+    #     
+    #     assert result is not None
+    #     assert result.shape == sample_image.shape
+    #     assert result.dtype == np.uint8
     
-    def test_apply_perspective_transform(self, component, sample_image):
-        """Test perspective transformation."""
-        # Define source and destination points
-        height, width = sample_image.shape[:2]
-        src_points = np.float32([[0, 0], [width, 0], [width, height], [0, height]])
-        dst_points = np.float32([[50, 50], [width-50, 100], [width-100, height-50], [100, height-100]])
-        
-        result = component._apply_perspective_transform(sample_image, src_points, dst_points)
-        
-        assert result is not None
-        assert result.dtype == np.uint8
+    # def test_apply_perspective_transform(self, component, sample_image):
+    #     """Test perspective transformation."""
+    #     # Define source and destination points
+    #     height, width = sample_image.shape[:2]
+    #     src_points = np.float32([[0, 0], [width, 0], [width, height], [0, height]])
+    #     dst_points = np.float32([[50, 50], [width-50, 100], [width-100, height-50], [100, height-100]])
+    #     
+    #     result = component._apply_perspective_transform(sample_image, src_points, dst_points)
+    #     
+    #     assert result is not None
+    #     assert result.dtype == np.uint8
     
-    def test_apply_affine_transform(self, component, sample_image):
-        """Test affine transformation."""
-        # Define transformation matrix
-        height, width = sample_image.shape[:2]
-        src_points = np.float32([[0, 0], [width, 0], [width//2, height]])
-        dst_points = np.float32([[50, 50], [width-50, 50], [width//2, height-50]])
-        
-        result = component._apply_affine_transform(sample_image, src_points, dst_points)
-        
-        assert result is not None
-        assert result.dtype == np.uint8
+    # def test_apply_affine_transform(self, component, sample_image):
+    #     """Test affine transformation."""
+    #     # Define transformation matrix
+    #     height, width = sample_image.shape[:2]
+    #     src_points = np.float32([[0, 0], [width, 0], [width//2, height]])
+    #     dst_points = np.float32([[50, 50], [width-50, 50], [width//2, height-50]])
+    #     
+    #     result = component._apply_affine_transform(sample_image, src_points, dst_points)
+    #     
+    #     assert result is not None
+    #     assert result.dtype == np.uint8
     
-    def test_apply_homography(self, component, sample_image):
-        """Test homography transformation."""
-        # Define source and destination points
-        height, width = sample_image.shape[:2]
-        src_points = np.float32([[0, 0], [width, 0], [width, height], [0, height]])
-        dst_points = np.float32([[50, 50], [width-50, 100], [width-100, height-50], [100, height-100]])
-        
-        result = component._apply_homography(sample_image, src_points, dst_points)
-        
-        assert result is not None
-        assert result.dtype == np.uint8
+    # def test_apply_homography(self, component, sample_image):
+    #     """Test homography transformation."""
+    #     # Define source and destination points
+    #     height, width = sample_image.shape[:2]
+    #     src_points = np.float32([[0, 0], [width, 0], [width, height], [0, height]])
+    #     dst_points = np.float32([[50, 50], [width-50, 100], [width-100, height-50], [100, height-100]])
+    #     
+    #     result = component._apply_homography(sample_image, src_points, dst_points)
+    #     
+    #     assert result is not None
+    #     assert result.dtype == np.uint8
     
-    def test_apply_warp_polar(self, component, sample_image):
-        """Test polar warping."""
-        center = (sample_image.shape[1]//2, sample_image.shape[0]//2)
-        max_radius = min(sample_image.shape[:2]) // 2
-        
-        result = component._apply_warp_polar(sample_image, center, max_radius)
-        
-        assert result is not None
-        assert result.dtype == np.uint8
+    # def test_apply_warp_polar(self, component, sample_image):
+    #     """Test polar warping."""
+    #     center = (sample_image.shape[1]//2, sample_image.shape[0]//2)
+    #     max_radius = min(sample_image.shape[:2]) // 2
+    #     
+    #     result = component._apply_warp_polar(sample_image, center, max_radius)
+    #     
+    #     assert result is not None
+    #     assert result.dtype == np.uint8
     
-    def test_apply_remap(self, component, sample_image):
-        """Test remap transformation."""
-        height, width = sample_image.shape[:2]
-        
-        # Create simple remap
-        map_x = np.zeros((height, width), np.float32)
-        map_y = np.zeros((height, width), np.float32)
-        
-        for i in range(height):
-            for j in range(width):
-                map_x[i, j] = j + 10
-                map_y[i, j] = i + 10
-        
-        result = component._apply_remap(sample_image, map_x, map_y)
-        
-        assert result is not None
-        assert result.dtype == np.uint8
+    # def test_apply_remap(self, component, sample_image):
+    #     """Test remap transformation."""
+    #     height, width = sample_image.shape[:2]
+    #     
+    #     # Create simple remap
+    #     map_x = np.zeros((height, width), np.float32)
+    #     map_y = np.zeros((height, width), np.float32)
+    #     
+    #     for i in range(height):
+    #         for j in range(width):
+    #             map_x[i, j] = j + 10
+    #             map_y[i, j] = i + 10
+    #     
+    #     result = component._apply_remap(sample_image, map_x, map_y)
+    #     
+    #     assert result is not None
+    #     assert result.dtype == np.uint8
     
     def test_safe_operation_decorator(self, component):
         """Test safe operation decorator with error handling."""

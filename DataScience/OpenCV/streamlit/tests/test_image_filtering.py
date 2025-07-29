@@ -74,9 +74,10 @@ class TestImageFilteringComponent:
     def test_apply_gaussian_blur(self, component, sample_image):
         """Test Gaussian blur filtering."""
         kernel_size = 5
-        sigma = 1.0
+        sigma_x = 1.0
+        sigma_y = 1.0
         
-        result = component._apply_gaussian_blur(sample_image, kernel_size, sigma)
+        result = component._apply_gaussian_blur(sample_image, kernel_size, sigma_x, sigma_y)
         
         assert result is not None
         assert result.shape == sample_image.shape

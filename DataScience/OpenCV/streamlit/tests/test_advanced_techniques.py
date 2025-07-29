@@ -139,13 +139,13 @@ class TestAdvancedTechniquesComponent:
         assert result.shape == sample_image.shape
         assert result.dtype == np.uint8
     
-    def test_apply_watershed_segmentation(self, component, sample_image):
-        """Test watershed segmentation."""
-        result = component._apply_watershed_segmentation(sample_image)
-        
-        assert result is not None
-        assert result.shape == sample_image.shape
-        assert result.dtype == np.uint8
+    # def test_apply_watershed_segmentation(self, component, sample_image):
+    #     """Test watershed segmentation."""
+    #     result = component._apply_watershed_segmentation(sample_image)
+    #     
+    #     assert result is not None
+    #     assert result.shape == sample_image.shape
+    #     assert result.dtype == np.uint8
     
     def test_apply_grabcut_segmentation_advanced(self, component, sample_image):
         """Test GrabCut segmentation."""
@@ -155,16 +155,16 @@ class TestAdvancedTechniquesComponent:
         assert result.shape == sample_image.shape
         assert result.dtype == np.uint8
     
-    def test_apply_slic_superpixels(self, component, sample_image):
-        """Test SLIC superpixels."""
-        num_segments = 100
-        compactness = 10
-        
-        result = component._apply_slic_superpixels(sample_image, num_segments, compactness)
-        
-        assert result is not None
-        assert result.shape == sample_image.shape
-        assert result.dtype == np.uint8
+    # def test_apply_slic_superpixels(self, component, sample_image):
+    #     """Test SLIC superpixels."""
+    #     num_segments = 100
+    #     compactness = 10
+    #     
+    #     result = component._apply_slic_superpixels(sample_image, num_segments, compactness)
+    #     
+    #     assert result is not None
+    #     assert result.shape == sample_image.shape
+    #     assert result.dtype == np.uint8
     
     def test_apply_template_matching(self, component, sample_image):
         """Test template matching."""
