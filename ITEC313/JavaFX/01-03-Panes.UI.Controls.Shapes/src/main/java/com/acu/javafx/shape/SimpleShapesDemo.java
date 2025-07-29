@@ -1,4 +1,4 @@
-package com.example;
+package com.acu.javafx.shape;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -157,4 +157,4 @@ public class SimpleShapesDemo extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-}
+} 

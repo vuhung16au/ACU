@@ -1,4 +1,4 @@
-package com.example;
+package com.acu.javafx.shape;
 
 /**
  * Launcher class for the JavaFX Shapes Demo application.
@@ -8,4 +8,4 @@ public class Launcher {
     public static void main(String[] args) {
         ShapesDemo.main(args);
     }
-}
+} 
