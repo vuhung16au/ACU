@@ -351,3 +351,5 @@ cython_debug/
 # Local development
 local_settings.py
 local_config.py
+
+sample_images/processed/

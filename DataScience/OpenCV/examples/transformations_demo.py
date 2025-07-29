@@ -51,11 +51,15 @@ def create_sample_image() -> np.ndarray:
     return image
 
 
-def demonstrate_affine_transforms(image: np.ndarray):
+def demonstrate_affine_transforms(image: np.ndarray, non_interactive: bool = True):
     """Demonstrate various affine transformations."""
     print("\n" + "="*50)
     print("AFFINE TRANSFORMATIONS")
     print("="*50)
+    
+    # Create output directory
+    output_dir = os.path.join(os.path.dirname(__file__), '..', 'sample_images', 'processed')
+    os.makedirs(output_dir, exist_ok=True)
     
     # Translation
     translated_1 = affine_transforms.translate(image, 50, 30)
@@ -94,16 +98,21 @@ def demonstrate_affine_transforms(image: np.ndarray):
         "Original", "Translated", "Rotated 30°", "Scaled Up", "Sheared X", "Combined"
     ]
     
-    display.show_comparison(affine_results, affine_titles, grid_size=(2, 3), figsize=(18, 12))
+    display.save_comparison(affine_results, output_path=os.path.join(output_dir, 'affine_transforms_comparison.png'), grid_size=(2, 3), figsize=(18, 12), dpi=150)
+    print(f"✓ Saved affine_transforms comparison to {os.path.join(output_dir, 'affine_transforms_comparison.png')}")
     
     return affine_results, affine_titles
 
 
-def demonstrate_perspective_transforms(image: np.ndarray):
+def demonstrate_perspective_transforms(image: np.ndarray, non_interactive=True):
     """Demonstrate perspective transformations."""
     print("\n" + "="*50)
     print("PERSPECTIVE TRANSFORMATIONS")
     print("="*50)
+    
+    # Create output directory
+    output_dir = os.path.join(os.path.dirname(__file__), '..', 'sample_images', 'processed')
+    os.makedirs(output_dir, exist_ok=True)
     
     h, w = image.shape[:2]
     
@@ -143,16 +152,21 @@ def demonstrate_perspective_transforms(image: np.ndarray):
         "Original", "Perspective 1", "Perspective 2", "Bird's Eye", "Rectified", "Homography"
     ]
     
-    display.show_comparison(perspective_results, perspective_titles, grid_size=(2, 3), figsize=(18, 12))
+    display.save_comparison(perspective_results, output_path=os.path.join(output_dir, 'perspective_transforms_comparison.png'), grid_size=(2, 3), figsize=(18, 12), dpi=150)
+    print(f"✓ Saved perspective_transforms comparison to {os.path.join(output_dir, 'perspective_transforms_comparison.png')}")
     
     return perspective_results, perspective_titles
 
 
-def demonstrate_warping(image: np.ndarray):
+def demonstrate_warping(image: np.ndarray, non_interactive=True):
     """Demonstrate image warping techniques."""
     print("\n" + "="*50)
     print("IMAGE WARPING")
     print("="*50)
+    
+    # Create output directory
+    output_dir = os.path.join(os.path.dirname(__file__), '..', 'sample_images', 'processed')
+    os.makedirs(output_dir, exist_ok=True)
     
     # Barrel distortion correction (create synthetic distorted image first)
     barrel_corrected = warping.barrel_distortion_correction(image, 0.1, 0.05, 0.01)
@@ -187,16 +201,21 @@ def demonstrate_warping(image: np.ndarray):
         "Original", "Barrel Corrected", "Pincushion Corrected", "Custom Warp", "Fisheye Corrected"
     ]
     
-    display.show_comparison(warping_results, warping_titles, grid_size=(2, 4), figsize=(20, 10))
+    display.save_comparison(warping_results, output_path=os.path.join(output_dir, 'warping_comparison.png'), grid_size=(2, 4), figsize=(20, 10), dpi=150)
+    print(f"✓ Saved warping comparison to {os.path.join(output_dir, 'warping_comparison.png')}")
     
     return warping_results, warping_titles
 
 
-def demonstrate_advanced_transforms(image: np.ndarray):
+def demonstrate_advanced_transforms(image: np.ndarray, non_interactive=True):
     """Demonstrate advanced transformation techniques."""
     print("\n" + "="*50)
     print("ADVANCED TRANSFORMATIONS")
     print("="*50)
+    
+    # Create output directory
+    output_dir = os.path.join(os.path.dirname(__file__), '..', 'sample_images', 'processed')
+    os.makedirs(output_dir, exist_ok=True)
     
     # Multi-step transformation using chain_transformations if available
     try:
@@ -224,12 +243,13 @@ def demonstrate_advanced_transforms(image: np.ndarray):
     advanced_results = [image, multi_step, nearest, bilinear, cubic]
     advanced_titles = ["Original", "Multi-step", "Nearest", "Bilinear", "Cubic"]
     
-    display.show_comparison(advanced_results, advanced_titles, figsize=(20, 4))
+    display.save_comparison(advanced_results, output_path=os.path.join(output_dir, 'advanced_transforms_comparison.png'), figsize=(20, 4), dpi=150)
+    print(f"✓ Saved advanced transforms comparison to {os.path.join(output_dir, 'advanced_transforms_comparison.png')}")
     
     return advanced_results, advanced_titles
 
 
-def demonstrate_geometric_transformations(image_path: Optional[str] = None):
+def demonstrate_geometric_transformations(image_path: Optional[str] = None, non_interactive=True):
     """Demonstrate various geometric transformation techniques."""
     
     print("=" * 60)
@@ -254,10 +274,10 @@ def demonstrate_geometric_transformations(image_path: Optional[str] = None):
         print(f"  {key}: {value}")
     
     # 3. Demonstrate different transformation techniques
-    affine_results, affine_titles = demonstrate_affine_transforms(original)
-    perspective_results, perspective_titles = demonstrate_perspective_transforms(original)
-    warping_results, warping_titles = demonstrate_warping(original)
-    advanced_results, advanced_titles = demonstrate_advanced_transforms(original)
+    affine_results, affine_titles = demonstrate_affine_transforms(original, non_interactive=True)
+    perspective_results, perspective_titles = demonstrate_perspective_transforms(original, non_interactive=True)
+    warping_results, warping_titles = demonstrate_warping(original, non_interactive=True)
+    advanced_results, advanced_titles = demonstrate_advanced_transforms(original, non_interactive=True)
     
     # 4. Save results
     print("\nSaving results...")
@@ -313,7 +333,7 @@ def main():
             image_path = None
     
     try:
-        demonstrate_geometric_transformations(image_path)
+        demonstrate_geometric_transformations(image_path, non_interactive=True)
     except KeyboardInterrupt:
         print("\nDemo interrupted by user.")
     except Exception as e:

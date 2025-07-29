@@ -88,7 +88,7 @@ def create_sample_image() -> np.ndarray:
     return image
 
 
-def demonstrate_document_processing(image: np.ndarray):
+def demonstrate_document_processing(image: np.ndarray, non_interactive: bool = True):
     """Demonstrate document processing and OCR preparation."""
     print("\n" + "="*50)
     print("DOCUMENT PROCESSING")
@@ -131,12 +131,13 @@ def demonstrate_document_processing(image: np.ndarray):
         "Original", "Grayscale", "Denoised", "Binary", "Cleaned", "Deskewed", "Text Regions"
     ]
     
-    display.show_comparison(document_results, document_titles, grid_size=(2, 4), figsize=(20, 10))
+    display.save_comparison(document_results, output_path=os.path.join(output_dir, 'document_processing_comparison.png'), grid_size=(2, dpi=150)
+    print(f"✓ Saved document_processing comparison to {output_path}"), figsize=(20, 10))
     
     return document_results, document_titles
 
 
-def demonstrate_medical_image_analysis(image: np.ndarray):
+def demonstrate_medical_image_analysis(image: np.ndarray, non_interactive=True):
     """Demonstrate medical image analysis techniques."""
     print("\n" + "="*50)
     print("MEDICAL IMAGE ANALYSIS")
@@ -178,12 +179,13 @@ def demonstrate_medical_image_analysis(image: np.ndarray):
         "Original", "Equalized", "CLAHE", "Segmented", "Cell Analysis"
     ]
     
-    display.show_comparison(medical_results, medical_titles, grid_size=(2, 3), figsize=(18, 12))
+    display.save_comparison(medical_results, output_path=os.path.join(output_dir, 'medical_processing_comparison.png'), grid_size=(2, dpi=150)
+    print(f"✓ Saved medical_processing comparison to {output_path}"), figsize=(18, 12))
     
     return medical_results, medical_titles
 
 
-def demonstrate_security_surveillance(image: np.ndarray):
+def demonstrate_security_surveillance(image: np.ndarray, non_interactive=True):
     """Demonstrate security and surveillance applications."""
     print("\n" + "="*50)
     print("SECURITY & SURVEILLANCE")
@@ -230,12 +232,13 @@ def demonstrate_security_surveillance(image: np.ndarray):
         "Object Tracking", "Face Detection"
     ]
     
-    display.show_comparison(security_results, security_titles, grid_size=(2, 3), figsize=(18, 12))
+    display.save_comparison(security_results, output_path=os.path.join(output_dir, 'security_processing_comparison.png'), grid_size=(2, dpi=150)
+    print(f"✓ Saved security_processing comparison to {output_path}"), figsize=(18, 12))
     
     return security_results, security_titles
 
 
-def demonstrate_quality_control(image: np.ndarray):
+def demonstrate_quality_control(image: np.ndarray, non_interactive=True):
     """Demonstrate quality control and inspection applications."""
     print("\n" + "="*50)
     print("QUALITY CONTROL & INSPECTION")
@@ -290,12 +293,13 @@ def demonstrate_quality_control(image: np.ndarray):
         "Color Quality", "Statistical Analysis"
     ]
     
-    display.show_comparison(quality_results, quality_titles, grid_size=(2, 3), figsize=(18, 12))
+    display.save_comparison(quality_results, output_path=os.path.join(output_dir, 'quality_control_comparison.png'), grid_size=(2, dpi=150)
+    print(f"✓ Saved quality_control comparison to {output_path}"), figsize=(18, 12))
     
     return quality_results, quality_titles
 
 
-def demonstrate_augmented_reality(image: np.ndarray):
+def demonstrate_augmented_reality(image: np.ndarray, non_interactive=True):
     """Demonstrate augmented reality effects and applications."""
     print("\n" + "="*50)
     print("AUGMENTED REALITY")
@@ -341,12 +345,13 @@ def demonstrate_augmented_reality(image: np.ndarray):
         "Original", "AR Marker Detection", "Virtual Overlay", "Pose Estimation", "Image Blending"
     ]
     
-    display.show_comparison(ar_results, ar_titles, grid_size=(2, 3), figsize=(18, 12))
+    display.save_comparison(ar_results, output_path=os.path.join(output_dir, 'ar_processing_comparison.png'), grid_size=(2, dpi=150)
+    print(f"✓ Saved ar_processing comparison to {output_path}"), figsize=(18, 12))
     
     return ar_results, ar_titles
 
 
-def demonstrate_industrial_applications(image: np.ndarray):
+def demonstrate_industrial_applications(image: np.ndarray, non_interactive=True):
     """Demonstrate industrial applications and automation."""
     print("\n" + "="*50)
     print("INDUSTRIAL APPLICATIONS")
@@ -386,12 +391,13 @@ def demonstrate_industrial_applications(image: np.ndarray):
         "Original", "Robot Vision", "Automated Measurement", "Sorting & Classification"
     ]
     
-    display.show_comparison(industrial_results, industrial_titles, grid_size=(2, 2), figsize=(16, 12))
+    display.save_comparison(industrial_results, output_path=os.path.join(output_dir, 'industrial_processing_comparison.png'), grid_size=(2, dpi=150)
+    print(f"✓ Saved industrial_processing comparison to {output_path}"), figsize=(16, 12))
     
     return industrial_results, industrial_titles
 
 
-def demonstrate_practical_applications(image_path: Optional[str] = None):
+def demonstrate_practical_applications(image_path: Optional[str] = None, non_interactive=True):
     """Demonstrate various practical applications of image processing."""
     
     print("=" * 60)
@@ -416,12 +422,12 @@ def demonstrate_practical_applications(image_path: Optional[str] = None):
         print(f"  {key}: {value}")
     
     # 3. Demonstrate different practical applications
-    document_results, document_titles = demonstrate_document_processing(original)
-    medical_results, medical_titles = demonstrate_medical_image_analysis(original)
-    security_results, security_titles = demonstrate_security_surveillance(original)
-    quality_results, quality_titles = demonstrate_quality_control(original)
-    ar_results, ar_titles = demonstrate_augmented_reality(original)
-    industrial_results, industrial_titles = demonstrate_industrial_applications(original)
+    document_results, document_titles = demonstrate_document_processing(original, non_interactive=True)
+    medical_results, medical_titles = demonstrate_medical_image_analysis(original, non_interactive=True)
+    security_results, security_titles = demonstrate_security_surveillance(original, non_interactive=True)
+    quality_results, quality_titles = demonstrate_quality_control(original, non_interactive=True)
+    ar_results, ar_titles = demonstrate_augmented_reality(original, non_interactive=True)
+    industrial_results, industrial_titles = demonstrate_industrial_applications(original, non_interactive=True)
     
     # 4. Save results
     print("\nSaving results...")
@@ -479,7 +485,7 @@ def main():
             image_path = None
     
     try:
-        demonstrate_practical_applications(image_path)
+        demonstrate_practical_applications(image_path, non_interactive=True)
     except KeyboardInterrupt:
         print("\nDemo interrupted by user.")
     except Exception as e:

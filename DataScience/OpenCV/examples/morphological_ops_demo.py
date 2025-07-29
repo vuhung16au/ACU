@@ -50,11 +50,15 @@ def create_sample_image() -> np.ndarray:
     return image
 
 
-def demonstrate_basic_morphology(image: np.ndarray):
+def demonstrate_basic_morphology(image: np.ndarray, non_interactive: bool = True):
     """Demonstrate basic morphological operations."""
     print("\n" + "="*50)
     print("BASIC MORPHOLOGICAL OPERATIONS")
     print("="*50)
+    
+    # Create output directory
+    output_dir = os.path.join(os.path.dirname(__file__), '..', 'sample_images', 'processed')
+    os.makedirs(output_dir, exist_ok=True)
     
     # Create structuring elements
     kernel_3x3 = basic_morphology.create_kernel('rect', (3, 3))
@@ -95,16 +99,21 @@ def demonstrate_basic_morphology(image: np.ndarray):
         "Eroded 5x5", "Dilated 5x5", "Opened 5x5", "Closed 5x5"
     ]
     
-    display.show_comparison(basic_results, basic_titles, grid_size=(3, 3), figsize=(18, 15))
+    display.save_comparison(basic_results, output_path=os.path.join(output_dir, 'basic_morphology_comparison.png'), grid_size=(3, 3), figsize=(18, 15), dpi=150)
+    print(f"✓ Saved basic morphology comparison to {os.path.join(output_dir, 'basic_morphology_comparison.png')}")
     
     return basic_results, basic_titles
 
 
-def demonstrate_advanced_morphology(image: np.ndarray):
+def demonstrate_advanced_morphology(image: np.ndarray, non_interactive=True):
     """Demonstrate advanced morphological operations."""
     print("\n" + "="*50)
     print("ADVANCED MORPHOLOGICAL OPERATIONS")
     print("="*50)
+    
+    # Create output directory
+    output_dir = os.path.join(os.path.dirname(__file__), '..', 'sample_images', 'processed')
+    os.makedirs(output_dir, exist_ok=True)
     
     # Create structuring element
     kernel = basic_morphology.create_kernel('rect', (5, 5))
@@ -152,16 +161,21 @@ def demonstrate_advanced_morphology(image: np.ndarray):
         "Skeleton", "Distance", "Watershed"
     ]
     
-    display.show_comparison(advanced_results, advanced_titles, grid_size=(2, 4), figsize=(20, 10))
+    display.save_comparison(advanced_results, output_path=os.path.join(output_dir, 'advanced_morphology_comparison.png'), grid_size=(2, 4), figsize=(20, 10), dpi=150)
+    print(f"✓ Saved advanced morphology comparison to {os.path.join(output_dir, 'advanced_morphology_comparison.png')}")
     
     return advanced_results, advanced_titles
 
 
-def demonstrate_morphological_reconstruction(image: np.ndarray):
+def demonstrate_morphological_reconstruction(image: np.ndarray, non_interactive=True):
     """Demonstrate morphological reconstruction techniques."""
     print("\n" + "="*50)
     print("MORPHOLOGICAL RECONSTRUCTION")
     print("="*50)
+    
+    # Create output directory
+    output_dir = os.path.join(os.path.dirname(__file__), '..', 'sample_images', 'processed')
+    os.makedirs(output_dir, exist_ok=True)
     
     # Create marker image
     kernel = basic_morphology.create_kernel('rect', (3, 3))
@@ -194,16 +208,21 @@ def demonstrate_morphological_reconstruction(image: np.ndarray):
         "Opening by Reconstruction", "Closing by Reconstruction"
     ]
     
-    display.show_comparison(reconstruction_results, reconstruction_titles, grid_size=(2, 3), figsize=(18, 12))
+    display.save_comparison(reconstruction_results, output_path=os.path.join(output_dir, 'reconstruction_comparison.png'), grid_size=(2, 3), figsize=(18, 12), dpi=150)
+    print(f"✓ Saved reconstruction comparison to {os.path.join(output_dir, 'reconstruction_comparison.png')}")
     
     return reconstruction_results, reconstruction_titles
 
 
-def demonstrate_morphological_filtering(image: np.ndarray):
+def demonstrate_morphological_filtering(image: np.ndarray, non_interactive=True):
     """Demonstrate morphological filtering techniques."""
     print("\n" + "="*50)
     print("MORPHOLOGICAL FILTERING")
     print("="*50)
+    
+    # Create output directory
+    output_dir = os.path.join(os.path.dirname(__file__), '..', 'sample_images', 'processed')
+    os.makedirs(output_dir, exist_ok=True)
     
     # Add noise to image for filtering demonstration
     noisy_image = image.copy()
@@ -236,12 +255,13 @@ def demonstrate_morphological_filtering(image: np.ndarray):
         "Filtered Alternating", "Area Opening", "Area Closing"
     ]
     
-    display.show_comparison(filtering_results, filtering_titles, grid_size=(2, 4), figsize=(20, 10))
+    display.save_comparison(filtering_results, output_path=os.path.join(output_dir, 'filtering_comparison.png'), grid_size=(2, 4), figsize=(20, 10), dpi=150)
+    print(f"✓ Saved filtering comparison to {os.path.join(output_dir, 'filtering_comparison.png')}")
     
     return filtering_results, filtering_titles
 
 
-def demonstrate_morphological_operations(image_path: Optional[str] = None):
+def demonstrate_morphological_operations(image_path: Optional[str] = None, non_interactive=True):
     """Demonstrate various morphological operations."""
     
     print("=" * 60)
@@ -269,10 +289,10 @@ def demonstrate_morphological_operations(image_path: Optional[str] = None):
         print(f"  {key}: {value}")
     
     # 3. Demonstrate different morphological techniques
-    basic_results, basic_titles = demonstrate_basic_morphology(original)
-    advanced_results, advanced_titles = demonstrate_advanced_morphology(original)
-    reconstruction_results, reconstruction_titles = demonstrate_morphological_reconstruction(original)
-    filtering_results, filtering_titles = demonstrate_morphological_filtering(original)
+    basic_results, basic_titles = demonstrate_basic_morphology(original, non_interactive=True)
+    advanced_results, advanced_titles = demonstrate_advanced_morphology(original, non_interactive=True)
+    reconstruction_results, reconstruction_titles = demonstrate_morphological_reconstruction(original, non_interactive=True)
+    filtering_results, filtering_titles = demonstrate_morphological_filtering(original, non_interactive=True)
     
     # 4. Save results
     print("\nSaving results...")
@@ -328,7 +348,7 @@ def main():
             image_path = None
     
     try:
-        demonstrate_morphological_operations(image_path)
+        demonstrate_morphological_operations(image_path, non_interactive=True)
     except KeyboardInterrupt:
         print("\nDemo interrupted by user.")
     except Exception as e:

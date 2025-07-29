@@ -102,7 +102,7 @@ def create_sample_image() -> np.ndarray:
     return image
 
 
-def demonstrate_template_matching(image: np.ndarray):
+def demonstrate_template_matching(image: np.ndarray, non_interactive: bool = True):
     """Demonstrate template matching techniques."""
     print("\n" + "="*50)
     print("TEMPLATE MATCHING")
@@ -136,12 +136,13 @@ def demonstrate_template_matching(image: np.ndarray):
         "Original", "Template", "Single Match", "Multi-scale", "Rotation Invariant", "Multiple"
     ]
     
-    display.show_comparison(template_results, template_titles, grid_size=(2, 3), figsize=(18, 12))
+    display.save_comparison(template_results, output_path=os.path.join(output_dir, 'template_matching_comparison.png'), grid_size=(2, dpi=150)
+    print(f"✓ Saved template_matching comparison to {output_path}"), figsize=(18, 12))
     
     return template_results, template_titles
 
 
-def demonstrate_image_segmentation(image: np.ndarray):
+def demonstrate_image_segmentation(image: np.ndarray, non_interactive=True):
     """Demonstrate various image segmentation techniques."""
     print("\n" + "="*50)
     print("IMAGE SEGMENTATION")
@@ -185,12 +186,13 @@ def demonstrate_image_segmentation(image: np.ndarray):
         "Original", "Threshold", "Otsu", "Adaptive", "Watershed", "GrabCut", "K-means"
     ]
     
-    display.show_comparison(segmentation_results, segmentation_titles, grid_size=(2, 4), figsize=(20, 10))
+    display.save_comparison(segmentation_results, output_path=os.path.join(output_dir, 'segmentation_comparison.png'), grid_size=(2, dpi=150)
+    print(f"✓ Saved segmentation comparison to {output_path}"), figsize=(20, 10))
     
     return segmentation_results, segmentation_titles
 
 
-def demonstrate_fourier_analysis(image: np.ndarray):
+def demonstrate_fourier_analysis(image: np.ndarray, non_interactive=True):
     """Demonstrate Fourier analysis and frequency domain processing."""
     print("\n" + "="*50)
     print("FOURIER ANALYSIS")
@@ -232,12 +234,13 @@ def demonstrate_fourier_analysis(image: np.ndarray):
         "Grayscale", "Magnitude Spectrum", "Low-pass", "High-pass", "Band-pass", "Notch"
     ]
     
-    display.show_comparison(fourier_results, fourier_titles, grid_size=(2, 3), figsize=(18, 12))
+    display.save_comparison(fourier_results, output_path=os.path.join(output_dir, 'fourier_comparison.png'), grid_size=(2, dpi=150)
+    print(f"✓ Saved fourier comparison to {output_path}"), figsize=(18, 12))
     
     return fourier_results, fourier_titles
 
 
-def demonstrate_machine_learning(image: np.ndarray):
+def demonstrate_machine_learning(image: np.ndarray, non_interactive=True):
     """Demonstrate machine learning applications in computer vision."""
     print("\n" + "="*50)
     print("MACHINE LEARNING APPLICATIONS")
@@ -273,12 +276,13 @@ def demonstrate_machine_learning(image: np.ndarray):
         "Motion Detection", "ML Edge Detection"
     ]
     
-    display.show_comparison(ml_results, ml_titles, grid_size=(2, 3), figsize=(18, 12))
+    display.save_comparison(ml_results, output_path=os.path.join(output_dir, 'comparison_comparison.png'), grid_size=(2, dpi=150)
+    print(f"✓ Saved comparison comparison to {output_path}"), figsize=(18, 12))
     
     return ml_results, ml_titles
 
 
-def demonstrate_advanced_processing(image: np.ndarray):
+def demonstrate_advanced_processing(image: np.ndarray, non_interactive=True):
     """Demonstrate advanced processing techniques."""
     print("\n" + "="*50)
     print("ADVANCED PROCESSING")
@@ -313,12 +317,13 @@ def demonstrate_advanced_processing(image: np.ndarray):
         "Contour Analysis", "Shape Recognition"
     ]
     
-    display.show_comparison(advanced_results, advanced_titles, grid_size=(2, 3), figsize=(18, 12))
+    display.save_comparison(advanced_results, output_path=os.path.join(output_dir, 'comparison_comparison.png'), grid_size=(2, dpi=150)
+    print(f"✓ Saved comparison comparison to {output_path}"), figsize=(18, 12))
     
     return advanced_results, advanced_titles
 
 
-def demonstrate_advanced_techniques(image_path: Optional[str] = None):
+def demonstrate_advanced_techniques(image_path: Optional[str] = None, non_interactive=True):
     """Demonstrate various advanced image processing techniques."""
     
     print("=" * 60)
@@ -343,11 +348,11 @@ def demonstrate_advanced_techniques(image_path: Optional[str] = None):
         print(f"  {key}: {value}")
     
     # 3. Demonstrate different advanced techniques
-    template_results, template_titles = demonstrate_template_matching(original)
-    segmentation_results, segmentation_titles = demonstrate_image_segmentation(original)
-    fourier_results, fourier_titles = demonstrate_fourier_analysis(original)
-    ml_results, ml_titles = demonstrate_machine_learning(original)
-    advanced_results, advanced_titles = demonstrate_advanced_processing(original)
+    template_results, template_titles = demonstrate_template_matching(original, non_interactive=True)
+    segmentation_results, segmentation_titles = demonstrate_image_segmentation(original, non_interactive=True)
+    fourier_results, fourier_titles = demonstrate_fourier_analysis(original, non_interactive=True)
+    ml_results, ml_titles = demonstrate_machine_learning(original, non_interactive=True)
+    advanced_results, advanced_titles = demonstrate_advanced_processing(original, non_interactive=True)
     
     # 4. Save results
     print("\nSaving results...")
@@ -407,7 +412,7 @@ def main():
             image_path = None
     
     try:
-        demonstrate_advanced_techniques(image_path)
+        demonstrate_advanced_techniques(image_path, non_interactive=True)
     except KeyboardInterrupt:
         print("\nDemo interrupted by user.")
     except Exception as e:

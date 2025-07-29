@@ -58,7 +58,7 @@ def create_sample_image() -> np.ndarray:
     return image
 
 
-def demonstrate_corner_detection(image: np.ndarray):
+def demonstrate_corner_detection(image: np.ndarray, non_interactive: bool = True):
     """Demonstrate various corner detection techniques."""
     print("\n" + "="*50)
     print("CORNER DETECTION")
@@ -95,12 +95,13 @@ def demonstrate_corner_detection(image: np.ndarray):
     corner_results = [image, harris_result, shi_tomasi_corners, fast_result]
     corner_titles = ["Original", "Harris Corners", "Shi-Tomasi Corners", "FAST Corners"]
     
-    display.show_comparison(corner_results, corner_titles, grid_size=(2, 2), figsize=(16, 12))
+    display.save_comparison(corner_results, output_path=os.path.join(output_dir, 'corner_detection_comparison.png'), grid_size=(2, dpi=150)
+    print(f"✓ Saved corner_detection comparison to {output_path}"), figsize=(16, 12))
     
     return corner_results, corner_titles
 
 
-def demonstrate_keypoint_detection(image: np.ndarray):
+def demonstrate_keypoint_detection(image: np.ndarray, non_interactive=True):
     """Demonstrate various keypoint detection techniques."""
     print("\n" + "="*50)
     print("KEYPOINT DETECTION")
@@ -137,12 +138,13 @@ def demonstrate_keypoint_detection(image: np.ndarray):
     keypoint_results = [image, sift_img, surf_img, orb_img]
     keypoint_titles = ["Original", "SIFT Keypoints", "SURF Keypoints", "ORB Keypoints"]
     
-    display.show_comparison(keypoint_results, keypoint_titles, grid_size=(2, 2), figsize=(16, 12))
+    display.save_comparison(keypoint_results, output_path=os.path.join(output_dir, 'keypoint_detection_comparison.png'), grid_size=(2, dpi=150)
+    print(f"✓ Saved keypoint_detection comparison to {output_path}"), figsize=(16, 12))
     
     return keypoint_results, keypoint_titles
 
 
-def demonstrate_contour_detection(image: np.ndarray):
+def demonstrate_contour_detection(image: np.ndarray, non_interactive=True):
     """Demonstrate contour detection and analysis."""
     print("\n" + "="*50)
     print("CONTOUR DETECTION")
@@ -185,12 +187,13 @@ def demonstrate_contour_detection(image: np.ndarray):
         "Original", "All Contours", "Large Contours", "Approximated", "Analysis"
     ]
     
-    display.show_comparison(contour_results, contour_titles, grid_size=(2, 3), figsize=(18, 12))
+    display.save_comparison(contour_results, output_path=os.path.join(output_dir, 'contour_detection_comparison.png'), grid_size=(2, dpi=150)
+    print(f"✓ Saved contour_detection comparison to {output_path}"), figsize=(18, 12))
     
     return contour_results, contour_titles
 
 
-def demonstrate_shape_analysis(image: np.ndarray):
+def demonstrate_shape_analysis(image: np.ndarray, non_interactive=True):
     """Demonstrate shape analysis techniques."""
     print("\n" + "="*50)
     print("SHAPE ANALYSIS")
@@ -242,12 +245,13 @@ def demonstrate_shape_analysis(image: np.ndarray):
         "Original", "Shape Analysis", "Large Contours", "Features"
     ]
     
-    display.show_comparison(shape_results, shape_titles, grid_size=(2, 2), figsize=(16, 12))
+    display.save_comparison(shape_results, output_path=os.path.join(output_dir, 'comparison_comparison.png'), grid_size=(2, dpi=150)
+    print(f"✓ Saved comparison comparison to {output_path}"), figsize=(16, 12))
     
     return shape_results, shape_titles
 
 
-def demonstrate_feature_matching(image: np.ndarray):
+def demonstrate_feature_matching(image: np.ndarray, non_interactive=True):
     """Demonstrate feature matching techniques."""
     print("\n" + "="*50)
     print("FEATURE MATCHING")
@@ -297,12 +301,13 @@ def demonstrate_feature_matching(image: np.ndarray):
     matching_results = [image, transformed, sift_matches, orb_matches]
     matching_titles = ["Original", "Transformed", "SIFT Matches", "ORB Matches"]
     
-    display.show_comparison(matching_results, matching_titles, grid_size=(2, 2), figsize=(16, 12))
+    display.save_comparison(matching_results, output_path=os.path.join(output_dir, 'comparison_comparison.png'), grid_size=(2, dpi=150)
+    print(f"✓ Saved comparison comparison to {output_path}"), figsize=(16, 12))
     
     return matching_results, matching_titles
 
 
-def demonstrate_feature_detection(image_path: str | None = None):
+def demonstrate_feature_detection(image_path: str | None = None, non_interactive=True):
     """Demonstrate various feature detection techniques."""
     
     print("=" * 60)
@@ -327,11 +332,11 @@ def demonstrate_feature_detection(image_path: str | None = None):
         print(f"  {key}: {value}")
     
     # 3. Demonstrate different feature detection techniques
-    corner_results, corner_titles = demonstrate_corner_detection(original)
-    keypoint_results, keypoint_titles = demonstrate_keypoint_detection(original)
-    contour_results, contour_titles = demonstrate_contour_detection(original)
-    shape_results, shape_titles = demonstrate_shape_analysis(original)
-    matching_results, matching_titles = demonstrate_feature_matching(original)
+    corner_results, corner_titles = demonstrate_corner_detection(original, non_interactive=True)
+    keypoint_results, keypoint_titles = demonstrate_keypoint_detection(original, non_interactive=True)
+    contour_results, contour_titles = demonstrate_contour_detection(original, non_interactive=True)
+    shape_results, shape_titles = demonstrate_shape_analysis(original, non_interactive=True)
+    matching_results, matching_titles = demonstrate_feature_matching(original, non_interactive=True)
     
     # 4. Save results
     print("\nSaving results...")
@@ -386,7 +391,7 @@ def main():
             image_path = None
     
     try:
-        demonstrate_feature_detection(image_path)
+        demonstrate_feature_detection(image_path, non_interactive=True)
     except KeyboardInterrupt:
         print("\nDemo interrupted by user.")
     except Exception as e:

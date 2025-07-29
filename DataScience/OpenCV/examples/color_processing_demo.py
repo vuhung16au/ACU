@@ -60,11 +60,15 @@ def create_sample_image() -> np.ndarray:
     return image
 
 
-def demonstrate_color_spaces(image: np.ndarray):
+def demonstrate_color_spaces(image: np.ndarray, non_interactive: bool = True):
     """Demonstrate various color space conversions."""
     print("\n" + "="*50)
     print("COLOR SPACE CONVERSIONS")
     print("="*50)
+    
+    # Create output directory
+    output_dir = os.path.join(os.path.dirname(__file__), '..', 'sample_images', 'processed')
+    os.makedirs(output_dir, exist_ok=True)
     
     # RGB to Grayscale
     gray = color_spaces.rgb_to_gray(image)
@@ -104,16 +108,21 @@ def demonstrate_color_spaces(image: np.ndarray):
         "Original", "Grayscale", "HSV", "LAB", "YUV", "YCrCb", "HSV Channels", "LAB Channels"
     ]
     
-    display.show_comparison(color_space_results, color_space_titles, grid_size=(2, 4), figsize=(20, 10))
+    display.save_comparison(color_space_results, output_path=os.path.join(output_dir, 'color_space_comparison.png'), grid_size=(2, 4), figsize=(20, 10), dpi=150)
+    print(f"✓ Saved color_space comparison to {os.path.join(output_dir, 'color_space_comparison.png')}")
     
     return color_space_results, color_space_titles
 
 
-def demonstrate_histogram_operations(image: np.ndarray):
+def demonstrate_histogram_operations(image: np.ndarray, non_interactive=True):
     """Demonstrate histogram operations and equalization."""
     print("\n" + "="*50)
     print("HISTOGRAM OPERATIONS")
     print("="*50)
+    
+    # Create output directory
+    output_dir = os.path.join(os.path.dirname(__file__), '..', 'sample_images', 'processed')
+    os.makedirs(output_dir, exist_ok=True)
     
     # Calculate histograms
     rgb_hist = histogram.compute_color_histogram(image)
@@ -153,16 +162,21 @@ def demonstrate_histogram_operations(image: np.ndarray):
         "Original", "Equalized", "CLAHE", "Histogram Matched", "Histograms"
     ]
     
-    display.show_comparison(histogram_results, histogram_titles, grid_size=(2, 3), figsize=(18, 12))
+    display.save_comparison(histogram_results, output_path=os.path.join(output_dir, 'histogram_comparison.png'), grid_size=(2, 3), figsize=(18, 12), dpi=150)
+    print(f"✓ Saved histogram comparison to {os.path.join(output_dir, 'histogram_comparison.png')}")
     
     return histogram_results, histogram_titles
 
 
-def demonstrate_color_enhancement(image: np.ndarray):
+def demonstrate_color_enhancement(image: np.ndarray, non_interactive=True):
     """Demonstrate color enhancement techniques."""
     print("\n" + "="*50)
     print("COLOR ENHANCEMENT")
     print("="*50)
+    
+    # Create output directory
+    output_dir = os.path.join(os.path.dirname(__file__), '..', 'sample_images', 'processed')
+    os.makedirs(output_dir, exist_ok=True)
     
     # Brightness adjustment
     brightened = color_enhancement.adjust_brightness(image, 50)
@@ -207,16 +221,21 @@ def demonstrate_color_enhancement(image: np.ndarray):
         "White Balanced", "Warm Graded", "Cool Graded"
     ]
     
-    display.show_comparison(enhancement_results, enhancement_titles, grid_size=(3, 4), figsize=(24, 18))
+    display.save_comparison(enhancement_results, output_path=os.path.join(output_dir, 'enhancement_comparison.png'), grid_size=(3, 4), figsize=(24, 18), dpi=150)
+    print(f"✓ Saved enhancement comparison to {os.path.join(output_dir, 'enhancement_comparison.png')}")
     
     return enhancement_results, enhancement_titles
 
 
-def demonstrate_color_segmentation(image: np.ndarray):
+def demonstrate_color_segmentation(image: np.ndarray, non_interactive=True):
     """Demonstrate color-based segmentation techniques."""
     print("\n" + "="*50)
     print("COLOR SEGMENTATION")
     print("="*50)
+    
+    # Create output directory
+    output_dir = os.path.join(os.path.dirname(__file__), '..', 'sample_images', 'processed')
+    os.makedirs(output_dir, exist_ok=True)
     
     import cv2
     
@@ -248,16 +267,21 @@ def demonstrate_color_segmentation(image: np.ndarray):
         "Original", "Blue Segmented", "Green Segmented", "Red Segmented", "Clustered", "Quantized"
     ]
     
-    display.show_comparison(segmentation_results, segmentation_titles, grid_size=(2, 3), figsize=(18, 12))
+    display.save_comparison(segmentation_results, output_path=os.path.join(output_dir, 'segmentation_comparison.png'), grid_size=(2, 3), figsize=(18, 12), dpi=150)
+    print(f"✓ Saved segmentation comparison to {os.path.join(output_dir, 'segmentation_comparison.png')}")
     
     return segmentation_results, segmentation_titles
 
 
-def demonstrate_advanced_color_processing(image: np.ndarray):
+def demonstrate_advanced_color_processing(image: np.ndarray, non_interactive=True):
     """Demonstrate advanced color processing techniques."""
     print("\n" + "="*50)
     print("ADVANCED COLOR PROCESSING")
     print("="*50)
+    
+    # Create output directory
+    output_dir = os.path.join(os.path.dirname(__file__), '..', 'sample_images', 'processed')
+    os.makedirs(output_dir, exist_ok=True)
     
     # Use available functions instead of non-existent ones
     # Color temperature adjustment
@@ -290,12 +314,13 @@ def demonstrate_advanced_color_processing(image: np.ndarray):
         "Original", "Vintage Graded", "Multi-Scale Enhanced", "Warm Temp", "Cool Temp", "Color Analysis"
     ]
     
-    display.show_comparison(advanced_results, advanced_titles, grid_size=(2, 3), figsize=(18, 12))
+    display.save_comparison(advanced_results, output_path=os.path.join(output_dir, 'advanced_comparison.png'), grid_size=(2, 3), figsize=(18, 12), dpi=150)
+    print(f"✓ Saved advanced comparison to {os.path.join(output_dir, 'advanced_comparison.png')}")
     
     return advanced_results, advanced_titles
 
 
-def demonstrate_color_processing(image_path: Optional[str] = None):
+def demonstrate_color_processing(image_path: Optional[str] = None, non_interactive=True):
     """Demonstrate various color processing techniques."""
     
     print("=" * 60)
@@ -320,11 +345,11 @@ def demonstrate_color_processing(image_path: Optional[str] = None):
         print(f"  {key}: {value}")
     
     # 3. Demonstrate different color processing techniques
-    color_space_results, color_space_titles = demonstrate_color_spaces(original)
-    histogram_results, histogram_titles = demonstrate_histogram_operations(original)
-    enhancement_results, enhancement_titles = demonstrate_color_enhancement(original)
-    segmentation_results, segmentation_titles = demonstrate_color_segmentation(original)
-    advanced_results, advanced_titles = demonstrate_advanced_color_processing(original)
+    color_space_results, color_space_titles = demonstrate_color_spaces(original, non_interactive=True)
+    histogram_results, histogram_titles = demonstrate_histogram_operations(original, non_interactive=True)
+    enhancement_results, enhancement_titles = demonstrate_color_enhancement(original, non_interactive=True)
+    segmentation_results, segmentation_titles = demonstrate_color_segmentation(original, non_interactive=True)
+    advanced_results, advanced_titles = demonstrate_advanced_color_processing(original, non_interactive=True)
     
     # 4. Save results
     print("\nSaving results...")
@@ -384,7 +409,7 @@ def main():
             image_path = None
     
     try:
-        demonstrate_color_processing(image_path)
+        demonstrate_color_processing(image_path, non_interactive=True)
     except KeyboardInterrupt:
         print("\nDemo interrupted by user.")
     except Exception as e:

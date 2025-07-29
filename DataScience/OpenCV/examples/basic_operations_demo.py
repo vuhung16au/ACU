@@ -54,7 +54,7 @@ def create_sample_image() -> np.ndarray:
     return image
 
 
-def demonstrate_basic_operations(image_path: Optional[str] = None):
+def demonstrate_basic_operations(image_path: Optional[str] = None, non_interactive: bool = True):
     """Demonstrate various basic image operations."""
     
     print("=" * 60)
@@ -130,28 +130,37 @@ def demonstrate_basic_operations(image_path: Optional[str] = None):
         "Rotated 90°", "Flipped H", "Flipped V", "Center Crop"
     ]
     
-    # 5. Display comparisons
-    print("\nDisplaying image comparisons...")
-    
-    # Show basic transformations (2x4 grid)
-    display.show_comparison(transformations, titles, grid_size=(2, 4), figsize=(16, 8))
-    
-    # Show size comparisons
-    size_transforms = [original, resized, resized_aspect, padded]
-    size_titles = ["Original", "Resized", "Aspect Preserved", "Padded"]
-    display.show_comparison(size_transforms, size_titles, figsize=(16, 4))
-    
-    # Show rotation and flip effects
-    rotation_flip = [original, rotated_45, rotated_90, flipped_h, flipped_v]
-    rotation_titles = ["Original", "Rotated 45°", "Rotated 90°", "Flipped H", "Flipped V"]
-    display.show_comparison(rotation_flip, rotation_titles, figsize=(20, 4))
-    
-    # 6. Save results
-    print("\nSaving results...")
+    # 5. Save comparison images
+    print("\nSaving comparison images...")
     
     # Create output directory
     output_dir = os.path.join(os.path.dirname(__file__), '..', 'sample_images', 'processed')
     os.makedirs(output_dir, exist_ok=True)
+    
+    # Save basic transformations comparison (2x4 grid)
+    basic_comparison_path = os.path.join(output_dir, 'basic_operations_comparison.png')
+    display.save_comparison(transformations, basic_comparison_path, titles, 
+                           grid_size=(2, 4), figsize=(16, 8), dpi=150)
+    print(f"✓ Saved basic transformations comparison to {basic_comparison_path}")
+    
+    # Save size comparisons
+    size_transforms = [original, resized, resized_aspect, padded]
+    size_titles = ["Original", "Resized", "Aspect Preserved", "Padded"]
+    size_comparison_path = os.path.join(output_dir, 'size_comparison.png')
+    display.save_comparison(size_transforms, size_comparison_path, size_titles, 
+                           figsize=(16, 4), dpi=150)
+    print(f"✓ Saved size comparison to {size_comparison_path}")
+    
+    # Save rotation and flip effects
+    rotation_flip = [original, rotated_45, rotated_90, flipped_h, flipped_v]
+    rotation_titles = ["Original", "Rotated 45°", "Rotated 90°", "Flipped H", "Flipped V"]
+    rotation_comparison_path = os.path.join(output_dir, 'rotation_flip_comparison.png')
+    display.save_comparison(rotation_flip, rotation_comparison_path, rotation_titles, 
+                           figsize=(20, 4), dpi=150)
+    print(f"✓ Saved rotation/flip comparison to {rotation_comparison_path}")
+    
+    # 6. Save individual processed images
+    print("\nSaving individual processed images...")
     
     # Save individual processed images
     results = {
@@ -174,18 +183,23 @@ def demonstrate_basic_operations(image_path: Optional[str] = None):
     
     print(f"✓ Saved {saved_count} processed images to {output_dir}")
     
-    # Save comparison images
-    comparison_output = os.path.join(output_dir, 'basic_operations_comparison.png')
-    if display.save_comparison(transformations, comparison_output, titles, 
-                             grid_size=(2, 4), figsize=(16, 8), dpi=150):
-        print(f"✓ Saved comparison image to {comparison_output}")
-    
-    # 7. Demonstrate histogram
-    print("\nDisplaying histogram...")
+    # 7. Save histogram
+    print("\nSaving histogram...")
     # Convert to grayscale for histogram
     gray = image_io.convert_color_space(original, cv2.COLOR_BGR2GRAY)
     if gray is not None:
-        display.show_histogram(gray, "Original Image Histogram")
+        histogram_path = os.path.join(output_dir, 'original_histogram.png')
+        # Create histogram plot and save it
+        import matplotlib.pyplot as plt
+        plt.figure(figsize=(10, 6))
+        plt.hist(gray.ravel(), bins=256, color='blue', alpha=0.7)
+        plt.title("Original Image Histogram")
+        plt.xlabel("Pixel Intensity")
+        plt.ylabel("Frequency")
+        plt.grid(True, alpha=0.3)
+        plt.savefig(histogram_path, dpi=150, bbox_inches='tight')
+        plt.close()
+        print(f"✓ Saved histogram to {histogram_path}")
     
     print("\n" + "=" * 60)
     print("Demo completed successfully!")
@@ -205,7 +219,7 @@ def main():
             image_path = None
     
     try:
-        demonstrate_basic_operations(image_path)
+        demonstrate_basic_operations(image_path, non_interactive=True)
     except KeyboardInterrupt:
         print("\nDemo interrupted by user.")
     except Exception as e:
