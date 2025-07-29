@@ -126,6 +126,10 @@ Feel free to submit issues and enhancement requests!
 
 MIT License - see LICENSE file for details.
 
+## Live Demo 
+
+![Live Demo](https://vuhung16au-acu-datascienceopencvstreamlitapp-t8yyrv.streamlit.app/)
+
 ---
 
 **Author**: Vu Hung Nguyen  
