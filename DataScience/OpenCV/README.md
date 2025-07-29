@@ -9,6 +9,7 @@ This repository provides:
 - **Practical Examples**: Real-world image processing applications
 - **Code Reference**: Well-documented, reusable functions
 - **Interactive Learning**: Jupyter notebooks for hands-on experimentation
+- **Web Application**: Interactive Streamlit dashboard for real-time experimentation
 
 ## 📋 Table of Contents
 
@@ -17,6 +18,7 @@ This repository provides:
 - [Module Overview](#module-overview)
 - [Tutorials](#tutorials)
 - [Examples](#examples)
+- [Web Application](#web-application)
 - [Verification Tools](#verification-tools)
 - [License](#license)
 
@@ -232,6 +234,30 @@ python examples/edge_detection_demo.py
 python examples/batch_image_processing.py --input_dir sample_images/original/
 ```
 
+## 🌐 Web Application
+
+### Interactive Streamlit Dashboard
+
+Experience OpenCV image processing techniques through our interactive web application! The Streamlit dashboard provides a user-friendly interface for real-time experimentation with all the techniques covered in this repository.
+
+**Features:**
+- 🎛️ **Interactive Controls**: Adjust parameters in real-time
+- 📸 **Image Upload**: Support for multiple image formats
+- 🔄 **Side-by-side Comparison**: Original vs processed images
+- 📱 **Responsive Design**: Works on desktop and mobile devices
+- 🎯 **8 Processing Sections**: All major OpenCV techniques covered
+
+**Quick Start:**
+```bash
+cd streamlit
+pip install -r requirements.txt
+streamlit run app.py
+```
+
+**Live Demo**: [Deployed on Streamlit Cloud](https://your-app-url.streamlit.app)
+
+For detailed documentation, setup instructions, and deployment guide, see [streamlit/README.md](streamlit/README.md).
+
 ## 🔍 Verification Tools
 
 This project includes comprehensive verification tools to ensure code quality and functionality:
@@ -423,13 +449,14 @@ These tools will help identify:
 
 ## 🎯 Roadmap
 
-- [ ] Complete basic operations module
-- [ ] Add comprehensive test coverage
-- [ ] Implement advanced segmentation techniques
+- [x] Complete basic operations module
+- [x] Add comprehensive test coverage
+- [x] Implement advanced segmentation techniques
+- [x] Create web-based demo interface (Streamlit)
 - [ ] Add GPU acceleration support
-- [ ] Create web-based demo interface
 - [ ] Add video processing examples
 - [ ] Integrate deep learning models
+- [ ] Enhance Streamlit app with additional features
 
 ---
 
