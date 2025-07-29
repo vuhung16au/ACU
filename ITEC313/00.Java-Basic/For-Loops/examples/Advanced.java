@@ -1,21 +1,17 @@
 /**
  * Advanced.java
  * 
- * Advanced For Loop Examples
- * Demonstrates complex for loop patterns and techniques
+ * This program demonstrates advanced in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Key concepts:
- * - Nested for loops
- * - Break and continue statements
- * - Complex iteration patterns
- * - Multi-dimensional array processing
- * - Loop optimization techniques
- * 
- * Python comparison:
- * - Python nested loops: for i in range(3): for j in range(3):
- * - Java nested loops: for (int i = 0; i < 3; i++) { for (int j = 0; j < 3; j++) }
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 public class Advanced {
     
     public static void main(String[] args) {

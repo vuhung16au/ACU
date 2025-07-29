@@ -1,16 +1,17 @@
 /**
- * Example 1: Basic Class and Object Creation
+ * Example1.java
  * 
- * This example demonstrates fundamental class definition and object instantiation
- * concepts in Java, with comparisons to Python where relevant.
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Key differences from Python:
- * - Java requires explicit type declarations
- * - Java uses 'new' keyword for object creation
- * - Java methods must specify return type (void for no return)
- * - Java uses 'this' keyword instead of 'self'
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 public class Example1 {
     
     public static void main(String[] args) {

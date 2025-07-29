@@ -1,19 +1,16 @@
 /**
- * Example 2: Static Blocks and Advanced Static Concepts
+ * Example2.java
  * 
- * This example demonstrates static blocks and more advanced static concepts
- * using a configuration system that loads settings when the class is loaded.
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Key concepts:
- * - Static blocks run when class is loaded
- * - Static initialization order
- * - Static utility classes
- * - Static factory methods
- * 
- * Python equivalent concepts:
- * - Module-level code execution
- * - Class-level initialization
- * - Factory functions
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
 public class Example2 {
     

@@ -1,20 +1,17 @@
 /**
  * Example2.java
  * 
- * Enhanced For Loop Examples
- * Demonstrates for-each loops and array iteration
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Key concepts:
- * - Enhanced for loop syntax: for (Type item : collection)
- * - Array iteration patterns
- * - String array processing
- * - Numeric array operations
- * 
- * Python comparison:
- * - Python: for item in collection:
- * - Java: for (Type item : collection)
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 public class Example2 {
     
     public static void main(String[] args) {

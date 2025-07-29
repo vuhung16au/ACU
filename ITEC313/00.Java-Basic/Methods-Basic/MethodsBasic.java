@@ -1,3 +1,17 @@
+/**
+ * MethodsBasic.java
+ * 
+ * This program demonstrates methods in Java:
+ * - Method declaration and definition
+ * - Parameters and return types
+ * - Method invocation
+ * - Method overloading
+ * 
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
+ */
 // MethodsBasic.java
 // Demonstrates method creation, parameters, return types, and best practices in Java
 // For students transitioning from Python to Java

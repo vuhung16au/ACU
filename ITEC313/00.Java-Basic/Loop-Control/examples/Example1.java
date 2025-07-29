@@ -1,12 +1,16 @@
 /**
- * Example 1: Basic Break and Continue Statements
+ * Example1.java
  * 
- * This example demonstrates the fundamental usage of break and continue
- * statements in simple loop scenarios.
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Python comparison:
- * - break: Same as Python's break
- * - continue: Same as Python's continue
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
 public class Example1 {
     

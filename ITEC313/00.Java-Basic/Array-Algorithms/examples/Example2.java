@@ -1,11 +1,17 @@
 /**
- * Example2.java - Intermediate Array Algorithms
+ * Example2.java
  * 
- * This example demonstrates intermediate array algorithms and techniques
- * For Python developers: This shows manual implementations of operations
- * that Python provides as built-in methods
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
+ * 
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 import java.util.Arrays;
 
 public class Example2 {

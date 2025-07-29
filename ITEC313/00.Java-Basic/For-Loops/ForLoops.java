@@ -1,22 +1,17 @@
 /**
  * ForLoops.java
  * 
- * This program demonstrates different types of for loops in Java:
- * 1. Traditional for loop (similar to Python's for i in range())
- * 2. Enhanced for loop (similar to Python's for item in collection)
- * 3. Nested for loops
- * 4. For loops with arrays and collections
+ * This program demonstrates for loops in Java:
+ * - Basic for loop syntax
+ * - Enhanced for-each loops
+ * - Nested for loops
+ * - Loop control statements
  * 
- * Key differences from Python:
- * - Java uses curly braces {} instead of indentation
- * - Java requires explicit variable declaration with type
- * - Java arrays are fixed-size, unlike Python lists
- * - Java enhanced for loop is similar to Python's for-in loop
- * 
- * @author ITEC313 - Object-Oriented Programming
- * @version 1.0
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 public class ForLoops {
     
     public static void main(String[] args) {

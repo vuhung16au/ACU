@@ -1,20 +1,17 @@
 /**
  * InterfacesBasic.java
  * 
- * This program demonstrates Java interfaces, which are similar to Python's abstract base classes
- * but with some key differences. Interfaces in Java provide a way to define a contract that
- * implementing classes must follow.
+ * This program demonstrates interfaces in Java:
+ * - Interface definition and implementation
+ * - Multiple interface implementation
+ * - Interface inheritance
+ * - Default and static methods
  * 
- * Key differences from Python:
- * - Java interfaces can only contain method signatures and constants (no implementation)
- * - Java 8+ introduced default methods in interfaces (similar to Python's mixins)
- * - Java interfaces support multiple inheritance (unlike Python's single inheritance)
- * - Java interfaces are more restrictive than Python's duck typing
- * 
- * @author ITEC313 - Object-Oriented Programming
- * @version 1.0
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 public class InterfacesBasic {
     
     /**

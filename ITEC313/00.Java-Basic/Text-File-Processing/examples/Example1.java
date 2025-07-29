@@ -1,20 +1,17 @@
 /**
- * Example 1: Basic File Reading and Writing
+ * Example1.java
  * 
- * This example demonstrates fundamental file I/O operations in Java.
- * It shows how to read from and write to text files using basic Java I/O classes.
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Key Learning Points:
- * - Using FileReader and FileWriter for basic text file operations
- * - Exception handling with try-catch blocks
- * - Resource management with try-with-resources
- * 
- * Python Comparison:
- * - Java: FileReader/FileWriter vs Python: open() with 'r'/'w' modes
- * - Java: try-with-resources vs Python: with statement
- * - Java: explicit exception handling vs Python: try/except
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 import java.io.*;
 
 public class Example1 {

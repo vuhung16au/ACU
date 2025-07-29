@@ -1,16 +1,17 @@
 /**
- * Example 2: Advanced If-Else Conditions
+ * Example2.java
  * 
- * This example demonstrates more complex conditional logic including:
- * - Nested if-else statements
- * - Ternary operators
- * - Complex boolean expressions
- * - Switch-like logic with if-else
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Course: ITEC313 - Object-Oriented Programming
- * Institution: Australian Catholic University (ACU)
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 public class Example2 {
     
     public static void main(String[] args) {

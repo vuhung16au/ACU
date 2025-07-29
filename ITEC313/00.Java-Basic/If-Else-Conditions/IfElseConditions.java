@@ -1,18 +1,17 @@
 /**
- * If-Else Conditions Demo
+ * IfElseConditions.java
  * 
- * This program demonstrates various conditional statements in Java:
- * - Basic if-else statements
- * - Nested if-else structures
- * - Ternary operator usage
- * - Multiple conditions with logical operators
- * - Switch statement alternatives
+ * This program demonstrates if-else conditions in Java:
+ * - Basic if statements
+ * - If-else and else-if chains
+ * - Nested if statements
+ * - Conditional expressions
  * 
- * Course: ITEC313 - Object-Oriented Programming
- * Institution: Australian Catholic University (ACU)
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
  * Date: July 11, 2025
  */
-
 public class IfElseConditions {
     
     public static void main(String[] args) {

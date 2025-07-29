@@ -1,3 +1,17 @@
+/**
+ * WhileLoops.java
+ * 
+ * This program demonstrates while loops in Java:
+ * - While loop syntax
+ * - Do-while loops
+ * - Loop termination
+ * - Infinite loop prevention
+ * 
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
+ */
 // WhileLoops.java
 // Main source file for demonstrating while, do-while, and infinite loops in Java
 // For graduate students transitioning from Python

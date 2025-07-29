@@ -1,18 +1,11 @@
 /**
  * CustomExceptions.java
  * 
- * This program demonstrates how to create and use custom exceptions in Java.
- * Custom exceptions allow you to create specific error types for your application.
- * 
- * Key differences from Python:
- * - Java requires explicit exception class definition extending Exception or RuntimeException
- * - Java exceptions are checked (must be declared) or unchecked (RuntimeException)
- * - Java uses 'throw' and 'throws' keywords instead of Python's 'raise'
- * 
- * @author ITEC313 - Object-Oriented Programming
- * @version 1.0
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 // Custom exception classes
 // In Java, custom exceptions typically extend Exception (checked) or RuntimeException (unchecked)
 // This is different from Python where you can raise any object as an exception

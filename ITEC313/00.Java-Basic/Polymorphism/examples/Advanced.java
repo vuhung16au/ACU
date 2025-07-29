@@ -1,20 +1,17 @@
 /**
- * Advanced.java - Advanced Polymorphism Concepts
+ * Advanced.java
  * 
- * This example demonstrates advanced polymorphism concepts including:
- * - Generic polymorphism
- * - Wildcard polymorphism
- * - Complex inheritance hierarchies
- * - Strategy pattern implementation
- * - Factory pattern with polymorphism
+ * This program demonstrates advanced in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Key concepts demonstrated:
- * - Generic classes and methods
- * - Bounded wildcards
- * - Multiple inheritance through interfaces
- * - Design patterns with polymorphism
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 // Generic interface for data processing
 interface DataProcessor<T> {
     T process(T data);

@@ -1,7 +1,21 @@
+/**
+ * StringManipulation.java
+ * 
+ * This program demonstrates string manipulation in Java:
+ * - String creation and modification
+ * - String methods and operations
+ * - String concatenation
+ * - String comparison
+ * 
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
+ */
 // StringManipulation.java
 // Demonstrates string manipulation in Java for Python developers
-// Course: ITEC313 - Object-Oriented Programming
-// Author: ACU
+// Course: ITEC313 - Advanced Programming Concepts
+// Author: XYZ
 //
 // This file is educational and includes detailed comments and Python comparisons.
 

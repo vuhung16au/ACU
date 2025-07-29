@@ -1,3 +1,17 @@
+/**
+ * RegularExpressions.java
+ * 
+ * This program demonstrates regular expressions in Java:
+ * - Pattern matching
+ * - String validation
+ * - Text processing
+ * - Regex syntax and usage
+ * 
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
+ */
 import java.util.regex.*;
 
 /**

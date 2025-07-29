@@ -1,8 +1,16 @@
 /**
- * Wrapper Classes Demonstration
+ * WrapperDemo.java
  * 
- * This program provides detailed examples of wrapper class usage,
- * utility methods, and performance considerations.
+ * This program demonstrates wrapper demo in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
+ * 
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
 public class WrapperDemo {
     

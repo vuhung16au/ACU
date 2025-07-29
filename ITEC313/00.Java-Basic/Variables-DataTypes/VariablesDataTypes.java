@@ -1,15 +1,15 @@
 /**
- * Variables and Data Types Demo
+ * VariablesDataTypes.java
  * 
- * This program demonstrates:
- * - Primitive data types (byte, short, int, long, float, double, char, boolean)
- * - Wrapper classes and autoboxing/unboxing
- * - Type conversion (implicit and explicit casting)
+ * This program demonstrates variables and data types in Java:
+ * - Primitive data types
+ * - Reference data types
  * - Variable declaration and initialization
- * - Literals and their types
+ * - Type conversion and casting
  * 
- * Course: ITEC313 - Object-Oriented Programming
- * Institution: Australian Catholic University (ACU)
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
  * Date: July 11, 2025
  */
 public class VariablesDataTypes {

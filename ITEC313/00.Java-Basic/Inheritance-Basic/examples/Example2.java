@@ -1,18 +1,17 @@
 /**
- * Example 2: Advanced Inheritance - Media Library Hierarchy
+ * Example2.java
  * 
- * This example demonstrates:
- * - Abstract classes and methods
- * - Interface implementation
- * - Multiple inheritance through interfaces
- * - Polymorphism with collections
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Key Differences from Python:
- * - Java has explicit abstract classes and interfaces
- * - Java interfaces provide multiple inheritance
- * - Java uses 'implements' for interfaces
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 // Abstract base class for all media items
 abstract class MediaItem {
     protected String title;

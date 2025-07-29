@@ -1,16 +1,17 @@
 /**
- * Array-Algorithms - Main Implementation
- * Course: ITEC313 - Object-Oriented Programming
+ * ArrayAlgorithms.java
  * 
- * This program demonstrates various array algorithms including:
- * - Sorting algorithms (Bubble Sort, Selection Sort, Insertion Sort, Quick Sort)
- * - Searching algorithms (Linear Search, Binary Search)
+ * This program demonstrates various array algorithms in Java:
+ * - Sorting algorithms (bubble, selection, insertion)
+ * - Searching algorithms (linear, binary)
  * - Array manipulation techniques
+ * - Performance analysis of algorithms
  * 
- * For Python developers: This is similar to Python's list operations,
- * but Java arrays are fixed-size and require explicit algorithms for sorting/searching
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 import java.util.Arrays;
 import java.util.Scanner;
 

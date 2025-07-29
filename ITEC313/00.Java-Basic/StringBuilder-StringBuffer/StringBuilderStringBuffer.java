@@ -1,10 +1,24 @@
+/**
+ * StringBuilderStringBuffer.java
+ * 
+ * This program demonstrates StringBuilder and StringBuffer in Java:
+ * - Mutable string classes
+ * - Performance optimization
+ * - String building techniques
+ * - Thread safety considerations
+ * 
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
+ */
 // StringBuilderStringBuffer.java
 // Demonstrates usage of StringBuilder and StringBuffer in Java
 // For graduate students transitioning from Python
 //
 // Key differences from Python are explained in comments
 //
-// Author: ACU ITEC313
+// Author: XYZ ITEC313
 // Date: July 2025
 
 public class StringBuilderStringBuffer {

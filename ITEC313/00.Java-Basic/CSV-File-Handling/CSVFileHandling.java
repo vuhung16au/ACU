@@ -1,3 +1,11 @@
+/**
+ * CSVFileHandling.java
+ * 
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
+ */
 import java.io.*;
 import java.util.*;
 
@@ -13,7 +21,7 @@ import java.util.*;
  * - Manual string splitting and parsing required
  * - More explicit exception handling
  * 
- * @author ITEC313 Student
+ * @author XYZ
  * @version 1.0
  */
 public class CSVFileHandling {

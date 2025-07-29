@@ -1,17 +1,17 @@
 /**
- * Example1.java - Basic Exception Handling
+ * Example1.java
  * 
- * This example demonstrates fundamental exception handling concepts:
- * - Arithmetic exceptions (division by zero)
- * - Array index exceptions
- * - Basic try-catch structure
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Key differences from Python:
- * - Java requires explicit exception handling for checked exceptions
- * - Python's try/except becomes Java's try/catch
- * - Java has more specific exception types
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 public class Example1 {
     
     public static void main(String[] args) {

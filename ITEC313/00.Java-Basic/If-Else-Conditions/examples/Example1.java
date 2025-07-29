@@ -1,13 +1,17 @@
 /**
- * Example 1: Basic If-Else Conditions
+ * Example1.java
  * 
- * This example demonstrates fundamental if-else statements in Java.
- * Shows simple conditional logic for decision making.
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Course: ITEC313 - Object-Oriented Programming
- * Institution: Australian Catholic University (ACU)
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 public class Example1 {
     
     public static void main(String[] args) {

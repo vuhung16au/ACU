@@ -1,18 +1,17 @@
 /**
- * Input and Output Demo
+ * InputOutput.java
  * 
- * This program demonstrates various methods of input and output in Java:
- * - Console input using Scanner class
- * - BufferedReader for efficient input
- * - Command-line arguments processing
- * - Formatted output with System.out.printf
- * - Error handling for input operations
+ * This program demonstrates input and output operations in Java:
+ * - Console input using Scanner
+ * - File input/output operations
+ * - Stream processing
+ * - Data formatting and parsing
  * 
- * Course: ITEC313 - Object-Oriented Programming
- * Institution: Australian Catholic University (ACU)
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
  * Date: July 11, 2025
  */
-
 import java.io.*;
 import java.util.Scanner;
 

@@ -1,19 +1,17 @@
 /**
  * Advanced.java
  * 
- * Advanced HashMap examples demonstrating complex operations and patterns.
- * This example shows nested HashMaps, custom objects as values,
- * and advanced manipulation techniques.
+ * This program demonstrates advanced in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Key concepts:
- * - Nested HashMaps (HashMap of HashMaps)
- * - Custom objects as HashMap values
- * - Advanced iteration and manipulation
- * - Performance considerations
- * 
- * Python equivalent: Nested dictionaries and complex data structures
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ArrayList;

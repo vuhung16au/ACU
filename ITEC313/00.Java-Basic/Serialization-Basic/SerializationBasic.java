@@ -1,22 +1,19 @@
-import java.io.*;
-import java.util.*;
-
 /**
  * SerializationBasic.java
  * 
- * This program demonstrates Java object serialization - the process of converting
- * objects to a byte stream for storage or transmission, and deserialization - 
- * reconstructing objects from the byte stream.
+ * This program demonstrates Java object serialization:
+ * - Object serialization process
+ * - File I/O with objects
+ * - Serialization security
+ * - Custom serialization
  * 
- * Key differences from Python:
- * - Java uses Serializable interface (Python uses pickle)
- * - Java requires explicit serialization/deserialization methods
- * - Java serialization is more type-safe than Python's pickle
- * - Java can serialize entire object graphs automatically
- * 
- * @author ITEC313 - Object-Oriented Programming
- * @version 1.0
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
+import java.io.*;
+import java.util.*;
 public class SerializationBasic {
     
     /**

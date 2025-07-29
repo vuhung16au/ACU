@@ -1,15 +1,17 @@
 /**
- * Example2.java - Logging and Conditional Debugging
+ * Example2.java
  * 
- * This example demonstrates logging and conditional debugging techniques in Java.
- * Shows how to use Java's logging framework and conditional debug statements.
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Key differences from Python:
- * - Java uses java.util.logging instead of Python's logging module
- * - Java requires explicit boolean flags for conditional debugging
- * - Java logging levels are more structured than Python's
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 import java.util.logging.Logger;
 import java.util.logging.Level;
 import java.util.logging.FileHandler;

@@ -1,18 +1,17 @@
 /**
- * Advanced.java - Advanced File Handling
+ * Advanced.java
  * 
- * This example demonstrates advanced file handling concepts in Java.
- * Includes file operations, directory handling, and complex error handling.
+ * This program demonstrates advanced in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Key differences from Python:
- * - Java has separate classes for different file operations
- * - More explicit resource management required
- * - Different approach to directory operations
- * - More structured exception handling
- * 
- * @author ITEC313 - Object-Oriented Programming
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 import java.io.*;
 import java.nio.file.*;
 import java.util.*;

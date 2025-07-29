@@ -1,20 +1,17 @@
 /**
- * Advanced.java - Advanced Interface Patterns
+ * Advanced.java
  * 
- * This example demonstrates advanced interface concepts:
- * - Nested interfaces (similar to Python's nested classes)
- * - Static methods in interfaces (Java 8+)
- * - Interface inheritance
- * - Complex interface hierarchies
- * - Interface composition patterns
+ * This program demonstrates advanced in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Key concepts:
- * - Nested interfaces
- * - Static methods in interfaces
- * - Interface inheritance
- * - Complex interface design patterns
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 // Main interface with nested interfaces
 interface Vehicle {
     // Interface constants

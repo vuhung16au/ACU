@@ -1,20 +1,17 @@
 /**
- * Advanced.java - Advanced Exception Handling Patterns
+ * Advanced.java
  * 
- * This example demonstrates advanced exception handling concepts:
- * - Exception chaining and nested exceptions
- * - Exception hierarchy and inheritance
- * - Advanced try-catch patterns
- * - Exception handling in loops and collections
- * - Resource management patterns
+ * This program demonstrates advanced in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Key differences from Python:
- * - Java has checked vs unchecked exceptions
- * - Java supports exception chaining with cause
- * - Java has more structured exception hierarchy
- * - Java requires explicit exception handling for many operations
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 import java.io.*;
 import java.util.*;
 import java.util.concurrent.*;

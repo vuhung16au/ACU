@@ -1,18 +1,16 @@
 /**
- * Example 2: Advanced Final Variables and Objects
+ * Example2.java
  * 
- * This example demonstrates more advanced concepts with final variables,
- * including final arrays, objects, and complex scenarios.
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Key concepts:
- * - Final arrays can have contents modified but not reassigned
- * - Final objects can have their state modified but not reassigned
- * - Final methods cannot be overridden
- * - Final classes cannot be extended
- * 
- * Python comparison:
- * - Python doesn't have built-in immutability like Java's 'final'
- * - Java's final provides compile-time guarantees
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
 public class Example2 {
     

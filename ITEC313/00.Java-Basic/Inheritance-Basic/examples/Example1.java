@@ -1,17 +1,17 @@
 /**
- * Example 1: Basic Inheritance - Bank Account Hierarchy
+ * Example1.java
  * 
- * This example demonstrates:
- * - Basic inheritance with 'extends' keyword
- * - Method overriding
- * - Constructor chaining
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Key Differences from Python:
- * - Java uses 'extends' instead of parentheses
- * - Java requires explicit 'super()' calls
- * - Java uses '@Override' annotation
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 // Base class for all bank accounts
 class BankAccount {
     protected String accountNumber;

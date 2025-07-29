@@ -1,15 +1,17 @@
 /**
- * Advanced.java - Advanced Debugging Techniques
+ * Advanced.java
  * 
- * This example demonstrates advanced debugging techniques in Java,
- * including IDE debugging, assertions, exception handling, and debugging tools.
+ * This program demonstrates advanced in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Key differences from Python:
- * - Java assertions are disabled by default (unlike Python's assert)
- * - Java has more sophisticated IDE debugging support
- * - Java exceptions are checked/unchecked (unlike Python's exceptions)
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 import java.util.logging.Logger;
 import java.util.logging.Level;
 import java.util.logging.FileHandler;

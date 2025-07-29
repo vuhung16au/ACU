@@ -1,15 +1,16 @@
 /**
- * The HelloWorld class contains the main method that serves as the entry point
- * for the Java application. In Java, every application must have a main method
- * with the exact signature: public static void main(String[] args)
+ * HelloWorld.java
  * 
- * This is a simple "Hello, World!" program in Java.
- * It demonstrates the basic structure of a Java program and serves as
- * an introduction to Java programming fundamentals.
+ * This program demonstrates basic Java programming concepts:
+ * - Class structure and main method
+ * - Console output using System.out.println()
+ * - String variables and concatenation
+ * - Basic commenting practices
  * 
- * Author: XYZ
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
  * Date: July 11, 2025
- * Course: XYZ
  */
 public class HelloWorld {
     

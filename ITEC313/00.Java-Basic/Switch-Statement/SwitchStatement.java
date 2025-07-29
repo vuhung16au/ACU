@@ -1,15 +1,16 @@
 /**
- * Switch-Statement Demonstration
+ * SwitchStatement.java
  * 
- * This program demonstrates the use of switch statements in Java,
- * including traditional switch statements and enhanced switch expressions.
+ * This program demonstrates switch statements in Java:
+ * - Switch case syntax
+ * - Fall-through behavior
+ * - Switch expressions
+ * - Switch statement optimization
  * 
- * For Python developers: Java switch statements are similar to Python's
- * if-elif-else chains, but with a more structured syntax and the ability
- * to use expressions (in newer Java versions).
- * 
- * @author ITEC313 - Object-Oriented Programming
- * @version 1.0
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
 public class SwitchStatement {
     

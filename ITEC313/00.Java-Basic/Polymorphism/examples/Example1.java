@@ -1,17 +1,17 @@
 /**
- * Example1.java - Basic Polymorphism with Shapes
+ * Example1.java
  * 
- * This example demonstrates fundamental polymorphism concepts using a simple
- * shape hierarchy. It shows how different shapes can be treated uniformly
- * through their common interface.
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Key concepts demonstrated:
- * - Method overriding
- * - Runtime polymorphism
- * - Upcasting and downcasting
- * - Polymorphic collections
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 // Base class for all shapes
 class Shape {
     protected String color;

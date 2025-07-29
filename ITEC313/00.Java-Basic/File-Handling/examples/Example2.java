@@ -1,18 +1,17 @@
 /**
- * Example2.java - File Writing Operations
+ * Example2.java
  * 
- * This example demonstrates various file writing operations in Java.
- * Shows different approaches to writing files and handling errors.
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Key differences from Python:
- * - Java requires explicit flush() and close() calls
- * - Different writer classes for different purposes
- * - More explicit error handling required
- * - No automatic buffering like Python's file objects
- * 
- * @author ITEC313 - Object-Oriented Programming
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 import java.io.*;
 import java.util.Date;
 

@@ -1,17 +1,17 @@
 /**
- * Instance Variables Demo
+ * InstanceVariables.java
  * 
- * This program demonstrates instance variables in Java, including:
- * - Field declaration and initialization
- * - The 'this' keyword
- * - Instance variable scope and lifetime
- * - Differences from Python's instance variables
+ * This program demonstrates instance variables in Java:
+ * - Instance variable declaration
+ * - Variable scope and lifetime
+ * - Instance variable initialization
+ * - Object state management
  * 
- * For Python developers: In Python, instance variables are created in __init__
- * and accessed with self.variable_name. In Java, they're declared at class level
- * and accessed with this.variable_name or directly.
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 public class InstanceVariables {
     
     // Instance variables (fields) - declared at class level

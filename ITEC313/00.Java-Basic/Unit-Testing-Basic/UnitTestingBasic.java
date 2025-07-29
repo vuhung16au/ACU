@@ -1,3 +1,17 @@
+/**
+ * UnitTestingBasic.java
+ * 
+ * This program demonstrates unit testing in Java:
+ * - Test case creation
+ * - Assertion methods
+ * - Test organization
+ * - Testing best practices
+ * 
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
+ */
 // UnitTestingBasic.java
 // Demonstrates manual code verification in Java (no JUnit or test framework)
 // For students transitioning from Python to Java

@@ -1,19 +1,16 @@
 /**
- * Advanced: Final Classes, Enums, and Complex Scenarios
+ * Advanced.java
  * 
- * This example demonstrates advanced concepts with final variables,
- * including final classes, enums, and complex real-world scenarios.
+ * This program demonstrates advanced in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Key concepts:
- * - Final classes cannot be extended
- * - Enums as constants
- * - Final variables in complex scenarios
- * - Best practices for constants
- * 
- * Python comparison:
- * - Python doesn't have final classes or enums like Java
- * - Java's enum provides type-safe constants
- * - Java's final class prevents inheritance
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
 public class Advanced {
     

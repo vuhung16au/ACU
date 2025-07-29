@@ -1,18 +1,17 @@
 /**
  * Example1.java
  * 
- * Simple HashMap example demonstrating basic operations.
- * This example shows how to create, populate, and manipulate a HashMap.
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Key concepts:
- * - Creating a HashMap
- * - Adding and retrieving key-value pairs
- * - Checking for key existence
- * - Removing elements
- * 
- * Python equivalent: Basic dictionary operations
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 import java.util.HashMap;
 
 public class Example1 {

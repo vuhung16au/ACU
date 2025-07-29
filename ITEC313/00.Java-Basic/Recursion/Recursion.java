@@ -1,3 +1,17 @@
+/**
+ * Recursion.java
+ * 
+ * This program demonstrates recursion in Java:
+ * - Recursive method definition
+ * - Base case and recursive case
+ * - Recursion vs iteration
+ * - Recursive algorithm examples
+ * 
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
+ */
 package Recursion;
 // Recursion.java
 // Demonstrates recursion in Java for educational purposes

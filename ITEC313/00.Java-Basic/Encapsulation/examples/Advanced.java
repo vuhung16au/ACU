@@ -1,14 +1,17 @@
 /**
  * Advanced.java
  * 
- * Complex encapsulation example: Shopping Cart system
- * Demonstrates encapsulation with nested objects, collections, and complex business logic
+ * This program demonstrates advanced in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Python Comparison:
- * - Python: Use nested classes and property decorators
- * - Java: Use private collections and public methods for complex operations
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 import java.util.ArrayList;
 import java.util.List;
 

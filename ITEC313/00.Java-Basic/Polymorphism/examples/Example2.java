@@ -1,17 +1,17 @@
 /**
- * Example2.java - Interface and Abstract Class Polymorphism
+ * Example2.java
  * 
- * This example demonstrates polymorphism using interfaces and abstract classes
- * through a payment system. It shows how different payment methods can be
- * treated uniformly through common interfaces.
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Key concepts demonstrated:
- * - Interface polymorphism
- * - Abstract class polymorphism
- * - Multiple interface implementation
- * - Method overloading
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 // Interface for payment processing
 interface PaymentProcessor {
     boolean processPayment(double amount);

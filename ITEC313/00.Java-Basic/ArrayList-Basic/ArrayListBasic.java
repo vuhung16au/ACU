@@ -1,23 +1,22 @@
+/**
+ * ArrayListBasic.java
+ * 
+ * This program demonstrates fundamental ArrayList concepts in Java:
+ * - Array declaration and initialization
+ * - Array access and modification
+ * - Common array operations
+ * - Array traversal techniques
+ * - Array utility methods
+ * 
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
+ */
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
-/**
- * ArrayList-Basic: Demonstrating ArrayList operations in Java
- * 
- * This program shows how to work with ArrayList, which is Java's dynamic array implementation.
- * Unlike Python lists, Java ArrayLists require type specification and have different method names.
- * 
- * Key differences from Python:
- * - Must specify data type: ArrayList<String> vs Python's dynamic typing
- * - Methods: add() vs append(), remove() vs del/pop()
- * - Size: size() vs len()
- * - Index access: get(index) vs direct indexing
- * 
- * @author ITEC313 Student
- * @version 1.0
- */
 public class ArrayListBasic {
     
     public static void main(String[] args) {

@@ -1,17 +1,17 @@
 /**
- * Example1.java - Basic File Reading
+ * Example1.java
  * 
- * This example demonstrates fundamental file reading operations in Java.
- * Shows how to read text files line by line and character by character.
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Key differences from Python:
- * - Java requires explicit resource management (close() calls)
- * - No context managers like Python's 'with' statement
- * - BufferedReader provides efficient line-by-line reading
- * 
- * @author ITEC313 - Object-Oriented Programming
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 import java.io.*;
 
 public class Example1 {

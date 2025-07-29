@@ -1,13 +1,17 @@
 /**
- * Example2.java - Constructor Chaining and Overloading
+ * Example2.java
  * 
- * This example demonstrates constructor chaining and overloading using a BankAccount class.
- * Shows how one constructor can call another constructor using 'this()'.
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * For Python developers: Constructor chaining is a Java-specific feature that allows
- * one constructor to call another constructor in the same class.
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 public class Example2 {
     
     public static void main(String[] args) {

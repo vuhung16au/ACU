@@ -1,22 +1,16 @@
 /**
- * Advanced: Complex Static Concepts and Patterns
+ * Advanced.java
  * 
- * This example demonstrates advanced static concepts including:
- * - Static nested classes
- * - Static initialization patterns
- * - Static utility methods
- * - Advanced static patterns
+ * This program demonstrates advanced in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Key concepts:
- * - Static nested classes for organization
- * - Complex static initialization
- * - Static utility patterns
- * - Static vs instance method design
- * 
- * Python equivalent concepts:
- * - Nested classes
- * - Module-level utilities
- * - Factory patterns
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
 public class Advanced {
     

@@ -1,21 +1,17 @@
 /**
- * Inheritance-Basic - Java Inheritance Concepts
+ * InheritanceBasic.java
  * 
- * This program demonstrates key inheritance concepts in Java:
- * - Extends keyword for class inheritance
- * - Super keyword for accessing parent class members
- * - Method overriding with @Override annotation
- * - Constructor chaining with super()
+ * This program demonstrates inheritance in Java:
+ * - Extending classes
+ * - Method overriding
+ * - Super keyword usage
+ * - Inheritance hierarchies
  * 
- * Target Audience: Python developers learning Java
- * 
- * Key Differences from Python:
- * - Java uses 'extends' instead of Python's parentheses syntax
- * - Java requires explicit 'super()' calls in constructors
- * - Java uses '@Override' annotation for clarity
- * - Java has single inheritance (unlike Python's multiple inheritance)
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 public class InheritanceBasic {
     
     public static void main(String[] args) {

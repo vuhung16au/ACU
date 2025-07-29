@@ -1,18 +1,17 @@
 /**
- * Example2.java - Interface with Default Methods and Functional Interfaces
+ * Example2.java
  * 
- * This example demonstrates Java 8+ features in interfaces:
- * - Default methods (similar to Python mixins)
- * - Functional interfaces (similar to Python callable objects)
- * - Lambda expressions with interfaces
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Key concepts:
- * - Default methods in interfaces
- * - Functional interfaces
- * - Lambda expressions
- * - Method references
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 // Interface with default methods (Java 8+ feature)
 // Similar to Python mixins with concrete methods
 interface Calculator {

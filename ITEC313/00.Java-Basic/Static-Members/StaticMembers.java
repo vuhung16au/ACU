@@ -1,17 +1,16 @@
 /**
- * Static-Members Demo
+ * StaticMembers.java
  * 
- * This program demonstrates the concept of static members in Java.
- * Static members belong to the class itself, not to instances of the class.
+ * This program demonstrates static members in Java:
+ * - Static variables and methods
+ * - Static initialization blocks
+ * - Static vs instance members
+ * - Static utility classes
  * 
- * Key differences from Python:
- * - Java uses 'static' keyword (Python doesn't have static in the same way)
- * - Static members are shared across all instances
- * - Static methods can't access instance variables directly
- * - Static blocks run when class is loaded
- * 
- * @author ITEC313 - Object-Oriented Programming
- * @version 1.0
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
 public class StaticMembers {
     

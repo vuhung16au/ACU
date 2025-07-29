@@ -1,18 +1,16 @@
 /**
- * Loop-Control Demonstration
+ * LoopControl.java
  * 
- * This program demonstrates Java loop control statements including:
- * - break statement (exits the loop)
- * - continue statement (skips current iteration)
- * - labeled statements (break/continue with labels)
+ * This program demonstrates loop control statements in Java:
+ * - Break and continue statements
+ * - Loop termination conditions
+ * - Nested loop control
+ * - Loop optimization techniques
  * 
- * Key differences from Python:
- * - Java uses 'break' and 'continue' (same as Python)
- * - Java supports labeled break/continue (not available in Python)
- * - Java requires explicit loop labels for labeled statements
- * 
- * @author ITEC313 - Object-Oriented Programming
- * @version 1.0
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
 public class LoopControl {
     

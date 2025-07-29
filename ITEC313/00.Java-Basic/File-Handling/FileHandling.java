@@ -1,23 +1,17 @@
 /**
  * FileHandling.java
  * 
- * This program demonstrates file handling in Java, including:
- * - Reading from text files
- * - Writing to text files
- * - File existence checks
- * - Error handling with try-catch blocks
- * - Working with different file types
+ * This program demonstrates file handling in Java:
+ * - File reading and writing
+ * - File and directory operations
+ * - File streams and buffers
+ * - File manipulation utilities
  * 
- * Key differences from Python:
- * - Java uses explicit try-catch blocks for exception handling
- * - File operations require explicit resource management
- * - Java has separate classes for different file operations (FileReader, FileWriter, etc.)
- * - No context managers like Python's 'with' statement (prior to Java 7)
- * 
- * @author ITEC313 - Object-Oriented Programming
- * @version 1.0
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 import java.io.*;
 import java.nio.file.*;
 import java.util.*;

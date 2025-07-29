@@ -1,12 +1,16 @@
 /**
- * Example 2: Labeled Break and Continue Statements
+ * Example2.java
  * 
- * This example demonstrates the use of labeled break and continue
- * statements in nested loop scenarios.
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Python comparison:
- * - No direct equivalent in Python
- * - Python would require flag variables or complex logic
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
 public class Example2 {
     

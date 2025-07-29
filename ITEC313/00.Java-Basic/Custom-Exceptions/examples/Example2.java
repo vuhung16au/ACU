@@ -1,13 +1,17 @@
 /**
- * Example2.java - Advanced Custom Exception Examples
+ * Example2.java
  * 
- * This example demonstrates more advanced custom exception concepts:
- * - Exception hierarchies
- * - Exception chaining
- * - Custom exception with additional data
- * - Multiple exception handling
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
+ * 
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 // Base exception for all application errors
 abstract class ApplicationException extends Exception {
     private String errorCode;

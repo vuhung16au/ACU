@@ -1,18 +1,17 @@
 /**
- * Example 1: Basic LinkedList Operations
+ * Example1.java
  * 
- * This example demonstrates fundamental linked list operations:
- * - Creating a linked list
- * - Adding elements
- * - Traversing the list
- * - Basic operations
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Python Comparison:
- * - Python doesn't have built-in linked lists
- * - You'd typically use a list or implement your own
- * - Java requires explicit Node classes
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 import java.util.*;
 
 public class Example1 {

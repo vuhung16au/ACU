@@ -1,18 +1,17 @@
 /**
- * LinkedList - Main Implementation
+ * LinkedList.java
  * 
- * This program demonstrates linked list operations in Java and compares them
- * with ArrayList operations. It's designed for Python developers learning Java.
+ * This program demonstrates LinkedList usage in Java:
+ * - LinkedList creation and operations
+ * - Node-based data structure
+ * - LinkedList vs ArrayList comparison
+ * - LinkedList performance characteristics
  * 
- * Key differences from Python:
- * - Java uses explicit Node classes for linked lists (Python doesn't have built-in linked lists)
- * - Java requires explicit memory management (no garbage collection concerns in Python)
- * - Java uses generics for type safety (Python is dynamically typed)
- * 
- * @author ITEC313 - Object-Oriented Programming
- * @version 1.0
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 import java.util.*;
 
 public class LinkedList {

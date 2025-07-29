@@ -1,16 +1,17 @@
 /**
- * Advanced.java - Advanced Constructor Concepts
+ * Advanced.java
  * 
- * This example demonstrates advanced constructor concepts including:
- * - Copy constructors
- * - Factory methods
- * - Private constructors
- * - Singleton pattern
+ * This program demonstrates advanced in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * For Python developers: This shows advanced Java patterns that don't have
- * direct equivalents in Python.
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 public class Advanced {
     
     public static void main(String[] args) {

@@ -1,13 +1,16 @@
 /**
- * Advanced Example: Complex Loop Control Scenarios
+ * Advanced.java
  * 
- * This example demonstrates advanced usage of loop control statements
- * in practical programming scenarios including data processing and
- * algorithm implementation.
+ * This program demonstrates advanced in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Python comparison:
- * - Basic break/continue: Same as Python
- * - Labeled statements: No Python equivalent
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
 public class Advanced {
     

@@ -1,6 +1,20 @@
+/**
+ * OperatorsExpressions.java
+ * 
+ * This program demonstrates operators and expressions in Java:
+ * - Arithmetic operators
+ * - Comparison operators
+ * - Logical operators
+ * - Assignment operators
+ * 
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
+ */
 // OperatorsExpressions.java
 // Demonstrates Java operators and expressions for educational purposes
-// Course: ITEC313 - Object-Oriented Programming
+// Course: ITEC313 - Advanced Programming Concepts
 // Target audience: Python programmers transitioning to Java
 //
 // This file covers:

@@ -1,14 +1,17 @@
 /**
  * Example1.java
  * 
- * Simple encapsulation example: Rectangle class
- * Demonstrates basic private fields with public getters and setters
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Python Comparison:
- * - Python: class Rectangle: def __init__(self): self._width = 0
- * - Java: private fields with public accessor methods
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 public class Example1 {
     public static void main(String[] args) {
         System.out.println("=== Example 1: Rectangle Encapsulation ===\n");

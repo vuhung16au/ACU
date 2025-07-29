@@ -1,3 +1,17 @@
+/**
+ * CollectionsUtility.java
+ * 
+ * This program demonstrates Java Collections utility methods:
+ * - Collection manipulation utilities
+ * - Sorting and searching collections
+ * - Collection synchronization
+ * - Collection performance optimization
+ * 
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
+ */
 import java.util.*;
 
 /**

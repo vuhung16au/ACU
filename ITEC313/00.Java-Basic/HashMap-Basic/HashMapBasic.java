@@ -1,18 +1,17 @@
 /**
  * HashMapBasic.java
  * 
- * This program demonstrates the fundamental concepts of HashMap in Java.
- * HashMap is a collection that stores key-value pairs, similar to Python's dict.
+ * This program demonstrates HashMap usage in Java:
+ * - HashMap creation and initialization
+ * - Key-value pair operations
+ * - HashMap iteration techniques
+ * - HashMap performance characteristics
  * 
- * Key differences from Python:
- * - Java HashMap requires explicit type declarations for keys and values
- * - Java HashMap is not ordered (use LinkedHashMap for insertion order)
- * - Java HashMap methods have different names than Python dict methods
- * 
- * @author ITEC313 - Object-Oriented Programming
- * @version 1.0
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;

@@ -1,10 +1,17 @@
 /**
  * Example2.java
  * 
- * Example demonstrating abstract classes with employee hierarchy
- * Shows abstract methods with different implementations
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
+ * 
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 import java.util.ArrayList;
 import java.util.List;
 

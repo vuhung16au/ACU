@@ -1,14 +1,17 @@
 /**
- * Advanced.java - Complex Custom Exception Examples
+ * Advanced.java
  * 
- * This example demonstrates advanced custom exception patterns:
- * - Exception factories
- * - Custom exception builders
- * - Advanced error handling patterns
- * - Exception with complex state
- * - Exception recovery strategies
+ * This program demonstrates advanced in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
+ * 
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;

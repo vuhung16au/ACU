@@ -1,15 +1,17 @@
 /**
- * Example 1: Basic Instance Variables
+ * Example1.java
  * 
- * This example demonstrates fundamental instance variable concepts:
- * - Declaration and initialization
- * - Default values
- * - Basic getters and setters
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * For Python developers: This shows how Java instance variables are declared
- * at the class level, unlike Python where they're created in __init__.
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 public class Example1 {
     
     // Instance variables with different data types

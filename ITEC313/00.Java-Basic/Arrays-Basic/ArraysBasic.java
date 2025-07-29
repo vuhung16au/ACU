@@ -1,5 +1,5 @@
 /**
- * Arrays Basic Demo
+ * ArraysBasic.java
  * 
  * This program demonstrates fundamental array concepts in Java:
  * - Array declaration and initialization
@@ -8,11 +8,11 @@
  * - Array traversal techniques
  * - Array utility methods
  * 
- * Course: ITEC313 - Object-Oriented Programming
- * Institution: Australian Catholic University (ACU)
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
  * Date: July 11, 2025
  */
-
 import java.util.Arrays;
 import java.util.Scanner;
 

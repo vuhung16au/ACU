@@ -1,18 +1,17 @@
 /**
- * Example 2: Advanced LinkedList Operations
+ * Example2.java
  * 
- * This example demonstrates advanced linked list operations:
- * - Insertion at specific positions
- * - Deletion of elements
- * - Searching and finding elements
- * - Working with multiple linked lists
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Python Comparison:
- * - Python lists have built-in insert() and remove() methods
- * - Java requires manual implementation of these operations
- * - Java's explicit memory management vs Python's garbage collection
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 import java.util.*;
 
 public class Example2 {

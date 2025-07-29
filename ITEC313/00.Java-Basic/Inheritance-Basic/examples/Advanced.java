@@ -1,18 +1,17 @@
 /**
- * Advanced.java - Complex Inheritance Scenarios
+ * Advanced.java
  * 
- * This example demonstrates:
- * - Generic classes with inheritance
- * - Nested classes and inheritance
- * - Design patterns with inheritance
- * - Complex method overriding scenarios
+ * This program demonstrates advanced in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Key Differences from Python:
- * - Java generics provide type safety
- * - Java nested classes have different access rules
- * - Java method overloading vs overriding
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 import java.util.*;
 
 // Generic base class for containers

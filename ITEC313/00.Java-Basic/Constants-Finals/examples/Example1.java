@@ -1,17 +1,16 @@
 /**
- * Example 1: Basic Final Variables and Constants
+ * Example1.java
  * 
- * This example demonstrates the fundamental concepts of final variables
- * and constants in Java, showing how they differ from regular variables.
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Key concepts:
- * - Final variables cannot be reassigned after initialization
- * - Constants are typically declared as public static final
- * - Naming conventions for constants (UPPER_CASE)
- * 
- * Python comparison:
- * - Python uses naming conventions (UPPER_CASE) for constants
- * - Java enforces immutability with the 'final' keyword
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
 public class Example1 {
     

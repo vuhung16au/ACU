@@ -1,11 +1,16 @@
 /**
- * Example 2: Advanced Switch Statement Patterns
+ * Example2.java
  * 
- * This example demonstrates more advanced switch statement concepts
- * including enhanced switch expressions, multiple values, and complex scenarios.
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * For Python developers: Enhanced switch expressions are similar to
- * Python's conditional expressions but with more structured syntax.
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
 public class Example2 {
     

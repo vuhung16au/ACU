@@ -1,11 +1,16 @@
 /**
- * Example 1: Basic Switch Statement Patterns
+ * Example1.java
  * 
- * This example demonstrates fundamental switch statement concepts
- * including basic syntax, break statements, and default cases.
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * For Python developers: This shows the basic structure of switch statements
- * which are more structured than Python's if-elif-else chains.
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
 public class Example1 {
     

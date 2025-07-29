@@ -1,3 +1,11 @@
+/**
+ * HashSetDemo.java
+ * 
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
+ */
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Arrays;

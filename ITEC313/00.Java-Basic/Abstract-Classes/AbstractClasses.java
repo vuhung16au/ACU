@@ -1,16 +1,17 @@
 /**
  * AbstractClasses.java
  * 
- * Demonstrates abstract classes and methods in Java
- * Course: ITEC313 - Object-Oriented Programming
- * 
- * This program shows:
+ * This program demonstrates abstract classes and methods in Java:
  * - How to define abstract classes
  * - How to implement abstract methods
  * - Practical examples of abstract classes
  * - Polymorphism with abstract classes
+ * 
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 import java.util.ArrayList;
 import java.util.List;
 

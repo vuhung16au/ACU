@@ -1,20 +1,17 @@
 /**
- * Error-Exception-Handling.java
+ * ErrorExceptionHandling.java
  * 
- * This program demonstrates Java error and exception handling concepts.
- * It covers try-catch blocks, finally clauses, exception hierarchy,
- * and custom exception creation.
+ * This program demonstrates error and exception handling in Java:
+ * - Try-catch blocks
+ * - Exception types and hierarchy
+ * - Custom exception handling
+ * - Best practices for error handling
  * 
- * Key differences from Python:
- * - Java uses checked exceptions (must be declared or caught)
- * - Python uses try/except/finally, Java uses try/catch/finally
- * - Java has a more structured exception hierarchy
- * - Java requires explicit exception handling for many operations
- * 
- * @author ITEC313 Course
- * @version 1.0
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 import java.io.*;
 import java.util.*;
 

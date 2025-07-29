@@ -1,16 +1,16 @@
 /**
- * Constants-Finals: Demonstrating Final Variables and Constants in Java
+ * ConstantsFinals.java
  * 
- * This program showcases the use of final variables, constants, and proper
- * naming conventions in Java. It's designed for Python developers learning Java.
+ * This program demonstrates constants and final variables in Java:
+ * - Final variable declaration
+ * - Constant definition and usage
+ * - Static final variables
+ * - Immutable object creation
  * 
- * Key differences from Python:
- * - Java uses 'final' keyword instead of Python's naming convention
- * - Constants are typically declared as public static final
- * - Java has stronger type checking for constants
- * 
- * @author ITEC313 - Object-Oriented Programming
- * @version 1.0
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
 public class ConstantsFinals {
     

@@ -1,18 +1,16 @@
 /**
- * Example 1: Basic Static Variables and Methods
+ * Example1.java
  * 
- * This example demonstrates the fundamental concepts of static members
- * using a simple counter system.
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Key concepts:
- * - Static variables are shared across all instances
- * - Static methods can be called without creating objects
- * - Static members belong to the class, not instances
- * 
- * Python equivalent concepts:
- * - Class variables (shared across instances)
- * - @staticmethod decorator
- * - @classmethod decorator
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
 public class Example1 {
     

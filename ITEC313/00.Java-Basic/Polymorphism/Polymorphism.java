@@ -1,19 +1,17 @@
 /**
  * Polymorphism.java
  * 
- * This program demonstrates polymorphism in Java, including:
- * - Runtime polymorphism (method overriding)
- * - Upcasting and downcasting
+ * This program demonstrates polymorphism in Java:
+ * - Method overriding
+ * - Dynamic method dispatch
+ * - Polymorphic behavior
  * - Interface polymorphism
- * - Abstract class polymorphism
  * 
- * Key differences from Python:
- * - Java requires explicit type declarations
- * - Method overriding uses @Override annotation
- * - Casting is more explicit and type-safe
- * - Interfaces provide a form of multiple inheritance
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 // Base class demonstrating inheritance hierarchy
 class Animal {
     protected String name;

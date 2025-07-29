@@ -1,18 +1,17 @@
 /**
- * Advanced: Complex LinkedList Operations
+ * Advanced.java
  * 
- * This example demonstrates advanced linked list concepts:
- * - Doubly linked lists
- * - Circular linked lists
- * - Advanced algorithms (merge, sort, detect cycles)
- * - Performance optimizations
+ * This program demonstrates advanced in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Python Comparison:
- * - Python doesn't have built-in linked lists
- * - Collections.deque provides some linked list functionality
- * - Java requires explicit implementation of all features
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 import java.util.*;
 
 public class Advanced {

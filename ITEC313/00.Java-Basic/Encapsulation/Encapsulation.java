@@ -1,24 +1,17 @@
 /**
  * Encapsulation.java
  * 
- * This program demonstrates encapsulation in Java - one of the four fundamental
- * principles of Object-Oriented Programming (OOP).
+ * This program demonstrates encapsulation in Java:
+ * - Private fields and public methods
+ * - Getter and setter methods
+ * - Data hiding principles
+ * - Access modifiers usage
  * 
- * Encapsulation combines data (fields) and methods that operate on that data
- * into a single unit (class) and hides the internal state from outside access.
- * 
- * Key Concepts:
- * - Private fields (data hiding)
- * - Public getter and setter methods
- * - Controlled access to object state
- * - Information hiding and data protection
- * 
- * Python Comparison:
- * - In Python, encapsulation is achieved through naming conventions (_private)
- * - Java enforces encapsulation through access modifiers (private, public, protected)
- * - Python doesn't have true private fields like Java
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 public class Encapsulation {
     
     public static void main(String[] args) {

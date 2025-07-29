@@ -1,19 +1,17 @@
 /**
  * Example1.java
  * 
- * Basic For Loop Examples
- * Demonstrates traditional for loops with different counting patterns
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Key concepts:
- * - Traditional for loop syntax: for (initialization; condition; increment)
- * - Different counting patterns (forward, backward, step)
- * - Loop variable scope and usage
- * 
- * Python comparison:
- * - Python: for i in range(5):
- * - Java: for (int i = 0; i < 5; i++)
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 public class Example1 {
     
     public static void main(String[] args) {

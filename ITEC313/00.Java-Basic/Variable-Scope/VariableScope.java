@@ -1,3 +1,17 @@
+/**
+ * VariableScope.java
+ * 
+ * This program demonstrates variable scope in Java:
+ * - Local variables
+ * - Instance variables
+ * - Class variables
+ * - Scope rules and visibility
+ * 
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
+ */
 // VariableScope.java
 // Demonstrates local, instance, and class (static) variable scope in Java
 // For students transitioning from Python to Java

@@ -1,19 +1,17 @@
 /**
- * Example1.java - Basic Scanner Input Examples
+ * Example1.java
  * 
- * This example demonstrates fundamental input techniques using the Scanner class.
- * It shows how to read different data types and handle basic input validation.
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Key differences from Python:
- * - Java requires explicit type conversion (no automatic inference)
- * - Scanner methods are type-specific (nextInt(), nextDouble(), etc.)
- * - Must handle the newline character after reading numbers
- * 
- * Course: ITEC313 - Object-Oriented Programming
- * Institution: Australian Catholic University (ACU)
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
  * Date: July 11, 2025
  */
-
 import java.util.Scanner;
 
 public class Example1 {

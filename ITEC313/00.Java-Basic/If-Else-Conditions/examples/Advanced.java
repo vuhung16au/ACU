@@ -1,16 +1,17 @@
 /**
- * Advanced: Real-World If-Else Applications
+ * Advanced.java
  * 
- * This example demonstrates complex real-world applications of if-else conditions:
- * - E-commerce pricing logic
- * - Banking transaction validation
- * - Weather-based recommendations
- * - Game logic implementation
+ * This program demonstrates advanced in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Course: ITEC313 - Object-Oriented Programming
- * Institution: Australian Catholic University (ACU)
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 public class Advanced {
     
     public static void main(String[] args) {

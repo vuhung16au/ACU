@@ -1,10 +1,17 @@
 /**
  * Example1.java
  * 
- * Simple example demonstrating abstract classes with vehicle hierarchy
- * Shows basic abstract class concepts
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
+ * 
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 // Abstract class for vehicles
 abstract class Vehicle {
     protected String brand;

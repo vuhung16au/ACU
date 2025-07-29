@@ -1,18 +1,17 @@
 /**
- * Advanced: Complex Instance Variable Patterns
+ * Advanced.java
  * 
- * This example demonstrates advanced instance variable concepts:
- * - Inheritance and instance variable inheritance
- * - Composition and aggregation
- * - Complex initialization patterns
- * - Instance variable lifecycle
- * - Advanced 'this' keyword usage
+ * This program demonstrates advanced in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * For Python developers: This shows how Java handles inheritance
- * and composition with instance variables, similar to Python's
- * inheritance and object composition patterns.
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 public class Advanced {
     
     // Instance variables for the main class

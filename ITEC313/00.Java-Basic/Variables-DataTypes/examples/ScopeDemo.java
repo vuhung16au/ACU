@@ -1,8 +1,16 @@
 /**
- * Variable Scope Demonstration
+ * ScopeDemo.java
  * 
- * This program illustrates different types of variable scope
- * in Java and their accessibility rules.
+ * This program demonstrates scope demo in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
+ * 
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
 public class ScopeDemo {
     

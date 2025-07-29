@@ -1,20 +1,18 @@
 /**
  * Constructors.java
  * 
- * This program demonstrates different types of constructors in Java:
+ * This program demonstrates constructors in Java:
  * - Default constructors
  * - Parameterized constructors
+ * - Constructor overloading
  * - Constructor chaining
  * - Copy constructors
  * 
- * For Python developers: In Java, constructors are special methods with the same name
- * as the class and no return type. Unlike Python's __init__ method, Java constructors
- * can be overloaded (multiple constructors with different parameters).
- * 
- * @author ITEC313 - Object-Oriented Programming
- * @version 1.0
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 public class Constructors {
     
     /**

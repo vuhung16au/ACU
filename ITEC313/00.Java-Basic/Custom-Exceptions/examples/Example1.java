@@ -1,15 +1,17 @@
 /**
- * Example1.java - Basic Custom Exception Examples
+ * Example1.java
  * 
- * This example demonstrates the fundamentals of creating and using custom exceptions.
- * Shows the difference between checked and unchecked exceptions.
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Key concepts:
- * - Creating custom exception classes
- * - Checked vs unchecked exceptions
- * - Basic exception throwing and catching
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 // Simple custom checked exception
 class InputValidationException extends Exception {
     public InputValidationException(String message) {

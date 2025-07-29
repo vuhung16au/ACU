@@ -1,18 +1,17 @@
 /**
  * Example2.java
  * 
- * HashMap example demonstrating iteration and utility methods.
- * This example shows different ways to iterate through a HashMap
- * and use various utility methods.
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Key concepts:
- * - Iterating over keys, values, and entries
- * - Using utility methods like getOrDefault, putIfAbsent
- * - Working with null values
- * 
- * Python equivalent: Dictionary iteration and utility methods
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 import java.util.HashMap;
 import java.util.Map;
 

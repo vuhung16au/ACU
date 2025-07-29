@@ -1,15 +1,17 @@
 /**
- * Example1.java - Basic Print Debugging
+ * Example1.java
  * 
- * This example demonstrates basic print debugging techniques in Java.
- * Shows how to use System.out.println() for debugging, similar to Python's print().
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Key differences from Python:
- * - Java uses System.out.println() instead of print()
- * - Java requires explicit type casting for some operations
- * - Java arrays have a .length property instead of len()
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 public class Example1 {
     
     public static void main(String[] args) {

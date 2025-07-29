@@ -1,8 +1,16 @@
 /**
- * Type Conversion Advanced Examples
+ * TypeConversion.java
  * 
- * This program demonstrates advanced type conversion scenarios,
- * including potential pitfalls and best practices.
+ * This program demonstrates type conversion in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
+ * 
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
 public class TypeConversion {
     

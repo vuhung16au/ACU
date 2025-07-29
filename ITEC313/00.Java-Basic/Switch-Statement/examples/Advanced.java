@@ -1,11 +1,16 @@
 /**
- * Advanced: Complex Switch Statement Patterns
+ * Advanced.java
  * 
- * This example demonstrates the most advanced switch statement concepts
- * including nested switches, switch expressions with yield, and real-world scenarios.
+ * This program demonstrates advanced in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * For Python developers: These advanced patterns show Java's powerful
- * switch capabilities that go beyond simple if-elif-else chains.
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
 public class Advanced {
     

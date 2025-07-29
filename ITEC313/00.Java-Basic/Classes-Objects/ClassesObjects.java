@@ -1,18 +1,18 @@
 /**
- * Classes and Objects Demo
+ * ClassesObjects.java
  * 
- * This program demonstrates fundamental object-oriented programming concepts:
+ * This program demonstrates classes and objects in Java:
  * - Class definition and structure
- * - Object instantiation and usage
+ * - Object creation and instantiation
  * - Instance variables and methods
- * - Access modifiers
- * - Object interaction and relationships
+ * - Constructor usage
+ * - Object-oriented principles
  * 
- * Course: ITEC313 - Object-Oriented Programming
- * Institution: Australian Catholic University (ACU)
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
  * Date: July 11, 2025
  */
-
 public class ClassesObjects {
     
     public static void main(String[] args) {

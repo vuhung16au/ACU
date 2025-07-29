@@ -1,3 +1,17 @@
+/**
+ * StringAlgorithms.java
+ * 
+ * This program demonstrates string algorithms in Java:
+ * - String manipulation algorithms
+ * - Pattern matching
+ * - String optimization
+ * - Text processing techniques
+ * 
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
+ */
 // StringAlgorithms.java
 // Main source file for String-Algorithms project
 // For ITEC313 - Object-Oriented Programming

@@ -1,18 +1,17 @@
 /**
- * Example2.java - Advanced Exception Handling
+ * Example2.java
  * 
- * This example demonstrates more advanced exception handling concepts:
- * - File handling with exceptions
- * - Custom exception classes
- * - Exception propagation
- * - Finally block usage
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Key differences from Python:
- * - Java file operations require explicit exception handling
- * - Java custom exceptions must extend Exception or RuntimeException
- * - Java has checked vs unchecked exceptions
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 import java.io.*;
 import java.util.*;
 

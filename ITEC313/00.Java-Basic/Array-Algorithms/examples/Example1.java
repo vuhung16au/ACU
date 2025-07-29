@@ -1,10 +1,17 @@
 /**
- * Example1.java - Basic Array Operations
+ * Example1.java
  * 
- * This example demonstrates fundamental array operations in Java
- * For Python developers: This shows the difference between Java arrays and Python lists
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
+ * 
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 import java.util.Arrays;
 
 public class Example1 {

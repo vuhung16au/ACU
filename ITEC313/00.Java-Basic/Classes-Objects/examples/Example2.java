@@ -1,18 +1,17 @@
 /**
- * Example 2: Advanced Class and Object Concepts
+ * Example2.java
  * 
- * This example demonstrates more advanced object-oriented concepts:
- * - Object arrays and collections
- * - Method overloading
- * - Object comparison and equality
- * - Static vs instance methods
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Key differences from Python:
- * - Java arrays have fixed size
- * - Java uses method overloading instead of default parameters
- * - Java requires explicit equals() method for object comparison
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 public class Example2 {
     
     public static void main(String[] args) {

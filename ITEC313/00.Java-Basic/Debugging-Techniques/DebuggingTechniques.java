@@ -1,18 +1,17 @@
 /**
  * DebuggingTechniques.java
  * 
- * This program demonstrates various debugging techniques in Java,
- * including print debugging, logging, and IDE debugging concepts.
+ * This program demonstrates debugging techniques in Java:
+ * - Using debugger tools
+ * - Logging and tracing
+ * - Exception debugging
+ * - Performance debugging
  * 
- * Key differences from Python:
- * - Java uses System.out.println() instead of print()
- * - Logging frameworks are more commonly used in Java
- * - IDE debugging is more integrated in Java development
- * 
- * @author ITEC313 - Object-Oriented Programming
- * @version 1.0
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 import java.util.logging.Logger;
 import java.util.logging.Level;
 import java.util.logging.FileHandler;

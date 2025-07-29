@@ -1,3 +1,17 @@
+/**
+ * MultidimensionalArrays.java
+ * 
+ * This program demonstrates multidimensional arrays in Java:
+ * - 2D and 3D array creation
+ * - Array initialization techniques
+ * - Nested loop traversal
+ * - Array manipulation operations
+ * 
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
+ */
 // MultidimensionalArrays.java
 // Main source file for demonstrating multidimensional arrays in Java
 // For students transitioning from Python

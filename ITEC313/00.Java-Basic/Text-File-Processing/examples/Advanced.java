@@ -1,23 +1,17 @@
 /**
- * Advanced: Complex File Processing with NIO and Streams
+ * Advanced.java
  * 
- * This example demonstrates advanced file processing techniques using Java NIO
- * and modern stream-based approaches for efficient file handling.
+ * This program demonstrates advanced in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Key Learning Points:
- * - Using java.nio.file.Files for modern file operations
- * - Stream-based file processing for large datasets
- * - Advanced error handling and recovery
- * - Working with different character encodings
- * - File monitoring and batch processing
- * 
- * Python Comparison:
- * - Java: Files.lines() vs Python: file iteration
- * - Java: Stream API vs Python: list comprehensions
- * - Java: NIO vs Python: os.path and pathlib
- * - Java: explicit encoding vs Python: default UTF-8
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 import java.io.*;
 import java.nio.file.*;
 import java.nio.charset.StandardCharsets;

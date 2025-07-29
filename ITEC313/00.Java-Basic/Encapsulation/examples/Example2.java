@@ -1,14 +1,17 @@
 /**
  * Example2.java
  * 
- * Advanced encapsulation example: Car class
- * Demonstrates encapsulation with business logic and state management
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Python Comparison:
- * - Python: Use @property for computed attributes and validation
- * - Java: Use private fields with public methods for business logic
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 public class Example2 {
     public static void main(String[] args) {
         System.out.println("=== Example 2: Car Encapsulation ===\n");

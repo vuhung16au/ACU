@@ -1,23 +1,17 @@
 /**
- * Example2.java - BufferedReader and File I/O Examples
+ * Example2.java
  * 
- * This example demonstrates advanced input/output techniques including:
- * - BufferedReader for efficient text input
- * - File reading and writing operations
- * - Exception handling for I/O operations
- * - Working with different file formats
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Key differences from Python:
- * - Java requires explicit exception handling for I/O operations
- * - BufferedReader is more efficient than Scanner for large text
- * - File operations require try-catch blocks
- * - Resources must be explicitly closed
- * 
- * Course: ITEC313 - Object-Oriented Programming
- * Institution: Australian Catholic University (ACU)
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
  * Date: July 11, 2025
  */
-
 import java.io.*;
 import java.util.Scanner;
 

@@ -1,24 +1,17 @@
 /**
- * Advanced.java - Advanced I/O Techniques
+ * Advanced.java
  * 
- * This example demonstrates advanced input/output techniques including:
- * - Object serialization and deserialization
- * - Binary file I/O operations
- * - Advanced error handling and recovery
- * - Custom input validation
- * - Performance optimization techniques
+ * This program demonstrates advanced in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Key differences from Python:
- * - Java serialization is more complex than Python's pickle
- * - Binary I/O requires explicit byte handling
- * - Exception handling is more structured in Java
- * - Resource management is more explicit
- * 
- * Course: ITEC313 - Object-Oriented Programming
- * Institution: Australian Catholic University (ACU)
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
  * Date: July 11, 2025
  */
-
 import java.io.*;
 import java.util.*;
 import java.nio.file.*;

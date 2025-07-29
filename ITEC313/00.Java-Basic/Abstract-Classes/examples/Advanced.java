@@ -1,10 +1,17 @@
 /**
  * Advanced.java
  * 
- * Advanced example demonstrating complex abstract class patterns
- * Shows template method pattern and multiple inheritance levels
+ * This program demonstrates advanced in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
+ * 
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 import java.util.ArrayList;
 import java.util.List;
 

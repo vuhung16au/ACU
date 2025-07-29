@@ -1,19 +1,17 @@
 /**
- * Text-File-Processing - Java Text File Processing Examples
+ * TextFileProcessing.java
  * 
- * This program demonstrates various techniques for reading and writing text files in Java.
- * It covers different approaches from basic to advanced file handling.
+ * This program demonstrates text file processing in Java:
+ * - Reading text files
+ * - Writing text files
+ * - Text processing operations
+ * - File format handling
  * 
- * Key differences from Python:
- * - Java uses explicit try-catch blocks for exception handling
- * - File operations require explicit resource management (try-with-resources)
- * - Java has separate classes for different types of I/O operations
- * - No built-in 'with' statement like Python's context managers
- * 
- * @author ITEC313 Course
- * @version 1.0
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 import java.io.*;
 import java.nio.file.*;
 import java.util.*;

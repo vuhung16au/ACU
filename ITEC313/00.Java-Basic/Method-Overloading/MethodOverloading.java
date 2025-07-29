@@ -1,6 +1,20 @@
+/**
+ * MethodOverloading.java
+ * 
+ * This program demonstrates method overloading in Java:
+ * - Multiple methods with same name
+ * - Different parameter types and counts
+ * - Method signature rules
+ * - Overloading vs overriding
+ * 
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
+ */
 // MethodOverloading.java
 // Demonstrates method overloading in Java
-// Course: ITEC313 - Object-Oriented Programming
+// Course: ITEC313 - Advanced Programming Concepts
 // Target audience: Python developers transitioning to Java
 //
 // Key points:

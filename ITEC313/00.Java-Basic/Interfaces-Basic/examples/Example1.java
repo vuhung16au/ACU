@@ -1,15 +1,17 @@
 /**
- * Example1.java - Basic Interface Implementation
+ * Example1.java
  * 
- * This example demonstrates a simple payment system using interfaces.
- * In Python, this would be similar to defining abstract base classes.
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Key concepts:
- * - Interface definition
- * - Interface implementation
- * - Polymorphism through interfaces
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 // Interface defining payment behavior
 interface PaymentMethod {
     // Interface constants (public static final by default)

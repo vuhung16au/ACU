@@ -1,21 +1,17 @@
 /**
- * Example 2: Advanced File Processing with Buffered I/O
+ * Example2.java
  * 
- * This example demonstrates more efficient file processing using buffered I/O
- * and line-by-line processing techniques.
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * Key Learning Points:
- * - Using BufferedReader and BufferedWriter for efficient I/O
- * - Line-by-line processing for large files
- * - File filtering and transformation
- * - Working with different file formats
- * 
- * Python Comparison:
- * - Java: BufferedReader vs Python: file object iteration
- * - Java: explicit buffering vs Python: automatic buffering
- * - Java: manual line processing vs Python: for line in file
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 import java.io.*;
 import java.util.*;
 

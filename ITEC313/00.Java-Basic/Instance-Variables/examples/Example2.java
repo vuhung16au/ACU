@@ -1,16 +1,17 @@
 /**
- * Example 2: Advanced Instance Variables
+ * Example2.java
  * 
- * This example demonstrates advanced instance variable concepts:
- * - Arrays as instance variables
- * - Object references as instance variables
- * - Complex initialization patterns
- * - Instance variable scope and shadowing
+ * This program demonstrates example in Java:
+ * - Core concepts and principles
+ * - Implementation techniques
+ * - Best practices and patterns
+ * - Practical examples and usage
  * 
- * For Python developers: This shows how Java handles object references
- * and arrays as instance variables, similar to Python's object attributes.
+ * Course: ITEC313 - Advanced Programming Concepts
+ * Institution: XYZ
+ * @author XYZ
+ * Date: July 11, 2025
  */
-
 public class Example2 {
     
     // Instance variables with arrays
