@@ -26,7 +26,7 @@ This script demonstrates various advanced image processing techniques including:
 - Machine learning applications
 
 Usage:
-    python advanced_techniques_demo.py [image_path]
+    python 07_advanced_techniques_demo.py [image_path]
 
 If no image path is provided, the script will use a sample image.
 """
@@ -136,8 +136,8 @@ def demonstrate_template_matching(image: np.ndarray, non_interactive: bool = Tru
         "Original", "Template", "Single Match", "Multi-scale", "Rotation Invariant", "Multiple"
     ]
     
-    display.save_comparison(template_results, output_path=os.path.join(output_dir, 'template_matching_comparison.png'), grid_size=(2, dpi=150)
-    print(f"✓ Saved template_matching comparison to {output_path}"), figsize=(18, 12))
+    display.save_comparison(template_results, output_path=os.path.join(output_dir, 'template_matching_comparison.png'), grid_size=(2, 3), figsize=(18, 12), dpi=150)
+    print(f"✓ Saved template_matching comparison to {os.path.join(output_dir, 'template_matching_comparison.png')}")
     
     return template_results, template_titles
 
@@ -186,8 +186,8 @@ def demonstrate_image_segmentation(image: np.ndarray, non_interactive=True):
         "Original", "Threshold", "Otsu", "Adaptive", "Watershed", "GrabCut", "K-means"
     ]
     
-    display.save_comparison(segmentation_results, output_path=os.path.join(output_dir, 'segmentation_comparison.png'), grid_size=(2, dpi=150)
-    print(f"✓ Saved segmentation comparison to {output_path}"), figsize=(20, 10))
+    display.save_comparison(segmentation_results, output_path=os.path.join(output_dir, 'segmentation_comparison.png'), grid_size=(2, 4), figsize=(20, 10), dpi=150)
+    print(f"✓ Saved segmentation comparison to {os.path.join(output_dir, 'segmentation_comparison.png')}")
     
     return segmentation_results, segmentation_titles
 
@@ -234,8 +234,8 @@ def demonstrate_fourier_analysis(image: np.ndarray, non_interactive=True):
         "Grayscale", "Magnitude Spectrum", "Low-pass", "High-pass", "Band-pass", "Notch"
     ]
     
-    display.save_comparison(fourier_results, output_path=os.path.join(output_dir, 'fourier_comparison.png'), grid_size=(2, dpi=150)
-    print(f"✓ Saved fourier comparison to {output_path}"), figsize=(18, 12))
+    display.save_comparison(fourier_results, output_path=os.path.join(output_dir, 'fourier_comparison.png'), grid_size=(2, 3), figsize=(18, 12), dpi=150)
+    print(f"✓ Saved fourier comparison to {os.path.join(output_dir, 'fourier_comparison.png')}")
     
     return fourier_results, fourier_titles
 
@@ -276,8 +276,8 @@ def demonstrate_machine_learning(image: np.ndarray, non_interactive=True):
         "Motion Detection", "ML Edge Detection"
     ]
     
-    display.save_comparison(ml_results, output_path=os.path.join(output_dir, 'comparison_comparison.png'), grid_size=(2, dpi=150)
-    print(f"✓ Saved comparison comparison to {output_path}"), figsize=(18, 12))
+    display.save_comparison(ml_results, output_path=os.path.join(output_dir, 'ml_applications_comparison.png'), grid_size=(2, 3), figsize=(18, 12), dpi=150)
+    print(f"✓ Saved ml_applications comparison to {os.path.join(output_dir, 'ml_applications_comparison.png')}")
     
     return ml_results, ml_titles
 
@@ -317,8 +317,8 @@ def demonstrate_advanced_processing(image: np.ndarray, non_interactive=True):
         "Contour Analysis", "Shape Recognition"
     ]
     
-    display.save_comparison(advanced_results, output_path=os.path.join(output_dir, 'comparison_comparison.png'), grid_size=(2, dpi=150)
-    print(f"✓ Saved comparison comparison to {output_path}"), figsize=(18, 12))
+    display.save_comparison(advanced_results, output_path=os.path.join(output_dir, 'advanced_processing_comparison.png'), grid_size=(2, 3), figsize=(18, 12), dpi=150)
+    print(f"✓ Saved advanced_processing comparison to {os.path.join(output_dir, 'advanced_processing_comparison.png')}")
     
     return advanced_results, advanced_titles
 

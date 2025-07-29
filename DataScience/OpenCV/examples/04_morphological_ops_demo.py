@@ -7,7 +7,7 @@ This script demonstrates various morphological operations including:
 - Structuring element manipulation
 
 Usage:
-    python morphological_ops_demo.py [image_path]
+    python 04_morphological_ops_demo.py [image_path]
 
 If no image path is provided, the script will use a sample image.
 """

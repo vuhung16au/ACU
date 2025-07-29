@@ -260,14 +260,14 @@ python verify_examples.py
 ```
 🚀 Starting verification of examples/*.py files...
 Found 8 Python files to verify:
-  - advanced_techniques_demo.py
-  - basic_operations_demo.py
-  - color_processing_demo.py
-  - feature_detection_demo.py
-  - image_filtering_demo.py
-  - morphological_ops_demo.py
-  - practical_applications_demo.py
-  - transformations_demo.py
+  - 01_basic_operations_demo.py
+  - 02_image_filtering_demo.py
+  - 03_transformations_demo.py
+  - 04_morphological_ops_demo.py
+  - 05_feature_detection_demo.py
+  - 06_color_processing_demo.py
+  - 07_advanced_techniques_demo.py
+  - 08_practical_applications_demo.py
 
 ✅ All example files passed verification!
 ```

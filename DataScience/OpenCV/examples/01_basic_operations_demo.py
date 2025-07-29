@@ -7,7 +7,7 @@ This script demonstrates the basic image operations including:
 - Image display and comparison
 
 Usage:
-    python basic_operations_demo.py [image_path]
+    python 01_basic_operations_demo.py [image_path]
 
 If no image path is provided, the script will use a sample image.
 """

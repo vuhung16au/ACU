@@ -2,14 +2,14 @@
 
 With numbering, e.g: 
 
-- `01_basic_operations.py`, 
-- `02_image_filtering.py`, 
-- `03_transformations.py`, 
-- `04_morphological_ops.py`, 
-- `05_feature_detection.py`, 
-- `06_color_processing.py`, 
-- `07_advanced_techniques.py`, 
-- `08_practical_applications.py`
+- `01_basic_operations_demo.py`, 
+- `02_image_filtering_demo.py`, 
+- `03_transformations_demo.py`, 
+- `04_morphological_ops_demo.py`, 
+- `05_feature_detection_demo.py`, 
+- `06_color_processing_demo.py`, 
+- `07_advanced_techniques_demo.py`, 
+- `08_practical_applications_demo.py`
 
 also update the `verify_examples.py` script to verify the new file names. 
 
@@ -25,6 +25,8 @@ Expected behavior:
 
 # Create docs 
 
+Update `docs/README.md` to reflect the new file names. 
+
 - `docs/examples/` for example scripts (e.g., `color_processing_demo.py`)
 - `docs/notebooks/` for Jupyter notebooks (e.g., `01_basic_operations.ipynb`)
 - `docs/src/` for source code modules (e.g., `basic_operations/image_io.py`)
@@ -35,7 +37,7 @@ Expected behavior:
 # Notes: run with virtual environment
 
 e.g: 
-/Users/vuhung/00.Work/02.ACU/github/DataScience/OpenCV/.venv/bin/python examples/color_processing_demo.py
+/Users/vuhung/00.Work/02.ACU/github/DataScience/OpenCV/.venv/bin/python examples/06_color_processing_demo.py
 
 # Replace the author 
 
@@ -187,7 +189,7 @@ Based on the TutorialsPoint reference and our detailed plan:
 
 2. **Run the Demo**:
    ```bash
-   python examples/basic_operations_demo.py
+   python examples/01_basic_operations_demo.py
    ```
 
 3. **Explore the Tutorial**:

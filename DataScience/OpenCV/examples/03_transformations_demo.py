@@ -7,7 +7,7 @@ This script demonstrates various geometric transformation techniques including:
 - Image warping and distortion correction
 
 Usage:
-    python transformations_demo.py [image_path]
+    python 03_transformations_demo.py [image_path]
 
 If no image path is provided, the script will use a sample image.
 """

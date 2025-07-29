@@ -7,7 +7,7 @@ This script demonstrates various image filtering techniques including:
 - Noise reduction techniques
 
 Usage:
-    python image_filtering_demo.py [image_path]
+    python 02_image_filtering_demo.py [image_path]
 
 If no image path is provided, the script will use a sample image.
 """

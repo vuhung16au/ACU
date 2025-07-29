@@ -7,7 +7,7 @@ This script demonstrates various color processing techniques including:
 - Color enhancement and adjustment
 
 Usage:
-    python color_processing_demo.py [image_path]
+    python 06_color_processing_demo.py [image_path]
 
 If no image path is provided, the script will use a sample image.
 """

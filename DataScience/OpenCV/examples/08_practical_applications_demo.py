@@ -9,7 +9,7 @@ This script demonstrates real-world applications combining multiple image proces
 - Augmented reality effects
 
 Usage:
-    python practical_applications_demo.py [image_path]
+    python 08_practical_applications_demo.py [image_path]
 
 If no image path is provided, the script will use a sample image.
 """
@@ -131,8 +131,8 @@ def demonstrate_document_processing(image: np.ndarray, non_interactive: bool = T
         "Original", "Grayscale", "Denoised", "Binary", "Cleaned", "Deskewed", "Text Regions"
     ]
     
-    display.save_comparison(document_results, output_path=os.path.join(output_dir, 'document_processing_comparison.png'), grid_size=(2, dpi=150)
-    print(f"✓ Saved document_processing comparison to {output_path}"), figsize=(20, 10))
+    display.save_comparison(document_results, output_path=os.path.join(output_dir, 'document_processing_comparison.png'), grid_size=(2, 4), figsize=(20, 10), dpi=150)
+    print(f"✓ Saved document_processing comparison to {os.path.join(output_dir, 'document_processing_comparison.png')}")
     
     return document_results, document_titles
 
@@ -179,8 +179,8 @@ def demonstrate_medical_image_analysis(image: np.ndarray, non_interactive=True):
         "Original", "Equalized", "CLAHE", "Segmented", "Cell Analysis"
     ]
     
-    display.save_comparison(medical_results, output_path=os.path.join(output_dir, 'medical_processing_comparison.png'), grid_size=(2, dpi=150)
-    print(f"✓ Saved medical_processing comparison to {output_path}"), figsize=(18, 12))
+    display.save_comparison(medical_results, output_path=os.path.join(output_dir, 'medical_processing_comparison.png'), grid_size=(2, 3), figsize=(18, 12), dpi=150)
+    print(f"✓ Saved medical_processing comparison to {os.path.join(output_dir, 'medical_processing_comparison.png')}")
     
     return medical_results, medical_titles
 
@@ -232,8 +232,8 @@ def demonstrate_security_surveillance(image: np.ndarray, non_interactive=True):
         "Object Tracking", "Face Detection"
     ]
     
-    display.save_comparison(security_results, output_path=os.path.join(output_dir, 'security_processing_comparison.png'), grid_size=(2, dpi=150)
-    print(f"✓ Saved security_processing comparison to {output_path}"), figsize=(18, 12))
+    display.save_comparison(security_results, output_path=os.path.join(output_dir, 'security_processing_comparison.png'), grid_size=(2, 3), figsize=(18, 12), dpi=150)
+    print(f"✓ Saved security_processing comparison to {os.path.join(output_dir, 'security_processing_comparison.png')}")
     
     return security_results, security_titles
 
@@ -293,8 +293,8 @@ def demonstrate_quality_control(image: np.ndarray, non_interactive=True):
         "Color Quality", "Statistical Analysis"
     ]
     
-    display.save_comparison(quality_results, output_path=os.path.join(output_dir, 'quality_control_comparison.png'), grid_size=(2, dpi=150)
-    print(f"✓ Saved quality_control comparison to {output_path}"), figsize=(18, 12))
+    display.save_comparison(quality_results, output_path=os.path.join(output_dir, 'quality_control_comparison.png'), grid_size=(2, 3), figsize=(18, 12), dpi=150)
+    print(f"✓ Saved quality_control comparison to {os.path.join(output_dir, 'quality_control_comparison.png')}")
     
     return quality_results, quality_titles
 
@@ -345,8 +345,8 @@ def demonstrate_augmented_reality(image: np.ndarray, non_interactive=True):
         "Original", "AR Marker Detection", "Virtual Overlay", "Pose Estimation", "Image Blending"
     ]
     
-    display.save_comparison(ar_results, output_path=os.path.join(output_dir, 'ar_processing_comparison.png'), grid_size=(2, dpi=150)
-    print(f"✓ Saved ar_processing comparison to {output_path}"), figsize=(18, 12))
+    display.save_comparison(ar_results, output_path=os.path.join(output_dir, 'ar_processing_comparison.png'), grid_size=(2, 3), figsize=(18, 12), dpi=150)
+    print(f"✓ Saved ar_processing comparison to {os.path.join(output_dir, 'ar_processing_comparison.png')}")
     
     return ar_results, ar_titles
 
@@ -391,8 +391,8 @@ def demonstrate_industrial_applications(image: np.ndarray, non_interactive=True)
         "Original", "Robot Vision", "Automated Measurement", "Sorting & Classification"
     ]
     
-    display.save_comparison(industrial_results, output_path=os.path.join(output_dir, 'industrial_processing_comparison.png'), grid_size=(2, dpi=150)
-    print(f"✓ Saved industrial_processing comparison to {output_path}"), figsize=(16, 12))
+    display.save_comparison(industrial_results, output_path=os.path.join(output_dir, 'industrial_processing_comparison.png'), grid_size=(2, 2), figsize=(16, 12), dpi=150)
+    print(f"✓ Saved industrial_processing comparison to {os.path.join(output_dir, 'industrial_processing_comparison.png')}")
     
     return industrial_results, industrial_titles
 

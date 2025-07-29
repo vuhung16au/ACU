@@ -7,7 +7,7 @@ This script demonstrates various feature detection techniques including:
 - Contour detection and analysis
 
 Usage:
-    python feature_detection_demo.py [image_path]
+    python 05_feature_detection_demo.py [image_path]
 
 If no image path is provided, the script will use a sample image.
 """
@@ -95,8 +95,8 @@ def demonstrate_corner_detection(image: np.ndarray, non_interactive: bool = True
     corner_results = [image, harris_result, shi_tomasi_corners, fast_result]
     corner_titles = ["Original", "Harris Corners", "Shi-Tomasi Corners", "FAST Corners"]
     
-    display.save_comparison(corner_results, output_path=os.path.join(output_dir, 'corner_detection_comparison.png'), grid_size=(2, dpi=150)
-    print(f"✓ Saved corner_detection comparison to {output_path}"), figsize=(16, 12))
+    display.save_comparison(corner_results, output_path=os.path.join(output_dir, 'corner_detection_comparison.png'), grid_size=(2, 2), figsize=(16, 12), dpi=150)
+    print(f"✓ Saved corner_detection comparison to {os.path.join(output_dir, 'corner_detection_comparison.png')}")
     
     return corner_results, corner_titles
 
@@ -138,8 +138,8 @@ def demonstrate_keypoint_detection(image: np.ndarray, non_interactive=True):
     keypoint_results = [image, sift_img, surf_img, orb_img]
     keypoint_titles = ["Original", "SIFT Keypoints", "SURF Keypoints", "ORB Keypoints"]
     
-    display.save_comparison(keypoint_results, output_path=os.path.join(output_dir, 'keypoint_detection_comparison.png'), grid_size=(2, dpi=150)
-    print(f"✓ Saved keypoint_detection comparison to {output_path}"), figsize=(16, 12))
+    display.save_comparison(keypoint_results, output_path=os.path.join(output_dir, 'keypoint_detection_comparison.png'), grid_size=(2, 2), figsize=(16, 12), dpi=150)
+    print(f"✓ Saved keypoint_detection comparison to {os.path.join(output_dir, 'keypoint_detection_comparison.png')}")
     
     return keypoint_results, keypoint_titles
 
@@ -187,8 +187,8 @@ def demonstrate_contour_detection(image: np.ndarray, non_interactive=True):
         "Original", "All Contours", "Large Contours", "Approximated", "Analysis"
     ]
     
-    display.save_comparison(contour_results, output_path=os.path.join(output_dir, 'contour_detection_comparison.png'), grid_size=(2, dpi=150)
-    print(f"✓ Saved contour_detection comparison to {output_path}"), figsize=(18, 12))
+    display.save_comparison(contour_results, output_path=os.path.join(output_dir, 'contour_detection_comparison.png'), grid_size=(2, 3), figsize=(18, 12), dpi=150)
+    print(f"✓ Saved contour_detection comparison to {os.path.join(output_dir, 'contour_detection_comparison.png')}")
     
     return contour_results, contour_titles
 
@@ -245,8 +245,8 @@ def demonstrate_shape_analysis(image: np.ndarray, non_interactive=True):
         "Original", "Shape Analysis", "Large Contours", "Features"
     ]
     
-    display.save_comparison(shape_results, output_path=os.path.join(output_dir, 'comparison_comparison.png'), grid_size=(2, dpi=150)
-    print(f"✓ Saved comparison comparison to {output_path}"), figsize=(16, 12))
+    display.save_comparison(shape_results, output_path=os.path.join(output_dir, 'shape_analysis_comparison.png'), grid_size=(2, 2), figsize=(16, 12), dpi=150)
+    print(f"✓ Saved shape_analysis comparison to {os.path.join(output_dir, 'shape_analysis_comparison.png')}")
     
     return shape_results, shape_titles
 
@@ -301,8 +301,8 @@ def demonstrate_feature_matching(image: np.ndarray, non_interactive=True):
     matching_results = [image, transformed, sift_matches, orb_matches]
     matching_titles = ["Original", "Transformed", "SIFT Matches", "ORB Matches"]
     
-    display.save_comparison(matching_results, output_path=os.path.join(output_dir, 'comparison_comparison.png'), grid_size=(2, dpi=150)
-    print(f"✓ Saved comparison comparison to {output_path}"), figsize=(16, 12))
+    display.save_comparison(matching_results, output_path=os.path.join(output_dir, 'feature_matching_comparison.png'), grid_size=(2, 2), figsize=(16, 12), dpi=150)
+    print(f"✓ Saved feature_matching comparison to {os.path.join(output_dir, 'feature_matching_comparison.png')}")
     
     return matching_results, matching_titles
 
