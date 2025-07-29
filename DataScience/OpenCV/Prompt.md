@@ -68,7 +68,6 @@ New file names should be:
 - 02_06_practical_applications.ipynb
 - 02_07_exercises.ipynb
 
-
 # Create a script to verify that all `notebooks/*.ipynb` can run without errors,
 
 No need for unit tests, just ensure they execute without issues.
