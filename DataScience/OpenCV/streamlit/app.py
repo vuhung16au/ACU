@@ -9,7 +9,7 @@ import streamlit as st
 import cv2
 import numpy as np
 from utils import load_image_from_upload, display_image, get_image_info
-from components import (
+from component_sections import (
     basic_operations_section,
     image_filtering_section,
     transformations_section,
