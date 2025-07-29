@@ -7,7 +7,7 @@ This module provides various noise reduction techniques:
 - Morphological noise reduction
 - Wiener filtering
 
-Author: OpenCV Image Processing Collection
+Author: Vu Hung Nguyen
 """
 
 import cv2

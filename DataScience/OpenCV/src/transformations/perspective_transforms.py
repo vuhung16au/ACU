@@ -6,7 +6,7 @@ This module provides perspective transformation implementations:
 - Homography transformation
 - Image rectification
 
-Author: OpenCV Image Processing Collection
+Author: Vu Hung Nguyen
 """
 
 import cv2

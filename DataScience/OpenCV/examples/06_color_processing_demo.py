@@ -1,5 +1,5 @@
 """
-Color Processing Demo - OpenCV Image Processing Collection
+Color Processing Demo - Vu Hung Nguyen
 
 This script demonstrates various color processing techniques including:
 - Color space conversions (RGB, HSV, LAB, etc.)

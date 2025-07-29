@@ -7,7 +7,7 @@ This module provides image warping and distortion correction implementations:
 - Pincushion distortion correction
 - Custom warping functions
 
-Author: OpenCV Image Processing Collection
+Author: Vu Hung Nguyen
 """
 
 import cv2

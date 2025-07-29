@@ -6,7 +6,7 @@ This module provides various geometric transformation techniques:
 - Perspective transformations
 - Image warping and distortion correction
 
-Author: OpenCV Image Processing Collection
+Author: Vu Hung Nguyen
 """
 
 from .affine_transforms import *

@@ -1,5 +1,5 @@
 """
-Advanced Techniques Demo - OpenCV Image Processing Collection
+Advanced Techniques Demo - Vu Hung Nguyen
 
 This script demonstrates various advanced image processing techniques including:
 - Template matching and object detection

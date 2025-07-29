@@ -7,7 +7,7 @@ This module provides various keypoint detection algorithms:
 - ORB (Oriented FAST and Rotated BRIEF)
 - Feature matching
 
-Author: OpenCV Image Processing Collection
+Author: Vu Hung Nguyen
 """
 
 import cv2

@@ -8,7 +8,7 @@ This module provides basic morphological operations:
 - Closing
 - Morphological gradient
 
-Author: OpenCV Image Processing Collection
+Author: Vu Hung Nguyen
 """
 
 import cv2

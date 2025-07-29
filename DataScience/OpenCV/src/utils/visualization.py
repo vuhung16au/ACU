@@ -7,7 +7,7 @@ This module provides visualization functions:
 - Plot histograms
 - Show progress
 
-Author: OpenCV Image Processing Collection
+Author: Vu Hung Nguyen
 """
 
 import cv2

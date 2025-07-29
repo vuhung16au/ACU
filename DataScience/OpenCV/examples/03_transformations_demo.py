@@ -1,5 +1,5 @@
 """
-Geometric Transformations Demo - OpenCV Image Processing Collection
+Geometric Transformations Demo - Vu Hung Nguyen
 
 This script demonstrates various geometric transformation techniques including:
 - Affine transformations (translation, rotation, scaling, shearing)

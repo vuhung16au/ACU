@@ -6,7 +6,7 @@ This module provides various morphological operations:
 - Advanced morphological operations (gradient, top hat, black hat)
 - Skeletonization and thinning
 
-Author: OpenCV Image Processing Collection
+Author: Vu Hung Nguyen
 """
 
 from .basic_morphology import *

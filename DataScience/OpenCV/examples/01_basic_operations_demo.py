@@ -1,5 +1,5 @@
 """
-Basic Operations Demo - OpenCV Image Processing Collection
+Basic Operations Demo - Vu Hung Nguyen
 
 This script demonstrates the basic image operations including:
 - Loading and saving images

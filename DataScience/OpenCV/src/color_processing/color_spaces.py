@@ -7,7 +7,7 @@ This module provides color space conversion functions:
 - Grayscale conversion
 - Color space utilities
 
-Author: OpenCV Image Processing Collection
+Author: Vu Hung Nguyen
 """
 
 import cv2

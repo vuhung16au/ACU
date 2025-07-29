@@ -7,7 +7,7 @@ This module provides color enhancement and correction functions:
 - White balance
 - Color grading
 
-Author: OpenCV Image Processing Collection
+Author: Vu Hung Nguyen
 """
 
 import cv2

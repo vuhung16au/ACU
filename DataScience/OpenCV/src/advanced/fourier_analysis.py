@@ -6,7 +6,7 @@ This module provides Fourier analysis techniques:
 - Frequency domain filtering
 - Image restoration
 
-Author: OpenCV Image Processing Collection
+Author: Vu Hung Nguyen
 """
 
 import cv2

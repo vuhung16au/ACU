@@ -1,5 +1,5 @@
 """
-Image Filtering Demo - OpenCV Image Processing Collection
+Image Filtering Demo - Vu Hung Nguyen
 
 This script demonstrates various image filtering techniques including:
 - Smoothing filters (Gaussian, Box, Median, Bilateral)

@@ -352,4 +352,4 @@ cython_debug/
 local_settings.py
 local_config.py
 
-sample_images/processed/
+sample_images/processed/*

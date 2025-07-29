@@ -7,7 +7,7 @@ This module provides advanced image processing techniques:
 - Fourier analysis
 - Machine learning applications
 
-Author: OpenCV Image Processing Collection
+Author: Vu Hung Nguyen
 """
 
 from .template_matching import *

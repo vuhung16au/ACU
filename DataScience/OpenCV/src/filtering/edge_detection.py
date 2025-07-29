@@ -7,7 +7,7 @@ This module provides various edge detection algorithms:
 - Laplacian operator
 - Scharr operator
 
-Author: OpenCV Image Processing Collection
+Author: Vu Hung Nguyen
 """
 
 import cv2

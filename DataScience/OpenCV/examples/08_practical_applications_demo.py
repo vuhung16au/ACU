@@ -1,5 +1,5 @@
 """
-Practical Applications Demo - OpenCV Image Processing Collection
+Practical Applications Demo - Vu Hung Nguyen
 
 This script demonstrates real-world applications combining multiple image processing techniques:
 - Document processing and OCR preparation

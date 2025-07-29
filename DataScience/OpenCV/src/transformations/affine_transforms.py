@@ -8,7 +8,7 @@ This module provides various affine transformation implementations:
 - Shearing
 - Combined affine transformations
 
-Author: OpenCV Image Processing Collection
+Author: Vu Hung Nguyen
 """
 
 import cv2

@@ -6,7 +6,7 @@ This module provides various color processing techniques:
 - Histogram operations and equalization
 - Color enhancement and correction
 
-Author: OpenCV Image Processing Collection
+Author: Vu Hung Nguyen
 """
 
 from .color_spaces import *

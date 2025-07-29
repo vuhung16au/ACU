@@ -6,7 +6,7 @@ This module provides template matching algorithms:
 - Multi-scale template matching
 - Rotation-invariant matching
 
-Author: OpenCV Image Processing Collection
+Author: Vu Hung Nguyen
 """
 
 import cv2

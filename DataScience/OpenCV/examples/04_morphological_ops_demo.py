@@ -1,5 +1,5 @@
 """
-Morphological Operations Demo - OpenCV Image Processing Collection
+Morphological Operations Demo - Vu Hung Nguyen
 
 This script demonstrates various morphological operations including:
 - Basic operations (erosion, dilation, opening, closing)

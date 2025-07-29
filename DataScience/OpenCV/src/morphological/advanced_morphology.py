@@ -8,7 +8,7 @@ This module provides advanced morphological operations:
 - Thinning
 - Morphological reconstruction
 
-Author: OpenCV Image Processing Collection
+Author: Vu Hung Nguyen
 """
 
 import cv2

@@ -6,7 +6,7 @@ This module provides utility functions for image processing:
 - Visualization functions
 - Batch processing utilities
 
-Author: OpenCV Image Processing Collection
+Author: Vu Hung Nguyen
 """
 
 from .image_utils import *

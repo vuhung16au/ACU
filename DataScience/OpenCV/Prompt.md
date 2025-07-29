@@ -44,10 +44,10 @@ e.g:
 Current: Color Processing Demo - OpenCV Image Processing Collection
 New author: Color Processing Demo - Vu Hung Nguyen
 
-folders to modify: 
-- `examples` 
-- `src`
-- `notebooks`
+Folders to modify: 
+- `examples/*py`
+- `notebooks/*ipynb`
+- `src/*/*py`
 
 # Create a script to verify that all `examples/*.py` can run without errors,
 

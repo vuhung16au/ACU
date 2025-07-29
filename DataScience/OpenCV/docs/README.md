@@ -4,18 +4,18 @@ This directory contains comprehensive documentation for the OpenCV Image Process
 
 ## 📁 Directory Structure
 
-### `examples/`
+### `docs/examples/`
 Contains standalone demonstration scripts that showcase various OpenCV techniques:
-- `01_basic_operations_demo.py` - Basic image operations (resize, rotate, flip, crop)
-- `02_image_filtering_demo.py` - Filtering techniques (blur, edge detection, noise reduction)
-- `03_transformations_demo.py` - Geometric transformations (affine, perspective)
-- `04_morphological_ops_demo.py` - Morphological operations (erosion, dilation, etc.)
-- `05_feature_detection_demo.py` - Feature detection algorithms (corners, keypoints)
-- `06_color_processing_demo.py` - Color space conversions and enhancements
-- `07_advanced_techniques_demo.py` - Advanced techniques (Fourier analysis, segmentation)
-- `08_practical_applications_demo.py` - Real-world applications and use cases
+- `basic_operations_demo.py` - Basic image operations (resize, rotate, flip, crop)
+- `image_filtering_demo.py` - Filtering techniques (blur, edge detection, noise reduction)
+- `transformations_demo.py` - Geometric transformations (affine, perspective)
+- `morphological_ops_demo.py` - Morphological operations (erosion, dilation, etc.)
+- `feature_detection_demo.py` - Feature detection algorithms (corners, keypoints)
+- `color_processing_demo.py` - Color space conversions and enhancements
+- `advanced_techniques_demo.py` - Advanced techniques (Fourier analysis, segmentation)
+- `practical_applications_demo.py` - Real-world applications and use cases
 
-### `notebooks/`
+### `docs/notebooks/`
 Interactive Jupyter notebooks for learning and experimentation:
 - `01_basic_operations.ipynb` - Introduction to basic image operations
 - `02_image_filtering.ipynb` - Image filtering and smoothing techniques
@@ -26,7 +26,7 @@ Interactive Jupyter notebooks for learning and experimentation:
 - `07_advanced_techniques.ipynb` - Advanced image processing techniques
 - `08_practical_applications.ipynb` - Real-world applications and case studies
 
-### `src/`
+### `docs/src/`
 Source code modules organized by functionality:
 - `basic_operations/` - Basic image I/O, display, and transformations
 - `color_processing/` - Color space conversions and enhancements
@@ -37,18 +37,18 @@ Source code modules organized by functionality:
 - `advanced/` - Advanced techniques (Fourier analysis, segmentation)
 - `utils/` - Utility functions and helper modules
 
-### `sample_images/`
+### `docs/sample_images/`
 Test images for demonstrations and tutorials:
 - `original/` - Source images for processing
 - `processed/` - Output images from various operations
 
-### `verification/`
+### `docs/verification/`
 Scripts to verify code execution and functionality:
 - `verify_examples.py` - Verifies all example scripts run without errors
 - `verify_notebooks.py` - Verifies all notebooks execute successfully
-- `validate_src_modules.py` - Validates all source code modules
+- `verify_src.py` - Validates all source code modules
 
-### `requirements.txt`
+### `docs/requirements.txt`
 Python dependencies required for the project.
 
 ## 🚀 Getting Started
@@ -62,16 +62,16 @@ Python dependencies required for the project.
 
 ### Installation
 ```bash
-pip install -r requirements.txt
+pip install -r docs/requirements.txt
 ```
 
 ### Running Examples
 ```bash
 # Run a specific example
-python examples/06_color_processing_demo.py
+python docs/examples/color_processing_demo.py
 
 # Run all examples (using verification script)
-python verification/verify_examples.py
+python docs/verification/verify_examples.py
 ```
 
 ### Running Notebooks
@@ -79,20 +79,20 @@ python verification/verify_examples.py
 # Start Jupyter
 jupyter notebook
 
-# Navigate to notebooks/ directory
+# Navigate to docs/notebooks/ directory
 # Open any .ipynb file to run interactively
 ```
 
 ### Verifying Code
 ```bash
 # Verify examples
-python verification/verify_examples.py
+python docs/verification/verify_examples.py
 
 # Verify notebooks
-python verification/verify_notebooks.py
+python docs/verification/verify_notebooks.py
 
 # Verify source modules
-python verification/validate_src_modules.py
+python docs/verification/verify_src.py
 ```
 
 ## 📚 Learning Path
@@ -132,14 +132,14 @@ python verification/validate_src_modules.py
 ## 🔧 Development
 
 ### Code Organization
-- Each module in `src/` focuses on a specific area of image processing
+- Each module in `docs/src/` focuses on a specific area of image processing
 - Examples demonstrate practical usage of the modules
 - Notebooks provide interactive learning experiences
 
 ### Adding New Features
-1. Create new modules in appropriate `src/` subdirectory
-2. Add corresponding examples in `examples/`
-3. Create interactive tutorials in `notebooks/`
+1. Create new modules in appropriate `docs/src/` subdirectory
+2. Add corresponding examples in `docs/examples/`
+3. Create interactive tutorials in `docs/notebooks/`
 4. Update verification scripts to include new code
 
 ### Testing

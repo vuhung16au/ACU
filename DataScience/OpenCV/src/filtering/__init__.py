@@ -6,7 +6,7 @@ This module provides various image filtering techniques including:
 - Edge detection (Canny, Sobel, Laplacian, Scharr)
 - Noise reduction techniques
 
-Author: OpenCV Image Processing Collection
+Author: Vu Hung Nguyen
 """
 
 from .smoothing import *

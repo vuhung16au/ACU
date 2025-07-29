@@ -1,5 +1,5 @@
 """
-Feature Detection Demo - OpenCV Image Processing Collection
+Feature Detection Demo - Vu Hung Nguyen
 
 This script demonstrates various feature detection techniques including:
 - Corner detection (Harris, Shi-Tomasi, FAST)

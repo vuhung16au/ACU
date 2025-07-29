@@ -6,7 +6,7 @@ This module provides various corner detection algorithms:
 - Shi-Tomasi corner detector
 - FAST corner detector
 
-Author: OpenCV Image Processing Collection
+Author: Vu Hung Nguyen
 """
 
 import cv2

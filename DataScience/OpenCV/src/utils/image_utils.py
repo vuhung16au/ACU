@@ -7,7 +7,7 @@ This module provides image utility functions:
 - File format conversion
 - Metadata extraction
 
-Author: OpenCV Image Processing Collection
+Author: Vu Hung Nguyen
 """
 
 import cv2

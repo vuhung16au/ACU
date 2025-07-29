@@ -7,7 +7,7 @@ This module provides histogram-related operations:
 - CLAHE (Contrast Limited Adaptive Histogram Equalization)
 - Histogram matching
 
-Author: OpenCV Image Processing Collection
+Author: Vu Hung Nguyen
 """
 
 import cv2

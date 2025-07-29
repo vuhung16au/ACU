@@ -6,7 +6,7 @@ This module provides various feature detection algorithms:
 - Keypoint detection (SIFT, SURF, ORB)
 - Contour detection and analysis
 
-Author: OpenCV Image Processing Collection
+Author: Vu Hung Nguyen
 """
 
 from .corner_detection import *

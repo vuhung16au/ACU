@@ -6,7 +6,7 @@ This module provides machine learning applications:
 - Object detection
 - Background subtraction
 
-Author: OpenCV Image Processing Collection
+Author: Vu Hung Nguyen
 """
 
 import cv2

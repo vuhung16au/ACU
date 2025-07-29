@@ -7,7 +7,7 @@ This module provides contour detection and analysis functions:
 - Contour analysis
 - Shape matching
 
-Author: OpenCV Image Processing Collection
+Author: Vu Hung Nguyen
 """
 
 import cv2
