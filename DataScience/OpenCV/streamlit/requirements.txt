@@ -1,0 +1,6 @@
+streamlit>=1.28.0
+opencv-python>=4.8.0
+numpy>=1.21.0
+matplotlib>=3.5.0
+pillow>=8.3.0
+plotly>=5.0.0 

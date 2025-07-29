@@ -1,3 +1,56 @@
+# Can I deploy my `streamlit` app online to https://streamlit.io/
+
+# Create a Streamlit dashboard for interactive experimentation
+
+- Create a new folder `streamlit`
+
+The structure should be: 
+
+```
+streamlit/
+├── app.py
+├── utils.py
+├── components.py
+```
+
+This `streamlit` folder should be a standalone app, not a part of the main repo,
+and it implements a dashboard for interactive experimentation. 
+
+There are 8 sections in the dashboard: 
+
+- Basic Operations
+- Image Filtering
+- Transformations
+- Morphological Operations
+- Feature Detection 
+- Color Processing
+- Advanced Techniques
+- Practical Applications
+
+Each section should have a set of interactive widgets that allow the user to experiment with the image processing techniques. 
+
+## First, implement the "Basic Operations" section. 
+
+## Implement the other sections. 
+
+Now we have the first section implemented "Basic Operations"
+
+Pls help me implement the other sections one by one:
+- Image Filtering
+- Transformations
+- Morphological Operations
+- Feature Detection 
+- Color Processing
+- Advanced Techniques
+- Practical Applications
+
+
+## Create a script to verify that all `streamlit/*py` can run without errors,
+
+No need for unit tests, just ensure they execute without issues.
+
+
+
 # (ask for) Ideas to improve this repo 
 
 This repo started as I want to learn about opencv. 
