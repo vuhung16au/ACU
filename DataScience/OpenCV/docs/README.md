@@ -6,14 +6,14 @@ This directory contains comprehensive documentation for the OpenCV Image Process
 
 ### `docs/examples/`
 Contains standalone demonstration scripts that showcase various OpenCV techniques:
-- `basic_operations_demo.py` - Basic image operations (resize, rotate, flip, crop)
-- `image_filtering_demo.py` - Filtering techniques (blur, edge detection, noise reduction)
-- `transformations_demo.py` - Geometric transformations (affine, perspective)
-- `morphological_ops_demo.py` - Morphological operations (erosion, dilation, etc.)
-- `feature_detection_demo.py` - Feature detection algorithms (corners, keypoints)
-- `color_processing_demo.py` - Color space conversions and enhancements
-- `advanced_techniques_demo.py` - Advanced techniques (Fourier analysis, segmentation)
-- `practical_applications_demo.py` - Real-world applications and use cases
+- `01_basic_operations_demo.py` - Basic image operations (resize, rotate, flip, crop)
+- `02_image_filtering_demo.py` - Filtering techniques (blur, edge detection, noise reduction)
+- `03_transformations_demo.py` - Geometric transformations (affine, perspective)
+- `04_morphological_ops_demo.py` - Morphological operations (erosion, dilation, etc.)
+- `05_feature_detection_demo.py` - Feature detection algorithms (corners, keypoints)
+- `06_color_processing_demo.py` - Color space conversions and enhancements
+- `07_advanced_techniques_demo.py` - Advanced techniques (Fourier analysis, segmentation)
+- `08_practical_applications_demo.py` - Real-world applications and use cases
 
 ### `docs/notebooks/`
 Interactive Jupyter notebooks for learning and experimentation:
@@ -68,7 +68,7 @@ pip install -r docs/requirements.txt
 ### Running Examples
 ```bash
 # Run a specific example
-python docs/examples/color_processing_demo.py
+python docs/examples/06_color_processing_demo.py
 
 # Run all examples (using verification script)
 python docs/verification/verify_examples.py
