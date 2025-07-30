@@ -1,74 +1,272 @@
-Lecture 9, titled "**Sorting**," is dedicated to the study and analysis of various sorting algorithms. The lecture aims to explain the principles behind these algorithms, how to implement them, and critically, their time complexity.
+# JavaFX Sorting Algorithm Visualizer
 
-The **objectives** for this lecture include:
-*   Studying and analyzing the time complexity of various sorting algorithms.
-*   Designing, implementing, and analyzing **insertion sort**.
-*   Designing, implementing, and analyzing **bubble sort**.
-*   Designing, implementing, and analyzing **merge sort**.
-*   Designing, implementing, and analyzing **quick sort**.
-*   Designing and implementing a **binary heap**.
-*   Designing, implementing, and analyzing **heap sort**.
-*   Designing, implementing, and analyzing **bucket sort** and **radix sort**.
+A comprehensive JavaFX application that demonstrates various sorting algorithms with visual animations and interactive controls.
 
-**Why Study Sorting?**
-Sorting is a classic computer science subject studied for three main reasons:
-1.  Sorting algorithms illustrate **many creative approaches to problem-solving** that can be applied to other problems.
-2.  They are excellent for **practicing fundamental programming techniques** using selection statements, loops, methods, and arrays.
-3.  They serve as **excellent examples to demonstrate algorithm performance**.
+## Features
 
-For simplicity, the lecture assumes the data to be sorted are integers, sorted in ascending order, and stored in an array, although the programs can be modified for other data types or sorting orders.
+- **Multiple Sorting Algorithms**: Insertion Sort, Bubble Sort, Merge Sort, Quick Sort, Heap Sort, and Radix Sort
+- **Visual Animation**: Real-time visualization of sorting process with animated bar charts
+- **Interactive Controls**: Speed control, algorithm selection, and array generation
+- **Cross-Platform**: Runs on macOS, Windows, and Linux
+- **Modern UI**: Clean, responsive interface with intuitive controls
 
-**Sorting Algorithms Discussed:**
+## Sorting Algorithms Implemented
 
-*   **Insertion Sort**:
-    *   This algorithm sorts a list by **repeatedly inserting an unsorted element into an already sorted sublist** until the entire list is sorted. It maintains a sorted sublist at the beginning of the array and iteratively takes the next unsorted element and inserts it into its correct position within the sorted sublist by shifting elements.
-    *   Its time complexity is **O(n^2)**.
+### 1. Insertion Sort
+- **Time Complexity**: O(n²)
+- **Space Complexity**: O(1)
+- **Stability**: Stable
+- **Best for**: Small arrays, nearly sorted arrays
 
-*   **Bubble Sort**:
-    *   Bubble sort repeatedly **compares adjacent elements and swaps them if they are in the wrong order**, effectively "bubbling" the largest elements to the end of the list.
-    *   Its time complexity is **O(n^2)**.
+### 2. Bubble Sort
+- **Time Complexity**: O(n²)
+- **Space Complexity**: O(1)
+- **Stability**: Stable
+- **Best for**: Educational purposes, small arrays
 
-*   **Merge Sort**:
-    *   This algorithm employs a **divide-and-conquer** approach. It works by recursively splitting an array into two halves, sorting each half independently, and then merging the sorted halves back together.
-    *   The time complexity for merge sort is **O(nlogn)**.
+### 3. Merge Sort
+- **Time Complexity**: O(n log n)
+- **Space Complexity**: O(n)
+- **Stability**: Stable
+- **Best for**: Large datasets, external sorting
 
-*   **Quick Sort**:
-    *   Developed by C. A. R. Hoare, quick sort also uses a divide-and-conquer strategy. It selects an element called a **pivot**, then partitions the array such that all elements less than or equal to the pivot are on one side, and all greater elements are on the other. It then recursively applies the sort to the two partitioned parts.
-    *   **Worst-case time**: **O(n^2)**, occurring when the pivot consistently divides the array into one large subarray and one empty one.
-    *   **Best-case and Average-case time**: **O(nlogn)**.
+### 4. Quick Sort
+- **Time Complexity**: O(n log n) average, O(n²) worst case
+- **Space Complexity**: O(log n)
+- **Stability**: Unstable
+- **Best for**: General-purpose sorting, in-place sorting
 
-*   **Heap Sort**:
-    *   Heap sort utilizes a **heap**, which is a **complete binary tree** where each node is greater than or equal to any of its children.
-    *   In a heap, for a node at position `i`, its left child is at `2i+1` and its right child is at `2i+2`, and its parent is at `(i-1)/2`.
-    *   Elements are added to the heap and then the largest element (the root) is repeatedly removed and the heap is rebuilt.
-    *   The height of a heap of `n` elements is **O(logn)**. (While not explicitly stated as O(nlogn) in this lecture, it is a well-known complexity for heap sort, as seen in the previous lecture's comparison of common growth functions, which places it in the `O(nlogn)` category).
+### 5. Heap Sort
+- **Time Complexity**: O(n log n)
+- **Space Complexity**: O(1)
+- **Stability**: Unstable
+- **Best for**: In-place sorting, priority queue implementation
 
-*   **Bucket Sort and Radix Sort**:
-    *   These are specialized sorting algorithms that can perform better than comparison-based sorts (which have a **lower bound of O(nlogn)**) when keys are small integers.
-    *   **Bucket Sort**: Assumes keys are in a specific range (e.g., 0 to N-1) and places elements directly into corresponding "buckets" based on their key value.
-    *   **Radix Sort**: Sorts numbers by processing individual digits (or "radixes"). These can achieve **O(n)** time complexity under ideal conditions, making them very efficient.
+### 6. Radix Sort
+- **Time Complexity**: O(d(n+k)) where d is number of digits, k is base
+- **Space Complexity**: O(n+k)
+- **Stability**: Stable
+- **Best for**: Integer sorting, fixed-length strings
 
-Objectives
-- • To study and analyze time complexity of various sorting algorithms (§§23.2–23.7).
-- • To design, implement, and analyze insertion sort (§23.2).
-- • To design, implement, and analyze bubble sort (§23.3).
-- • To design, implement, and analyze merge sort (§23.4).
-- • To design, implement, and analyze quick sort (§23.5).
-- • To design and implement a binary heap (§23.6).
-- • To design, implement, and analyze heap sort (§23.7).
-- • To design, implement, and analyze bucket sort and radix sort (§23.8). (§23.8).
+## Technical Specifications
 
-Sample code 
+### Development Environment
+- **Java Version**: OpenJDK 24
+- **JavaFX Version**: 21
+- **Maven Version**: 3.9.x or later
+- **Target Platform**: Cross-platform (macOS, Windows, Linux)
 
-- https://liveexample.pearsoncmg.com/dsanimation/InsertionSortNeweBook.html
-- https://liveexample.pearsoncmg.com/html/InsertionSort.html
-- https://liveexample.pearsoncmg.com/html/BubbleSort.html
-- https://liveexample.pearsoncmg.com/dsanimation/BubbleSortNeweBook.html
-- https://liveexample.pearsoncmg.com/html/MergeSort.html
-- https://liveexample.pearsoncmg.com/dsanimation/MergeSortNew.html
-- https://liveexample.pearsoncmg.com/dsanimation/QuickSortNeweBook.html
-- https://liveexample.pearsoncmg.com/html/QuickSort.html
-- https://liveexample.pearsoncmg.com/dsanimation/HeapeBook.html
-- https://liveexample.pearsoncmg.com/html/Heap.html
-- https://liveexample.pearsoncmg.com/html/HeapSort.html
-- https://liveexample.pearsoncmg.com/dsanimation/RadixSorteBook.html
+### Architecture
+- **Package**: `com.acu.javafx.sorting`
+- **Main Class**: `SortingDemo`
+- **Build System**: Maven with cross-platform profiles
+
+## Installation and Setup
+
+### Prerequisites
+1. **Java**: OpenJDK 24 or later
+2. **Maven**: 3.9.x or later
+3. **Git**: For cloning the repository
+
+### Quick Start
+
+#### On macOS/Linux:
+```bash
+# Clone the repository
+git clone <repository-url>
+cd 09-01-Sorting
+
+# Make script executable
+chmod +x run.sh
+
+# Run the application
+./run.sh
+```
+
+#### On Windows:
+```cmd
+# Clone the repository
+git clone <repository-url>
+cd 09-01-Sorting
+
+# Run the application
+run.bat
+```
+
+#### Using Maven directly:
+```bash
+# Build the project
+mvn clean compile
+
+# Run the application
+mvn javafx:run
+```
+
+## Usage
+
+### Main Interface
+1. **Algorithm Selection**: Choose from the dropdown menu
+2. **Speed Control**: Adjust animation speed with the slider
+3. **Sort Button**: Start the sorting animation
+4. **Reset Button**: Restore the original array
+5. **Generate New**: Create a new random array
+
+### Controls
+- **Algorithm Dropdown**: Select sorting algorithm
+- **Speed Slider**: Control animation speed (0.1x to 2.0x)
+- **Sort**: Begin sorting with selected algorithm
+- **Reset**: Return to original unsorted array
+- **Generate New**: Create new random array
+
+### Visual Elements
+- **Bar Chart**: Each bar represents an array element
+- **Value Labels**: Show actual numeric values
+- **Color Coding**: Bars change color during sorting
+- **Status Updates**: Real-time progress information
+
+## Project Structure
+
+```
+09-01-Sorting/
+├── src/
+│   └── main/
+│       └── java/
+│           └── com/
+│               └── acu/
+│                   └── javafx/
+│                       └── sorting/
+│                           ├── SortingDemo.java      # Main JavaFX application
+│                           ├── InsertionSort.java    # Insertion sort implementation
+│                           ├── BubbleSort.java       # Bubble sort implementation
+│                           ├── MergeSort.java        # Merge sort implementation
+│                           ├── QuickSort.java        # Quick sort implementation
+│                           ├── HeapSort.java         # Heap sort implementation
+│                           ├── Heap.java             # Heap data structure
+│                           └── RadixSort.java        # Radix sort implementation
+├── pom.xml                 # Maven configuration
+├── run.sh                  # Unix/Linux/macOS execution script
+├── run.bat                 # Windows execution script
+└── README.md              # This file
+```
+
+## Build Configuration
+
+### Maven Profiles
+The project includes platform-specific Maven profiles for automatic dependency management:
+
+- **macOS**: Automatically detects and uses macOS-specific JavaFX modules
+- **Windows**: Uses Windows-specific JavaFX modules
+- **Linux**: Uses Linux-specific JavaFX modules
+
+### Cross-Platform Compatibility
+- **macOS**: Intel (x86_64) and Apple Silicon (ARM64)
+- **Windows**: x86_64 and ARM64
+- **Linux**: x86_64 and ARM64
+
+## Development
+
+### Adding New Algorithms
+1. Create a new Java class in the `com.acu.javafx.sorting` package
+2. Implement the sorting algorithm with static methods
+3. Add the algorithm to the `SortingDemo.java` switch statement
+4. Update the algorithm selection dropdown
+
+### Customizing the UI
+- Modify `SortingDemo.java` for UI changes
+- Update CSS styles for visual customization
+- Add new controls in the `createControls()` method
+
+### Performance Optimization
+- The application uses JavaFX Platform.runLater() for thread-safe UI updates
+- Animation timing is controlled by the Timeline API
+- Memory management is handled automatically by JavaFX
+
+## Troubleshooting
+
+### Common Issues
+
+#### Java Version Issues
+```bash
+# Check Java version
+java -version
+
+# If version is < 24, install OpenJDK 24+
+# On macOS: brew install openjdk@24
+# On Ubuntu: sudo apt install openjdk-24-jdk
+# On Windows: Download from https://adoptium.net/
+```
+
+#### Maven Issues
+```bash
+# Check Maven version
+mvn -version
+
+# If Maven is not installed:
+# On macOS: brew install maven
+# On Ubuntu: sudo apt install maven
+# On Windows: Download from https://maven.apache.org/
+```
+
+#### JavaFX Module Issues
+```bash
+# Clean and rebuild
+mvn clean compile
+
+# Run with explicit module path
+mvn javafx:run -Djavafx.verbose=true
+```
+
+### Platform-Specific Notes
+
+#### macOS
+- Works natively on both Intel and Apple Silicon
+- No additional configuration required
+- Uses system JavaFX modules
+
+#### Windows
+- Requires JavaFX modules (handled by Maven profiles)
+- May need Visual C++ Redistributable for older systems
+- Tested on Windows 10/11
+
+#### Linux
+- May require additional font packages
+- Uses system JavaFX modules
+- Tested on Ubuntu 20.04+
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Implement your changes
+4. Add tests if applicable
+5. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- Sorting algorithm implementations based on standard computer science literature
+- JavaFX framework for the user interface
+- Maven for build management and dependency resolution
+
+## Version History
+
+- **v1.0.0**: Initial release with 6 sorting algorithms
+  - Insertion Sort, Bubble Sort, Merge Sort, Quick Sort, Heap Sort, Radix Sort
+  - Visual animation system
+  - Cross-platform compatibility
+  - Interactive controls
+
+## Support
+
+For issues and questions:
+1. Check the troubleshooting section
+2. Review the project documentation
+3. Create an issue on the repository
+4. Contact the development team
+
+---
+
+**Note**: This application is designed for educational purposes and algorithm visualization. For production sorting, consider using the built-in `Arrays.sort()` method or specialized sorting libraries.
