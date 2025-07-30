@@ -1,7 +1,7 @@
 
 # Generate the project 
 
-Save your files to the folder same as `README.md`
+Save your files to the folder `08-05-PerformanceTest`
 
 Create a JavaFX application that demonstrates the use of 
 
