@@ -1,75 +1,243 @@
-Lecture 9, titled "**Sorting**," is dedicated to the study and analysis of various sorting algorithms. The lecture aims to explain the principles behind these algorithms, how to implement them, and critically, their time complexity.
+# Heap Sort Visualization
 
-The **objectives** for this lecture include:
-*   Studying and analyzing the time complexity of various sorting algorithms.
-*   Designing, implementing, and analyzing **insertion sort**.
-*   Designing, implementing, and analyzing **bubble sort**.
-*   Designing, implementing, and analyzing **merge sort**.
-*   Designing, implementing, and analyzing **quick sort**.
-*   Designing and implementing a **binary heap**.
-*   Designing, implementing, and analyzing **heap sort**.
-*   Designing, implementing, and analyzing **bucket sort** and **radix sort**.
+A JavaFX application that demonstrates the heap sort algorithm with interactive visualization.
 
-**Why Study Sorting?**
-Sorting is a classic computer science subject studied for three main reasons:
-1.  Sorting algorithms illustrate **many creative approaches to problem-solving** that can be applied to other problems.
-2.  They are excellent for **practicing fundamental programming techniques** using selection statements, loops, methods, and arrays.
-3.  They serve as **excellent examples to demonstrate algorithm performance**.
+## Overview
 
-For simplicity, the lecture assumes the data to be sorted are integers, sorted in ascending order, and stored in an array, although the programs can be modified for other data types or sorting orders.
+This project provides an interactive visualization of the heap data structure and heap sort algorithm. Users can:
 
-**Sorting Algorithms Discussed:**
+- Insert values into a heap and see the tree structure update in real-time
+- Remove the root element from the heap
+- Perform heap sort on a collection of values
+- Visualize the heap as a binary tree
+- View the sorting process and results
 
-*   **Insertion Sort**:
-    *   This algorithm sorts a list by **repeatedly inserting an unsorted element into an already sorted sublist** until the entire list is sorted. It maintains a sorted sublist at the beginning of the array and iteratively takes the next unsorted element and inserts it into its correct position within the sorted sublist by shifting elements.
-    *   Its time complexity is **O(n^2)**.
+## Features
 
-*   **Bubble Sort**:
-    *   Bubble sort repeatedly **compares adjacent elements and swaps them if they are in the wrong order**, effectively "bubbling" the largest elements to the end of the list.
-    *   Its time complexity is **O(n^2)**.
+### Interactive Heap Operations
+- **Insert**: Add new values to the heap with automatic rebalancing
+- **Remove Root**: Remove the maximum element from the heap
+- **Visual Tree**: Real-time visualization of the heap as a binary tree
+- **Status Display**: Shows heap size and current state
 
-*   **Merge Sort**:
-    *   This algorithm employs a **divide-and-conquer** approach. It works by recursively splitting an array into two halves, sorting each half independently, and then merging the sorted halves back together.
-    *   The time complexity for merge sort is **O(nlogn)**.
+### Heap Sort Implementation
+- **Complete Algorithm**: Full implementation of heap sort
+- **Step-by-step Process**: Visual feedback during sorting
+- **Result Display**: Shows original and sorted arrays
 
-*   **Quick Sort**:
-    *   Developed by C. A. R. Hoare, quick sort also uses a divide-and-conquer strategy. It selects an element called a **pivot**, then partitions the array such that all elements less than or equal to the pivot are on one side, and all greater elements are on the other. It then recursively applies the sort to the two partitioned parts.
-    *   **Worst-case time**: **O(n^2)**, occurring when the pivot consistently divides the array into one large subarray and one empty one.
-    *   **Best-case and Average-case time**: **O(nlogn)**.
+### User Interface
+- **Canvas-based Visualization**: Clean, modern tree drawing
+- **Control Panel**: Easy-to-use buttons and input fields
+- **Log Output**: Detailed operation logging
+- **Responsive Design**: Adapts to different screen sizes
 
-*   **Heap Sort**:
-    *   Heap sort utilizes a **heap**, which is a **complete binary tree** where each node is greater than or equal to any of its children.
-    *   In a heap, for a node at position `i`, its left child is at `2i+1` and its right child is at `2i+2`, and its parent is at `(i-1)/2`.
-    *   Elements are added to the heap and then the largest element (the root) is repeatedly removed and the heap is rebuilt.
-    *   The height of a heap of `n` elements is **O(logn)**. (While not explicitly stated as O(nlogn) in this lecture, it is a well-known complexity for heap sort, as seen in the previous lecture's comparison of common growth functions, which places it in the `O(nlogn)` category).
+## Technical Specifications
 
-*   **Bucket Sort and Radix Sort**:
-    *   These are specialized sorting algorithms that can perform better than comparison-based sorts (which have a **lower bound of O(nlogn)**) when keys are small integers.
-    *   **Bucket Sort**: Assumes keys are in a specific range (e.g., 0 to N-1) and places elements directly into corresponding "buckets" based on their key value.
-    *   **Radix Sort**: Sorts numbers by processing individual digits (or "radixes"). These can achieve **O(n)** time complexity under ideal conditions, making them very efficient.
+### Development Environment
+- **Java Version**: OpenJDK 24
+- **JavaFX Version**: 21
+- **Maven Version**: 3.9.x or later
+- **Target Platform**: Cross-platform (macOS, Windows, Linux)
 
-Objectives
-- • To study and analyze time complexity of various sorting algorithms (§§23.2–23.7).
-- • To design, implement, and analyze insertion sort (§23.2).
-- • To design, implement, and analyze bubble sort (§23.3).
-- • To design, implement, and analyze merge sort (§23.4).
-- • To design, implement, and analyze quick sort (§23.5).
-- • To design and implement a binary heap (§23.6).
-- • To design, implement, and analyze heap sort (§23.7).
-- • To design, implement, and analyze bucket sort and radix sort (§23.8). (§23.8).
+### Architecture
+- **Package Structure**: `com.acu.javafx.heapsort`
+- **Main Classes**:
+  - `HeapSortDemo`: Main JavaFX application
+  - `Heap`: Generic heap implementation
+  - `HeapSort`: Heap sort algorithm implementation
 
-Sample code 
+## Project Structure
 
-- https://liveexample.pearsoncmg.com/dsanimation/InsertionSortNeweBook.html
-- https://liveexample.pearsoncmg.com/html/InsertionSort.html
-- https://liveexample.pearsoncmg.com/html/BubbleSort.html
-- https://liveexample.pearsoncmg.com/dsanimation/BubbleSortNeweBook.html
-- https://liveexample.pearsoncmg.com/html/MergeSort.html
-- https://liveexample.pearsoncmg.com/dsanimation/MergeSortNew.html
-- https://liveexample.pearsoncmg.com/dsanimation/QuickSortNeweBook.html
-- https://liveexample.pearsoncmg.com/html/QuickSort.html
-- https://liveexample.pearsoncmg.com/html/HeapSort.html
-- https://liveexample.pearsoncmg.com/dsanimation/RadixSorteBook.html
-- https://liveexample.pearsoncmg.com/dsanimation/HeapeBook.html
-- https://liveexample.pearsoncmg.com/html/Heap.html
-- https://liveexample.pearsoncmg.com/html/HeapSort.html
+```
+09-02-HeapSort/
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/acu/javafx/heapsort/
+│   │   │       ├── HeapSortDemo.java    # Main JavaFX application
+│   │   │       ├── Heap.java            # Heap data structure
+│   │   │       └── HeapSort.java        # Heap sort algorithm
+│   │   └── resources/
+│   └── test/
+├── docs/
+│   ├── concepts.md                       # Algorithm concepts
+│   └── architecture.md                   # Architecture documentation
+├── pom.xml                              # Maven configuration
+├── run.sh                               # Unix/Linux/macOS run script
+├── run.bat                              # Windows run script
+├── run_direct.sh                        # Direct Java execution script
+└── README.md                            # This file
+```
+
+## Build and Run Instructions
+
+### Prerequisites
+- Java 24 or higher
+- Maven 3.9.x or later
+- JavaFX 21 (included in Maven dependencies)
+
+### Using Maven (Recommended)
+
+#### Unix/Linux/macOS
+```bash
+# Make scripts executable
+chmod +x run.sh run_direct.sh
+
+# Run with Maven
+./run.sh
+```
+
+#### Windows
+```cmd
+# Run with Maven
+run.bat
+```
+
+### Manual Maven Commands
+```bash
+# Clean and compile
+mvn clean compile
+
+# Run the application
+mvn javafx:run
+
+# Package as executable JAR
+mvn clean package
+```
+
+### Direct Java Execution (Advanced)
+```bash
+# Compile first
+mvn compile
+
+# Run directly (requires JavaFX installation)
+./run_direct.sh
+```
+
+## Usage Guide
+
+### Getting Started
+1. Run the application using one of the provided scripts
+2. The application will start with sample data pre-loaded
+3. Use the control panel to interact with the heap
+
+### Heap Operations
+- **Insert Value**: Enter a number in the text field and click "Insert"
+- **Remove Root**: Click "Remove Root" to remove the maximum element
+- **Reset**: Click "Reset" to clear the heap and start over
+
+### Heap Sort
+- **Perform Sort**: Click "Heap Sort" to sort the current heap values
+- **View Results**: Check the output area for sorting details
+- **Visual Feedback**: The tree will update to show the sorted structure
+
+### Understanding the Visualization
+- **Tree Structure**: Each node shows its value
+- **Parent-Child Relationships**: Lines connect parent nodes to their children
+- **Heap Property**: The tree maintains the heap property (parent ≥ children)
+- **Color Coding**: Nodes are colored light blue for easy identification
+
+## Algorithm Details
+
+### Heap Data Structure
+The heap is implemented as a complete binary tree stored in an array:
+- **Parent Index**: `(i - 1) / 2`
+- **Left Child**: `2 * i + 1`
+- **Right Child**: `2 * i + 2`
+
+### Heap Sort Algorithm
+1. **Build Heap**: Convert array to max heap
+2. **Extract Elements**: Repeatedly remove root (maximum) element
+3. **Sort**: Place extracted elements in sorted order
+
+### Time Complexity
+- **Heap Construction**: O(n)
+- **Heap Sort**: O(n log n)
+- **Insert/Remove**: O(log n)
+
+## Cross-Platform Compatibility
+
+### Supported Platforms
+- **macOS**: Intel (x86_64) and Apple Silicon (ARM64)
+- **Windows**: x86_64 and ARM64
+- **Linux**: x86_64 and ARM64
+
+### Platform-Specific Considerations
+- **macOS**: Uses Homebrew JavaFX installation path
+- **Windows**: Uses Windows-specific batch scripts
+- **Linux**: Uses system JavaFX installation
+
+## Troubleshooting
+
+### Common Issues
+
+#### Java Version Issues
+```
+Error: Java 24 or higher required
+```
+**Solution**: Install OpenJDK 24 or higher
+
+#### Maven Issues
+```
+Error: Maven not found
+```
+**Solution**: Install Maven 3.9.x or later
+
+#### JavaFX Issues
+```
+Error: JavaFX modules not found
+```
+**Solution**: Use Maven to run the application (recommended)
+
+#### Build Issues
+```
+Error: Compilation failed
+```
+**Solution**: Ensure Java 24+ and Maven are properly installed
+
+### Platform-Specific Issues
+
+#### macOS
+- If JavaFX not found, install via Homebrew: `brew install openjfx`
+- For Apple Silicon, ensure ARM64 Java is installed
+
+#### Windows
+- Ensure Java and Maven are in PATH
+- Use `run.bat` for Windows-specific execution
+
+#### Linux
+- Install JavaFX: `sudo apt-get install openjfx` (Ubuntu/Debian)
+- Or use Maven which includes JavaFX dependencies
+
+## Development
+
+### Adding Features
+1. Modify `HeapSortDemo.java` for UI changes
+2. Update `Heap.java` for heap implementation changes
+3. Extend `HeapSort.java` for algorithm modifications
+
+### Testing
+```bash
+# Run tests
+mvn test
+
+# Run with specific profile
+mvn javafx:run -Pmac
+```
+
+### Building for Distribution
+```bash
+# Create executable JAR
+mvn clean package
+
+# Run JAR file
+java -jar target/heapsort-1.0.0.jar
+```
+
+## License
+
+This project is part of the ITEC313 JavaFX course materials.
+
+## Contributing
+
+This is an educational project. For questions or issues, please refer to the course materials or contact the instructor.
