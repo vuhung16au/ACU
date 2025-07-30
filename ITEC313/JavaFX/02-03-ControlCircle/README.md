@@ -199,3 +199,7 @@ This project is part of the ACU JavaFX learning series.
 - [JavaFX Documentation](https://openjfx.io/)
 - [Maven Documentation](https://maven.apache.org/)
 - [Original Example](https://liveexample.pearsoncmg.com/html/ControlCircle.html)
+
+## Screenshots
+
+![Control Circle Example](images/02-03-ControlCircle.png)
