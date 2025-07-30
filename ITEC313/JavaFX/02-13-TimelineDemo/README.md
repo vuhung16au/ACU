@@ -265,30 +265,6 @@ This demo can be extended with:
 - **Size Changes**: Animate object scaling
 - **User Controls**: Add speed and direction controls
 
-## Contributing
+## Screenshots
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
-
-- JavaFX team for the excellent animation framework
-- Maven community for cross-platform build tools
-- OpenJDK team for the Java platform
-
-## References
-
-- [JavaFX Timeline Documentation](https://openjfx.io/javadoc/21/javafx.animation/javafx/animation/Timeline.html)
-- [JavaFX Animation Tutorial](https://openjfx.io/javadoc/21/javafx.animation/javafx/animation/package-summary.html)
-- [Maven JavaFX Plugin](https://github.com/openjfx/javafx-maven-plugin)
-
----
-
-**Demo Source**: [TimelineDemo Example](https://liveexample.pearsoncmg.com/html/TimelineDemo.html)
+![Timeline Demo](images/02-13-TimelineDemo.gif)

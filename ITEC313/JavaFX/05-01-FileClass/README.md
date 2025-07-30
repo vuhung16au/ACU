@@ -212,30 +212,6 @@ java -version
 mvn -version
 ```
 
-## Contributing
+## Screenshots
 
-This project is designed for educational purposes. Feel free to:
-
-- Add new File I/O demonstrations
-- Improve the user interface
-- Enhance error handling
-- Add unit tests
-
-## License
-
-This project is part of the JavaFX learning series and is intended for educational use.
-
-## Support
-
-For issues or questions:
-
-1. Check the troubleshooting section above
-2. Review the documentation in the `docs/` folder
-3. Ensure all prerequisites are met
-4. Try running with verbose output: `mvn javafx:run -X`
-
----
-
-**Happy Learning!** 🚀
-
-This JavaFX application provides an interactive way to explore Java File I/O concepts through hands-on experimentation. 
+![Read Data](images/ReadData.png) ![Replace Text](images/ReplaceText.png) ![Test File Class](images/TestFileClass.png) ![Write File](images/WriteFile.png) ![Write File With Auto Close](images/WriteFileWithAutoClose.png)

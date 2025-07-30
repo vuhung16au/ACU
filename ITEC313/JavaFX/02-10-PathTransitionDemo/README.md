@@ -243,13 +243,6 @@ mvn javafx:run -Djavafx.debug=true
 - **Sandboxed Execution**: No file system or network access
 - **Self-Contained**: No external dependencies at runtime
 
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
 
 ## License
 
@@ -266,10 +259,7 @@ This project is part of the ACU JavaFX learning materials.
 - [JavaFX Button Demo](../01-02-JavaFX.Button/)
 - [JavaFX Animation Demos](../02-11-FlagRisingAnimation/)
 
-## Support
 
-For issues and questions:
-1. Check the troubleshooting section
-2. Review the documentation
-3. Test on different platforms
-4. Verify Java and Maven versions
+## Screenshots
+
+![Path Transition Demo](images/02-10-PathTransitionDemo.png)

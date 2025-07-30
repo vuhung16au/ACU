@@ -178,40 +178,7 @@ module com.acu.javafx.clockanimation {
 - **Naming**: Clear, descriptive variable and method names
 - **Structure**: Clean, organized code with proper separation of concerns
 
-## Troubleshooting
 
-### Common Issues
+## Screenshots
 
-1. **Java Version**: Ensure Java 24+ is installed and in PATH
-2. **Maven**: Verify Maven 3.9+ is available
-3. **JavaFX**: Dependencies are included in pom.xml
-4. **Permissions**: Make run scripts executable (`chmod +x run.sh`)
-
-### Platform-Specific Notes
-
-- **macOS**: Works on both Intel and Apple Silicon
-- **Windows**: Tested on x86_64 and ARM64
-- **Linux**: Compatible with x86_64 and ARM64
-
-## Contributing
-
-1. Follow the existing code style and structure
-2. Add comprehensive JavaDoc comments
-3. Test on multiple platforms
-4. Update documentation as needed
-
-## License
-
-This project is part of the ACU JavaFX learning series.
-
-## Related Projects
-
-- [TimelineDemo](../02-13-TimelineDemo): Basic Timeline animation concepts
-- [FadeTransitionDemo](../02-12-FadeTransitionDemo): Fade transition animations
-- [PathTransitionDemo](../02-10-PathTransitionDemo): Path-based animations
-
-## References
-
-- [JavaFX Animation Documentation](https://openjfx.io/javadoc/21/javafx.animation/javafx/animation/package-summary.html)
-- [Timeline Class Documentation](https://openjfx.io/javadoc/21/javafx.animation/javafx/animation/Timeline.html)
-- [KeyFrame Class Documentation](https://openjfx.io/javadoc/21/javafx.animation/javafx/animation/KeyFrame.html)
+![Clock Animation](images/02-14-ClockAnimation.gif)

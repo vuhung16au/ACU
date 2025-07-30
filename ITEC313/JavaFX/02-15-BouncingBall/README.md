@@ -199,35 +199,6 @@ mvn jacoco:report
 mvn javafx:run -Djavafx.verbose=true
 ```
 
-## Contributing
+## Screenshots
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests for new functionality
-5. Ensure all tests pass
-6. Submit a pull request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
-
-- **JavaFX Team**: For the excellent JavaFX framework
-- **Maven Community**: For the robust build system
-- **OpenJDK Team**: For the modern Java platform
-
-## References
-
-- [JavaFX Documentation](https://openjfx.io/)
-- [Maven Documentation](https://maven.apache.org/)
-- [JavaFX Animation Tutorial](https://docs.oracle.com/javase/8/javafx/api/javafx/animation/package-summary.html)
-
-## Version History
-
-- **v1.0.0**: Initial release with basic bouncing ball functionality
-  - Smooth animation with boundary detection
-  - Mouse and keyboard controls
-  - Cross-platform compatibility
-  - Comprehensive documentation
+![Bouncing Ball](images/02-15-BouncingBall.gif)

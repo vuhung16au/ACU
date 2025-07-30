@@ -294,37 +294,6 @@ Run with debug output:
 mvn javafx:run -Djavafx.debug=true
 ```
 
-## Contributing
+## Screenshots
 
-### Guidelines
-1. Follow Java coding conventions
-2. Add comprehensive error handling
-3. Include JavaDoc comments
-4. Test on multiple platforms
-5. Update documentation
-
-### Code Style
-- Use meaningful variable names
-- Implement proper exception handling
-- Follow single responsibility principle
-- Add appropriate comments
-
-## License
-
-This project is part of the ACU JavaFX learning series. See the main repository for license information.
-
-## Acknowledgments
-
-- **JavaFX Team**: For the excellent UI framework
-- **Maven Team**: For the build system
-- **OpenJDK Team**: For the Java platform
-
-## Related Resources
-
-- [Java I/O Documentation](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/package-summary.html)
-- [JavaFX Documentation](https://openjfx.io/)
-- [Maven Documentation](https://maven.apache.org/guides/)
-
----
-
-**Note**: This application is designed for educational purposes. The I/O operations create temporary files that are used for demonstration. In a production environment, proper file management and cleanup would be implemented.
+![05-02-BinaryIO](images/05-02-BinaryIO.png)

@@ -319,18 +319,7 @@ mvn javafx:run -Djava.version=24
 - **Line Path**: Simple linear movement definition
 - **ImageView**: Image display component
 
-## 📄 License
+## 📸 Screenshots
 
-This project is part of the ACU JavaFX learning series.
 
-## 🤝 Contributing
-
-For educational purposes, this project demonstrates:
-- JavaFX application development
-- Animation concepts and implementation
-- Cross-platform compatibility
-- Modern Java development practices
-
----
-
-**Note**: This is a demonstration project for learning JavaFX animation concepts. The flag animation runs automatically and repeats 5 times. To modify the behavior, edit the PathTransition configuration in the main class.
+![02-11-FlagRisingAnimation](images/02-11-FlagRisingAnimation.gif)

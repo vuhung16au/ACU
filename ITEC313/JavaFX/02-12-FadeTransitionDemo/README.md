@@ -207,30 +207,7 @@ ellipse.radiusYProperty().bind(pane.heightProperty().multiply(0.4));
 mvn javafx:run -X
 ```
 
-## Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
+## Screenshots
 
-## License
-
-This project is part of the ACU JavaFX learning series. See the main repository for license information.
-
-## References
-
-- [JavaFX Animation Tutorial](https://docs.oracle.com/javase/8/javafx/api/javafx/animation/package-summary.html)
-- [FadeTransition API](https://docs.oracle.com/javase/8/javafx/api/javafx/animation/FadeTransition.html)
-- [JavaFX Property Binding](https://docs.oracle.com/javase/8/javafx/api/javafx/beans/property/package-summary.html)
-
-## Related Projects
-
-- [01-01-JavaFX-HelloWorld](../01-01-JavaFX-HelloWorld/)
-- [02-11-FlagRisingAnimation](../02-11-FlagRisingAnimation/)
-- [02-13-TimelineDemo](../02-13-TimelineDemo/)
-
----
-
-**Original Example**: [FadeTransitionDemo](https://liveexample.pearsoncmg.com/html/FadeTransitionDemo.html)
+![Fade Transition Demo](images/02-12-FadeTransitionDemo.gif)
