@@ -223,22 +223,7 @@ mvn javafx:run -Djavafx.debug=true
 - **Concepts**: See `docs/concepts.md` for design decisions and key concepts
 - **Architecture**: See `docs/architecture.md` for detailed architecture documentation
 
-## License
 
-This project is part of the ACU JavaFX learning series.
+## Screenshots
 
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
-
-## Version History
-
-- **v1.0.0**: Initial release with basic circle control functionality
-  - Button controls
-  - Mouse controls
-  - Keyboard controls
-  - Cross-platform support
+![Control Circle with Mouse and Key](images/02-08-ControlCircleWithMouseAndKey.png)
