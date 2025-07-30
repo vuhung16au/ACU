@@ -274,11 +274,9 @@ This is an educational project. Contributions are welcome:
 
 This project is part of the ITEC313 JavaFX learning series.
 
-## 🙏 Acknowledgments
+## 📸 Screenshots
 
-- Based on examples from Pearson's Java Programming textbook
-- JavaFX community for cross-platform support
-- Maven community for build tools
+![Inner Class Example](images/02-04-InnerClass.png)
 
 ---
 
