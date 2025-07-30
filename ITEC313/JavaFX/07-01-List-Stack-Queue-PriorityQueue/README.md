@@ -1,69 +1,175 @@
+# JavaFX List Stack Queue PriorityQueue Demo - Project Summary
 
+## Project Overview
 
-Objectives
+This JavaFX application demonstrates various data structures and algorithms from the Java Collections Framework, including Lists, Stacks, Queues, and Priority Queues. The project provides a comprehensive GUI interface to run different examples from the lecture.
 
-- To explore the relationship between interfaces and classes in the Java Collections Framework hierarchy (§20.2).
-- To use the common methods defined in the Collection interface for operating collections (§20.2).
-- To use the Iterator interface to traverse the elements in a collection (§20.3).
-- To use a for-each loop to traverse the elements in a collection (§20.3).
-- To explore how and when to use ArrayList or LinkedList to store elements (§20.4).
-- To compare elements using the Comparable interface and the Comparator interface (§20.5).
-- To use the static utility methods in the Collections class for sorting, searching, shuffling lists, and finding the largest and smallest element in collections (§20.6).
-- To develop a multiple bouncing balls application using ArrayList (§20.7).
-- To distinguish between Vector and ArrayList and to use the Stack class for creating stacks (§20.8).
-- To explore the relationships among Collection, Queue, LinkedList, and PriorityQueue and to create priority queues using the PriorityQueue class (§20.9).
-- To use stacks to write a program to evaluate expressions (§20.10).
+## Project Structure
 
-Lecture 7.1 focuses on **Lists, Stacks, Queues, and Priority Queues**, providing an in-depth look at these fundamental data structures within the Java Collections Framework.
+```
+07-01-List-Stack-Queue-PriorityQueue/
+├── src/
+│   └── main/
+│       ├── java/
+│       │   └── com/acu/javafx/liststackqueuepriorityqueue/
+│       │       ├── ListStackQueuePriorityQueueApp.java    # Main application
+│       │       ├── TestArrayAndLinkedList.java            # List comparison demo
+│       │       ├── GeometricObject.java                   # Abstract base class
+│       │       ├── Circle.java                           # Concrete geometric object
+│       │       ├── Rectangle.java                        # Concrete geometric object
+│       │       ├── GeometricObjectComparator.java        # Custom comparator
+│       │       ├── GeometricObjectComparatorDemo.java    # Comparator demo
+│       │       ├── SortStringByLength.java               # String sorting demo
+│       │       ├── SortStringIgnoreCase.java             # Case-insensitive sorting
+│       │       ├── MultipleBounceBall.java               # JavaFX animation demo
+│       │       ├── PriorityQueueDemo.java                # Priority queue demo
+│       │       └── EvaluateExpression.java               # Stack-based evaluation
+│       └── resources/
+├── docs/
+│   ├── concepts.md                                       # Core concepts documentation
+│   └── architecture.md                                   # Architecture documentation
+├── pom.xml                                              # Maven configuration
+├── run.sh                                               # Unix/Linux/macOS script
+├── run.bat                                              # Windows script
+├── .gitignore                                           # Git ignore rules
+├── README.md                                            # Project documentation
+└── PROJECT_SUMMARY.md                                   # This file
+```
 
-The primary **objectives** of this lecture are to enable understanding of:
-*   The relationship between interfaces and classes in the Java Collections Framework hierarchy.
-*   Common methods within the `Collection` interface.
-*   How to traverse collection elements using the `Iterator` interface and for-each loops.
-*   When to use `ArrayList` versus `LinkedList` for storing elements.
-*   Comparing elements using the `Comparable` and `Comparator` interfaces.
-*   Utilizing static utility methods in the `Collections` class for operations like sorting, searching, and shuffling lists.
-*   Distinguishing between `Vector` and `ArrayList`, and using the `Stack` class.
-*   Understanding the relationships among `Collection`, `Queue`, `LinkedList`, and `PriorityQueue`.
+## Features Implemented
 
-**Core Concepts:**
+### 1. Main Application (ListStackQueuePriorityQueueApp)
+- **Modern JavaFX UI** with clean, responsive design
+- **Button-based navigation** to different demos
+- **Alert dialogs** for user feedback
+- **Cross-platform compatibility** with proper styling
 
-*   **Data Structure Definition**: A data structure is defined as a collection of data organized in a specific fashion, supporting operations for accessing and manipulating that data.
-*   **Java Collections Framework**: This framework provides container objects, known as **collections**, which hold groups of objects (elements). The framework supports three main types of collections: **lists, sets, and maps**. The `Collection` interface serves as the root interface for manipulating these objects. `Set` and `List` are designated as subinterfaces of `Collection`.
+### 2. Data Structure Demonstrations
 
-*   **Lists (`List` Interface)**:
-    *   A list stores elements in a **sequential order** and allows users to specify where elements are stored and accessed by index.
-    *   Common operations include retrieving, inserting, deleting, finding size, checking for element presence, and determining if the list is empty.
-    *   **Implementation Choices**: Lists can be implemented in two primary ways:
-        *   **Using arrays (`MyArrayList`/`ArrayList`)**: This involves using a dynamically created array. If capacity is exceeded, a new larger array is created, and elements are copied over. `ArrayList` is efficient for random access (using an index) and adding elements to the end. However, adding or removing elements at arbitrary positions can be inefficient due to the need to shift many elements.
-        *   **Using linked structures (`MyLinkedList`/`LinkedList`)**: A linked structure consists of nodes, each holding an element and a link to the next node. `LinkedList` is more efficient for adding or removing elements anywhere in the list because it only requires re-linking pointers, rather than shifting elements. However, random access (e.g., `get(index)`) is inefficient as it requires traversing from the beginning or end of the list.
-    *   The choice between `ArrayList` and `LinkedList` depends on the application's specific needs regarding random access versus insertion/deletion frequency.
+#### TestArrayAndLinkedList
+- Demonstrates ArrayList vs LinkedList differences
+- Shows forward and backward iteration
+- Illustrates performance characteristics
 
-*   **Comparing Elements (`Comparable` and `Comparator`)**:
-    *   The `Comparable` interface provides a natural ordering for objects.
-    *   The `Comparator` interface allows for **custom comparison logic** when objects don't have a natural ordering or when a different ordering is desired.
+#### GeometricObjectComparator
+- Custom comparator implementation
+- Area-based sorting of geometric objects
+- Strategy pattern usage
 
-*   **The `Collections` Class**: This utility class provides various **static methods** for operations on collections and maps, including sorting, searching, shuffling lists, and finding min/max elements. It can also create synchronized or read-only collection classes.
+#### SortStringByLength
+- Length-based string sorting
+- Anonymous comparator implementation
+- Array sorting with custom comparator
 
-*   **Stacks (`Stack` Class)**:
-    *   A stack is a **Last-In, First-Out (LIFO)** data structure, where elements are accessed, inserted, and deleted only from one end, known as the **top**.
-    *   The `Stack` class extends `Vector` and includes methods like `push()` (add to top), `pop()` (remove from top), and `peek()` (view top element).
-    *   Implementing a stack using an `ArrayList` is generally more efficient for insertion and deletion at the end.
+#### SortStringIgnoreCase
+- Case-insensitive string sorting
+- Lambda expression usage
+- Functional programming concepts
 
-*   **Queues (`Queue` Interface and `PriorityQueue` Class)**:
-    *   A queue represents a waiting list and is a **First-In, First-Out (FIFO)** data structure, where elements are inserted at the end (tail) and removed from the beginning (head).
-    *   A `LinkedList` is often used to implement a `Queue` efficiently, particularly for deletions at the beginning.
-    *   A **Priority Queue** is a specialized queue where elements are assigned priorities, and the element with the **highest priority is removed first**. This results in a "largest-in, first-out" behavior.
+#### MultipleBounceBall
+- JavaFX animation with collections
+- Real-time data structure manipulation
+- Interactive user experience with controls
 
-The lecture also touches upon a case study involving **evaluating expressions using stacks**.
+#### PriorityQueueDemo
+- Priority queue operations
+- Natural vs custom ordering
+- Queue-based algorithms
 
-Sample code: 
+#### EvaluateExpression
+- Stack-based expression evaluation
+- Two-stack algorithm implementation
+- Operator precedence handling
 
-- https://liveexample.pearsoncmg.com/html/TestArrayAndLinkedList.html
-- https://liveexample.pearsoncmg.com/html/GeometricObjectComparator.html
-- https://liveexample.pearsoncmg.com/html/GeometricObjectComparator.html
-- https://liveexample.pearsoncmg.com/html/SortStringByLength.html
-- https://liveexample.pearsoncmg.com/html/SortStringIgnoreCase.html
-- https://liveexample.pearsoncmg.com/html/MultipleBounceBall.html
-- https://liveexample.pearsoncmg.com/html/PriorityQueueDemo.html
-- https://liveexample.pearsoncmg.com/html/EvaluateExpression.html
+## Technical Specifications
+
+### Development Environment
+- **Java Version**: OpenJDK 24
+- **JavaFX Version**: 21
+- **Maven Version**: 3.9.x
+- **Target Platform**: Cross-platform (macOS, Windows, Linux)
+
+### Build Configuration
+- **Maven-based build** with proper dependency management
+- **JavaFX Maven Plugin** for running the application
+- **Cross-platform scripts** for easy execution
+- **Proper packaging** for distribution
+
+### Code Quality
+- **Clean, well-documented code** with JavaDoc comments
+- **Proper separation of concerns** with modular design
+- **Error handling** for user interactions
+- **Responsive UI design** principles
+
+## Key Design Patterns
+
+### 1. MVC (Model-View-Controller)
+- **Model**: Data structures (Lists, Stacks, Queues)
+- **View**: JavaFX UI components
+- **Controller**: Demo classes coordinating between model and view
+
+### 2. Strategy Pattern
+- Different sorting strategies with comparators
+- Runtime selection of comparison logic
+
+### 3. Observer Pattern
+- JavaFX property bindings for reactive UI updates
+- Automatic UI updates based on data changes
+
+### 4. Factory Pattern
+- Collection creation and management
+- Polymorphic object creation
+
+## Performance Considerations
+
+### Time Complexity
+- **ArrayList**: O(1) access, O(n) insertion/deletion
+- **LinkedList**: O(n) access, O(1) insertion/deletion
+- **Stack/Queue**: O(1) push/pop/offer/poll
+- **PriorityQueue**: O(log n) insertion, O(1) peek, O(log n) removal
+
+### Memory Management
+- Proper cleanup of JavaFX resources
+- Collection size monitoring
+- Garbage collection considerations
+
+## Cross-Platform Compatibility
+
+### Build Scripts
+- **run.sh**: Unix/Linux/macOS execution script
+- **run.bat**: Windows batch execution script
+- **Platform detection** and automatic configuration
+
+### Dependencies
+- **JavaFX 21** with platform-specific modules
+- **Maven 3.9.x** for build management
+- **Java 24** compatibility
+
+## Usage Instructions
+
+### Prerequisites
+1. **Java 24** or later installed
+2. **Maven 3.9.x** or later installed
+3. **JavaFX 21** runtime
+
+### Running the Application
+
+#### On Unix/Linux/macOS:
+```bash
+./run.sh
+```
+
+#### On Windows:
+```cmd
+run.bat
+```
+
+#### Using Maven directly:
+```bash
+mvn clean compile
+mvn javafx:run
+```
+
+## Screenshots
+
+![07-01-List-Stack-Queue-PriorityQueue](images/07-01-List-Stack-Queue-PriorityQueue.png)

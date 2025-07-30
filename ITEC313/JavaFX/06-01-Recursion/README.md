@@ -330,48 +330,6 @@ When adding new algorithms, update the Makefile:
 4. Add the target to the `.PHONY` declaration
 5. Update the help target with the new command
 
-## Troubleshooting
+## Screenshots
 
-### Common Issues
-
-1. **JavaFX not found**: Ensure JavaFX dependencies are properly configured
-2. **Platform-specific issues**: Check that the correct platform dependencies are included
-3. **Memory issues**: Increase JVM heap size if needed: `-Xmx2g`
-4. **Make not found**: Install Make on your system (usually pre-installed on Unix-like systems)
-5. **CLI compilation errors**: Ensure Java is in your PATH and accessible
-
-### Platform-Specific Notes
-
-- **macOS**: May require additional permissions for file system access
-- **Windows**: Ensure proper PATH configuration for Java and Maven (GUI mode only for CLI)
-- **Linux**: May need additional system libraries for JavaFX
-- **CLI Mode**: Works best on Unix-like systems (macOS, Linux)
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
-
-- Original algorithm implementations from Pearson's Java Programming textbook
-- JavaFX team for the excellent GUI framework
-- Maven community for the build tools
-
-## Version History
-
-- **v1.0.0**: Initial release with all seven recursion algorithms
-- Cross-platform support for macOS, Windows, and Linux
-- JavaFX-based user interface
-- Comprehensive documentation and build scripts
-- **v1.1.0**: Added CLI mode with Makefile support
-- Individual algorithm execution via command line
-- Batch execution capabilities
-- Enhanced documentation for both GUI and CLI modes 
+![06-01-Recursion](images/06-01-Recursion.png)
