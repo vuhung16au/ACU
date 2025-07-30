@@ -1,12 +1,11 @@
 
 # Generate the project 
 
-Save your files to the folder same as `README.md`
+Save your files to the folder: /Users/vuhung/00.Work/02.ACU/github/ITEC313/JavaFX/08-03-ClosestPair/
 
 Create a JavaFX application that demonstrates the use of 
 
-- https://algs4.cs.princeton.edu/99hull/ClosestPair.java.html
-
+- https://algs4.cs.princeton.edu/99hull/ClosestPair.java
 -> please fetch (e.g using wget, curl)the code from the links above and use the same classnames here.
 when you got the code from the links, don't combine the code from the links into one file, keep the code as it is and use the same classnames here.
 
