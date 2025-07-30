@@ -1,78 +1,366 @@
-Lecture 8, titled "**Developing Efficient Algorithms**," focuses on analyzing the efficiency of algorithms, primarily using **Big O notation**, and introduces various algorithm design paradigms.
+# JavaFX Binary Search Demo
 
-The main **objectives** of this lecture are to:
-*   Understand why measuring execution time for algorithms is problematic and learn a theoretical approach for analysis.
-*   Grasp the concept of **growth rate** and the **Big O notation**.
-*   Distinguish between **best, worst, and average-case scenarios** for algorithm performance.
-*   Learn how to determine the Big O notation by ignoring multiplicative constants and non-dominating terms.
-*   Analyze the time complexity of various programming constructs like loops and conditional statements.
-*   Analyze the efficiency of specific algorithms, including linear search, binary search, selection sort, recursive and non-recursive Fibonacci, and Euclid's algorithm.
-*   Introduce advanced algorithm design techniques such as **dynamic programming** and **divide-and-conquer**.
+A JavaFX application that demonstrates the binary search algorithm with an interactive graphical interface. This project implements the iterative binary search algorithm from GeeksforGeeks and provides a modern UI for testing and learning.
 
-**Why Analyze Algorithms?**
-Comparing algorithms by measuring their execution time is difficult due to concurrent tasks on a computer and dependency on specific input. For example, a linear search might be faster than binary search if the target element is the very first one in the list. To overcome these issues, a theoretical approach focuses on the **growth rate** of an algorithm's execution time as the input size increases, making comparisons independent of specific computers or input variations.
+## 🎯 Project Overview
 
-**Big O Notation**
-The **Big O notation** is used to abbreviate for "order of magnitude" and describes how an algorithm's execution time increases with input size. For instance, the complexity of linear search is **O(n)** because its execution time is proportional to the size of the array (n). This notation focuses on the **growth rate**, allowing us to **ignore multiplicative constants** (e.g., O(n) is the same as O(n/2) or O(100n)). It also allows for **ignoring non-dominating terms** for large input sizes (e.g., O(n-1) becomes O(n) because as n grows, the '-1' becomes insignificant).
+This application showcases:
+- **Binary Search Algorithm**: Efficient O(log n) search in sorted arrays
+- **JavaFX UI**: Modern, responsive graphical interface
+- **Cross-Platform Support**: Works on macOS, Windows, and Linux
+- **Educational Focus**: Interactive learning tool for algorithm understanding
 
-**Performance Cases (Best, Worst, Average)**
-An algorithm's execution time can vary even for the same input size:
-*   **Best-case input:** Results in the shortest execution time.
-*   **Worst-case input:** Results in the longest execution time. This is often preferred for analysis as it guarantees the algorithm will never be slower than this.
-*   **Average-case analysis:** Attempts to determine the average time across all possible inputs of the same size, but is often difficult to perform.
+## 🚀 Quick Start
 
-**Analyzing Time Complexity in Code Structures:**
-*   **Simple Loops:** A single loop iterating `n` times has a time complexity of **O(n)**.
-*   **Nested Loops:**
-    *   If outer loop is `n` and inner loop is `m`, it's **O(nm)**.
-    *   If inner loop depends on outer loop (e.g., `i` times for `i=1 to n`), it's **O(n^2)**.
-    *   If inner loop is a constant number of times (e.g., 20 times), it remains **O(n)**.
-*   **Sequence:** Operations executed sequentially, where one's time complexity is greater than others, the overall complexity is determined by the largest one. For example, O(10) followed by O(n) results in **O(n)**.
-*   **Selection (if/else):** The time complexity is determined by the test time plus the worst-case branch, e.g., an `if` condition taking O(n) and a loop in `else` taking O(n) results in **O(n)**.
-*   **Constant Time (O(1)):** Operations whose time is not related to the input size, such as retrieving an element at a given array index.
+### Prerequisites
 
-**Algorithm Complexity Examples:**
-*   **Linear Search:** **O(n)** in the worst case.
-*   **Binary Search:** **O(logn)**, which is a logarithmic algorithm that grows slowly. Doubling input size only doubles the time.
-*   **Selection Sort:** **O(n^2)**, a quadratic algorithm that grows quickly. Doubling input size quadruples the time.
-*   **Recursive Fibonacci Numbers:** Exhibits **O(2^n)** time complexity, making it highly inefficient due to redundant computations of subproblems.
-*   **Non-recursive Fibonacci Numbers (Dynamic Programming):** Achieves **O(n)** complexity, a significant improvement by solving each subproblem only once and storing results.
-*   **Euclid's Algorithm for GCD:** Has a time complexity of **O(logn)**.
-*   **Merge Sort:** Divides the array recursively and then merges sorted subarrays. Its time complexity is **O(nlogn)**.
-*   **Quick Sort:** Selects a pivot to partition an array into two sub-arrays and recursively sorts them. In the worst-case, it is **O(n^2)**, but in the best and average cases, it's **O(nlogn)**.
-*   **Heap Sort:** Utilizes a heap data structure (a complete binary tree where each node is greater than or equal to its children). The height of a heap with `n` elements is **O(logn)**. Although not explicitly stated as O(nlogn) in this lecture, it is implied by heap operations and general understanding of efficient sorting.
-*   **Bucket Sort and Radix Sort:** These are specialized sorting algorithms that can perform better than O(nlogn) (the lower bound for comparison-based sorts) if keys are small integers, potentially reaching **O(n)**.
+- **Java**: OpenJDK 24 or later
+- **Maven**: 3.9.x or later
+- **JavaFX**: Included via Maven dependencies
+- **Make**: For using the Makefile (optional)
 
-**Algorithm Design Paradigms:**
-*   **Dynamic Programming:** Solves problems by breaking them into overlapping subproblems, solving each subproblem only once, and storing their results to avoid redundant computation. The non-recursive Fibonacci algorithm is a prime example.
-*   **Divide-and-Conquer:** Divides a problem into non-overlapping subproblems, solves them recursively, and then combines their solutions. Many recursive problems follow this approach.
-*   **Backtracking:** An incremental search approach that abandons a candidate solution as soon as it's determined to be invalid, then explores a new one.
+### Running the Application
 
-**Recursion vs. Iteration:**
-While recursion can be an alternative to loops, it often incurs **substantial overhead** as the system must allocate space for local variables and parameters with each recursive call, consuming memory and requiring extra time for management. However, recursion is beneficial for problems that are inherently recursive.
+#### Using Maven (Recommended):
+```bash
+mvn clean javafx:run
+```
 
-**Comparing Common Growth Functions:**
-The lecture presents a hierarchy of common Big O complexities from most efficient to least efficient:
-*   **O(1)** (Constant time)
-*   **O(logn)** (Logarithmic time)
-*   **O(n)** (Linear time)
-*   **O(nlogn)** (Log-linear time)
-*   **O(n^2)** (Quadratic time)
-*   **O(n^3)** (Cubic time)
-*   **O(2^n)** (Exponential time)
+#### Using Makefile:
+```bash
+# Show all available commands
+make help
 
-Sample code 
+# Run the JavaFX application
+make run-app
 
-- https://www.geeksforgeeks.org/dsa/java-program-for-linear-search/
-- https://www.geeksforgeeks.org/java/binary-search-in-java/
-- https://algs4.cs.princeton.edu/99hull/ClosestPair.java.html
+# Run console-based demos
+make run-all
+```
 
-- https://liveexample.pearsoncmg.com/html/PerformanceTest.html
-- https://liveexample.pearsoncmg.com/dsanimation/SelectionSortNew.html
-- https://liveexample.pearsoncmg.com/html/ComputeFibonacci.html
-- https://liveexample.pearsoncmg.com/html/ImprovedFibonacci.html
-- https://liveexample.pearsoncmg.com/html/PrimeNumber.html
-- https://liveexample.pearsoncmg.com/html/PrimeNumbers.html
-- https://liveexample.pearsoncmg.com/html/EfficientPrimeNumbers.html
-- https://liveexample.pearsoncmg.com/html/SieveOfEratosthenes.html
-- https://liveexample.pearsoncmg.com/html/EightQueens.html
+#### Using Scripts:
+**On macOS/Linux:**
+```bash
+chmod +x run.sh
+./run.sh
+```
+
+**On Windows:**
+```cmd
+run.bat
+```
+
+## 📁 Project Structure
+
+```
+08-02-BinarySearch/
+├── src/main/java/com/acu/javafx/binarysearch/
+│   ├── BinarySearchApp.java    # Main JavaFX application
+│   └── Geeks.java             # Binary search implementation
+├── docs/
+│   ├── architecture.md         # Architecture documentation
+│   └── concepts.md            # Algorithm concepts
+├── pom.xml                    # Maven configuration
+├── Makefile                   # Build automation and testing
+├── run.sh                     # Unix/Linux/macOS run script
+├── run.bat                    # Windows run script
+└── README.md                  # This file
+```
+
+## 🔧 Makefile Overview
+
+The project includes a comprehensive Makefile that provides multiple ways to build, test, and run the binary search implementations. This makes it easy to experiment with different approaches and run various demos.
+
+### Makefile Features
+
+#### **Build Targets**
+- `make build` - Compile console Java applications (excludes JavaFX)
+- `make build-all` - Compile all Java applications (including JavaFX)
+
+#### **Console Application Demos**
+- `make run-geeks` - Original Geeks binary search demo
+- `make run-iterative` - Iterative binary search implementation
+- `make run-recursive` - Recursive binary search implementation
+- `make run-inbuild` - Java's built-in `Arrays.binarySearch()` demo
+- `make run-collections` - Java Collections `binarySearch()` demo
+- `make run-test` - Comprehensive test suite
+
+#### **JavaFX Application**
+- `make run-app` - Run the JavaFX binary search application
+
+#### **Utility Targets**
+- `make run-all` - Run all console applications sequentially
+- `make clean` - Remove all compiled class files
+- `make help` - Show all available commands
+
+### Key Variables
+
+```makefile
+# Source directories and files
+JAVA_SRC_DIR = src/main/java/com/acu/javafx/binarysearch
+JAVA_SRC_FILES = $(shell find $(JAVA_SRC_DIR) -name "*.java")
+
+# Main class names
+GEEKS_CLASS = com.acu.javafx.binarysearch.Geeks
+BINARY_SEARCH_APP_CLASS = com.acu.javafx.binarysearch.BinarySearchApp
+
+# JavaFX module path (requires JavaFX SDK)
+JAVAFX_MODULE_PATH = --module-path /path/to/javafx-sdk/lib --add-modules javafx.controls,javafx.fxml
+```
+
+### Usage Examples
+
+```bash
+# Show all available commands
+make help
+
+# Build and run the JavaFX application
+make run-app
+
+# Run all console demos to compare implementations
+make run-all
+
+# Clean compiled files
+make clean
+
+# Build only console applications
+make build
+
+# Build everything including JavaFX
+make build-all
+```
+
+### JavaFX Configuration
+
+The Makefile includes support for JavaFX applications but requires the JavaFX SDK to be installed. To use the JavaFX features:
+
+1. **Install JavaFX SDK** from [OpenJFX](https://openjfx.io/)
+2. **Update the `JAVAFX_MODULE_PATH`** variable in the Makefile to point to your JavaFX installation
+3. **Run `make run-app`** to launch the JavaFX application
+
+### Benefits of Using Makefile
+
+1. **Multiple Implementations**: Test different binary search approaches
+2. **Educational Value**: Compare iterative vs recursive implementations
+3. **Built-in Testing**: Comprehensive test suite included
+4. **Cross-Platform**: Works on macOS, Linux, and Windows
+5. **Easy Experimentation**: Quick commands for different demos
+6. **Development Workflow**: Streamlined build and test process
+
+## 🔧 Features
+
+### Core Algorithm
+- **Iterative Binary Search**: O(log n) time complexity
+- **Sorted Array Requirement**: Automatic validation
+- **Error Handling**: Comprehensive input validation
+- **Original Implementation**: Based on GeeksforGeeks code
+
+### User Interface
+- **Input Fields**: Array and search element input
+- **Control Buttons**: Search, demo, and clear functions
+- **Output Display**: Real-time results with visual feedback
+- **Error Messages**: User-friendly alert dialogs
+
+### Cross-Platform Support
+- **macOS**: ARM64 and x86_64 architectures
+- **Windows**: x86_64 and ARM64 architectures
+- **Linux**: x86_64 and ARM64 architectures
+
+## 🎮 How to Use
+
+### Basic Usage
+
+1. **Enter Array**: Input a sorted array of integers (comma-separated)
+   - Example: `2, 3, 4, 10, 40`
+
+2. **Enter Search Element**: Specify the element to find
+   - Example: `10`
+
+3. **Click Search**: View results in the output area
+
+### Example Scenarios
+
+#### Successful Search
+- **Array**: `1, 3, 5, 7, 9, 11, 13, 15`
+- **Search**: `7`
+- **Result**: ✅ Element found at index 3
+
+#### Element Not Found
+- **Array**: `2, 4, 6, 8, 10`
+- **Search**: `5`
+- **Result**: ❌ Element not found
+
+#### Original Demo
+- Click "Run Original Demo" to see the original GeeksforGeeks example
+- Demonstrates the algorithm with array `[2, 3, 4, 10, 40]` searching for `10`
+
+## 🏗️ Technical Details
+
+### Algorithm Implementation
+
+The binary search algorithm is implemented in the `Geeks` class:
+
+```java
+static int binarySearch(int a[], int l, int r, int x) {
+    while (l <= r) {
+        int m = (l + r) / 2;
+        
+        if (a[m] == x) {
+            return m;
+        } else if (a[m] > x) {
+            r = m - 1;
+        } else {
+            l = m + 1;
+        }
+    }
+    return -1;
+}
+```
+
+### Time Complexity
+- **Best Case**: O(1) - Element found at middle
+- **Average Case**: O(log n) - Element found after log₂(n) comparisons
+- **Worst Case**: O(log n) - Element not found
+
+### Space Complexity
+- **Iterative Implementation**: O(1) - Constant space
+
+## 🛠️ Development
+
+### Building from Source
+
+```bash
+# Clone the repository
+git clone <repository-url>
+cd 08-02-BinarySearch
+
+# Build the project
+mvn clean compile
+
+# Run the application
+mvn javafx:run
+```
+
+### Creating Executable JAR
+
+```bash
+mvn clean package
+java -jar target/binarysearch-1.0.0.jar
+```
+
+### Development Environment
+
+- **IDE**: IntelliJ IDEA, Eclipse, or VS Code
+- **Java**: OpenJDK 24
+- **Maven**: 3.9.x+
+- **JavaFX**: 21
+
+## 📚 Learning Resources
+
+### Binary Search Concepts
+- **Divide and Conquer**: Algorithm repeatedly divides the search space
+- **Sorted Requirement**: Array must be sorted for binary search to work
+- **Efficiency**: Much faster than linear search for large datasets
+
+### JavaFX Features Used
+- **Layout Management**: VBox, HBox for component organization
+- **Event Handling**: Button clicks and input validation
+- **Styling**: CSS-like inline styles for visual feedback
+- **Alert Dialogs**: Error message display
+
+## 🔍 Testing
+
+### Manual Testing Scenarios
+
+1. **Valid Inputs**:
+   - Sorted arrays with various sizes
+   - Elements present and not present
+   - Boundary conditions (first/last elements)
+
+2. **Invalid Inputs**:
+   - Non-sorted arrays
+   - Non-integer values
+   - Empty arrays
+   - Invalid number formats
+
+3. **Edge Cases**:
+   - Single element arrays
+   - Duplicate elements
+   - Very large arrays
+
+### Automated Testing
+
+```bash
+# Run unit tests (if implemented)
+mvn test
+
+# Run with specific test cases
+mvn test -Dtest=BinarySearchTest
+```
+
+## 🚀 Deployment
+
+### Platform-Specific Builds
+
+The Maven configuration automatically detects the target platform and includes appropriate JavaFX dependencies:
+
+- **macOS**: `mac-aarch64` or `mac-x86_64`
+- **Windows**: `win-x86_64` or `win-aarch64`
+- **Linux**: `linux-x86_64` or `linux-aarch64`
+
+### Distribution
+
+```bash
+# Create platform-specific JAR
+mvn clean package
+
+# The JAR will be created in target/ directory
+# Include JavaFX runtime for distribution
+```
+
+## 🤝 Contributing
+
+### Development Guidelines
+
+1. **Code Style**: Follow Java conventions
+2. **Documentation**: Update docs for new features
+3. **Testing**: Add tests for new functionality
+4. **Cross-Platform**: Ensure compatibility across platforms
+
+### Adding Features
+
+1. **Algorithm Enhancements**:
+   - Recursive implementation
+   - Performance metrics
+   - Visualization features
+
+2. **UI Improvements**:
+   - Step-by-step animation
+   - Array visualization
+   - Interactive tutorials
+
+3. **Educational Features**:
+   - Algorithm explanation
+   - Complexity analysis
+   - Comparison with other algorithms
+
+## 📄 License
+
+This project is part of the ITEC313 JavaFX course materials.
+
+## 🙏 Acknowledgments
+
+- **GeeksforGeeks**: Original binary search implementation
+- **JavaFX Team**: Modern Java UI framework
+- **Maven Community**: Build tool and dependency management
+
+## 📞 Support
+
+For issues or questions:
+1. Check the documentation in `docs/` directory
+2. Review the algorithm concepts in `docs/concepts.md`
+3. Examine the architecture in `docs/architecture.md`
+
+---
+
+**Happy Coding! 🎉**

@@ -6,6 +6,55 @@ Save your files to the folder same as `README.md`
 Create a JavaFX application that demonstrates the use of 
 
 - https://www.geeksforgeeks.org/java/binary-search-in-java/
+```
+// Java implementation of iterative Binary Search
+class Geeks
+{
+   static int binarySearch(int a[], int l, int r, int x)
+    {
+        while (l <= r) {
+            int m = (l + r) / 2;
+
+            // Index of Element Returned
+            if (a[m] == x) {
+                return m;
+
+            // If element is smaller than mid, then
+            // it can only be present in left subarray
+            // so we decrease our r pointer to mid - 1 
+            } else if (a[m] > x) {
+                r = m - 1;
+
+            // Else the element can only be present
+            // in right subarray
+            // so we increase our l pointer to mid + 1
+            } else {
+              l = m + 1;
+            }  
+        }
+
+        // No Element Found
+        return -1;
+    }
+
+    public static void main(String args[])
+    {
+
+        int a[] = { 2, 3, 4, 10, 40 };
+        int n = a.length;
+        int x = 10;
+      
+        int res = binarySearch(a, 0, n - 1, x);
+
+         System.out.println("Element to be searched is : "+ x); 
+
+        if (res == -1)
+            System.out.println("Element is not present in array");
+        else
+            System.out.println("Element is present at index: " + res);
+    }
+}
+```
 
 -> please fetch (e.g using wget, curl)the code from the links above and use the same classnames here.
 when you got the code from the links, don't combine the code from the links into one file, keep the code as it is and use the same classnames here.
