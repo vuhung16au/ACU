@@ -189,3 +189,7 @@ This project is part of the ACU JavaFX learning series.
 - [Maven JavaFX Plugin](https://openjfx.io/maven-plugin.html)
 - [Original ClockPane Example](https://liveexample.pearsoncmg.com/html/ClockPane.html)
 - [Original DisplayClock Example](https://liveexample.pearsoncmg.com/html/DisplayClock.html)
+
+## Screenshots
+
+![JavaFX Clock Pane Demo](images/clock.png)
