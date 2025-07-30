@@ -1,10 +1,9 @@
 
 # Generate the project 
 
-Save your files to the folder same as `README.md`
+Save your files to the folder `08-06-Fibonacci`
 
 Create a JavaFX application that demonstrates the use of 
-
 
 - https://liveexample.pearsoncmg.com/html/ComputeFibonacci.html
 - https://liveexample.pearsoncmg.com/html/ImprovedFibonacci.html
