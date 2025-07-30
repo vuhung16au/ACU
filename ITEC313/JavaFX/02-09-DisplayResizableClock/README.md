@@ -217,18 +217,6 @@ The code follows clean architecture principles:
 - Proper encapsulation in ClockPane
 - Event-driven programming with property listeners
 
-## License
+## Screenshots
 
-This project is part of the ACU JavaFX learning series.
-
-## Contributing
-
-For educational purposes, this project demonstrates:
-- JavaFX application development
-- Custom component creation
-- Responsive UI design
-- Cross-platform compatibility
-
----
-
-**Note**: This is a demonstration project for learning JavaFX concepts. The clock displays the current time when the application starts but does not update in real-time. To add real-time updates, implement a timer mechanism.
+![Display Resizable Clock](images/02-09-DisplayResizableClock.png)
