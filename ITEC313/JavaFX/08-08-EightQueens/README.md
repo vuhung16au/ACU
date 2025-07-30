@@ -1,78 +1,184 @@
-Lecture 8, titled "**Developing Efficient Algorithms**," focuses on analyzing the efficiency of algorithms, primarily using **Big O notation**, and introduces various algorithm design paradigms.
+# Eight Queens JavaFX Application
 
-The main **objectives** of this lecture are to:
-*   Understand why measuring execution time for algorithms is problematic and learn a theoretical approach for analysis.
-*   Grasp the concept of **growth rate** and the **Big O notation**.
-*   Distinguish between **best, worst, and average-case scenarios** for algorithm performance.
-*   Learn how to determine the Big O notation by ignoring multiplicative constants and non-dominating terms.
-*   Analyze the time complexity of various programming constructs like loops and conditional statements.
-*   Analyze the efficiency of specific algorithms, including linear search, binary search, selection sort, recursive and non-recursive Fibonacci, and Euclid's algorithm.
-*   Introduce advanced algorithm design techniques such as **dynamic programming** and **divide-and-conquer**.
+A JavaFX application that demonstrates the solution to the classic Eight Queens puzzle. The application uses a backtracking algorithm to find a valid solution where eight queens are placed on an 8x8 chess board such that no queen can attack another queen.
 
-**Why Analyze Algorithms?**
-Comparing algorithms by measuring their execution time is difficult due to concurrent tasks on a computer and dependency on specific input. For example, a linear search might be faster than binary search if the target element is the very first one in the list. To overcome these issues, a theoretical approach focuses on the **growth rate** of an algorithm's execution time as the input size increases, making comparisons independent of specific computers or input variations.
+## Project Overview
 
-**Big O Notation**
-The **Big O notation** is used to abbreviate for "order of magnitude" and describes how an algorithm's execution time increases with input size. For instance, the complexity of linear search is **O(n)** because its execution time is proportional to the size of the array (n). This notation focuses on the **growth rate**, allowing us to **ignore multiplicative constants** (e.g., O(n) is the same as O(n/2) or O(100n)). It also allows for **ignoring non-dominating terms** for large input sizes (e.g., O(n-1) becomes O(n) because as n grows, the '-1' becomes insignificant).
+The Eight Queens puzzle is a classic constraint satisfaction problem. The goal is to place eight queens on an 8x8 chess board so that no two queens threaten each other. This means no two queens can share the same row, column, or diagonal.
 
-**Performance Cases (Best, Worst, Average)**
-An algorithm's execution time can vary even for the same input size:
-*   **Best-case input:** Results in the shortest execution time.
-*   **Worst-case input:** Results in the longest execution time. This is often preferred for analysis as it guarantees the algorithm will never be slower than this.
-*   **Average-case analysis:** Attempts to determine the average time across all possible inputs of the same size, but is often difficult to perform.
+## Features
 
-**Analyzing Time Complexity in Code Structures:**
-*   **Simple Loops:** A single loop iterating `n` times has a time complexity of **O(n)**.
-*   **Nested Loops:**
-    *   If outer loop is `n` and inner loop is `m`, it's **O(nm)**.
-    *   If inner loop depends on outer loop (e.g., `i` times for `i=1 to n`), it's **O(n^2)**.
-    *   If inner loop is a constant number of times (e.g., 20 times), it remains **O(n)**.
-*   **Sequence:** Operations executed sequentially, where one's time complexity is greater than others, the overall complexity is determined by the largest one. For example, O(10) followed by O(n) results in **O(n)**.
-*   **Selection (if/else):** The time complexity is determined by the test time plus the worst-case branch, e.g., an `if` condition taking O(n) and a loop in `else` taking O(n) results in **O(n)**.
-*   **Constant Time (O(1)):** Operations whose time is not related to the input size, such as retrieving an element at a given array index.
+- **Visual Chess Board**: 8x8 grid with clear borders
+- **Queen Representation**: Gold queen symbols (♕) on the board
+- **Backtracking Algorithm**: Efficient solution finding using recursive backtracking
+- **Cross-Platform Support**: Runs on macOS, Windows, and Linux
+- **Modern JavaFX UI**: Clean, responsive interface
 
-**Algorithm Complexity Examples:**
-*   **Linear Search:** **O(n)** in the worst case.
-*   **Binary Search:** **O(logn)**, which is a logarithmic algorithm that grows slowly. Doubling input size only doubles the time.
-*   **Selection Sort:** **O(n^2)**, a quadratic algorithm that grows quickly. Doubling input size quadruples the time.
-*   **Recursive Fibonacci Numbers:** Exhibits **O(2^n)** time complexity, making it highly inefficient due to redundant computations of subproblems.
-*   **Non-recursive Fibonacci Numbers (Dynamic Programming):** Achieves **O(n)** complexity, a significant improvement by solving each subproblem only once and storing results.
-*   **Euclid's Algorithm for GCD:** Has a time complexity of **O(logn)**.
-*   **Merge Sort:** Divides the array recursively and then merges sorted subarrays. Its time complexity is **O(nlogn)**.
-*   **Quick Sort:** Selects a pivot to partition an array into two sub-arrays and recursively sorts them. In the worst-case, it is **O(n^2)**, but in the best and average cases, it's **O(nlogn)**.
-*   **Heap Sort:** Utilizes a heap data structure (a complete binary tree where each node is greater than or equal to its children). The height of a heap with `n` elements is **O(logn)**. Although not explicitly stated as O(nlogn) in this lecture, it is implied by heap operations and general understanding of efficient sorting.
-*   **Bucket Sort and Radix Sort:** These are specialized sorting algorithms that can perform better than O(nlogn) (the lower bound for comparison-based sorts) if keys are small integers, potentially reaching **O(n)**.
+## Technical Specifications
 
-**Algorithm Design Paradigms:**
-*   **Dynamic Programming:** Solves problems by breaking them into overlapping subproblems, solving each subproblem only once, and storing their results to avoid redundant computation. The non-recursive Fibonacci algorithm is a prime example.
-*   **Divide-and-Conquer:** Divides a problem into non-overlapping subproblems, solves them recursively, and then combines their solutions. Many recursive problems follow this approach.
-*   **Backtracking:** An incremental search approach that abandons a candidate solution as soon as it's determined to be invalid, then explores a new one.
+### Development Environment
 
-**Recursion vs. Iteration:**
-While recursion can be an alternative to loops, it often incurs **substantial overhead** as the system must allocate space for local variables and parameters with each recursive call, consuming memory and requiring extra time for management. However, recursion is beneficial for problems that are inherently recursive.
+- **Java Version**: OpenJDK 24
+- **JavaFX Version**: 21
+- **Maven Version**: 3.9.x or later
+- **Target Platform**: Cross-platform (macOS, Windows, Linux)
 
-**Comparing Common Growth Functions:**
-The lecture presents a hierarchy of common Big O complexities from most efficient to least efficient:
-*   **O(1)** (Constant time)
-*   **O(logn)** (Logarithmic time)
-*   **O(n)** (Linear time)
-*   **O(nlogn)** (Log-linear time)
-*   **O(n^2)** (Quadratic time)
-*   **O(n^3)** (Cubic time)
-*   **O(2^n)** (Exponential time)
+### Architecture Support
 
-Sample code 
+- **macOS**: Intel (x86_64) and Apple Silicon (ARM64)
+- **Windows**: x86_64 and ARM64
+- **Linux**: x86_64 and ARM64
 
-- https://www.geeksforgeeks.org/dsa/java-program-for-linear-search/
-- https://www.geeksforgeeks.org/java/binary-search-in-java/
-- https://algs4.cs.princeton.edu/99hull/ClosestPair.java.html
+## Project Structure
 
-- https://liveexample.pearsoncmg.com/html/PerformanceTest.html
-- https://liveexample.pearsoncmg.com/dsanimation/SelectionSortNew.html
-- https://liveexample.pearsoncmg.com/html/ComputeFibonacci.html
-- https://liveexample.pearsoncmg.com/html/ImprovedFibonacci.html
-- https://liveexample.pearsoncmg.com/html/PrimeNumber.html
-- https://liveexample.pearsoncmg.com/html/PrimeNumbers.html
-- https://liveexample.pearsoncmg.com/html/EfficientPrimeNumbers.html
-- https://liveexample.pearsoncmg.com/html/SieveOfEratosthenes.html
-- https://liveexample.pearsoncmg.com/html/EightQueens.html
+```
+08-08-EightQueens/
+├── src/
+│   └── main/
+│       ├── java/
+│       │   └── com/acu/javafx/eightqueens/
+│       │       └── EightQueens.java          # Main application class
+│       └── resources/
+│           └── image/
+│               └── queen.svg                  # Queen image (SVG format)
+├── pom.xml                                    # Maven configuration
+├── run.sh                                     # Unix/Linux/macOS execution script
+├── run.bat                                    # Windows execution script
+├── run_direct.sh                              # Direct Java execution script
+└── README.md                                  # Project documentation
+```
+
+## Algorithm
+
+The application uses a backtracking algorithm to solve the Eight Queens puzzle:
+
+1. **Initialization**: Start with an empty 8x8 board
+2. **Row-by-Row Placement**: Place queens one row at a time
+3. **Constraint Checking**: For each placement, verify:
+   - No queen in the same column
+   - No queen in the same diagonal (both directions)
+4. **Backtracking**: If no valid position is found in a row, backtrack to the previous row
+5. **Solution Found**: When all 8 queens are placed successfully
+
+### Key Methods
+
+- `search()`: Main backtracking algorithm
+- `findPosition(int k)`: Finds a valid position in row k
+- `isValid(int row, int column)`: Checks if a position is valid
+
+## Building and Running
+
+### Prerequisites
+
+- Java 24 (OpenJDK or Oracle JDK)
+- Maven 3.9.x or later
+- JavaFX 21
+
+### Using Maven (Recommended)
+
+#### Unix/Linux/macOS
+```bash
+chmod +x run.sh
+./run.sh
+```
+
+#### Windows
+```cmd
+run.bat
+```
+
+### Direct Java Execution
+
+#### Unix/Linux/macOS
+```bash
+chmod +x run_direct.sh
+./run_direct.sh
+```
+
+### Manual Maven Commands
+
+```bash
+# Clean and compile
+mvn clean compile
+
+# Run the application
+mvn javafx:run
+
+# Package the application
+mvn clean package
+
+# Run the packaged JAR
+java -jar target/eightqueens-1.0.0.jar
+```
+
+## Usage
+
+1. Run the application using one of the provided scripts
+2. The application will automatically find a solution to the Eight Queens puzzle
+3. A window will display the 8x8 chess board with queens placed in valid positions
+4. Each queen is represented by a gold queen symbol (♕)
+
+## Solution Details
+
+The application finds one valid solution to the Eight Queens puzzle. The solution ensures that:
+
+- Each queen is in a different row
+- Each queen is in a different column
+- No two queens share the same diagonal
+
+The backtracking algorithm guarantees finding a valid solution if one exists (which it does for the 8-queens problem).
+
+## Cross-Platform Compatibility
+
+### Platform Detection
+
+The Maven configuration includes platform detection to automatically handle different architectures:
+
+- **macOS**: Detects Apple Silicon (ARM64) vs Intel (x86_64)
+- **Windows**: Supports both x86_64 and ARM64
+- **Linux**: Supports both x86_64 and ARM64
+
+### JavaFX Dependencies
+
+The project uses JavaFX 21 with platform-specific dependencies managed by Maven's platform detection.
+
+## Troubleshooting
+
+### Common Issues
+
+1. **JavaFX not found**: Ensure JavaFX 21 is installed and properly configured
+2. **Maven not found**: Install Maven 3.9.x or later
+3. **Java version issues**: Ensure Java 24 is installed and set as default
+
+### Platform-Specific Notes
+
+- **macOS**: JavaFX is included with recent JDK distributions
+- **Windows**: May need to download JavaFX separately
+- **Linux**: Install OpenJFX package: `sudo apt install openjfx` (Ubuntu/Debian)
+
+## Development
+
+### Adding Features
+
+To extend the application:
+
+1. **Multiple Solutions**: Modify the algorithm to find all 92 solutions
+2. **Interactive Placement**: Allow users to place queens manually
+3. **Animation**: Add visual backtracking animation
+4. **Different Board Sizes**: Extend to N-queens problem
+
+### Code Structure
+
+The main class `EightQueens` extends `Application` and contains:
+
+- **UI Components**: GridPane for chess board, Labels for cells
+- **Algorithm Logic**: Backtracking implementation
+- **Styling**: CSS styling for visual appearance
+
+## License
+
+This project is part of the ITEC313 JavaFX course materials.
+
+## Contributing
+
+This is an educational project. For questions or improvements, please refer to the course instructor.
