@@ -1,78 +1,200 @@
-Lecture 8, titled "**Developing Efficient Algorithms**," focuses on analyzing the efficiency of algorithms, primarily using **Big O notation**, and introduces various algorithm design paradigms.
+# Prime Numbers Algorithms Demo
 
-The main **objectives** of this lecture are to:
-*   Understand why measuring execution time for algorithms is problematic and learn a theoretical approach for analysis.
-*   Grasp the concept of **growth rate** and the **Big O notation**.
-*   Distinguish between **best, worst, and average-case scenarios** for algorithm performance.
-*   Learn how to determine the Big O notation by ignoring multiplicative constants and non-dominating terms.
-*   Analyze the time complexity of various programming constructs like loops and conditional statements.
-*   Analyze the efficiency of specific algorithms, including linear search, binary search, selection sort, recursive and non-recursive Fibonacci, and Euclid's algorithm.
-*   Introduce advanced algorithm design techniques such as **dynamic programming** and **divide-and-conquer**.
+A JavaFX application that demonstrates four different prime number algorithms from the textbook "Introduction to Java Programming and Data Structures, 13E" by Y. Daniel Liang.
 
-**Why Analyze Algorithms?**
-Comparing algorithms by measuring their execution time is difficult due to concurrent tasks on a computer and dependency on specific input. For example, a linear search might be faster than binary search if the target element is the very first one in the list. To overcome these issues, a theoretical approach focuses on the **growth rate** of an algorithm's execution time as the input size increases, making comparisons independent of specific computers or input variations.
+## Overview
 
-**Big O Notation**
-The **Big O notation** is used to abbreviate for "order of magnitude" and describes how an algorithm's execution time increases with input size. For instance, the complexity of linear search is **O(n)** because its execution time is proportional to the size of the array (n). This notation focuses on the **growth rate**, allowing us to **ignore multiplicative constants** (e.g., O(n) is the same as O(n/2) or O(100n)). It also allows for **ignoring non-dominating terms** for large input sizes (e.g., O(n-1) becomes O(n) because as n grows, the '-1' becomes insignificant).
+This application provides an interactive GUI to run and compare different prime number algorithms:
 
-**Performance Cases (Best, Worst, Average)**
-An algorithm's execution time can vary even for the same input size:
-*   **Best-case input:** Results in the shortest execution time.
-*   **Worst-case input:** Results in the longest execution time. This is often preferred for analysis as it guarantees the algorithm will never be slower than this.
-*   **Average-case analysis:** Attempts to determine the average time across all possible inputs of the same size, but is often difficult to perform.
+1. **PrimeNumber** - Finds the first 50 prime numbers using basic trial division
+2. **PrimeNumbers** - Finds all prime numbers ≤ n using optimized trial division
+3. **EfficientPrimeNumbers** - Uses an optimized algorithm with a list of known primes
+4. **SieveOfEratosthenes** - Implements the classic Sieve of Eratosthenes algorithm
 
-**Analyzing Time Complexity in Code Structures:**
-*   **Simple Loops:** A single loop iterating `n` times has a time complexity of **O(n)**.
-*   **Nested Loops:**
-    *   If outer loop is `n` and inner loop is `m`, it's **O(nm)**.
-    *   If inner loop depends on outer loop (e.g., `i` times for `i=1 to n`), it's **O(n^2)**.
-    *   If inner loop is a constant number of times (e.g., 20 times), it remains **O(n)**.
-*   **Sequence:** Operations executed sequentially, where one's time complexity is greater than others, the overall complexity is determined by the largest one. For example, O(10) followed by O(n) results in **O(n)**.
-*   **Selection (if/else):** The time complexity is determined by the test time plus the worst-case branch, e.g., an `if` condition taking O(n) and a loop in `else` taking O(n) results in **O(n)**.
-*   **Constant Time (O(1)):** Operations whose time is not related to the input size, such as retrieving an element at a given array index.
+## Features
 
-**Algorithm Complexity Examples:**
-*   **Linear Search:** **O(n)** in the worst case.
-*   **Binary Search:** **O(logn)**, which is a logarithmic algorithm that grows slowly. Doubling input size only doubles the time.
-*   **Selection Sort:** **O(n^2)**, a quadratic algorithm that grows quickly. Doubling input size quadruples the time.
-*   **Recursive Fibonacci Numbers:** Exhibits **O(2^n)** time complexity, making it highly inefficient due to redundant computations of subproblems.
-*   **Non-recursive Fibonacci Numbers (Dynamic Programming):** Achieves **O(n)** complexity, a significant improvement by solving each subproblem only once and storing results.
-*   **Euclid's Algorithm for GCD:** Has a time complexity of **O(logn)**.
-*   **Merge Sort:** Divides the array recursively and then merges sorted subarrays. Its time complexity is **O(nlogn)**.
-*   **Quick Sort:** Selects a pivot to partition an array into two sub-arrays and recursively sorts them. In the worst-case, it is **O(n^2)**, but in the best and average cases, it's **O(nlogn)**.
-*   **Heap Sort:** Utilizes a heap data structure (a complete binary tree where each node is greater than or equal to its children). The height of a heap with `n` elements is **O(logn)**. Although not explicitly stated as O(nlogn) in this lecture, it is implied by heap operations and general understanding of efficient sorting.
-*   **Bucket Sort and Radix Sort:** These are specialized sorting algorithms that can perform better than O(nlogn) (the lower bound for comparison-based sorts) if keys are small integers, potentially reaching **O(n)**.
+- **Interactive GUI**: Modern JavaFX interface with dropdown selection and input fields
+- **Real-time Output**: Captures and displays console output in a scrollable text area
+- **Multiple Algorithms**: Compare different approaches to finding prime numbers
+- **Cross-platform**: Works on macOS, Windows, and Linux
+- **Input Validation**: Handles user input for algorithms that require it
 
-**Algorithm Design Paradigms:**
-*   **Dynamic Programming:** Solves problems by breaking them into overlapping subproblems, solving each subproblem only once, and storing their results to avoid redundant computation. The non-recursive Fibonacci algorithm is a prime example.
-*   **Divide-and-Conquer:** Divides a problem into non-overlapping subproblems, solves them recursively, and then combines their solutions. Many recursive problems follow this approach.
-*   **Backtracking:** An incremental search approach that abandons a candidate solution as soon as it's determined to be invalid, then explores a new one.
+## Algorithms Explained
 
-**Recursion vs. Iteration:**
-While recursion can be an alternative to loops, it often incurs **substantial overhead** as the system must allocate space for local variables and parameters with each recursive call, consuming memory and requiring extra time for management. However, recursion is beneficial for problems that are inherently recursive.
+### 1. PrimeNumber
+- **Purpose**: Finds the first 50 prime numbers
+- **Method**: Basic trial division up to n/2
+- **Complexity**: O(n²) for each number tested
+- **Use Case**: Educational demonstration of basic prime testing
 
-**Comparing Common Growth Functions:**
-The lecture presents a hierarchy of common Big O complexities from most efficient to least efficient:
-*   **O(1)** (Constant time)
-*   **O(logn)** (Logarithmic time)
-*   **O(n)** (Linear time)
-*   **O(nlogn)** (Log-linear time)
-*   **O(n^2)** (Quadratic time)
-*   **O(n^3)** (Cubic time)
-*   **O(2^n)** (Exponential time)
+### 2. PrimeNumbers
+- **Purpose**: Finds all primes ≤ n
+- **Method**: Trial division up to √n (optimized)
+- **Complexity**: O(n√n)
+- **Use Case**: Finding primes up to a specific limit
 
-Sample code 
+### 3. EfficientPrimeNumbers
+- **Purpose**: Finds all primes ≤ n efficiently
+- **Method**: Uses list of known primes for testing
+- **Complexity**: O(n log log n)
+- **Use Case**: More efficient than basic trial division
 
-- https://www.geeksforgeeks.org/dsa/java-program-for-linear-search/
-- https://www.geeksforgeeks.org/java/binary-search-in-java/
-- https://algs4.cs.princeton.edu/99hull/ClosestPair.java.html
+### 4. SieveOfEratosthenes
+- **Purpose**: Finds all primes ≤ n using sieve method
+- **Method**: Marks non-prime numbers in a boolean array
+- **Complexity**: O(n log log n)
+- **Use Case**: Most efficient for finding all primes up to n
 
-- https://liveexample.pearsoncmg.com/html/PerformanceTest.html
-- https://liveexample.pearsoncmg.com/dsanimation/SelectionSortNew.html
-- https://liveexample.pearsoncmg.com/html/ComputeFibonacci.html
-- https://liveexample.pearsoncmg.com/html/ImprovedFibonacci.html
-- https://liveexample.pearsoncmg.com/html/PrimeNumber.html
-- https://liveexample.pearsoncmg.com/html/PrimeNumbers.html
-- https://liveexample.pearsoncmg.com/html/EfficientPrimeNumbers.html
-- https://liveexample.pearsoncmg.com/html/SieveOfEratosthenes.html
-- https://liveexample.pearsoncmg.com/html/EightQueens.html
+## Technical Specifications
+
+### Development Environment
+- **Java Version**: OpenJDK 24
+- **JavaFX Version**: 21
+- **Maven Version**: 3.9.x or later
+- **Target Platform**: Cross-platform (macOS, Windows, Linux)
+
+### Supported Architectures
+- **macOS**: Intel (x86_64) and Apple Silicon (ARM64)
+- **Windows**: x86_64 and ARM64
+- **Linux**: x86_64 and ARM64
+
+## Installation and Setup
+
+### Prerequisites
+1. **Java 24 or later** - [Download OpenJDK](https://adoptium.net/)
+2. **Maven 3.9.x or later** - [Download Maven](https://maven.apache.org/download.cgi)
+
+### Quick Start
+
+#### On macOS/Linux:
+```bash
+# Make scripts executable
+chmod +x run.sh run_direct.sh
+
+# Run with Maven (recommended)
+./run.sh
+
+# Or run directly (requires JavaFX installation)
+./run_direct.sh
+```
+
+#### On Windows:
+```cmd
+# Run with Maven (recommended)
+run.bat
+```
+
+#### Using Maven directly:
+```bash
+# Clean and compile
+mvn clean compile
+
+# Run the application
+mvn javafx:run
+
+# Or build executable JAR
+mvn clean package
+java -jar target/prime-numbers-demo-1.0.0.jar
+```
+
+## Usage
+
+1. **Select Algorithm**: Choose from the dropdown menu
+2. **Enter Input**: For algorithms that need input, enter a number (e.g., 100)
+3. **Run Algorithm**: Click "Run Algorithm" to execute
+4. **View Results**: Output appears in the scrollable text area
+5. **Clear Output**: Use "Clear Output" to start fresh
+
+### Example Usage
+
+1. Select "PrimeNumber - First 50 primes" and click "Run Algorithm"
+   - Shows the first 50 prime numbers
+
+2. Select "SieveOfEratosthenes - Sieve algorithm", enter "100", and click "Run Algorithm"
+   - Shows all prime numbers ≤ 100
+
+## Project Structure
+
+```
+08-07-PrimeNumbers/
+├── src/main/java/com/acu/javafx/primenumbers/
+│   ├── PrimeNumber.java              # Basic prime number algorithm
+│   ├── PrimeNumbers.java             # Optimized trial division
+│   ├── EfficientPrimeNumbers.java    # List-based optimization
+│   ├── SieveOfEratosthenes.java     # Sieve algorithm
+│   └── PrimeNumbersDemo.java        # Main JavaFX application
+├── pom.xml                          # Maven configuration
+├── run.sh                           # Unix/Linux/macOS script
+├── run.bat                          # Windows script
+├── run_direct.sh                    # Direct Java execution
+└── README.md                        # This file
+```
+
+## Build Configuration
+
+### Maven Configuration
+The `pom.xml` includes:
+- JavaFX dependencies with platform-specific classifiers
+- Maven compiler plugin configured for Java 24
+- JavaFX Maven plugin for running the application
+- Maven Shade plugin for creating executable JARs
+- Cross-platform profiles for different operating systems
+
+### Platform Detection
+The build automatically detects the platform and includes appropriate JavaFX modules:
+- **macOS**: Uses `mac` profile
+- **Windows**: Uses `windows` profile  
+- **Linux**: Uses `linux` profile
+
+## Troubleshooting
+
+### Common Issues
+
+1. **JavaFX not found**
+   - Solution: Use the Maven script (`run.sh` or `run.bat`) which handles dependencies automatically
+
+2. **Java version too old**
+   - Solution: Install Java 24 or later from [Adoptium](https://adoptium.net/)
+
+3. **Maven not found**
+   - Solution: Install Maven from [Apache Maven](https://maven.apache.org/download.cgi)
+
+4. **Permission denied on scripts**
+   - Solution: Run `chmod +x run.sh run_direct.sh` on Unix-like systems
+
+### Platform-Specific Notes
+
+#### macOS
+- JavaFX is automatically managed by Maven
+- Works on both Intel and Apple Silicon Macs
+
+#### Windows
+- Use `run.bat` for easiest execution
+- Ensure Java and Maven are in PATH
+
+#### Linux
+- May need to install additional packages: `sudo apt-get install openjfx`
+- Use `run.sh` for execution
+
+## Performance Comparison
+
+| Algorithm | Time Complexity | Space Complexity | Best For |
+|-----------|----------------|------------------|----------|
+| PrimeNumber | O(n²) | O(1) | Educational |
+| PrimeNumbers | O(n√n) | O(1) | Small ranges |
+| EfficientPrimeNumbers | O(n log log n) | O(π(n)) | Medium ranges |
+| SieveOfEratosthenes | O(n log log n) | O(n) | Large ranges |
+
+## Contributing
+
+This project is part of the ITEC313 JavaFX course. The algorithms are sourced from the textbook examples and adapted for JavaFX demonstration.
+
+## License
+
+This project is for educational purposes. The algorithms are from "Introduction to Java Programming and Data Structures, 13E" by Y. Daniel Liang.
+
+## Acknowledgments
+
+- **Y. Daniel Liang** - Original algorithm implementations
+- **OpenJFX Team** - JavaFX framework
+- **Apache Maven** - Build tool
