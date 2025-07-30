@@ -37,7 +37,7 @@ Each sub-folder follows the naming convention `0x-0x-TopicName` and contains:
 3. **Study Data Structures**: Move to `07-xx` and `12-xx` folders for in-depth data structure and algorithm demos.
 4. **Follow the Order**: The folder numbering suggests a recommended learning path, from basic to advanced.
 5. **Time Required**: Each module typically takes 1-3 hours, depending on complexity and prior experience. The full course can be completed in 2-4 weeks with regular study.
-6. **Hands-on Practice**: Run the JavaFX applications, modify the code, and complete the exercises in each Prompt.md or README.md.
+6. **Hands-on Practice**: Run the JavaFX applications, modify the code.
 
 ## Exercises for Learners
 
