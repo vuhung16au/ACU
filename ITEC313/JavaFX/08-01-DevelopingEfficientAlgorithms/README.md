@@ -63,10 +63,9 @@ The lecture presents a hierarchy of common Big O complexities from most efficien
 
 Sample code 
 
-- http://www.cs.armstrong.edu/liang/animation/web/LinearSearch.htm -> dead link 
-- http://www.cs.armstrong.edu/liang/animation/web/BinarySearch.html -> dead link
-- http://www.cs.armstrong.edu/liang/animation/web/ClosestPair.html -> dead link
-
+- https://www.geeksforgeeks.org/dsa/java-program-for-linear-search/
+- https://www.geeksforgeeks.org/java/binary-search-in-java/
+- https://algs4.cs.princeton.edu/99hull/ClosestPair.java.html
 
 - https://liveexample.pearsoncmg.com/html/PerformanceTest.html
 - https://liveexample.pearsoncmg.com/dsanimation/SelectionSortNew.html
