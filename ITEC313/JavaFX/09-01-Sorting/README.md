@@ -102,6 +102,29 @@ mvn clean compile
 mvn javafx:run
 ```
 
+#### Using Makefile:
+```bash
+# Build all Java files
+make build
+
+# Run individual sorting algorithms
+make run_BubbleSort
+make run_HeapSort
+make run_InsertionSort
+make run_MergeSort
+make run_QuickSort
+make run_RadixSort
+
+# Run all CLI sorting algorithms in sequence
+make run-all-cli
+
+# Run the JavaFX visualizer
+make run_SortingDemo
+
+# Clean compiled files
+make clean
+```
+
 ## Usage
 
 ### Main Interface
