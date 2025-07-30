@@ -1,5 +1,7 @@
 package com.acu.javafx.linearsearch;
 
+import java.util.Arrays;
+
 /**
  * Geeks class containing the linear search implementation
  * Based on the code from: https://www.geeksforgeeks.org/dsa/java-program-for-linear-search/
@@ -34,9 +36,12 @@ public class Geeks {
         int[] a = { 3, 4, 1, 7, 5 };
         int n = a.length;
         
-        int x = 4;
+        int x = 7;
         
         int index = search(a, n, x);
+
+        // print the array
+        System.out.println("Array: " + Arrays.toString(a));
         
         if (index == -1)
             System.out.println("Element is not present in the array");

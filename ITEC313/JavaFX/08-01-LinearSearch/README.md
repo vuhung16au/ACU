@@ -61,6 +61,63 @@ The lecture presents a hierarchy of common Big O complexities from most efficien
 *   **O(n^3)** (Cubic time)
 *   **O(2^n)** (Exponential time)
 
+## Running the Linear Search Demos
+
+This project includes two different linear search implementations that you can run:
+
+### 1. Geeks Linear Search Demo (Console-based)
+
+To run the console-based linear search demo from GeeksforGeeks:
+
+```bash
+make compile-geeks; make run-geeks
+```
+
+This will:
+- Compile the `Geeks.java` class (no JavaFX dependencies required)
+- Run the console-based linear search demonstration
+
+### 2. JavaFX Linear Search Demo (GUI-based)
+
+To run the JavaFX-based linear search application with a graphical user interface:
+
+```bash
+# Option 1: Using Make
+make run
+
+# Option 2: Using Maven (recommended)
+make run-maven
+```
+
+The JavaFX demo provides an interactive GUI where you can:
+- Enter numbers to create an array
+- Search for specific values
+- Visualize the linear search algorithm in action
+- See the search results and performance metrics
+
+### Additional Make Commands
+
+```bash
+# Clean build artifacts
+make clean
+
+# Clean Maven artifacts
+make clean-maven
+
+# Build JAR file
+make build
+
+# Build fat JAR with dependencies
+make fat-jar
+```
+
+### Prerequisites
+
+- Java 24 or later
+- JavaFX 21 or later
+- Maven (for Maven-based commands)
+- Make (for Make-based commands)
+
 Sample code 
 
 - https://www.geeksforgeeks.org/dsa/java-program-for-linear-search/
