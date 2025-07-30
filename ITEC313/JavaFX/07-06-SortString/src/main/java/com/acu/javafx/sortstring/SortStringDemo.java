@@ -52,12 +52,12 @@ public class SortStringDemo extends Application {
         inputLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
 
         inputField = new TextField();
-        inputField.setPromptText("Enter strings separated by commas (e.g., Atlanta, Savannah, New York, Dallas)");
+        inputField.setPromptText("Enter strings separated by commas (e.g., Sydney, Melbourne, Brisbane, Perth)");
         inputField.setPrefWidth(500);
         inputField.setPrefHeight(40);
 
         // Set default text
-        inputField.setText("Atlanta, Savannah, New York, Dallas");
+        inputField.setText("Sydney, Melbourne, Brisbane, Perth");
 
         inputSection.getChildren().addAll(inputLabel, inputField);
 
@@ -179,7 +179,7 @@ public class SortStringDemo extends Application {
 
     private void clearOutput() {
         outputArea.clear();
-        inputField.setText("Atlanta, Savannah, New York, Dallas");
+        inputField.setText("Sydney, Melbourne, Brisbane, Perth");
     }
 
     private void showError(String message) {

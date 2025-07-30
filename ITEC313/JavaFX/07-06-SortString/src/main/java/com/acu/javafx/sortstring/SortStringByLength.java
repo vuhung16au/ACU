@@ -9,7 +9,7 @@ import java.util.Comparator;
  */
 public class SortStringByLength {
     public static void main(String[] args) {
-        String[] cities = {"Atlanta", "Savannah", "New York", "Dallas"};
+        String[] cities = {"Sydney", "Melbourne", "Brisbane", "Perth"};
         Arrays.sort(cities, new MyComparator());
 
         for (String s : cities) {
