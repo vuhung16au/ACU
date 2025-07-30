@@ -187,3 +187,7 @@ After understanding this basic structure, explore:
 - [02-03-ControlCircle](../02-03-ControlCircle) - Same application with event handlers
 - [02-01-HandleEvent](../02-01-HandleEvent) - Comprehensive event handling examples
 - [01-03-Panes.UI.Controls.Shapes](../01-03-Panes.UI.Controls.Shapes) - More complex UI controls and shapes
+
+## Screenshots
+
+![JavaFX Control Circle Without Event Handling Demo](images/02-02-ControlCircle.png)
