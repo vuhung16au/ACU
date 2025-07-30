@@ -228,17 +228,7 @@ The project must be buildable and runnable on:
 - Cross-platform compatibility testing
 - Performance benchmarking
 
-## License
+## Screenshots
 
-This project is part of the JavaFX learning series and follows the same licensing terms as the parent repository.
+![JavaFX Text Font Color Demo](images/JavaFX_Text__Font___Color_Demo.png) ![JavaFX Text Font Color Demo](images/JavaFX_Text__Font___Color_Demo2.png) ![JavaFX Text Font Color Demo](images/JavaFX_Text__Font___Color_Demo3.png) ![JavaFX Text Font Color Demo](images/JavaFX_Text__Font___Color_Demo4.png)
 
-## Acknowledgments
-
-- **Original Examples**: Based on examples from [Pearson LiveExample](https://liveexample.pearsoncmg.com/)
-- **JavaFX Team**: For the excellent UI framework
-- **Maven Community**: For the robust build system
-- **OpenJDK Team**: For the modern Java platform
-
----
-
-**Note**: This project demonstrates educational concepts and should be used for learning purposes. For production applications, consider additional security, testing, and deployment considerations.

@@ -203,9 +203,8 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Examples
 
-The shape demonstrations are based on examples from:
-- Line: https://liveexample.pearsoncmg.com/html/ShowLine.html
-- Ellipse: https://liveexample.pearsoncmg.com/html/ShowEllipse.html
-- Rectangle: https://liveexample.pearsoncmg.com/html/ShowRectangle.html
-- Arc: https://liveexample.pearsoncmg.com/html/ShowArc.html
-- Polygon: https://liveexample.pearsoncmg.com/html/ShowPolygon.html
+## Screenshots
+
+![JavaFX More Shapes Demo](images/JavaFx-MoreShapes-Demo.png)
+![JavaFX Shape Demo](images/JavaFX_More_Shapes_Demo.png) ![JavaFX Shape Demo](images/JavaFX_More_Shapes_Demo2.png) ![JavaFX Shape Demo](images/JavaFX_More_Shapes_Demo3.png) ![JavaFX Shape Demo](images/JavaFX_More_Shapes_Demo4.png) ![JavaFX Shape Demo](images/JavaFX_More_Shapes_Demo5.png)
+
