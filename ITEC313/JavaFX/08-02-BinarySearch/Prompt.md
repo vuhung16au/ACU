@@ -5,24 +5,12 @@ Save your files to the folder same as `README.md`
 
 Create a JavaFX application that demonstrates the use of 
 
-
-- https://www.geeksforgeeks.org/dsa/java-program-for-linear-search/
 - https://www.geeksforgeeks.org/java/binary-search-in-java/
-- https://algs4.cs.princeton.edu/99hull/ClosestPair.java.html
 
-- https://liveexample.pearsoncmg.com/html/PerformanceTest.html
-- https://liveexample.pearsoncmg.com/dsanimation/SelectionSortNew.html
-- https://liveexample.pearsoncmg.com/html/ComputeFibonacci.html
-- https://liveexample.pearsoncmg.com/html/ImprovedFibonacci.html
-- https://liveexample.pearsoncmg.com/html/PrimeNumber.html
-- https://liveexample.pearsoncmg.com/html/PrimeNumbers.html
-- https://liveexample.pearsoncmg.com/html/EfficientPrimeNumbers.html
-- https://liveexample.pearsoncmg.com/html/SieveOfEratosthenes.html
-- https://liveexample.pearsoncmg.com/html/EightQueens.html
 -> please fetch (e.g using wget, curl)the code from the links above and use the same classnames here.
 when you got the code from the links, don't combine the code from the links into one file, keep the code as it is and use the same classnames here.
 
-package name: com.acu.javafx.developingefficientalgorithms
+package name: com.acu.javafx.binarysearch
 
 ## Technical Specifications
 
