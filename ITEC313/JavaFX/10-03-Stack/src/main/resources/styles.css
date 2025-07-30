@@ -1,0 +1,53 @@
+/* Stack Demo Application Styles */
+
+.root {
+    -fx-background-color: #f5f5f5;
+    -fx-font-family: "Arial", sans-serif;
+}
+
+.button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-padding: 8px 16px;
+    -fx-cursor: hand;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+}
+
+.button:hover {
+    -fx-background-color: #45a049;
+}
+
+.button:pressed {
+    -fx-background-color: #3d8b40;
+}
+
+.text-field {
+    -fx-background-color: white;
+    -fx-border-color: #ddd;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-padding: 8px;
+    -fx-font-size: 12px;
+}
+
+.text-field:focused {
+    -fx-border-color: #4CAF50;
+}
+
+.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333;
+}
+
+#canvas {
+    -fx-border-color: #ddd;
+    -fx-border-width: 1px;
+    -fx-background-color: white;
+}
+
+#statusLabel {
+    -fx-font-weight: bold;
+    -fx-text-fill: #2E8B57;
+} 
