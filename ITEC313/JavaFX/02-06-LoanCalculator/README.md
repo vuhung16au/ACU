@@ -275,26 +275,6 @@ mvn javafx:run -X
 - Include error handling for all user inputs
 - Maintain cross-platform compatibility
 
-## License
+## Screenshots
 
-This project is part of the ACU JavaFX learning series. See the main repository for license information.
-
-## Acknowledgments
-
-- Based on examples from Pearson's Java Programming textbook
-- JavaFX framework for modern UI development
-- Maven for build automation and dependency management
-
-## Version History
-
-- **v1.0.0**: Initial release with GUI and console interfaces
-  - Complete loan calculation functionality
-  - Cross-platform support
-  - Comprehensive error handling
-  - Modern JavaFX UI
-
----
-
-For more information, see the documentation in the `docs/` directory:
-- [Concepts](docs/concepts.md): Main concepts and design decisions
-- [Architecture](docs/architecture.md): Detailed architecture documentation
+![Loan Calculator Example](images/02-06-LoanCalculator.png)

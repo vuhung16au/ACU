@@ -34,7 +34,7 @@ public class LoanCalculator extends Application {
         GridPane gridPane = new GridPane();
         gridPane.setHgap(5);
         gridPane.setVgap(5);
-        gridPane.add(new Label("Annual Interest Rate:"), 0, 0);
+        gridPane.add(new Label("Annual Interest Rate (%):"), 0, 0);
         gridPane.add(tfAnnualInterestRate, 1, 0);
         gridPane.add(new Label("Number of Years:"), 0, 1);
         gridPane.add(tfNumberOfYears, 1, 1);
