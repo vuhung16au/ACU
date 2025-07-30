@@ -1,0 +1,108 @@
+/* Main application styles */
+.root {
+    -fx-background-color: #f8f9fa;
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+/* Tab pane styling */
+.tab-pane {
+    -fx-background-color: white;
+    -fx-border-color: #dee2e6;
+    -fx-border-width: 1;
+}
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: #f8f9fa;
+}
+
+.tab {
+    -fx-background-color: #e9ecef;
+    -fx-border-color: #dee2e6;
+    -fx-border-width: 1 1 0 1;
+}
+
+.tab:selected {
+    -fx-background-color: white;
+    -fx-border-color: #007bff;
+    -fx-border-width: 2 1 0 1;
+}
+
+.tab-label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #495057;
+}
+
+.tab:selected .tab-label {
+    -fx-text-fill: #007bff;
+}
+
+/* Button styling */
+.button {
+    -fx-font-weight: bold;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 8 16;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-opacity: 0.8;
+}
+
+.button:pressed {
+    -fx-opacity: 0.6;
+}
+
+/* Text field styling */
+.text-field {
+    -fx-border-color: #ced4da;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-padding: 8 12;
+}
+
+.text-field:focused {
+    -fx-border-color: #007bff;
+    -fx-border-width: 2;
+}
+
+/* Text area styling */
+.text-area {
+    -fx-border-color: #ced4da;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-background-color: white;
+}
+
+.text-area .content {
+    -fx-background-color: white;
+}
+
+/* Label styling */
+.label {
+    -fx-text-fill: #212529;
+}
+
+/* VBox and HBox styling */
+.vbox, .hbox {
+    -fx-spacing: 10;
+}
+
+/* Custom colors for data structure displays */
+.queue-display {
+    -fx-border-color: #3498db;
+    -fx-border-width: 2;
+    -fx-background-color: #f8f9fa;
+}
+
+.stack-display {
+    -fx-border-color: #9b59b6;
+    -fx-border-width: 2;
+    -fx-background-color: #f8f9fa;
+}
+
+.priority-queue-display {
+    -fx-border-color: #e67e22;
+    -fx-border-width: 2;
+    -fx-background-color: #f8f9fa;
+} 
