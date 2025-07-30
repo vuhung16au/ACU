@@ -20,7 +20,7 @@ public class MouseEventDemo extends Pane {
      */
     public MouseEventDemo() {
         // Create a pane and set its properties
-        Text text = new Text(20, 20, "Programming is fun");
+        Text text = new Text(20, 20, "Drag me around with the mouse!");
         
         // Add the text to the pane
         getChildren().addAll(text);

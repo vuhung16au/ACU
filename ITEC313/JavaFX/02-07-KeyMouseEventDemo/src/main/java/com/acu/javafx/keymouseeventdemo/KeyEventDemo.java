@@ -23,7 +23,7 @@ public class KeyEventDemo extends Pane {
      */
     public KeyEventDemo() {
         // Create a pane and set its properties
-        text = new Text(20, 20, "A");
+        text = new Text(20, 20, "Use arrow keys to move me or type to change me. Type anything!");
         
         // Add the text to the pane
         getChildren().add(text);

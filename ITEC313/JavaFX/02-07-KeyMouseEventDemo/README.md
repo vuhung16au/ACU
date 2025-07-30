@@ -232,10 +232,6 @@ The application is based on examples from:
 3. Add a new tab in `Launcher.java`
 4. Update documentation
 
-## License
+## Screenshots
 
-This project is part of the ACU JavaFX learning materials.
-
-## Version History
-
-- **1.0.0**: Initial release with MouseEventDemo and KeyEventDemo
+![Key and Mouse Event Demo](images/02-07-KeyMouseEvent.png)
