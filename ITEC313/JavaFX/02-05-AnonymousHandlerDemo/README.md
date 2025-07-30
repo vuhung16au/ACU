@@ -264,10 +264,6 @@ This project is part of the ITEC313 JavaFX learning materials.
 - [SAM Interfaces](https://liveexample.pearsoncmg.com/html/AnonymousHandlerDemo.html)
 - [Maven JavaFX Plugin](https://openjfx.io/openjfx-docs/#maven)
 
-## Support
+## Screenshots
 
-For issues and questions:
-1. Check the troubleshooting section above
-2. Review the documentation in the `docs/` folder
-3. Check the console output for error messages
-4. Ensure all prerequisites are properly installed
+![Anonymous Handler Example](images/02-05-anonymousHandle.png)
