@@ -357,6 +357,11 @@ This repository serves as a complete curriculum for:
 4. Test on multiple platforms
 5. Submit a pull request
 
+## TODO 
+
+This repo is implemented and tested on macOS Silicon (ARM64).
+Testing and Pull Request are welcome for other platforms (Windows, Linux, etc.) are welcome.
+
 ## 📄 License
 
 MIT License

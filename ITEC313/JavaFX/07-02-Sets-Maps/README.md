@@ -1,64 +1,268 @@
+# JavaFX Sets and Maps Demo
 
-Objectives
+A comprehensive JavaFX application that demonstrates various Java Collections Framework concepts, specifically focusing on Sets and Maps. This application provides an interactive graphical user interface to explore different implementations of these data structures.
 
-- To store unordered, nonduplicate elements using a set (§21.2). 
-- To explore how and when to use HashSet (§21.2.1), 
-LinkedHashSet (§21.2.2), or TreeSet (§21.2.3) to store elements.
-- To compare performance of sets and lists (§21.3).
-- To use sets to develop a program that counts the keywords in a 
-Java source file (§21.4).
-- To tell the differences between Collection and Map and describe when and how to use HashMap, LinkedHashMap, and TreeMap to 
-store values associated with keys (§21.5). 
-To use maps to develop a program that counts the occurrence of  the words in a text (§21.6).
-- To obtain singleton sets, lists, and maps, and unmodifiable sets, lists, and maps, using the static methods in the Collections class (§21.7).
+## 🎯 Objectives
 
-Lecture 7.2, titled "**Sets and Maps**", delves into two crucial data structures within the Java Collections Framework that provide distinct ways of storing and accessing data: sets and maps.
+- Demonstrate HashSet, LinkedHashSet, and TreeSet functionality
+- Show HashMap, TreeMap, and LinkedHashMap usage
+- Compare performance of different collection types
+- Illustrate custom comparators with geometric objects
+- Provide practical examples of Sets and Maps in real-world scenarios
 
-The **objectives** for this lecture include understanding how to:
-*   Store unordered, non-duplicate elements using a set.
-*   Choose between `HashSet`, `LinkedHashSet`, and `TreeSet` for element storage.
-*   Compare the performance of sets and lists.
-*   Utilize sets, for instance, to count keywords in a Java source file.
-*   Differentiate between `Collection` and `Map`.
-*   Employ `HashMap`, `LinkedHashMap`, and `TreeMap` to store key-value pairs.
-*   Apply maps, for example, to count word occurrences in text.
-*   Obtain singleton and unmodifiable sets, lists, and maps using static methods from the `Collections` class.
+## 🚀 Features
 
-**Motivations for using Sets and Maps**:
-The lecture provides practical scenarios to highlight the utility of these data structures. For example, a "No-Fly" list, which contains names of people not permitted to board an aircraft, can be efficiently managed using a **set** because it needs to store unique, unordered names. If, in addition, detailed information (like gender, height, weight, nationality) needs to be stored and retrieved using a person's name as a key, a **map** becomes an efficient data structure for this task.
+### Sets Demonstrations
+- **TestHashSet**: Demonstrates HashSet with string elements
+- **TestLinkedHashSet**: Shows LinkedHashSet maintaining insertion order
+- **TestTreeSet**: Illustrates TreeSet with natural ordering and navigable methods
+- **TestTreeSetWithComparator**: Shows TreeSet with custom comparator for geometric objects
 
-**Key Concepts:**
+### Maps Demonstrations
+- **TestMap**: Demonstrates HashMap, TreeMap, and LinkedHashMap functionality
+- **CountOccurrenceOfWords**: Shows word counting using TreeMap
 
-1.  **The `Set` Interface**:
-    *   The `Set` interface extends the `Collection` interface.
-    *   A defining characteristic of a `Set` is that it **contains no duplicate elements**. Implementations of the `Set` interface must ensure that `e1.equals(e2)` is false for any two distinct elements `e1` and `e2` in the set.
-    *   The `AbstractSet` class provides partial implementations for the `equals` and `hashCode` methods, and is abstract because `size` and `iterator` methods are not implemented.
-    *   **`HashSet`**: This concrete class implements `Set` and is used to store duplicate-free elements efficiently. For optimal performance, objects added to a `HashSet` should properly disperse their hash codes via their `hashCode` method.
-    *   **`LinkedHashSet`**: This extends `HashSet` and maintains the **insertion order** of elements.
-    *   **`SortedSet` Interface and `TreeSet` Class**: `SortedSet` is a subinterface of `Set` that guarantees elements are stored in a **sorted order**. `TreeSet` is a concrete implementation of `SortedSet`. Elements can be sorted in two ways:
-        *   Using the `Comparable` interface for **natural ordering**.
-        *   By providing a **`Comparator`** if a custom sorting order is desired or if the elements do not implement `Comparable`.
-    *   **Performance**: The lecture suggests comparing the performance of `Set` implementations against `List` implementations.
-    *   **Case Study**: Sets are used to develop an application that **counts keywords in a Java source file**.
+### Performance Testing
+- **SetListPerformanceTest**: Compares performance of different collection types
 
-2.  **The `Map` Interface**:
-    *   The `Map` interface **maps keys to elements**. Unlike `List` where indices are integers, keys in a `Map` can be any object.
-    *   You retrieve an object from a map using its key, and you must use a key to place an object into the map.
-    *   **Concrete `Map` Classes**:
-        *   **`HashMap`**: Efficient for **locating a value, inserting a mapping, and deleting a mapping**.
-        *   **`TreeMap`**: Implements `SortedMap` and is efficient for **traversing keys in a sorted order**.
-        *   **`LinkedHashMap`**: Extends `HashMap` and preserves the **insertion order** of entries, or can be configured to maintain access order (least recently accessed to most recently).
-    *   **Case Study**: Maps are used to **count the occurrences of words in a text**, storing word-count pairs and then sorting them by converting to a `TreeMap`.
+### Utility Functions
+- **CountKeywords**: Demonstrates keyword counting in Java source files
 
-3.  **Utility Methods**: The `Collections` class provides static methods for creating singleton (containing only one element) and unmodifiable versions of sets, lists, and maps.
+## 🛠️ Technical Specifications
 
-Sample code 
+### Development Environment
+- **Java Version**: OpenJDK 24
+- **JavaFX Version**: 21
+- **Maven Version**: 3.9.x or later
+- **Target Platform**: Cross-platform (macOS, Windows, Linux)
 
-- https://liveexample.pearsoncmg.com/html/TestHashSet.html
-- https://liveexample.pearsoncmg.com/html/TestLinkedHashSet.html
-- https://liveexample.pearsoncmg.com/html/TestTreeSet.html
-- https://liveexample.pearsoncmg.com/html/TestTreeSetWithComparator.html
-- https://liveexample.pearsoncmg.com/html/SetListPerformanceTest.html
-- https://liveexample.pearsoncmg.com/html/CountKeywords.html
-- https://liveexample.pearsoncmg.com/html/TestMap.html
-- https://liveexample.pearsoncmg.com/html/CountOccurrenceOfWords.html
+### Supported Architectures
+- **macOS**: Intel (x86_64) and Apple Silicon (ARM64)
+- **Windows**: x86_64 and ARM64
+- **Linux**: x86_64 and ARM64
+
+## 📁 Project Structure
+
+```
+07-02-Sets-Maps/
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/acu/javafx/setsandmaps/
+│   │   │       ├── SetsAndMapsDemo.java      # Main JavaFX application
+│   │   │       ├── TestHashSet.java          # HashSet demonstration
+│   │   │       ├── TestLinkedHashSet.java    # LinkedHashSet demonstration
+│   │   │       ├── TestTreeSet.java          # TreeSet demonstration
+│   │   │       ├── TestTreeSetWithComparator.java # TreeSet with comparator
+│   │   │       ├── SetListPerformanceTest.java    # Performance comparison
+│   │   │       ├── CountKeywords.java        # Keyword counting utility
+│   │   │       ├── TestMap.java              # Map demonstrations
+│   │   │       ├── CountOccurrenceOfWords.java    # Word counting
+│   │   │       ├── GeometricObject.java      # Abstract geometric class
+│   │   │       ├── Circle.java               # Circle implementation
+│   │   │       ├── Rectangle.java            # Rectangle implementation
+│   │   │       └── GeometricObjectComparator.java # Custom comparator
+│   │   └── resources/
+│   └── test/
+│       └── java/
+├── docs/
+│   ├── architecture.md                        # Architecture documentation
+│   └── concepts.md                           # Concepts and theory
+├── pom.xml                                   # Maven configuration
+├── run.sh                                    # Unix/Linux/macOS execution script
+├── run.bat                                   # Windows execution script
+├── run_direct.sh                             # Direct Java execution script
+├── .gitignore                                # Git ignore rules
+└── README.md                                 # This file
+```
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Java 24 or later
+- Maven 3.9.x or later
+
+### Running the Application
+
+#### Option 1: Using Maven (Recommended)
+```bash
+# Unix/Linux/macOS
+./run.sh
+
+# Windows
+run.bat
+```
+
+#### Option 2: Direct Maven Commands
+```bash
+# Clean and compile
+mvn clean compile
+
+# Run the application
+mvn javafx:run
+```
+
+#### Option 3: Direct Java Execution
+```bash
+# Unix/Linux/macOS only
+./run_direct.sh
+```
+
+## 🎮 Using the Application
+
+1. **Launch the Application**: Run one of the execution scripts
+2. **Select a Demonstration**: Click any of the 8 demonstration buttons
+3. **View Results**: Output will appear in the text area
+4. **File Operations**: For "Count Keywords", use the file chooser to select a Java source file
+
+### Available Demonstrations
+
+| Button | Description |
+|--------|-------------|
+| Test HashSet | Demonstrates HashSet with city names |
+| Test LinkedHashSet | Shows LinkedHashSet maintaining order |
+| Test TreeSet | Illustrates TreeSet with navigable methods |
+| Test TreeSet with Comparator | Shows custom comparator with geometric objects |
+| Performance Test | Compares performance of different collections |
+| Count Keywords | Counts Java keywords in a source file |
+| Test Map | Demonstrates HashMap, TreeMap, LinkedHashMap |
+| Count Word Occurrences | Counts word frequency in sample text |
+
+## 📚 Key Concepts Demonstrated
+
+### Sets
+- **HashSet**: Unordered, unique elements with O(1) average operations
+- **LinkedHashSet**: Maintains insertion order with uniqueness
+- **TreeSet**: Sorted elements with O(log n) operations
+
+### Maps
+- **HashMap**: Unordered key-value pairs with O(1) average operations
+- **TreeMap**: Sorted key-value pairs with O(log n) operations
+- **LinkedHashMap**: Maintains insertion/access order
+
+### Advanced Features
+- **Custom Comparators**: GeometricObjectComparator for area-based sorting
+- **Performance Analysis**: Comparison of different collection types
+- **File Processing**: Keyword counting in Java source files
+- **Text Analysis**: Word frequency counting
+
+## 🔧 Build Configuration
+
+### Maven Configuration
+The `pom.xml` includes:
+- Cross-platform JavaFX dependencies
+- Platform-specific classifiers
+- Maven compiler plugin for Java 24
+- JavaFX Maven plugin for running the application
+- Maven Shade plugin for creating executable JARs
+
+### Platform Detection
+The build automatically detects the target platform:
+- **macOS**: Uses `mac` classifier
+- **Windows**: Uses `win` classifier
+- **Linux**: Uses `linux` classifier
+
+## 🏗️ Architecture
+
+### Design Patterns
+- **MVC Pattern**: Model (demonstration classes), View (JavaFX UI), Controller (SetsAndMapsDemo)
+- **Strategy Pattern**: Different collection implementations for different use cases
+- **Factory Pattern**: GeometricObject hierarchy for creating shapes
+
+### Threading
+- Performance tests run in background threads
+- UI updates use Platform.runLater()
+- Non-blocking user interface
+
+## 📖 Documentation
+
+### Architecture Documentation (`docs/architecture.md`)
+- Detailed architecture overview
+- Component descriptions
+- Design patterns used
+- Cross-platform compatibility
+- Performance considerations
+- Error handling strategies
+
+### Concepts Documentation (`docs/concepts.md`)
+- Java Collections Framework overview
+- Sets and Maps theory
+- Performance analysis
+- Best practices
+- Real-world applications
+- Common pitfalls
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+#### Build Errors
+```bash
+# Clean and rebuild
+mvn clean compile
+
+# Check Java version
+java -version
+
+# Check Maven version
+mvn -version
+```
+
+#### JavaFX Runtime Issues
+```bash
+# Ensure JavaFX dependencies are downloaded
+mvn dependency:resolve
+
+# Run with explicit module path
+mvn javafx:run
+```
+
+#### Platform-Specific Issues
+- **macOS**: Ensure Xcode command line tools are installed
+- **Windows**: Check PATH environment variables
+- **Linux**: Install required system libraries
+
+### Error Messages
+
+| Error | Solution |
+|-------|----------|
+| "JavaFX runtime components are missing" | Run `mvn clean compile` to download dependencies |
+| "No compiler is provided" | Install Java 24 or later |
+| "Maven is not installed" | Install Maven 3.9.x or later |
+| "Permission denied" | Make scripts executable: `chmod +x run.sh` |
+
+## 🤝 Contributing
+
+### Adding New Demonstrations
+1. Create new demonstration class in `src/main/java/com/acu/javafx/setsandmaps/`
+2. Add button to UI in `SetsAndMapsDemo.java`
+3. Implement event handler method
+4. Update documentation
+
+### Code Style
+- Follow Java naming conventions
+- Add JavaDoc comments for public methods
+- Use meaningful variable names
+- Handle exceptions gracefully
+
+## 📄 License
+
+This project is part of the ITEC313 JavaFX course materials.
+
+## 🙏 Acknowledgments
+
+- Original examples from Pearson's "Introduction to Java Programming and Data Structures"
+- JavaFX team for the excellent GUI framework
+- Maven team for the build system
+
+## 📞 Support
+
+For issues or questions:
+1. Check the troubleshooting section
+2. Review the documentation in `docs/`
+3. Ensure all prerequisites are met
+4. Try the different execution methods
+
+---
+
+**Happy Coding! 🎉**
