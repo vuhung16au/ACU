@@ -273,10 +273,6 @@ This project is part of the ACU JavaFX Learning Series and is provided for educa
 - **Layout Panes Guide**: [https://docs.oracle.com/javase/8/javafx/layout-tutorial/](https://docs.oracle.com/javase/8/javafx/layout-tutorial/)
 - **ImageView API**: [https://docs.oracle.com/javase/8/javafx/api/javafx/scene/image/ImageView.html](https://docs.oracle.com/javase/8/javafx/api/javafx/scene/image/ImageView.html)
 
-## Example Links
+## Screenshots
 
-The application demonstrates concepts from these examples:
-- **FlowPane**: https://liveexample.pearsoncmg.com/html/ShowFlowPane.html
-- **GridPane**: https://liveexample.pearsoncmg.com/html/ShowGridPane.html
-- **BorderPane**: https://liveexample.pearsoncmg.com/html/ShowBorderPane.html
-- **HBox/VBox**: https://liveexample.pearsoncmg.com/html/ShowHBoxVBox.html
+![JavaFX Layout Panes Demo](images/JavaFX_Layout_Panes_Demo.png) ![JavaFX Layout Panes Demo](images/JavaFX_Layout_Panes_Demo2.png) ![JavaFX Layout Panes Demo](images/JavaFX_Layout_Panes_Demo3.png) ![JavaFX Layout Panes Demo](images/JavaFX_Layout_Panes_Demo4.png) ![JavaFX Layout Panes Demo](images/JavaFX_Layout_Panes_Demo5.png) ![JavaFX Layout Panes Demo](images/JavaFX_Layout_Panes_Demo6.png) ![JavaFX Layout Panes Demo](images/JavaFX_Layout_Panes_Demo7.png)

@@ -221,3 +221,7 @@ This project is part of the ITEC313 JavaFX learning series. For questions or imp
 ## 📄 License
 
 This project is created for educational purposes as part of the ITEC313 course curriculum.
+
+## Screenshots
+
+![JavaFX Image View Demo](images/01-07-ImageView.png)
