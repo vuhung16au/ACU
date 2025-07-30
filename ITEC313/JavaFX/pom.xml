@@ -1,0 +1,77 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.acu</groupId>
+    <artifactId>javafx-course-projects</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+    <name>JavaFX Course Projects - Parent</name>
+    <description>Aggregator for all JavaFX course subprojects</description>
+
+    <modules>
+        <module>01-01-JavaFX-HelloWorld/demo</module>
+        <module>01-02-JavaFX.Button</module>
+        <module>01-03-Panes.UI.Controls.Shapes</module>
+        <module>01-04-NodeStyleRotateDemo</module>
+        <module>01-05-MoreShapes</module>
+        <module>01-06-TextFontColor</module>
+        <module>01-07-ImageView</module>
+        <module>01-08-LayoutPanes</module>
+        <module>01-09-ClockPane</module>
+        <module>02-01-HandleEvent</module>
+        <module>02-02-ControlCircleWithoutEventHandling</module>
+        <module>02-03-ControlCircle</module>
+        <module>02-04-ShowInnerClass</module>
+        <module>02-05-AnonymousHandlerDemo</module>
+        <module>02-06-LoanCalculator</module>
+        <module>02-07-KeyMouseEventDemo</module>
+        <module>02-08-ControlCircleWithMouseAndKey</module>
+        <module>02-09-DisplayResizableClock</module>
+        <module>02-10-PathTransitionDemo</module>
+        <module>02-11-FlagRisingAnimation</module>
+        <module>02-12-FadeTransitionDemo</module>
+        <module>02-13-TimelineDemo</module>
+        <module>02-14-ClockAnimation</module>
+        <module>02-15-BouncingBall</module>
+        <module>03-01-JavaFx-ControlUI-Multimedia-TicTacToe</module>
+        <module>04-01-Generics</module>
+        <module>05-01-FileClass</module>
+        <module>05-02-BinaryIO</module>
+        <module>06-01-Recursion</module>
+        <module>07-01-List-Stack-Queue-PriorityQueue</module>
+        <module>07-02-Sets-Maps</module>
+        <module>07-03-MultipleBounceBall</module>
+        <module>07-04-ArrayLinkedList</module>
+        <module>07-05-GeometricObjectComparator</module>
+        <module>07-06-SortString</module>
+        <module>07-07-PriorityQueue</module>
+        <module>07-08-EvaluateExpression</module>
+        <module>08-01-LinearSearch</module>
+        <module>08-02-BinarySearch</module>
+        <module>08-03-ClosestPair</module>
+        <module>08-05-PerformanceTest</module>
+        <module>08-06-Fibonacci</module>
+        <module>08-07-PrimeNumbers</module>
+        <module>08-08-EightQueens</module>
+        <module>09-01-Sorting</module>
+        <module>09-02-HeapSort</module>
+        <module>10-01-ArrayList</module>
+        <module>10-02-LinkedList</module>
+        <module>10-03-Stack</module>
+        <module>10-04-Queue</module>
+        <module>11-01-BinarySearchTrees</module>
+        <module>11-02-HuffmanCode</module>
+        <module>12-01-AVL-Trees</module>
+        <module>12-02-Probing</module>
+        <module>12-03-MapHash</module>
+    </modules>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <!-- No plugins needed at parent, submodules define their own -->
+            </plugins>
+        </pluginManagement>
+    </build>
+</project> 
