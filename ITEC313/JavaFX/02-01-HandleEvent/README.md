@@ -161,3 +161,7 @@ mvn javafx:run -Djavafx.mainClass=com.acu.javafx.handleeventdemo.ComprehensiveEv
 - Java 11 or higher
 - JavaFX 11 or higher
 - Maven for build management
+
+## Screenshots
+
+![JavaFX Handle Event Demo](images/02-01-HandleEvent.png)
