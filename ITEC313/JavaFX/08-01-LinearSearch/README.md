@@ -311,31 +311,8 @@ mvn javafx:run
 - **CPU**: Efficient algorithm with O(n) linear search
 - **Startup**: Initial load downloads JavaFX modules (one-time setup)
 
-## Reference Links
-
-**Sample Code Sources:**
-- [GeeksforGeeks Linear Search](https://www.geeksforgeeks.org/dsa/java-program-for-linear-search/)
-- [GeeksforGeeks Binary Search](https://www.geeksforgeeks.org/java/binary-search-in-java/)
-- [Princeton Closest Pair](https://algs4.cs.princeton.edu/99hull/ClosestPair.java.html)
-
-**Interactive Examples:**
-- [Performance Test](https://liveexample.pearsoncmg.com/html/PerformanceTest.html)
-- [Selection Sort Animation](https://liveexample.pearsoncmg.com/dsanimation/SelectionSortNew.html)
-- [Compute Fibonacci](https://liveexample.pearsoncmg.com/html/ComputeFibonacci.html)
-- [Improved Fibonacci](https://liveexample.pearsoncmg.com/html/ImprovedFibonacci.html)
-- [Prime Number Algorithms](https://liveexample.pearsoncmg.com/html/PrimeNumber.html)
-- [Efficient Prime Numbers](https://liveexample.pearsoncmg.com/html/EfficientPrimeNumbers.html)
-- [Sieve of Eratosthenes](https://liveexample.pearsoncmg.com/html/SieveOfEratosthenes.html)
-- [Eight Queens Problem](https://liveexample.pearsoncmg.com/html/EightQueens.html)
-
-## License
-
-This project is created for educational purposes as part of ITEC313 coursework.
 
 ## Screenshots
 
 ![Linear Search Demo](images/08-01-LinearSearch.png)
 
----
-
-**Note**: This application demonstrates the fundamental linear search algorithm and serves as a practical introduction to algorithm analysis, Big O notation, and time complexity concepts.
