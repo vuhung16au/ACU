@@ -130,17 +130,10 @@ dist/
 *.tmp
 *.temp
 
-# Node modules (if using any web components)
-node_modules/
-
-# Coverage reports
-coverage/
-*.lcov
-
 # Test results
 TEST-*.xml
 test-output/
 
 # Application specific
 *.properties.local
-config/local/ 
+config/local/

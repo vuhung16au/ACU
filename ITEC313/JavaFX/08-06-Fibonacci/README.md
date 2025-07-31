@@ -206,26 +206,6 @@ mvn package
 2. **UI Enhancements**: Modify `FibonacciDemo.java`
 3. **Performance Metrics**: Extend comparison functionality
 
-## License
-
-This project is part of the ITEC313 JavaFX course materials.
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
-
-## Support
-
-For issues and questions:
-1. Check the troubleshooting section
-2. Review platform-specific notes
-3. Ensure all prerequisites are met
-4. Try different execution methods
-
 ---
 
 **Note**: This application demonstrates fundamental programming concepts including recursion, iteration, algorithm complexity, and modern JavaFX UI development.
