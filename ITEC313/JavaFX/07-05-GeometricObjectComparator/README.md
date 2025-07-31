@@ -156,24 +156,6 @@ The Maven configuration automatically detects the platform and includes the appr
 - The comparator demonstrates sorting by area in ascending order
 - Random object generation provides variety for testing
 
-## Troubleshooting
+## Screenshots
 
-### Common Issues
-
-1. **JavaFX not found**: Ensure JavaFX dependencies are properly downloaded by Maven
-2. **Compilation errors**: Verify Java 24 is installed and in PATH
-3. **Runtime errors**: Check that all dependencies are resolved
-
-### Platform-Specific Notes
-
-- **macOS**: Works on both Intel and Apple Silicon Macs
-- **Windows**: Tested on x86_64, ARM64 support included
-- **Linux**: Compatible with major distributions
-
-## License
-
-This project is part of the ITEC313 JavaFX course materials.
-
-## Contributing
-
-This is an educational project demonstrating JavaFX and comparator concepts. 
+![Geometric Object Comparator Demo](images/07-05-GeometricObjectComparator.png)

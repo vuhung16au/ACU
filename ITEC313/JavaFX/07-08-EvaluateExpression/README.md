@@ -178,35 +178,6 @@ mvn test
 mvn test -P mac
 ```
 
-## Troubleshooting
+## Screenshots
 
-### Common Issues
-
-1. **JavaFX not found**: Ensure JavaFX is properly installed or use Maven for dependency management
-2. **Compilation errors**: Verify Java 24 is installed and in PATH
-3. **Runtime errors**: Check that all dependencies are available
-
-### Platform-Specific Notes
-
-- **macOS**: Works with both Intel and Apple Silicon processors
-- **Windows**: Ensure proper PATH configuration for Java and Maven
-- **Linux**: May require additional system dependencies for JavaFX
-
-## License
-
-This project is part of the ITEC313 JavaFX course materials.
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
-
-## Support
-
-For issues and questions:
-1. Check the troubleshooting section
-2. Review the documentation in the `docs/` folder
-3. Create an issue with detailed information about your problem
+![Evaluate Expression Demo](images/07-08-EvaluateExpression.png)

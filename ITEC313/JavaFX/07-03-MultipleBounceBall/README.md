@@ -153,40 +153,6 @@ The `pom.xml` includes:
 - **Windows**: x86_64 and ARM64 compatibility
 - **Linux**: x86_64 and ARM64 compatibility
 
-## Development
+## Screenshots
 
-### Code Quality
-
-- Clean, well-documented code with JavaDoc comments
-- Proper separation of concerns
-- Error handling for user interactions
-- Responsive UI design principles
-
-### Performance Considerations
-
-- Efficient rendering with 50ms frame rate
-- Smooth animations with proper boundary detection
-- Memory management for dynamic ball creation/removal
-- Responsive user interface
-
-## Troubleshooting
-
-### Common Issues
-
-1. **JavaFX Not Found**: Ensure JavaFX 21 is installed
-2. **Platform Detection Issues**: Check Maven OS plugin configuration
-3. **Animation Performance**: Adjust frame rate in `MultipleBallPane` constructor
-
-### Platform-Specific Notes
-
-- **macOS**: JavaFX is included with the project dependencies
-- **Windows**: May require manual JavaFX installation
-- **Linux**: Package manager installation recommended
-
-## License
-
-This project is part of the ACU JavaFX learning series.
-
-## Contributing
-
-This is an educational project demonstrating JavaFX concepts and cross-platform development practices.
+![07-03-MultipleBounceBall](images/07-03-MultipleBounceBall.gif)

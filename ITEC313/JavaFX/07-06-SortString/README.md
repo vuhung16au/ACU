@@ -139,24 +139,6 @@ mvn exec:java -Dexec.mainClass="com.acu.javafx.sortstring.SortStringByLength"
 mvn exec:java -Dexec.mainClass="com.acu.javafx.sortstring.SortStringIgnoreCase"
 ```
 
-## Troubleshooting
+## Screenshots
 
-### Common Issues
-
-1. **JavaFX not found**: Ensure you have JavaFX 21 installed or let Maven download it automatically
-2. **Maven not found**: Install Maven 3.9.x or later
-3. **Java version issues**: Ensure you're using Java 24 or later
-
-### Platform-Specific Notes
-
-- **macOS**: The application works on both Intel and Apple Silicon Macs
-- **Windows**: Ensure you have the appropriate JavaFX runtime for your architecture
-- **Linux**: May require additional system dependencies for JavaFX
-
-## License
-
-This project is for educational purposes and includes code examples from Pearson's Java Programming textbook.
-
-## Contributing
-
-This is an educational project. Feel free to experiment with the code and learn from the examples provided.
+![Sort String Demo](images/07-06-SortString.png)

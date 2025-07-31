@@ -66,33 +66,64 @@ public class GeometricObjectComparatorDemo extends Application {
 
         buttonBox.getChildren().addAll(addCircleButton, addRectangleButton, sortButton, clearButton);
 
-        // Shapes visualization container
+        // Create main content area with horizontal layout
+        HBox mainContentBox = new HBox(20);
+        mainContentBox.setAlignment(Pos.TOP_CENTER);
+
+        // Left side - Shapes visualization container (narrow)
+        VBox leftPanel = new VBox(10);
+        leftPanel.setAlignment(Pos.TOP_CENTER);
+        leftPanel.setPrefWidth(300); // Fixed narrow width
+        leftPanel.setMaxWidth(300);
+        leftPanel.setPrefHeight(600); // Fixed height
+
+        Label objectsLabel = new Label("Current Objects:");
+        objectsLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #2c3e50;");
+
         shapesContainer = new VBox(10);
         shapesContainer.setAlignment(Pos.CENTER);
         shapesContainer.setStyle("-fx-border-color: #bdc3c7; -fx-border-width: 1; -fx-padding: 10;");
+        
+        // Add scrollpane for shapes container
+        ScrollPane shapesScrollPane = new ScrollPane(shapesContainer);
+        shapesScrollPane.setFitToWidth(true);
+        shapesScrollPane.setPrefHeight(600);
+        shapesScrollPane.setStyle("-fx-background-color: transparent;");
 
-        // Output area
+        leftPanel.getChildren().addAll(objectsLabel, shapesScrollPane);
+
+        // Right side - Output area (wider)
+        VBox rightPanel = new VBox(10);
+        rightPanel.setAlignment(Pos.TOP_CENTER);
+        HBox.setHgrow(rightPanel, Priority.ALWAYS); // Allow it to grow
+
+        Label outputLabel = new Label("Output:");
+        outputLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #2c3e50;");
+
         outputArea = new TextArea();
-        outputArea.setPrefRowCount(8);
+        outputArea.setPrefRowCount(40); // Increased height
         outputArea.setEditable(false);
         outputArea.setStyle("-fx-font-family: 'Monaco', 'Consolas', monospace; -fx-font-size: 12;");
+        VBox.setVgrow(outputArea, Priority.ALWAYS); // Allow textarea to grow vertically
+
+        rightPanel.getChildren().addAll(outputLabel, outputArea);
+
+        // Add panels to main content box
+        mainContentBox.getChildren().addAll(leftPanel, rightPanel);
 
         // Add components to root
         root.getChildren().addAll(
             titleLabel,
             descriptionLabel,
             buttonBox,
-            new Label("Current Objects:"),
-            shapesContainer,
-            new Label("Output:"),
-            outputArea
+            mainContentBox
         );
 
         // Set up event handlers
         setupEventHandlers();
 
         // Create scene
-        Scene scene = new Scene(root, 800, 700);
+        Scene scene = new Scene(root, 1000, 700); // Increased width to accommodate side-by-side layout
         primaryStage.setTitle("Geometric Object Comparator Demo");
         primaryStage.setScene(scene);
         primaryStage.setResizable(true);

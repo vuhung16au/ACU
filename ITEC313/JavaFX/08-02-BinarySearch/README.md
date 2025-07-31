@@ -241,27 +241,6 @@ mvn clean compile
 mvn javafx:run
 ```
 
-### Creating Executable JAR
-
-```bash
-mvn clean package
-java -jar target/binarysearch-1.0.0.jar
-```
-
-### Development Environment
-
-- **IDE**: IntelliJ IDEA, Eclipse, or VS Code
-- **Java**: OpenJDK 24
-- **Maven**: 3.9.x+
-- **JavaFX**: 21
-
-## 📚 Learning Resources
-
-### Binary Search Concepts
-- **Divide and Conquer**: Algorithm repeatedly divides the search space
-- **Sorted Requirement**: Array must be sorted for binary search to work
-- **Efficiency**: Much faster than linear search for large datasets
-
 ### JavaFX Features Used
 - **Layout Management**: VBox, HBox for component organization
 - **Event Handling**: Button clicks and input validation
@@ -298,69 +277,7 @@ mvn test
 mvn test -Dtest=BinarySearchTest
 ```
 
-## 🚀 Deployment
 
-### Platform-Specific Builds
+## Screenshots
 
-The Maven configuration automatically detects the target platform and includes appropriate JavaFX dependencies:
-
-- **macOS**: `mac-aarch64` or `mac-x86_64`
-- **Windows**: `win-x86_64` or `win-aarch64`
-- **Linux**: `linux-x86_64` or `linux-aarch64`
-
-### Distribution
-
-```bash
-# Create platform-specific JAR
-mvn clean package
-
-# The JAR will be created in target/ directory
-# Include JavaFX runtime for distribution
-```
-
-## 🤝 Contributing
-
-### Development Guidelines
-
-1. **Code Style**: Follow Java conventions
-2. **Documentation**: Update docs for new features
-3. **Testing**: Add tests for new functionality
-4. **Cross-Platform**: Ensure compatibility across platforms
-
-### Adding Features
-
-1. **Algorithm Enhancements**:
-   - Recursive implementation
-   - Performance metrics
-   - Visualization features
-
-2. **UI Improvements**:
-   - Step-by-step animation
-   - Array visualization
-   - Interactive tutorials
-
-3. **Educational Features**:
-   - Algorithm explanation
-   - Complexity analysis
-   - Comparison with other algorithms
-
-## 📄 License
-
-This project is part of the ITEC313 JavaFX course materials.
-
-## 🙏 Acknowledgments
-
-- **GeeksforGeeks**: Original binary search implementation
-- **JavaFX Team**: Modern Java UI framework
-- **Maven Community**: Build tool and dependency management
-
-## 📞 Support
-
-For issues or questions:
-1. Check the documentation in `docs/` directory
-2. Review the algorithm concepts in `docs/concepts.md`
-3. Examine the architecture in `docs/architecture.md`
-
----
-
-**Happy Coding! 🎉**
+![Binary Search Demo](images/08-02-BinarySearch.png)

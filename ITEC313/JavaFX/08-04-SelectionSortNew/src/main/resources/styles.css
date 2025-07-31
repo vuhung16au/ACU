@@ -1,0 +1,66 @@
+/* Application-wide styles */
+.root {
+    -fx-background-color: #FFF5E6;
+    -fx-font-family: "Verdana", sans-serif;
+}
+
+/* Title styling */
+.title-label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #6F459E;
+    -fx-padding: 20px;
+}
+
+/* Button styling */
+.control-button {
+    -fx-background-color: #6F459E;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 12px 20px;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-cursor: hand;
+}
+
+.control-button:hover {
+    -fx-background-color: #8A5BC4;
+}
+
+.control-button:disabled {
+    -fx-background-color: #D8B6FF;
+    -fx-cursor: default;
+}
+
+/* Status label styling */
+.status-label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-padding: 10px;
+}
+
+/* Slider styling */
+.slider {
+    -fx-pref-width: 200px;
+}
+
+.slider .track {
+    -fx-background-color: #D8B6FF;
+    -fx-background-radius: 5px;
+}
+
+.slider .thumb {
+    -fx-background-color: #6F459E;
+    -fx-background-radius: 10px;
+}
+
+/* Visualization pane styling */
+.visualization-pane {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #6F459E;
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}

@@ -229,10 +229,6 @@ mvn clean package
 # The JAR will be in target/arraylinkedlist-1.0.0.jar
 ```
 
-## License
+## Screenshots
 
-This project is part of the ITEC313 JavaFX course materials.
-
-## Contributing
-
-For educational purposes, feel free to modify and extend this demo to explore additional features of ArrayList and LinkedList.
+![07-04-ArrayLinkedList](images/07-04-ArrayLinkedList.png)
