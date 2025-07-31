@@ -50,6 +50,7 @@
         <module>08-01-LinearSearch</module>
         <module>08-02-BinarySearch</module>
         <module>08-03-ClosestPair</module>
+        <module>08-04-SelectionSortNew</module>
         <module>08-05-PerformanceTest</module>
         <module>08-06-Fibonacci</module>
         <module>08-07-PrimeNumbers</module>

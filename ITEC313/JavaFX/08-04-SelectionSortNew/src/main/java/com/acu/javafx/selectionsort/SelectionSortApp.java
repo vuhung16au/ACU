@@ -8,7 +8,9 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -61,13 +63,23 @@ public class SelectionSortApp extends Application {
     private Pane visualizationPane;
     private Button generateButton;
     private Button sortButton;
+    private Button stopButton;
+    private Button resetButton;
     private Slider speedSlider;
     private Label statusLabel;
+    private TextArea logTextArea;
     private List<BarElement> bars;
     
     // Animation control
     private boolean isAnimating = false;
-    private double animationSpeed = 500; // milliseconds
+    private boolean shouldStop = false;
+    private double animationSpeed = 1000; // milliseconds (1 second default)
+    private PauseTransition currentPause;
+    
+    // Selection sort state variables
+    private int sortCurrentIndex = 0;
+    private int sortCompareIndex = 0;
+    private int sortMinIndex = -1;
     
     /**
      * Inner class representing a visual bar element
@@ -129,8 +141,15 @@ public class SelectionSortApp extends Application {
         generateNewArray();
         
         // Create and show scene
-        Scene scene = new Scene(root, 900, 600);
-        scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
+        Scene scene = new Scene(root, 1200, 600);
+        // Apply styles if available
+        try {
+            String css = getClass().getResource("/styles.css").toExternalForm();
+            scene.getStylesheets().add(css);
+        } catch (Exception e) {
+            // CSS file not found, continue without styling
+            System.out.println("CSS file not found, using default styling");
+        }
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
@@ -154,12 +173,21 @@ public class SelectionSortApp extends Application {
         sortButton.setOnAction(e -> startSelectionSort());
         sortButton.setStyle("-fx-background-color: #6F459E; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;");
         
-        // Speed control
-        speedSlider = new Slider(100, 1000, 500);
+        stopButton = new Button("Stop");
+        stopButton.setOnAction(e -> stopSorting());
+        stopButton.setStyle("-fx-background-color: #DC3545; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;");
+        stopButton.setDisable(true);
+        
+        resetButton = new Button("Reset");
+        resetButton.setOnAction(e -> resetVisualization());
+        resetButton.setStyle("-fx-background-color: #28A745; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;");
+        
+        // Speed control (0.5s to 2s)
+        speedSlider = new Slider(500, 2000, 1000);
         speedSlider.setShowTickLabels(true);
         speedSlider.setShowTickMarks(true);
-        speedSlider.setMajorTickUnit(200);
-        speedSlider.setBlockIncrement(100);
+        speedSlider.setMajorTickUnit(500);
+        speedSlider.setBlockIncrement(250);
         speedSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
             animationSpeed = newVal.doubleValue();
         });
@@ -167,6 +195,17 @@ public class SelectionSortApp extends Application {
         // Status label
         statusLabel = new Label("Ready to sort");
         statusLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+        
+        // Log text area
+        logTextArea = new TextArea();
+        logTextArea.setPrefRowCount(20);
+        logTextArea.setPrefColumnCount(30);
+        logTextArea.setEditable(false);
+        logTextArea.setWrapText(true);
+        logTextArea.setStyle("-fx-font-family: 'Courier New'; -fx-font-size: 12px;");
+        logTextArea.setText("Selection Sort Log:\n" +
+                           "===================\n" +
+                           "Ready to start sorting...\n");
         
         // Initialize bars list
         bars = new ArrayList<>();
@@ -189,11 +228,35 @@ public class SelectionSortApp extends Application {
         
         root.setTop(topBox);
         
-        // Center - visualization
-        root.setCenter(visualizationPane);
+        // Center - visualization and log
+        HBox centerBox = new HBox(20);
+        centerBox.setAlignment(Pos.CENTER);
+        
+        // Left side - visualization
+        VBox visualizationBox = new VBox(10);
+        visualizationBox.setAlignment(Pos.CENTER);
+        visualizationBox.getChildren().add(visualizationPane);
+        
+        // Right side - log area
+        VBox logBox = new VBox(10);
+        logBox.setAlignment(Pos.TOP_CENTER);
+        
+        Label logLabel = new Label("Sorting Steps Log");
+        logLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #6F459E;");
+        
+        ScrollPane logScrollPane = new ScrollPane(logTextArea);
+        logScrollPane.setPrefSize(350, 400);
+        logScrollPane.setFitToWidth(true);
+        logScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        logScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        
+        logBox.getChildren().addAll(logLabel, logScrollPane);
+        
+        centerBox.getChildren().addAll(visualizationBox, logBox);
+        root.setCenter(centerBox);
         
         // Bottom - controls
-        Label speedLabel = new Label("Animation Speed (ms):");
+        Label speedLabel = new Label("Animation Speed (0.5s - 2s):");
         speedLabel.setStyle("-fx-font-weight: bold;");
         
         HBox speedBox = new HBox(10);
@@ -202,7 +265,7 @@ public class SelectionSortApp extends Application {
         
         HBox buttonBox = new HBox(20);
         buttonBox.setAlignment(Pos.CENTER);
-        buttonBox.getChildren().addAll(generateButton, sortButton);
+        buttonBox.getChildren().addAll(generateButton, sortButton, stopButton, resetButton);
         
         VBox bottomBox = new VBox(15);
         bottomBox.setAlignment(Pos.CENTER);
@@ -240,6 +303,18 @@ public class SelectionSortApp extends Application {
         
         statusLabel.setText("New array generated. Ready to sort.");
         sortButton.setDisable(false);
+        stopButton.setDisable(true);
+        
+        // Clear and update log
+        logTextArea.clear();
+        logTextArea.appendText("Selection Sort Log:\n");
+        logTextArea.appendText("===================\n");
+        logTextArea.appendText("New array generated with " + ARRAY_SIZE + " elements.\n");
+        logTextArea.appendText("Array values: ");
+        for (int i = 0; i < bars.size(); i++) {
+            logTextArea.appendText(bars.get(i).getValue() + (i < bars.size() - 1 ? ", " : "\n"));
+        }
+        logTextArea.appendText("Ready to start sorting...\n\n");
     }
     
     /**
@@ -249,81 +324,115 @@ public class SelectionSortApp extends Application {
         if (isAnimating || bars.isEmpty()) return;
         
         isAnimating = true;
+        shouldStop = false;
         generateButton.setDisable(true);
         sortButton.setDisable(true);
+        stopButton.setDisable(false);
         
         statusLabel.setText("Sorting in progress...");
+        logTextArea.appendText("Starting Selection Sort...\n");
+        logTextArea.appendText("=======================\n\n");
+        
+        // Initialize sorting state
+        sortCurrentIndex = 0;
+        sortCompareIndex = 0;
+        sortMinIndex = -1;
         
         // Start the selection sort algorithm with animation
-        selectionSortWithAnimation(0, 0, -1);
+        performNextSortStep();
     }
     
     /**
-     * Recursive method to perform selection sort with animation
+     * Perform the next step in the selection sort animation
      */
-    private void selectionSortWithAnimation(int currentIndex, int compareIndex, int minIndex) {
-        if (currentIndex >= bars.size()) {
-            // Sorting complete
-            finishSorting();
+    private void performNextSortStep() {
+        if (shouldStop || sortCurrentIndex >= bars.size()) {
+            if (shouldStop) {
+                statusLabel.setText("Sorting stopped by user.");
+                logTextArea.appendText("Sorting stopped by user.\n");
+            } else {
+                // Sorting complete
+                finishSorting();
+            }
             return;
         }
         
-        if (compareIndex == currentIndex) {
+        if (sortCompareIndex == sortCurrentIndex) {
             // Start of a new iteration
-            minIndex = currentIndex;
+            sortMinIndex = sortCurrentIndex;
             
             // Color the current element
-            bars.get(currentIndex).setColor(CURRENT_COLOR);
-            statusLabel.setText("Finding minimum element starting from index " + currentIndex);
+            bars.get(sortCurrentIndex).setColor(CURRENT_COLOR);
+            statusLabel.setText("Finding minimum element starting from index " + sortCurrentIndex);
+            logTextArea.appendText("Pass " + (sortCurrentIndex + 1) + ": Finding minimum from index " + sortCurrentIndex + "\n");
+            logTextArea.appendText("Current minimum candidate: " + bars.get(sortMinIndex).getValue() + " at index " + sortMinIndex + "\n");
             
             // Start comparing from the next element
-            PauseTransition pause = new PauseTransition(Duration.millis(animationSpeed));
-            pause.setOnFinished(e -> selectionSortWithAnimation(currentIndex, currentIndex + 1, minIndex));
-            pause.play();
+            sortCompareIndex = sortCurrentIndex + 1;
+            
+            currentPause = new PauseTransition(Duration.millis(animationSpeed));
+            currentPause.setOnFinished(e -> performNextSortStep());
+            currentPause.play();
             return;
         }
         
-        if (compareIndex >= bars.size()) {
+        if (sortCompareIndex >= bars.size()) {
             // Finished comparing for this iteration, perform swap if needed
-            if (minIndex != currentIndex) {
-                swapElements(currentIndex, minIndex);
+            if (sortMinIndex != sortCurrentIndex) {
+                logTextArea.appendText("Swapping elements: " + bars.get(sortCurrentIndex).getValue() + 
+                                     " (index " + sortCurrentIndex + ") with " + bars.get(sortMinIndex).getValue() + 
+                                     " (index " + sortMinIndex + ")\n");
+                swapElements(sortCurrentIndex, sortMinIndex);
+            } else {
+                logTextArea.appendText("No swap needed - element " + bars.get(sortCurrentIndex).getValue() + 
+                                     " at index " + sortCurrentIndex + " is already in correct position\n");
             }
             
             // Mark current element as sorted
-            bars.get(currentIndex).setColor(SORTED_COLOR);
+            bars.get(sortCurrentIndex).setColor(SORTED_COLOR);
+            logTextArea.appendText("Element " + bars.get(sortCurrentIndex).getValue() + 
+                                 " at index " + sortCurrentIndex + " is now in its final sorted position\n\n");
             
             // Reset colors for next iteration
-            for (int i = currentIndex + 1; i < bars.size(); i++) {
+            for (int i = sortCurrentIndex + 1; i < bars.size(); i++) {
                 bars.get(i).setColor(DEFAULT_COLOR);
             }
             
-            PauseTransition pause = new PauseTransition(Duration.millis(animationSpeed));
-            pause.setOnFinished(e -> selectionSortWithAnimation(currentIndex + 1, currentIndex + 1, -1));
-            pause.play();
+            // Move to next iteration
+            sortCurrentIndex++;
+            sortCompareIndex = sortCurrentIndex;
+            
+            currentPause = new PauseTransition(Duration.millis(animationSpeed));
+            currentPause.setOnFinished(e -> performNextSortStep());
+            currentPause.play();
             return;
         }
         
         // Compare current element with minimum
-        bars.get(compareIndex).setColor(COMPARING_COLOR);
+        bars.get(sortCompareIndex).setColor(COMPARING_COLOR);
         
-        PauseTransition pause = new PauseTransition(Duration.millis(animationSpeed));
-        pause.setOnFinished(e -> {
-            if (bars.get(compareIndex).getValue() < bars.get(minIndex).getValue()) {
+        currentPause = new PauseTransition(Duration.millis(animationSpeed));
+        currentPause.setOnFinished(e -> {
+            if (bars.get(sortCompareIndex).getValue() < bars.get(sortMinIndex).getValue()) {
                 // Found new minimum
-                if (minIndex != currentIndex) {
-                    bars.get(minIndex).setColor(DEFAULT_COLOR);
+                if (sortMinIndex != sortCurrentIndex) {
+                    bars.get(sortMinIndex).setColor(DEFAULT_COLOR);
                 }
-                minIndex = compareIndex;
-                bars.get(minIndex).setColor(MINIMUM_COLOR);
-                statusLabel.setText("New minimum found at index " + minIndex + " (value: " + bars.get(minIndex).getValue() + ")");
+                sortMinIndex = sortCompareIndex;
+                bars.get(sortMinIndex).setColor(MINIMUM_COLOR);
+                statusLabel.setText("New minimum found at index " + sortMinIndex + " (value: " + bars.get(sortMinIndex).getValue() + ")");
+                logTextArea.appendText("New minimum found: " + bars.get(sortMinIndex).getValue() + " at index " + sortMinIndex + "\n");
             } else {
-                bars.get(compareIndex).setColor(DEFAULT_COLOR);
+                bars.get(sortCompareIndex).setColor(DEFAULT_COLOR);
+                logTextArea.appendText("Comparing: " + bars.get(sortCompareIndex).getValue() + " >= " + 
+                                     bars.get(sortMinIndex).getValue() + " (no change in minimum)\n");
             }
             
             // Continue with next comparison
-            selectionSortWithAnimation(currentIndex, compareIndex + 1, minIndex);
+            sortCompareIndex++;
+            performNextSortStep();
         });
-        pause.play();
+        currentPause.play();
     }
     
     /**
@@ -352,6 +461,62 @@ public class SelectionSortApp extends Application {
     }
     
     /**
+     * Stop the sorting animation
+     */
+    private void stopSorting() {
+        shouldStop = true;
+        if (currentPause != null) {
+            currentPause.stop();
+        }
+        
+        // Reset UI state
+        isAnimating = false;
+        generateButton.setDisable(false);
+        sortButton.setDisable(false);
+        stopButton.setDisable(true);
+        
+        // Reset colors
+        for (BarElement bar : bars) {
+            if (bar.getRectangle().getFill() != SORTED_COLOR) {
+                bar.setColor(DEFAULT_COLOR);
+            }
+        }
+    }
+    
+    /**
+     * Reset the visualization to initial state
+     */
+    private void resetVisualization() {
+        // Stop any ongoing animation
+        stopSorting();
+        
+        // Reset all bars to default color
+        for (BarElement bar : bars) {
+            bar.setColor(DEFAULT_COLOR);
+        }
+        
+        // Reset sorting state
+        sortCurrentIndex = 0;
+        sortCompareIndex = 0;
+        sortMinIndex = -1;
+        
+        statusLabel.setText("Visualization reset. Ready to sort.");
+        
+        // Clear and reset log
+        logTextArea.clear();
+        logTextArea.appendText("Selection Sort Log:\n");
+        logTextArea.appendText("===================\n");
+        logTextArea.appendText("Visualization reset.\n");
+        if (!bars.isEmpty()) {
+            logTextArea.appendText("Current array: ");
+            for (int i = 0; i < bars.size(); i++) {
+                logTextArea.appendText(bars.get(i).getValue() + (i < bars.size() - 1 ? ", " : "\n"));
+            }
+        }
+        logTextArea.appendText("Ready to start sorting...\n\n");
+    }
+    
+    /**
      * Complete the sorting process
      */
     private void finishSorting() {
@@ -361,10 +526,19 @@ public class SelectionSortApp extends Application {
         }
         
         statusLabel.setText("Sorting completed! Array is now sorted.");
+        logTextArea.appendText("=========================\n");
+        logTextArea.appendText("SORTING COMPLETED!\n");
+        logTextArea.appendText("=========================\n");
+        logTextArea.appendText("Final sorted array: ");
+        for (int i = 0; i < bars.size(); i++) {
+            logTextArea.appendText(bars.get(i).getValue() + (i < bars.size() - 1 ? ", " : "\n"));
+        }
+        logTextArea.appendText("All elements are now in ascending order.\n");
         
         isAnimating = false;
         generateButton.setDisable(false);
         sortButton.setDisable(false);
+        stopButton.setDisable(true);
     }
     
     /**
