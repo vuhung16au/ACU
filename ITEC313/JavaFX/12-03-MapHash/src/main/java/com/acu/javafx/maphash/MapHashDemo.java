@@ -22,7 +22,9 @@ public class MapHashDemo extends Application {
 
     private MyHashMap<String, String> hashMap;
     private MyHashSet<String> hashSet;
-    private TextArea outputArea;
+    private TextArea hashMapOutputArea;
+    private TextArea hashSetOutputArea;
+    private TextArea testOutputArea;
     private TextField keyField;
     private TextField valueField;
 
@@ -120,13 +122,20 @@ public class MapHashDemo extends Application {
 
         buttonBox.getChildren().addAll(putButton, getButton, removeButton, clearButton, sizeButton);
 
-        // Output area
-        outputArea = new TextArea();
-        outputArea.setPrefRowCount(15);
-        outputArea.setEditable(false);
-        outputArea.setStyle("-fx-font-family: 'Courier New'; -fx-font-size: 12;");
+        // Output area with title
+        Label outputLabel = new Label("Output:");
+        outputLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
 
-        content.getChildren().addAll(title, inputBox, buttonBox, outputArea);
+        hashMapOutputArea = new TextArea();
+        hashMapOutputArea.setPrefRowCount(30);
+        hashMapOutputArea.setEditable(false);
+        hashMapOutputArea.setStyle("-fx-font-family: 'Courier New'; -fx-font-size: 12;");
+
+        VBox outputBox = new VBox(3);
+        outputBox.setAlignment(Pos.TOP_LEFT);
+        outputBox.getChildren().addAll(outputLabel, hashMapOutputArea);
+
+        content.getChildren().addAll(title, inputBox, buttonBox, outputBox);
 
         return content;
     }
@@ -175,16 +184,20 @@ public class MapHashDemo extends Application {
 
         buttonBox.getChildren().addAll(addButton, containsButton, removeButton, clearButton, sizeButton, iterateButton);
 
-        // Output area
-        TextArea setOutputArea = new TextArea();
-        setOutputArea.setPrefRowCount(15);
-        setOutputArea.setEditable(false);
-        setOutputArea.setStyle("-fx-font-family: 'Courier New'; -fx-font-size: 12;");
+        // Output area with title
+        Label outputLabel = new Label("Output:");
+        outputLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
 
-        // Store reference to output area for use in button handlers
-        this.outputArea = setOutputArea;
+        hashSetOutputArea = new TextArea();
+        hashSetOutputArea.setPrefRowCount(15);
+        hashSetOutputArea.setEditable(false);
+        hashSetOutputArea.setStyle("-fx-font-family: 'Courier New'; -fx-font-size: 12;");
 
-        content.getChildren().addAll(title, inputBox, buttonBox, setOutputArea);
+        VBox outputBox = new VBox(3);
+        outputBox.setAlignment(Pos.TOP_LEFT);
+        outputBox.getChildren().addAll(outputLabel, hashSetOutputArea);
+
+        content.getChildren().addAll(title, inputBox, buttonBox, outputBox);
 
         return content;
     }
@@ -203,12 +216,10 @@ public class MapHashDemo extends Application {
         runTestButton.setOnAction(e -> runAllTests());
 
         // Output area
-        TextArea testOutputArea = new TextArea();
+        testOutputArea = new TextArea();
         testOutputArea.setPrefRowCount(20);
         testOutputArea.setEditable(false);
         testOutputArea.setStyle("-fx-font-family: 'Courier New'; -fx-font-size: 12;");
-
-        this.outputArea = testOutputArea;
 
         content.getChildren().addAll(title, runTestButton, testOutputArea);
 
@@ -218,220 +229,221 @@ public class MapHashDemo extends Application {
     private void putToHashMap() {
         String key = keyField.getText().trim();
         String value = valueField.getText().trim();
-        
+
         if (key.isEmpty()) {
-            outputArea.appendText("Error: Key cannot be empty\n");
+            hashMapOutputArea.appendText("Error: Key cannot be empty\n");
             return;
         }
 
         String oldValue = hashMap.put(key, value);
+        String timestamp = java.time.LocalDateTime.now().withNano(0).toString();
         if (oldValue != null) {
-            outputArea.appendText("Updated: [" + key + ", " + value + "] (old value: " + oldValue + ")\n");
+            hashMapOutputArea.appendText(timestamp + ": Updated: Key = \"" + key + "\", Value = \"" + value + "\" (old value: " + oldValue + ")\n");
         } else {
-            outputArea.appendText("Added: [" + key + ", " + value + "]\n");
+            hashMapOutputArea.appendText(timestamp + ": Inserted: Key = \"" + key + "\", Value = \"" + value + "\"\n");
         }
-        
-        outputArea.appendText("HashMap: " + hashMap + "\n\n");
+
+        hashMapOutputArea.appendText("HashMap: " + hashMap + "\n\n");
         keyField.clear();
         valueField.clear();
     }
 
     private void getFromHashMap() {
         String key = keyField.getText().trim();
-        
+
         if (key.isEmpty()) {
-            outputArea.appendText("Error: Key cannot be empty\n");
+            hashMapOutputArea.appendText("Error: Key cannot be empty\n");
             return;
         }
 
         String value = hashMap.get(key);
         if (value != null) {
-            outputArea.appendText("Get [" + key + "]: " + value + "\n");
+            hashMapOutputArea.appendText("Get [" + key + "]: " + value + "\n");
         } else {
-            outputArea.appendText("Get [" + key + "]: null (key not found)\n");
+            hashMapOutputArea.appendText("Get [" + key + "]: null (key not found)\n");
         }
-        
-        outputArea.appendText("HashMap: " + hashMap + "\n\n");
+
+        hashMapOutputArea.appendText("HashMap: " + hashMap + "\n\n");
     }
 
     private void removeFromHashMap() {
         String key = keyField.getText().trim();
-        
+
         if (key.isEmpty()) {
-            outputArea.appendText("Error: Key cannot be empty\n");
+            hashMapOutputArea.appendText("Error: Key cannot be empty\n");
             return;
         }
 
         hashMap.remove(key);
-        outputArea.appendText("Removed key: " + key + "\n");
-        outputArea.appendText("HashMap: " + hashMap + "\n\n");
+        hashMapOutputArea.appendText("Removed key: " + key + "\n");
+        hashMapOutputArea.appendText("HashMap: " + hashMap + "\n\n");
         keyField.clear();
         valueField.clear();
     }
 
     private void clearHashMap() {
         hashMap.clear();
-        outputArea.appendText("HashMap cleared\n");
-        outputArea.appendText("HashMap: " + hashMap + "\n\n");
+        hashMapOutputArea.appendText("HashMap cleared\n");
+        hashMapOutputArea.appendText("HashMap: " + hashMap + "\n\n");
     }
 
     private void showHashMapSize() {
-        outputArea.appendText("HashMap size: " + hashMap.size() + "\n");
-        outputArea.appendText("HashMap isEmpty: " + hashMap.isEmpty() + "\n\n");
+        hashMapOutputArea.appendText("HashMap size: " + hashMap.size() + "\n");
+        hashMapOutputArea.appendText("HashMap isEmpty: " + hashMap.isEmpty() + "\n\n");
     }
 
     private void addToHashSet(String element) {
         if (element == null || element.trim().isEmpty()) {
-            outputArea.appendText("Error: Element cannot be empty\n");
+            hashSetOutputArea.appendText("Error: Element cannot be empty\n");
             return;
         }
 
         boolean added = hashSet.add(element.trim());
         if (added) {
-            outputArea.appendText("Added: " + element + "\n");
+            hashSetOutputArea.appendText("Added: " + element + "\n");
         } else {
-            outputArea.appendText("Element already exists: " + element + "\n");
+            hashSetOutputArea.appendText("Element already exists: " + element + "\n");
         }
-        
-        outputArea.appendText("HashSet: " + hashSet + "\n\n");
+
+        hashSetOutputArea.appendText("HashSet: " + hashSet + "\n\n");
     }
 
     private void checkHashSetContains(String element) {
         if (element == null || element.trim().isEmpty()) {
-            outputArea.appendText("Error: Element cannot be empty\n");
+            hashSetOutputArea.appendText("Error: Element cannot be empty\n");
             return;
         }
 
         boolean contains = hashSet.contains(element.trim());
-        outputArea.appendText("Contains [" + element + "]: " + contains + "\n");
-        outputArea.appendText("HashSet: " + hashSet + "\n\n");
+        hashSetOutputArea.appendText("Contains [" + element + "]: " + contains + "\n");
+        hashSetOutputArea.appendText("HashSet: " + hashSet + "\n\n");
     }
 
     private void removeFromHashSet(String element) {
         if (element == null || element.trim().isEmpty()) {
-            outputArea.appendText("Error: Element cannot be empty\n");
+            hashSetOutputArea.appendText("Error: Element cannot be empty\n");
             return;
         }
 
         boolean removed = hashSet.remove(element.trim());
         if (removed) {
-            outputArea.appendText("Removed: " + element + "\n");
+            hashSetOutputArea.appendText("Removed: " + element + "\n");
         } else {
-            outputArea.appendText("Element not found: " + element + "\n");
+            hashSetOutputArea.appendText("Element not found: " + element + "\n");
         }
-        
-        outputArea.appendText("HashSet: " + hashSet + "\n\n");
+
+        hashSetOutputArea.appendText("HashSet: " + hashSet + "\n\n");
     }
 
     private void clearHashSet() {
         hashSet.clear();
-        outputArea.appendText("HashSet cleared\n");
-        outputArea.appendText("HashSet: " + hashSet + "\n\n");
+        hashSetOutputArea.appendText("HashSet cleared\n");
+        hashSetOutputArea.appendText("HashSet: " + hashSet + "\n\n");
     }
 
     private void showHashSetSize() {
-        outputArea.appendText("HashSet size: " + hashSet.size() + "\n");
-        outputArea.appendText("HashSet isEmpty: " + hashSet.isEmpty() + "\n\n");
+        hashSetOutputArea.appendText("HashSet size: " + hashSet.size() + "\n");
+        hashSetOutputArea.appendText("HashSet isEmpty: " + hashSet.isEmpty() + "\n\n");
     }
 
     private void iterateHashSet() {
-        outputArea.appendText("Iterating HashSet:\n");
+        hashSetOutputArea.appendText("Iterating HashSet:\n");
         int count = 0;
         for (String element : hashSet) {
-            outputArea.appendText("  " + (++count) + ". " + element + "\n");
+            hashSetOutputArea.appendText("  " + (++count) + ". " + element + "\n");
         }
         if (count == 0) {
-            outputArea.appendText("  (empty set)\n");
+            hashSetOutputArea.appendText("  (empty set)\n");
         }
-        outputArea.appendText("\n");
+        hashSetOutputArea.appendText("\n");
     }
 
     private void runAllTests() {
-        outputArea.clear();
-        outputArea.appendText("=== RUNNING ALL TESTS ===\n\n");
+        testOutputArea.clear();
+        testOutputArea.appendText("=== RUNNING ALL TESTS ===\n\n");
 
         // Test HashMap
-        outputArea.appendText("--- HashMap Tests ---\n");
+        testOutputArea.appendText("--- HashMap Tests ---\n");
         testHashMap();
 
-        outputArea.appendText("\n--- HashSet Tests ---\n");
+        testOutputArea.appendText("\n--- HashSet Tests ---\n");
         testHashSet();
 
-        outputArea.appendText("\n=== ALL TESTS COMPLETED ===\n");
+        testOutputArea.appendText("\n=== ALL TESTS COMPLETED ===\n");
     }
 
     private void testHashMap() {
         MyMap<String, Integer> map = new MyHashMap<>();
-        
-        outputArea.appendText("Creating HashMap...\n");
-        
+
+        testOutputArea.appendText("Creating HashMap...\n");
+
         // Test put operations
         map.put("Perez", 30);
         map.put("Anderson", 31);
         map.put("Lewis", 29);
         map.put("Cook", 29);
         map.put("Perez", 65); // Update existing key
-        
-        outputArea.appendText("After adding entries: " + map + "\n");
-        
+
+        testOutputArea.appendText("After adding entries: " + map + "\n");
+
         // Test get operations
-        outputArea.appendText("Age for Lewis: " + map.get("Lewis") + "\n");
-        outputArea.appendText("Age for Perez: " + map.get("Perez") + "\n");
-        
+        testOutputArea.appendText("Age for Lewis: " + map.get("Lewis") + "\n");
+        testOutputArea.appendText("Age for Perez: " + map.get("Perez") + "\n");
+
         // Test contains operations
-        outputArea.appendText("Contains key 'Perez': " + map.containsKey("Perez") + "\n");
-        outputArea.appendText("Contains value 33: " + map.containsValue(33) + "\n");
-        outputArea.appendText("Contains value 29: " + map.containsValue(29) + "\n");
-        
+        testOutputArea.appendText("Contains key 'Perez': " + map.containsKey("Perez") + "\n");
+        testOutputArea.appendText("Contains value 33: " + map.containsValue(33) + "\n");
+        testOutputArea.appendText("Contains value 29: " + map.containsValue(29) + "\n");
+
         // Test size
-        outputArea.appendText("Map size: " + map.size() + "\n");
-        
+        testOutputArea.appendText("Map size: " + map.size() + "\n");
+
         // Test remove
         map.remove("Smith"); // Remove non-existent key
-        outputArea.appendText("After removing 'Smith': " + map + "\n");
-        
+        testOutputArea.appendText("After removing 'Smith': " + map + "\n");
+
         map.remove("Lewis");
-        outputArea.appendText("After removing 'Lewis': " + map + "\n");
-        
+        testOutputArea.appendText("After removing 'Lewis': " + map + "\n");
+
         // Test clear
         map.clear();
-        outputArea.appendText("After clear: " + map + "\n");
-        outputArea.appendText("Is empty: " + map.isEmpty() + "\n");
+        testOutputArea.appendText("After clear: " + map + "\n");
+        testOutputArea.appendText("Is empty: " + map.isEmpty() + "\n");
     }
 
     private void testHashSet() {
         Collection<String> set = new MyHashSet<>();
-        
-        outputArea.appendText("Creating HashSet...\n");
-        
+
+        testOutputArea.appendText("Creating HashSet...\n");
+
         // Test add operations
         set.add("Perez");
         set.add("Anderson");
         set.add("Lewis");
         set.add("Cook");
         set.add("Perez"); // Duplicate element
-        
-        outputArea.appendText("After adding elements: " + set + "\n");
-        outputArea.appendText("Set size: " + set.size() + "\n");
-        
+
+        testOutputArea.appendText("After adding elements: " + set + "\n");
+        testOutputArea.appendText("Set size: " + set.size() + "\n");
+
         // Test contains
-        outputArea.appendText("Contains 'Perez': " + set.contains("Perez") + "\n");
-        outputArea.appendText("Contains 'Smith': " + set.contains("Smith") + "\n");
-        
+        testOutputArea.appendText("Contains 'Perez': " + set.contains("Perez") + "\n");
+        testOutputArea.appendText("Contains 'Smith': " + set.contains("Smith") + "\n");
+
         // Test iteration
-        outputArea.appendText("Iterating through set:\n");
+        testOutputArea.appendText("Iterating through set:\n");
         for (String s : set) {
-            outputArea.appendText("  " + s.toUpperCase() + "\n");
+            testOutputArea.appendText("  " + s.toUpperCase() + "\n");
         }
-        
+
         // Test remove
         set.remove("Perez");
-        outputArea.appendText("After removing 'Perez': " + set + "\n");
-        
+        testOutputArea.appendText("After removing 'Perez': " + set + "\n");
+
         // Test clear
         set.clear();
-        outputArea.appendText("After clear: " + set + "\n");
-        outputArea.appendText("Is empty: " + set.isEmpty() + "\n");
+        testOutputArea.appendText("After clear: " + set + "\n");
+        testOutputArea.appendText("Is empty: " + set.isEmpty() + "\n");
     }
 
     public static void main(String[] args) {

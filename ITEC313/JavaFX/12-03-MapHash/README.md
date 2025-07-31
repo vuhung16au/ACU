@@ -218,44 +218,7 @@ java -version
 mvn javafx:run -Djavafx.debug=true
 ```
 
-## Contributing
 
-### Development Setup
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests for new functionality
-5. Submit a pull request
+## Screenshots
 
-### Code Style
-- Follow Java naming conventions
-- Add JavaDoc comments for public methods
-- Maintain consistent formatting
-- Include unit tests for new features
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
-
-- **JavaFX Team**: For the excellent UI framework
-- **Maven Community**: For the robust build system
-- **OpenJDK Team**: For the high-performance Java runtime
-
-## Version History
-
-- **v1.0.0**: Initial release with HashMap and HashSet implementations
-  - Basic hash table functionality
-  - JavaFX demonstration interface
-  - Cross-platform build support
-  - Comprehensive documentation
-
-## Future Enhancements
-
-- [ ] **Additional Hash Functions**: More hash function options
-- [ ] **Performance Metrics**: Real-time performance monitoring
-- [ ] **Visual Hash Table**: Graphical representation of hash table structure
-- [ ] **Benchmarking Tools**: Performance comparison with standard Java collections
-- [ ] **Advanced Collision Resolution**: Linear probing, quadratic probing options
-- [ ] **Thread-Safe Versions**: Concurrent hash map implementations
+![HashMap Demo](images/12-03-HashMap-Demo.png) ![HashSet Demo](images/12-03-HashSet-Demo.png) ![Test Results](images/12-03-Test-Results.png)

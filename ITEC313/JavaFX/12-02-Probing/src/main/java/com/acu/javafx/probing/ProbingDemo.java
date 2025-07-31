@@ -74,7 +74,7 @@ public class ProbingDemo extends Application {
         root.getChildren().addAll(titleLabel, inputBox, visualizationBox, statusLabel);
 
         // Create scene
-        Scene scene = new Scene(root, 1200, 800);
+        Scene scene = new Scene(root, 1200, 1100); // Increased height for more content
         primaryStage.setTitle("Hash Table Probing Techniques - JavaFX Demo");
         primaryStage.setScene(scene);
         primaryStage.setResizable(true);
@@ -171,7 +171,7 @@ public class ProbingDemo extends Application {
         box.setPadding(new Insets(10));
         box.setStyle("-fx-background-color: white; -fx-border-color: #bdc3c7; -fx-border-radius: 5;");
         box.setPrefWidth(350);
-        box.setPrefHeight(400);
+        box.setPrefHeight(650); // Increased height for more content
 
         Label titleLabel = new Label(title);
         titleLabel.setFont(Font.font("Arial", 16));
@@ -180,7 +180,7 @@ public class ProbingDemo extends Application {
         TextArea textArea = new TextArea();
         textArea.setEditable(false);
         textArea.setWrapText(true);
-        textArea.setPrefRowCount(15);
+        textArea.setPrefRowCount(32); // Increased row count for more visible text
         textArea.setStyle("-fx-font-family: 'Courier New'; -fx-font-size: 12px;");
 
         box.getChildren().addAll(titleLabel, textArea);
@@ -421,4 +421,4 @@ public class ProbingDemo extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-} 
+}
