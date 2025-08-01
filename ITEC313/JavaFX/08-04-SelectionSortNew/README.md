@@ -137,11 +137,8 @@ This JavaFX implementation provides similar functionality to the original JavaSc
 - Professional UI with JavaFX styling
 - Easier deployment as a standalone application
 
-## Author
+## Screenshots
 
-ACU - Advanced Computing Unit
-Version 1.0.0
+![Selection Sort Demo](images/08-04-SelectionSortNew.png)
 
-## License
 
-This project is part of the ITEC313 course materials and follows the course licensing terms.

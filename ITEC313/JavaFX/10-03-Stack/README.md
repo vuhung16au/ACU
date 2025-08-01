@@ -165,34 +165,10 @@ java -jar target/javafx-stack-demo-1.0.0.jar
 - **`GenericStack.java`**: Generic stack implementation
 - **`styles.css`**: CSS styling for the application
 
-## Troubleshooting
 
-### Common Issues
 
-1. **JavaFX not found**: Ensure JavaFX is properly installed and configured
-2. **Maven not found**: Install Maven and ensure it's in your PATH
-3. **Java version issues**: Ensure you're using Java 24 or later
+## Screenshots
 
-### Platform-Specific Notes
+![Stack Demo](images/10-03-Stack.png)
 
-- **macOS**: May require additional permissions for JavaFX
-- **Windows**: Ensure proper PATH configuration for Java and Maven
-- **Linux**: May require additional system dependencies
 
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
-
-## License
-
-This project is part of the ITEC313 JavaFX course materials.
-
-## Acknowledgments
-
-- Based on the original Stack animation from Pearson's LiveExample
-- JavaFX framework for the UI components
-- Maven for build management

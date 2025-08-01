@@ -185,16 +185,7 @@ The build automatically detects the platform and includes appropriate JavaFX mod
 | EfficientPrimeNumbers | O(n log log n) | O(π(n)) | Medium ranges |
 | SieveOfEratosthenes | O(n log log n) | O(n) | Large ranges |
 
-## Contributing
+## Screenshots
 
-This project is part of the ITEC313 JavaFX course. The algorithms are sourced from the textbook examples and adapted for JavaFX demonstration.
+![Prime Numbers Demo](images/08-07-PrimeNumbers.png)
 
-## License
-
-This project is for educational purposes. The algorithms are from "Introduction to Java Programming and Data Structures, 13E" by Y. Daniel Liang.
-
-## Acknowledgments
-
-- **Y. Daniel Liang** - Original algorithm implementations
-- **OpenJFX Team** - JavaFX framework
-- **Apache Maven** - Build tool

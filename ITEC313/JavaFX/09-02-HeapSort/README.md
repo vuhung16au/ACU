@@ -234,10 +234,7 @@ mvn clean package
 java -jar target/heapsort-1.0.0.jar
 ```
 
-## License
+## Screenshots
 
-This project is part of the ITEC313 JavaFX course materials.
+![Heap Sort Demo](images/09-02-HeapSort.png)
 
-## Contributing
-
-This is an educational project. For questions or issues, please refer to the course materials or contact the instructor.

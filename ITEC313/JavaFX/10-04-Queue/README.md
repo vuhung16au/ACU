@@ -166,55 +166,11 @@ mvn clean package
 - **Memory Management**: Proper cleanup of temporary objects
 - **Responsive UI**: Non-blocking operations with Platform.runLater()
 
-## Troubleshooting
 
-### Common Issues
 
-#### Maven Build Fails
-- Ensure Java 24+ is installed and in PATH
-- Verify Maven 3.9+ is installed
-- Check internet connection for dependency downloads
+## Screenshots
 
-#### JavaFX Runtime Error
-- Ensure JavaFX dependencies are properly downloaded
-- Check platform-specific classifiers in pom.xml
-- Verify JavaFX Maven plugin configuration
+![Queue Demo](images/10-04-Queue.png)
+![Stack Demo](images/10-04-Stack.png)
+![Priority Queue Demo](images/10-04-Priority-Queue.png)
 
-#### Application Won't Start
-- Check Java version compatibility
-- Verify all dependencies are resolved
-- Check console output for error messages
-
-### Platform-Specific Notes
-
-#### macOS
-- Works on both Intel and Apple Silicon
-- Automatic architecture detection
-- Native performance on Apple Silicon
-
-#### Windows
-- Supports both x86_64 and ARM64
-- Requires Visual C++ Redistributable for native libraries
-
-#### Linux
-- Requires GTK+ for JavaFX
-- May need additional system libraries
-- Tested on Ubuntu, CentOS, and Fedora
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
-
-## License
-
-This project is part of the ITEC313 JavaFX course materials.
-
-## Acknowledgments
-
-- Original data structure implementations from Y. Daniel Liang's "Introduction to Java Programming and Data Structures"
-- JavaFX framework for the user interface
-- Maven for build automation and dependency management

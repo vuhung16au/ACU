@@ -1,3 +1,22 @@
+# Add screenshots to the README.md
+
+Add screenshots of the JavaFX application to the `README.md` file in the sub-folder of each project.
+
+For example, in `01-01-JavaFX-HelloWorld/README.md`, add screenshots of the Hello World application. Location of the screenshots: `01-01-JavaFX-HelloWorld/images/`
+
+The screenshots have been added to `README.md` for the following projects:
+- 01-01-JavaFX-HelloWorld
+- 01-02-JavaFX.Button
+- ...
+- 08-01-LinearSearch
+- 08-02-BinarySearch
+
+Pls add screenshots for the remaining projects in the same way.
+- 08-03-ClosestPair
+- 08-04-SelectionNewSort
+- ...
+- 12-03-MapHash
+
 # Run .jar files for all sub-projects 
 
 We have implemented bash scripts to run .jar files under two folders:

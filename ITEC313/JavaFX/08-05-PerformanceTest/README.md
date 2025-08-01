@@ -280,33 +280,7 @@ mvn javafx:run -Djavafx.options="-Xmx4g"
 - **Memory**: Monitor memory usage during large algorithm tests
 - **UI Responsiveness**: Tests run in background threads to prevent UI blocking
 
-## Contributing
+## Screenshots
 
-### Code Style
-- Follow Java coding conventions
-- Include JavaDoc comments for public methods
-- Use meaningful variable and method names
-- Implement proper error handling
+![Performance Test Demo](images/08-05-PerformanceTest.png)
 
-### Testing
-- Test on multiple platforms
-- Verify algorithm correctness
-- Check UI responsiveness
-- Validate performance measurements
-
-## License
-
-This project is part of the ITEC313 JavaFX course materials.
-
-## Acknowledgments
-
-- Original `PerformanceTest.java` code from Pearson's Live Examples
-- JavaFX team for the excellent UI framework
-- Maven community for build tools and plugins
-
-## Related Documentation
-
-- [Concepts and Design](docs/concepts.md) - Main concepts and design decisions
-- [Architecture](docs/architecture.md) - Detailed system architecture
-- [JavaFX Documentation](https://openjfx.io/) - Official JavaFX documentation
-- [Maven Documentation](https://maven.apache.org/) - Maven build system documentation

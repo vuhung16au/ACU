@@ -170,38 +170,10 @@ When the load factor exceeds the threshold:
 - **Linear/Quadratic Probing**: Mark deleted positions with `Integer.MIN_VALUE`
 - **Separate Chaining**: Remove elements from linked lists
 
-## Cross-Platform Compatibility
 
-The project is designed to work on:
-- **macOS**: Intel (x86_64) and Apple Silicon (ARM64)
-- **Windows**: x86_64 and ARM64
-- **Linux**: x86_64 and ARM64
 
-Platform-specific JavaFX dependencies are automatically detected and included.
+## Screenshots
 
-## Troubleshooting
+![Probing Demo](images/12-02-Probing.png)
 
-### Common Issues
 
-1. **JavaFX not found**: Ensure JavaFX 21 is properly installed
-2. **Maven build fails**: Check Java and Maven versions
-3. **Platform-specific issues**: Use the appropriate execution script
-
-### Error Messages
-- "Java is not installed": Install OpenJDK 24 or later
-- "Maven is not installed": Install Maven 3.9.x or later
-- "Invalid load factor": Enter a value between 0 and 1
-
-## Performance Considerations
-
-- **Load Factor**: Keep below 0.75 for optimal performance
-- **Capacity**: Powers of 2 are recommended for efficient hashing
-- **Element Range**: 0-99 for best visualization
-
-## Contributing
-
-This project demonstrates educational concepts in hash table implementations. The code is based on original JavaScript implementations from Pearson's Data Structures and Algorithms resources.
-
-## License
-
-This project is for educational purposes. The original algorithms are based on standard computer science literature and educational resources.

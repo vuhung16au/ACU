@@ -209,13 +209,10 @@ Users can perform manual testing through the interface:
 - **Node Overhead**: Minimal per-node overhead
 - **Memory Management**: Automatic garbage collection for removed nodes
 
-## Contributing
+## Screenshots
 
-### Development Guidelines
-1. **Code Style**: Follow Java conventions and existing patterns
-2. **Documentation**: Add JavaDoc comments for all public methods
-3. **Testing**: Ensure all new features include appropriate tests
-4. **Platform Testing**: Verify functionality across all supported platforms
+![LinkedList Demo](images/10-02-LinkedList.png)
+
 
 ### Building for Development
 ```bash
@@ -232,53 +229,3 @@ mvn package
 java --module-path /path/to/javafx-sdk/lib --add-modules javafx.controls,javafx.fxml -jar target/linkedlist-demo-1.0.0.jar
 ```
 
-## Troubleshooting
-
-### Common Issues
-
-**JavaFX Not Found:**
-- Ensure JavaFX dependencies are properly included
-- Check platform-specific classifier in pom.xml
-- Verify JavaFX SDK installation
-
-**Build Failures:**
-- Clean and rebuild: `mvn clean compile`
-- Check Java version compatibility
-- Verify Maven configuration
-
-**Runtime Errors:**
-- Check console output for detailed error messages
-- Verify input validation for user operations
-- Ensure proper exception handling
-
-### Platform-Specific Notes
-
-**macOS:**
-- Works on both Intel and Apple Silicon
-- Automatic platform detection
-- Native JavaFX integration
-
-**Windows:**
-- Requires appropriate JavaFX Windows binaries
-- Tested on x86_64 architecture
-- Batch script execution
-
-**Linux:**
-- Requires JavaFX Linux dependencies
-- Tested on x86_64 architecture
-- Shell script execution
-
-## License
-
-This project is part of the ITEC313 JavaFX course materials and follows the course licensing requirements.
-
-## Acknowledgments
-
-- **Original Implementation**: Based on Y. Daniel Liang's LinkedList implementation
-- **JavaFX Framework**: Oracle's JavaFX for the user interface
-- **Maven Build System**: Apache Maven for cross-platform builds
-- **Platform Detection**: Maven profiles for automatic platform-specific builds
-
----
-
-For more information about the LinkedList data structure and its implementation, see the documentation in the `docs/` directory.

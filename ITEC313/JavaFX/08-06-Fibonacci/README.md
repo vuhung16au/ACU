@@ -175,6 +175,10 @@ mvn javafx:run
 - May need to install JavaFX separately: `sudo apt install openjfx`
 - Use `run.sh` for Unix-like systems
 
+## Screenshots
+
+![Fibonacci Demo](images/08-06-Fibonacci.png)
+
 ## Development
 
 ### Building from Source
@@ -206,6 +210,3 @@ mvn package
 2. **UI Enhancements**: Modify `FibonacciDemo.java`
 3. **Performance Metrics**: Extend comparison functionality
 
----
-
-**Note**: This application demonstrates fundamental programming concepts including recursion, iteration, algorithm complexity, and modern JavaFX UI development.

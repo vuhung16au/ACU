@@ -142,19 +142,6 @@ The Maven configuration includes platform detection to automatically handle diff
 
 The project uses JavaFX 21 with platform-specific dependencies managed by Maven's platform detection.
 
-## Troubleshooting
-
-### Common Issues
-
-1. **JavaFX not found**: Ensure JavaFX 21 is installed and properly configured
-2. **Maven not found**: Install Maven 3.9.x or later
-3. **Java version issues**: Ensure Java 24 is installed and set as default
-
-### Platform-Specific Notes
-
-- **macOS**: JavaFX is included with recent JDK distributions
-- **Windows**: May need to download JavaFX separately
-- **Linux**: Install OpenJFX package: `sudo apt install openjfx` (Ubuntu/Debian)
 
 ## Development
 
@@ -175,10 +162,6 @@ The main class `EightQueens` extends `Application` and contains:
 - **Algorithm Logic**: Backtracking implementation
 - **Styling**: CSS styling for visual appearance
 
-## License
+## Screenshots
 
-This project is part of the ITEC313 JavaFX course materials.
-
-## Contributing
-
-This is an educational project. For questions or improvements, please refer to the course instructor.
+![Eight Queens Demo](images/08-08-EightQueens.png)

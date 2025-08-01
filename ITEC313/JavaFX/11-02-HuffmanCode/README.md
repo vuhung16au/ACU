@@ -149,43 +149,14 @@ Hello World! This is a test of the Huffman coding algorithm.
 - **Space Complexity**: O(n) for storing character frequencies and codes
 - **Compression Efficiency**: Typically 20-50% reduction for text data
 
-## Cross-Platform Compatibility
-
-The application is designed to work seamlessly across different platforms:
-
-- **macOS**: Intel (x86_64) and Apple Silicon (ARM64)
-- **Windows**: x86_64 and ARM64
-- **Linux**: x86_64 and ARM64
-
-Platform-specific JavaFX modules are automatically detected and loaded by Maven.
-
-## Troubleshooting
-
-### Common Issues
-
-1. **JavaFX not found**: Ensure JavaFX modules are properly included
-2. **Maven build fails**: Check Java and Maven versions
-3. **Platform-specific issues**: Verify correct JavaFX platform modules
 
 ### Debug Mode
 ```bash
 mvn javafx:run -Djavafx.debug=true
 ```
 
-## Contributing
+## Screenshots
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
+![Huffman Code Demo](images/11-02-HuffmanCode.png)
 
-## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
-
-- Original Huffman algorithm implementation based on Liang's "Introduction to Java Programming"
-- JavaFX framework for the modern GUI
-- Maven for cross-platform build management

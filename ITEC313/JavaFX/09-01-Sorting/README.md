@@ -239,57 +239,7 @@ mvn clean compile
 mvn javafx:run -Djavafx.verbose=true
 ```
 
-### Platform-Specific Notes
+## Screenshots
 
-#### macOS
-- Works natively on both Intel and Apple Silicon
-- No additional configuration required
-- Uses system JavaFX modules
+![Sorting Demo](images/09-01-Sorting.gif)
 
-#### Windows
-- Requires JavaFX modules (handled by Maven profiles)
-- May need Visual C++ Redistributable for older systems
-- Tested on Windows 10/11
-
-#### Linux
-- May require additional font packages
-- Uses system JavaFX modules
-- Tested on Ubuntu 20.04+
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Implement your changes
-4. Add tests if applicable
-5. Submit a pull request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
-
-- Sorting algorithm implementations based on standard computer science literature
-- JavaFX framework for the user interface
-- Maven for build management and dependency resolution
-
-## Version History
-
-- **v1.0.0**: Initial release with 6 sorting algorithms
-  - Insertion Sort, Bubble Sort, Merge Sort, Quick Sort, Heap Sort, Radix Sort
-  - Visual animation system
-  - Cross-platform compatibility
-  - Interactive controls
-
-## Support
-
-For issues and questions:
-1. Check the troubleshooting section
-2. Review the project documentation
-3. Create an issue on the repository
-4. Contact the development team
-
----
-
-**Note**: This application is designed for educational purposes and algorithm visualization. For production sorting, consider using the built-in `Arrays.sort()` method or specialized sorting libraries.

@@ -50,4 +50,8 @@ Sample code
 - https://liveexample.pearsoncmg.com/html/AVLTree.html
 - https://liveexample.pearsoncmg.com/html/TestAVLTree.html
 
+## Screenshots
+
+![AVL Trees Demo](images/12-01-AVL-Trees.png)
+
 

@@ -207,20 +207,8 @@ This project serves as an excellent learning resource for:
 4. **Software Design**: Clean architecture and patterns
 5. **Java Programming**: Generics, iterators, and collections
 
-## Contributing
+## Screenshots
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
+![Binary Search Trees Demo](images/11-01-BinarySearchTrees.png)
 
-## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
-
-- Based on educational materials from Y. Daniel Liang's "Introduction to Java Programming and Data Structures"
-- JavaFX framework for modern GUI development
-- Maven for build automation and dependency management 
