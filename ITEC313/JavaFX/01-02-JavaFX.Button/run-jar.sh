@@ -4,7 +4,7 @@
 # This script creates dependencies and runs the JAR with proper JavaFX module path
 
 echo "🚀 JavaFX Button Demo - JAR Runner Script"
-echo "=========================================="
+echo "====================================="
 
 # Check if Maven is installed
 if ! command -v mvn &> /dev/null; then

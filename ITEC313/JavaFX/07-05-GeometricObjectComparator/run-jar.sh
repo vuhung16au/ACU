@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# JavaFX HelloWorld Demo - JAR Runner Script
+# JavaFX Geometric Object Comparator Demo - JAR Runner Script
 # This script creates dependencies and runs the JAR with proper JavaFX module path
 
-echo "🚀 JavaFX HelloWorld Demo - JAR Runner Script"
+echo "🚀 JavaFX Geometric Object Comparator Demo - JAR Runner Script"
 echo "====================================="
 
 # Check if Maven is installed
@@ -58,13 +58,13 @@ echo "✅ JavaFX libraries found at: $JAVAFX_PATH"
 
 # Run the JavaFX application
 echo ""
-echo "🎯 Running the JavaFX HelloWorld Demo from JAR..."
+echo "🎯 Running the JavaFX Geometric Object Comparator Demo from JAR..."
 echo "Note: A window should open with the JavaFX application"
 echo ""
 
 java --module-path "$JAVAFX_PATH" \
      --add-modules javafx.controls,javafx.fxml \
-     -jar target/JavaFX-HelloWorld-1.0.jar
+     -jar target/javafx-geometricobjectcomparator-demo-1.0.0.jar
 
 echo ""
-echo "👋 Thanks for using the JavaFX HelloWorld Demo!"
+echo "👋 Thanks for using the JavaFX Geometric Object Comparator Demo!"

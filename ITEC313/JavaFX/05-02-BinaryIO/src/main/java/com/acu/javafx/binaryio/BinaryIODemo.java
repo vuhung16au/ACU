@@ -312,6 +312,32 @@ public class BinaryIODemo extends Application {
         }
     }
     
+    /**
+     * Student class for demonstrating object serialization
+     */
+    public static class Student implements Serializable {
+        private String name;
+        private double score;
+        
+        public Student(String name, double score) {
+            this.name = name;
+            this.score = score;
+        }
+        
+        public String getName() {
+            return name;
+        }
+        
+        public double getScore() {
+            return score;
+        }
+        
+        @Override
+        public String toString() {
+            return "Student{name='" + name + "', score=" + score + "}";
+        }
+    }
+    
     public static void main(String[] args) {
         launch(args);
     }

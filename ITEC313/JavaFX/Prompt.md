@@ -1,3 +1,30 @@
+# Run .jar files for all sub-projects 
+
+We have implemented bash scripts to run .jar files under two folders:
+
+```
+
+01-01-JavaFX-HelloWorld/run-jar.sh
+01-01-JavaFX-HelloWorld/run.sh
+
+01-02-JavaFX.Button/run.sh
+01-02-JavaFX.Button/run-simple.sh
+```
+
+Please make sure that:
+- `mvn package`
+- .jar files are successfully created 
+- .jar files are able to run
+
+for the rest of the sub-projects (sub-folders) (0x-0x-zzzzzzzz)
+(01-03-Panes.UI.Controls.Shapes, 01-04-NodeStyleRotateDemo,...)
+
+by creating 
+- 0x-0x-zzzzzzzz/run.sh
+- 0x-0x-zzzzzzzz/run-jar.sh
+
+refer to `pom.xml` under the root folder for the list of maven `<modules>` we want to package the jar file. 
+
 # Add missing `architecture.md` and `concepts.md` to each sub-folder 
 
 The following sub-folders are missing `architecture.md` and `concepts.md`: 
