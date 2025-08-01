@@ -6,11 +6,11 @@
     <artifactId>javafx-course-projects</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
-    <name>JavaFX Course Projects - Parent</name>
+        <name>JavaFX Course Projects - Parent</name>
     <description>Aggregator for all JavaFX course subprojects</description>
 
     <modules>
-        <module>01-01-JavaFX-HelloWorld/demo</module>
+        <module>01-01-JavaFX-HelloWorld</module>
         <module>01-02-JavaFX.Button</module>
         <module>01-03-Panes.UI.Controls.Shapes</module>
         <module>01-04-NodeStyleRotateDemo</module>
