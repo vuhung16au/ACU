@@ -33,6 +33,20 @@
                 </configuration>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.2</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.example.App</mainClass>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
@@ -43,6 +57,52 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>com.example.App</mainClass>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.panteleyev</groupId>
+                <artifactId>jpackage-maven-plugin</artifactId>
+                <version>1.6.5</version>
+                <configuration>
+                                        <name>JavaFX-HelloWorld</name>
+                    <appVersion>${project.version}</appVersion>
+                    <vendor>Example</vendor>
+                    <destination>target/dist</destination>
+                    <input>target</input>
+                    <mainJar>JavaFX-HelloWorld-1.0.jar</mainJar>
+                    <mainClass>com.example.App</mainClass>
+                    <type>APP_IMAGE</type>
+                    <javaOptions>
+                        <option>-Dfile.encoding=UTF-8</option>
+                        <option>--module-path</option>
+                        <option>lib</option>
+                        <option>--add-modules</option>
+                        <option>javafx.controls,javafx.fxml</option>
+                    </javaOptions>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>default-cli</id>
+                        <phase>package</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                            <includeScope>runtime</includeScope>
                         </configuration>
                     </execution>
                 </executions>
