@@ -77,6 +77,144 @@ JavaFX/
 
 See [INSTALL-DEV-ENV.md](INSTALL-DEV-ENV.md) for instructions on setting up your development environment (Java, Maven, JavaFX) on macOS, Linux, and Windows.
 
+## Maven Build Targets and JAR Packaging
+
+This project uses Maven for build management. Each subfolder contains its own `pom.xml` file with specific configurations for JavaFX applications.
+
+### Core Maven Build Targets
+
+#### 1. **clean**
+Removes all build artifacts from the `target/` directory.
+```bash
+mvn clean
+```
+- Deletes compiled classes, JAR files, and other generated files
+- Useful before rebuilding to ensure a clean state
+
+#### 2. **compile**
+Compiles the Java source code into bytecode.
+```bash
+mvn compile
+```
+- Compiles all Java files in `src/main/java/`
+- Creates `.class` files in `target/classes/`
+- Downloads and manages dependencies automatically
+
+#### 3. **package**
+Creates a JAR file with all dependencies and resources.
+```bash
+mvn package
+```
+- Compiles the code (if not already compiled)
+- Runs tests (if configured)
+- Creates a JAR file in `target/` directory
+- Copies runtime dependencies to `target/lib/`
+
+### Building Individual Projects
+
+Navigate to any subfolder and run Maven commands:
+
+```bash
+# Navigate to a specific project
+cd 01-01-JavaFX-HelloWorld
+
+# Clean previous builds
+mvn clean
+
+# Compile the project
+mvn compile
+
+# Package into JAR
+mvn package
+```
+
+### Running JavaFX Applications
+
+#### Method 1: Using Maven JavaFX Plugin
+```bash
+# Run directly with Maven (recommended for development)
+mvn clean javafx:run
+```
+
+#### Method 2: Running JAR Files
+After packaging, you can run the JAR file:
+
+```bash
+# Navigate to the project directory
+cd 01-01-JavaFX-HelloWorld
+
+# Package the application
+mvn clean package
+
+# Run the JAR file
+java -jar target/JavaFX-HelloWorld-1.0.jar
+```
+
+**Note**: JavaFX applications require additional JVM arguments to run properly. The JAR files are configured with the necessary manifest entries, but you may need to specify the module path:
+
+```bash
+java --module-path target/lib --add-modules javafx.controls,javafx.fxml -jar target/JavaFX-HelloWorld-1.0.jar
+```
+
+#### Method 3: Using Platform Scripts
+Each project includes platform-specific run scripts:
+- **Linux/macOS**: `run.sh`
+- **Windows**: `run.bat`
+
+```bash
+# Make script executable (Linux/macOS)
+chmod +x run.sh
+
+# Run the application
+./run.sh
+```
+
+### Building All Projects
+
+To build all projects from the root directory:
+
+```bash
+# Clean all projects
+mvn clean
+
+# Compile all projects
+mvn compile
+
+# Package all projects
+mvn package
+```
+
+### JAR File Structure
+
+After packaging, each project's `target/` directory contains:
+- `project-name-version.jar` - Main application JAR
+- `lib/` - Directory containing all runtime dependencies
+- `classes/` - Compiled bytecode
+- `generated-sources/` - Any generated source files
+
+### Troubleshooting
+
+1. **Module Path Issues**: Ensure JavaFX modules are available in the module path
+2. **Version Conflicts**: Check that Java and JavaFX versions are compatible
+3. **Dependencies**: Run `mvn dependency:resolve` to verify all dependencies are available
+4. **Clean Build**: If experiencing issues, try `mvn clean package` for a fresh build
+
+### Advanced Maven Commands
+
+```bash
+# Skip tests during build
+mvn package -DskipTests
+
+# Run with specific Java version
+mvn package -Dmaven.compiler.source=21 -Dmaven.compiler.target=21
+
+# Install to local Maven repository
+mvn install
+
+# Generate dependency tree
+mvn dependency:tree
+```
+
 ---
 
 **Happy Learning!** 
