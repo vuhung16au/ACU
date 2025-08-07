@@ -5,7 +5,7 @@
  * - Final variable declaration
  * - Constant definition and usage
  * - Static final variables
- * - Immutable object creation
+ * - Immutable object creation (cannot be changed after creation)
  * 
  * Course: ITEC313 - Advanced Programming Concepts
  * Institution: XYZ
