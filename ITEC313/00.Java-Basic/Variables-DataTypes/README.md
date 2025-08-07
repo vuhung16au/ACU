@@ -67,3 +67,20 @@ int n = Integer.parseInt("123");
 - Java requires explicit type declaration (e.g., `int age = 25;`)
 - No distinction between primitive and wrapper types in Python
 - Type conversion in Python is more flexible (e.g., `int("123")`), but Java requires error handling for invalid conversions
+
+## Further Exploration
+
+You can also explore the following additional data types and concepts in Java:
+
+- Array Types - One-dimensional and multi-dimensional arrays
+- Enum Types - Custom enumerated types with methods
+- Null Handling - Null references and Optional class
+- Var Keyword - Type inference (Java 10+)
+- Final Variables - Constants and immutable references
+
+You could also consider adding:
+
+- BigInteger/BigDecimal for arbitrary precision numbers
+- Collection types (List, Set, Map)
+- Date/Time types (LocalDate, LocalDateTime)
+- Custom class examples to show reference types
