@@ -48,7 +48,7 @@ public class OperatorsExpressions {
     // Arithmetic Operators: +, -, *, /, %
     static void arithmeticOperators() {
         System.out.println("\n== Arithmetic Operators ==");
-        int a = 10, b = 3;
+        int a = 2025, b = 8;
         System.out.println("a + b = " + (a + b)); // Addition
         System.out.println("a - b = " + (a - b)); // Subtraction
         System.out.println("a * b = " + (a * b)); // Multiplication
@@ -60,7 +60,7 @@ public class OperatorsExpressions {
     // Assignment Operators: =, +=, -=, *=, /=, %=
     static void assignmentOperators() {
         System.out.println("\n== Assignment Operators ==");
-        int x = 5;
+        int x = 2025;
         x += 3; // x = x + 3
         System.out.println("x += 3 -> " + x);
         x -= 2; // x = x - 2
@@ -77,7 +77,7 @@ public class OperatorsExpressions {
     // Comparison Operators: ==, !=, >, <, >=, <=
     static void comparisonOperators() {
         System.out.println("\n== Comparison Operators ==");
-        int a = 7, b = 5;
+        int a = 8, b = 2025;
         System.out.println("a == b: " + (a == b));
         System.out.println("a != b: " + (a != b));
         System.out.println("a > b: " + (a > b));
@@ -114,7 +114,7 @@ public class OperatorsExpressions {
     // Ternary Operator: condition ? trueExpr : falseExpr
     static void ternaryOperator() {
         System.out.println("\n== Ternary Operator ==");
-        int a = 10, b = 20;
+        int a = 2025, b = 8;
         int max = (a > b) ? a : b;
         System.out.println("max = " + max);
         // Python: uses 'a if condition else b'
@@ -123,7 +123,7 @@ public class OperatorsExpressions {
     // Increment/Decrement Operators: ++, --
     static void incrementDecrementOperators() {
         System.out.println("\n== Increment/Decrement Operators ==");
-        int x = 5;
+        int x = 2025;
         System.out.println("x++: " + (x++)); // Post-increment
         System.out.println("After x++: " + x);
         System.out.println("++x: " + (++x)); // Pre-increment
