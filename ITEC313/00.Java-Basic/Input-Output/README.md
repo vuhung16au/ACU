@@ -193,5 +193,5 @@ System.out.printf("%-15s: $%,15.2f%n", "Salary", salary);
 ---
 
 **Course**: ITEC313 - Object-Oriented Programming  
-**Institution**: Australian Catholic University (ACU)  
+**Institution**: XYZ (XYZ)  
 **Date**: July 11, 2025

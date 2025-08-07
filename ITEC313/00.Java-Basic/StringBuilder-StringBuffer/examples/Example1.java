@@ -20,8 +20,8 @@
 
 public class Example1 {
     public static void main(String[] args) {
-        StringBuilder sb = new StringBuilder("ACU");
+        StringBuilder sb = new StringBuilder("XYZ");
         sb.append(" Student");
-        System.out.println(sb.toString()); // Output: ACU Student
+        System.out.println(sb.toString()); // Output: XYZ Student
     }
 } 

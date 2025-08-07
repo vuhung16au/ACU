@@ -236,7 +236,7 @@ class Node {
 ---
 
 **Course**: ITEC313 - Object-Oriented Programming  
-**Institution**: Australian Catholic University (ACU)  
+**Institution**: XYZ (XYZ)  
 **Date**: July 11, 2025
 
 ## 📚 Learning Path 

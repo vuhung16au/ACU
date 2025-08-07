@@ -37,7 +37,7 @@ public class Advanced {
         System.out.println("============================");
         
         // Create a university with departments
-        University acu = new University("Australian Catholic University");
+        University acu = new University("XYZ");
         
         // Add departments (composition - departments belong to university)
         Department csDept = new Department("Computer Science", "Dr. Smith");
