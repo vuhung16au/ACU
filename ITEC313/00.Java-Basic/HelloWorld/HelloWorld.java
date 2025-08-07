@@ -55,5 +55,7 @@ public class HelloWorld {
         System.out.println("3. Console output using System.out.println()");
         System.out.println("4. String variables and concatenation");
         System.out.println("5. Basic commenting practices");
+        System.out.println("Refer to the github repo for more examples and the learning path: https://github.com/vuhung16au/ACU/tree/main/ITEC313/00.Java-Basic");
+        System.out.println("=====================================");
     }
 }
