@@ -135,8 +135,8 @@ public class ImageDemo extends Application {
         // Image selector
         Label selectorLabel = new Label("Select Image:");
         imageSelector = new ComboBox<>();
-        imageSelector.getItems().addAll("US Flag", "Sample Image 1", "Sample Image 2");
-        imageSelector.setValue("US Flag");
+        imageSelector.getItems().addAll("AU Flag", "Sample Image 1", "Sample Image 2");
+        imageSelector.setValue("AU Flag");
         imageSelector.setPrefWidth(200);
         
         // Scale slider
@@ -211,10 +211,10 @@ public class ImageDemo extends Application {
      */
     private void loadDefaultImage() {
         try {
-            // Try to load the US flag image from classpath
-            currentImage = new Image(getClass().getResource("/image/us.gif").toExternalForm());
+            // Try to load the AU flag image from classpath
+            currentImage = new Image(getClass().getResource("/image/au.gif").toExternalForm());
             updateAllImageViews();
-            updateStatus("Loaded US flag image successfully");
+            updateStatus("Loaded AU flag image successfully");
         } catch (Exception e) {
             // If image not found, create a placeholder
             createPlaceholderImage();
@@ -229,8 +229,8 @@ public class ImageDemo extends Application {
         String selected = imageSelector.getValue();
         try {
             switch (selected) {
-                case "US Flag":
-                    currentImage = new Image(getClass().getResource("/image/us.gif").toExternalForm());
+                case "AU Flag":
+                    currentImage = new Image(getClass().getResource("/image/au.gif").toExternalForm());
                     break;
                 case "Sample Image 1":
                     currentImage = new Image(getClass().getResource("/image/sample1.jpg").toExternalForm());
@@ -239,7 +239,7 @@ public class ImageDemo extends Application {
                     currentImage = new Image(getClass().getResource("/image/sample2.png").toExternalForm());
                     break;
                 default:
-                    currentImage = new Image(getClass().getResource("/image/us.gif").toExternalForm());
+                    currentImage = new Image(getClass().getResource("/image/au.gif").toExternalForm());
             }
             updateAllImageViews();
             updateStatus("Loaded " + selected + " successfully");
@@ -273,7 +273,7 @@ public class ImageDemo extends Application {
     private void resetAll() {
         scaleSlider.setValue(1.0);
         rotationSlider.setValue(0);
-        imageSelector.setValue("US Flag");
+        imageSelector.setValue("AU Flag");
         updateStatus("All controls reset to default values");
     }
     

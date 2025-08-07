@@ -11,6 +11,11 @@ public class Launcher {
      * @param args command line arguments
      */
     public static void main(String[] args) {
-        NodeStyleRotateDemo.main(args);
+
+        // Uncomment the following line to run the NodeStyleRotateDemo
+        // NodeStyleRotateDemo.main(args);
+
+        // Uncomment the following line to run the SimpleNodeStyleRotateDemo
+        SimpleNodeStyleRotateDemo.main(args);
     }
 } 

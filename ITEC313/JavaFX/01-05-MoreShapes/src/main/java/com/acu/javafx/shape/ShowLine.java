@@ -15,7 +15,8 @@ public class ShowLine extends Pane {
     
     public ShowLine() {
         // Create the first line (diagonal from top-left to bottom-right)
-        Line line1 = new Line(10, 10, 10, 10);
+        // Line line1 = new Line(10, 10, 10, 10);
+        Line line1 = new Line(0, 0, 0, 0);
         line1.endXProperty().bind(widthProperty().subtract(10));
         line1.endYProperty().bind(heightProperty().subtract(10));
         line1.setStrokeWidth(5);

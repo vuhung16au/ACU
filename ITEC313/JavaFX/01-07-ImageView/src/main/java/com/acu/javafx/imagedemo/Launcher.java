@@ -18,6 +18,11 @@ public class Launcher {
      * @param args command line arguments
      */
     public static void main(String[] args) {
+
+        // Uncomment the line below to run the ShowImage example directly
         Application.launch(ShowImage.class, args);
+
+        // Uncomment the line below to run the ImageDemo example directly
+        // Application.launch(ImageDemo.class, args);
     }
 } 
