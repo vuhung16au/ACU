@@ -1,6 +1,15 @@
-# HelloFX (sbt) Sample
+# Build HelloFX with `sbt`
 
 Simple JavaFX Hello World sample configured for [sbt](https://www.scala-sbt.org/).
+
+## Why sbt
+
+[The build.sbt file](build.sbt):
+
+* KISS: simple syntax
+* No XML
+* Short build definition
+* Easy to maintain
 
 ## Run (macOS / Linux / Windows)
 
@@ -28,17 +37,21 @@ Key lines in `build.sbt` and what they do:
 * `Compile / unmanagedSourceDirectories += ...` – Redundant clarity: ensures Java sources directory is included (sbt already defaults to `src/main/java`).
 
 Adding more JavaFX modules:
+
 * Add dependencies (e.g. `"org.openjfx" % "javafx-media" % javafxVersion` with the same classifier logic if platform natives are needed).
 * Extend the `--add-modules` list: change to `"javafx.controls,javafx.media"` (comma-separated) or programmatically build from the chosen modules.
 
 Packaging a runnable fat JAR (simple approach):
+
 * Add the sbt-assembly plugin (not currently configured) or use `sbt package` then run with explicit module path pointing at downloaded JavaFX jars in `~/.ivy2/cache` (or rely on `--module-path` logic via `sbt run`). For teaching purposes `sbt run` is usually sufficient.
 
 Running with custom JVM options:
+
 ```bash
 sbt "run --args"
 ```
 Edit `javaOptions` for persistent changes.
+ 
 
 ### .jvmopts
 
