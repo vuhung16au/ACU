@@ -45,7 +45,7 @@ You should see a simple JavaFX window appear. See the screenshot below:
 
 The `pom.xml` file in the generated project includes the following important sections:
 
-### JavaFX Dependency
+### [JavaFX](https://openjfx.io/) Dependency
 
 ```
 <dependency>
@@ -57,7 +57,7 @@ The `pom.xml` file in the generated project includes the following important sec
 This adds the JavaFX controls library to your project.
 `24.0.2` is the latest stable version as of 9 August 2025.
 
-### JavaFX Maven Plugin
+### [JavaFX Maven Plugin](https://mvnrepository.com/artifact/org.openjfx/javafx-maven-plugin)
 
 ```
 <plugin>
@@ -69,7 +69,7 @@ This adds the JavaFX controls library to your project.
 This plugin allows you to run JavaFX applications using `mvn javafx:run`.
 `0.0.8` is the latest stable version as of 9 August 2025.
 
-### Maven Compiler Plugin
+### [Maven Compiler Plugin](https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin)
 
 ```
 <plugin>
