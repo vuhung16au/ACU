@@ -1,0 +1,27 @@
+# Maven target directory
+/sample/target/
+
+# Eclipse and IntelliJ project files
+*.iml
+.idea/
+.classpath
+.project
+.settings/
+
+# VS Code settings
+.vscode/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Java build output
+*.class
+
+# Maven wrapper
+mvnw
+mvnw.cmd
+.mvn/
