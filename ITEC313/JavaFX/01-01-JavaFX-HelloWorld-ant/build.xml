@@ -209,6 +209,49 @@
         <echo message="App image created under ${app.image.dir}"/>
     </target>
 
+        <!-- ==== jlink (Custom Minimal Runtime Image) ==== -->
+        <!-- Creates a trimmed JRE containing only the JDK + JavaFX modules needed to run the app.
+                 Because the application itself is on the classpath (no module-info.java), we:
+                     1) Build the jar first (depends on jar target)
+                     2) Use jlink to assemble a runtime with requested JavaFX modules (+ their dependencies)
+                     3) Provide a small launch script that runs the jar with the custom runtime.
+                 Result: dist/runtime-image (runtime) + dist/run.sh (launcher) + existing jar/libs.
+                 Invocation: ant jlink  -> dist/runtime-image/bin/java -cp dist/JavaFX-HelloWorld.jar com.example.App
+                 You can further shrink by pruning the modules list or refining the selected modules. -->
+    <target name="jlink" depends="jar" description="Create minimized runtime image via jlink">
+        <condition property="has.jlink">
+            <and>
+                <available file="${java.home}/bin/jlink"/>
+            </and>
+        </condition>
+        <fail unless="has.jlink" message="jlink tool not found in current JDK (java.home=${java.home}). Use a full JDK 9+ that bundles jlink."/>
+        <!-- Output directory for image -->
+        <property name="runtime.image.dir" value="${dist.dir}/runtime-image"/>
+        <delete dir="${runtime.image.dir}" quiet="true"/>
+        <!-- Module path for jlink: JDK jmods + downloaded JavaFX modules -->
+        <path id="jlink.module.path">
+            <pathelement location="${java.home}/jmods"/>
+            <fileset dir="${dist.dir}/lib" includes="*.jar"/>
+        </path>
+        <pathconvert property="jlink.module.path.string" refid="jlink.module.path" pathsep=":"/>
+        <echo message="Creating custom runtime image including modules: ${modules}"/>
+        <exec executable="${java.home}/bin/jlink" failonerror="true">
+            <arg value="--module-path"/><arg value="${jlink.module.path.string}"/>
+            <arg value="--add-modules"/><arg value="${modules}"/>
+            <!-- Optimizations -->
+            <arg value="--strip-debug"/>
+            <arg value="--no-man-pages"/>
+            <arg value="--no-header-files"/>
+            <arg value="--compress"/><arg value="2"/>
+            <arg value="--output"/><arg value="${runtime.image.dir}"/>
+        </exec>
+        <echo message="Custom runtime image created at ${runtime.image.dir}"/>
+        <!-- Create simple launcher script for Unix-like systems -->
+        <echo file="${dist.dir}/run.sh">#!/usr/bin/env bash&#10;DIR="`dirname \"$0\"`"&#10;"$DIR/runtime-image/bin/java" -cp "$DIR/${app.name}.jar" ${main.class}&#10;</echo>
+        <chmod file="${dist.dir}/run.sh" perm="755"/>
+        <echo message="Launcher script created: ${dist.dir}/run.sh"/>
+    </target>
+
     <!-- ==== Clean ==== -->
     <target name="clean" description="Remove build, dist and downloaded libs">
         <delete dir="${build.dir}"/>
@@ -228,6 +271,7 @@ Targets:
   jar           - Build runnable jar (depends: compile)
   run           - Run the application (depends: jar)
   package-app   - Create native app image via jpackage
+    jlink         - Create minimized runtime image (custom JRE) under dist/runtime-image
   clean         - Clean build, dist, lib directories
 
 Typical workflows:
