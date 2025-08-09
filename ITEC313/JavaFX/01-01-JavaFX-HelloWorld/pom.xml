@@ -10,6 +10,11 @@
         <maven.compiler.target>21</maven.compiler.target>
         <javafx.version>21.0.2</javafx.version>
     </properties>
+    <!-- Provide an (empty) dependencyManagement section so plugins expecting it (e.g., dependency:analyze-exclusions)
+         don't encounter a null reference. -->
+    <dependencyManagement>
+        <dependencies/>
+    </dependencyManagement>
     <dependencies>
         <dependency>
             <groupId>org.openjfx</groupId>
