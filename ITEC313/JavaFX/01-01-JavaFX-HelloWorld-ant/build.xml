@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Ant build script for JavaFX Hello World (migrated from Maven).
+ Summary:
+    * Detects OS/architecture to fetch matching JavaFX jars (no external plugins)
+    * Downloads JavaFX modules (controls, fxml, graphics, base) from Maven Central
+    * Compiles with Java 21 (release flag)
+    * Builds runnable jar with manifest (Main-Class + Class-Path for libs)
+    * Run target supplies required module path + modules
+    * Can create native app image via jpackage (if available)
+ Usage examples:
+     ant run        (resolve -> compile -> jar -> run)
+     ant jar        (build distribution jar + libs)
+     ant package-app (create app image)
+     ant clean      (remove build outputs and downloaded libs)
+ Notes:
+    * Both base and platform specific JavaFX jars are downloaded (graphics native libraries).
+    * For more modules (media, web, etc.) add them to download + modules lists.
+-->
+<project name="JavaFX-HelloWorld" default="help" basedir=".">
+
+    <!-- ==== Configuration Properties ==== -->
+    <property name="app.name" value="JavaFX-HelloWorld"/>
+    <property name="version" value="1.0"/>
+    <property name="main.class" value="com.example.App"/>
+    <property name="javafx.version" value="24.0.2"/>
+    <!-- JavaFX modules actually used by the app -->
+    <property name="modules" value="javafx.controls,javafx.fxml"/>
+    <!-- All modules we will download (include base + graphics for runtime support) -->
+    <property name="download.modules" value="javafx-base,javafx-graphics,javafx-controls,javafx-fxml"/>
+
+    <!-- Directory layout -->
+    <property name="src.dir" value="src/main/java"/>
+    <property name="resources.dir" value="src/main/resources"/>
+    <property name="build.dir" value="build"/>
+    <property name="classes.dir" value="${build.dir}/classes"/>
+    <property name="lib.dir" value="lib"/>
+    <property name="dist.dir" value="dist"/>
+    <property name="jar.file" value="${dist.dir}/${app.name}.jar"/>
+
+    <!-- Ensure directories exist where needed -->
+    <target name="prepare" description="Create build directories" unless="prepare.done">
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${classes.dir}"/>
+        <mkdir dir="${lib.dir}"/>
+        <mkdir dir="${dist.dir}"/>
+        <property name="prepare.done" value="true"/>
+    </target>
+
+    <!-- ==== Platform Detection for JavaFX classifiers ==== -->
+    <!-- Map (os.name, os.arch) to JavaFX classifier tokens -->
+    <target name="detect-platform">
+        <property environment="env"/>
+        <!-- Normalize OS -->
+        <condition property="os.detected" value="mac">
+            <matches string="${os.name}" pattern=".*(Mac|Darwin).*" casesensitive="false"/>
+        </condition>
+        <condition property="os.detected" value="linux">
+            <matches string="${os.name}" pattern=".*(Linux).*" casesensitive="false"/>
+        </condition>
+        <condition property="os.detected" value="win">
+            <matches string="${os.name}" pattern=".*(Windows).*" casesensitive="false"/>
+        </condition>
+
+        <!-- Architecture mapping -->
+        <condition property="arch.detected" value="aarch64">
+            <matches string="${os.arch}" pattern=".*(aarch64|arm64).*" casesensitive="false"/>
+        </condition>
+        <condition property="arch.detected" value="x64">
+            <matches string="${os.arch}" pattern=".*(x86_64|amd64).*" casesensitive="false"/>
+        </condition>
+
+        <!-- Compose JavaFX classifier (see OpenJFX artifact naming) -->
+        <condition property="javafx.platform" value="mac-aarch64">
+            <and>
+                <equals arg1="${os.detected}" arg2="mac"/>
+                <equals arg1="${arch.detected}" arg2="aarch64"/>
+            </and>
+        </condition>
+        <condition property="javafx.platform" value="mac">
+            <and>
+                <equals arg1="${os.detected}" arg2="mac"/>
+                <equals arg1="${arch.detected}" arg2="x64"/>
+            </and>
+        </condition>
+        <condition property="javafx.platform" value="linux-aarch64">
+            <and>
+                <equals arg1="${os.detected}" arg2="linux"/>
+                <equals arg1="${arch.detected}" arg2="aarch64"/>
+            </and>
+        </condition>
+        <condition property="javafx.platform" value="linux">
+            <and>
+                <equals arg1="${os.detected}" arg2="linux"/>
+                <equals arg1="${arch.detected}" arg2="x64"/>
+            </and>
+        </condition>
+        <condition property="javafx.platform" value="win">
+            <and>
+                <equals arg1="${os.detected}" arg2="win"/>
+                <equals arg1="${arch.detected}" arg2="x64"/>
+            </and>
+        </condition>
+
+        <echo message="Detected OS: ${os.name} (${os.detected}), Arch: ${os.arch} (${arch.detected}), JavaFX platform: ${javafx.platform}"/>
+    <fail unless="javafx.platform" message="Unsupported platform combination for automatic JavaFX download. Please set -Djavafx.platform=&lt;classifier&gt; (e.g., mac-aarch64, mac, linux, linux-aarch64, win)."/>
+    </target>
+
+    <!-- ==== Download JavaFX Dependencies ==== -->
+    <!-- Macro (core Ant) to download a single JavaFX module (base + classifier jar) -->
+    <macrodef name="dlmod">
+        <attribute name="mod"/>
+        <sequential>
+            <property name="base.url" value="https://repo1.maven.org/maven2/org/openjfx"/>
+            <echo message="Downloading @{mod} (${javafx.version}) if missing"/>
+            <get src="${base.url}/@{mod}/${javafx.version}/@{mod}-${javafx.version}.jar" dest="${lib.dir}/@{mod}-${javafx.version}.jar" skipexisting="true"/>
+            <get src="${base.url}/@{mod}/${javafx.version}/@{mod}-${javafx.version}-${javafx.platform}.jar" dest="${lib.dir}/@{mod}-${javafx.version}-${javafx.platform}.jar" skipexisting="true"/>
+        </sequential>
+    </macrodef>
+
+    <target name="resolve" depends="detect-platform,prepare" description="Download JavaFX module jars if missing">
+        <echo message="Resolving JavaFX modules (${download.modules}) for ${javafx.platform} (version ${javafx.version})"/>
+        <!-- Explicit list (keeps core Ant only; add more as needed) -->
+        <dlmod mod="javafx-base"/>
+        <dlmod mod="javafx-graphics"/>
+        <dlmod mod="javafx-controls"/>
+        <dlmod mod="javafx-fxml"/>
+    </target>
+
+    <!-- ==== Compile ==== -->
+    <target name="compile" depends="resolve" description="Compile Java sources (Java 21)">
+        <path id="javafx.module.path">
+            <fileset dir="${lib.dir}" includes="*.jar"/>
+        </path>
+        <pathconvert property="javafx.module.path.string" refid="javafx.module.path" pathsep=":"/>
+        <mkdir dir="${classes.dir}"/>
+        <!-- Copy resources (FXML) -->
+        <copy todir="${classes.dir}">
+            <fileset dir="${resources.dir}" excludes="**/*.java"/>
+        </copy>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false" release="21">
+            <compilerarg value="--module-path"/>
+            <compilerarg value="${javafx.module.path.string}"/>
+            <compilerarg value="--add-modules"/>
+            <compilerarg value="${modules}"/>
+        </javac>
+    </target>
+
+    <!-- ==== Jar Packaging ==== -->
+    <target name="jar" depends="compile" description="Package runnable jar with manifest">
+        <mkdir dir="${dist.dir}/lib"/>
+        <!-- Copy libs -->
+        <copy todir="${dist.dir}/lib">
+            <fileset dir="${lib.dir}" includes="*.jar"/>
+        </copy>
+        <!-- Build Class-Path manifest entry listing all lib jars -->
+        <path id="dist.classpath">
+            <fileset dir="${dist.dir}/lib" includes="*.jar"/>
+        </path>
+        <pathconvert property="manifest.classpath" refid="dist.classpath" pathsep=" ">
+            <chainedmapper>
+                <flattenmapper/>
+                <globmapper from="*" to="lib/*"/>
+            </chainedmapper>
+        </pathconvert>
+        <jar destfile="${jar.file}" basedir="${classes.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="${main.class}"/>
+                <attribute name="Class-Path" value="${manifest.classpath}"/>
+            </manifest>
+        </jar>
+        <echo message="Created ${jar.file}"/>
+    </target>
+
+    <!-- ==== Run ==== -->
+    <target name="run" depends="jar" description="Run the application">
+        <java jar="${jar.file}" fork="true">
+            <jvmarg value="--module-path"/>
+            <jvmarg path="${dist.dir}/lib"/>
+            <jvmarg value="--add-modules"/>
+            <jvmarg value="${modules}"/>
+        </java>
+    </target>
+
+    <!-- ==== jpackage (App Image) ==== -->
+    <target name="package-app" depends="jar" description="Create native app image via jpackage (APP_IMAGE)">
+        <property name="app.image.dir" value="${dist.dir}/image"/>
+        <delete dir="${app.image.dir}" quiet="true"/>
+        <mkdir dir="${app.image.dir}"/>
+        <condition property="has.jpackage">
+            <and>
+                <available file="${java.home}/bin/jpackage"/>
+            </and>
+        </condition>
+        <fail unless="has.jpackage" message="jpackage tool not found in current JDK (java.home=${java.home}). Use a JDK (e.g., Oracle/OpenJDK 14+) that bundles jpackage."/>
+        <echo message="Running jpackage to build app image..."/>
+        <exec executable="${java.home}/bin/jpackage" failonerror="true">
+            <arg value="--type"/><arg value="app-image"/>
+            <arg value="--name"/><arg value="${app.name}"/>
+            <arg value="--app-version"/><arg value="${version}"/>
+            <arg value="--input"/><arg value="${dist.dir}"/>
+            <arg value="--main-jar"/><arg value="${app.name}.jar"/>
+            <arg value="--main-class"/><arg value="${main.class}"/>
+            <arg value="--dest"/><arg value="${app.image.dir}"/>
+            <arg value="--module-path"/><arg value="${dist.dir}/lib"/>
+            <arg value="--add-modules"/><arg value="${modules}"/>
+            <arg value="--java-options"/><arg value="-Dfile.encoding=UTF-8"/>
+        </exec>
+        <echo message="App image created under ${app.image.dir}"/>
+    </target>
+
+    <!-- ==== Clean ==== -->
+    <target name="clean" description="Remove build, dist and downloaded libs">
+        <delete dir="${build.dir}"/>
+        <delete dir="${dist.dir}"/>
+        <delete dir="${lib.dir}"/>
+    </target>
+
+    <!-- ==== Help ==== -->
+    <target name="help" description="Show usage">
+        <echo><![CDATA[
+JavaFX Hello World - Ant Build
+
+Targets:
+  help          - This help
+  resolve       - Download JavaFX dependencies
+  compile       - Compile sources
+  jar           - Build runnable jar (depends: compile)
+  run           - Run the application (depends: jar)
+  package-app   - Create native app image via jpackage
+  clean         - Clean build, dist, lib directories
+
+Typical workflows:
+  ant run
+  ant package-app
+
+Properties you can override (-Dname=value):
+  javafx.version (default ${javafx.version})
+  modules (JavaFX modules used at runtime; default ${modules})
+  main.class (default ${main.class})
+  javafx.platform (override auto-detection if needed)
+        ]]></echo>
+    </target>
+
+</project>
