@@ -1,0 +1,52 @@
+# Root build file for JavaFX Hello World migrated from Maven (simplified non-modular build).
+
+package(default_visibility = ["//visibility:public"]) 
+
+java_binary(
+    name = "app",
+    srcs = [
+        "src/main/java/module-info.java",
+        "src/main/java/com/example/App.java",
+        "src/main/java/com/example/PrimaryController.java",
+        "src/main/java/com/example/SecondaryController.java",
+    ],
+    resources = glob(["src/main/resources/**/*.fxml"]),
+    resource_strip_prefix = "src/main/resources",
+    main_class = "com.example.App",
+    
+    # Compile targeting Java 21
+    javacopts = ["--release=21"],
+    # Supply JavaFX jars on the module-path and enable the required modules
+    jvm_flags = [
+        "--module-path=$(location @maven//:org_openjfx_javafx_base):$(location @maven//:org_openjfx_javafx_controls):$(location @maven//:org_openjfx_javafx_fxml):$(location @maven//:org_openjfx_javafx_graphics):$(location @maven//:org_openjfx_javafx_base_mac_aarch64):$(location @maven//:org_openjfx_javafx_controls_mac_aarch64):$(location @maven//:org_openjfx_javafx_fxml_mac_aarch64):$(location @maven//:org_openjfx_javafx_graphics_mac_aarch64)",
+        "--add-modules=javafx.controls,javafx.fxml",
+    ],
+    data = [
+        "@maven//:org_openjfx_javafx_base",
+        "@maven//:org_openjfx_javafx_controls",
+        "@maven//:org_openjfx_javafx_fxml",
+        "@maven//:org_openjfx_javafx_graphics",
+        "@maven//:org_openjfx_javafx_base_mac_aarch64",
+        "@maven//:org_openjfx_javafx_controls_mac_aarch64",
+        "@maven//:org_openjfx_javafx_fxml_mac_aarch64",
+        "@maven//:org_openjfx_javafx_graphics_mac_aarch64",
+    ],
+    deps = [
+        # Platform-agnostic compile-time modules
+        "@maven//:org_openjfx_javafx_base",
+        "@maven//:org_openjfx_javafx_controls",
+        "@maven//:org_openjfx_javafx_fxml",
+        "@maven//:org_openjfx_javafx_graphics",
+        # macOS aarch64 natives
+        "@maven//:org_openjfx_javafx_base_mac_aarch64",
+        "@maven//:org_openjfx_javafx_controls_mac_aarch64",
+        "@maven//:org_openjfx_javafx_fxml_mac_aarch64",
+        "@maven//:org_openjfx_javafx_graphics_mac_aarch64",
+    ],
+)
+
+sh_binary(
+    name = "run_app",
+    srcs = ["run_app.sh"],
+    data = [":app"],
+)

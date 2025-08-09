@@ -1,0 +1,24 @@
+module(name = "javafx_hello", version = "0.1")
+
+# rules_jvm_external provides a bzlmod extension for Maven artifacts.
+bazel_dep(name = "rules_jvm_external", version = "6.3")
+
+maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
+
+maven.install(
+    artifacts = [
+    # JavaFX 21.0.4 (LTS; supports JDK 21). Using Bazel remotejdk21 toolchain is sufficient.
+    "org.openjfx:javafx-base:21.0.4",
+    "org.openjfx:javafx-controls:21.0.4",
+    "org.openjfx:javafx-fxml:21.0.4",
+    "org.openjfx:javafx-graphics:21.0.4",
+    # macOS aarch64 native classifiers
+    "org.openjfx:javafx-base:21.0.4:mac-aarch64",
+    "org.openjfx:javafx-controls:21.0.4:mac-aarch64",
+    "org.openjfx:javafx-fxml:21.0.4:mac-aarch64",
+    "org.openjfx:javafx-graphics:21.0.4:mac-aarch64",
+    ],
+    repositories = ["https://repo.maven.apache.org/maven2"],
+)
+
+use_repo(maven, "maven")  # expose generated repo

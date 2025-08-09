@@ -1,0 +1,4 @@
+# Ignore Maven/IDE output directories so Bazel does not descend into them.
+target
+.idea
+.vscode
