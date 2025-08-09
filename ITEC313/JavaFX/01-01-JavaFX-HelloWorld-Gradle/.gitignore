@@ -1,0 +1,33 @@
+# Gradle build output
+/build/
+/hellofx/build/
+/hellofx/.gradle/
+.gradle/
+
+# IDE files
+*.iml
+.idea/
+*.ipr
+*.iws
+
+# OS files
+.DS_Store
+
+# Java class files
+*.class
+
+# Logs
+*.log
+
+# Generated files
+/hellofx/out/
+/hellofx/generate/
+
+# Windows files
+Thumbs.db
+
+# Gradle Wrapper
+/hellofx/gradle/wrapper/gradle-wrapper.jar
+
+# VS Code settings
+.vscode/
