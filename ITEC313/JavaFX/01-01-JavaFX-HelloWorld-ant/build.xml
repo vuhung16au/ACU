@@ -37,6 +37,12 @@
     <property name="lib.dir" value="lib"/>
     <property name="dist.dir" value="dist"/>
     <property name="jar.file" value="${dist.dir}/${app.name}.jar"/>
+    <!-- Test related configuration -->
+    <property name="test.src.dir" value="src/test/java"/>
+    <property name="test.classes.dir" value="${build.dir}/test-classes"/>
+    <!-- Using the standalone ConsoleLauncher jar keeps dependency management simple -->
+    <property name="junit.platform.version" value="1.10.2"/>
+    <property name="junit.console.jar" value="${lib.dir}/junit-platform-console-standalone-${junit.platform.version}.jar"/>
 
     <!-- Ensure directories exist where needed -->
     <target name="prepare" description="Create build directories" unless="prepare.done">
@@ -144,6 +150,36 @@
             <compilerarg value="--add-modules"/>
             <compilerarg value="${modules}"/>
         </javac>
+    </target>
+
+    <!-- ==== Test Libraries Resolve (JUnit) ==== -->
+    <target name="resolve-testlibs" depends="resolve" description="Download JUnit console standalone if missing">
+        <echo message="Resolving JUnit Platform Console (version ${junit.platform.version})"/>
+        <get src="https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/${junit.platform.version}/junit-platform-console-standalone-${junit.platform.version}.jar" dest="${junit.console.jar}" skipexisting="true"/>
+    </target>
+
+    <!-- ==== Compile Tests ==== -->
+    <target name="compile-tests" depends="compile,resolve-testlibs" description="Compile test sources">
+        <mkdir dir="${test.classes.dir}"/>
+        <javac srcdir="${test.src.dir}" destdir="${test.classes.dir}" includeantruntime="false" release="21" debug="true" debuglevel="lines,vars,source">
+            <classpath>
+                <pathelement location="${classes.dir}"/>
+                <pathelement location="${junit.console.jar}"/>
+            </classpath>
+        </javac>
+    </target>
+
+    <!-- ==== Run Tests ==== -->
+    <target name="test" depends="compile-tests" description="Run JUnit tests (ConsoleLauncher)">
+        <echo message="Running unit tests..."/>
+        <java classname="org.junit.platform.console.ConsoleLauncher" fork="true" failonerror="true">
+            <classpath>
+                <pathelement location="${junit.console.jar}"/>
+                <pathelement location="${classes.dir}"/>
+                <pathelement location="${test.classes.dir}"/>
+            </classpath>
+            <arg value="--scan-classpath"/>
+        </java>
     </target>
 
     <!-- ==== Jar Packaging ==== -->
@@ -270,6 +306,7 @@ Targets:
   compile       - Compile sources
   jar           - Build runnable jar (depends: compile)
   run           - Run the application (depends: jar)
+    test          - Run JUnit tests (depends: compile-tests)
   package-app   - Create native app image via jpackage
     jlink         - Create minimized runtime image (custom JRE) under dist/runtime-image
   clean         - Clean build, dist, lib directories

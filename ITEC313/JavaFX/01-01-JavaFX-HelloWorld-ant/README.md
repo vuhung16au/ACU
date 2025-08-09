@@ -96,11 +96,7 @@ dist/              (generated) distribution jar + libs (and app image)
 
 ![JavaFX Hello World](images/javafx-build-with-ant.png)
 
-## Next Ideas
-
-* Add an Ant `jlink` target for a minimized runtime image.
-* Add unit tests + a `test` target (e.g., using JUnit + optional Ant JUnit task).
-* Add CI workflow invoking `ant jar`.
+---
 
 Enjoy building with Ant!
 
