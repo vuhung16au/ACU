@@ -1,0 +1,3 @@
+# JVM options for the sbt launcher itself
+# Silence restricted native access warnings originating from sbt's own helper jars
+--enable-native-access=ALL-UNNAMED

@@ -1,0 +1,62 @@
+########################################
+# sbt / Scala / JavaFX project ignores #
+########################################
+
+# sbt build output
+target/
+project/target/
+project/project/target/
+hellofx/target/
+
+# Local sbt boot & ivy caches (normally in user home, but just in case)
+.history/
+.cache/
+
+# Metals / Bloop (Scala tooling)
+.bloop/
+.metals/
+.bsp/
+
+# IntelliJ / IDEA
+*.iml
+.idea/
+*.ipr
+*.iws
+
+# VS Code
+.vscode/
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Mac / Windows OS artifacts
+.DS_Store
+Thumbs.db
+
+# Java / Scala compiled classes & artifacts
+*.class
+*.tasty
+*.log
+
+# Generated or transient folders
+hellofx/out/
+hellofx/generate/
+hellofx/bin/
+
+# Packaged artifacts
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+
+# Crash logs
+hs_err_pid*
+
+# Remove any lingering Gradle remnants (project no longer uses Gradle)
+.gradle/
+gradlew
+gradlew.bat
+**/gradle/wrapper/
