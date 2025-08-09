@@ -22,6 +22,21 @@
             <version>${javafx.version}</version>
         </dependency>
     </dependencies>
+    <!-- Distribution management added to allow 'mvn deploy' without specifying -DaltDeploymentRepository -->
+    <distributionManagement>
+        <!-- Local file-based repository for releases -->
+        <repository>
+            <id>local-releases</id>
+            <name>Local Releases</name>
+            <url>file://${project.build.directory}/maven-repo/releases</url>
+        </repository>
+        <!-- Local file-based repository for snapshots -->
+        <snapshotRepository>
+            <id>local-snapshots</id>
+            <name>Local Snapshots</name>
+            <url>file://${project.build.directory}/maven-repo/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
     <build>
         <plugins>
             <plugin>
