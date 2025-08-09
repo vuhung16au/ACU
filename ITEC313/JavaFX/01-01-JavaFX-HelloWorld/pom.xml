@@ -8,7 +8,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
-        <javafx.version>21.0.2</javafx.version>
+    <javafx.version>24.0.2</javafx.version>
     </properties>
     <!-- Provide an (empty) dependencyManagement section so plugins expecting it (e.g., dependency:analyze-exclusions)
          don't encounter a null reference. -->
