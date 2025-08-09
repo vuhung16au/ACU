@@ -7,7 +7,7 @@ JavaFX HelloFX sample to run with gradle.
 If you run on Linux or Mac, follow these steps:
 
 ```bash
-    cd HelloFX/Gradle/hellofx
+    cd hellofx
 ```
 
 To run the project:
