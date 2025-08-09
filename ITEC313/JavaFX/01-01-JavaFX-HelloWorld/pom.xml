@@ -81,7 +81,7 @@
                 <artifactId>jpackage-maven-plugin</artifactId>
                 <version>1.6.5</version>
                 <configuration>
-                                        <name>JavaFX-HelloWorld</name>
+                    <name>JavaFX-HelloWorld</name>
                     <appVersion>${project.version}</appVersion>
                     <vendor>Example</vendor>
                     <destination>target/dist</destination>
@@ -101,6 +101,28 @@
                     <execution>
                         <id>default-cli</id>
                         <phase>package</phase>
+                        <goals>
+                            <goal>jpackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>cleanup-old-app-image</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <!-- Remove previously generated .app bundle to avoid jpackage failure -->
+                                <delete dir="${project.build.directory}/dist/JavaFX-HelloWorld.app" failonerror="false"/>
+                            </target>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
