@@ -41,26 +41,30 @@ Note: The JAR file includes a proper manifest with the main class, so it can be 
 
 ### Package and Create Standalone Application
 
-To create a standalone native application that can be distributed without requiring Java installation:
+To create (or recreate) the standalone macOS `.app` bundle you now have two easy options:
 
+Option 1 (recommended - handles cleanup automatically):
+ 
 ```bash
-# Clean, compile, package and create native app
-mvn clean package jpackage:jpackage
+./jpackage.sh
 ```
 
-This command will:
-
-- Clean any previous builds
-- Compile the JavaFX application
-- Package it into a JAR file
-- Copy all JavaFX dependencies to the `target/lib` folder
-- Create a native application in `target/dist/`
-
-On macOS, this creates a `.app` bundle in `target/dist/JavaFX-HelloWorld.app` that can be run by double-clicking or using:
-
+Option 2 (manual commands):
+ 
 ```bash
+mvn clean package
 open target/dist/JavaFX-HelloWorld.app
 ```
+
+What happens during packaging:
+ 
+* Cleans previous build output
+* Compiles sources
+* Packages the runnable JAR (with manifest main class)
+* Copies JavaFX runtime dependencies into `target/lib`
+* Runs `jpackage` (bound to the `package` phase) to build the app image at `target/dist/JavaFX-HelloWorld.app`
+
+If you invoke only the jpackage goal directly (e.g. `mvn jpackage:jpackage`) you must ensure the app image directory does not already exist, or run `mvn clean package` instead.
 
 ## Screenshot of JavaFX Hello World Application
 

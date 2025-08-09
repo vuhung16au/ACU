@@ -81,6 +81,8 @@
                 <artifactId>jpackage-maven-plugin</artifactId>
                 <version>1.6.5</version>
                 <configuration>
+                    <!-- When invoking jpackage goal directly you must clean first (mvn clean jpackage:jpackage) -->
+                    <force>true</force>
                     <name>JavaFX-HelloWorld</name>
                     <appVersion>${project.version}</appVersion>
                     <vendor>Example</vendor>
