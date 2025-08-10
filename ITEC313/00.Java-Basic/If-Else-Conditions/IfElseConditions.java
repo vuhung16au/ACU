@@ -1,5 +1,3 @@
-import java.util.Scanner;
-import java.util.Random;
 
 /**
  * IfElseConditions.java
@@ -17,8 +15,6 @@ import java.util.Random;
  */
 
 public class IfElseConditions {
-    // Single shared Scanner for the entire program to avoid closing System.in prematurely
-    private static final Scanner SCANNER = new Scanner(System.in);
     
     public static void main(String[] args) {
         System.out.println("=== If-Else Conditions Demo ===\n");
@@ -44,35 +40,21 @@ public class IfElseConditions {
         // Demonstrate complex business logic
         demonstrateBusinessLogic();
 
-        // Demonstrate subtraction quiz
-        demonstrateSubtractionQuiz();
+    // Demonstrate subtraction quiz
+    demonstrateSubtractionQuiz();
 
-        demonstrateCheckLeapYear();
+    demonstrateCheckLeapYear();
 
-        System.out.println("\n=== Demo Complete ===");
-    // Close the shared scanner at the very end of the program
-    SCANNER.close();
+    System.out.println("\n=== Demo Complete ===");
     }
 
     /* CHECK LEAP YEAR */
     public static void demonstrateCheckLeapYear() {
         System.out.println("8. CHECK LEAP YEAR");
         System.out.println("===================");
-        System.out.print("Enter a year to check if it's a leap year: ");
-
-        if (!SCANNER.hasNextInt()) {
-            String invalid = SCANNER.nextLine(); // consume invalid input
-            System.out.printf("'%s' is not a valid integer year.%n%n", invalid.trim());
-            return;
-        }
-        int year = SCANNER.nextInt();
-        // consume potential trailing newline to not interfere with later reads if extended
-        if (SCANNER.hasNextLine()) {
-            SCANNER.nextLine();
-        }
-        
+        int year = 2000; // Hardcoded value
+        System.out.printf("Year to check: %d\n", year);
         boolean isLeapYear = (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
-
         if (year < 0) {
             System.out.println("Invalid year");
         } else if (isLeapYear) {
@@ -80,7 +62,6 @@ public class IfElseConditions {
         } else {
             System.out.printf("%d is not a leap year.%n", year);
         }
-
         System.out.println();
     }
 
@@ -348,34 +329,17 @@ public class IfElseConditions {
     }
 
     public static void demonstrateSubtractionQuiz() {
-        Random random = new Random();
-
-        // Generate two random numbers
-        int num1 = random.nextInt(100);
-        int num2 = random.nextInt(100);
+        // Hardcoded values for demonstration
+        int num1 = 73;
+        int num2 = 1;
         int correctAnswer = num1 - num2;
-
-        // Ask the user for their answer
+        int userAnswer = 72; // Hardcoded correct answer
         System.out.printf("What is %d - %d?%n", num1, num2);
-        System.out.print("Your answer: ");
-        int userAnswer;
-        if (SCANNER.hasNextInt()) {
-            userAnswer = SCANNER.nextInt();
-            if (SCANNER.hasNextLine()) {
-                SCANNER.nextLine(); // consume newline
-            }
-        } else {
-            String invalid = SCANNER.nextLine();
-            System.out.printf("'%s' is not a valid integer. Treating as wrong answer.%n", invalid.trim());
-            userAnswer = Integer.MIN_VALUE; // force incorrect
-        }
-
-        // Check the user's answer
+        System.out.printf("Your answer: %d\n", userAnswer);
         if (userAnswer == correctAnswer) {
             System.out.println("Correct!");
         } else {
             System.out.printf("Incorrect. The correct answer is %d.%n", correctAnswer);
         }
-
     }
 }
