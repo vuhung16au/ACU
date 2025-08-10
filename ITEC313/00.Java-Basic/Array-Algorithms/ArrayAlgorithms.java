@@ -13,7 +13,6 @@
  * Date: July 11, 2025
  */
 import java.util.Arrays;
-import java.util.Scanner;
 
 public class ArrayAlgorithms {
     
@@ -35,9 +34,7 @@ public class ArrayAlgorithms {
         
         // Demonstrate array manipulation
         demonstrateArrayManipulation(numbers.clone());
-        
-        // Interactive demonstration
-        interactiveDemo();
+    // Interactive demonstration removed (no user input)
     }
     
     /**
@@ -142,50 +139,7 @@ public class ArrayAlgorithms {
         System.out.println("Without duplicates: " + Arrays.toString(withoutDuplicates));
     }
     
-    /**
-     * Interactive demonstration with user input
-     */
-    public static void interactiveDemo() {
-        System.out.println("\n=== Interactive Demonstration ===");
-        Scanner scanner = new Scanner(System.in);
-        
-        System.out.print("Enter numbers separated by spaces: ");
-        String input = scanner.nextLine();
-        
-        // Parse input string to array
-        String[] parts = input.trim().split("\\s+");
-        int[] userArray = new int[parts.length];
-        
-        try {
-            for (int i = 0; i < parts.length; i++) {
-                userArray[i] = Integer.parseInt(parts[i]);
-            }
-            
-            System.out.println("Your array: " + Arrays.toString(userArray));
-            
-            // Sort the array
-            int[] sorted = userArray.clone();
-            quickSort(sorted, 0, sorted.length - 1);
-            System.out.println("Sorted: " + Arrays.toString(sorted));
-            
-            System.out.print("Enter a number to search for: ");
-            int searchTarget = scanner.nextInt();
-            
-            int foundIndex = binarySearch(sorted, searchTarget);
-            if (foundIndex != -1) {
-                System.out.println("Found " + searchTarget + " at index " + foundIndex);
-            } else {
-                System.out.println(searchTarget + " not found in the array");
-            }
-            
-        } catch (NumberFormatException e) {
-            System.out.println("Error: Please enter valid numbers only");
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-        } finally {
-            scanner.close();
-        }
-    }
+    // Interactive demonstration removed (no user input)
     
     // ========== SORTING ALGORITHMS ==========
     
