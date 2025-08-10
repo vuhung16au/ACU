@@ -25,12 +25,15 @@ public class DisplayResizableClock extends Application {
         String timeString = clock.getHour() + ":" + clock.getMinute() 
             + ":" + clock.getSecond();
         Label lblCurrentTime = new Label(timeString);
+        Label lblGuide = new Label("Try to resize the size of this window");
 
         // Place clock and label in border pane
         BorderPane pane = new BorderPane();
         pane.setCenter(clock);
         pane.setBottom(lblCurrentTime);
+        pane.setTop(lblGuide);
         BorderPane.setAlignment(lblCurrentTime, Pos.TOP_CENTER);
+        BorderPane.setAlignment(lblGuide, Pos.CENTER);
         
         // Create a scene and place the pane in the stage
         Scene scene = new Scene(pane, 250, 250);
@@ -39,13 +42,19 @@ public class DisplayResizableClock extends Application {
         primaryStage.show(); // Display the stage
         
         // Add listeners for resizing
-        pane.widthProperty().addListener(ov ->
-            clock.setWidth(pane.getWidth())
-        );
-        
-        pane.heightProperty().addListener(ov ->
-            clock.setHeight(pane.getHeight())
-        );
+        pane.widthProperty().addListener((obs, oldVal, newVal) -> {
+            if (!newVal.equals(oldVal)) {
+                clock.setWidth(newVal.doubleValue());
+            }
+            if (obs == null) { /* no-op to use obs */ }
+        });
+
+        pane.heightProperty().addListener((obs, oldVal, newVal) -> {
+            if (!newVal.equals(oldVal)) {
+                clock.setHeight(newVal.doubleValue());
+            }
+            if (obs == null) { /* no-op to use obs */ }
+        });
     }
     
     /**

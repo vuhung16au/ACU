@@ -4,10 +4,13 @@ import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.geometry.Insets;
 import javafx.stage.Stage;
 
 /**
@@ -38,8 +41,11 @@ public class ControlCircleWithMouseAndKey extends Application {
         // Set up event handlers
         setupEventHandlers();
         
-        // Display the stage
+    // Display the stage
         primaryStage.show();
+
+    // Request focus on the circle pane so arrow keys work immediately
+    circlePane.requestFocus();
     }
 
     /**
@@ -62,11 +68,19 @@ public class ControlCircleWithMouseAndKey extends Application {
         btEnlarge.setOnAction(e -> circlePane.enlarge());
         btShrink.setOnAction(e -> circlePane.shrink());
         
-        // Create the main layout
-        BorderPane borderPane = new BorderPane();
-        borderPane.setCenter(circlePane);
-        borderPane.setBottom(hBox);
-        BorderPane.setAlignment(hBox, Pos.CENTER);
+    // Instructions label shown at the top
+    Label instructions = new Label("Instructions:\n\n• Click Enlarge or Shrink buttons to change circle size\n• Use Up / Down arrow keys to change circle size\n• Left mouse click enlarges; Right mouse click shrinks");
+    instructions.setWrapText(true);
+    instructions.setStyle("-fx-font-size: 12px; -fx-background-color: #f4f4f4; -fx-border-color: #ddd; -fx-border-radius: 4; -fx-background-radius: 4;");
+    VBox topBox = new VBox(instructions);
+    topBox.setPadding(new Insets(8, 10, 8, 10));
+
+    // Create the main layout
+    BorderPane borderPane = new BorderPane();
+    borderPane.setTop(topBox);
+    borderPane.setCenter(circlePane);
+    borderPane.setBottom(hBox);
+    BorderPane.setAlignment(hBox, Pos.CENTER);
         
         // Create the scene
         Scene scene = new Scene(borderPane, 400, 300);
