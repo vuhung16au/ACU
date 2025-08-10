@@ -14,7 +14,6 @@
  * Date: July 11, 2025
  */
 import java.util.Arrays;
-import java.util.Scanner;
 
 public class ArraysBasic {
     
@@ -33,10 +32,8 @@ public class ArraysBasic {
         // Demonstrate common array operations
         demonstrateArrayOperations();
         
-        // Interactive array example
-        Scanner scanner = new Scanner(System.in);
-        interactiveArrayExample(scanner);
-        scanner.close();
+    // Interactive array example (hardcoded, no user input)
+    hardcodedArrayExample();
         
         System.out.println("\n=== Demo Complete ===");
     }
@@ -197,51 +194,19 @@ public class ArraysBasic {
         System.out.println();
     }
     
-    public static void interactiveArrayExample(Scanner scanner) {
-        System.out.println("5. INTERACTIVE ARRAY EXAMPLE");
+    // Hardcoded array example (no user input)
+    public static void hardcodedArrayExample() {
+        System.out.println("5. HARDCODED ARRAY EXAMPLE");
         System.out.println("============================");
-        
-        System.out.print("Enter the size of the array: ");
-        while (!scanner.hasNextInt()) {
-            System.out.print("Please enter a valid number: ");
-            scanner.next();
-        }
-        int size = scanner.nextInt();
-        scanner.nextLine(); // Consume newline
-        
-        if (size <= 0 || size > 20) {
-            System.out.println("Array size must be between 1 and 20.");
-            return;
-        }
-        
-        int[] userArray = new int[size];
-        
-        // Input array elements
-        System.out.printf("Enter %d integers:%n", size);
-        for (int i = 0; i < size; i++) {
-            System.out.printf("Element %d: ", i + 1);
-            while (!scanner.hasNextInt()) {
-                System.out.print("Please enter a valid integer: ");
-                scanner.next();
-            }
-            userArray[i] = scanner.nextInt();
-        }
-        scanner.nextLine(); // Consume newline
-        
-        // Display array
-        System.out.printf("Your array: %s%n", Arrays.toString(userArray));
-        
-        // Perform operations
+        int[] userArray = {7, 3, 9, 2, 5};
+        System.out.printf("Hardcoded array: %s%n", Arrays.toString(userArray));
         System.out.printf("Sum: %d%n", calculateSum(userArray));
         System.out.printf("Average: %.2f%n", calculateAverage(userArray));
         System.out.printf("Maximum: %d%n", findMaximum(userArray));
         System.out.printf("Minimum: %d%n", findMinimum(userArray));
-        
-        // Create sorted version
         int[] sortedArray = Arrays.copyOf(userArray, userArray.length);
         Arrays.sort(sortedArray);
         System.out.printf("Sorted: %s%n", Arrays.toString(sortedArray));
-        
         System.out.println();
     }
     

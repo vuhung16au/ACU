@@ -71,4 +71,6 @@ public class MethodsBasic {
     // - Java requires explicit types for parameters and return values
     // - No default arguments; use overloading instead
     // - Use 'void' for methods that do not return a value
+
+
 } 
