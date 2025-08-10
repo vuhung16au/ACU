@@ -12,6 +12,8 @@
  * @author XYZ
  * Date: July 11, 2025
  */
+
+
 public class ForLoops {
     
     public static void main(String[] args) {
@@ -19,20 +21,107 @@ public class ForLoops {
         
         // Demonstrate different types of for loops
         demonstrateTraditionalForLoop();
+
         demonstrateEnhancedForLoop();
-        demonstrateNestedForLoops();
-        demonstrateForLoopWithArrays();
-        demonstrateForLoopWithCollections();
-        demonstrateForLoopWithBreakAndContinue();
         
+        demonstrateNestedForLoops();
+        
+        demonstrateForLoopWithArrays();
+        
+        demonstrateForLoopWithCollections();
+        
+        demonstrateForLoopWithBreakAndContinue();
+
+        demonstrateGreatestCommonDivisor();
+
+        demonstratePalindrome();
+
+        demonstratePrimeNumber();
+
         System.out.println("\n=== For Loops Demonstration Complete ===");
     }
     
-    /**
-     * Demonstrates traditional for loop syntax
-     * In Python: for i in range(5):
-     * In Java: for (int i = 0; i < 5; i++)
-     */
+
+    public static void demonstratePrimeNumber() {
+
+       System.out.println("10. Prime Number Check:");
+
+       int num = 37;
+       boolean isPrime = true;
+
+        // Check for prime number
+        if (num <= 1) {
+            isPrime = false; // 0 and 1 are not prime numbers
+        } else {
+            for (int i = 2; i <= Math.sqrt(num); i++) {
+                if (num % i == 0) {
+                    isPrime = false; // Found a divisor, not prime
+                    break;
+                }
+            }
+        }
+        
+        if (isPrime) {
+            System.out.println("   " + num + " is a prime number.");
+        } else {
+            System.out.println("   " + num + " is not a prime number.");
+        }
+
+        System.out.println();
+    }
+
+    public static void demonstratePalindrome() {
+
+        System.out.println("9. Palindrome Check:");
+        String str = "noon";
+        String reversed = "";
+
+        // Reverse the string
+        for (int i = str.length() - 1; i >= 0; i--) {
+            reversed += str.charAt(i);
+        }
+
+        // Check if palindrome
+        if (str.equals(reversed)) {
+            System.out.println("   \"" + str + "\" is a palindrome.");
+        } else {
+            System.out.println("   \"" + str + "\" is not a palindrome.");
+        }
+
+        System.out.println();
+    }
+
+
+    public static void demonstrateGreatestCommonDivisor() {
+
+        System.out.println("8. Greatest Common Divisor (GCD):");
+        
+        int a = 20;
+        int b = 15;
+        int gcd = 1;
+      
+        // Find GCD using while loop 
+        while (a != 0 && b != 0) {
+            if (a > b) {
+                a = a % b;
+            } else {
+                b = b % a;
+            }
+        }
+        gcd = a + b; // GCD is the non-zero value left
+        
+        // Find GCD using a for loop
+        // for (int i = 1; i <= a && i <= b; i++) {
+        //     if (a % i == 0 && b % i == 0) {
+        //         gcd = i;
+        //     }
+        // }
+        
+        System.out.println("   GCD of " + a + " and " + b + " is: " + gcd);
+
+        System.out.println();
+    }
+
     public static void demonstrateTraditionalForLoop() {
         System.out.println("1. Traditional For Loop:");
         System.out.println("   (Similar to Python's for i in range())");
@@ -70,6 +159,8 @@ public class ForLoops {
         // Array of strings
         String[] fruits = {"apple", "banana", "orange", "grape"};
         System.out.println("   Iterating over array of fruits:");
+
+        // Looping through array of fruits
         for (String fruit : fruits) {
             System.out.println("   Fruit: " + fruit);
         }
@@ -158,6 +249,7 @@ public class ForLoops {
         
         // Using enhanced for loop with String array (most common collection)
         String[] names = {"Alice", "Bob", "Charlie", "Diana"};
+
         System.out.println("   Iterating over names:");
         for (String name : names) {
             System.out.println("   Hello, " + name + "!");
@@ -165,7 +257,9 @@ public class ForLoops {
         
         // Simulating a list-like structure with array
         System.out.println("\n   Processing a list of numbers:");
+
         int[] numbers = {1, 2, 3, 4, 5};
+
         int sum = 0;
         for (int num : numbers) {
             sum += num;
@@ -185,6 +279,7 @@ public class ForLoops {
         
         // Using break to exit loop early
         System.out.println("   Using break to find first number > 50:");
+
         int[] numbers = {10, 25, 35, 60, 45, 70};
         for (int num : numbers) {
             if (num > 50) {
