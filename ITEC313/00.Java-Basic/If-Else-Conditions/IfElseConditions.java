@@ -15,7 +15,10 @@ import java.util.Random;
  * @author XYZ
  * Date: July 11, 2025
  */
+
 public class IfElseConditions {
+    // Single shared Scanner for the entire program to avoid closing System.in prematurely
+    private static final Scanner SCANNER = new Scanner(System.in);
     
     public static void main(String[] args) {
         System.out.println("=== If-Else Conditions Demo ===\n");
@@ -44,9 +47,43 @@ public class IfElseConditions {
         // Demonstrate subtraction quiz
         demonstrateSubtractionQuiz();
 
+        demonstrateCheckLeapYear();
+
         System.out.println("\n=== Demo Complete ===");
+    // Close the shared scanner at the very end of the program
+    SCANNER.close();
     }
-    
+
+    /* CHECK LEAP YEAR */
+    public static void demonstrateCheckLeapYear() {
+        System.out.println("8. CHECK LEAP YEAR");
+        System.out.println("===================");
+        System.out.print("Enter a year to check if it's a leap year: ");
+
+        if (!SCANNER.hasNextInt()) {
+            String invalid = SCANNER.nextLine(); // consume invalid input
+            System.out.printf("'%s' is not a valid integer year.%n%n", invalid.trim());
+            return;
+        }
+        int year = SCANNER.nextInt();
+        // consume potential trailing newline to not interfere with later reads if extended
+        if (SCANNER.hasNextLine()) {
+            SCANNER.nextLine();
+        }
+        
+        boolean isLeapYear = (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+
+        if (year < 0) {
+            System.out.println("Invalid year");
+        } else if (isLeapYear) {
+            System.out.printf("%d is a leap year.%n", year);
+        } else {
+            System.out.printf("%d is not a leap year.%n", year);
+        }
+
+        System.out.println();
+    }
+
     public static void demonstrateBasicIfElse() {
         System.out.println("1. BASIC IF-ELSE STATEMENTS");
         System.out.println("===========================");
@@ -311,7 +348,6 @@ public class IfElseConditions {
     }
 
     public static void demonstrateSubtractionQuiz() {
-        Scanner scanner = new Scanner(System.in);
         Random random = new Random();
 
         // Generate two random numbers
@@ -321,7 +357,18 @@ public class IfElseConditions {
 
         // Ask the user for their answer
         System.out.printf("What is %d - %d?%n", num1, num2);
-        int userAnswer = scanner.nextInt();
+        System.out.print("Your answer: ");
+        int userAnswer;
+        if (SCANNER.hasNextInt()) {
+            userAnswer = SCANNER.nextInt();
+            if (SCANNER.hasNextLine()) {
+                SCANNER.nextLine(); // consume newline
+            }
+        } else {
+            String invalid = SCANNER.nextLine();
+            System.out.printf("'%s' is not a valid integer. Treating as wrong answer.%n", invalid.trim());
+            userAnswer = Integer.MIN_VALUE; // force incorrect
+        }
 
         // Check the user's answer
         if (userAnswer == correctAnswer) {
@@ -330,7 +377,5 @@ public class IfElseConditions {
             System.out.printf("Incorrect. The correct answer is %d.%n", correctAnswer);
         }
 
-        // close scanner
-        scanner.close();
     }
 }
