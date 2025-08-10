@@ -4,6 +4,7 @@
 SUBDIRS := \
   Abstract-Classes \
   Array-Algorithms \
+  Array-MultiDimensional \
   ArrayList-Basic \
   Arrays-Basic \
   Classes-Objects \
