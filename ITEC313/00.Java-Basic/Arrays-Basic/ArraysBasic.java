@@ -33,7 +33,7 @@ public class ArraysBasic {
         demonstrateArrayOperations();
         
     // Interactive array example (hardcoded, no user input)
-    hardcodedArrayExample();
+        hardcodedArrayExample();
         
         System.out.println("\n=== Demo Complete ===");
     }
