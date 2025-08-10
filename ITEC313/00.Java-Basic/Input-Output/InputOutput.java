@@ -26,13 +26,35 @@ public class InputOutput {
         
         // Demonstrate formatted output
         demonstrateFormattedOutput();
-        
+
+        // Demonstrate average calculation
+        calculateAverage(scanner);
+
         // Close the scanner
         scanner.close();
         
         System.out.println("\n=== Input/Output Demo Complete ===");
     }
-    
+
+    /**
+     * Calculate the average of a set of numbers
+     */
+    public static void calculateAverage(Scanner scanner) {
+        System.out.println("=== AVERAGE CALCULATION ===");
+        System.out.print("Enter the number of values to average: ");
+        int count = scanner.nextInt();
+        double sum = 0;
+
+        for (int i = 1; i <= count; i++) {
+            System.out.print("Enter value " + i + ": ");
+            sum += scanner.nextDouble();
+        }
+
+        double average = sum / count;
+        System.out.printf("The average is: %.2f%n", average);
+    }
+
+
     /**
      * Demonstrate basic input operations with Scanner
      */
