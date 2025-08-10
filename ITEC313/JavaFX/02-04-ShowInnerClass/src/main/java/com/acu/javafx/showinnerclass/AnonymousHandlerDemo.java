@@ -46,6 +46,8 @@ public class AnonymousHandlerDemo extends Application {
         borderPane.setBottom(hBox);
         
         // Create and register the handler using anonymous inner class
+
+        
         btUp.setOnAction(new EventHandler<ActionEvent>() {
             @Override // Override the handle method
             public void handle(ActionEvent e) {
