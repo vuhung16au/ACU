@@ -1,3 +1,6 @@
+import java.util.Scanner;
+import java.util.Random;
+
 /**
  * IfElseConditions.java
  * 
@@ -37,7 +40,10 @@ public class IfElseConditions {
         
         // Demonstrate complex business logic
         demonstrateBusinessLogic();
-        
+
+        // Demonstrate subtraction quiz
+        demonstrateSubtractionQuiz();
+
         System.out.println("\n=== Demo Complete ===");
     }
     
@@ -82,7 +88,9 @@ public class IfElseConditions {
         System.out.printf("Age: %d, Has License: %b, Has Insurance: %b%n", 
                          age, hasLicense, hasInsurance);
         
-        if (age >= 18) {
+        if (age < 0) {
+            System.out.println("Invalid age");
+        } else if (age >= 18) {
             System.out.println("Age requirement met");
             if (hasLicense) {
                 System.out.println("License requirement met");
@@ -300,5 +308,29 @@ public class IfElseConditions {
         System.out.printf("Total Savings: $%.2f%n", purchaseAmount - finalPrice);
         
         System.out.println();
+    }
+
+    public static void demonstrateSubtractionQuiz() {
+        Scanner scanner = new Scanner(System.in);
+        Random random = new Random();
+
+        // Generate two random numbers
+        int num1 = random.nextInt(100);
+        int num2 = random.nextInt(100);
+        int correctAnswer = num1 - num2;
+
+        // Ask the user for their answer
+        System.out.printf("What is %d - %d?%n", num1, num2);
+        int userAnswer = scanner.nextInt();
+
+        // Check the user's answer
+        if (userAnswer == correctAnswer) {
+            System.out.println("Correct!");
+        } else {
+            System.out.printf("Incorrect. The correct answer is %d.%n", correctAnswer);
+        }
+
+        // close scanner
+        scanner.close();
     }
 }
