@@ -93,10 +93,10 @@ public class ClassesObjects {
         System.out.println("=====================");
         
         // Create a Course object
-        Course javaCourse = new Course("ITEC313", "Object-Oriented Programming", 3);
+        Course javaCourse = new Course("ITEC313", "Advanced Programming Concepts", 3);
         
         // Create students
-        Student student1 = new Student("Emma Brown", 19, "S12349", "IT");
+        Student student1 = new Student("Vu Nguyen", 19, "S16111", "IT");
         Student student2 = new Student("Frank Miller", 20, "S12350", "IT");
         
         // Enroll students in course
