@@ -49,6 +49,10 @@ public class Launcher extends Application {
         Button anonymousHandlerDemo = createDemoButton("Anonymous Handler Demo", 
             "Demonstrates anonymous inner classes for event handling", 
             () -> launchAnonymousHandlerDemo());
+
+        Button lambdaHandlerDemo = createDemoButton("Lambda Handler Demo",
+            "Demonstrates lambda expressions for event handling",
+            () -> launchLambdaHandlerDemo());
         
         Button consoleDemo = createDemoButton("Console Inner Class Demo", 
             "Demonstrates inner class usage in console", 
@@ -63,6 +67,7 @@ public class Launcher extends Application {
             description,
             innerClassDemo, 
             anonymousHandlerDemo,
+            lambdaHandlerDemo,
             consoleDemo,
             exitButton
         );
@@ -135,6 +140,17 @@ public class Launcher extends Application {
             demoApp.start(demoStage);
         } catch (Exception e) {
             System.err.println("Error launching anonymous handler demo: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private void launchLambdaHandlerDemo() {
+        try {
+            Stage demoStage = new Stage();
+            LambdaHandlerDemo demoApp = new LambdaHandlerDemo();
+            demoApp.start(demoStage);
+        } catch (Exception e) {
+            System.err.println("Error launching lambda handler demo: " + e.getMessage());
             e.printStackTrace();
         }
     }
