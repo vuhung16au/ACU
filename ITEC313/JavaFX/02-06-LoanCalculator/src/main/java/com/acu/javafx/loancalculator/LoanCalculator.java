@@ -8,6 +8,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.control.Separator;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -30,24 +32,37 @@ public class LoanCalculator extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-        // Create UI
-        GridPane gridPane = new GridPane();
-        gridPane.setHgap(5);
-        gridPane.setVgap(5);
-        gridPane.add(new Label("Annual Interest Rate (%):"), 0, 0);
-        gridPane.add(tfAnnualInterestRate, 1, 0);
-        gridPane.add(new Label("Number of Years:"), 0, 1);
-        gridPane.add(tfNumberOfYears, 1, 1);
-        gridPane.add(new Label("Loan Amount:"), 0, 2);
-        gridPane.add(tfLoanAmount, 1, 2);
-        gridPane.add(new Label("Monthly Payment:"), 0, 3);
-        gridPane.add(tfMonthlyPayment, 1, 3);
-        gridPane.add(new Label("Total Payment:"), 0, 4);
-        gridPane.add(tfTotalPayment, 1, 4);
-        gridPane.add(btCalculate, 1, 5);
+    // Create Input Section
+    Label inputHeader = new Label("Input");
+    inputHeader.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
+    GridPane inputGrid = new GridPane();
+    inputGrid.setHgap(5);
+    inputGrid.setVgap(5);
+    inputGrid.add(new Label("Annual Interest Rate (%):"), 0, 0);
+    inputGrid.add(tfAnnualInterestRate, 1, 0);
+    inputGrid.add(new Label("Number of Years:"), 0, 1);
+    inputGrid.add(tfNumberOfYears, 1, 1);
+    inputGrid.add(new Label("Loan Amount:"), 0, 2);
+    inputGrid.add(tfLoanAmount, 1, 2);
+    inputGrid.add(btCalculate, 1, 3);
+    GridPane.setHalignment(btCalculate, HPos.RIGHT);
+
+    // Create Output Section
+    Label outputHeader = new Label("Output");
+    outputHeader.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
+    GridPane outputGrid = new GridPane();
+    outputGrid.setHgap(5);
+    outputGrid.setVgap(5);
+    outputGrid.add(new Label("Monthly Payment:"), 0, 0);
+    outputGrid.add(tfMonthlyPayment, 1, 0);
+    outputGrid.add(new Label("Total Payment:"), 0, 1);
+    outputGrid.add(tfTotalPayment, 1, 1);
+
+    VBox root = new VBox(10, inputHeader, inputGrid, new Separator(), outputHeader, outputGrid);
+    root.setAlignment(Pos.CENTER);
+    root.setStyle("-fx-padding: 15;");
 
         // Set properties for UI
-        gridPane.setAlignment(Pos.CENTER);
         tfAnnualInterestRate.setAlignment(Pos.BOTTOM_RIGHT);
         tfNumberOfYears.setAlignment(Pos.BOTTOM_RIGHT);
         tfLoanAmount.setAlignment(Pos.BOTTOM_RIGHT);
@@ -55,13 +70,12 @@ public class LoanCalculator extends Application {
         tfTotalPayment.setAlignment(Pos.BOTTOM_RIGHT);
         tfMonthlyPayment.setEditable(false);
         tfTotalPayment.setEditable(false);
-        GridPane.setHalignment(btCalculate, HPos.RIGHT);
 
         // Process events
         btCalculate.setOnAction(e -> calculateLoanPayment());
 
         // Create a scene and place it in the stage
-        Scene scene = new Scene(gridPane, 400, 250);
+    Scene scene = new Scene(root, 450, 300);
         primaryStage.setTitle("Loan Calculator"); // Set title
         primaryStage.setScene(scene); // Place the scene in the stage
         primaryStage.show(); // Display the stage
