@@ -32,10 +32,94 @@ public class ArraysBasic {
         // Demonstrate common array operations
         demonstrateArrayOperations();
         
-    // Interactive array example (hardcoded, no user input)
+        // Interactive array example (hardcoded, no user input)
         hardcodedArrayExample();
+
+        // Demonstrate a deck of cards
+        demonstrateDeckOfCards();
+
+        // Reverse a string 
+        demonstrateReverseArray();
+
+    // Demonstrate counting letters in a random char array
+    demonstrateCountLettersInArray();
+
+    // Demonstrate variable-length argument lists (varargs)
+    demonstrateVarArgs();
+
+    // Demonstrate java.util.Arrays utility methods
+    demonstrateJavaUtilArrays();
         
         System.out.println("\n=== Demo Complete ===");
+    }
+
+    public static void demonstrateReverseArray() {
+        System.out.println("7. REVERSE ARRAY EXAMPLE");
+        System.out.println("==========================");
+
+        int[] list1 = {1, 2, 3, 4, 5};
+        int[] list2 = reverseArray(list1);
+
+        System.out.printf("Original array: %s\n", java.util.Arrays.toString(list1));
+        System.out.printf("Reversed array: %s\n", java.util.Arrays.toString(list2));
+        System.out.println();
+    }
+
+    // Utility method to reverse an array
+    public static int[] reverseArray(int[] list) {
+        int[] reversed = new int[list.length];
+        for (int i = 0; i < list.length; i++) {
+            reversed[i] = list[list.length - 1 - i];
+        }
+        return reversed;
+    }
+
+    public static void demonstrateDeckOfCards() {
+        System.out.println("6. DECK OF CARDS EXAMPLE");
+        System.out.println("=========================");
+        
+        String[] suits = {"Hearts", "Diamonds", "Clubs", "Spades"};
+        String[] ranks = {"2", "3", "4", "5", "6", "7", "8", "9", "10", 
+                          "Jack", "Queen", "King", "Ace"};
+        
+        // Create a deck of cards
+        String[] deck = new String[suits.length * ranks.length];
+        int index = 0;
+        for (String suit : suits) {
+            for (String rank : ranks) {
+                deck[index++] = rank + " of " + suit;
+            }
+        }
+        
+        // Display the deck
+        System.out.printf("Deck of cards (%d cards):%n%s%n", deck.length, Arrays.toString(deck));
+
+        // Shuffle the cards 
+        // Shuffle the deck using Fisher-Yates algorithm
+        System.out.println("\nShuffling the deck...");
+        for (int i = deck.length - 1; i > 0; i--) {
+            // Generate random index between 0 and i (inclusive)
+            int j = (int) (Math.random() * (i + 1));
+            
+            // Swap cards at positions i and j
+            String temp = deck[i];
+            deck[i] = deck[j];
+            deck[j] = temp;
+        }
+
+        // Display the shuffled deck
+        System.out.printf("Shuffled deck:%n%s%n", Arrays.toString(deck));
+
+        // Deal a few cards as an example
+        System.out.println("\nDealing 5 cards:");
+        for (int i = 0; i < 5; i++) {
+            System.out.printf("Card %d: %s%n", i + 1, deck[i]);
+        }
+
+
+
+        
+        System.out.println();
     }
     
     public static void demonstrateArrayDeclaration() {
@@ -273,5 +357,157 @@ public class ArraysBasic {
             }
         }
         return count;
+    }
+
+    // 8. Count letters in an array demo (adapted from textbook Listing 7.4)
+    public static void demonstrateCountLettersInArray() {
+        System.out.println("8. COUNT LETTERS IN RANDOM CHAR ARRAY EXAMPLE");
+        System.out.println("==============================================");
+
+        // Create an array of random lowercase letters
+        char[] chars = createRandomLowerCaseArray(100);
+
+        System.out.println("The lowercase letters are:");
+        displayCharArray(chars, 20); // 20 per line like sample
+
+        // Count occurrences
+        int[] counts = countLetters(chars);
+
+        System.out.println();
+        System.out.println("The occurrences of each letter are:");
+        displayLetterCounts(counts, 10); // 10 pairs per line like sample
+        System.out.println();
+        System.out.println();
+    }
+
+    // Generate a random lowercase letter
+    public static char getRandomLowerCaseLetter() {
+        return (char)('a' + (int)(Math.random() * 26));
+    }
+
+    // Create an array filled with random lowercase letters
+    public static char[] createRandomLowerCaseArray(int size) {
+        char[] chars = new char[size];
+        for (int i = 0; i < chars.length; i++) {
+            chars[i] = getRandomLowerCaseLetter();
+        }
+        return chars;
+    }
+
+    // Display characters with a specified number per line
+    public static void displayCharArray(char[] chars, int perLine) {
+        for (int i = 0; i < chars.length; i++) {
+            if ((i + 1) % perLine == 0) {
+                System.out.println(chars[i]);
+            } else {
+                System.out.print(chars[i] + " ");
+            }
+        }
+    }
+
+    // Count letter occurrences (assumes lowercase a-z)
+    public static int[] countLetters(char[] chars) {
+        int[] counts = new int[26];
+        for (char c : chars) {
+            if (c >= 'a' && c <= 'z') {
+                counts[c - 'a']++;
+            }
+        }
+        return counts;
+    }
+
+    // Display counts with given number of entries per line
+    public static void displayLetterCounts(int[] counts, int perLine) {
+        for (int i = 0; i < counts.length; i++) {
+            String entry = counts[i] + " " + (char)('a' + i);
+            if ((i + 1) % perLine == 0) {
+                System.out.println(entry);
+            } else {
+                System.out.print(entry + " ");
+            }
+        }
+    }
+
+    // 9. Variable-length argument list (varargs) demo (textbook Listing 7.5 inspired)
+    public static void demonstrateVarArgs() {
+        System.out.println("9. VARIABLE-LENGTH ARGUMENT LIST (VARARGS) EXAMPLE");
+        System.out.println("==================================================");
+
+        // Call printMax with a variable-length list of arguments
+        printMax(34, 3, 3, 2, 56.5);
+
+        // Call printMax with an explicit array
+        printMax(new double[]{1, 2, 3});
+
+        // Additional examples showing flexibility
+        printMax(); // No argument case
+        printMax(10); // Single value
+        printMax(5, -2, 99.9, 12.3, 99.8); // Multiple values
+
+        System.out.println();
+    }
+
+    // Prints the maximum in a variable-length list (or array) of numbers
+    public static void printMax(double... numbers) {
+        if (numbers.length == 0) {
+            System.out.println("No argument passed");
+            return;
+        }
+
+        double result = numbers[0];
+        for (int i = 1; i < numbers.length; i++) {
+            if (numbers[i] > result) {
+                result = numbers[i];
+            }
+        }
+        System.out.println("The max value is " + result);
+    }
+
+    // 10. java.util.Arrays utility methods demo
+    public static void demonstrateJavaUtilArrays() {
+        System.out.println("10. java.util.Arrays UTILITY METHODS EXAMPLE");
+        System.out.println("================================================");
+
+        int[] data = {42, 7, 19, -3, 19, 0, 5, 100, 7};
+        System.out.printf("Original data: %s%n", Arrays.toString(data));
+
+        // sort(): in-place ascending sort (dual-pivot quicksort / TimSort depending on type)
+        int[] sorted = Arrays.copyOf(data, data.length);
+        Arrays.sort(sorted); // must be sorted before binarySearch
+        System.out.printf("Sorted (Arrays.sort): %s%n", Arrays.toString(sorted));
+
+        // parallelSort(): may use multiple threads for large arrays (threshold ~ 8k elements; here just demonstration)
+        int[] parallelSorted = Arrays.copyOf(data, data.length);
+        Arrays.parallelSort(parallelSorted);
+        System.out.printf("Sorted (Arrays.parallelSort): %s%n", Arrays.toString(parallelSorted));
+
+        // equals(): element-wise comparison, same length & all elements equal in order
+        System.out.printf("sorted equals parallelSorted? %b%n", Arrays.equals(sorted, parallelSorted));
+
+        // Modify one element then compare again
+        parallelSorted[0] = Integer.MIN_VALUE; // force inequality
+        System.out.printf("After change, sorted equals modified parallelSorted? %b%n", Arrays.equals(sorted, parallelSorted));
+
+        // binarySearch(): only reliable on a sorted array (ascending order). Returns index or (-(insertionPoint) - 1) if not found.
+        int targetPresent = 19;
+        int targetMissing = 55;
+        int foundIndex = Arrays.binarySearch(sorted, targetPresent);
+        int missingIndex = Arrays.binarySearch(sorted, targetMissing);
+        System.out.printf("binarySearch(sorted, %d) => index %d (value at index: %d)\n", targetPresent, foundIndex, sorted[foundIndex]);
+        System.out.printf("binarySearch(sorted, %d) => %d (negative means not found; insertion point = %d)\n",
+                targetMissing, missingIndex, -missingIndex - 1);
+
+        // fill(): set all elements to a single value
+        int[] filled = new int[8];
+        Arrays.fill(filled, 3);
+        System.out.printf("Filled array (all 3): %s%n", Arrays.toString(filled));
+
+        // Partial fill (from index inclusive to toIndex exclusive)
+        Arrays.fill(filled, 2, 6, 9);
+        System.out.printf("After partial fill (indices 2..5 set to 9): %s%n", Arrays.toString(filled));
+
+        // NOTE: For objects, Arrays.fill assigns the same reference (be mindful of mutability)
+
+        System.out.println();
     }
 }
