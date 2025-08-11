@@ -108,7 +108,7 @@ def main():
         test_accuracy(labels, predictions)
     
     # Training loop
-    EPOCHS = 5
+    EPOCHS = 2
     print(f"\nStarting training for {EPOCHS} epochs...")
     
     try:
