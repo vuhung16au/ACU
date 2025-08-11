@@ -43,9 +43,19 @@ The `StyleSheetDemo` application showcases how to apply CSS styles to JavaFX UI 
 │       │                   └── StyleSheetDemo.java
 │       └── resources/
 │           └── mystyle.css
+├── docs/
+│   ├── architecture.md
+│   └── concepts.md
 ├── pom.xml
 └── README.md
 ```
+
+## Documentation
+
+For detailed information about this project, please refer to:
+
+- **[docs/architecture.md](docs/architecture.md)** - Technical architecture and design patterns
+- **[docs/concepts.md](docs/concepts.md)** - Core concepts and implementation details
 
 ## CSS Styles Explained
 
