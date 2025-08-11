@@ -67,6 +67,7 @@
         <module>12-02-Probing</module>
         <module>12-03-MapHash</module>
         <module>31-01-JavaFX-FXML</module>
+        <module>32-02-FlashText</module>
     </modules>
 
     <build>
