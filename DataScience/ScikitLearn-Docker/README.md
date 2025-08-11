@@ -184,18 +184,3 @@ docker ps
 ```bash
 docker exec -it <container_id> /bin/bash
 ```
-
-## Next Steps
-
-1. Add model persistence (save/load trained models)
-2. Create a REST API using Flask/FastAPI
-3. Add data preprocessing pipelines
-4. Implement hyperparameter tuning
-5. Add monitoring and logging
-6. Create multi-stage builds for production
-
-## Resources
-
-- [Docker Documentation](https://docs.docker.com/)
-- [Scikit-learn Documentation](https://scikit-learn.org/)
-- [DataCamp Docker Tutorial](https://www.datacamp.com/tutorial/docker-for-data-science-introduction)
