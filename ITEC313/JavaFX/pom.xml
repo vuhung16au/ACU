@@ -66,6 +66,7 @@
         <module>12-01-AVL-Trees</module>
         <module>12-02-Probing</module>
         <module>12-03-MapHash</module>
+        <module>31-01-JavaFX-FXML</module>
     </modules>
 
     <build>

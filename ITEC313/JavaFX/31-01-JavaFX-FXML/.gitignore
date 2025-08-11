@@ -1,0 +1,119 @@
+# Compiled class files
+*.class
+
+# Log files
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Virtual machine crash logs
+hs_err_pid*
+replay_pid*
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# IDE files
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.settings/
+.project
+.classpath
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# JavaFX specific
+# Note: mystyle.css is part of the project, so we don't ignore all .css files
+# Only ignore generated or temporary CSS files
+*.generated.css
+*.min.css
+*.css.map
+*.css.bak
+
+# FXML files (if not part of the project)
+*.fxml.bak
+*.fxml.tmp
+
+# Scene Builder files
+*.fxml~
+
+# Build artifacts
+build/
+out/
+dist/
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Application specific
+*.db
+*.sqlite
+*.sqlite3
+
+# JavaFX runtime files
+*.jfx
+
+# CSS development tools
+.sass-cache/
+node_modules/
+
+# Backup files
+*.backup
+*.bak
+*.orig
+
+# Test coverage reports
+coverage/
+*.lcov
+
+# Performance profiling
+*.hprof
+*.jfr
+
+# Documentation build
+docs/_build/
+docs/.doctrees/
+
+# Local configuration
+config/local.properties
+application-local.properties
+
+# Debug files
+debug.log
+error.log

@@ -1,0 +1,31 @@
+/* Advanced JavaFX and FXML CSS Styling Demo */
+
+/* Style for plain circles with white fill and black stroke */
+.plaincircle {
+    -fx-fill: white;
+    -fx-stroke: black;
+}
+
+/* Style for circles with dashed border effect */
+.circleborder {
+    -fx-stroke-width: 5;
+    -fx-stroke-dash-array: 12 2 4 2;
+}
+
+/* Style for bordered containers */
+.border {
+    -fx-border-color: black;
+    -fx-border-width: 5;
+}
+
+/* Style for red circles using ID selector */
+#redcircle {
+    -fx-fill: red;
+    -fx-stroke: red;
+}
+
+/* Style for green circles using ID selector */
+#greencircle {
+    -fx-fill: green;
+    -fx-stroke: green;
+}
