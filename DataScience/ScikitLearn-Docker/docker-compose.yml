@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  iris-ml-app:
+    build: .
+    image: iris-ml-app:latest
+    container_name: iris-classification
+    # Uncomment the following lines if you want to mount volumes for development
+    # volumes:
+    #   - .:/src
+    #   - ./models:/src/models
+    # environment:
+    #   - PYTHONUNBUFFERED=1
+    # command: ["python", "-u", "iris_classification.py"]
+    
+  # Optional: Add a development service with interactive shell
+  iris-ml-dev:
+    build: .
+    image: iris-ml-app:latest
+    container_name: iris-classification-dev
+    volumes:
+      - .:/src
+    working_dir: /src
+    stdin_open: true
+    tty: true
+    command: ["/bin/bash"]
+    profiles:
+      - dev
