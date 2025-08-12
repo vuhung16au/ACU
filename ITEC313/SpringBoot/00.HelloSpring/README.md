@@ -100,3 +100,22 @@ Notes:
 
 - The controller maps to `/employees/` (with a trailing slash). The script uses that path.
 - If `jq` is installed, responses will be pretty-printed; otherwise raw JSON is shown.
+
+# What's next 
+
+- H2 in-memory for dev; Postgres profile for prod.
+- Spring Data JPA: Entity + Repository + Service; demonstrate CRUD.
+- Pagination & sorting: Pageable endpoints; explain Page vs Slice.
+- Database migrations: Flyway to auto-create tables and seed minimal data.
+- Swagger UI: Auto-generated API docs and interactive console.
+- Spring Security basics: HTTP Basic for admin endpoints; permitAll for public ones.
+- Resilience4j: Add retry/circuit breaker to the outbound call; expose metrics.
+- Unit tests with Mockito for services.
+- Static resources: Serve index.html and a health page from /static.
+
+
+
+
+
+
+
