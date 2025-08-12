@@ -7,11 +7,12 @@ A minimal Spring Boot REST API built with Maven. No database — just an in-memo
 - Endpoints:
   - GET `/employees/` — list all employees
   - POST `/employees/` — add a new employee (JSON body)
+  - DELETE `/employees/{id}` — delete an employee by id
 - Seed data uses Australia/Sydney themed names and emails.
 
 ## Test
 
-Run automated tests (covers GET /employees/ and POST /employees/):
+Run automated tests (covers GET, POST, and DELETE):
 
 ```sh
 # From 00.HelloSpring
@@ -23,6 +24,7 @@ What’s verified:
 - GET /employees/ returns the seeded list (3 employees)
 - POST /employees/ creates a new employee and responds 201 with Location header ending in /employees/4
 - Subsequent GET reflects the newly added employee (total 4)
+- DELETE /employees/{id} returns 204 and removes the record; 404 when id not found
 
 
 ## Run
@@ -42,6 +44,7 @@ mvn spring-boot:run -Dspring-boot.run.jvmArguments='-Duser.timezone=Australia/Sy
 
 - GET <http://localhost:8080/employees/>
 - POST <http://localhost:8080/employees/>
+- DELETE <http://localhost:8080/employees/2>
 
 Body:
 
@@ -73,6 +76,9 @@ curl -i -X POST http://localhost:8080/employees/ \
 
 # Verify it was added
 curl -s http://localhost:8080/employees/ | jq
+
+# Delete an employee by id
+curl -i -X DELETE http://localhost:8080/employees/2
 ```
 
 ## Scripted curl tests

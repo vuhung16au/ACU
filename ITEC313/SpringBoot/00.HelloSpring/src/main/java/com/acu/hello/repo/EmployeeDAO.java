@@ -23,4 +23,9 @@ public class EmployeeDAO {
     public void addEmployee(Employee employee) {
         employees.getEmployeeList().add(employee);
     }
+
+    public boolean deleteById(Integer id) {
+        if (id == null) return false;
+        return employees.getEmployeeList().removeIf(e -> id.equals(e.getId()));
+    }
 }

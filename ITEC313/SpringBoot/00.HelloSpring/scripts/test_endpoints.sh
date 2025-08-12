@@ -56,4 +56,12 @@ echo "==> GET (after POST) ${BASE_URL}${ENDPOINT}"
 $CURL_BIN -s -H 'Accept: application/json' "${BASE_URL}${ENDPOINT}" | pretty_json
 
 echo
+echo "==> DELETE (remove id=2) ${BASE_URL}/employees/2"
+$CURL_BIN -s -i -X DELETE "${BASE_URL}/employees/2"
+
+echo
+echo "==> GET (after DELETE) ${BASE_URL}${ENDPOINT}"
+$CURL_BIN -s -H 'Accept: application/json' "${BASE_URL}${ENDPOINT}" | pretty_json
+
+echo
 echo "All requests completed."

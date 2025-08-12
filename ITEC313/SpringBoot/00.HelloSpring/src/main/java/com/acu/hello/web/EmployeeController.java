@@ -36,4 +36,14 @@ public class EmployeeController {
 
         return ResponseEntity.created(location).build();
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteEmployee(@PathVariable Integer id) {
+        boolean removed = employeeDao.deleteById(id);
+        if (removed) {
+            return ResponseEntity.noContent().build(); // 204
+        } else {
+            return ResponseEntity.notFound().build(); // 404
+        }
+    }
 }

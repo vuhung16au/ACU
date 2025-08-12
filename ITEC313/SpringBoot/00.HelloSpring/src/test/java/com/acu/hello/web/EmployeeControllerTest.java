@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -70,5 +71,31 @@ class EmployeeControllerTest {
                 .andExpect(jsonPath("$.employeeList", hasSize(4)))
                 .andExpect(jsonPath("$.employeeList[3].firstName", is("Noah")))
                 .andExpect(jsonPath("$.employeeList[3].email", is("noah.smith@sydney.example")));
+    }
+
+    @Test
+    @DisplayName("DELETE /employees/{id} removes the employee and returns 204")
+    void deleteEmployee_removesAndReturnsNoContent() throws Exception {
+    // Sanity check count
+    mockMvc.perform(get("/employees/"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.employeeList", hasSize(3)));
+
+    // Delete id 2
+    mockMvc.perform(delete("/employees/{id}", 2))
+        .andExpect(status().isNoContent());
+
+    // Verify count decreased and id 2 no longer present
+    mockMvc.perform(get("/employees/"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.employeeList", hasSize(2)))
+        .andExpect(jsonPath("$.employeeList[*].id", not(hasItem(2))));
+    }
+
+    @Test
+    @DisplayName("DELETE /employees/{id} returns 404 when not found")
+    void deleteEmployee_notFound() throws Exception {
+    mockMvc.perform(delete("/employees/{id}", 999))
+        .andExpect(status().isNotFound());
     }
 }
