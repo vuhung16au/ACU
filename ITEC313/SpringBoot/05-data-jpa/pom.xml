@@ -54,10 +54,10 @@
             <scope>runtime</scope>
         </dependency>
         
-        <!-- MySQL Driver (for production) -->
+        <!-- PostgreSQL Driver (for production) -->
         <dependency>
-            <groupId>com.mysql</groupId>
-            <artifactId>mysql-connector-j</artifactId>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
         </dependency>
         
@@ -67,10 +67,10 @@
             <artifactId>flyway-core</artifactId>
         </dependency>
         
-        <!-- Flyway MySQL support -->
+        <!-- Flyway PostgreSQL support -->
         <dependency>
             <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-mysql</artifactId>
+            <artifactId>flyway-database-postgresql</artifactId>
         </dependency>
         
         <!-- Spring Boot Test Starter -->
@@ -89,7 +89,7 @@
         
         <dependency>
             <groupId>org.testcontainers</groupId>
-            <artifactId>mysql</artifactId>
+            <artifactId>postgresql</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

@@ -1,11 +1,3 @@
-# TODO
-
-Add a Postgres database and make it work with the application.
-```
-mvn spring-boot:run
-```
-
-
 # 05-data-jpa — Spring Boot Data JPA and Database Integration
 
 A comprehensive Spring Boot application demonstrating JPA (Java Persistence API) with database integration, entity relationships, repository patterns, and database migrations.
@@ -14,7 +6,7 @@ A comprehensive Spring Boot application demonstrating JPA (Java Persistence API)
 
 This project showcases enterprise-level data persistence with Spring Boot:
 - **JPA/Hibernate Integration**: Complete ORM (Object-Relational Mapping) setup
-- **Database Integration**: H2 (development) and MySQL (production) support
+- **Database Integration**: H2 (development) and PostgreSQL (production) support
 - **Entity Relationships**: One-to-many, many-to-one, and complex associations
 - **Repository Pattern**: Spring Data JPA with custom query methods
 - **Database Migrations**: Flyway for schema versioning and management
@@ -27,7 +19,7 @@ This project showcases enterprise-level data persistence with Spring Boot:
 - ✅ Complete JPA entity model with relationships
 - ✅ Spring Data JPA repositories with custom query methods
 - ✅ Database migrations with Flyway
-- ✅ Profile-based database configuration (H2 dev, MySQL prod)
+- ✅ Profile-based database configuration (H2 dev, PostgreSQL prod)
 - ✅ Transaction management with @Transactional
 - ✅ Entity auditing with automatic timestamps
 - ✅ Pagination and sorting support
@@ -51,11 +43,12 @@ This project showcases enterprise-level data persistence with Spring Boot:
 
 ### Database Features
 - ✅ H2 in-memory database for development
-- ✅ MySQL support for production
+- ✅ PostgreSQL support for production
 - ✅ Flyway migrations for schema management
 - ✅ Indexes for performance optimization
 - ✅ Foreign key constraints
 - ✅ Data validation with Bean Validation
+- ✅ PostgreSQL triggers for automatic timestamp updates
 
 ## Database Schema
 
@@ -122,7 +115,7 @@ Customer (1) ←→ (N) Order (1) ←→ (N) OrderItem (N) ←→ (1) Product
 
 - Java 17 or higher
 - Maven 3.9 or higher
-- MySQL (optional, for production profile)
+- PostgreSQL (optional, for production profile)
 - Internet connection for dependencies
 
 ## Quick Start
@@ -141,13 +134,15 @@ mvn clean compile
 mvn spring-boot:run -Dspring.profiles.active=dev
 ```
 
-**Production (MySQL):**
+**Production (PostgreSQL):**
 ```bash
-# First, set up MySQL database
-mysql -u root -p -e "CREATE DATABASE datajpa_prod;"
+# First, start PostgreSQL using Docker Compose
+cd postgresql-pgadmin
+docker-compose up -d
 
 # Then run with production profile
-mvn spring-boot:run -Dspring.profiles.active=prod
+cd ..
+DB_USERNAME=yourUser DB_PASSWORD=changeit mvn spring-boot:run -Dspring.profiles.active=prod
 ```
 
 ### 3. Access the Application
@@ -156,6 +151,7 @@ The application will start on `http://localhost:8080`
 
 **Key URLs:**
 - **H2 Console**: http://localhost:8080/h2-console (dev profile only)
+- **pgAdmin**: http://localhost:5050 (production - email: your@email.com, password: changeit)
 - **Health Check**: http://localhost:8080/actuator/health
 - **Customer API**: http://localhost:8080/api/customers
 
@@ -204,17 +200,37 @@ mvn test
 - **DDL**: create-drop (recreates schema on startup)
 - **SQL Logging**: Enabled for debugging
 
-### Production Profile (MySQL)
-- **Database**: MySQL
+### Production Profile (PostgreSQL)
+- **Database**: PostgreSQL
 - **DDL**: validate (validates schema)
 - **SQL Logging**: Disabled for performance
 - **Migrations**: Flyway enabled
 
 ### JPA Configuration
-- **Hibernate**: Configured for both H2 and MySQL
+- **Hibernate**: Configured for both H2 and PostgreSQL
 - **Auditing**: Enabled with @EnableJpaAuditing
 - **Validation**: Bean Validation enabled
 - **Lazy Loading**: Configured for relationships
+
+## PostgreSQL Migration
+
+This project has been migrated from MySQL to PostgreSQL for improved performance, reliability, and advanced features.
+
+### Migration Highlights
+- **Database Driver**: Switched from MySQL Connector/J to PostgreSQL JDBC driver
+- **Flyway Support**: Updated to use Flyway PostgreSQL support
+- **Schema Migration**: Converted MySQL-specific syntax to PostgreSQL compatibility
+- **Triggers**: Implemented PostgreSQL triggers for automatic timestamp updates
+- **Data Types**: Updated to use PostgreSQL-specific data types (BIGSERIAL, BOOLEAN)
+
+### PostgreSQL Features
+- **Automatic ID Generation**: Using `BIGSERIAL` for auto-incrementing primary keys
+- **Timestamp Triggers**: PostgreSQL triggers automatically update `updated_at` columns
+- **Advanced Indexing**: PostgreSQL's sophisticated indexing capabilities
+- **ACID Compliance**: Full ACID transaction support
+- **JSON Support**: Native JSON data type support (future enhancement)
+
+For detailed migration information, see [POSTGRESQL_MIGRATION.md](POSTGRESQL_MIGRATION.md).
 
 ## Project Structure
 
@@ -252,9 +268,13 @@ mvn test
 │   └── test/
 │       └── java/com/acu/datajpa/
 │           └── DataJpaApplicationTests.java      # Application tests
+├── postgresql-pgadmin/
+│   ├── compose.yaml                              # PostgreSQL & pgAdmin setup
+│   └── README.md                                 # PostgreSQL setup guide
 ├── scripts/
 │   └── test_endpoints.sh                         # Endpoint testing script
 ├── pom.xml                                       # Maven configuration
+├── POSTGRESQL_MIGRATION.md                       # Migration documentation
 └── README.md                                     # This file
 ```
 
@@ -313,7 +333,8 @@ mvn test
 ### Tutorials
 - [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa)
 - [Relational Data Access](https://spring.io/guides/gs/relational-data-access)
-- [Accessing Data with MySQL](https://spring.io/guides/gs/accessing-data-mysql)
+- [Accessing Data with PostgreSQL](https://spring.io/guides/gs/accessing-data-postgresql)
+- [Spring Boot with PostgreSQL](https://www.baeldung.com/spring-boot-postgresql-docker)
 
 ## Next Steps
 
@@ -330,13 +351,18 @@ After completing this JPA tutorial, you can explore:
 2. **Migration failures**: Check Flyway configuration and SQL syntax
 3. **Lazy loading exceptions**: Use @Transactional or fetch joins
 4. **Database connection issues**: Verify database credentials and connectivity
+5. **PostgreSQL connection refused**: Ensure PostgreSQL container is running (`docker-compose up -d`)
+6. **Authentication failed**: Check PostgreSQL credentials in environment variables
+7. **Trigger errors**: Verify PostgreSQL triggers are created by migration
 
 ### Development Tips
 
-1. **Database Inspection**: Use H2 console to inspect data and schema
+1. **Database Inspection**: Use H2 console (dev) or pgAdmin (prod) to inspect data and schema
 2. **SQL Logging**: Enable SQL logging in dev profile for debugging
 3. **Migration Testing**: Test migrations on clean database
 4. **Performance**: Monitor query performance with SQL logging
+5. **PostgreSQL Features**: Leverage PostgreSQL-specific features like JSON columns, full-text search
+6. **Container Management**: Use `docker-compose down -v` to reset PostgreSQL data
 
 ### Logs
 

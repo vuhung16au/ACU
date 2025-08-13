@@ -1,5 +1,6 @@
 package com.acu.datajpa.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -64,6 +65,7 @@ public class Customer {
 
     // One-to-many relationship with orders
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Order> orders = new ArrayList<>();
 
     // Constructors

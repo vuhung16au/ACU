@@ -1,20 +1,20 @@
 # Production profile configuration
 spring:
-  # MySQL Database Configuration
+  # PostgreSQL Database Configuration
   datasource:
-    url: jdbc:mysql://localhost:3306/datajpa_prod?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: ${DB_USERNAME:root}
-    password: ${DB_PASSWORD:password}
+    url: jdbc:postgresql://localhost:5432/postgres
+    driver-class-name: org.postgresql.Driver
+    username: ${DB_USERNAME:yourUser}
+    password: ${DB_PASSWORD:changeit}
   
-  # JPA Configuration for MySQL
+  # JPA Configuration for PostgreSQL
   jpa:
     hibernate:
       ddl-auto: validate
     show-sql: false
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQLDialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: false
     defer-datasource-initialization: false
 
