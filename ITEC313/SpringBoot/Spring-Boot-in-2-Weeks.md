@@ -1,4 +1,4 @@
-# Spring Boot in 7 Days
+# Spring Boot in 9 Days
 
 A hands-on, project-based tutorial series to learn Spring Boot by building a suite of small, focused apps. Each day has clear goals, deliverables, and links to official docs and trusted resources.
 
@@ -208,6 +208,70 @@ Readings
 
 Deliverables
 - Multi-module microservices example and a dedicated testing lab
+
+---
+
+### Day 8 — Spring MVC (classic Spring Web MVC)
+
+Goals
+
+- Understand Spring MVC architecture: DispatcherServlet, HandlerMapping, Controller, ViewResolver, Model
+- Build server-rendered pages with Thymeleaf (controllers returning view names)
+- Form binding and validation with `@ModelAttribute`, `BindingResult`, and Jakarta Validation
+- Serve static resources and implement file upload with `MultipartFile`
+- Apply MVC cross-cutting: `HandlerInterceptor` and user-friendly error pages with `@ControllerAdvice`
+
+Hands-on
+
+- `08-spring-mvc`: server-side web app
+  - Create `HomeController` with a GET mapping that returns a welcome view
+  - Build a form page bound to a DTO; validate on submit and render error messages
+  - Add a file upload form and endpoint; store files in a temp folder and list uploaded files
+  - Register a `HandlerInterceptor` to log request timing
+  - Configure custom error pages (e.g., 404, 500) via templates
+- Tests: `@WebMvcTest` for controller/form validation
+
+Readings
+
+- [Spring MVC (GeeksforGeeks)](https://www.geeksforgeeks.org/java/spring-mvc/)
+- [Spring Framework Reference: Web MVC](https://docs.spring.io/spring-framework/reference/web/webmvc.html)
+- [Serving Web Content with Spring MVC (Guide)](https://spring.io/guides/gs/serving-web-content/)
+
+Deliverables
+
+- `08-spring-mvc` app with views, form validation, file upload, interceptor, and tests
+
+---
+
+### Day 9 — Hibernate & ORM Basics
+
+Goals
+
+- Understand ORM and Hibernate as a JPA provider; when and why to use ORM
+- Map entities and relationships (`@OneToMany`, `@ManyToOne`, `@ManyToMany`), cascading, and fetch strategies
+- Write queries via Spring Data derived methods, JPQL, and pagination/sorting
+- Manage transactions and avoid common pitfalls (N+1 selects, LazyInitializationException)
+- Optional: database migrations with Flyway
+
+Hands-on
+
+- `09-hibernate-orm`:
+  - Define entities, e.g., `Author` (1) — `Book` (N); optionally `Tag` (M–N)
+  - Create Spring Data JPA repositories with derived queries and a JPQL example
+  - Seed data using `CommandLineRunner`; expose simple REST endpoints to browse entities with pagination
+  - Demonstrate lazy vs eager fetching; use `@EntityGraph` or fetch joins to fix N+1
+  - Profiles: `dev` with H2; `prod` with PostgreSQL/MySQL
+
+Readings
+
+- [Hibernate Tutorial (GeeksforGeeks)](https://www.geeksforgeeks.org/java/hibernate-tutorial/)
+- [Accessing Data with JPA (Guide)](https://spring.io/guides/gs/accessing-data-jpa)
+- [Hibernate ORM Documentation](https://hibernate.org/orm/documentation/)
+- [Spring Data JPA Reference](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/)
+
+Deliverables
+
+- `09-hibernate-orm` app with entity relationships, queries, pagination, and a README
 
 ---
 
