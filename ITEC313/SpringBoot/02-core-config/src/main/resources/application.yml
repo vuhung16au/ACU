@@ -1,0 +1,50 @@
+# Main application configuration for Day 2: Core Concepts
+spring:
+  application:
+    name: core-config-demo
+  
+  # Configuration properties for our AppProperties class
+  config:
+    import: optional:classpath:application-${spring.profiles.active:default}.yml
+
+# Application-specific configuration
+app:
+  name: "Spring Boot Core Config Demo"
+  environment: "default"
+  max-connections: 25
+  debug-enabled: false
+  allowed-origins:
+    - "http://localhost:3000"
+    - "http://localhost:8080"
+    - "http://localhost:4200"
+
+# Server configuration
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+# Actuator configuration
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,configprops,env
+      base-path: /actuator
+  endpoint:
+    health:
+      show-details: when-authorized
+    configprops:
+      show-values: always
+
+# Logging configuration
+logging:
+  level:
+    root: INFO
+    com.acu.coreconfig: DEBUG
+    org.springframework.boot.autoconfigure: WARN
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/core-config.log

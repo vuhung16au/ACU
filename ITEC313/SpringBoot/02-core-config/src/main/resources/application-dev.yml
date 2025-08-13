@@ -1,0 +1,45 @@
+# Development profile configuration
+app:
+  name: "Spring Boot Core Config Demo (DEV)"
+  environment: "development"
+  max-connections: 50
+  debug-enabled: true
+  allowed-origins:
+    - "http://localhost:3000"
+    - "http://localhost:8080"
+    - "http://localhost:4200"
+    - "http://localhost:3001"
+
+# Enhanced logging for development
+logging:
+  level:
+    root: INFO
+    com.acu.coreconfig: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.boot.autoconfigure: DEBUG
+    org.springframework.context.annotation: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n"
+  file:
+    name: logs/core-config-dev.log
+
+# Actuator configuration for development
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+    configprops:
+      show-values: always
+    env:
+      show-values: always
+
+# Server configuration for development
+server:
+  port: 8080
+  error:
+    include-message: always
+    include-binding-errors: always
