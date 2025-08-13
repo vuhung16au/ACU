@@ -1,0 +1,32 @@
+# Production profile configuration
+spring:
+  # MySQL Database Configuration
+  datasource:
+    url: jdbc:mysql://localhost:3306/datajpa_prod?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:password}
+  
+  # JPA Configuration for MySQL
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: false
+    defer-datasource-initialization: false
+
+  # Flyway Configuration
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    validate-on-migrate: true
+
+# Logging for production
+logging:
+  level:
+    com.acu.datajpa: INFO
+    org.springframework.data.jpa: WARN
+    org.hibernate.SQL: WARN
