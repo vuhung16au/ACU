@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>File Upload - Spring MVC Demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">Spring MVC Demo</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/upload">File Upload</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mt-4">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="mb-0">Upload File</h3>
+                    </div>
+                    <div class="card-body">
+                        <form th:action="@{/upload}" method="post" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label for="file" class="form-label">Select File</label>
+                                <input type="file" class="form-control" id="file" name="file" required>
+                                <div class="form-text">Maximum file size: 10MB</div>
+                            </div>
+                            
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary">Upload File</button>
+                                <a href="/" class="btn btn-secondary">Back to Home</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">File Upload Features</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled">
+                            <li>✓ <strong>MultipartFile:</strong> File handling</li>
+                            <li>✓ <strong>File validation:</strong> Size and type checks</li>
+                            <li>✓ <strong>Unique filenames:</strong> UUID generation</li>
+                            <li>✓ <strong>File storage:</strong> Local directory</li>
+                            <li>✓ <strong>File listing:</strong> Display uploaded files</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h3 class="mb-0">Uploaded Files</h3>
+                        <form th:action="@{/upload/clear}" method="post" style="display: inline;">
+                            <button type="submit" class="btn btn-sm btn-outline-danger" 
+                                    onclick="return confirm('Are you sure you want to clear all files?')">
+                                Clear All
+                            </button>
+                        </form>
+                    </div>
+                    <div class="card-body">
+                        <div th:if="${uploadedFiles.empty}" class="text-center text-muted">
+                            <p>No files uploaded yet.</p>
+                        </div>
+                        
+                        <div th:if="${!uploadedFiles.empty}">
+                            <div class="table-responsive">
+                                <table class="table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>File Name</th>
+                                            <th>Size</th>
+                                            <th>Type</th>
+                                            <th>Uploaded</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="file : ${uploadedFiles}">
+                                            <td th:text="${file.originalFilename}">filename</td>
+                                            <td th:text="${file.formattedSize}">size</td>
+                                            <td th:text="${file.contentType}">type</td>
+                                            <td th:text="${#temporals.format(file.uploadedAt, 'yyyy-MM-dd HH:mm')}">date</td>
+                                            <td>
+                                                <a th:href="@{/download/{filename}(filename=${file.storedFilename})}" 
+                                                   class="btn btn-sm btn-outline-primary">Download</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-light text-center text-muted py-3 mt-5">
+        <div class="container">
+            <p>&copy; 2024 Spring MVC Demo. Built with Spring Boot and Thymeleaf.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
