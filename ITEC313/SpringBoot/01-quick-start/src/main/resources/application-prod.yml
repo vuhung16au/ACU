@@ -1,0 +1,29 @@
+# Production Profile Configuration
+
+# Minimal logging for production
+logging:
+  level:
+    com.acu.quickstart: INFO
+    org.springframework.boot.actuate: WARN
+    org.springframework.web: WARN
+    root: WARN
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} %-5level - %msg%n"
+
+# Secure actuator configuration for production
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: never
+    env:
+      show-values: never
+
+# Production-specific server settings
+server:
+  error:
+    include-message: never
+    include-binding-errors: never
