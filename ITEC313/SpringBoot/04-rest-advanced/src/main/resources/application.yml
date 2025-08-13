@@ -1,0 +1,65 @@
+# Main application configuration for Day 4: Advanced REST Services
+spring:
+  application:
+    name: rest-advanced-demo
+  
+  # Disable JPA auto-configuration since this is a REST API without database
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+  
+  # Jackson configuration for JSON processing
+  jackson:
+    default-property-inclusion: non_null
+    serialization:
+      write-dates-as-timestamps: false
+      fail-on-empty-beans: false
+    deserialization:
+      fail-on-unknown-properties: false
+
+# Server configuration
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+# Actuator configuration
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+      base-path: /actuator
+  endpoint:
+    health:
+      show-details: when-authorized
+
+# OpenAPI/Swagger configuration
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha
+  info:
+    title: Advanced REST API
+    description: Spring Boot Advanced REST Services with OpenAPI Documentation
+    version: 1.0.0
+    contact:
+      name: API Support
+      email: support@example.com
+    license:
+      name: MIT License
+      url: https://opensource.org/licenses/MIT
+
+# Logging configuration
+logging:
+  level:
+    root: INFO
+    com.acu.restadvanced: DEBUG
+    org.springframework.web: INFO
+    org.springframework.hateoas: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
