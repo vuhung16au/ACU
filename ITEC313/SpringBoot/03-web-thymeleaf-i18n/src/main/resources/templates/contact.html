@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title th:text="#{page.contact.title}">Contact - Spring Boot Web App</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h2 th:text="#{page.contact.title}">Contact Us</h2>
+                <p class="lead" th:text="#{page.contact.subtitle}">Send us a message and we'll get back to you as soon as possible.</p>
+                
+                <form th:action="@{/contact}" th:object="${user}" method="post" class="needs-validation" novalidate>
+                    <!-- Name Field -->
+                    <div class="mb-3">
+                        <label for="name" class="form-label" th:text="#{form.user.name}">Name</label>
+                        <input type="text" 
+                               class="form-control" 
+                               id="name" 
+                               th:field="*{name}"
+                               th:placeholder="#{form.user.namePlaceholder}"
+                               th:classappend="${#fields.hasErrors('name')} ? 'is-invalid' : ''"
+                               required>
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
+                            Name is required and must be between 2 and 50 characters.
+                        </div>
+                    </div>
+
+                    <!-- Email Field -->
+                    <div class="mb-3">
+                        <label for="email" class="form-label" th:text="#{form.user.email}">Email</label>
+                        <input type="email" 
+                               class="form-control" 
+                               id="email" 
+                               th:field="*{email}"
+                               th:placeholder="#{form.user.emailPlaceholder}"
+                               th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : ''"
+                               required>
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+                            Please provide a valid email address.
+                        </div>
+                    </div>
+
+                    <!-- Language Preference -->
+                    <div class="mb-3">
+                        <label for="language" class="form-label" th:text="#{form.user.language}">Preferred Language</label>
+                        <select class="form-select" 
+                                id="language" 
+                                th:field="*{language}"
+                                th:classappend="${#fields.hasErrors('language')} ? 'is-invalid' : ''">
+                            <option value="" th:text="#{form.user.languageSelect}">Select a language</option>
+                            <option th:each="lang : ${languages}" 
+                                    th:value="${lang}" 
+                                    th:text="${lang}">English</option>
+                        </select>
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('language')}" th:errors="*{language}">
+                            Please select a preferred language.
+                        </div>
+                    </div>
+
+                    <!-- Message Field -->
+                    <div class="mb-3">
+                        <label for="message" class="form-label" th:text="#{form.user.message}">Message</label>
+                        <textarea class="form-control" 
+                                  id="message" 
+                                  th:field="*{message}"
+                                  th:placeholder="#{form.user.messagePlaceholder}"
+                                  rows="5"
+                                  th:classappend="${#fields.hasErrors('message')} ? 'is-invalid' : ''"
+                                  required></textarea>
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('message')}" th:errors="*{message}">
+                            Message is required and must be between 10 and 500 characters.
+                        </div>
+                        <div class="form-text" th:text="#{form.user.messageHelp}">Please provide a detailed message (10-500 characters).</div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button type="submit" class="btn btn-primary" th:text="#{form.submit}">Send Message</button>
+                        <a th:href="@{/}" class="btn btn-secondary" th:text="#{form.cancel}">Cancel</a>
+                    </div>
+                </form>
+
+                <!-- Form Information -->
+                <div class="mt-4">
+                    <div class="alert alert-info">
+                        <h6 th:text="#{page.contact.info.title}">Form Information</h6>
+                        <ul class="mb-0">
+                            <li th:text="#{page.contact.info.validation}">All fields are validated on both client and server side.</li>
+                            <li th:text="#{page.contact.info.storage}">Form data is processed and logged (not stored permanently).</li>
+                            <li th:text="#{page.contact.info.language}">Language preference helps us provide better support.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Client-side validation script -->
+    <script th:inline="javascript">
+        // Bootstrap form validation
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                var forms = document.getElementsByClassName('needs-validation');
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      th:lang="${#locale.language}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE" th:text="#{app.title}">Spring Boot Web App</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link th:href="@{/favicon.ico}" rel="icon" type="image/x-icon">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" th:href="@{/}" th:text="#{nav.brand}">Web App</a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/}" th:text="#{nav.home}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/about}" th:text="#{nav.about}">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/contact}" th:text="#{nav.contact}">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/languages}" th:text="#{nav.languages}">Languages</a>
+                    </li>
+                </ul>
+                
+                <!-- Language Selector -->
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" 
+                           data-bs-toggle="dropdown" th:text="#{nav.language}">
+                            Language
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/?(lang=en_US)}" th:text="#{lang.english}">English</a></li>
+                            <li><a class="dropdown-item" th:href="@{/?(lang=es_ES)}" th:text="#{lang.spanish}">Español</a></li>
+                            <li><a class="dropdown-item" th:href="@{/?(lang=fr_FR)}" th:text="#{lang.french}">Français</a></li>
+                            <li><a class="dropdown-item" th:href="@{/?(lang=de_DE)}" th:text="#{lang.german}">Deutsch</a></li>
+                            <li><a class="dropdown-item" th:href="@{/?(lang=it_IT)}" th:text="#{lang.italian}">Italiano</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mt-4">
+        <!-- Flash Messages -->
+        <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+            <span th:text="${successMessage}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        
+        <div th:if="${errorMessage}" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <span th:text="${errorMessage}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        
+        <!-- Page Content -->
+        <div layout:fragment="content">
+            <!-- This is where page content will be inserted -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-light text-center text-muted py-4 mt-5">
+        <div class="container">
+            <p th:text="#{footer.copyright}">&copy; 2024 Spring Boot Web App. All rights reserved.</p>
+            <p>
+                <small th:text="#{footer.currentLocale}">Current Locale:</small>
+                <span th:text="${#locale.displayName}" class="badge bg-secondary"></span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script th:src="@{/js/app.js}"></script>
+</body>
+</html>

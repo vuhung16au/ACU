@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title th:text="#{page.about.title}">About - Spring Boot Web App</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h2 th:text="#{page.about.title}">About</h2>
+                <p class="lead" th:text="#{page.about.subtitle}">Learn more about this application</p>
+                
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Spring Boot Web Application</h5>
+                        <p class="card-text" th:text="#{page.about.description}">
+                            This is a demonstration application showcasing Spring Boot web development features.
+                        </p>
+                        
+                        <h6>Features Demonstrated:</h6>
+                        <ul>
+                            <li><strong>Thymeleaf Templates:</strong> Server-side templating for dynamic web pages</li>
+                            <li><strong>Internationalization (i18n):</strong> Multi-language support with locale-based message resolution</li>
+                            <li><strong>Form Handling:</strong> Form submission, validation, and error handling</li>
+                            <li><strong>Static Resources:</strong> CSS, JavaScript, and image serving</li>
+                            <li><strong>Bootstrap Integration:</strong> Modern, responsive UI components</li>
+                            <li><strong>Maven Build System:</strong> Dependency management and build automation</li>
+                        </ul>
+                        
+                        <h6>Technology Stack:</h6>
+                        <ul>
+                            <li>Spring Boot 3.3.2</li>
+                            <li>Thymeleaf 3.x</li>
+                            <li>Bootstrap 5.3.0</li>
+                            <li>Maven 3.9+</li>
+                            <li>Java 17+</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="mt-4">
+                    <a th:href="@{/}" class="btn btn-primary" th:text="#{nav.home}">Home</a>
+                    <a th:href="@{/contact}" class="btn btn-outline-primary" th:text="#{nav.contact}">Contact</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

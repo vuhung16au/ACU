@@ -1,0 +1,83 @@
+# -----------------------------
+# OS / Editor
+# -----------------------------
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+*.orig
+*.rej
+
+# -----------------------------
+# Maven / Java / Spring Boot
+# -----------------------------
+target/
+**/target/
+dependency-reduced-pom.xml
+
+# Logs
+*.log
+logs/
+spring.log
+hs_err_pid*.log
+
+# Heap dumps
+*.hprof
+
+# Coverage / Reports
+coverage/
+**/jacoco.exec
+**/jacoco*.csv
+**/jacoco*.xml
+surefire-reports/
+
+# -----------------------------
+# IDEs
+# -----------------------------
+# IntelliJ
+.idea/
+*.iml
+out/
+
+# VS Code
+.vscode/
+
+# Eclipse / STS
+.classpath
+.project
+.settings/
+.factorypath
+.springBeans
+.sts4-cache/
+bin/
+
+# NetBeans
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# -----------------------------
+# Gradle (in case any module uses it)
+# -----------------------------
+.gradle/
+build/
+
+# -----------------------------
+# Environment / Secrets (keep real secrets out of VCS)
+# -----------------------------
+.env
+.env.*
+*.local.properties
+
+# -----------------------------
+# Misc
+# -----------------------------
+tmp/
+docker/data/
+
+# Note: Do NOT ignore the Maven Wrapper jar; it should remain committed
+# .mvn/wrapper/maven-wrapper.jar

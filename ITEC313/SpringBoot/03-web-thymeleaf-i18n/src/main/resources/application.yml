@@ -1,0 +1,53 @@
+# Main application configuration for Day 3: Web App with Thymeleaf and i18n
+spring:
+  application:
+    name: web-thymeleaf-i18n
+  
+  # Thymeleaf configuration
+  thymeleaf:
+    cache: false  # Disable cache for development
+    mode: HTML
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+  
+  # Internationalization configuration
+  messages:
+    basename: messages
+    encoding: UTF-8
+    fallback-to-system-locale: false
+    use-code-as-default-message: false
+  
+  # Static resources configuration
+  web:
+    resources:
+      static-locations: classpath:/static/
+      cache:
+        period: 0  # Disable cache for development
+
+# Server configuration
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+# Actuator configuration
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+      base-path: /actuator
+  endpoint:
+    health:
+      show-details: when-authorized
+
+# Logging configuration
+logging:
+  level:
+    root: INFO
+    com.acu.webapp: DEBUG
+    org.springframework.web: INFO
+    org.thymeleaf: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"

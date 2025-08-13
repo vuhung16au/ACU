@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title th:text="#{page.languages.title}">Languages - Spring Boot Web App</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h2 th:text="#{page.languages.title}">Languages</h2>
+                <p class="lead">Select your preferred language to change the interface language.</p>
+                
+                <!-- Current Locale Info -->
+                <div class="alert alert-info">
+                    <h6>Current Locale Information:</h6>
+                    <ul class="mb-0">
+                        <li><strong>Language:</strong> <span th:text="${#locale.language}">en</span></li>
+                        <li><strong>Country:</strong> <span th:text="${#locale.country}">US</span></li>
+                        <li><strong>Display Name:</strong> <span th:text="${#locale.displayName}">English (United States)</span></li>
+                        <li><strong>ISO3 Language:</strong> <span th:text="${#locale.getISO3Language()}">eng</span></li>
+                        <li><strong>ISO3 Country:</strong> <span th:text="${#locale.getISO3Country()}">USA</span></li>
+                    </ul>
+                </div>
+                
+                <!-- Language Selection Cards -->
+                <div class="row mt-4">
+                    <div class="col-md-6 mb-3">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">🇺🇸 English</h5>
+                                <p class="card-text">English (United States)</p>
+                                <a th:href="@{/?(lang=en_US)}" class="btn btn-primary">Select English</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">🇪🇸 Español</h5>
+                                <p class="card-text">Spanish (Spain)</p>
+                                <a th:href="@{/?(lang=es_ES)}" class="btn btn-primary">Seleccionar Español</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">🇫🇷 Français</h5>
+                                <p class="card-text">French (France)</p>
+                                <a th:href="@{/?(lang=fr_FR)}" class="btn btn-primary">Sélectionner Français</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">🇩🇪 Deutsch</h5>
+                                <p class="card-text">German (Germany)</p>
+                                <a th:href="@{/?(lang=de_DE)}" class="btn btn-primary">Deutsch auswählen</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">🇮🇹 Italiano</h5>
+                                <p class="card-text">Italian (Italy)</p>
+                                <a th:href="@{/?(lang=it_IT)}" class="btn btn-primary">Seleziona Italiano</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Language Information -->
+                <div class="mt-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h6>How Internationalization Works</h6>
+                        </div>
+                        <div class="card-body">
+                            <p>This application uses Spring Boot's internationalization features:</p>
+                            <ul>
+                                <li><strong>Message Sources:</strong> Properties files containing translated text</li>
+                                <li><strong>Locale Resolver:</strong> Determines the current locale from session or request</li>
+                                <li><strong>Locale Change Interceptor:</strong> Handles locale changes via URL parameters</li>
+                                <li><strong>Thymeleaf Integration:</strong> Automatic message resolution in templates</li>
+                            </ul>
+                            
+                            <h6>Available Message Files:</h6>
+                            <ul>
+                                <li><code>messages.properties</code> - Default (English)</li>
+                                <li><code>messages_es.properties</code> - Spanish</li>
+                                <li><code>messages_fr.properties</code> - French (to be added)</li>
+                                <li><code>messages_de.properties</code> - German (to be added)</li>
+                                <li><code>messages_it.properties</code> - Italian (to be added)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Current Time Display -->
+                <div class="mt-4">
+                    <div class="alert alert-secondary">
+                        <h6>Current Server Time:</h6>
+                        <p class="mb-0">
+                            <strong th:text="${currentTime}">2024-01-01 12:00:00</strong>
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="mt-4">
+                    <a th:href="@{/}" class="btn btn-primary" th:text="#{nav.home}">Home</a>
+                    <a th:href="@{/contact}" class="btn btn-outline-primary" th:text="#{nav.contact}">Contact</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

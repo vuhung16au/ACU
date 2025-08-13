@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title th:text="#{page.home.title}">Home - Spring Boot Web App</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <!-- Hero Section -->
+        <div class="row">
+            <div class="col-12">
+                <div class="jumbotron bg-light p-5 rounded">
+                    <h1 class="display-4" th:text="#{page.home.welcome}">Welcome to Spring Boot Web App</h1>
+                    <p class="lead" th:text="#{page.home.subtitle}">A comprehensive demonstration of Spring Boot with Thymeleaf and internationalization.</p>
+                    <hr class="my-4">
+                    <p th:text="#{page.home.description}">This application showcases web development with Spring Boot, including form handling, validation, and multi-language support.</p>
+                    <a class="btn btn-primary btn-lg" th:href="@{/contact}" th:text="#{page.home.contactButton}">Get Started</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="row mt-5">
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <h5 class="card-title" th:text="#{page.home.feature1.title}">Thymeleaf Templates</h5>
+                        <p class="card-text" th:text="#{page.home.feature1.description}">Server-side templating with Thymeleaf for dynamic web pages.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <h5 class="card-title" th:text="#{page.home.feature2.title}">Internationalization</h5>
+                        <p class="card-text" th:text="#{page.home.feature2.description}">Multi-language support with locale-based message resolution.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <h5 class="card-title" th:text="#{page.home.feature3.title}">Form Validation</h5>
+                        <p class="card-text" th:text="#{page.home.feature3.description}">Client and server-side form validation with custom error messages.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Current Time Section -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="alert alert-info">
+                    <h6 th:text="#{page.home.currentTime}">Current Server Time:</h6>
+                    <p class="mb-0">
+                        <strong th:text="${currentTime}">2024-01-01 12:00:00</strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <h4 th:text="#{page.home.quickLinks}">Quick Links</h4>
+                <div class="list-group">
+                    <a th:href="@{/about}" class="list-group-item list-group-item-action" th:text="#{page.home.aboutLink}">About This Application</a>
+                    <a th:href="@{/contact}" class="list-group-item list-group-item-action" th:text="#{page.home.contactLink}">Contact Form</a>
+                    <a th:href="@{/languages}" class="list-group-item list-group-item-action" th:text="#{page.home.languagesLink}">Language Selection</a>
+                    <a th:href="@{/api/time}" class="list-group-item list-group-item-action" th:text="#{page.home.apiLink}">API Endpoint</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
