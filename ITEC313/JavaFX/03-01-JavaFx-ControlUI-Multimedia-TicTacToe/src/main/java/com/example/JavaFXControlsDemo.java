@@ -49,13 +49,15 @@ public class JavaFXControlsDemo extends Application {
     Tab selectionControlsTab = new SelectionControlsTab(displayText);
     Tab multimediaTab = new MultimediaTab();
     Tab gameTab = new GameTab();
+    Tab bouncingBallTab = new SliderDemo();
         
         tabPane.getTabs().addAll(
             basicControlsTab,
             inputControlsTab, 
             selectionControlsTab,
             multimediaTab,
-            gameTab
+            gameTab,
+            bouncingBallTab
         );
         
         // Create main scene
