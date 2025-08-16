@@ -8,6 +8,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -30,7 +31,8 @@ public class MultimediaTab extends Tab {
         mainPane.setPadding(new Insets(20));
         mainPane.setAlignment(Pos.CENTER);
 
-        try {
+    // Audio section
+    try {
             java.io.File mediaFile = new java.io.File("media/sound-design-elements-sfx-ps-022-302865.mp3");
             String mediaUrl;
 
@@ -73,9 +75,84 @@ public class MultimediaTab extends Tab {
             mainPane.getChildren().addAll(errorLabel, new Separator(), animationDemo);
         }
 
+        // Video section (separate from audio try/catch so one doesn't block the other)
+        try {
+            mainPane.getChildren().add(new Separator());
+            Label videoHeader = new Label("Video Player Demo");
+            videoHeader.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+            mainPane.getChildren().add(videoHeader);
+
+            mainPane.getChildren().add(createVideoSection());
+        } catch (Exception ex) {
+            Label err = new Label("Video playback not available: " + ex.getMessage());
+            err.setStyle("-fx-text-fill: red;");
+            mainPane.getChildren().add(err);
+        }
+
         ScrollPane scrollPane = new ScrollPane(mainPane);
         scrollPane.setFitToWidth(true);
         setContent(scrollPane);
+    }
+
+    private javafx.scene.layout.BorderPane createVideoSection() throws Exception {
+        // Resolve local video path similar to the audio section
+        java.io.File videoFile = new java.io.File("media/sample-video.mp4");
+        String videoUrl;
+        if (videoFile.exists()) {
+            videoUrl = videoFile.toURI().toString();
+        } else {
+            videoFile = new java.io.File("../media/sample-video.mp4");
+            if (videoFile.exists()) {
+                videoUrl = videoFile.toURI().toString();
+            } else {
+                throw new Exception("Video file not found in expected locations");
+            }
+        }
+
+        Media media = new Media(videoUrl);
+        MediaPlayer videoPlayer = new MediaPlayer(media);
+        MediaView mediaView = new MediaView(videoPlayer);
+        mediaView.setPreserveRatio(true);
+        mediaView.setFitWidth(650);
+
+        // Controls (based on provided logic)
+    Button playButton = new Button(">");
+    playButton.setOnAction(_ -> {
+            if (playButton.getText().equals(">")) {
+                videoPlayer.play();
+                playButton.setText("||");
+            } else {
+                videoPlayer.pause();
+                playButton.setText(">");
+            }
+        });
+
+    Button rewindButton = new Button("<<");
+    rewindButton.setOnAction(_ -> videoPlayer.seek(Duration.ZERO));
+
+        Slider slVolume = new Slider();
+        slVolume.setPrefWidth(150);
+        slVolume.setMinWidth(30);
+        slVolume.setValue(50);
+        videoPlayer.volumeProperty().bind(slVolume.valueProperty().divide(100));
+
+        HBox hBox = new HBox(10);
+        hBox.setAlignment(Pos.CENTER);
+        hBox.getChildren().addAll(playButton, rewindButton, new Label("Volume"), slVolume);
+
+        // File label and simple frame
+        Label fileLabel = new Label("Playing: sample-video.mp4");
+        fileLabel.setStyle("-fx-text-fill: gray;");
+        VBox topBox = new VBox(5, new Label("🎬 Video Player"), fileLabel);
+        topBox.setAlignment(Pos.CENTER);
+
+        javafx.scene.layout.BorderPane pane = new javafx.scene.layout.BorderPane();
+        pane.setTop(topBox);
+        pane.setCenter(mediaView);
+        pane.setBottom(hBox);
+        pane.setStyle("-fx-border-color: lightgray; -fx-border-width: 2; -fx-padding: 10;");
+
+        return pane;
     }
 
     private HBox createMediaControls() {
