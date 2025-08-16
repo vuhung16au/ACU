@@ -48,6 +48,7 @@ public class JavaFXControlsDemo extends Application {
     Tab inputControlsTab = new InputControlsTab(displayText, normalFont);
     Tab selectionControlsTab = new SelectionControlsTab(displayText);
     Tab multimediaTab = new MultimediaTab();
+    Tab flagAnthemTab = new FlagAnthemTab();
     Tab gameTab = new GameTab();
     Tab bouncingBallTab = new SliderDemo();
         
@@ -56,6 +57,7 @@ public class JavaFXControlsDemo extends Application {
             inputControlsTab, 
             selectionControlsTab,
             multimediaTab,
+            flagAnthemTab,
             gameTab,
             bouncingBallTab
         );
