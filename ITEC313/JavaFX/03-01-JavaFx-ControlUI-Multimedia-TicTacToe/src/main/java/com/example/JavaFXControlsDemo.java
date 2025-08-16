@@ -63,7 +63,7 @@ public class JavaFXControlsDemo extends Application {
         );
         
         // Create main scene
-        Scene scene = new Scene(tabPane, 1000, 700);
+        Scene scene = new Scene(tabPane, 1200, 700);
         
         // Try to load CSS, but don't fail if it's not found
         try {
