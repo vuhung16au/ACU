@@ -1,0 +1,154 @@
+/* Tic-Tac-Toe Game Stylesheet */
+
+.root {
+    -fx-background-color: linear-gradient(to bottom, #667eea 0%, #764ba2 100%);
+    -fx-font-family: "Arial", "Helvetica", sans-serif;
+}
+
+/* Main container styling */
+.vbox {
+    -fx-background-color: rgba(255, 255, 255, 0.95);
+    -fx-background-radius: 15px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0);
+}
+
+/* Title styling */
+.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+}
+
+/* Game title */
+.label:first-child {
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 2, 0, 0, 1);
+}
+
+/* Subtitle */
+.label:nth-child(2) {
+    -fx-font-size: 16px;
+    -fx-text-fill: #7f8c8d;
+    -fx-font-style: italic;
+}
+
+/* Status label */
+.label:nth-child(3) {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+    -fx-padding: 10px;
+    -fx-background-color: #ecf0f1;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+}
+
+/* Button styling */
+.button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 10px 20px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 4, 0, 0, 2);
+    -fx-transition: all 0.2s ease-in-out;
+}
+
+.button:hover {
+    -fx-background-color: #2980b9;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 6, 0, 0, 3);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.button:pressed {
+    -fx-background-color: #21618c;
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+}
+
+/* New Game button */
+.button:last-child {
+    -fx-background-color: #e74c3c;
+    -fx-font-size: 14px;
+    -fx-min-width: 120px;
+}
+
+.button:last-child:hover {
+    -fx-background-color: #c0392b;
+}
+
+/* Game grid styling */
+.grid-pane {
+    -fx-background-color: #34495e;
+    -fx-background-radius: 10px;
+    -fx-padding: 10px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 8, 0, 0, 0);
+}
+
+/* Game board buttons */
+.grid-pane .button {
+    -fx-background-color: #ecf0f1;
+    -fx-text-fill: #2c3e50;
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-min-width: 80px;
+    -fx-min-height: 80px;
+    -fx-max-width: 80px;
+    -fx-max-height: 80px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 2, 0, 0, 1);
+}
+
+.grid-pane .button:hover {
+    -fx-background-color: #bdc3c7;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 4, 0, 0, 2);
+}
+
+.grid-pane .button:pressed {
+    -fx-background-color: #95a5a6;
+}
+
+/* Player X styling */
+.grid-pane .button:contains("X") {
+    -fx-background-color: #e74c3c;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(231, 76, 60, 0.4), 4, 0, 0, 2);
+}
+
+/* Computer O styling */
+.grid-pane .button:contains("O") {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(52, 152, 219, 0.4), 4, 0, 0, 2);
+}
+
+/* Animation for game state changes */
+@keyframes pulse {
+    0% { -fx-scale-x: 1.0; -fx-scale-y: 1.0; }
+    50% { -fx-scale-x: 1.1; -fx-scale-y: 1.1; }
+    100% { -fx-scale-x: 1.0; -fx-scale-y: 1.0; }
+}
+
+.grid-pane .button:contains("X"), .grid-pane .button:contains("O") {
+    -fx-animation: pulse 0.3s ease-in-out;
+}
+
+/* Responsive design adjustments */
+@media (max-width: 600px) {
+    .grid-pane .button {
+        -fx-min-width: 60px;
+        -fx-min-height: 60px;
+        -fx-max-width: 60px;
+        -fx-max-height: 60px;
+        -fx-font-size: 20px;
+    }
+    
+    .label:first-child {
+        -fx-font-size: 24px;
+    }
+}

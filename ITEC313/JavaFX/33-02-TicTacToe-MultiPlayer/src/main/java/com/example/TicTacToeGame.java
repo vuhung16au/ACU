@@ -1,0 +1,315 @@
+package com.example;
+
+import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import java.util.Random;
+
+/**
+ * Single-Player Tic-Tac-Toe Game Implementation
+ * 
+ * This class implements the single-player mode of the multiplayer Tic-Tac-Toe game using JavaFX controls.
+ * The player plays as 'X' against the computer which plays as 'O'.
+ * The computer uses a simple AI to make moves.
+ * 
+ * @author ITEC313 Student
+ * @version 3.0.0
+ */
+public class TicTacToeGame {
+    private Button[][] buttons = new Button[3][3];
+    private char playerSymbol = 'X';
+    private char computerSymbol = 'O';
+    private boolean gameOver = false;
+    private Label statusLabel;
+    private GridPane gameGrid;
+    private Random random = new Random();
+    
+    /**
+     * Constructor that initializes the game board
+     */
+    public TicTacToeGame() {
+        initializeGame();
+    }
+    
+    /**
+     * Initializes the game board and controls
+     */
+    private void initializeGame() {
+        gameGrid = new GridPane();
+        gameGrid.setAlignment(Pos.CENTER);
+        gameGrid.setHgap(5);
+        gameGrid.setVgap(5);
+        
+        statusLabel = new Label("Your turn (X) - Click any square to start!");
+        statusLabel.setFont(Font.font(16));
+        
+        // Create 3x3 grid of buttons
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                Button button = new Button();
+                button.setPrefSize(80, 80);
+                button.setFont(Font.font(24));
+                button.setStyle("-fx-base: lightblue;");
+                
+                // Store row and col for the lambda
+                final int r = row;
+                final int c = col;
+                
+                button.setOnAction(_ -> handlePlayerMove(r, c));
+                
+                buttons[row][col] = button;
+                gameGrid.add(button, col, row);
+            }
+        }
+    }
+    
+    /**
+     * Handles player moves on the game board
+     * @param row the row of the clicked button
+     * @param col the column of the clicked button
+     */
+    private void handlePlayerMove(int row, int col) {
+        if (gameOver || !buttons[row][col].getText().isEmpty()) {
+            return;
+        }
+        
+        // Player's move
+        makeMove(row, col, playerSymbol);
+        
+        // Check for win or tie after player's move
+        if (checkWin(playerSymbol)) {
+            statusLabel.setText("Congratulations! You win!");
+            gameOver = true;
+            showWinAlert("Player");
+        } else if (checkTie()) {
+            statusLabel.setText("It's a tie!");
+            gameOver = true;
+            showTieAlert();
+        } else {
+            // Computer's turn
+            statusLabel.setText("Computer is thinking...");
+            makeComputerMove();
+        }
+    }
+    
+    /**
+     * Makes a move on the board
+     * @param row the row to place the symbol
+     * @param col the column to place the symbol
+     * @param symbol the symbol to place ('X' or 'O')
+     */
+    private void makeMove(int row, int col, char symbol) {
+        buttons[row][col].setText(String.valueOf(symbol));
+        buttons[row][col].setStyle("-fx-base: " + (symbol == 'X' ? "lightcoral" : "lightgreen"));
+    }
+    
+    /**
+     * Makes the computer's move using simple AI
+     */
+    private void makeComputerMove() {
+        // Simple AI: try to win, then block player, then random move
+        int[] move = findBestMove();
+        
+        if (move != null) {
+            makeMove(move[0], move[1], computerSymbol);
+            
+            // Check for win or tie after computer's move
+            if (checkWin(computerSymbol)) {
+                statusLabel.setText("Computer wins! Better luck next time!");
+                gameOver = true;
+                showWinAlert("Computer");
+            } else if (checkTie()) {
+                statusLabel.setText("It's a tie!");
+                gameOver = true;
+                showTieAlert();
+            } else {
+                statusLabel.setText("Your turn (X) - Click any square!");
+            }
+        }
+    }
+    
+    /**
+     * Finds the best move for the computer
+     * @return int array with [row, col] of the best move
+     */
+    private int[] findBestMove() {
+        // First, try to win
+        int[] winningMove = findWinningMove(computerSymbol);
+        if (winningMove != null) {
+            return winningMove;
+        }
+        
+        // Second, try to block player from winning
+        int[] blockingMove = findWinningMove(playerSymbol);
+        if (blockingMove != null) {
+            return blockingMove;
+        }
+        
+        // Third, try to take center
+        if (buttons[1][1].getText().isEmpty()) {
+            return new int[]{1, 1};
+        }
+        
+        // Fourth, try to take corners
+        int[][] corners = {{0, 0}, {0, 2}, {2, 0}, {2, 2}};
+        for (int[] corner : corners) {
+            if (buttons[corner[0]][corner[1]].getText().isEmpty()) {
+                return corner;
+            }
+        }
+        
+        // Finally, take any available space
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                if (buttons[row][col].getText().isEmpty()) {
+                    return new int[]{row, col};
+                }
+            }
+        }
+        
+        return null;
+    }
+    
+    /**
+     * Finds a winning move for the given symbol
+     * @param symbol the symbol to check for winning moves
+     * @return int array with [row, col] of the winning move, or null if none found
+     */
+    private int[] findWinningMove(char symbol) {
+        // Check each empty position
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                if (buttons[row][col].getText().isEmpty()) {
+                    // Temporarily place the symbol
+                    buttons[row][col].setText(String.valueOf(symbol));
+                    
+                    // Check if this creates a win
+                    if (checkWin(symbol)) {
+                        // Remove the temporary symbol
+                        buttons[row][col].setText("");
+                        return new int[]{row, col};
+                    }
+                    
+                    // Remove the temporary symbol
+                    buttons[row][col].setText("");
+                }
+            }
+        }
+        return null;
+    }
+    
+    /**
+     * Checks if the given symbol has won
+     * @param symbol the symbol to check for win
+     * @return true if the symbol has won, false otherwise
+     */
+    private boolean checkWin(char symbol) {
+        String player = String.valueOf(symbol);
+        
+        // Check rows
+        for (int row = 0; row < 3; row++) {
+            if (player.equals(buttons[row][0].getText()) &&
+                player.equals(buttons[row][1].getText()) &&
+                player.equals(buttons[row][2].getText())) {
+                return true;
+            }
+        }
+        
+        // Check columns
+        for (int col = 0; col < 3; col++) {
+            if (player.equals(buttons[0][col].getText()) &&
+                player.equals(buttons[1][col].getText()) &&
+                player.equals(buttons[2][col].getText())) {
+                return true;
+            }
+        }
+        
+        // Check diagonals
+        if (player.equals(buttons[0][0].getText()) &&
+            player.equals(buttons[1][1].getText()) &&
+            player.equals(buttons[2][2].getText())) {
+            return true;
+        }
+        
+        if (player.equals(buttons[0][2].getText()) &&
+            player.equals(buttons[1][1].getText()) &&
+            player.equals(buttons[2][0].getText())) {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    /**
+     * Checks if the game is a tie (all buttons filled with no winner)
+     * @return true if the game is a tie, false otherwise
+     */
+    private boolean checkTie() {
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                if (buttons[row][col].getText().isEmpty()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    
+    /**
+     * Shows an alert when a player wins
+     * @param winner the name of the winner ("Player" or "Computer")
+     */
+    private void showWinAlert(String winner) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Game Over");
+        alert.setHeaderText("We have a winner!");
+        alert.setContentText(winner + " wins!");
+        alert.showAndWait();
+    }
+    
+    /**
+     * Shows an alert when the game is a tie
+     */
+    private void showTieAlert() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Game Over");
+        alert.setHeaderText("It's a tie!");
+        alert.setContentText("Good game! Try again?");
+        alert.showAndWait();
+    }
+    
+    /**
+     * Resets the game to initial state
+     */
+    public void resetGame() {
+        gameOver = false;
+        statusLabel.setText("Your turn (X) - Click any square to start!");
+        
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                buttons[row][col].setText("");
+                buttons[row][col].setStyle("-fx-base: lightblue;");
+            }
+        }
+    }
+    
+    /**
+     * Returns the game pane containing the game board and controls
+     * @return VBox containing the complete game interface
+     */
+    public VBox getGamePane() {
+        VBox gamePane = new VBox(20);
+        gamePane.setAlignment(Pos.CENTER);
+        
+        Button resetButton = new Button("New Game");
+        resetButton.setOnAction(_ -> resetGame());
+        resetButton.setStyle("-fx-base: lightyellow;");
+        
+        gamePane.getChildren().addAll(statusLabel, gameGrid, resetButton);
+        return gamePane;
+    }
+}
