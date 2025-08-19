@@ -320,7 +320,6 @@ run.bat
 - **Tie**: All squares filled with no winner
 
 
-
 ## Game Interface
 
 ### 🎨 Visual Elements
@@ -370,35 +369,11 @@ run.bat
 
 ## Game Screenshots
 
-![Tic-Tac-Toe Game](images/05-tic-tac-toe.png)
+![Tic-Tac-Toe Game](images/01-tic-tac-toe.png)
 
 *Note: The actual game interface may vary slightly from the screenshot above, as the multiplayer version has been enhanced with additional features.*
 
-## Troubleshooting
 
-### Common Issues
-
-#### Build Errors
-```bash
-# Clean and rebuild
-mvn clean compile
-
-# Check Java version
-java -version
-
-# Check Maven version  
-mvn -version
-```
-
-#### Platform Issues
-- **macOS**: Ensure you have the correct architecture (Intel vs Apple Silicon)
-- **Windows**: Run as Administrator if needed
-- **Linux**: Install OpenJFX packages if using system Java
-
-### Performance Tips
-- **Memory**: Game uses minimal memory (~30MB)
-- **CPU**: Efficient AI calculations with no unnecessary processing
-- **Startup**: Initial load downloads JavaFX modules (one-time setup)
 
 ## Development
 
@@ -430,6 +405,18 @@ The game uses modern CSS with:
 - Smooth animations
 - Color-coded player moves
 - Responsive design elements
+
+# Next Steps
+
+- [ ] Add a timer to the game
+- [ ] Add a sound effect to the game
+- [ ] Add a background music to the game
+- [ ] Add a game history to the game
+- [ ] Add a game statistics to the game
+
+# Challenges
+
+- Implement an algorithm to find the best move for the computer
 
 ---
 
