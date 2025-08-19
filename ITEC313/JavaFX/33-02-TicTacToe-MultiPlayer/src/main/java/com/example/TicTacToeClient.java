@@ -38,7 +38,7 @@ public class TicTacToeClient extends Application implements TicTacToeConstants {
     private String playerId = "";
 
     // Create and initialize cells
-    private Cell[][] cell = new Cell[3][3];
+    private Cell[][] cell = new Cell[BOARD_SIZE][BOARD_SIZE];
 
     // Create and initialize a title label
     private Label lblTitle = new Label();
@@ -67,8 +67,8 @@ public class TicTacToeClient extends Application implements TicTacToeConstants {
     public void start(Stage primaryStage) {
         // Pane to hold cell
         GridPane pane = new GridPane();
-        for (int i = 0; i < 3; i++)
-            for (int j = 0; j < 3; j++)
+        for (int i = 0; i < BOARD_SIZE; i++)
+            for (int j = 0; j < BOARD_SIZE; j++)
                 pane.add(cell[i][j] = new Cell(i, j), j, i);
 
         BorderPane borderPane = new BorderPane();

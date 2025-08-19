@@ -100,7 +100,7 @@ public class TicTacToeServer extends Application implements TicTacToeConstants {
         private int sessionId;
 
         // Create and initialize cells
-        private char[][] cell = new char[3][3];
+        private char[][] cell = new char[BOARD_SIZE][BOARD_SIZE];
 
         private DataInputStream fromPlayer1;
         private DataOutputStream toPlayer1;
@@ -117,8 +117,8 @@ public class TicTacToeServer extends Application implements TicTacToeConstants {
             this.sessionId = sessionId;
 
             // Initialize cells
-            for (int i = 0; i < 3; i++)
-                for (int j = 0; j < 3; j++)
+            for (int i = 0; i < BOARD_SIZE; i++)
+                for (int j = 0; j < BOARD_SIZE; j++)
                     cell[i][j] = ' ';
         }
 
@@ -270,8 +270,8 @@ public class TicTacToeServer extends Application implements TicTacToeConstants {
 
         /** Determine if the cells are all occupied */
         private boolean isFull() {
-            for (int i = 0; i < 3; i++)
-                for (int j = 0; j < 3; j++)
+            for (int i = 0; i < BOARD_SIZE; i++)
+                for (int j = 0; j < BOARD_SIZE; j++)
                     if (cell[i][j] == ' ')
                         return false; // At least one cell is not filled
 
@@ -282,34 +282,48 @@ public class TicTacToeServer extends Application implements TicTacToeConstants {
         /** Determine if the player with the specified token wins */
         private boolean isWon(char token) {
             // Check all rows
-            for (int i = 0; i < 3; i++)
-                if ((cell[i][0] == token)
-                        && (cell[i][1] == token)
-                        && (cell[i][2] == token)) {
-                    return true;
+            for (int i = 0; i < BOARD_SIZE; i++) {
+                boolean rowWin = true;
+                for (int j = 0; j < BOARD_SIZE; j++) {
+                    if (cell[i][j] != token) {
+                        rowWin = false;
+                        break;
+                    }
                 }
+                if (rowWin) return true;
+            }
 
             // Check all columns
-            for (int j = 0; j < 3; j++)
-                if ((cell[0][j] == token)
-                        && (cell[1][j] == token)
-                        && (cell[2][j] == token)) {
-                    return true;
+            for (int j = 0; j < BOARD_SIZE; j++) {
+                boolean colWin = true;
+                for (int i = 0; i < BOARD_SIZE; i++) {
+                    if (cell[i][j] != token) {
+                        colWin = false;
+                        break;
+                    }
                 }
+                if (colWin) return true;
+            }
 
             // Check major diagonal
-            if ((cell[0][0] == token)
-                    && (cell[1][1] == token)
-                    && (cell[2][2] == token)) {
-                return true;
+            boolean majorDiagonalWin = true;
+            for (int i = 0; i < BOARD_SIZE; i++) {
+                if (cell[i][i] != token) {
+                    majorDiagonalWin = false;
+                    break;
+                }
             }
+            if (majorDiagonalWin) return true;
 
             // Check subdiagonal
-            if ((cell[0][2] == token)
-                    && (cell[1][1] == token)
-                    && (cell[2][0] == token)) {
-                return true;
+            boolean subDiagonalWin = true;
+            for (int i = 0; i < BOARD_SIZE; i++) {
+                if (cell[i][BOARD_SIZE - 1 - i] != token) {
+                    subDiagonalWin = false;
+                    break;
+                }
             }
+            if (subDiagonalWin) return true;
 
             // All checked, but no winner
             return false;

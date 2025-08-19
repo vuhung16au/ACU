@@ -19,8 +19,8 @@ import java.util.Random;
  * @author ITEC313 Student
  * @version 3.0.0
  */
-public class TicTacToeGame {
-    private Button[][] buttons = new Button[3][3];
+public class TicTacToeGame implements TicTacToeConstants {
+    private Button[][] buttons = new Button[BOARD_SIZE][BOARD_SIZE];
     private char playerSymbol = 'X';
     private char computerSymbol = 'O';
     private boolean gameOver = false;
@@ -47,9 +47,9 @@ public class TicTacToeGame {
         statusLabel = new Label("Your turn (X) - Click any square to start!");
         statusLabel.setFont(Font.font(16));
         
-        // Create 3x3 grid of buttons
-        for (int row = 0; row < 3; row++) {
-            for (int col = 0; col < 3; col++) {
+        // Create BOARD_SIZE x BOARD_SIZE grid of buttons
+        for (int row = 0; row < BOARD_SIZE; row++) {
+            for (int col = 0; col < BOARD_SIZE; col++) {
                 Button button = new Button();
                 button.setPrefSize(80, 80);
                 button.setFont(Font.font(24));
@@ -154,12 +154,13 @@ public class TicTacToeGame {
         }
         
         // Third, try to take center
-        if (buttons[1][1].getText().isEmpty()) {
-            return new int[]{1, 1};
+        int center = BOARD_SIZE / 2;
+        if (buttons[center][center].getText().isEmpty()) {
+            return new int[]{center, center};
         }
         
         // Fourth, try to take corners
-        int[][] corners = {{0, 0}, {0, 2}, {2, 0}, {2, 2}};
+        int[][] corners = {{0, 0}, {0, BOARD_SIZE-1}, {BOARD_SIZE-1, 0}, {BOARD_SIZE-1, BOARD_SIZE-1}};
         for (int[] corner : corners) {
             if (buttons[corner[0]][corner[1]].getText().isEmpty()) {
                 return corner;
@@ -167,8 +168,8 @@ public class TicTacToeGame {
         }
         
         // Finally, take any available space
-        for (int row = 0; row < 3; row++) {
-            for (int col = 0; col < 3; col++) {
+        for (int row = 0; row < BOARD_SIZE; row++) {
+            for (int col = 0; col < BOARD_SIZE; col++) {
                 if (buttons[row][col].getText().isEmpty()) {
                     return new int[]{row, col};
                 }
@@ -185,8 +186,8 @@ public class TicTacToeGame {
      */
     private int[] findWinningMove(char symbol) {
         // Check each empty position
-        for (int row = 0; row < 3; row++) {
-            for (int col = 0; col < 3; col++) {
+        for (int row = 0; row < BOARD_SIZE; row++) {
+            for (int col = 0; col < BOARD_SIZE; col++) {
                 if (buttons[row][col].getText().isEmpty()) {
                     // Temporarily place the symbol
                     buttons[row][col].setText(String.valueOf(symbol));
@@ -215,35 +216,48 @@ public class TicTacToeGame {
         String player = String.valueOf(symbol);
         
         // Check rows
-        for (int row = 0; row < 3; row++) {
-            if (player.equals(buttons[row][0].getText()) &&
-                player.equals(buttons[row][1].getText()) &&
-                player.equals(buttons[row][2].getText())) {
-                return true;
+        for (int row = 0; row < BOARD_SIZE; row++) {
+            boolean rowWin = true;
+            for (int col = 0; col < BOARD_SIZE; col++) {
+                if (!player.equals(buttons[row][col].getText())) {
+                    rowWin = false;
+                    break;
+                }
             }
+            if (rowWin) return true;
         }
         
         // Check columns
-        for (int col = 0; col < 3; col++) {
-            if (player.equals(buttons[0][col].getText()) &&
-                player.equals(buttons[1][col].getText()) &&
-                player.equals(buttons[2][col].getText())) {
-                return true;
+        for (int col = 0; col < BOARD_SIZE; col++) {
+            boolean colWin = true;
+            for (int row = 0; row < BOARD_SIZE; row++) {
+                if (!player.equals(buttons[row][col].getText())) {
+                    colWin = false;
+                    break;
+                }
+            }
+            if (colWin) return true;
+        }
+        
+        // Check major diagonal
+        boolean majorDiagonalWin = true;
+        for (int i = 0; i < BOARD_SIZE; i++) {
+            if (!player.equals(buttons[i][i].getText())) {
+                majorDiagonalWin = false;
+                break;
             }
         }
+        if (majorDiagonalWin) return true;
         
-        // Check diagonals
-        if (player.equals(buttons[0][0].getText()) &&
-            player.equals(buttons[1][1].getText()) &&
-            player.equals(buttons[2][2].getText())) {
-            return true;
+        // Check subdiagonal
+        boolean subDiagonalWin = true;
+        for (int i = 0; i < BOARD_SIZE; i++) {
+            if (!player.equals(buttons[i][BOARD_SIZE - 1 - i].getText())) {
+                subDiagonalWin = false;
+                break;
+            }
         }
-        
-        if (player.equals(buttons[0][2].getText()) &&
-            player.equals(buttons[1][1].getText()) &&
-            player.equals(buttons[2][0].getText())) {
-            return true;
-        }
+        if (subDiagonalWin) return true;
         
         return false;
     }
@@ -253,8 +267,8 @@ public class TicTacToeGame {
      * @return true if the game is a tie, false otherwise
      */
     private boolean checkTie() {
-        for (int row = 0; row < 3; row++) {
-            for (int col = 0; col < 3; col++) {
+        for (int row = 0; row < BOARD_SIZE; row++) {
+            for (int col = 0; col < BOARD_SIZE; col++) {
                 if (buttons[row][col].getText().isEmpty()) {
                     return false;
                 }
@@ -293,8 +307,8 @@ public class TicTacToeGame {
         gameOver = false;
         statusLabel.setText("Your turn (X) - Click any square to start!");
         
-        for (int row = 0; row < 3; row++) {
-            for (int col = 0; col < 3; col++) {
+        for (int row = 0; row < BOARD_SIZE; row++) {
+            for (int col = 0; col < BOARD_SIZE; col++) {
                 buttons[row][col].setText("");
                 buttons[row][col].setStyle("-fx-base: lightblue;");
             }

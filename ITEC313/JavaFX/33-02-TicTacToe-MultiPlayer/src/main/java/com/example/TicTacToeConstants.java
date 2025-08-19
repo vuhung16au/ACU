@@ -14,4 +14,5 @@ public interface TicTacToeConstants {
     public static int PLAYER2_WON = 2; // Indicate player 2 won
     public static int DRAW = 3; // Indicate a draw
     public static int CONTINUE = 4; // Indicate to continue
+    public static int BOARD_SIZE = 5; // Indicate the size of the board
 }
