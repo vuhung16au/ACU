@@ -167,9 +167,13 @@ This project demonstrates:
 ## Next Steps
 
 Possible enhancements:
-- Add more search criteria (department, salary range)
-- Implement data export (CSV, Excel)
-- Add user authentication
-- Implement data backup/restore
-- Add data visualization (charts, graphs)
-- Implement multi-user support
+## Add more search criteria (department, salary range)
+
+- Users can search by selecting one or more departments
+- Users can search by selecting a salary range (min and max)
+- Users can search by selecting a name (partial match)
+
+## Implement data export (CSV, Excel)
+
+## Add data visualization (charts, graphs)
+
