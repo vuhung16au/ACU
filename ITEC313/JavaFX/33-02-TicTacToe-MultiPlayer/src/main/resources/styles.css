@@ -115,16 +115,18 @@
 
 /* Player X styling */
 .grid-pane .button:contains("X") {
-    -fx-background-color: #e74c3c;
-    -fx-text-fill: white;
-    -fx-effect: dropshadow(three-pass-box, rgba(231, 76, 60, 0.4), 4, 0, 0, 2);
+    -fx-text-fill: red;
+    -fx-font-weight: bold;
+    -fx-font-size: 28px;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 0, 0, 0.3), 4, 0, 0, 2);
 }
 
 /* Computer O styling */
 .grid-pane .button:contains("O") {
-    -fx-background-color: #3498db;
-    -fx-text-fill: white;
-    -fx-effect: dropshadow(three-pass-box, rgba(52, 152, 219, 0.4), 4, 0, 0, 2);
+    -fx-text-fill: green;
+    -fx-font-weight: bold;
+    -fx-font-size: 28px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 128, 0, 0.3), 4, 0, 0, 2);
 }
 
 /* Animation for game state changes */
@@ -136,6 +138,19 @@
 
 .grid-pane .button:contains("X"), .grid-pane .button:contains("O") {
     -fx-animation: pulse 0.3s ease-in-out;
+}
+
+/* Enhanced styling for X and O tokens */
+.grid-pane .button:contains("X") {
+    -fx-text-fill: red;
+    -fx-font-weight: bold;
+    -fx-font-size: 28px;
+}
+
+.grid-pane .button:contains("O") {
+    -fx-text-fill: green;
+    -fx-font-weight: bold;
+    -fx-font-size: 28px;
 }
 
 /* Responsive design adjustments */

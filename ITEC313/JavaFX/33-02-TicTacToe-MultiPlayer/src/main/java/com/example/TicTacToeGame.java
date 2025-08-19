@@ -104,7 +104,11 @@ public class TicTacToeGame {
      */
     private void makeMove(int row, int col, char symbol) {
         buttons[row][col].setText(String.valueOf(symbol));
-        buttons[row][col].setStyle("-fx-base: " + (symbol == 'X' ? "lightcoral" : "lightgreen"));
+        if (symbol == 'X') {
+            buttons[row][col].setStyle("-fx-text-fill: red; -fx-font-weight: bold; -fx-font-size: 28px;");
+        } else {
+            buttons[row][col].setStyle("-fx-text-fill: green; -fx-font-weight: bold; -fx-font-size: 28px;");
+        }
     }
     
     /**

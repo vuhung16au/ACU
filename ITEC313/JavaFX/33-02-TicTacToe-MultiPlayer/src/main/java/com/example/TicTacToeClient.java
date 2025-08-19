@@ -33,6 +33,9 @@ public class TicTacToeClient extends Application implements TicTacToeConstants {
 
     // Indicate the token for the other player
     private char otherToken = ' ';
+    
+    // Player identifier
+    private String playerId = "";
 
     // Create and initialize cells
     private Cell[][] cell = new Cell[3][3];
@@ -107,10 +110,12 @@ public class TicTacToeClient extends Application implements TicTacToeConstants {
                 if (player == PLAYER1) {
                     myToken = 'X';
                     otherToken = 'O';
+                    playerId = "Player 1 (X)";
                     Platform.runLater(() -> {
                         lblTitle.setText("Player 1 with token 'X'");
                         lblStatus.setText("Waiting for player 2 to join");
                     });
+                    logToConsole("Connected as Player 1 (X)");
 
                     // Receive startup notification from the server
                     fromServer.readInt(); // Whatever read is ignored
@@ -118,16 +123,19 @@ public class TicTacToeClient extends Application implements TicTacToeConstants {
                     // The other player has joined
                     Platform.runLater(() ->
                             lblStatus.setText("Player 2 has joined. I start first"));
+                    logToConsole("Player 2 has joined. Game starting...");
 
                     // It is my turn
                     myTurn = true;
                 } else if (player == PLAYER2) {
                     myToken = 'O';
                     otherToken = 'X';
+                    playerId = "Player 2 (O)";
                     Platform.runLater(() -> {
                         lblTitle.setText("Player 2 with token 'O'");
                         lblStatus.setText("Waiting for player 1 to move");
                     });
+                    logToConsole("Connected as Player 2 (O)");
                 }
 
                 // Continue to play
@@ -147,6 +155,13 @@ public class TicTacToeClient extends Application implements TicTacToeConstants {
             }
         }).start();
     }
+    
+    /**
+     * Log message to console
+     */
+    private void logToConsole(String message) {
+        System.out.println("[CLIENT-" + playerId + "] " + new Date() + ": " + message);
+    }
 
     /** Wait for the player to mark a cell */
     private void waitForPlayerAction() throws InterruptedException {
@@ -160,6 +175,7 @@ public class TicTacToeClient extends Application implements TicTacToeConstants {
     private void sendMove() throws IOException {
         toServer.writeInt(rowSelected); // Send the selected row
         toServer.writeInt(columnSelected); // Send the selected column
+        logToConsole("Made move to [" + rowSelected + "," + columnSelected + "]");
     }
 
     /** Receive info from the server */
@@ -172,9 +188,11 @@ public class TicTacToeClient extends Application implements TicTacToeConstants {
             continueToPlay = false;
             if (myToken == 'X') {
                 Platform.runLater(() -> lblStatus.setText("I won! (X)"));
+                logToConsole("GAME RESULT: I WON!");
             } else if (myToken == 'O') {
                 Platform.runLater(() ->
                         lblStatus.setText("Player 1 (X) has won!"));
+                logToConsole("GAME RESULT: Player 1 (X) WON!");
                 receiveMove();
             }
         } else if (status == PLAYER2_WON) {
@@ -182,9 +200,11 @@ public class TicTacToeClient extends Application implements TicTacToeConstants {
             continueToPlay = false;
             if (myToken == 'O') {
                 Platform.runLater(() -> lblStatus.setText("I won! (O)"));
+                logToConsole("GAME RESULT: I WON!");
             } else if (myToken == 'X') {
                 Platform.runLater(() ->
                         lblStatus.setText("Player 2 (O) has won!"));
+                logToConsole("GAME RESULT: Player 2 (O) WON!");
                 receiveMove();
             }
         } else if (status == DRAW) {
@@ -192,6 +212,7 @@ public class TicTacToeClient extends Application implements TicTacToeConstants {
             continueToPlay = false;
             Platform.runLater(() ->
                     lblStatus.setText("Game is over, no winner!"));
+            logToConsole("GAME RESULT: DRAW - No winner!");
 
             if (myToken == 'O') {
                 receiveMove();
@@ -208,6 +229,7 @@ public class TicTacToeClient extends Application implements TicTacToeConstants {
         int row = fromServer.readInt();
         int column = fromServer.readInt();
         Platform.runLater(() -> cell[row][column].setToken(otherToken));
+        logToConsole("Received opponent's move to [" + row + "," + column + "]");
     }
 
     // An inner class for a cell
@@ -244,11 +266,16 @@ public class TicTacToeClient extends Application implements TicTacToeConstants {
                         this.getWidth() - 10, this.getHeight() - 10);
                 line1.endXProperty().bind(this.widthProperty().subtract(10));
                 line1.endYProperty().bind(this.heightProperty().subtract(10));
+                line1.setStroke(Color.RED);
+                line1.setStrokeWidth(3);
+                
                 Line line2 = new Line(10, this.getHeight() - 10,
                         this.getWidth() - 10, 10);
                 line2.startYProperty().bind(
                         this.heightProperty().subtract(10));
                 line2.endXProperty().bind(this.widthProperty().subtract(10));
+                line2.setStroke(Color.RED);
+                line2.setStrokeWidth(3);
 
                 // Add the lines to the pane
                 this.getChildren().addAll(line1, line2);
@@ -264,7 +291,8 @@ public class TicTacToeClient extends Application implements TicTacToeConstants {
                         this.widthProperty().divide(2).subtract(10));
                 ellipse.radiusYProperty().bind(
                         this.heightProperty().divide(2).subtract(10));
-                ellipse.setStroke(Color.BLACK);
+                ellipse.setStroke(Color.GREEN);
+                ellipse.setStrokeWidth(3);
                 ellipse.setFill(Color.WHITE);
 
                 getChildren().add(ellipse); // Add the ellipse to the pane
@@ -281,6 +309,7 @@ public class TicTacToeClient extends Application implements TicTacToeConstants {
                 columnSelected = column;
                 lblStatus.setText("Waiting for the other player to move");
                 waiting = false; // Just completed a successful move
+                logToConsole("Selected cell [" + row + "," + column + "] for move");
             }
         }
     }

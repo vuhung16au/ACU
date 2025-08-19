@@ -19,13 +19,14 @@ import javafx.stage.Stage;
  */
 public class TicTacToeServer extends Application implements TicTacToeConstants {
     private int sessionNo = 1; // Number a session
+    private TextArea taLog; // TextArea for UI logging
 
     @Override // Override the start method in the Application class
     public void start(Stage primaryStage) {
-        TextArea taLog = new TextArea();
+        taLog = new TextArea();
         
         // Create a scene and place it in the stage
-        Scene scene = new Scene(new ScrollPane(taLog), 450, 200);
+        Scene scene = new Scene(new ScrollPane(taLog), 600, 400);
         primaryStage.setTitle("TicTacToeServer"); // Set the stage title
         primaryStage.setScene(scene); // Place the scene in the stage
         primaryStage.show(); // Display the stage
@@ -34,23 +35,20 @@ public class TicTacToeServer extends Application implements TicTacToeConstants {
             try {
                 // Create a server socket
                 ServerSocket serverSocket = new ServerSocket(8000);
-                Platform.runLater(() -> taLog.appendText(new Date() +
-                        ": Server started at socket 8000\n"));
+                logToUI(new Date() + ": Server started at socket 8000");
+                logToConsole("Server started at socket 8000");
 
                 // Ready to create a session for every two players
                 while (true) {
-                    Platform.runLater(() -> taLog.appendText(new Date() +
-                            ": Wait for players to join session " + sessionNo + '\n'));
+                    logToUI(new Date() + ": Wait for players to join session " + sessionNo);
+                    logToConsole("Wait for players to join session " + sessionNo);
 
                     // Connect to player 1
                     Socket player1 = serverSocket.accept();
 
-                    Platform.runLater(() -> {
-                        taLog.appendText(new Date() + ": Player 1 joined session "
-                                + sessionNo + '\n');
-                        taLog.appendText("Player 1's IP address" +
-                                player1.getInetAddress().getHostAddress() + '\n');
-                    });
+                    logToUI(new Date() + ": Player 1 joined session " + sessionNo);
+                    logToUI("Player 1's IP address: " + player1.getInetAddress().getHostAddress());
+                    logToConsole("Player 1 joined session " + sessionNo + " from " + player1.getInetAddress().getHostAddress());
 
                     // Notify that the player is Player 1
                     new DataOutputStream(
@@ -59,35 +57,47 @@ public class TicTacToeServer extends Application implements TicTacToeConstants {
                     // Connect to player 2
                     Socket player2 = serverSocket.accept();
 
-                    Platform.runLater(() -> {
-                        taLog.appendText(new Date() +
-                                ": Player 2 joined session " + sessionNo + '\n');
-                        taLog.appendText("Player 2's IP address" +
-                                player2.getInetAddress().getHostAddress() + '\n');
-                    });
+                    logToUI(new Date() + ": Player 2 joined session " + sessionNo);
+                    logToUI("Player 2's IP address: " + player2.getInetAddress().getHostAddress());
+                    logToConsole("Player 2 joined session " + sessionNo + " from " + player2.getInetAddress().getHostAddress());
 
                     // Notify that the player is Player 2
                     new DataOutputStream(
                             player2.getOutputStream()).writeInt(PLAYER2);
 
                     // Display this session and increment session number
-                    Platform.runLater(() ->
-                            taLog.appendText(new Date() +
-                                    ": Start a thread for session " + sessionNo++ + '\n'));
+                    logToUI(new Date() + ": Start a thread for session " + sessionNo);
+                    logToConsole("Start a thread for session " + sessionNo);
 
                     // Launch a new thread for this session of two players
-                    new Thread(new HandleASession(player1, player2)).start();
+                    new Thread(new HandleASession(player1, player2, sessionNo)).start();
+                    sessionNo++;
                 }
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
         }).start();
     }
+    
+    /**
+     * Log message to UI
+     */
+    private void logToUI(String message) {
+        Platform.runLater(() -> taLog.appendText(message + "\n"));
+    }
+    
+    /**
+     * Log message to console
+     */
+    private void logToConsole(String message) {
+        System.out.println("[SERVER] " + new Date() + ": " + message);
+    }
 
     // Define the thread class for handling a new session for two players
     class HandleASession implements Runnable, TicTacToeConstants {
         private Socket player1;
         private Socket player2;
+        private int sessionId;
 
         // Create and initialize cells
         private char[][] cell = new char[3][3];
@@ -101,9 +111,10 @@ public class TicTacToeServer extends Application implements TicTacToeConstants {
         private boolean continueToPlay = true;
 
         /** Construct a thread */
-        public HandleASession(Socket player1, Socket player2) {
+        public HandleASession(Socket player1, Socket player2, int sessionId) {
             this.player1 = player1;
             this.player2 = player2;
+            this.sessionId = sessionId;
 
             // Initialize cells
             for (int i = 0; i < 3; i++)
@@ -115,14 +126,17 @@ public class TicTacToeServer extends Application implements TicTacToeConstants {
         public void run() {
             try {
                 // Create data input and output streams
-                DataInputStream fromPlayer1 = new DataInputStream(
+                fromPlayer1 = new DataInputStream(
                         player1.getInputStream());
-                DataOutputStream toPlayer1 = new DataOutputStream(
+                toPlayer1 = new DataOutputStream(
                         player1.getOutputStream());
-                DataInputStream fromPlayer2 = new DataInputStream(
+                fromPlayer2 = new DataInputStream(
                         player2.getInputStream());
-                DataOutputStream toPlayer2 = new DataOutputStream(
+                toPlayer2 = new DataOutputStream(
                         player2.getOutputStream());
+
+                logToUI("Session " + sessionId + ": Game started");
+                logToConsole("Session " + sessionId + ": Game started");
 
                 // Write anything to notify player 1 to start
                 // This is just to let player 1 know to start
@@ -135,14 +149,21 @@ public class TicTacToeServer extends Application implements TicTacToeConstants {
                     int row = fromPlayer1.readInt();
                     int column = fromPlayer1.readInt();
                     cell[row][column] = 'X';
+                    
+                    logToUI("Session " + sessionId + ": Player 1 (X) moved to [" + row + "," + column + "]");
+                    logToConsole("Session " + sessionId + ": Player 1 (X) moved to [" + row + "," + column + "]");
 
                     // Check if Player 1 wins
                     if (isWon('X')) {
+                        logToUI("Session " + sessionId + ": Player 1 (X) WINS!");
+                        logToConsole("Session " + sessionId + ": Player 1 (X) WINS!");
                         toPlayer1.writeInt(PLAYER1_WON);
                         toPlayer2.writeInt(PLAYER1_WON);
                         sendMove(toPlayer2, row, column);
                         break; // Break the loop
                     } else if (isFull()) { // Check if all cells are filled
+                        logToUI("Session " + sessionId + ": Game ended in DRAW!");
+                        logToConsole("Session " + sessionId + ": Game ended in DRAW!");
                         toPlayer1.writeInt(DRAW);
                         toPlayer2.writeInt(DRAW);
                         sendMove(toPlayer2, row, column);
@@ -158,9 +179,14 @@ public class TicTacToeServer extends Application implements TicTacToeConstants {
                     row = fromPlayer2.readInt();
                     column = fromPlayer2.readInt();
                     cell[row][column] = 'O';
+                    
+                    logToUI("Session " + sessionId + ": Player 2 (O) moved to [" + row + "," + column + "]");
+                    logToConsole("Session " + sessionId + ": Player 2 (O) moved to [" + row + "," + column + "]");
 
                     // Check if Player 2 wins
                     if (isWon('O')) {
+                        logToUI("Session " + sessionId + ": Player 2 (O) WINS!");
+                        logToConsole("Session " + sessionId + ": Player 2 (O) WINS!");
                         toPlayer1.writeInt(PLAYER2_WON);
                         toPlayer2.writeInt(PLAYER2_WON);
                         sendMove(toPlayer1, row, column);
@@ -183,6 +209,20 @@ public class TicTacToeServer extends Application implements TicTacToeConstants {
                 throws IOException {
             out.writeInt(row); // Send row index
             out.writeInt(column); // Send column index
+        }
+        
+        /**
+         * Log message to UI
+         */
+        private void logToUI(String message) {
+            Platform.runLater(() -> taLog.appendText(message + "\n"));
+        }
+        
+        /**
+         * Log message to console
+         */
+        private void logToConsole(String message) {
+            System.out.println("[SERVER-Session" + sessionId + "] " + new Date() + ": " + message);
         }
 
         /** Determine if the cells are all occupied */
