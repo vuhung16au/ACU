@@ -69,6 +69,7 @@
         <module>31-01-JavaFX-FXML</module>
         <module>32-02-FlashText</module>
         <module>33-01-Networking</module>
+        <module>33-02-TicTacToe-MultiPlayer</module>
         <module>34-01-Database</module>
     </modules>
 
