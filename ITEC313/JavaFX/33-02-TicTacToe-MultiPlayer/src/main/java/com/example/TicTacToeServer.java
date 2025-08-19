@@ -146,8 +146,20 @@ public class TicTacToeServer extends Application implements TicTacToeConstants {
                 // the game status to the players
                 while (true) {
                     // Receive a move from player 1
-                    int row = fromPlayer1.readInt();
-                    int column = fromPlayer1.readInt();
+                    int row, column;
+                    try {
+                        row = fromPlayer1.readInt();
+                        column = fromPlayer1.readInt();
+                    } catch (java.io.EOFException e) {
+                        logToUI("Session " + sessionId + ": Player 1 (X) disconnected");
+                        logToConsole("Session " + sessionId + ": Player 1 (X) disconnected");
+                        // Notify player 2 that player 1 disconnected
+                        try {
+                            toPlayer2.writeInt(PLAYER1_WON); // Treat as player 1 win to end game
+                        } catch (IOException ignored) {}
+                        break;
+                    }
+                    
                     cell[row][column] = 'X';
                     
                     logToUI("Session " + sessionId + ": Player 1 (X) moved to [" + row + "," + column + "]");
@@ -176,8 +188,19 @@ public class TicTacToeServer extends Application implements TicTacToeConstants {
                     }
 
                     // Receive a move from Player 2
-                    row = fromPlayer2.readInt();
-                    column = fromPlayer2.readInt();
+                    try {
+                        row = fromPlayer2.readInt();
+                        column = fromPlayer2.readInt();
+                    } catch (java.io.EOFException e) {
+                        logToUI("Session " + sessionId + ": Player 2 (O) disconnected");
+                        logToConsole("Session " + sessionId + ": Player 2 (O) disconnected");
+                        // Notify player 1 that player 2 disconnected
+                        try {
+                            toPlayer1.writeInt(PLAYER2_WON); // Treat as player 2 win to end game
+                        } catch (IOException ignored) {}
+                        break;
+                    }
+                    
                     cell[row][column] = 'O';
                     
                     logToUI("Session " + sessionId + ": Player 2 (O) moved to [" + row + "," + column + "]");
@@ -200,7 +223,11 @@ public class TicTacToeServer extends Application implements TicTacToeConstants {
                     }
                 }
             } catch (IOException ex) {
-                ex.printStackTrace();
+                logToUI("Session " + sessionId + ": Connection error - " + ex.getMessage());
+                logToConsole("Session " + sessionId + ": Connection error - " + ex.getMessage());
+            } finally {
+                // Clean up resources
+                cleanup();
             }
         }
 
@@ -209,6 +236,22 @@ public class TicTacToeServer extends Application implements TicTacToeConstants {
                 throws IOException {
             out.writeInt(row); // Send row index
             out.writeInt(column); // Send column index
+        }
+        
+        /** Clean up resources when session ends */
+        private void cleanup() {
+            try {
+                if (fromPlayer1 != null) fromPlayer1.close();
+                if (toPlayer1 != null) toPlayer1.close();
+                if (fromPlayer2 != null) fromPlayer2.close();
+                if (toPlayer2 != null) toPlayer2.close();
+                if (player1 != null) player1.close();
+                if (player2 != null) player2.close();
+                logToUI("Session " + sessionId + ": Resources cleaned up");
+                logToConsole("Session " + sessionId + ": Resources cleaned up");
+            } catch (IOException e) {
+                logToConsole("Session " + sessionId + ": Error during cleanup - " + e.getMessage());
+            }
         }
         
         /**

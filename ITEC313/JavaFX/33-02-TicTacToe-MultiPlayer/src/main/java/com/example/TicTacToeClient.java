@@ -80,6 +80,19 @@ public class TicTacToeClient extends Application implements TicTacToeConstants {
         Scene scene = new Scene(borderPane, 320, 350);
         primaryStage.setTitle("TicTacToeClient"); // Set the stage title
         primaryStage.setScene(scene); // Place the scene in the stage
+        
+        // Handle window close event to properly close connection
+        primaryStage.setOnCloseRequest(event -> {
+            logToConsole("Window closing, cleaning up connection");
+            continueToPlay = false;
+            try {
+                if (fromServer != null) fromServer.close();
+                if (toServer != null) toServer.close();
+            } catch (IOException e) {
+                logToConsole("Error closing connection: " + e.getMessage());
+            }
+        });
+        
         primaryStage.show(); // Display the stage
 
         // Connect to the server
@@ -140,18 +153,29 @@ public class TicTacToeClient extends Application implements TicTacToeConstants {
 
                 // Continue to play
                 while (continueToPlay) {
-                    if (player == PLAYER1) {
-                        waitForPlayerAction(); // Wait for player 1 to move
-                        sendMove(); // Send the move to the server
-                        receiveInfoFromServer(); // Receive info from the server
-                    } else if (player == PLAYER2) {
-                        receiveInfoFromServer(); // Receive info from the server
-                        waitForPlayerAction(); // Wait for player 2 to move
-                        sendMove(); // Send player 2's move to the server
+                    try {
+                        if (player == PLAYER1) {
+                            waitForPlayerAction(); // Wait for player 1 to move
+                            sendMove(); // Send the move to the server
+                            receiveInfoFromServer(); // Receive info from the server
+                        } else if (player == PLAYER2) {
+                            receiveInfoFromServer(); // Receive info from the server
+                            waitForPlayerAction(); // Wait for player 2 to move
+                            sendMove(); // Send player 2's move to the server
+                        }
+                    } catch (java.io.EOFException e) {
+                        logToConsole("Server disconnected");
+                        Platform.runLater(() -> lblStatus.setText("Server disconnected"));
+                        break;
+                    } catch (IOException e) {
+                        logToConsole("Connection error: " + e.getMessage());
+                        Platform.runLater(() -> lblStatus.setText("Connection error: " + e.getMessage()));
+                        break;
                     }
                 }
             } catch (Exception ex) {
-                ex.printStackTrace();
+                logToConsole("Unexpected error: " + ex.getMessage());
+                Platform.runLater(() -> lblStatus.setText("Unexpected error: " + ex.getMessage()));
             }
         }).start();
     }
@@ -193,7 +217,11 @@ public class TicTacToeClient extends Application implements TicTacToeConstants {
                 Platform.runLater(() ->
                         lblStatus.setText("Player 1 (X) has won!"));
                 logToConsole("GAME RESULT: Player 1 (X) WON!");
-                receiveMove();
+                try {
+                    receiveMove();
+                } catch (IOException e) {
+                    logToConsole("Error receiving final move: " + e.getMessage());
+                }
             }
         } else if (status == PLAYER2_WON) {
             // Player 2 won, stop playing
@@ -205,7 +233,11 @@ public class TicTacToeClient extends Application implements TicTacToeConstants {
                 Platform.runLater(() ->
                         lblStatus.setText("Player 2 (O) has won!"));
                 logToConsole("GAME RESULT: Player 2 (O) WON!");
-                receiveMove();
+                try {
+                    receiveMove();
+                } catch (IOException e) {
+                    logToConsole("Error receiving final move: " + e.getMessage());
+                }
             }
         } else if (status == DRAW) {
             // No winner, game is over
@@ -215,12 +247,21 @@ public class TicTacToeClient extends Application implements TicTacToeConstants {
             logToConsole("GAME RESULT: DRAW - No winner!");
 
             if (myToken == 'O') {
-                receiveMove();
+                try {
+                    receiveMove();
+                } catch (IOException e) {
+                    logToConsole("Error receiving final move: " + e.getMessage());
+                }
             }
         } else {
-            receiveMove();
-            Platform.runLater(() -> lblStatus.setText("My turn"));
-            myTurn = true; // It is my turn
+            try {
+                receiveMove();
+                Platform.runLater(() -> lblStatus.setText("My turn"));
+                myTurn = true; // It is my turn
+            } catch (IOException e) {
+                logToConsole("Error receiving move: " + e.getMessage());
+                throw e; // Re-throw to be handled by the main loop
+            }
         }
     }
 
