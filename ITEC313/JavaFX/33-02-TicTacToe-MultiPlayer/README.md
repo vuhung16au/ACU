@@ -4,7 +4,7 @@ A multiplayer Tic-Tac-Toe game built with JavaFX that supports both network mult
 
 ## Overview
 
-This is a modern, interactive multiplayer Tic-Tac-Toe game that supports both network multiplayer and single-player modes:
+This is a simple, interactive multiplayer Tic-Tac-Toe game that supports both network multiplayer and single-player modes:
 
 - **Multiplayer Mode**: Play against another player over the network using socket programming (primary mode)
 - **Single-Player Mode**: Play against an intelligent computer opponent (X vs O) (secondary mode)
@@ -65,6 +65,9 @@ Platform detection is automatic through Maven profiles.
 ### Building and Running
 
 #### Option 1: Multiplayer Mode (Primary)
+
+You can start the server and two clients to play the game.
+
 ```bash
 # On macOS/Linux
 ./run-multiplayer.sh server    # Start server
@@ -293,10 +296,10 @@ X | X | X    X |   |      X |   |      X |   |
 # Terminal 1: Start server
 ./run-multiplayer.sh server
 
-# Terminal 2: Start first client
+# Terminal 2: Start first client (player 1)
 ./run-multiplayer.sh client
 
-# Terminal 3: Start second client
+# Terminal 3: Start second client (player 2)
 ./run-multiplayer.sh client
 ```
 
