@@ -8,7 +8,6 @@ import java.sql.*;
  * Repository class for handling product-related database operations.
  * Implements the Repository pattern for product entity.
  *
- * @author Nicola Bicocchi
  */
 public class ProductRepository {
     private final static Logger LOG = LoggerFactory.getLogger(ProductRepository.class);

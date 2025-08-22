@@ -8,7 +8,6 @@ import java.sql.*;
  * Demonstrates various ResultSet types and operations in JDBC.
  * Shows scrollable, updatable, and sensitive ResultSet capabilities.
  *
- * @author Nicola Bicocchi
  */
 public class JdbcResultSetExamples {
     private final static Logger LOG = LoggerFactory.getLogger(JdbcResultSetExamples.class);

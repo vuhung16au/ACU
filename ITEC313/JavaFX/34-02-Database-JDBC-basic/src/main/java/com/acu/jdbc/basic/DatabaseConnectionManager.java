@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
  * Manages database connections using standard JDBC.
  * Handles the creation and configuration of database connections.
  *
- * @author Nicola Bicocchi
  */
 public class DatabaseConnectionManager {
     private final static Logger LOG = LoggerFactory.getLogger(DatabaseConnectionManager.class);

@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
  * A class for testing basic operations with JDBC.
  * This is the main application class that orchestrates the JDBC demonstrations.
  *
- * @author Nicola Bicocchi
  */
 public class JdbcDemoApplication {
     private final static Logger LOG = LoggerFactory.getLogger(JdbcDemoApplication.class);
