@@ -211,6 +211,6 @@ The application demonstrates the following JDBC concepts:
 
 ## Dependencies
 
-- **JavaFX**: UI framework for Java applications (required for module system and javafx:run command)
+- **JavaFX**: UI framework for Java applications (required for module system and javafx:run command) (There is no UI in this project)
 - **PostgreSQL JDBC Driver**: Database connectivity
 - **SLF4J + Logback**: Logging framework
