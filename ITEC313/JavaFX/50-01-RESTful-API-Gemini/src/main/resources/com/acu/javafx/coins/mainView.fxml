@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="700.0" prefWidth="900.0" stylesheets="@css/styles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acu.javafx.coins.controllers.MainViewController">
+    <top>
+        <VBox styleClass="header-container">
+            <padding>
+                <Insets top="20.0" right="30.0" bottom="20.0" left="30.0" />
+            </padding>
+            <Label text="Cryptocurrency Price Tracker" styleClass="app-title" />
+            <Label text="Real-time cryptocurrency prices powered by Gemini API" styleClass="app-subtitle" />
+        </VBox>
+    </top>
+    
+    <center>
+        <VBox styleClass="content-container" spacing="20.0">
+            <padding>
+                <Insets top="20.0" right="30.0" bottom="20.0" left="30.0" />
+            </padding>
+            
+            <HBox styleClass="table-header" alignment="CENTER_LEFT">
+                <Label text="Live Market Data" styleClass="table-title" />
+                <HBox HBox.hgrow="ALWAYS" />
+                <Button fx:id="refreshButton" onAction="#loadPrices" styleClass="refresh-button" text="🔄 Refresh" />
+            </HBox>
+            
+            <TableView fx:id="priceTable" styleClass="price-table" prefHeight="500.0" prefWidth="800.0">
+                <columns>
+                    <TableColumn fx:id="symbolColumn" prefWidth="250.0" text="Symbol" styleClass="table-column" />
+                    <TableColumn fx:id="priceColumn" prefWidth="275.0" text="Price (USD)" styleClass="table-column" />
+                    <TableColumn fx:id="timestampColumn" prefWidth="275.0" text="Last Updated" styleClass="table-column" />
+                </columns>
+            </TableView>
+        </VBox>
+    </center>
+    
+    <bottom>
+        <HBox styleClass="footer-container" alignment="CENTER">
+            <padding>
+                <Insets top="15.0" right="30.0" bottom="15.0" left="30.0" />
+            </padding>
+            <Label text="Data provided by Gemini API • Updated in real-time" styleClass="footer-text" />
+        </HBox>
+    </bottom>
+</BorderPane>

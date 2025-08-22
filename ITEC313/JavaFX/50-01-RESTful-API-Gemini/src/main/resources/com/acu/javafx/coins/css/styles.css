@@ -1,0 +1,206 @@
+/* Root styles - CoinMarketCap inspired dark theme */
+.root {
+    -fx-background-color: #0d1421;
+    -fx-font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Header styles */
+.header-container {
+    -fx-background-color: linear-gradient(to right, #1a2332, #2d3748);
+    -fx-border-color: #2d3748;
+    -fx-border-width: 0 0 1 0;
+}
+
+.app-title {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 5 0;
+}
+
+.app-subtitle {
+    -fx-text-fill: #a0aec0;
+    -fx-font-size: 14px;
+    -fx-font-weight: normal;
+}
+
+/* Content container */
+.content-container {
+    -fx-background-color: #0d1421;
+}
+
+/* Table header section */
+.table-header {
+    -fx-background-color: #1a2332;
+    -fx-padding: 15 20 15 20;
+    -fx-background-radius: 8 8 0 0;
+    -fx-border-color: #2d3748;
+    -fx-border-width: 1 1 0 1;
+    -fx-border-radius: 8 8 0 0;
+}
+
+.table-title {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+/* Refresh button - CoinMarketCap style */
+.refresh-button {
+    -fx-background-color: #3861fb;
+    -fx-background-radius: 6px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-padding: 8 16 8 16;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+    -fx-border-radius: 6px;
+}
+
+.refresh-button:hover {
+    -fx-background-color: #5a7cfa;
+    -fx-effect: dropshadow(gaussian, rgba(56, 97, 251, 0.3), 4, 0, 0, 2);
+}
+
+.refresh-button:pressed {
+    -fx-background-color: #2d4fdb;
+    -fx-effect: dropshadow(gaussian, rgba(56, 97, 251, 0.2), 2, 0, 0, 1);
+}
+
+/* Table styles - Modern CoinMarketCap inspired */
+.price-table {
+    -fx-background-color: #1a2332;
+    -fx-border-color: #3861fb;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-table-cell-border-color: transparent;
+    -fx-table-header-border-color: transparent;
+    -fx-fixed-cell-size: 50;
+}
+
+.price-table .column-header {
+    -fx-background-color: #3861fb;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 15 10 15 10;
+    -fx-border-color: transparent;
+}
+
+.price-table .column-header-background {
+    -fx-background-color: #3861fb;
+    -fx-background-radius: 0 0 8 8;
+}
+
+.price-table .table-cell {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+    -fx-font-weight: normal;
+    -fx-alignment: center-left;
+    -fx-padding: 12 16 12 16;
+    -fx-border-color: transparent;
+}
+
+.price-table .table-row-cell {
+    -fx-background-color: #1a2332;
+    -fx-border-color: #2d3748;
+    -fx-border-width: 0 0 1 0;
+}
+
+.price-table .table-row-cell:odd {
+    -fx-background-color: #222b3a;
+}
+
+.price-table .table-row-cell:hover {
+    -fx-background-color: #2d3748;
+    -fx-effect: dropshadow(gaussian, rgba(56, 97, 251, 0.1), 2, 0, 0, 0);
+}
+
+.price-table .table-row-cell:selected {
+    -fx-background-color: #3861fb;
+    -fx-text-fill: white;
+}
+
+/* Table column specific styles */
+.table-column {
+    -fx-alignment: center;
+}
+
+/* Symbol column - make it stand out */
+.price-table .table-cell:first-child {
+    -fx-font-weight: bold;
+    -fx-text-fill: #3861fb;
+}
+
+/* Price column - highlight the price */
+.price-table .table-cell:nth-child(2) {
+    -fx-font-weight: bold;
+    -fx-text-fill: #00d4aa;
+}
+
+/* Timestamp column */
+.price-table .table-cell:nth-child(3) {
+    -fx-text-fill: #a0aec0;
+    -fx-font-size: 12px;
+}
+
+/* Footer styles */
+.footer-container {
+    -fx-background-color: #1a2332;
+    -fx-border-color: #2d3748;
+    -fx-border-width: 1 0 0 0;
+}
+
+.footer-text {
+    -fx-text-fill: #718096;
+    -fx-font-size: 12px;
+    -fx-font-weight: normal;
+}
+
+/* Scrollbar styling */
+.price-table .scroll-bar:vertical {
+    -fx-background-color: #1a2332;
+    -fx-pref-width: 12;
+}
+
+.price-table .scroll-bar:vertical .thumb {
+    -fx-background-color: #4a5568;
+    -fx-background-radius: 6;
+}
+
+.price-table .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #718096;
+}
+
+.price-table .scroll-bar:horizontal {
+    -fx-background-color: #1a2332;
+    -fx-pref-height: 12;
+}
+
+.price-table .scroll-bar:horizontal .thumb {
+    -fx-background-color: #4a5568;
+    -fx-background-radius: 6;
+}
+
+.price-table .scroll-bar:horizontal .thumb:hover {
+    -fx-background-color: #718096;
+}
+
+/* Focus styles */
+.price-table:focused {
+    -fx-border-color: #3861fb;
+    -fx-border-width: 2;
+}
+
+/* Responsive design considerations */
+@media (max-width: 800px) {
+    .app-title {
+        -fx-font-size: 24px;
+    }
+    
+    .table-title {
+        -fx-font-size: 16px;
+    }
+}
