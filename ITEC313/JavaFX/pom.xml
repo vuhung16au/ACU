@@ -71,6 +71,7 @@
         <module>33-01-Networking</module>
         <module>33-02-TicTacToe-MultiPlayer</module>
         <module>34-01-Database</module>
+        <module>34-02-Database-JDBC-basic</module>
     </modules>
 
     <build>
