@@ -1,0 +1,35 @@
+# Docker Compose configuration for PostgreSQL database and pgAdmin
+# This file sets up a complete database development environment
+
+services:
+  # PostgreSQL database service
+  postgres:
+    image: postgres:17-alpine  # Use lightweight Alpine Linux PostgreSQL image
+    container_name: postgresql  # Name for the container
+    restart: always  # Automatically restart if container stops
+    ports:
+      - "5432:5432"  # Map host port 5432 to container port 5432
+    environment:
+      POSTGRES_USER: postgres  # Database superuser username
+      POSTGRES_PASSWORD: postgres  # Database superuser password
+      POSTGRES_DB: jdbc_advanced  # Default database name for JDBC examples
+    volumes:
+      - pg-data:/var/lib/postgresql/data  # Persist database data
+
+  # pgAdmin web interface for PostgreSQL management
+  pgadmin:
+    image: dpage/pgadmin4  # Official pgAdmin4 image
+    container_name: pgadmin  # Name for the container
+    restart: always  # Automatically restart if container stops
+    ports:
+      - "8888:80"  # Map host port 8888 to container port 80 (pgAdmin web interface)
+    environment:
+      PGADMIN_DEFAULT_EMAIL: 313@acu.com  # Default admin email for pgAdmin
+      PGADMIN_DEFAULT_PASSWORD: password  # Default admin password for pgAdmin
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin  # Persist pgAdmin configuration
+
+# Named volumes for data persistence
+volumes:
+  pg-data:  # Volume for PostgreSQL database files
+  pgadmin-data:  # Volume for pgAdmin configuration and data
