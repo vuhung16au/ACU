@@ -249,37 +249,3 @@ After completing this advanced REST tutorial, you can explore:
 1. **Day 5**: Data JPA and database integration
 2. **Day 6**: Kafka messaging, email, and scheduling
 3. **Day 7**: Microservices and testing strategies
-
-## Troubleshooting
-
-### Common Issues
-
-1. **HATEOAS links not appearing**: Check that entities extend RepresentationModel
-2. **Validation not working**: Ensure @Valid annotation is present on controller methods
-3. **External API failures**: Check internet connection and external service availability
-4. **Swagger UI not loading**: Verify springdoc-openapi dependency is included
-
-### Development Tips
-
-1. **API Testing**: Use Swagger UI for interactive API testing
-2. **Error Handling**: Check application logs for detailed error information
-3. **External APIs**: Monitor external API responses for debugging
-4. **Validation**: Test with various input combinations to verify validation
-
-### Logs
-
-Check the console output for:
-- Application startup logs
-- HATEOAS link generation logs
-- External API call logs
-- Validation error logs
-
-## Contributing
-
-This is a learning project. Feel free to experiment with:
-- Adding new API endpoints
-- Implementing additional validation rules
-- Integrating other external APIs
-- Enhancing HATEOAS link generation
-- Adding more comprehensive error handling
-- Extending OpenAPI documentation
