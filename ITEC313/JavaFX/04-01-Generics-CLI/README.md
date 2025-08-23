@@ -91,7 +91,7 @@ Understand Java generics and their application in creating type-safe, reusable c
 mvn clean package
 
 # Run (option A – via Maven Exec Plugin)
-mvn -q -DskipTests exec:java -Dexec.mainClass=com.acu.genericcli.generics.Launcher
+mvn exec:java
 
 # Run (option B – via the shaded JAR produced in target/)
 java -jar target/generics-demo-cli-1.0.0.jar
@@ -106,7 +106,7 @@ Both options run all demos automatically.
 mvn clean compile
 
 # Run the application (runs all demos automatically)
-mvn exec:java -Dexec.mainClass="com.acu.genericcli.generics.Launcher"
+mvn exec:java
 
 
 ```
@@ -119,17 +119,6 @@ If you prefer to run directly from compiled classes without packaging:
 java --module-path target/classes \
 	-m com.acu.genericcli.generics/com.acu.genericcli.generics.Launcher
 ```
-
-### Running the Application
-
-When you run the application, it will automatically execute all demonstrations in sequence:
-
-### Why `mvn run` fails
-
-`mvn run` is not a standard Maven goal. Use one of the commands above, most commonly:
-
-- `mvn exec:java -Dexec.mainClass=com.acu.genericcli.generics.Launcher`, or
-- `java -jar target/generics-demo-cli-1.0.0.jar` after `mvn package`.
 
 ## Key Learning Concepts
 
