@@ -8,7 +8,7 @@ This project showcases the fundamental Spring Boot features:
 - **Auto-configuration**: Spring Boot automatically configures the application based on classpath
 - **Embedded Server**: Runs on embedded Tomcat server
 - **Actuator**: Production-ready monitoring and management endpoints
-- **Profiles**: Environment-specific configurations (dev, prod)
+- **Configuration**: Externalized configuration with YAML
 - **REST API**: Simple REST endpoints to demonstrate web functionality
 
 ## Features
@@ -17,7 +17,7 @@ This project showcases the fundamental Spring Boot features:
 - ✅ Auto-configuration based on classpath
 - ✅ Embedded Tomcat server
 - ✅ Spring Boot Actuator for monitoring
-- ✅ Externalized configuration with profiles
+- ✅ Externalized configuration with YAML
 - ✅ Logging configuration
 - ✅ Maven build system
 
@@ -50,19 +50,8 @@ mvn clean compile
 
 ### 2. Run the Application
 
-**Default profile:**
 ```bash
 mvn spring-boot:run
-```
-
-**Development profile (enhanced logging, all actuator endpoints):**
-```bash
-mvn spring-boot:run -Dspring-boot.run.profiles=dev
-```
-
-**Production profile (minimal logging, secure actuator):**
-```bash
-mvn spring-boot:run -Dspring-boot.run.profiles=prod
 ```
 
 ### 3. Test the Application
@@ -101,32 +90,11 @@ mvn test
 
 ## Configuration
 
-### Profiles
+### Configuration
 
-The application supports multiple profiles for different environments:
+The application uses a single configuration file for simplicity:
 
-#### Default Profile
-- Basic logging
-- Limited actuator endpoints
-- Standard error handling
-
-#### Development Profile (`dev`)
-- Enhanced debug logging
-- All actuator endpoints exposed
-- Detailed error messages
-- Full environment information
-
-#### Production Profile (`prod`)
-- Minimal logging (WARN level)
-- Secure actuator configuration
-- No sensitive information exposed
-- Optimized for production
-
-### Configuration Files
-
-- `application.yml` - Main configuration
-- `application-dev.yml` - Development profile overrides
-- `application-prod.yml` - Production profile overrides
+- `application.yml` - Main configuration with all settings
 
 ## Project Structure
 
@@ -139,9 +107,7 @@ The application supports multiple profiles for different environments:
 │   │   │   └── controller/
 │   │   │       └── HelloController.java      # REST controller
 │   │   └── resources/
-│   │       ├── application.yml               # Main configuration
-│   │       ├── application-dev.yml           # Dev profile
-│   │       └── application-prod.yml          # Prod profile
+│   │       └── application.yml               # Main configuration
 │   └── test/
 │       └── java/com/acu/quickstart/
 │           ├── QuickStartApplicationTests.java
@@ -169,8 +135,7 @@ Spring Boot automatically configures:
 - Logging with Logback
 
 ### 3. Externalized Configuration
-Configuration is externalized in YAML files:
-- Environment-specific profiles
+Configuration is externalized in YAML format:
 - Actuator configuration
 - Logging levels
 - Server settings
