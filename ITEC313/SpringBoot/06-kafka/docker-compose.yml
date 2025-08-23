@@ -1,36 +1,19 @@
 services:
-  # Apache Kafka
-  zookeeper:
-    image: confluentinc/cp-zookeeper:7.4.0
-    container_name: zookeeper
-    environment:
-      ZOOKEEPER_CLIENT_PORT: 2181
-      ZOOKEEPER_TICK_TIME: 2000
-    ports:
-      - "2181:2181"
-    volumes:
-      - zookeeper-data:/var/lib/zookeeper/data
-      - zookeeper-logs:/var/lib/zookeeper/log
-    healthcheck:
-      test: ["CMD-SHELL", "echo ruok | nc localhost 2181 || exit 1"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
+  # Apache Kafka (KRaft mode - no Zookeeper needed)
   kafka:
-    image: confluentinc/cp-kafka:7.4.0
+    image: apache/kafka:3.9.1
     container_name: kafka
-    depends_on:
-      zookeeper:
-        condition: service_healthy
     ports:
       - "9092:9092"
       - "9101:9101"
     environment:
-      KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_NODE_ID: 1
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:29092,PLAINTEXT_HOST://0.0.0.0:9092,CONTROLLER://0.0.0.0:29093
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:29093
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
@@ -39,55 +22,15 @@ services:
       KAFKA_JMX_HOSTNAME: localhost
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
       KAFKA_DELETE_TOPIC_ENABLE: 'true'
+      KAFKA_PROCESS_ROLES: 'broker,controller'
+      KAFKA_LOG_DIRS: '/var/lib/kafka/data'
     volumes:
       - kafka-data:/var/lib/kafka/data
     healthcheck:
-      test: ["CMD-SHELL", "kafka-topics --bootstrap-server localhost:9092 --list || exit 1"]
+      test: ["CMD-SHELL", "/opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka:29092 --list || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 5
-
-  # PostgreSQL Database
-  postgres:
-    image: postgres:latest
-    container_name: postgres
-    environment:
-      POSTGRES_DB: kafka_demo
-      POSTGRES_USER: kafka_user
-      POSTGRES_PASSWORD: kafka_password
-      POSTGRES_INITDB_ARGS: "--encoding=UTF-8 --lc-collate=C --lc-ctype=C"
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
-      - ./init-scripts:/docker-entrypoint-initdb.d
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U kafka_user -d kafka_demo"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
-  # pgAdmin - PostgreSQL Administration Tool
-  pgadmin:
-    image: dpage/pgadmin4:latest
-    container_name: pgadmin
-    depends_on:
-      postgres:
-        condition: service_healthy
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@kafka-demo.com
-      PGADMIN_DEFAULT_PASSWORD: admin123
-      PGADMIN_CONFIG_SERVER_MODE: 'False'
-      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: 'False'
-    ports:
-      - "5050:80"
-    volumes:
-      - pgadmin-data:/var/lib/pgadmin
-    healthcheck:
-      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:80/misc/ping || exit 1"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
 
   # Kafka UI - Web-based Kafka Management Interface
   kafka-ui:
@@ -101,7 +44,6 @@ services:
     environment:
       KAFKA_CLUSTERS_0_NAME: local
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:29092
-      KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
       KAFKA_CLUSTERS_0_READONLY: false
       KAFKA_CLUSTERS_0_PROPERTIES_AUTO_OFFSET_RESET: earliest
       KAFKA_CLUSTERS_0_PROPERTIES_GROUP_ID: kafka-ui
@@ -112,15 +54,7 @@ services:
       retries: 3
 
 volumes:
-  zookeeper-data:
-    driver: local
-  zookeeper-logs:
-    driver: local
   kafka-data:
-    driver: local
-  postgres-data:
-    driver: local
-  pgadmin-data:
     driver: local
 
 networks:

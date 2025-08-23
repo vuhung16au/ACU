@@ -3,24 +3,9 @@ server:
 
 spring:
   application:
-    name: kafka-demo
+    name: kafka-spring-demo
   
-  # Database configuration
-  datasource:
-    url: jdbc:postgresql://localhost:5432/kafka_demo
-    username: kafka_user
-    password: kafka_password
-    driver-class-name: org.postgresql.Driver
-  
-  jpa:
-    hibernate:
-      ddl-auto: validate
-    show-sql: true
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-        format_sql: true
-  
+  # Kafka configuration
   kafka:
     bootstrap-servers: localhost:9092
     consumer:
@@ -38,37 +23,8 @@ spring:
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       properties:
         spring.json.add.type.headers: false
-  
-  mail:
-    host: smtp.gmail.com
-    port: 587
-    username: ate.gs.2016.08@gmail.com
-    password: au7bgGTS8mWrJux
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
-  
-  thymeleaf:
-    cache: false
-    prefix: classpath:/templates/
-    suffix: .html
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,info,metrics
-  endpoint:
-    health:
-      show-details: always
 
 logging:
   level:
     com.acu.kafka: DEBUG
     org.springframework.kafka: INFO
-    org.apache.kafka: WARN
-  pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"

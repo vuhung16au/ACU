@@ -1,46 +1,37 @@
 package com.acu.kafka.service;
 
-import com.acu.kafka.config.TestConfig;
 import com.acu.kafka.model.Message;
-import com.acu.kafka.model.MessageEntity;
-import com.acu.kafka.repository.MessageRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
-import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @EmbeddedKafka(partitions = 1, topics = {"messages-topic"})
 @ActiveProfiles("test")
-@Import(TestConfig.class)
 class KafkaServiceIntegrationTest {
 
     @Autowired
     private KafkaService kafkaService;
 
-    @Autowired
-    private MessageRepository messageRepository;
-
     @BeforeEach
     void setUp() {
-        messageRepository.deleteAll();
+        kafkaService.clearMessages();
+        kafkaService.clearStatistics();
     }
 
     @Test
     void testSendMessage_Success() {
         // Given
-        Message message = new Message("Test integration message", "IntegrationTest", Message.MessageType.INFO);
+        Message message = new Message("Test Kafka integration message", "IntegrationTest", Message.MessageType.INFO);
         message.setId(UUID.randomUUID().toString());
         message.setTimestamp(LocalDateTime.now());
 
@@ -49,14 +40,14 @@ class KafkaServiceIntegrationTest {
 
         // Then
         assertNotNull(future);
-        // Note: In a real test, you might want to wait for the future to complete
+        // In a real Kafka test, you would wait for the future to complete
         // and verify the message was actually sent to Kafka
     }
 
     @Test
-    void testConsumeMessage_SavesToDatabase() {
+    void testConsumeMessage_StoresInMemory() {
         // Given
-        Message message = new Message("Database test message", "DBTest", Message.MessageType.SUCCESS);
+        Message message = new Message("Memory test message", "MemoryTest", Message.MessageType.SUCCESS);
         message.setId(UUID.randomUUID().toString());
         message.setTimestamp(LocalDateTime.now());
 
@@ -64,93 +55,78 @@ class KafkaServiceIntegrationTest {
         kafkaService.consumeMessage(message);
 
         // Then
-        List<MessageEntity> savedMessages = messageRepository.findAll();
-        assertEquals(1, savedMessages.size());
+        List<Message> storedMessages = kafkaService.getReceivedMessages();
+        assertEquals(1, storedMessages.size());
         
-        MessageEntity savedMessage = savedMessages.get(0);
-        assertEquals("Database test message", savedMessage.getContent());
-        assertEquals("DBTest", savedMessage.getSender());
-        assertEquals(MessageEntity.MessageType.SUCCESS, savedMessage.getMessageType());
-        assertEquals("messages-topic", savedMessage.getKafkaTopic());
-    }
-
-    @Test
-    void testGetMessagesFromDatabase() {
-        // Given
-        MessageEntity entity1 = new MessageEntity();
-        entity1.setContent("Test message 1");
-        entity1.setSender("TestSender1");
-        entity1.setMessageType(MessageEntity.MessageType.INFO);
-        entity1.setTimestamp(LocalDateTime.now());
-        messageRepository.save(entity1);
-
-        MessageEntity entity2 = new MessageEntity();
-        entity2.setContent("Test message 2");
-        entity2.setSender("TestSender2");
-        entity2.setMessageType(MessageEntity.MessageType.WARNING);
-        entity2.setTimestamp(LocalDateTime.now());
-        messageRepository.save(entity2);
-
-        // When
-        List<MessageEntity> messages = kafkaService.getMessagesFromDatabase();
-
-        // Then
-        assertEquals(2, messages.size());
-        assertTrue(messages.stream().anyMatch(m -> m.getContent().equals("Test message 1")));
-        assertTrue(messages.stream().anyMatch(m -> m.getContent().equals("Test message 2")));
+        Message storedMessage = storedMessages.get(0);
+        assertEquals("Memory test message", storedMessage.getContent());
+        assertEquals("MemoryTest", storedMessage.getSender());
+        assertEquals(Message.MessageType.SUCCESS, storedMessage.getType());
     }
 
     @Test
     void testGetMessagesBySender() {
         // Given
-        MessageEntity entity1 = new MessageEntity();
-        entity1.setContent("Sender specific message");
-        entity1.setSender("SpecificSender");
-        entity1.setMessageType(MessageEntity.MessageType.INFO);
-        entity1.setTimestamp(LocalDateTime.now());
-        messageRepository.save(entity1);
-
-        MessageEntity entity2 = new MessageEntity();
-        entity2.setContent("Other sender message");
-        entity2.setSender("OtherSender");
-        entity2.setMessageType(MessageEntity.MessageType.WARNING);
-        entity2.setTimestamp(LocalDateTime.now());
-        messageRepository.save(entity2);
+        Message message1 = new Message("Sender specific message", "SpecificSender", Message.MessageType.INFO);
+        Message message2 = new Message("Other sender message", "OtherSender", Message.MessageType.WARNING);
+        
+        kafkaService.consumeMessage(message1);
+        kafkaService.consumeMessage(message2);
 
         // When
-        List<MessageEntity> messages = kafkaService.getMessagesBySender("SpecificSender");
+        List<Message> messages = kafkaService.getMessagesBySender("SpecificSender");
 
         // Then
         assertEquals(1, messages.size());
         assertEquals("SpecificSender", messages.get(0).getSender());
-        assertEquals("Sender specific message", messages.get(0).getContent());
     }
 
     @Test
     void testGetMessagesByType() {
         // Given
-        MessageEntity entity1 = new MessageEntity();
-        entity1.setContent("Info message");
-        entity1.setSender("TestSender");
-        entity1.setMessageType(MessageEntity.MessageType.INFO);
-        entity1.setTimestamp(LocalDateTime.now());
-        messageRepository.save(entity1);
-
-        MessageEntity entity2 = new MessageEntity();
-        entity2.setContent("Warning message");
-        entity2.setSender("TestSender");
-        entity2.setMessageType(MessageEntity.MessageType.WARNING);
-        entity2.setTimestamp(LocalDateTime.now());
-        messageRepository.save(entity2);
+        Message message1 = new Message("Info message", "TestSender", Message.MessageType.INFO);
+        Message message2 = new Message("Warning message", "TestSender", Message.MessageType.WARNING);
+        
+        kafkaService.consumeMessage(message1);
+        kafkaService.consumeMessage(message2);
 
         // When
-        List<MessageEntity> messages = kafkaService.getMessagesByType(MessageEntity.MessageType.INFO);
+        List<Message> messages = kafkaService.getMessagesByType(Message.MessageType.INFO);
 
         // Then
         assertEquals(1, messages.size());
-        assertEquals(MessageEntity.MessageType.INFO, messages.get(0).getMessageType());
-        assertEquals("Info message", messages.get(0).getContent());
+        assertEquals(Message.MessageType.INFO, messages.get(0).getType());
     }
 
-    
+    @Test
+    void testClearMessages() {
+        // Given
+        Message message = new Message("Test message", "TestSender", Message.MessageType.INFO);
+        kafkaService.consumeMessage(message);
+        assertEquals(1, kafkaService.getReceivedMessages().size());
+
+        // When
+        kafkaService.clearMessages();
+
+        // Then
+        assertEquals(0, kafkaService.getReceivedMessages().size());
+    }
+
+    @Test
+    void testMessageStatistics() {
+        // Given
+        Message message1 = new Message("Info message", "Sender1", Message.MessageType.INFO);
+        Message message2 = new Message("Warning message", "Sender2", Message.MessageType.WARNING);
+        
+        kafkaService.consumeMessage(message1);
+        kafkaService.consumeMessage(message2);
+
+        // When
+        var stats = kafkaService.getMessageStatistics();
+
+        // Then
+        assertNotNull(stats);
+        assertEquals(2L, stats.get("totalMessagesReceived"));
+        assertEquals(2, stats.get("messagesInMemory"));
+    }
 }

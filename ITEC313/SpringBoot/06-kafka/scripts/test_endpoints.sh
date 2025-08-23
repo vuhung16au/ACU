@@ -1,86 +1,81 @@
 #!/bin/bash
 
-# Test script for Kafka, Email, and Scheduling endpoints
-BASE_URL="http://localhost:8086"
+# Kafka Demo API Test Script
+# This script demonstrates the basic API endpoints
 
-echo "Testing Kafka, Email, and Scheduling Endpoints"
-echo "=============================================="
+BASE_URL="http://localhost:8080/api/messages"
 
-# Test Kafka endpoints
-echo -e "\n1. Testing Kafka Endpoints:"
-echo "----------------------------"
+echo "🚀 Testing Kafka Demo API Endpoints"
+echo "=================================="
 
-# Send a message to Kafka
-echo "Sending message to Kafka..."
-curl -X POST "$BASE_URL/api/messages" \
+# Wait for application to start
+echo "⏳ Waiting for application to start..."
+sleep 5
+
+# Test health check
+echo ""
+echo "1. Testing Health Check"
+echo "----------------------"
+curl -s "$BASE_URL/health" | jq '.'
+
+# Send a test message
+echo ""
+echo "2. Sending Test Message"
+echo "----------------------"
+curl -s -X POST "$BASE_URL" \
   -H "Content-Type: application/json" \
   -d '{
     "content": "Hello from test script!",
-    "sender": "test-script",
+    "sender": "TestUser",
     "type": "INFO"
-  }'
+  }' | jq '.'
 
-echo -e "\n\nGetting messages from Kafka..."
-curl -X GET "$BASE_URL/api/messages"
-
-# Test Email endpoints
-echo -e "\n\n2. Testing Email Endpoints:"
-echo "----------------------------"
-
-# Send a simple email
-echo "Sending simple email..."
-curl -X POST "$BASE_URL/api/email/send" \
+# Send another message
+echo ""
+echo "3. Sending Another Message"
+echo "-------------------------"
+curl -s -X POST "$BASE_URL" \
   -H "Content-Type: application/json" \
   -d '{
-    "to": "test@example.com",
-    "subject": "Test Email",
-    "text": "This is a test email from Spring Boot Kafka demo"
-  }'
+    "content": "This is a warning message",
+    "sender": "TestUser",
+    "type": "WARNING"
+  }' | jq '.'
 
-echo -e "\n\nSending welcome email..."
-curl -X POST "$BASE_URL/api/email/send-welcome" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "to": "test@example.com",
-    "username": "TestUser"
-  }'
+# Get all messages
+echo ""
+echo "4. Getting All Messages"
+echo "----------------------"
+curl -s "$BASE_URL" | jq '.'
 
-echo -e "\n\nSending notification email..."
-curl -X POST "$BASE_URL/api/email/send-notification" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "to": "test@example.com",
-    "type": "System Alert",
-    "message": "This is a test notification from the scheduler"
-  }'
+# Filter by sender
+echo ""
+echo "5. Filtering Messages by Sender"
+echo "-------------------------------"
+curl -s "$BASE_URL/sender/TestUser" | jq '.'
 
-echo -e "\n\nGetting available email templates..."
-curl -X GET "$BASE_URL/api/email/templates"
+# Filter by type
+echo ""
+echo "6. Filtering Messages by Type"
+echo "-----------------------------"
+curl -s "$BASE_URL/type/info" | jq '.'
 
-# Test Scheduler endpoints
-echo -e "\n\n3. Testing Scheduler Endpoints:"
-echo "--------------------------------"
+# Get statistics
+echo ""
+echo "7. Getting Message Statistics"
+echo "-----------------------------"
+curl -s "$BASE_URL/stats" | jq '.'
 
-echo "Getting scheduler status..."
-curl -X GET "$BASE_URL/api/scheduler/status"
+# Test error handling
+echo ""
+echo "8. Testing Error Handling (Invalid Message Type)"
+echo "------------------------------------------------"
+curl -s "$BASE_URL/type/invalid" | jq '.'
 
-echo -e "\n\nTriggering manual task..."
-curl -X POST "$BASE_URL/api/scheduler/trigger"
-
-echo -e "\n\nResetting counters..."
-curl -X POST "$BASE_URL/api/scheduler/reset"
-
-# Test Actuator endpoints
-echo -e "\n\n4. Testing Actuator Endpoints:"
-echo "--------------------------------"
-
-echo "Health check..."
-curl -X GET "$BASE_URL/actuator/health"
-
-echo -e "\n\nApplication info..."
-curl -X GET "$BASE_URL/actuator/info"
-
-echo -e "\n\nMetrics..."
-curl -X GET "$BASE_URL/actuator/metrics"
-
-echo -e "\n\nTesting completed!"
+echo ""
+echo "✅ API Testing Complete!"
+echo ""
+echo "💡 Try these additional commands:"
+echo "   - Clear messages: curl -X DELETE $BASE_URL"
+echo "   - Get recent messages: curl $BASE_URL"
+echo "   - Filter by warning: curl $BASE_URL/type/warning"
