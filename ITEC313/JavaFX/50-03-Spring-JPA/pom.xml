@@ -8,7 +8,7 @@
         <version>3.4.3</version>
         <relativePath/>
     </parent>
-    <groupId>com.example</groupId>
+    <groupId>com.acu</groupId>
     <artifactId>accessing-data-jpa</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>accessing-data-jpa</name>
