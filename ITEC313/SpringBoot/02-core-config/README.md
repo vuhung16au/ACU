@@ -58,15 +58,7 @@ mvn clean compile
 mvn spring-boot:run
 ```
 
-**Development profile (enhanced logging, all actuator endpoints):**
-```bash
-mvn spring-boot:run -Dspring-boot.run.profiles=dev
-```
 
-**Production profile (minimal logging, secure actuator):**
-```bash
-mvn spring-boot:run -Dspring-boot.run.profiles=prod
-```
 
 ### 3. Test the Application
 
@@ -94,49 +86,12 @@ curl http://localhost:8080/actuator/health
 curl http://localhost:8080/actuator/configprops
 ```
 
-**Automated testing:**
-```bash
-# Run the test script
-./scripts/test_endpoints.sh
-
-# Or with custom base URL
-BASE_URL=http://localhost:8080 ./scripts/test_endpoints.sh
-```
-
-### 4. Run Tests
-
-```bash
-mvn test
-```
 
 ## Configuration
 
-### Profiles
+The application uses a single configuration file for simplicity and learning purposes.
 
-The application supports multiple profiles for different environments:
 
-#### Default Profile
-- Basic configuration
-- Standard logging levels
-- Limited actuator endpoints
-
-#### Development Profile (`dev`)
-- Enhanced debug logging
-- All actuator endpoints exposed
-- Detailed error messages
-- Full environment information
-
-#### Production Profile (`prod`)
-- Minimal logging (WARN level)
-- Secure actuator configuration
-- No sensitive information exposed
-- Optimized for production
-
-### Configuration Files
-
-- `application.yml` - Main configuration
-- `application-dev.yml` - Development profile overrides
-- `application-prod.yml` - Production profile overrides
 
 ## Project Structure
 
@@ -154,16 +109,10 @@ The application supports multiple profiles for different environments:
 │   │   │   └── controller/
 │   │   │       └── ConfigController.java      # REST controller
 │   │   └── resources/
-│   │       ├── application.yml                # Main configuration
-│   │       ├── application-dev.yml            # Dev profile
-│   │       └── application-prod.yml           # Prod profile
-│   └── test/
-│       └── java/com/acu/coreconfig/
-│           ├── CoreConfigApplicationTests.java
-│           └── controller/
-│               └── ConfigControllerTest.java
+│   │       └── application.yml                # Main configuration
+
 ├── scripts/
-│   └── test_endpoints.sh                      # Endpoint testing script
+│   └── test_endpoints.sh                      # Manual endpoint testing script
 ├── pom.xml                                    # Maven configuration
 └── README.md                                  # This file
 ```
@@ -212,17 +161,8 @@ The `ConfigController` demonstrates:
 - `@GetMapping`, `@PostMapping`: HTTP method mapping
 - `@PathVariable`, `@RequestParam`: Parameter binding
 
-## Learning Resources
 
-### Official Documentation
-- [Spring Boot External Configuration](https://docs.spring.io/spring-boot/reference/features/external-config.html)
-- [Spring Boot Logging](https://docs.spring.io/spring-boot/reference/features/logging.html)
-- [Spring Boot Actuator](https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html)
-- [Spring Boot Maven Plugin](https://docs.spring.io/spring-boot/docs/current/maven-plugin/reference/htmlsingle/)
 
-### Tutorials
-- [Tutorialspoint Spring Boot](https://www.tutorialspoint.com/spring_boot/index.htm)
-- [GeeksforGeeks Spring Boot Annotations](https://www.geeksforgeeks.org/advance-java/spring-boot/)
 
 ## Next Steps
 
@@ -232,16 +172,8 @@ After completing this core concepts tutorial, you can explore:
 2. **Day 4**: Advanced REST services and consuming external APIs
 3. **Day 5**: Data JPA and database integration
 4. **Day 6**: Kafka messaging, email, and scheduling
-5. **Day 7**: Microservices and testing strategies
+5. **Day 7**: Microservices and advanced concepts
 
-## Troubleshooting
-
-### Common Issues
-
-1. **Configuration not loading**: Check that `@ConfigurationProperties` class is in component scan
-2. **Bean not found**: Ensure `@Component`, `@Service`, or `@Configuration` annotations are present
-3. **Logging not working**: Verify logback configuration and log levels
-4. **Profile not switching**: Check `spring.profiles.active` property
 
 ### Logs
 
@@ -258,11 +190,3 @@ Use the actuator health endpoint to verify the application is running:
 curl http://localhost:8080/actuator/health
 ```
 
-## Contributing
-
-This is a learning project. Feel free to experiment with:
-- Adding new configuration properties
-- Creating additional beans
-- Modifying logging configurations
-- Exploring different actuator endpoints
-- Testing different profiles
