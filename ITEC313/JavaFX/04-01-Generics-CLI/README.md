@@ -1,6 +1,6 @@
 # Java Generics CLI Demo
 
-A comprehensive CLI application demonstrating Java generics concepts through interactive examples and real-time demonstrations.
+A comprehensive CLI application demonstrating Java generics concepts.
 
 ## Overview
 
@@ -12,29 +12,9 @@ This application showcases the fundamental concepts of Java generics as outlined
 - **Generic Matrix Operations**: Mathematical operations with different numeric types
 - **Automatic Execution**: Runs all demonstrations automatically without user interaction
 
-## Original Objectives
+## Objectives
 
-Understand Java generics and their application in creating type-safe, reusable code. This chapter covers the following objectives:
-
-• To understand the benefits of generics for type safety and code reusability (§19.1).
-• To define and use generic classes and methods (§19.2).
-• To understand generic type erasure and its implications (§19.3).
-• To use wildcards in generic programming (§19.4).
-• To understand bounded wildcards and their applications (§19.5).
-• To implement generic matrices and understand inheritance with generics (§19.6).
-• To develop practical applications using generics for robust software design (§19.7).
-
-Examples
-- https://liveexample.pearsoncmg.com/html/GenericStack.html
-- https://liveexample.pearsoncmg.com/html/WildCardNeedDemo.html
-- https://liveexample.pearsoncmg.com/html/AnyWildCardDemo.html
-- https://liveexample.pearsoncmg.com/html/SuperWildCardDemo.html
-- https://liveexample.pearsoncmg.com/html/TestArrayListNew.html
-- https://liveexample.pearsoncmg.com/html/GenericMatrix.html
-- https://liveexample.pearsoncmg.com/html/IntegerMatrix.html
-- https://liveexample.pearsoncmg.com/html/TestIntegerMatrix.html
-- https://liveexample.pearsoncmg.com/html/RationalMatrix.html
-- https://liveexample.pearsoncmg.com/html/TestRationalMatrix.html
+Understand Java generics and their application in creating type-safe, reusable code. This chapter covers the following objectives.
 
 ## Features
 
@@ -74,22 +54,6 @@ Examples
 - **Rational Matrix**: Arithmetic operations with rational numbers
 - **Polymorphic Operations**: Demonstrates inheritance and polymorphism with generics
 
-## Technical Specifications
-
-### Development Environment
-
-- **Java Version**: OpenJDK 24
-- **Maven Version**: 3.9.x or later
-- **Build System**: Maven
-
-### Cross-Platform Support
-
-The application is designed to run on:
-
-- **macOS**: Intel (x86_64) and Apple Silicon (ARM64)
-- **Windows**: x86_64 and ARM64  
-- **Linux**: x86_64 and ARM64
-
 ## Project Structure
 
 ```
@@ -109,7 +73,6 @@ The application is designed to run on:
 │   ├── TestRationalMatrix.java       # Rational matrix testing
 │   └── Rational.java                 # Rational number class
 ├── docs/                             # Documentation and guides
-├── images/                           # Screenshots and diagrams
 ├── pom.xml                           # Maven configuration
 └── README.md                         # This file
 ```
@@ -130,52 +93,12 @@ mvn clean compile
 # Run the application (runs all demos automatically)
 mvn exec:java -Dexec.mainClass="com.acu.genericcli.generics.Launcher"
 
-# Alternative run methods
-./run.sh          # Unix/Linux/macOS
-./run.bat         # Windows
+
 ```
 
 ### Running the Application
 
 When you run the application, it will automatically execute all demonstrations in sequence:
-
-```
-=== Java Generics CLI Demo ===
-
-Running all demonstrations automatically...
-
-1. Generic Stack Demo:
-==================================================
-[Demo output...]
-
-2. Wildcard Need Demo:
-==================================================
-[Demo output...]
-
-3. Any Wildcard Demo:
-==================================================
-[Demo output...]
-
-4. Super Wildcard Demo:
-==================================================
-[Demo output...]
-
-5. ArrayList with Generics Demo:
-==================================================
-[Demo output...]
-
-6. Integer Matrix Demo:
-==================================================
-[Demo output...]
-
-7. Rational Matrix Demo:
-==================================================
-[Demo output...]
-
-=== All demonstrations completed ===
-```
-
-The application runs completely automatically without requiring any user input.
 
 ## Key Learning Concepts
 
@@ -214,6 +137,3 @@ This demonstration provides hands-on experience with:
 - **Mathematical Applications**: Applying generics to computational problems
 - **Best Practices**: Following established patterns for generic programming
 
-## Screenshots
-
-![04-01-Generics](images/04-01-Generics.png)
