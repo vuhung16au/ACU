@@ -81,8 +81,23 @@ Understand Java generics and their application in creating type-safe, reusable c
 
 ### Prerequisites
 
-- Java 24 or later
+- Java 24 or later (matches pom.xml). If you have an older JDK, either install JDK 24 or update pom.xml to your JDK version.
 - Maven 3.9.x or later
+
+### Quick start
+
+```bash
+# From the project root
+mvn clean package
+
+# Run (option A – via Maven Exec Plugin)
+mvn -q -DskipTests exec:java -Dexec.mainClass=com.acu.genericcli.generics.Launcher
+
+# Run (option B – via the shaded JAR produced in target/)
+java -jar target/generics-demo-cli-1.0.0.jar
+```
+
+Both options run all demos automatically.
 
 ### Build Commands
 
@@ -96,33 +111,54 @@ mvn exec:java -Dexec.mainClass="com.acu.genericcli.generics.Launcher"
 
 ```
 
+### Alternative: Run from compiled classes (module-path)
+
+If you prefer to run directly from compiled classes without packaging:
+
+```bash
+java --module-path target/classes \
+	-m com.acu.genericcli.generics/com.acu.genericcli.generics.Launcher
+```
+
 ### Running the Application
 
 When you run the application, it will automatically execute all demonstrations in sequence:
 
+### Why `mvn run` fails
+
+`mvn run` is not a standard Maven goal. Use one of the commands above, most commonly:
+
+- `mvn exec:java -Dexec.mainClass=com.acu.genericcli.generics.Launcher`, or
+- `java -jar target/generics-demo-cli-1.0.0.jar` after `mvn package`.
+
 ## Key Learning Concepts
 
 ### 1. Type Safety
+
 - Compile-time type checking
 - Elimination of ClassCastException
 - No need for explicit casting
 
 ### 2. Code Reusability
+
 - Single implementation for multiple types
 - Parameterized classes and methods
 - Generic algorithms
 
 ### 3. Wildcard Usage
+
 - Unbounded wildcards (`?`)
 - Upper bounded wildcards (`? extends T`)
 - Lower bounded wildcards (`? super T`)
 
 ### 4. Type Erasure
+
 - Runtime type information removal
 - Backward compatibility with pre-generic code
 - Bridge methods and type inference
 
 ### 5. Generic Inheritance
+
 - Inheritance relationships with generic types
 - Covariance and contravariance
 - Type parameter bounds
