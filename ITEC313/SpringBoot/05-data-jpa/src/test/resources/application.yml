@@ -1,0 +1,42 @@
+# Test configuration - uses H2 in-memory database
+spring:
+  application:
+    name: data-jpa-demo-test
+  
+  # H2 Database Configuration for testing
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: password
+  
+  # H2 Console (disabled for tests)
+  h2:
+    console:
+      enabled: false
+  
+  # JPA Configuration for H2
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+    defer-datasource-initialization: false
+
+  # Flyway Configuration for testing
+  flyway:
+    enabled: false
+
+# Server configuration
+server:
+  port: 0  # Random port for testing
+
+# Logging configuration for tests
+logging:
+  level:
+    root: WARN
+    com.acu.datajpa: INFO
+    org.springframework.data.jpa: WARN
+    org.hibernate.SQL: WARN

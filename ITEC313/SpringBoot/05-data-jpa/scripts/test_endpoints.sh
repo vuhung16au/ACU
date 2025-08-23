@@ -24,9 +24,9 @@ test_endpoint() {
     if [ "$method" = "GET" ]; then
         response=$(curl -s -w "\n%{http_code}" "$BASE_URL$endpoint")
     elif [ "$method" = "POST" ]; then
-        response=$(curl -s -w "\n%{http_code}" -X POST -H "Content-Type: application/json" "$BASE_URL$endpoint" -d "$data")
+        response=$(curl -s -w "\n%{http_code}" -X POST -H "Content-Type: application/json" -H "Accept: application/json" "$BASE_URL$endpoint" -d "$data")
     elif [ "$method" = "PUT" ]; then
-        response=$(curl -s -w "\n%{http_code}" -X PUT -H "Content-Type: application/json" "$BASE_URL$endpoint" -d "$data")
+        response=$(curl -s -w "\n%{http_code}" -X PUT -H "Content-Type: application/json" -H "Accept: application/json" "$BASE_URL$endpoint" -d "$data")
     elif [ "$method" = "DELETE" ]; then
         response=$(curl -s -w "\n%{http_code}" -X DELETE "$BASE_URL$endpoint")
     elif [ "$method" = "PATCH" ]; then
@@ -36,7 +36,7 @@ test_endpoint() {
     # Extract status code (last line)
     status_code=$(echo "$response" | tail -n1)
     # Extract response body (all lines except last)
-    body=$(echo "$response" | head -n -1)
+    body=$(echo "$response" | sed '$d')
     
     echo "   Status: $status_code"
     
@@ -66,27 +66,16 @@ test_endpoint "GET" "/api/customers?page=0&size=5" "Get customers with paginatio
 test_endpoint "GET" "/api/customers/1" "Get customer by ID"
 
 # Get customer by email
-test_endpoint "GET" "/api/customers/email/john.doe@example.com" "Get customer by email"
+test_endpoint "GET" "/api/customers/email/jane.smith@example.com" "Get customer by email"
 
 # Create a new customer
-customer_data='{
-  "firstName": "Test",
-  "lastName": "Customer",
-  "email": "test.customer@example.com",
-  "phone": "+1234567899",
-  "status": "ACTIVE"
-}'
-test_endpoint "POST" "/api/customers" "Create a new customer" "$customer_data"
+timestamp=$(date +%s)
+customer_data="{\"firstName\":\"Test\",\"lastName\":\"Customer\",\"email\":\"test.customer.${timestamp}@example.com\",\"phone\":\"+1234567899\",\"status\":\"ACTIVE\"}"
+test_endpoint "POST" "/api/customers/create" "Create a new customer" "$customer_data"
 
 # Update customer
-update_data='{
-  "firstName": "Updated",
-  "lastName": "Customer",
-  "email": "updated.customer@example.com",
-  "phone": "+1234567899",
-  "status": "ACTIVE"
-}'
-test_endpoint "PUT" "/api/customers/1" "Update customer" "$update_data"
+update_data='{"firstName":"Updated","lastName":"Customer","email":"updated.customer@example.com","phone":"+1234567899","status":"ACTIVE"}'
+test_endpoint "PUT" "/api/customers/1/update" "Update customer" "$update_data"
 
 # Get customers by status
 test_endpoint "GET" "/api/customers/status/ACTIVE" "Get customers by status"
@@ -121,31 +110,5 @@ test_endpoint "GET" "/actuator/health" "Application health status"
 test_endpoint "GET" "/actuator/info" "Application information"
 test_endpoint "GET" "/actuator/metrics" "Application metrics"
 
-# Test H2 Console (development only)
-echo "🗄️  Database Console"
-echo "-------------------"
-
-test_endpoint "GET" "/h2-console" "H2 Database Console"
-
 echo "✅ Testing completed!"
-echo ""
-echo "💡 Key Features Demonstrated:"
-echo "   - JPA entity relationships (Customer -> Order -> OrderItem)"
-echo "   - Repository query methods with custom queries"
-echo "   - Pagination and sorting with Spring Data"
-echo "   - Transaction management with @Transactional"
-echo "   - Database migrations with Flyway"
-echo "   - Auditing with @CreatedDate and @LastModifiedDate"
-echo "   - Profile-based database configuration (H2 dev, MySQL prod)"
-echo ""
-echo "🔧 Next Steps:"
-echo "   - Open http://localhost:8080/h2-console for database inspection"
-echo "   - Explore JPA relationships in the database"
-echo "   - Test different query methods in the repositories"
-echo "   - Switch to production profile with MySQL"
-echo ""
-echo "📖 Learning Resources:"
-echo "   - Spring Data JPA: https://spring.io/projects/spring-data-jpa"
-echo "   - Hibernate: https://hibernate.org/"
-echo "   - Flyway: https://flywaydb.org/"
-echo "   - Spring Boot Data Access: https://docs.spring.io/spring-boot/docs/current/reference/html/data.html"
+

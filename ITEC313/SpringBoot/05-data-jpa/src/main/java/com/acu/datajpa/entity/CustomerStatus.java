@@ -1,5 +1,8 @@
 package com.acu.datajpa.entity;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
 /**
  * Customer status enumeration
  */
@@ -19,8 +22,18 @@ public enum CustomerStatus {
         return displayName;
     }
 
+    @JsonValue
     @Override
     public String toString() {
-        return displayName;
+        return this.name();
+    }
+
+    @JsonCreator
+    public static CustomerStatus fromString(String value) {
+        try {
+            return CustomerStatus.valueOf(value.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Invalid customer status: " + value);
+        }
     }
 }

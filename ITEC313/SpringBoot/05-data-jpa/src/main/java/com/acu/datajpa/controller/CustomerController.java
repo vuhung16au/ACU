@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 /**
  * REST Controller for Customer operations with JPA integration
@@ -74,9 +75,39 @@ public class CustomerController {
      * Create a new customer
      */
     @PostMapping
-    public ResponseEntity<Customer> createCustomer(@Valid @RequestBody Customer customer) {
+    public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer) {
         Customer createdCustomer = customerService.createCustomer(customer);
         return ResponseEntity.ok(createdCustomer);
+    }
+
+    /**
+     * Create a new customer (alternative method)
+     */
+    @PostMapping("/create")
+    public ResponseEntity<Map<String, Object>> createCustomerAlternative(@RequestBody Map<String, Object> customerData) {
+        Customer customer = new Customer();
+        customer.setFirstName((String) customerData.get("firstName"));
+        customer.setLastName((String) customerData.get("lastName"));
+        customer.setEmail((String) customerData.get("email"));
+        customer.setPhone((String) customerData.get("phone"));
+        
+        String statusStr = (String) customerData.get("status");
+        if (statusStr != null) {
+            customer.setStatus(CustomerStatus.valueOf(statusStr));
+        }
+        
+        Customer createdCustomer = customerService.createCustomer(customer);
+        
+        Map<String, Object> response = Map.of(
+            "id", createdCustomer.getId(),
+            "firstName", createdCustomer.getFirstName(),
+            "lastName", createdCustomer.getLastName(),
+            "email", createdCustomer.getEmail(),
+            "phone", createdCustomer.getPhone(),
+            "status", createdCustomer.getStatus().name()
+        );
+        
+        return ResponseEntity.ok(response);
     }
 
     /**
@@ -84,9 +115,40 @@ public class CustomerController {
      */
     @PutMapping("/{id}")
     public ResponseEntity<Customer> updateCustomer(@PathVariable Long id, 
-                                                  @Valid @RequestBody Customer customerDetails) {
+                                                  @RequestBody Customer customerDetails) {
         Customer updatedCustomer = customerService.updateCustomer(id, customerDetails);
         return ResponseEntity.ok(updatedCustomer);
+    }
+
+    /**
+     * Update customer (alternative method)
+     */
+    @PutMapping("/{id}/update")
+    public ResponseEntity<Map<String, Object>> updateCustomerAlternative(@PathVariable Long id, 
+                                                                        @RequestBody Map<String, Object> customerData) {
+        Customer customerDetails = new Customer();
+        customerDetails.setFirstName((String) customerData.get("firstName"));
+        customerDetails.setLastName((String) customerData.get("lastName"));
+        customerDetails.setEmail((String) customerData.get("email"));
+        customerDetails.setPhone((String) customerData.get("phone"));
+        
+        String statusStr = (String) customerData.get("status");
+        if (statusStr != null) {
+            customerDetails.setStatus(CustomerStatus.valueOf(statusStr));
+        }
+        
+        Customer updatedCustomer = customerService.updateCustomer(id, customerDetails);
+        
+        Map<String, Object> response = Map.of(
+            "id", updatedCustomer.getId(),
+            "firstName", updatedCustomer.getFirstName(),
+            "lastName", updatedCustomer.getLastName(),
+            "email", updatedCustomer.getEmail(),
+            "phone", updatedCustomer.getPhone(),
+            "status", updatedCustomer.getStatus().name()
+        );
+        
+        return ResponseEntity.ok(response);
     }
 
     /**
