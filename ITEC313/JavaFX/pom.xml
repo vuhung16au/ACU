@@ -36,6 +36,7 @@
         <module>02-15-BouncingBall</module>
         <module>03-01-JavaFx-ControlUI-Multimedia-TicTacToe</module>
         <module>04-01-Generics</module>
+        <module>04-01-Generics-CLI</module>
         <module>05-01-FileClass</module>
         <module>05-02-BinaryIO</module>
         <module>06-01-Recursion</module>
