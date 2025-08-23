@@ -7,8 +7,6 @@ Thumbs.db
 
 bin
 target
-build/
-.gradle
 
 # Eclipse Project Files #
 

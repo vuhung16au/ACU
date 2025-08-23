@@ -2,6 +2,15 @@
 
 This project demonstrates how to use Spring Boot with Spring Data JPA to access a PostgreSQL database. It's based on the [Spring Boot Accessing Data with JPA guide](https://spring.io/guides/gs/accessing-data-jpa).
 
+## Build Tool
+
+This project uses **Maven** for dependency management and build automation. The project includes:
+
+- ✅ `pom.xml` - Maven configuration file
+- ✅ Maven wrapper files (`mvnw`, `mvnw.cmd`, `.mvn/` directory) for consistent builds
+- ✅ Spring Boot Maven plugin for easy application management
+- ✅ All build commands use Maven syntax
+
 ## Project Overview
 
 This application demonstrates:
@@ -16,7 +25,7 @@ This application demonstrates:
 
 - Java 17 or higher
 - Docker and Docker Compose
-- Gradle (or use the included Gradle wrapper)
+- Maven (or use the included Maven wrapper)
 
 ## Database Setup
 
@@ -46,13 +55,13 @@ This will start:
 ### Build the Project
 
 ```bash
-./gradlew build
+./mvnw clean compile
 ```
 
 ### Run the Application
 
 ```bash
-./gradlew bootRun
+./mvnw spring-boot:run
 ```
 
 The application will:
@@ -67,7 +76,7 @@ The application will:
 ### Run Tests
 
 ```bash
-./gradlew test
+./mvnw test
 ```
 
 Tests use an in-memory H2 database for faster execution.
@@ -75,21 +84,28 @@ Tests use an in-memory H2 database for faster execution.
 ## Project Structure
 
 ```
-src/
-├── main/
-│   ├── java/
-│   │   └── com/example/accessingdatajpa/
-│   │       ├── AccessingDataJpaApplication.java  # Main application class
-│   │       ├── Customer.java                     # JPA entity
-│   │       └── CustomerRepository.java           # Repository interface
-│   └── resources/
-│       └── application.properties               # Database configuration
-└── test/
-    ├── java/
-    │   └── com/example/accessingdatajpa/
-    │       └── CustomerRepositoryTests.java     # Unit tests
-    └── resources/
-        └── application.properties               # Test configuration
+50-03-Spring-JPA/
+├── pom.xml                    # Maven configuration
+├── mvnw                       # Maven wrapper (Unix)
+├── mvnw.cmd                   # Maven wrapper (Windows)
+├── .mvn/                      # Maven wrapper configuration
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/example/accessingdatajpa/
+│   │   │       ├── AccessingDataJpaApplication.java  # Main application class
+│   │   │       ├── Customer.java                     # JPA entity
+│   │   │       └── CustomerRepository.java           # Repository interface
+│   │   └── resources/
+│   │       └── application.properties               # Database configuration
+│   └── test/
+│       ├── java/
+│       │   └── com/example/accessingdatajpa/
+│       │       └── CustomerRepositoryTests.java     # Unit tests
+│       └── resources/
+│           └── application.properties               # Test configuration
+├── docker-compose.yaml        # Database configuration
+└── README.md                  # Project documentation
 ```
 
 ## Key Components
@@ -166,3 +182,26 @@ You can access the PostgreSQL database using:
 
 - **Direct connection**: Use any PostgreSQL client with the credentials above
 
+### pgAdmin Configuration
+
+When configuring the PostgreSQL server in pgAdmin, use these settings:
+
+**For connections from within Docker network (if pgAdmin is also containerized):**
+```
+Host name/address: postgres (use the container name)
+Port: 5432
+Maintenance database: postgres
+Username: postgres
+Password: postgres
+```
+
+**For connections from your host machine:**
+```
+Host name/address: localhost
+Port: 5432
+Maintenance database: postgres
+Username: postgres
+Password: postgres
+```
+
+> **Note**: If you encounter connection issues, ensure the Docker containers are running with `docker-compose up -d` before attempting to connect.
