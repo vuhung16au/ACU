@@ -54,10 +54,12 @@
             <scope>test</scope>
         </dependency>
         
-        <!-- Thymeleaf Test Support -->
+
+        
+        <!-- Thymeleaf Layout Dialect -->
         <dependency>
-            <groupId>org.thymeleaf.extras</groupId>
-            <artifactId>thymeleaf-extras-springsecurity6</artifactId>
+            <groupId>nz.net.ultraq.thymeleaf</groupId>
+            <artifactId>thymeleaf-layout-dialect</artifactId>
         </dependency>
     </dependencies>
 

@@ -60,6 +60,8 @@ mvn clean compile
 mvn spring-boot:run
 ```
 
+The application will start on `http://localhost:8080` with all features working correctly.
+
 ### 3. Access the Application
 
 Open your web browser and navigate to:
@@ -73,7 +75,10 @@ Open your web browser and navigate to:
 
 **Automated testing:**
 ```bash
-# Run the test script
+# Run the comprehensive test script
+./scripts/test_application.sh
+
+# Or run the original endpoint test script
 ./scripts/test_endpoints.sh
 
 # Or with custom base URL
@@ -98,6 +103,7 @@ mvn test
 - Template cache disabled for development
 - UTF-8 encoding
 - HTML mode with proper content type
+- **Layout Dialect**: Template inheritance and composition enabled
 
 ### Internationalization Configuration
 - Message source: `messages.properties`
@@ -145,6 +151,7 @@ mvn test
 │           └── controller/
 │               └── WebControllerTest.java
 ├── scripts/
+│   ├── test_application.sh                    # Comprehensive application testing script
 │   └── test_endpoints.sh                      # Endpoint testing script
 ├── pom.xml                                    # Maven configuration
 └── README.md                                  # This file
@@ -154,7 +161,7 @@ mvn test
 
 ### 1. Thymeleaf Integration
 - **Template Engine**: Server-side rendering with Thymeleaf
-- **Layout Dialect**: Template inheritance and composition
+- **Layout Dialect**: Template inheritance and composition (using `thymeleaf-layout-dialect`)
 - **Form Binding**: Automatic form field binding and validation
 - **Internationalization**: Message resolution in templates
 
@@ -182,18 +189,6 @@ mvn test
 - **Form Processing**: GET/POST request handling
 - **Redirect Attributes**: Flash message support
 
-## Learning Resources
-
-### Official Documentation
-- [Serving Web Content with Spring Boot](https://spring.io/guides/gs/serving-web-content/)
-- [Spring Boot Thymeleaf](https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.templating)
-- [Spring Boot Internationalization](https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-methods/initbinder.html)
-
-### Tutorials
-- [Thymeleaf Tutorial](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html)
-- [Spring Boot i18n (Baeldung)](https://www.baeldung.com/spring-boot-internationalization)
-- [Spring Boot Maven Plugin](https://docs.spring.io/spring-boot/docs/current/maven-plugin/reference/htmlsingle/)
-
 ## Next Steps
 
 After completing this web application tutorial, you can explore:
@@ -203,51 +198,5 @@ After completing this web application tutorial, you can explore:
 3. **Day 6**: Kafka messaging, email, and scheduling
 4. **Day 7**: Microservices and testing strategies
 
-## Troubleshooting
 
-### Common Issues
 
-1. **Templates not rendering**: Check Thymeleaf cache settings and template location
-2. **Static resources not loading**: Verify static resource configuration and file paths
-3. **Form validation not working**: Ensure validation annotations and error handling
-4. **Language switching not working**: Check locale resolver and interceptor configuration
-
-### Development Tips
-
-1. **Template Development**: Use browser developer tools to inspect rendered HTML
-2. **CSS Development**: Use browser dev tools for responsive design testing
-3. **JavaScript Debugging**: Check browser console for JavaScript errors
-4. **Form Testing**: Test with various input combinations and edge cases
-
-### Logs
-
-Check the console output for:
-- Application startup logs
-- Thymeleaf template processing logs
-- Form validation logs
-- Static resource serving logs
-
-## Contributing
-
-This is a learning project. Feel free to experiment with:
-- Adding new pages and templates
-- Implementing additional languages
-- Enhancing form validation
-- Adding new static resources
-- Improving the UI/UX design
-- Adding new API endpoints
-
-## Browser Compatibility
-
-The application is tested and works with:
-- Chrome 90+
-- Firefox 88+
-- Safari 14+
-- Edge 90+
-
-## Performance Considerations
-
-- **Development**: Cache disabled for live reloading
-- **Production**: Enable caching for better performance
-- **Static Resources**: Consider CDN for production deployment
-- **Templates**: Use template fragments for better maintainability

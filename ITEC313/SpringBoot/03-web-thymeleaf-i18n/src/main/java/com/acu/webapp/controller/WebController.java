@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDateTime;
@@ -99,6 +100,7 @@ public class WebController {
      * API endpoint for getting current time (demonstrates REST with web app)
      */
     @GetMapping("/api/time")
+    @ResponseBody
     public String getCurrentTime(@RequestParam(defaultValue = "default") String format) {
         LocalDateTime now = LocalDateTime.now();
         
