@@ -1,5 +1,6 @@
 package com.acu.kafka.controller;
 
+import com.acu.kafka.model.EmailLogEntity;
 import com.acu.kafka.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -52,6 +53,29 @@ public class EmailController {
     public ResponseEntity<List<String>> getAvailableTemplates() {
         List<String> templates = List.of("welcome-email", "notification-email");
         return ResponseEntity.ok(templates);
+    }
+    
+    @GetMapping("/logs")
+    public ResponseEntity<List<EmailLogEntity>> getEmailLogs() {
+        List<EmailLogEntity> logs = emailService.getEmailLogs();
+        return ResponseEntity.ok(logs);
+    }
+    
+    @GetMapping("/logs/recipient/{recipient}")
+    public ResponseEntity<List<EmailLogEntity>> getEmailLogsByRecipient(@PathVariable String recipient) {
+        List<EmailLogEntity> logs = emailService.getEmailLogsByRecipient(recipient);
+        return ResponseEntity.ok(logs);
+    }
+    
+    @GetMapping("/logs/status/{status}")
+    public ResponseEntity<List<EmailLogEntity>> getEmailLogsByStatus(@PathVariable String status) {
+        try {
+            EmailLogEntity.EmailStatus emailStatus = EmailLogEntity.EmailStatus.valueOf(status.toUpperCase());
+            List<EmailLogEntity> logs = emailService.getEmailLogsByStatus(emailStatus);
+            return ResponseEntity.ok(logs);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     // Request DTOs

@@ -1,6 +1,8 @@
 package com.acu.kafka.service;
 
 import com.acu.kafka.model.Message;
+import com.acu.kafka.model.MessageEntity;
+import com.acu.kafka.repository.MessageRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class KafkaService {
 
     @Autowired
     private KafkaTemplate<String, Message> kafkaTemplate;
+    
+    @Autowired
+    private MessageRepository messageRepository;
 
     private final List<Message> receivedMessages = new ArrayList<>();
 
@@ -44,7 +49,17 @@ public class KafkaService {
         logger.info("Received message from Kafka: {}", message);
         receivedMessages.add(message);
         
-        // Keep only last 100 messages
+        // Save message to database
+        try {
+            MessageEntity messageEntity = new MessageEntity(message);
+            messageEntity.setKafkaTopic(TOPIC_NAME);
+            messageRepository.save(messageEntity);
+            logger.info("Message saved to database: {}", messageEntity.getId());
+        } catch (Exception e) {
+            logger.error("Failed to save message to database", e);
+        }
+        
+        // Keep only last 100 messages in memory
         if (receivedMessages.size() > 100) {
             receivedMessages.remove(0);
         }
@@ -52,6 +67,18 @@ public class KafkaService {
 
     public List<Message> getReceivedMessages() {
         return new ArrayList<>(receivedMessages);
+    }
+    
+    public List<MessageEntity> getMessagesFromDatabase() {
+        return messageRepository.findRecentMessages();
+    }
+    
+    public List<MessageEntity> getMessagesBySender(String sender) {
+        return messageRepository.findBySenderOrderByTimestampDesc(sender);
+    }
+    
+    public List<MessageEntity> getMessagesByType(MessageEntity.MessageType type) {
+        return messageRepository.findByMessageTypeOrderByTimestampDesc(type);
     }
 
     public void clearMessages() {

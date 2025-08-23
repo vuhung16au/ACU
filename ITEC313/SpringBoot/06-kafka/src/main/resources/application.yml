@@ -5,15 +5,34 @@ spring:
   application:
     name: kafka-demo
   
+  # Database configuration
+  datasource:
+    url: jdbc:postgresql://localhost:5432/kafka_demo
+    username: kafka_user
+    password: kafka_password
+    driver-class-name: org.postgresql.Driver
+  
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+  
   kafka:
     bootstrap-servers: localhost:9092
     consumer:
       group-id: message-group
-      auto-offset-reset: earliest
+      auto-offset-reset: latest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
         spring.json.trusted.packages: com.acu.kafka.model
+        spring.json.type.mapping: message:com.acu.kafka.model.Message
+        spring.json.use.type.headers: false
+        spring.json.value.default.type: com.acu.kafka.model.Message
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
@@ -23,8 +42,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: ${MAIL_USERNAME:your-email@gmail.com}
-    password: ${MAIL_PASSWORD:your-app-password}
+    username: ate.gs.2016.08@gmail.com
+    password: au7bgGTS8mWrJux
     properties:
       mail:
         smtp:

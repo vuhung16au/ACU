@@ -18,11 +18,37 @@
 - Maven 3.9+
 - Docker and Docker Compose (for Kafka)
 
-### Start Kafka
+### Start Development Environment
+
+#### Option 1: Using Docker Compose (Recommended)
 ```bash
-cd postgresql-pgadmin
+# Start all services (Kafka, PostgreSQL, pgAdmin, Kafka UI)
 docker-compose up -d
+
+# Or use the management script
+./scripts/docker-setup.sh start
 ```
+
+#### Option 2: Manual Docker Commands
+```bash
+# Start services
+docker-compose up -d
+
+# Check status
+docker-compose ps
+
+# View logs
+docker-compose logs -f
+
+# Stop services
+docker-compose down
+```
+
+### Access Services
+- **Kafka UI**: http://localhost:8080 (Monitor Kafka topics and messages)
+- **pgAdmin**: http://localhost:5050 (admin@kafka-demo.com / admin123)
+- **PostgreSQL**: localhost:5432 (kafka_user / kafka_password)
+- **Kafka**: localhost:9092
 
 ### Run the Application
 ```bash
@@ -48,7 +74,30 @@ mvn spring-boot:run
 - Email configuration (SMTP settings)
 - Scheduling configuration
 
+## Docker Development Environment
+
+For detailed information about the Docker setup, including PostgreSQL, pgAdmin, and Kafka UI, see [DOCKER_README.md](DOCKER_README.md).
+
+### Quick Docker Commands
+```bash
+# Start all services
+./scripts/docker-setup.sh start
+
+# Check status
+./scripts/docker-setup.sh status
+
+# View logs
+./scripts/docker-setup.sh logs
+
+# Stop services
+./scripts/docker-setup.sh stop
+
+# Clean up everything
+./scripts/docker-setup.sh cleanup
+```
+
 ## Links
 - [Spring Kafka project](https://spring.io/projects/spring-kafka)
 - [Kafka reference](https://docs.spring.io/spring-kafka/reference/)
 - [Email documentation](https://docs.spring.io/spring-boot/reference/io/email.html)
+- [Docker Compose documentation](https://docs.docker.com/compose/)

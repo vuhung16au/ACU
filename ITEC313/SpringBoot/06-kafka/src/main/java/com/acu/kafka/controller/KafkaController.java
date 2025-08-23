@@ -1,6 +1,7 @@
 package com.acu.kafka.controller;
 
 import com.acu.kafka.model.Message;
+import com.acu.kafka.model.MessageEntity;
 import com.acu.kafka.service.KafkaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +36,29 @@ public class KafkaController {
     public ResponseEntity<List<Message>> getMessages() {
         List<Message> messages = kafkaService.getReceivedMessages();
         return ResponseEntity.ok(messages);
+    }
+    
+    @GetMapping("/database")
+    public ResponseEntity<List<MessageEntity>> getMessagesFromDatabase() {
+        List<MessageEntity> messages = kafkaService.getMessagesFromDatabase();
+        return ResponseEntity.ok(messages);
+    }
+    
+    @GetMapping("/sender/{sender}")
+    public ResponseEntity<List<MessageEntity>> getMessagesBySender(@PathVariable String sender) {
+        List<MessageEntity> messages = kafkaService.getMessagesBySender(sender);
+        return ResponseEntity.ok(messages);
+    }
+    
+    @GetMapping("/type/{type}")
+    public ResponseEntity<List<MessageEntity>> getMessagesByType(@PathVariable String type) {
+        try {
+            MessageEntity.MessageType messageType = MessageEntity.MessageType.valueOf(type.toUpperCase());
+            List<MessageEntity> messages = kafkaService.getMessagesByType(messageType);
+            return ResponseEntity.ok(messages);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @DeleteMapping
