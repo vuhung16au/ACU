@@ -5,7 +5,7 @@ A JavaFX desktop application that fetches and displays real-time cryptocurrency 
 ## 🚀 Features
 
 - **Real-time Price Tracking**: Fetches live cryptocurrency prices from Gemini exchange
-- **Multiple Cryptocurrencies**: Displays prices for 10 major cryptocurrencies
+- **Multiple Cryptocurrencies**: Displays prices for 8 cryptocurrencies
 - **Clean UI**: Simple, modern interface with a table view
 - **Auto-refresh**: Manual refresh capability to get latest prices
 - **Error Handling**: Graceful handling of API failures and network issues
@@ -21,8 +21,6 @@ The application tracks the following cryptocurrencies:
 - **BCH** - Bitcoin Cash
 - **LTC** - Litecoin
 - **TRUMP** - Trump Token
-- **BNB** - Binance Coin
-- **TRX** - TRON
 
 ## 🛠️ Tech Stack
 
@@ -277,7 +275,7 @@ The application uses Gemini's public API:
 ### **Supported Symbols**
 The application is configured to fetch prices for:
 ```java
-private final String[] symbols = {"BTC", "ETH", "XRP", "SOL", "DOGE", "BCH", "LTC", "TRUMP", "BNB", "TRX"};
+private final String[] symbols = {"BTC", "ETH", "XRP", "SOL", "DOGE", "BCH", "LTC", "TRUMP"};
 ```
 
 ## 🐛 Error Handling
@@ -325,18 +323,6 @@ Potential improvements for the application:
 - Real-time price updates with WebSocket
 - Price alerts and notifications
 - Historical price charts
-- Portfolio tracking
 - Additional cryptocurrency exchanges
 - Price comparison features
 
-## 📄 License
-
-This project is part of the ITEC313 JavaFX course at ACU.
-
-## 👥 Contributing
-
-This is an educational project demonstrating JavaFX and REST API integration concepts.
-
----
-
-**Note**: Some cryptocurrency symbols (like BNB, TRX) may return 400 errors from Gemini API as they might not be available on their platform. The application handles these gracefully and continues to display available cryptocurrencies.
