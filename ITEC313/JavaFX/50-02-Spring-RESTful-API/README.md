@@ -6,7 +6,7 @@ A simple Spring Boot application demonstrating a basic REST endpoint.
 
 ### Run the application
 ```bash
-./gradlew bootRun
+mvn spring-boot:run
 ```
 
 ### Test the endpoint
@@ -20,7 +20,12 @@ curl "http://localhost:8080/hello?name=Spring"
 
 ### Build
 ```bash
-./gradlew build
+mvn clean compile
+```
+
+### Package
+```bash
+mvn clean package
 ```
 
 ## API
@@ -33,9 +38,11 @@ curl "http://localhost:8080/hello?name=Spring"
 
 - `src/main/java/com/acu/hellospring/HellospringApplication.java` - Main application class with REST endpoint
 - `src/test/java/com/acu/hellospring/HellospringApplicationTests.java` - Tests for the endpoint
-- `build.gradle` - Gradle build configuration
+- `pom.xml` - Maven build configuration
 
 ## Requirements
 
-- Java 21 (automatically provisioned by Gradle toolchain)
+- Java 21
+- Maven 3.6+
 - Internet access for first build
+
