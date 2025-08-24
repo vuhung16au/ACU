@@ -41,14 +41,53 @@ echo "Token: ${TOKEN:0:50}..."
 echo
 echo "3. Testing GraphQL Queries..."
 
-# Test 1: Query book-1 (The Lucky Country)
+# Test 1: Query book-1 (The Lucky Country) - Full fields
 echo
-echo "📚 Querying 'The Lucky Country' (book-1):"
+echo "📚 Querying 'The Lucky Country' (book-1) - Full fields:"
 curl -X POST \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $TOKEN" \
   -d '{
     "query": "query { bookById(id: \"book-1\") { id name pageCount author { id firstName lastName } } }"
+  }' \
+  http://localhost:8081/graphql
+
+echo
+echo
+
+# Test 1.1: Field Selection - Only name and genre
+echo "📚 Field Selection - Only name and genre:"
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{
+    "query": "query { bookById(id: \"book-1\") { name genre } }"
+  }' \
+  http://localhost:8081/graphql
+
+echo
+echo
+
+# Test 1.2: Field Selection - name, genre, and author (nested selection)
+echo "📚 Field Selection - name, genre, and author (nested selection):"
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{
+    "query": "query { bookById(id: \"book-1\") { name genre author { firstName lastName } } }"
+  }' \
+  http://localhost:8081/graphql
+
+echo
+echo
+
+# Test 1.3: Field Selection - Minimal fields (only name)
+echo "📚 Field Selection - Minimal fields (only name):"
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{
+    "query": "query { bookById(id: \"book-1\") { name } }"
   }' \
   http://localhost:8081/graphql
 
@@ -99,12 +138,25 @@ echo "4. Testing GraphQL Pagination and Filtering..."
 
 # Test 11: Query books with pagination
 echo
-echo "📖 Querying books with pagination (first 3):"
+echo "📖 Querying books with pagination (first 3) - Full fields:"
 curl -X POST \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $TOKEN" \
   -d '{
     "query": "query { books(first: 3) { edges { cursor node { id name pageCount genre author { id firstName lastName } } } pageInfo { hasNextPage hasPreviousPage startCursor endCursor } totalCount } }"
+  }' \
+  http://localhost:8081/graphql
+
+echo
+echo
+
+# Test 11.1: Field Selection with pagination - Only specific fields
+echo "📖 Field Selection with pagination - Only name, genre, and author:"
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{
+    "query": "query { books(first: 3) { edges { cursor node { name genre author { firstName lastName } } } pageInfo { hasNextPage } totalCount } }"
   }' \
   http://localhost:8081/graphql
 
@@ -341,7 +393,8 @@ echo
 echo "🔄 Features demonstrated:"
 echo "   - Authentication: JWT-based login"
 echo "   - Authorization: Role-based access control"
-echo "   - bookById: Query individual books"
+echo "   - Field Selection: Request only needed fields (name, genre, author)"
+echo "   - bookById: Query individual books with field selection"
 echo "   - books: Paginated book queries with cursor-based pagination"
 echo "   - books: Search filtering by book name"
 echo "   - books: Genre filtering"

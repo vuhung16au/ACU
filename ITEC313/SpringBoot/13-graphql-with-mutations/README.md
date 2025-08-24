@@ -20,6 +20,12 @@ A simple GraphQL service built with Spring Boot and Spring for GraphQL. This pro
 
 This project implements a comprehensive GraphQL server that provides access to a large collection of books and their authors. The service includes:
 
+### Key Features
+
+- **Field Selection**: Clients can request only the specific fields they need, reducing over-fetching and under-fetching of data
+- **Nested Field Selection**: Support for selecting fields from related objects (e.g., author information within books)
+- **Performance Optimization**: Field selection helps optimize network usage and response times
+
 - **Authentication & Authorization**: JWT-based authentication with role-based access control
 - **1002 authors** with realistic names from various backgrounds
 - **2002 books** with diverse titles, genres, and page counts (150-800 pages)
@@ -163,7 +169,79 @@ The application uses JWT-based authentication with the following default credent
 
 ## GraphQL Queries
 
-### Query a book by ID with author information:
+### Field Selection
+
+One of the key features of GraphQL is **field selection**, which allows clients to request only the specific fields they need. This reduces over-fetching and under-fetching of data, improving performance and network efficiency.
+
+#### Basic Field Selection
+
+Query a book with only specific fields:
+
+```graphql
+query {
+  bookById(id: "book-1") {
+    name
+    genre
+  }
+}
+```
+
+#### Nested Field Selection
+
+Query a book with nested author information:
+
+```graphql
+query {
+  bookById(id: "book-1") {
+    name
+    genre
+    author {
+      firstName
+      lastName
+    }
+  }
+}
+```
+
+#### Minimal Field Selection
+
+Query with only the book name:
+
+```graphql
+query {
+  bookById(id: "book-1") {
+    name
+  }
+}
+```
+
+#### Field Selection with Pagination
+
+Query books with pagination, selecting only specific fields:
+
+```graphql
+query {
+  books(first: 5) {
+    edges {
+      cursor
+      node {
+        name
+        genre
+        author {
+          firstName
+          lastName
+        }
+      }
+    }
+    pageInfo {
+      hasNextPage
+    }
+    totalCount
+  }
+}
+```
+
+### Query a book by ID with all fields:
 
 ```graphql
 query {
@@ -171,6 +249,7 @@ query {
     id
     name
     pageCount
+    genre
     author {
       id
       firstName
@@ -240,7 +319,7 @@ query {
 }
 ```
 
-### Expected Response:
+### Expected Response (Full Fields):
 
 ```json
 {
@@ -255,6 +334,47 @@ query {
         "firstName": "Donald",
         "lastName": "Horne"
       }
+    }
+  }
+}
+```
+
+### Field Selection Response Examples:
+
+#### Basic Field Selection Response:
+```json
+{
+  "data": {
+    "bookById": {
+      "name": "The Lucky Country",
+      "genre": "Non-Fiction"
+    }
+  }
+}
+```
+
+#### Nested Field Selection Response:
+```json
+{
+  "data": {
+    "bookById": {
+      "name": "The Lucky Country",
+      "genre": "Non-Fiction",
+      "author": {
+        "firstName": "Donald",
+        "lastName": "Horne"
+      }
+    }
+  }
+}
+```
+
+#### Minimal Field Selection Response:
+```json
+{
+  "data": {
+    "bookById": {
+      "name": "The Lucky Country"
     }
   }
 }

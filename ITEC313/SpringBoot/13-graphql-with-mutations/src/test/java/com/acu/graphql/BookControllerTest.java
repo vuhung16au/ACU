@@ -857,4 +857,134 @@ class BookControllerTest {
                 .entity(String.class)
                 .isEqualTo("Non-Fiction");
     }
+    
+    @Test
+    @WithMockUser(roles = "USER")
+    void shouldDemonstrateFieldSelection() {
+        // Test 1: Query with only name and genre fields
+        String document1 = """
+                query {
+                    bookById(id: "book-1") {
+                        name
+                        genre
+                    }
+                }
+                """;
+
+        graphQlTester.document(document1)
+                .execute()
+                .path("data.bookById.name")
+                .entity(String.class)
+                .isEqualTo("The Lucky Country");
+
+        graphQlTester.document(document1)
+                .execute()
+                .path("data.bookById.genre")
+                .entity(String.class)
+                .isEqualTo("Non-Fiction");
+
+        // Test 2: Query with name, genre, and author fields (nested selection)
+        String document2 = """
+                query {
+                    bookById(id: "book-1") {
+                        name
+                        genre
+                        author {
+                            firstName
+                            lastName
+                        }
+                    }
+                }
+                """;
+
+        graphQlTester.document(document2)
+                .execute()
+                .path("data.bookById.name")
+                .entity(String.class)
+                .isEqualTo("The Lucky Country");
+
+        graphQlTester.document(document2)
+                .execute()
+                .path("data.bookById.genre")
+                .entity(String.class)
+                .isEqualTo("Non-Fiction");
+
+        graphQlTester.document(document2)
+                .execute()
+                .path("data.bookById.author.firstName")
+                .entity(String.class)
+                .isEqualTo("Donald");
+
+        graphQlTester.document(document2)
+                .execute()
+                .path("data.bookById.author.lastName")
+                .entity(String.class)
+                .isEqualTo("Horne");
+
+        // Test 3: Query with minimal fields (only name)
+        String document3 = """
+                query {
+                    bookById(id: "book-1") {
+                        name
+                    }
+                }
+                """;
+
+        graphQlTester.document(document3)
+                .execute()
+                .path("data.bookById.name")
+                .entity(String.class)
+                .isEqualTo("The Lucky Country");
+    }
+    
+    @Test
+    @WithMockUser(roles = "USER")
+    void shouldDemonstrateFieldSelectionWithPagination() {
+        // Test field selection with pagination - only requesting specific fields
+        String document = """
+                query {
+                    books(first: 2) {
+                        edges {
+                            cursor
+                            node {
+                                name
+                                genre
+                                author {
+                                    firstName
+                                    lastName
+                                }
+                            }
+                        }
+                        pageInfo {
+                            hasNextPage
+                        }
+                        totalCount
+                    }
+                }
+                """;
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.books.edges")
+                .entityList(Object.class)
+                .hasSize(2);
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.books.edges[0].node.name")
+                .entity(String.class)
+                .isEqualTo("The Lucky Country");
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.books.edges[0].node.genre")
+                .entity(String.class)
+                .isEqualTo("Non-Fiction");
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.books.edges[0].node.author.firstName")
+                .entity(String.class)
+                .isEqualTo("Donald");
+    }
 }
