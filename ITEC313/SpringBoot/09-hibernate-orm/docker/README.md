@@ -1,6 +1,6 @@
-# Docker Setup for Spring Boot Hibernate Project
+# Docker Setup for Hibernate ORM Demonstration
 
-This directory contains Docker Compose configuration for running the Spring Boot Hibernate project with PostgreSQL database.
+This directory contains Docker Compose configuration for running the Hibernate ORM demonstration project with PostgreSQL database.
 
 ## Prerequisites
 
@@ -30,8 +30,8 @@ docker-compose ps
 docker-compose --profile tools up -d
 
 # Access pgAdmin at: http://localhost:8080
-# Email: admin@example.com
-# Password: admin
+# Email: 313@acu.edu.au
+# Password: password
 ```
 
 ### 3. View Logs
@@ -68,7 +68,7 @@ docker-compose down -v
 
 ## Spring Boot Application Configuration
 
-Update your `application.yml` to connect to the PostgreSQL container:
+The application is already configured to connect to the PostgreSQL container. The `application.yml` contains:
 
 ```yaml
 spring:
@@ -79,12 +79,13 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     show-sql: true
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
+        use_sql_comments: true
 ```
 
 ## pgAdmin Setup (Optional)
@@ -93,8 +94,8 @@ If you started with the `tools` profile, you can access pgAdmin:
 
 1. Open http://localhost:8080 in your browser
 2. Login with:
-   - Email: `admin@example.com`
-   - Password: `admin`
+   - Email: `313@acu.edu.au`
+   - Password: `password`
 3. Add a new server connection:
    - Host: `postgres` (container name)
    - Port: `5432`
@@ -135,7 +136,9 @@ sleep 10  # Give it time to start
 ## Development Workflow
 
 1. Start the database: `docker-compose up postgres -d`
-2. Run your Spring Boot application locally
-3. Access your application endpoints
-4. Use pgAdmin (optional) to inspect the database
+2. Run your Spring Boot application: `mvn spring-boot:run`
+3. Watch the console output for Hibernate demonstrations
+4. Use pgAdmin (optional) to inspect the database at http://localhost:8080
+   - Email: `313@acu.edu.au`
+   - Password: `password`
 5. Stop when done: `docker-compose down`

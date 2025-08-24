@@ -16,86 +16,86 @@ class EntityBasicTest {
     @BeforeEach
     void setUp() {
         author = new Author();
-        author.setName("Test Author");
-        author.setEmail("test@example.com");
-        author.setBiography("Test biography");
-        author.setBirthDate(LocalDate.of(1990, 1, 1));
+        author.setName("Donald Horne");
+        author.setEmail("donald.horne@example.com");
+        author.setBiography("Australian journalist, writer, social critic and academic");
+        author.setBirthDate(LocalDate.of(1921, 12, 26));
 
         book = new Book();
-        book.setTitle("Test Book");
-        book.setDescription("Test description");
-        book.setPublicationYear(2023);
-        book.setIsbn("978-1234567890");
-        book.setPrice(new BigDecimal("19.99"));
-        book.setPageCount(300);
+        book.setTitle("The Lucky Country");
+        book.setDescription("A 1964 book about Australia that has become a nickname for the country. The title is generally used favourably, although the origin of the phrase was negative in the context of the book.");
+        book.setPublicationYear(1964);
+        book.setIsbn("978-0143180029");
+        book.setPrice(new BigDecimal("22.99"));
+        book.setPageCount(288);
 
         tag = new Tag();
-        tag.setName("Test Tag");
-        tag.setDescription("Test tag description");
+        tag.setName("Non-fiction");
+        tag.setDescription("Non-fiction literature and academic works");
     }
 
     @Test
     void testAuthorCreation() {
         // Test adding new data
         assertNotNull(author);
-        assertEquals("Test Author", author.getName());
-        assertEquals("test@example.com", author.getEmail());
-        assertEquals("Test biography", author.getBiography());
-        assertEquals(LocalDate.of(1990, 1, 1), author.getBirthDate());
+        assertEquals("Donald Horne", author.getName());
+        assertEquals("donald.horne@example.com", author.getEmail());
+        assertEquals("Australian journalist, writer, social critic and academic", author.getBiography());
+        assertEquals(LocalDate.of(1921, 12, 26), author.getBirthDate());
     }
 
     @Test
     void testBookCreation() {
         // Test adding new data
         assertNotNull(book);
-        assertEquals("Test Book", book.getTitle());
-        assertEquals("Test description", book.getDescription());
-        assertEquals(2023, book.getPublicationYear());
-        assertEquals("978-1234567890", book.getIsbn());
-        assertEquals(new BigDecimal("19.99"), book.getPrice());
-        assertEquals(300, book.getPageCount());
+        assertEquals("The Lucky Country", book.getTitle());
+        assertEquals("A 1964 book about Australia that has become a nickname for the country. The title is generally used favourably, although the origin of the phrase was negative in the context of the book.", book.getDescription());
+        assertEquals(1964, book.getPublicationYear());
+        assertEquals("978-0143180029", book.getIsbn());
+        assertEquals(new BigDecimal("22.99"), book.getPrice());
+        assertEquals(288, book.getPageCount());
     }
 
     @Test
     void testTagCreation() {
         // Test adding new data
         assertNotNull(tag);
-        assertEquals("Test Tag", tag.getName());
-        assertEquals("Test tag description", tag.getDescription());
+        assertEquals("Non-fiction", tag.getName());
+        assertEquals("Non-fiction literature and academic works", tag.getDescription());
     }
 
     @Test
     void testAuthorUpdate() {
         // Test updating data
-        author.setName("Updated Author");
-        author.setEmail("updated@example.com");
-        author.setBiography("Updated biography");
+        author.setName("Updated Donald Horne");
+        author.setEmail("updated.donald.horne@example.com");
+        author.setBiography("Updated Australian journalist biography");
 
-        assertEquals("Updated Author", author.getName());
-        assertEquals("updated@example.com", author.getEmail());
-        assertEquals("Updated biography", author.getBiography());
+        assertEquals("Updated Donald Horne", author.getName());
+        assertEquals("updated.donald.horne@example.com", author.getEmail());
+        assertEquals("Updated Australian journalist biography", author.getBiography());
     }
 
     @Test
     void testBookUpdate() {
         // Test updating data
-        book.setTitle("Updated Book");
-        book.setDescription("Updated description");
-        book.setPrice(new BigDecimal("29.99"));
+        book.setTitle("Updated Lucky Country");
+        book.setDescription("Updated description about Australia");
+        book.setPrice(new BigDecimal("24.99"));
 
-        assertEquals("Updated Book", book.getTitle());
-        assertEquals("Updated description", book.getDescription());
-        assertEquals(new BigDecimal("29.99"), book.getPrice());
+        assertEquals("Updated Lucky Country", book.getTitle());
+        assertEquals("Updated description about Australia", book.getDescription());
+        assertEquals(new BigDecimal("24.99"), book.getPrice());
     }
 
     @Test
     void testTagUpdate() {
         // Test updating data
-        tag.setName("Updated Tag");
-        tag.setDescription("Updated tag description");
+        tag.setName("Updated Non-fiction");
+        tag.setDescription("Updated non-fiction literature description");
 
-        assertEquals("Updated Tag", tag.getName());
-        assertEquals("Updated tag description", tag.getDescription());
+        assertEquals("Updated Non-fiction", tag.getName());
+        assertEquals("Updated non-fiction literature description", tag.getDescription());
     }
 
     @Test
@@ -143,36 +143,36 @@ class EntityBasicTest {
     @Test
     void testAuthorConstructor() {
         // Test constructor with parameters
-        Author newAuthor = new Author("Constructor Author", "constructor@example.com", 
-                                    "Constructor biography", LocalDate.of(1985, 5, 15));
+        Author newAuthor = new Author("Donald Horne", "donald.horne@example.com", 
+                                    "Australian journalist, writer, social critic and academic", LocalDate.of(1921, 12, 26));
         
-        assertEquals("Constructor Author", newAuthor.getName());
-        assertEquals("constructor@example.com", newAuthor.getEmail());
-        assertEquals("Constructor biography", newAuthor.getBiography());
-        assertEquals(LocalDate.of(1985, 5, 15), newAuthor.getBirthDate());
+        assertEquals("Donald Horne", newAuthor.getName());
+        assertEquals("donald.horne@example.com", newAuthor.getEmail());
+        assertEquals("Australian journalist, writer, social critic and academic", newAuthor.getBiography());
+        assertEquals(LocalDate.of(1921, 12, 26), newAuthor.getBirthDate());
     }
 
     @Test
     void testBookConstructor() {
         // Test constructor with parameters
-        Book newBook = new Book("Constructor Book", "Constructor description", 
-                               2020, "978-0987654321", new BigDecimal("15.99"), 250);
+        Book newBook = new Book("The Lucky Country", "A 1964 book about Australia", 
+                               1964, "978-0143180029", new BigDecimal("22.99"), 288);
         
-        assertEquals("Constructor Book", newBook.getTitle());
-        assertEquals("Constructor description", newBook.getDescription());
-        assertEquals(2020, newBook.getPublicationYear());
-        assertEquals("978-0987654321", newBook.getIsbn());
-        assertEquals(new BigDecimal("15.99"), newBook.getPrice());
-        assertEquals(250, newBook.getPageCount());
+        assertEquals("The Lucky Country", newBook.getTitle());
+        assertEquals("A 1964 book about Australia", newBook.getDescription());
+        assertEquals(1964, newBook.getPublicationYear());
+        assertEquals("978-0143180029", newBook.getIsbn());
+        assertEquals(new BigDecimal("22.99"), newBook.getPrice());
+        assertEquals(288, newBook.getPageCount());
     }
 
     @Test
     void testTagConstructor() {
         // Test constructor with parameters
-        Tag newTag = new Tag("Constructor Tag", "Constructor tag description");
+        Tag newTag = new Tag("Non-fiction", "Non-fiction literature and academic works");
         
-        assertEquals("Constructor Tag", newTag.getName());
-        assertEquals("Constructor tag description", newTag.getDescription());
+        assertEquals("Non-fiction", newTag.getName());
+        assertEquals("Non-fiction literature and academic works", newTag.getDescription());
     }
 
     @Test

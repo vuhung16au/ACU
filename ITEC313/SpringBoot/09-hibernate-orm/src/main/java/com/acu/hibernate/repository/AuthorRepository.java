@@ -17,6 +17,8 @@ import java.util.Optional;
 public interface AuthorRepository extends JpaRepository<Author, Long> {
     
     // Derived queries
+    Optional<Author> findByName(String name);
+    
     List<Author> findByNameContainingIgnoreCase(String name);
     
     Optional<Author> findByEmail(String email);
@@ -53,4 +55,8 @@ public interface AuthorRepository extends JpaRepository<Author, Long> {
     // Find authors by book count
     @Query("SELECT a FROM Author a WHERE SIZE(a.books) >= :minBooks")
     List<Author> findAuthorsWithAtLeastBooks(@Param("minBooks") int minBooks);
+    
+    // Find authors with books
+    @Query("SELECT a FROM Author a WHERE SIZE(a.books) > 0")
+    List<Author> findAuthorsWithBooks();
 }

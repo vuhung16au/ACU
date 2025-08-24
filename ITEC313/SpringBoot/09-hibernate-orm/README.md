@@ -1,352 +1,375 @@
-# Day 9 - Hibernate & ORM Basics
+# Hibernate ORM Demonstration Project
 
-## Goals
-- Understand ORM and Hibernate as a JPA provider; when and why to use ORM
-- Map entities and relationships (`@OneToMany`, `@ManyToOne`, `@ManyToMany`), cascading, and fetch strategies
-- Write queries via Spring Data derived methods, JPQL, and pagination/sorting
-- Manage transactions and avoid common pitfalls (N+1 selects, LazyInitializationException)
-- Optional: database migrations with Flyway
+A comprehensive Spring Boot project demonstrating Hibernate ORM concepts for beginners and students. This project focuses on core Hibernate functionality without the complexity of web APIs.
 
-## Features
-- Entity relationships (Author-Book, Book-Tag)
-- Spring Data JPA repositories with derived queries
-- JPQL queries and custom repository methods
-- Pagination and sorting
-- Lazy vs eager fetching demonstration
-- N+1 problem solutions with @EntityGraph
-- Database migrations with Flyway
-- Profile-based database configuration
+## ⚡ Quick Start (3 Steps)
 
-## Prerequisites
-- Java 17+
-- Maven 3.9+
-- Docker and Docker Compose
-
-## Quick Start
-
-### 1. Build the Project
 ```bash
-# Clean and compile the project
-mvn clean compile
+# 1. Start database services
+./scripts/start-services.sh
 
-# Run tests
+# 2. Run the Hibernate demo
+./scripts/run-demo.sh
+
+# 3. Stop services when done
+./scripts/stop-services.sh
+```
+
+**Optional**: Access pgAdmin at http://localhost:8080 (Email: `313@acu.edu.au`, Password: `password`)
+
+## 🎯 Learning Objectives
+
+This project demonstrates the following Hibernate ORM concepts:
+
+1. **Entity Creation and Persistence**
+   - Basic entity mapping with annotations
+   - Primary key generation strategies
+   - Field validation and constraints
+
+2. **Entity Relationships**
+   - **One-to-Many**: Author → Books
+   - **Many-to-One**: Books → Author  
+   - **Many-to-Many**: Books ↔ Tags
+
+3. **Hibernate Annotations**
+   - `@Entity`, `@Table`, `@Column`
+   - `@OneToMany`, `@ManyToOne`, `@ManyToMany`
+   - `@JoinColumn`, `@JoinTable`
+   - `@PrePersist`, `@PreUpdate`
+
+4. **CRUD Operations**
+   - Create, Read, Update, Delete operations
+   - Batch operations and transactions
+
+5. **Query Methods**
+   - Derived query methods (findBy, countBy, etc.)
+   - Custom JPQL queries
+   - Native SQL queries
+
+6. **Advanced Features**
+   - Lazy vs Eager loading
+   - Cascade operations
+   - Entity lifecycle callbacks
+
+## 🏗️ Project Structure
+
+```
+├── src/main/java/com/acu/hibernate/
+│   ├── entity/                 # JPA Entities
+│   │   ├── Author.java        # Author entity with One-to-Many relationship
+│   │   ├── Book.java          # Book entity with Many-to-One and Many-to-Many
+│   │   └── Tag.java           # Tag entity with Many-to-Many relationship
+│   ├── repository/            # Spring Data JPA Repositories
+│   │   ├── AuthorRepository.java
+│   │   ├── BookRepository.java
+│   │   └── TagRepository.java
+│   ├── demo/                  # Console-based demonstrations
+│   │   └── HibernateDemo.java # Main demonstration class
+│   └── HibernateOrmApplication.java
+├── docker/                   # Docker configuration
+│   ├── docker-compose.yml    # PostgreSQL and pgAdmin services
+│   └── README.md            # Docker setup instructions
+├── scripts/                  # Utility scripts
+│   ├── start-services.sh    # Start database services
+│   ├── run-demo.sh          # Run Hibernate demo
+│   └── stop-services.sh     # Stop database services
+└── README.md                # Project documentation
+```
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Java 17 or higher
+- Maven 3.6+
+- Docker and Docker Compose (recommended)
+- PostgreSQL 15+ (if not using Docker)
+
+### Using Docker (Recommended)
+
+#### Option 1: Using Scripts (Easiest)
+```bash
+# Start services (PostgreSQL + optional pgAdmin)
+./scripts/start-services.sh
+
+# Run the application
+./scripts/run-demo.sh
+
+# Stop services when done
+./scripts/stop-services.sh
+```
+
+#### Option 2: Manual Commands
+1. **Start PostgreSQL database:**
+   ```bash
+   cd docker
+   docker-compose up -d postgres
+   ```
+
+2. **Optional: Start with pgAdmin for database management:**
+   ```bash
+   cd docker
+   docker-compose --profile tools up -d
+   # Access pgAdmin at: http://localhost:8080
+   # Email: 313@acu.edu.au
+   # Password: password
+   ```
+
+3. **Run the application:**
+   ```bash
+   mvn spring-boot:run
+   ```
+
+### Manual Setup
+
+1. **Create PostgreSQL database:**
+   ```sql
+   CREATE DATABASE hibernate_demo;
+   CREATE USER postgres WITH PASSWORD 'password';
+   GRANT ALL PRIVILEGES ON DATABASE hibernate_demo TO postgres;
+   ```
+
+2. **Update database configuration** in `src/main/resources/application.yml`
+
+3. **Run the application:**
+   ```bash
+   mvn spring-boot:run
+   ```
+
+## 📚 Demonstrations
+
+When you run the application, you'll see console output demonstrating:
+
+### 1. Entity Creation and Persistence
+```java
+// Creating and saving entities
+Author author = new Author();
+author.setName("J.K. Rowling");
+author.setEmail("jk.rowling@example.com");
+Author savedAuthor = authorRepository.save(author);
+```
+
+### 2. One-to-Many Relationship
+```java
+// Author -> Books relationship
+Author author = authorRepository.findByName("J.K. Rowling").orElse(null);
+Book book = new Book("Harry Potter and the Philosopher's Stone", ...);
+author.addBook(book); // Establishes the relationship
+authorRepository.save(author); // Saves both author and book
+```
+
+### 3. Many-to-Many Relationship
+```java
+// Books <-> Tags relationship
+Book book = bookRepository.findAll().get(0);
+Tag fantasyTag = tagRepository.findByName("Fantasy").orElse(null);
+book.addTag(fantasyTag); // Establishes the relationship
+bookRepository.save(book);
+```
+
+### 4. CRUD Operations
+```java
+// CREATE
+Author newAuthor = authorRepository.save(author);
+
+// READ
+Optional<Author> foundAuthor = authorRepository.findById(id);
+
+// UPDATE
+author.setBiography("Updated biography");
+Author updatedAuthor = authorRepository.save(author);
+
+// DELETE
+authorRepository.deleteById(id);
+```
+
+### 5. Query Methods
+```java
+// Derived queries
+Optional<Author> author = authorRepository.findByName("J.K. Rowling");
+List<Book> books1997 = bookRepository.findByPublicationYear(1997);
+List<Book> expensiveBooks = bookRepository.findByPriceGreaterThan(new BigDecimal("30.00"));
+
+// Custom JPQL queries
+List<Author> authorsWithBooks = authorRepository.findAuthorsWithBooks();
+```
+
+### 6. Lazy Loading
+```java
+// Books are loaded lazily when accessed
+Author author = authorRepository.findByName("J.K. Rowling").orElse(null);
+System.out.println("Books count: " + author.getBooks().size()); // Triggers lazy loading
+```
+
+### 7. Cascade Operations
+```java
+// Saving author automatically saves associated books
+Author author = new Author("Stephen King", ...);
+Book book = new Book("The Shining", ...);
+author.addBook(book);
+authorRepository.save(author); // Both author and book are saved
+```
+
+## 🗄️ Database Schema
+
+The project uses Flyway for database migrations:
+
+### Tables Created:
+- `authors` - Author information
+- `books` - Book information with foreign key to authors
+- `tags` - Tag information
+- `book_tags` - Junction table for Many-to-Many relationship
+
+### Sample Data:
+- Authors: J.K. Rowling, Stephen King
+- Books: Harry Potter series, The Shining
+- Tags: Fantasy, Adventure, Young Adult
+
+### Database Management:
+- **pgAdmin**: Available at http://localhost:8080 (when using tools profile)
+- **Credentials**: Email: `313@acu.edu.au`, Password: `password`
+- **Database**: `hibernate_demo` on PostgreSQL
+
+## 🧪 Testing
+
+Run the tests to verify entity functionality:
+
+```bash
 mvn test
-
-# Package the application (creates JAR file)
-mvn package
 ```
 
-### 2. Start the Database
+Tests cover:
+- Entity creation and validation
+- Relationship management
+- CRUD operations
+- Entity lifecycle
+
+## 🛠️ Utility Scripts
+
+The project includes helpful scripts for managing services:
+
+### Service Management Scripts
+- **`scripts/start-services.sh`** - Start PostgreSQL and optionally pgAdmin
+- **`scripts/run-demo.sh`** - Run the Hibernate demonstration application
+- **`scripts/stop-services.sh`** - Stop all services with option to remove data
+
+### Usage
 ```bash
-# Start PostgreSQL using Docker Compose
-cd docker
-docker-compose up postgres -d
+# Start services interactively
+./scripts/start-services.sh
 
-# Verify database is running
-docker-compose ps
+# Run the demo
+./scripts/run-demo.sh
+
+# Stop services
+./scripts/stop-services.sh
 ```
 
-### 3. Run the Application
-```bash
-# Option 1: Using Maven Spring Boot plugin
-mvn spring-boot:run
+These scripts provide an interactive way to manage Docker services with helpful prompts and status information.
 
-# Option 2: Using the packaged JAR
-java -jar target/hibernate-orm-0.0.1-SNAPSHOT.jar
+## 📖 Key Hibernate Concepts Demonstrated
 
-# Option 3: Using Maven with specific profile
-mvn spring-boot:run -Dspring-boot.run.profiles=dev
+### Entity Annotations
+```java
+@Entity
+@Table(name = "authors")
+public class Author {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    @Column(nullable = false)
+    private String name;
+    
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Book> books = new ArrayList<>();
+}
 ```
 
-### 4. Test the Application
-```bash
-# Run the test script to verify all endpoints
-chmod +x scripts/test_endpoints.sh
-./scripts/test_endpoints.sh
+### Relationship Mappings
+```java
+// One-to-Many (Author -> Books)
+@OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+private List<Book> books;
 
-# Or test manually using curl
-curl http://localhost:8090/actuator/health
+// Many-to-One (Books -> Author)
+@ManyToOne(fetch = FetchType.LAZY)
+@JoinColumn(name = "author_id", nullable = false)
+private Author author;
+
+// Many-to-Many (Books <-> Tags)
+@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+@JoinTable(
+    name = "book_tags",
+    joinColumns = @JoinColumn(name = "book_id"),
+    inverseJoinColumns = @JoinColumn(name = "tag_id")
+)
+private Set<Tag> tags;
 ```
 
-## Detailed Instructions
+### Repository Methods
+```java
+// Derived queries
+Optional<Author> findByName(String name);
+List<Book> findByPublicationYear(Integer publicationYear);
+List<Book> findByPriceGreaterThan(BigDecimal price);
 
-### Building the Project
-
-#### Maven Commands
-```bash
-# Clean previous builds
-mvn clean
-
-# Compile source code
-mvn compile
-
-# Run unit tests
-mvn test
-
-# Package application (creates executable JAR)
-mvn package
-
-# Install to local Maven repository
-mvn install
-
-# Skip tests during build
-mvn package -DskipTests
-
-# Run with specific profile
-mvn spring-boot:run -Dspring-boot.run.profiles=prod
+// Custom JPQL queries
+@Query("SELECT a FROM Author a WHERE SIZE(a.books) > 0")
+List<Author> findAuthorsWithBooks();
 ```
 
-#### Build Output
-- Compiled classes: `target/classes/`
-- Test classes: `target/test-classes/`
-- Executable JAR: `target/hibernate-orm-0.0.1-SNAPSHOT.jar`
-- Test reports: `target/surefire-reports/`
+## 🔧 Configuration
 
-### Running the Application
-
-#### Database Setup
-```bash
-# Start PostgreSQL database
-cd docker
-docker-compose up postgres -d
-
-# Optional: Start with pgAdmin for database management
-docker-compose --profile tools up -d
-
-# Check database status
-docker-compose ps
-
-# View database logs
-docker-compose logs postgres
+### Application Properties
+```yaml
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/hibernate_demo
+    username: postgres
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
 ```
 
-#### Application Startup
-```bash
-# Development mode (with hot reload)
-mvn spring-boot:run
+### Logging
+The application logs SQL queries and Hibernate operations for educational purposes.
 
-# Production mode
-mvn spring-boot:run -Dspring-boot.run.profiles=prod
+## 🎓 Educational Benefits
 
-# With custom JVM options
-mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Xmx512m -Xms256m"
+This project is designed for:
 
-# Using packaged JAR
-java -jar target/hibernate-orm-0.0.1-SNAPSHOT.jar
+- **Beginners** learning Hibernate ORM
+- **Students** studying JPA and database relationships
+- **Developers** wanting to understand entity mapping
+- **Anyone** interested in Spring Data JPA
 
-# With custom properties
-java -jar target/hibernate-orm-0.0.1-SNAPSHOT.jar --server.port=9090
-```
+### What You'll Learn:
+- How to map Java objects to database tables
+- How to establish and manage relationships between entities
+- How to perform database operations using repositories
+- How to use Hibernate annotations effectively
+- How to write custom queries
+- How to handle entity lifecycle events
 
-#### Application URLs
-- **REST API**: http://localhost:8090
-- **Actuator Health**: http://localhost:8090/actuator/health
-- **Actuator Info**: http://localhost:8090/actuator/info
-- **Actuator Metrics**: http://localhost:8090/actuator/metrics
-- **pgAdmin** (if using tools profile): http://localhost:8080
+## 🤝 Contributing
 
-### Testing the Application
+Feel free to contribute by:
+- Adding more demonstration scenarios
+- Improving documentation
+- Adding more complex relationship examples
+- Creating additional test cases
 
-#### Automated Testing
-```bash
-# Run all tests
-mvn test
+## 📄 License
 
-# Run specific test class
-mvn test -Dtest=AuthorServiceTest
+This project is for educational purposes. Feel free to use and modify as needed.
 
-# Run tests with coverage
-mvn test jacoco:report
+---
 
-# Run integration tests
-mvn verify
-
-# Run tests in parallel
-mvn test -Dparallel=methods -DthreadCount=4
-```
-
-#### Manual API Testing
-```bash
-# Make the test script executable
-chmod +x scripts/test_endpoints.sh
-
-# Run the comprehensive test script
-./scripts/test_endpoints.sh
-
-# Test individual endpoints manually
-curl -X GET http://localhost:8090/api/authors
-curl -X GET http://localhost:8090/api/books
-curl -X GET http://localhost:8090/api/tags
-```
-
-#### Health Check
-```bash
-# Check application health
-curl http://localhost:8090/actuator/health
-
-# Check database connectivity
-curl http://localhost:8090/actuator/health/db
-```
-
-#### Performance Testing
-```bash
-# Test with Apache Bench (if installed)
-ab -n 1000 -c 10 http://localhost:8090/api/authors
-
-# Test with curl timing
-curl -w "@curl-format.txt" -o /dev/null -s http://localhost:8090/api/authors
-```
-
-### Development Tools
-
-#### Database Management
-```bash
-# Start pgAdmin for visual database management
-cd docker
-docker-compose --profile tools up -d
-
-# Access pgAdmin at http://localhost:8080
-# Email: admin@example.com
-# Password: admin
-```
-
-#### Hot Reload
-The application includes Spring Boot DevTools for automatic restart during development:
-```bash
-# Enable hot reload (enabled by default in development)
-mvn spring-boot:run
-
-# Disable hot reload
-mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Dspring.devtools.restart.enabled=false"
-```
-
-### Troubleshooting
-
-#### Common Issues
-
-**Database Connection Issues**
-```bash
-# Check if PostgreSQL is running
-docker-compose ps
-
-# Restart PostgreSQL
-docker-compose restart postgres
-
-# Check database logs
-docker-compose logs postgres
-```
-
-**Port Conflicts**
-```bash
-# Check what's using port 8090
-lsof -i :8090
-
-# Kill process using the port
-kill -9 <PID>
-
-# Or use a different port
-mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Dserver.port=9090"
-```
-
-**Memory Issues**
-```bash
-# Increase heap size
-mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Xmx1g -Xms512m"
-```
-
-#### Logs and Debugging
-```bash
-# View application logs
-tail -f logs/application.log
-
-# Enable debug logging
-mvn spring-boot:run -Dlogging.level.com.acu.hibernate=DEBUG
-
-# Enable SQL logging
-mvn spring-boot:run -Dlogging.level.org.hibernate.SQL=DEBUG
-```
-
-### Stopping Services
-```bash
-# Stop the application
-# Press Ctrl+C in the terminal running the application
-
-# Stop PostgreSQL
-cd docker
-docker-compose down
-
-# Stop all services including pgAdmin
-docker-compose --profile tools down
-
-# Stop and remove volumes (WARNING: This will delete all data)
-docker-compose down -v
-```
-
-## Entity Relationships
-
-### Author (1) — Book (N)
-- One author can have many books
-- Each book belongs to one author
-- Cascade operations for book management
-
-### Book (N) — Tag (M)
-- Many-to-many relationship
-- Books can have multiple tags
-- Tags can be associated with multiple books
-
-## Endpoints
-
-### Authors
-- `GET /api/authors` - Get all authors with pagination
-- `GET /api/authors/{id}` - Get author by ID
-- `POST /api/authors` - Create new author
-- `PUT /api/authors/{id}` - Update author
-- `DELETE /api/authors/{id}` - Delete author
-- `GET /api/authors/{id}/books` - Get author's books
-
-### Books
-- `GET /api/books` - Get all books with pagination
-- `GET /api/books/{id}` - Get book by ID
-- `POST /api/books` - Create new book
-- `PUT /api/books/{id}` - Update book
-- `DELETE /api/books/{id}` - Delete book
-- `GET /api/books/search?title={title}` - Search books by title
-- `GET /api/books/author/{authorId}` - Get books by author
-
-### Tags
-- `GET /api/tags` - Get all tags
-- `GET /api/tags/{id}` - Get tag by ID
-- `POST /api/tags` - Create new tag
-- `GET /api/tags/{id}/books` - Get books with specific tag
-
-## Query Examples
-
-### Derived Queries
-- `findByTitleContainingIgnoreCase`
-- `findByAuthorName`
-- `findByPublicationYearBetween`
-
-### JPQL Queries
-- `@Query("SELECT b FROM Book b WHERE b.title LIKE %:keyword%")`
-- `@Query("SELECT a FROM Author a JOIN FETCH a.books")`
-
-### Native Queries
-- `@Query(value = "SELECT * FROM books WHERE publication_year > :year", nativeQuery = true)`
-
-## Performance Features
-
-### Fetch Strategies
-- Lazy loading (default)
-- Eager loading with @EntityGraph
-- Fetch joins in JPQL
-
-### N+1 Problem Solutions
-- @EntityGraph for eager fetching
-- JOIN FETCH in JPQL
-- Batch fetching configuration
-
-## Links
-- [Hibernate Tutorial (GeeksforGeeks)](https://www.geeksforgeeks.org/java/hibernate-tutorial/)
-- [Accessing Data with JPA (Guide)](https://spring.io/guides/gs/accessing-data-jpa)
-- [Hibernate ORM Documentation](https://hibernate.org/orm/documentation/)
-- [Spring Data JPA Reference](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/)
+**Happy Learning! 🚀**
