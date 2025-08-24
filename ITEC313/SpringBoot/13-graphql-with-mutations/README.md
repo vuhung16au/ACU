@@ -18,10 +18,14 @@ A simple GraphQL service built with Spring Boot and Spring for GraphQL. This pro
 
 ## Project Description
 
-This project implements a comprehensive GraphQL server that provides access to a large collection of books and their authors, with a many-to-many relationship between books and genres. The service includes:
+This project implements a comprehensive GraphQL server that provides access to a large collection of books and their authors, with a many-to-many relationship between books and genres, and a one-to-many relationship between books and reviews. The service includes:
 
 ### Key Features
 
+- **Field-Level Security**: Hide sensitive fields based on user role
+  - **ADMIN users**: Can see all fields including book reviews
+  - **Non-admin users**: Reviews field is hidden (returns null)
+  - **Implementation**: Uses Spring Security context to check user roles at field resolution time
 - **Field Selection**: Clients can request only the specific fields they need, reducing over-fetching and under-fetching of data
 - **Nested Field Selection**: Support for selecting fields from related objects (e.g., author information within books)
 - **Performance Optimization**: Field selection helps optimize network usage and response times
@@ -31,13 +35,17 @@ This project implements a comprehensive GraphQL server that provides access to a
 - **2002 books** with diverse titles, genres, and page counts (150-800 pages)
 - **15 genres** with descriptions covering various literary categories
 - **Many-to-Many relationship** between books and genres (a book can belong to multiple genres)
-- GraphQL queries to retrieve books by ID with their associated author and genre information
+- **One-to-Many relationship** between books and reviews (a book can have multiple reviews)
+- GraphQL queries to retrieve books by ID with their associated author, genre, and review information
 - GraphQL queries with filtering capabilities (search by name, filter by genre, combined filtering)
 - GraphQL queries with sorting capabilities (sort by name, page count, genre)
 - GraphQL queries with combined filtering and sorting
 - GraphQL mutations for full CRUD operations (Create, Read, Update, Delete) with role-based permissions
 - Genre management with full CRUD operations
 - Book-Genre relationship management (add/remove genres from books)
+- Review system with 1-5 star ratings and comments
+- User-based review management (users can only modify their own reviews)
+- Automatic calculation of average ratings and review counts for books
 - RESTful GraphQL endpoint at `/graphql` (requires authentication)
 - Authentication endpoint at `/auth/login` for obtaining JWT tokens
 - Interactive GraphiQL interface at `/graphiql` (when enabled)
@@ -68,8 +76,13 @@ src/
 │   │   ├── CreateBookInput.java     # Input type for creating books
 │   │   ├── CreateAuthorInput.java   # Input type for creating authors
 │   │   ├── CreateGenreInput.java    # Input type for creating genres
+│   │   ├── CreateReviewInput.java   # Input type for creating reviews
 │   │   ├── UpdateBookInput.java     # Input type for updating books
 │   │   ├── UpdateGenreInput.java    # Input type for updating genres
+│   │   ├── UpdateReviewInput.java   # Input type for updating reviews
+│   │   ├── Review.java              # Review JPA entity
+│   │   ├── ReviewRepository.java    # JPA repository for reviews
+│   │   ├── ReviewController.java    # GraphQL controller for reviews
 │   │   └── GraphqlServerApplication.java  # Main application class
 │   └── resources/
 │       ├── application.properties   # Application configuration
@@ -79,11 +92,13 @@ src/
     └── java/com/acu/graphql/
         ├── BookControllerTest.java  # GraphQL controller tests (queries and mutations)
         ├── AuthControllerTest.java  # Authentication controller tests
+        ├── ReviewControllerTest.java # Review controller tests
         └── GraphqlServerApplicationTests.java  # Integration tests
 docker/
 ├── docker-compose.yml               # Docker setup for PostgreSQL and pgAdmin
 ├── init.sql                         # Database initialization script
 ├── add_cursor_column.sql            # Migration script for genres and book_genres
+├── add_reviews_table.sql            # Migration script for reviews table
 └── README.md                        # Docker setup instructions
 ```
 
@@ -111,10 +126,11 @@ docker/
    - Password: `postgres`
 
 4. **Sample Data**:
-   - The database will be automatically populated with **1002 authors**, **2002 books**, and **15 genres**
+   - The database will be automatically populated with **1002 authors**, **2002 books**, **15 genres**, and **sample reviews**
    - Sample data includes realistic names, diverse book titles, varied page counts, and genre descriptions
    - Data is generated using templates that create believable book titles and author names
    - Books are automatically linked to genres based on their existing genre field
+   - Sample reviews are included to demonstrate the review system functionality
 
 ## How to Build
 
@@ -186,6 +202,17 @@ This project now supports a many-to-many relationship between books and genres, 
 - **Flexible Categorization**: Books can be categorized more accurately and flexibly
 - **Backward Compatibility**: The existing `genre` string field is maintained for compatibility
 
+## One-to-Many Review Relationship
+
+This project now supports a one-to-many relationship between books and reviews, allowing:
+
+- **Multiple Reviews per Book**: A book can have multiple reviews from different users
+- **User-Based Reviews**: Each review is associated with a specific user
+- **Rating System**: 1-5 star rating system with optional comments
+- **Review Management**: Full CRUD operations for reviews with user ownership validation
+- **Automatic Calculations**: Average ratings and review counts are automatically calculated
+- **Data Integrity**: Foreign key constraints ensure data consistency
+
 ### Database Schema
 
 ```sql
@@ -204,6 +231,18 @@ CREATE TABLE book_genres (
     FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE,
     FOREIGN KEY (genre_id) REFERENCES genres(id) ON DELETE CASCADE
 );
+
+-- Reviews table for one-to-many relationship
+CREATE TABLE reviews (
+    id VARCHAR(50) PRIMARY KEY,
+    book_id VARCHAR(50) NOT NULL,
+    user_id BIGINT NOT NULL,
+    rating INTEGER CHECK (rating >= 1 AND rating <= 5),
+    comment TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
 ```
 
 ### Sample Genres
@@ -212,6 +251,110 @@ The system includes 15 predefined genres:
 - Fiction, Non-Fiction, Science Fiction, Fantasy, Mystery
 - Thriller, Romance, Adventure, Historical Fiction, Biography
 - Children, Horror, Poetry, Drama, Comedy
+
+## Field-Level Security
+
+This project implements **field-level security** to hide sensitive fields based on user roles. This is a powerful security feature that allows fine-grained control over what data users can access.
+
+### Implementation
+
+Field-level security is implemented using Spring Security's `SecurityContextHolder` to check user roles at field resolution time. The `reviews` field in the `Book` type is protected:
+
+```java
+@SchemaMapping
+public List<Review> reviews(Book book) {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    
+    // Check if user is authenticated and has ADMIN role
+    if (authentication != null && 
+        authentication.isAuthenticated() && 
+        authentication.getAuthorities().stream()
+            .anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"))) {
+        return new ArrayList<>(book.getReviews());
+    }
+    
+    // Return null for non-admin users (field will be hidden)
+    return null;
+}
+```
+
+### Security Rules
+
+- **ADMIN Role**: Can see all fields including book reviews
+- **USER Role**: Cannot see book reviews (field returns null)
+- **Unauthenticated**: Cannot see book reviews (field returns null)
+
+### Example Queries
+
+#### ADMIN User - Can See Reviews
+```graphql
+query {
+  bookById(id: "book-1") {
+    id
+    name
+    reviews {
+      id
+      rating
+      comment
+    }
+  }
+}
+```
+
+**Response for ADMIN user:**
+```json
+{
+  "data": {
+    "bookById": {
+      "id": "book-1",
+      "name": "The Lucky Country",
+      "reviews": [
+        {
+          "id": "review-1",
+          "rating": 5,
+          "comment": "Excellent book!"
+        }
+      ]
+    }
+  }
+}
+```
+
+#### Non-ADMIN User - Reviews Hidden
+```graphql
+query {
+  bookById(id: "book-1") {
+    id
+    name
+    reviews {
+      id
+      rating
+      comment
+    }
+  }
+}
+```
+
+**Response for non-ADMIN user:**
+```json
+{
+  "data": {
+    "bookById": {
+      "id": "book-1",
+      "name": "The Lucky Country",
+      "reviews": null
+    }
+  }
+}
+```
+
+### Benefits
+
+1. **Fine-grained Security**: Control access at the field level, not just the object level
+2. **Transparent to Clients**: Non-admin users simply see `null` for protected fields
+3. **No Data Leakage**: Sensitive data is never sent to unauthorized users
+4. **GraphQL Native**: Leverages GraphQL's field resolution mechanism
+5. **Performance**: No additional database queries for security checks
 
 ## GraphQL Queries
 
@@ -768,6 +911,68 @@ query {
 }
 ```
 
+### Query book with reviews and ratings:
+
+```graphql
+query {
+  bookById(id: "book-1") {
+    id
+    name
+    pageCount
+    averageRating
+    reviewCount
+    reviews {
+      id
+      rating
+      comment
+      createdAt
+      user {
+        username
+      }
+    }
+  }
+}
+```
+
+### Query reviews for a specific book:
+
+```graphql
+query {
+  reviewsByBook(bookId: "book-1") {
+    id
+    bookId
+    userId
+    rating
+    comment
+    createdAt
+    user {
+      username
+    }
+  }
+}
+```
+
+### Query reviews by a specific user:
+
+```graphql
+query {
+  reviewsByUser(userId: "1") {
+    id
+    bookId
+    rating
+    comment
+    createdAt
+    book {
+      name
+      author {
+        firstName
+        lastName
+      }
+    }
+  }
+}
+```
+
 ## GraphQL Mutations
 
 The project now supports full CRUD operations through GraphQL mutations. **All mutations require ADMIN role authentication**:
@@ -912,7 +1117,53 @@ mutation {
 }
 ```
 
-**Note**: All mutations require a valid JWT token with ADMIN role in the Authorization header:
+### 10. Create Review
+
+```graphql
+mutation {
+  createReview(input: {
+    bookId: "book-1"
+    rating: 5
+    comment: "Excellent book! Highly recommended."
+  }) {
+    id
+    bookId
+    userId
+    rating
+    comment
+    createdAt
+  }
+}
+```
+
+### 11. Update Review
+
+```graphql
+mutation {
+  updateReview(id: "review-1", input: {
+    rating: 4
+    comment: "Updated comment: Great book with some minor issues."
+  }) {
+    id
+    rating
+    comment
+    createdAt
+  }
+}
+```
+
+### 12. Delete Review
+
+```graphql
+mutation {
+  deleteReview(id: "review-1")
+}
+```
+
+**Note**: 
+- Book, Author, and Genre mutations require a valid JWT token with ADMIN role in the Authorization header
+- Review mutations require a valid JWT token (any authenticated user can create reviews, but users can only update/delete their own reviews)
+
 ```
 Authorization: Bearer YOUR_JWT_TOKEN
 ```
@@ -973,6 +1224,9 @@ The GraphQL schema defines the following types:
 - **genres**: Retrieve all genres
 - **genreById(id: ID)**: Retrieve a genre by its ID
 - **booksByGenre(genreId: ID!, first: Int, after: String)**: Retrieve books by specific genre with pagination
+- **reviewsByBook(bookId: ID!)**: Retrieve all reviews for a specific book
+- **reviewsByUser(userId: ID!)**: Retrieve all reviews by a specific user
+- **reviewById(id: ID!)**: Retrieve a review by its ID
 
 ### Mutation Type
 - **createBook(input: CreateBookInput!)**: Create a new book
@@ -984,11 +1238,16 @@ The GraphQL schema defines the following types:
 - **deleteGenre(id: ID!)**: Delete a genre by ID
 - **addGenreToBook(bookId: ID!, genreId: ID!)**: Add a genre to a book
 - **removeGenreFromBook(bookId: ID!, genreId: ID!)**: Remove a genre from a book
+- **createReview(input: CreateReviewInput!)**: Create a new review
+- **updateReview(id: ID!, input: UpdateReviewInput!)**: Update an existing review
+- **deleteReview(id: ID!)**: Delete a review by ID
 
 ### Object Types
-- **Book**: Book type with id, name, pageCount, genre, genres, and author fields
+- **Book**: Book type with id, name, pageCount, genre, genres, author, reviews, averageRating, and reviewCount fields
 - **Author**: Author type with id, firstName, and lastName fields
 - **Genre**: Genre type with id, name, description, and books fields
+- **Review**: Review type with id, bookId, userId, rating, comment, createdAt, book, and user fields
+- **User**: User type with id, username, role, and reviews fields
 - **BookConnection**: Paginated connection containing edges, pageInfo, and totalCount
 - **BookEdge**: Edge containing cursor and book node
 - **PageInfo**: Pagination metadata with hasNextPage, hasPreviousPage, startCursor, and endCursor
@@ -1000,8 +1259,10 @@ The GraphQL schema defines the following types:
 - **CreateBookInput**: Input for creating books (name, pageCount, authorId, genre)
 - **CreateAuthorInput**: Input for creating authors (firstName, lastName)
 - **CreateGenreInput**: Input for creating genres (name, description)
+- **CreateReviewInput**: Input for creating reviews (bookId, rating, comment)
 - **UpdateBookInput**: Input for updating books (optional name, pageCount, authorId, genre)
 - **UpdateGenreInput**: Input for updating genres (optional name, description)
+- **UpdateReviewInput**: Input for updating reviews (optional rating, comment)
 
 ## Testing
 

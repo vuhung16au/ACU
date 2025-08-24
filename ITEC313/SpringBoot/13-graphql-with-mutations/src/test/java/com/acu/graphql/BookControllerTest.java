@@ -16,6 +16,8 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.any;
 import java.util.Arrays;
 import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @GraphQlTest(BookController.class)
 class BookControllerTest {
@@ -40,6 +42,17 @@ class BookControllerTest {
         
         Book book1 = new Book("book-1", "The Lucky Country", 300, "author-1", "Non-Fiction");
         Book book2 = new Book("book-2", "The Magic Pudding: Being The Adventures of Bunyip Bluegum and his friends Bill Barnacle and Sam Sawnoff", 250, "author-2", "Children");
+        
+        // Add sample reviews to book1 for testing field-level security
+        Set<Review> reviews = new HashSet<>();
+        Review review1 = new Review();
+        review1.setId("review-1");
+        review1.setBookId("book-1");
+        review1.setUserId(1L);
+        review1.setRating(5);
+        review1.setComment("Excellent book!");
+        reviews.add(review1);
+        book1.setReviews(reviews);
         
         // Mock repository responses
         when(bookRepository.findById("book-1")).thenReturn(java.util.Optional.of(book1));
@@ -996,5 +1009,127 @@ class BookControllerTest {
                 .path("data.books.edges[0].node.author.firstName")
                 .entity(String.class)
                 .isEqualTo("Donald");
+    }
+    
+    // Field-level Security Tests
+    
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    void shouldShowReviewsForAdminUser() {
+        String document = """
+                query {
+                    bookById(id: "book-1") {
+                        id
+                        name
+                        reviews {
+                            id
+                            rating
+                            comment
+                        }
+                    }
+                }
+                """;
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.bookById.reviews")
+                .entityList(Object.class)
+                .hasSize(1);
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.bookById.reviews[0].rating")
+                .entity(Integer.class)
+                .isEqualTo(5);
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.bookById.reviews[0].comment")
+                .entity(String.class)
+                .isEqualTo("Excellent book!");
+    }
+    
+    @Test
+    @WithMockUser(roles = "USER")
+    void shouldHideReviewsForNonAdminUser() {
+        String document = """
+                query {
+                    bookById(id: "book-1") {
+                        id
+                        name
+                        reviews {
+                            id
+                            rating
+                            comment
+                        }
+                    }
+                }
+                """;
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.bookById.reviews")
+                .valueIsNull();
+    }
+    
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    void shouldShowReviewsInBookListForAdminUser() {
+        String document = """
+                query {
+                    books(first: 1) {
+                        edges {
+                            node {
+                                id
+                                name
+                                reviews {
+                                    id
+                                    rating
+                                    comment
+                                }
+                            }
+                        }
+                    }
+                }
+                """;
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.books.edges[0].node.reviews")
+                .entityList(Object.class)
+                .hasSize(1);
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.books.edges[0].node.reviews[0].rating")
+                .entity(Integer.class)
+                .isEqualTo(5);
+    }
+    
+    @Test
+    @WithMockUser(roles = "USER")
+    void shouldHideReviewsInBookListForNonAdminUser() {
+        String document = """
+                query {
+                    books(first: 1) {
+                        edges {
+                            node {
+                                id
+                                name
+                                reviews {
+                                    id
+                                    rating
+                                    comment
+                                }
+                            }
+                        }
+                    }
+                }
+                """;
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.books.edges[0].node.reviews")
+                .valueIsNull();
     }
 }

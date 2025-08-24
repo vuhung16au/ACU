@@ -3042,3 +3042,17 @@ INSERT INTO books (id, name, page_count, author_id, genre, cursor) VALUES ('book
 INSERT INTO books (id, name, page_count, author_id, genre, cursor) VALUES ('book-2000', 'The Tower of New York', 720, 'author-82', 'Adventure', 'Ym9vay0yMDAw');
 INSERT INTO books (id, name, page_count, author_id, genre, cursor) VALUES ('book-2001', 'The Mysterious Island', 672, 'author-101', 'Romance', 'Ym9vay0yMDAx');
 INSERT INTO books (id, name, page_count, author_id, genre, cursor) VALUES ('book-2002', 'A Big Island', 207, 'author-370', 'Adventure', 'Ym9vay0yMDAy');
+
+-- Users for GraphQL Book Database
+-- Generated for Docker migration
+-- Passwords are BCrypt encrypted (123456 -> $2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iKTVEFDa)
+
+-- Admin users
+INSERT INTO users (username, password, role) VALUES 
+('313@acu.com', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iKTVEFDa', 'ADMIN'),
+('admin@acu.com', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iKTVEFDa', 'ADMIN');
+
+-- Normal users (non-admin)
+INSERT INTO users (username, password, role) VALUES 
+('user@acu.com', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iKTVEFDa', 'USER'),
+('000@acu.com', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iKTVEFDa', 'USER');

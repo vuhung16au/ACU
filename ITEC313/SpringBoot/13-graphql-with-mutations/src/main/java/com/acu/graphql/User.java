@@ -7,6 +7,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 
 @Entity
 @Table(name = "users")
@@ -24,6 +26,9 @@ public class User implements UserDetails {
     
     @Column(nullable = false)
     private String role;
+    
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Review> reviews = new HashSet<>();
     
     public User() {}
     
@@ -90,5 +95,13 @@ public class User implements UserDetails {
     
     public void setRole(String role) {
         this.role = role;
+    }
+    
+    public Set<Review> getReviews() {
+        return reviews;
+    }
+    
+    public void setReviews(Set<Review> reviews) {
+        this.reviews = reviews;
     }
 }

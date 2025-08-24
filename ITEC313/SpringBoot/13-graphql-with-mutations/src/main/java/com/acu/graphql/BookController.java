@@ -8,12 +8,15 @@ import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import com.acu.graphql.Review;
 
 @Controller
 public class BookController {
@@ -299,6 +302,26 @@ public class BookController {
     @SchemaMapping
     public List<Book> books(Genre genre) {
         return new ArrayList<>(genre.getBooks());
+    }
+    
+    /**
+     * Field-level security: Only ADMIN users can see reviews
+     * Non-admin users will see null for the reviews field
+     */
+    @SchemaMapping
+    public List<Review> reviews(Book book) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        
+        // Check if user is authenticated and has ADMIN role
+        if (authentication != null && 
+            authentication.isAuthenticated() && 
+            authentication.getAuthorities().stream()
+                .anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"))) {
+            return new ArrayList<>(book.getReviews());
+        }
+        
+        // Return null for non-admin users (field will be hidden)
+        return null;
     }
     
     @MutationMapping

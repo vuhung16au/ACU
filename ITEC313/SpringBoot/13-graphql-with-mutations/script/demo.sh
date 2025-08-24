@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "=== Spring Boot GraphQL Server Demo (with Many-to-Many Genres) ==="
+echo "=== Spring Boot GraphQL Server Demo (with Many-to-Many Genres and Reviews) ==="
 echo
 
 # Check if the server is running
@@ -470,6 +470,146 @@ curl -X POST \
 echo
 echo
 
+echo "9. Testing Field-Level Security (Reviews Visibility)..."
+echo
+echo "🔒 Field-Level Security: Only ADMIN users can see book reviews"
+echo "   - ADMIN users: Can see reviews field"
+echo "   - Non-admin users: Reviews field returns null (hidden)"
+
+# Test 29: Query book with reviews as ADMIN user (should show reviews)
+echo
+echo "👑 ADMIN User - Querying book-1 with reviews (should show reviews):"
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{
+    "query": "query { bookById(id: \"book-1\") { id name reviews { id rating comment } } }"
+  }' \
+  http://localhost:8081/graphql
+
+echo
+echo
+
+# Test 29.1: Query book with reviews as USER role (should hide reviews)
+echo "👤 USER Role - Querying book-1 with reviews (should hide reviews):"
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{
+    "query": "query { bookById(id: \"book-1\") { id name reviews { id rating comment } } }"
+  }' \
+  http://localhost:8081/graphql
+
+echo
+echo
+
+# Test 29.2: Query books list with reviews as ADMIN user
+echo "👑 ADMIN User - Querying books list with reviews (should show reviews):"
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{
+    "query": "query { books(first: 1) { edges { node { id name reviews { id rating comment } } } } }"
+  }' \
+  http://localhost:8081/graphql
+
+echo
+echo
+
+echo "10. Testing Review Functionality..."
+
+# Test 30: Query reviews for a book
+echo
+echo "⭐ Querying reviews for book-1:"
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{
+    "query": "query { reviewsByBook(bookId: \"book-1\") { id bookId userId rating comment createdAt } }"
+  }' \
+  http://localhost:8081/graphql
+
+echo
+echo
+
+# Test 31: Query book with reviews and ratings
+echo "⭐ Querying book-1 with reviews and ratings:"
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{
+    "query": "query { bookById(id: \"book-1\") { id name averageRating reviewCount reviews { id rating comment createdAt } } }"
+  }' \
+  http://localhost:8081/graphql
+
+echo
+echo
+
+# Test 32: Create a new review
+echo "⭐ Creating a new review for book-1:"
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{
+    "query": "mutation { createReview(input: { bookId: \"book-1\", rating: 5, comment: \"Amazing book about Australia! Highly recommended.\" }) { id bookId userId rating comment createdAt } }"
+  }' \
+  http://localhost:8081/graphql
+
+echo
+echo
+
+# Test 33: Update a review
+echo "⭐ Updating a review:"
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{
+    "query": "mutation { updateReview(id: \"review-1\", input: { rating: 4, comment: \"Updated comment: Great historical perspective!\" }) { id rating comment } }"
+  }' \
+  http://localhost:8081/graphql
+
+echo
+echo
+
+# Test 34: Query reviews by user
+echo "⭐ Querying reviews by user:"
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{
+    "query": "query { reviewsByUser(userId: \"1\") { id bookId rating comment createdAt } }"
+  }' \
+  http://localhost:8081/graphql
+
+echo
+echo
+
+# Test 35: Delete a review
+echo "⭐ Deleting a review:"
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{
+    "query": "mutation { deleteReview(id: \"review-2\") }"
+  }' \
+  http://localhost:8081/graphql
+
+echo
+echo
+
+# Test 36: Verify book ratings after review operations
+echo "⭐ Verifying book ratings after review operations:"
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{
+    "query": "query { bookById(id: \"book-1\") { id name averageRating reviewCount } }"
+  }' \
+  http://localhost:8081/graphql
+
+echo
+echo
+
 echo "=== Demo completed ==="
 echo
 echo "💡 You can also access the interactive GraphiQL interface at:"
@@ -487,6 +627,9 @@ echo
 echo "🔄 Features demonstrated:"
 echo "   - Authentication: JWT-based login"
 echo "   - Authorization: Role-based access control"
+echo "   - Field-Level Security: Hide sensitive fields based on user role"
+echo "     * ADMIN users: Can see book reviews"
+echo "     * Non-admin users: Reviews field is hidden (returns null)"
 echo "   - Field Selection: Request only needed fields (name, genre, author)"
 echo "   - bookById: Query individual books with field selection"
 echo "   - books: Paginated book queries with cursor-based pagination"
@@ -508,3 +651,12 @@ echo "   - deleteBook: Remove books (ADMIN only)"
 echo "   - deleteGenre: Remove genres (ADMIN only)"
 echo "   - addGenreToBook: Add genre to book (ADMIN only)"
 echo "   - removeGenreFromBook: Remove genre from book (ADMIN only)"
+echo "   - reviewsByBook: Query reviews for a specific book"
+echo "   - reviewsByUser: Query reviews by a specific user"
+echo "   - reviewById: Query individual reviews"
+echo "   - createReview: Add new reviews (authenticated users)"
+echo "   - updateReview: Modify existing reviews (owner only)"
+echo "   - deleteReview: Remove reviews (owner only)"
+echo "   - One-to-Many: Books can have multiple reviews"
+echo "   - Rating System: 1-5 star ratings with comments"
+echo "   - Average Ratings: Automatic calculation of book ratings"

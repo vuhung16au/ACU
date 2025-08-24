@@ -34,6 +34,9 @@ public class Book {
     )
     private Set<Genre> genres = new HashSet<>();
     
+    @OneToMany(mappedBy = "book", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Review> reviews = new HashSet<>();
+    
     // Default constructor for JPA
     public Book() {}
     
@@ -101,6 +104,14 @@ public class Book {
     
     public void setGenres(Set<Genre> genres) {
         this.genres = genres;
+    }
+    
+    public Set<Review> getReviews() {
+        return reviews;
+    }
+    
+    public void setReviews(Set<Review> reviews) {
+        this.reviews = reviews;
     }
     
     // Helper methods for genre management
