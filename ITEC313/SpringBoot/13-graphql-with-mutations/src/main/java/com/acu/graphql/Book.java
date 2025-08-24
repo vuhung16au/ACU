@@ -21,14 +21,18 @@ public class Book {
     @Column(name = "cursor")
     private String cursor;
     
+    @Column(name = "genre")
+    private String genre;
+    
     // Default constructor for JPA
     public Book() {}
     
-    public Book(String id, String name, int pageCount, String authorId) {
+    public Book(String id, String name, int pageCount, String authorId, String genre) {
         this.id = id;
         this.name = name;
         this.pageCount = pageCount;
         this.authorId = authorId;
+        this.genre = genre;
         this.cursor = java.util.Base64.getEncoder().encodeToString(id.getBytes());
     }
     
@@ -71,5 +75,13 @@ public class Book {
     
     public void setCursor(String cursor) {
         this.cursor = cursor;
+    }
+    
+    public String getGenre() {
+        return genre;
+    }
+    
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 }

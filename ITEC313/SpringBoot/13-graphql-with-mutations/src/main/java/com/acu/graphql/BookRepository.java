@@ -15,4 +15,22 @@ public interface BookRepository extends JpaRepository<Book, String> {
     
     @Query("SELECT b FROM Book b ORDER BY b.cursor ASC")
     Page<Book> findBooks(Pageable pageable);
+    
+    @Query("SELECT b FROM Book b WHERE b.cursor > :cursor AND LOWER(b.name) LIKE LOWER(CONCAT('%', :search, '%')) ORDER BY b.cursor ASC")
+    Page<Book> findBooksAfterCursorWithSearch(@Param("cursor") String cursor, @Param("search") String search, Pageable pageable);
+    
+    @Query("SELECT b FROM Book b WHERE LOWER(b.name) LIKE LOWER(CONCAT('%', :search, '%')) ORDER BY b.cursor ASC")
+    Page<Book> findBooksWithSearch(@Param("search") String search, Pageable pageable);
+    
+    @Query("SELECT b FROM Book b WHERE b.cursor > :cursor AND LOWER(b.genre) = LOWER(:genre) ORDER BY b.cursor ASC")
+    Page<Book> findBooksAfterCursorWithGenre(@Param("cursor") String cursor, @Param("genre") String genre, Pageable pageable);
+    
+    @Query("SELECT b FROM Book b WHERE LOWER(b.genre) = LOWER(:genre) ORDER BY b.cursor ASC")
+    Page<Book> findBooksWithGenre(@Param("genre") String genre, Pageable pageable);
+    
+    @Query("SELECT b FROM Book b WHERE b.cursor > :cursor AND LOWER(b.name) LIKE LOWER(CONCAT('%', :search, '%')) AND LOWER(b.genre) = LOWER(:genre) ORDER BY b.cursor ASC")
+    Page<Book> findBooksAfterCursorWithSearchAndGenre(@Param("cursor") String cursor, @Param("search") String search, @Param("genre") String genre, Pageable pageable);
+    
+    @Query("SELECT b FROM Book b WHERE LOWER(b.name) LIKE LOWER(CONCAT('%', :search, '%')) AND LOWER(b.genre) = LOWER(:genre) ORDER BY b.cursor ASC")
+    Page<Book> findBooksWithSearchAndGenre(@Param("search") String search, @Param("genre") String genre, Pageable pageable);
 }

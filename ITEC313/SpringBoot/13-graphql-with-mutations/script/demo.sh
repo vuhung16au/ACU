@@ -95,7 +95,7 @@ curl -X POST \
 echo
 echo
 
-echo "4. Testing GraphQL Pagination..."
+echo "4. Testing GraphQL Pagination and Filtering..."
 
 # Test 11: Query books with pagination
 echo
@@ -104,7 +104,7 @@ curl -X POST \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $TOKEN" \
   -d '{
-    "query": "query { books(first: 3) { edges { cursor node { id name pageCount author { id firstName lastName } } } pageInfo { hasNextPage hasPreviousPage startCursor endCursor } totalCount } }"
+    "query": "query { books(first: 3) { edges { cursor node { id name pageCount genre author { id firstName lastName } } } pageInfo { hasNextPage hasPreviousPage startCursor endCursor } totalCount } }"
   }' \
   http://localhost:8081/graphql
 
@@ -117,7 +117,46 @@ curl -X POST \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $TOKEN" \
   -d '{
-    "query": "query { books(first: 2, after: \"Ym9vay0x\") { edges { cursor node { id name pageCount author { id firstName lastName } } } pageInfo { hasNextPage hasPreviousPage startCursor endCursor } totalCount } }"
+    "query": "query { books(first: 2, after: \"Ym9vay0x\") { edges { cursor node { id name pageCount genre author { id firstName lastName } } } pageInfo { hasNextPage hasPreviousPage startCursor endCursor } totalCount } }"
+  }' \
+  http://localhost:8081/graphql
+
+echo
+echo
+
+# Test 13: Query books with search filter
+echo "🔍 Querying books with search filter (search: 'Lucky'):"
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{
+    "query": "query { books(first: 5, search: \"Lucky\") { edges { cursor node { id name pageCount genre author { id firstName lastName } } } pageInfo { hasNextPage hasPreviousPage startCursor endCursor } totalCount } }"
+  }' \
+  http://localhost:8081/graphql
+
+echo
+echo
+
+# Test 14: Query books with genre filter
+echo "📚 Querying books with genre filter (genre: 'Non-Fiction'):"
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{
+    "query": "query { books(first: 5, genre: \"Non-Fiction\") { edges { cursor node { id name pageCount genre author { id firstName lastName } } } pageInfo { hasNextPage hasPreviousPage startCursor endCursor } totalCount } }"
+  }' \
+  http://localhost:8081/graphql
+
+echo
+echo
+
+# Test 15: Query books with search and genre filter
+echo "🔍📚 Querying books with search and genre filter (search: 'Lucky', genre: 'Non-Fiction'):"
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{
+    "query": "query { books(first: 5, search: \"Lucky\", genre: \"Non-Fiction\") { edges { cursor node { id name pageCount genre author { id firstName lastName } } } pageInfo { hasNextPage hasPreviousPage startCursor endCursor } totalCount } }"
   }' \
   http://localhost:8081/graphql
 
@@ -146,7 +185,7 @@ curl -X POST \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $TOKEN" \
   -d '{
-    "query": "mutation { createBook(input: { name: \"Pride and Prejudice\", pageCount: 432, authorId: \"author-1\" }) { id name pageCount author { id firstName lastName } } }"
+    "query": "mutation { createBook(input: { name: \"Pride and Prejudice\", pageCount: 432, authorId: \"author-1\", genre: \"Romance\" }) { id name pageCount genre author { id firstName lastName } } }"
   }' \
   http://localhost:8081/graphql
 
@@ -159,7 +198,7 @@ curl -X POST \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $TOKEN" \
   -d '{
-    "query": "mutation { updateBook(id: \"book-1\", input: { name: \"The Lucky Country - Updated Edition\", pageCount: 320 }) { id name pageCount author { id firstName lastName } } }"
+    "query": "mutation { updateBook(id: \"book-1\", input: { name: \"The Lucky Country - Updated Edition\", pageCount: 320, genre: \"History\" }) { id name pageCount genre author { id firstName lastName } } }"
   }' \
   http://localhost:8081/graphql
 
@@ -198,7 +237,7 @@ curl -X POST \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $TOKEN" \
   -d '{
-    "query": "query { bookById(id: \"book-1\") { id name pageCount author { id firstName lastName } } }"
+    "query": "query { bookById(id: \"book-1\") { id name pageCount genre author { id firstName lastName } } }"
   }' \
   http://localhost:8081/graphql
 
@@ -224,6 +263,9 @@ echo "   - Authentication: JWT-based login"
 echo "   - Authorization: Role-based access control"
 echo "   - bookById: Query individual books"
 echo "   - books: Paginated book queries with cursor-based pagination"
+echo "   - books: Search filtering by book name"
+echo "   - books: Genre filtering"
+echo "   - books: Combined search and genre filtering"
 echo "   - createAuthor: Add new authors (ADMIN only)"
 echo "   - createBook: Add new books (ADMIN only)"
 echo "   - updateBook: Modify existing books (ADMIN only)"

@@ -24,6 +24,7 @@ This project implements a comprehensive GraphQL server that provides access to a
 - **1002 authors** with realistic names from various backgrounds
 - **2002 books** with diverse titles, genres, and page counts (150-800 pages)
 - GraphQL queries to retrieve books by ID with their associated author information
+- GraphQL queries with filtering capabilities (search by name, filter by genre, combined filtering)
 - GraphQL mutations for full CRUD operations (Create, Read, Update, Delete) with role-based permissions
 - RESTful GraphQL endpoint at `/graphql` (requires authentication)
 - Authentication endpoint at `/auth/login` for obtaining JWT tokens
@@ -188,6 +189,7 @@ query {
         id
         name
         pageCount
+        genre
         author {
           id
           firstName
@@ -217,6 +219,7 @@ query {
         id
         name
         pageCount
+        genre
         author {
           id
           firstName
@@ -244,6 +247,7 @@ query {
       "id": "book-1",
       "name": "The Lucky Country",
       "pageCount": 300,
+      "genre": "Non-Fiction",
       "author": {
         "id": "author-1",
         "firstName": "Donald",
@@ -267,6 +271,7 @@ query {
             "id": "book-1",
             "name": "The Lucky Country",
             "pageCount": 300,
+            "genre": "Non-Fiction",
             "author": {
               "id": "author-1",
               "firstName": "Donald",
@@ -280,6 +285,7 @@ query {
             "id": "book-2",
             "name": "The Magic Pudding",
             "pageCount": 250,
+            "genre": "Children",
             "author": {
               "id": "author-2",
               "firstName": "Norman",
@@ -296,6 +302,100 @@ query {
       },
       "totalCount": 2002
     }
+  }
+}
+```
+
+## GraphQL Queries with Filtering
+
+The project now supports advanced filtering capabilities for book queries:
+
+### Query books with search filter:
+
+```graphql
+query {
+  books(first: 5, search: "Lucky") {
+    edges {
+      cursor
+      node {
+        id
+        name
+        pageCount
+        genre
+        author {
+          id
+          firstName
+          lastName
+        }
+      }
+    }
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
+    totalCount
+  }
+}
+```
+
+### Query books with genre filter:
+
+```graphql
+query {
+  books(first: 5, genre: "Non-Fiction") {
+    edges {
+      cursor
+      node {
+        id
+        name
+        pageCount
+        genre
+        author {
+          id
+          firstName
+          lastName
+        }
+      }
+    }
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
+    totalCount
+  }
+}
+```
+
+### Query books with combined search and genre filter:
+
+```graphql
+query {
+  books(first: 5, search: "Lucky", genre: "Non-Fiction") {
+    edges {
+      cursor
+      node {
+        id
+        name
+        pageCount
+        genre
+        author {
+          id
+          firstName
+          lastName
+        }
+      }
+    }
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
+    totalCount
   }
 }
 ```
@@ -327,10 +427,12 @@ mutation {
     name: "Pride and Prejudice"
     pageCount: 432
     authorId: "author-1"
+    genre: "Romance"
   }) {
     id
     name
     pageCount
+    genre
     author {
       id
       firstName
@@ -347,10 +449,12 @@ mutation {
   updateBook(id: "book-1", input: {
     name: "The Lucky Country - Updated Edition"
     pageCount: 320
+    genre: "History"
   }) {
     id
     name
     pageCount
+    genre
     author {
       id
       firstName
@@ -427,7 +531,7 @@ The GraphQL schema defines the following types:
 
 ### Query Type
 - **bookById(id: ID)**: Retrieve a book by its ID
-- **books(first: Int, after: String)**: Retrieve books with cursor-based pagination
+- **books(first: Int, after: String, search: String, genre: String)**: Retrieve books with cursor-based pagination and filtering
 
 ### Mutation Type
 - **createBook(input: CreateBookInput!)**: Create a new book
@@ -436,16 +540,16 @@ The GraphQL schema defines the following types:
 - **deleteBook(id: ID!)**: Delete a book by ID
 
 ### Object Types
-- **Book**: Book type with id, name, pageCount, and author fields
+- **Book**: Book type with id, name, pageCount, genre, and author fields
 - **Author**: Author type with id, firstName, and lastName fields
 - **BookConnection**: Paginated connection containing edges, pageInfo, and totalCount
 - **BookEdge**: Edge containing cursor and book node
 - **PageInfo**: Pagination metadata with hasNextPage, hasPreviousPage, startCursor, and endCursor
 
 ### Input Types
-- **CreateBookInput**: Input for creating books (name, pageCount, authorId)
+- **CreateBookInput**: Input for creating books (name, pageCount, authorId, genre)
 - **CreateAuthorInput**: Input for creating authors (firstName, lastName)
-- **UpdateBookInput**: Input for updating books (optional name, pageCount, authorId)
+- **UpdateBookInput**: Input for updating books (optional name, pageCount, authorId, genre)
 
 ## Testing
 

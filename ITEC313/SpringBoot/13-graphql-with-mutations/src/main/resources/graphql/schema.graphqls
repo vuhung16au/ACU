@@ -1,6 +1,6 @@
 type Query {
     bookById(id: ID): Book
-    books(first: Int, after: String): BookConnection
+    books(first: Int, after: String, search: String, genre: String): BookConnection
 }
 
 type Mutation {
@@ -14,6 +14,7 @@ type Book {
     id: ID
     name: String
     pageCount: Int
+    genre: String
     author: Author
 }
 
@@ -27,6 +28,7 @@ input CreateBookInput {
     name: String!
     pageCount: Int!
     authorId: String!
+    genre: String!
 }
 
 input CreateAuthorInput {
@@ -38,6 +40,7 @@ input UpdateBookInput {
     name: String
     pageCount: Int
     authorId: String
+    genre: String
 }
 
 type BookConnection {

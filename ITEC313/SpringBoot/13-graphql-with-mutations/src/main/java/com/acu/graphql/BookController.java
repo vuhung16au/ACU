@@ -29,17 +29,33 @@ public class BookController {
     }
     
     @QueryMapping
-    public BookConnection books(@Argument Integer first, @Argument String after) {
+    public BookConnection books(@Argument Integer first, @Argument String after, @Argument String search, @Argument String genre) {
         // Default to 10 if first is not specified
         int limit = (first != null) ? Math.min(first, 100) : 10; // Max 100 items per page
         
         Page<Book> bookPage;
         if (after != null && !after.isEmpty()) {
-            // Find books after the cursor (cursor is already base64 encoded)
-            bookPage = bookRepository.findBooksAfterCursor(after, PageRequest.of(0, limit + 1));
+            // Find books after the cursor with filters
+            if (search != null && !search.isEmpty() && genre != null && !genre.isEmpty()) {
+                bookPage = bookRepository.findBooksAfterCursorWithSearchAndGenre(after, search, genre, PageRequest.of(0, limit + 1));
+            } else if (search != null && !search.isEmpty()) {
+                bookPage = bookRepository.findBooksAfterCursorWithSearch(after, search, PageRequest.of(0, limit + 1));
+            } else if (genre != null && !genre.isEmpty()) {
+                bookPage = bookRepository.findBooksAfterCursorWithGenre(after, genre, PageRequest.of(0, limit + 1));
+            } else {
+                bookPage = bookRepository.findBooksAfterCursor(after, PageRequest.of(0, limit + 1));
+            }
         } else {
-            // First page
-            bookPage = bookRepository.findBooks(PageRequest.of(0, limit + 1));
+            // First page with filters
+            if (search != null && !search.isEmpty() && genre != null && !genre.isEmpty()) {
+                bookPage = bookRepository.findBooksWithSearchAndGenre(search, genre, PageRequest.of(0, limit + 1));
+            } else if (search != null && !search.isEmpty()) {
+                bookPage = bookRepository.findBooksWithSearch(search, PageRequest.of(0, limit + 1));
+            } else if (genre != null && !genre.isEmpty()) {
+                bookPage = bookRepository.findBooksWithGenre(genre, PageRequest.of(0, limit + 1));
+            } else {
+                bookPage = bookRepository.findBooks(PageRequest.of(0, limit + 1));
+            }
         }
         
         List<Book> books = bookPage.getContent();
@@ -72,7 +88,7 @@ public class BookController {
     @PreAuthorize("hasRole('ADMIN')")
     public Book createBook(@Argument CreateBookInput input) {
         String id = "book-" + UUID.randomUUID().toString().substring(0, 8);
-        Book book = new Book(id, input.getName(), input.getPageCount(), input.getAuthorId());
+        Book book = new Book(id, input.getName(), input.getPageCount(), input.getAuthorId(), input.getGenre());
         return bookRepository.save(book);
     }
     
@@ -100,6 +116,9 @@ public class BookController {
         }
         if (input.getAuthorId() != null) {
             existingBook.setAuthorId(input.getAuthorId());
+        }
+        if (input.getGenre() != null) {
+            existingBook.setGenre(input.getGenre());
         }
         
         return bookRepository.save(existingBook);

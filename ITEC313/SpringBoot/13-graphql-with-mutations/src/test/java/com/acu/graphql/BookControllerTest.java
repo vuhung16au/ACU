@@ -35,8 +35,8 @@ class BookControllerTest {
         Author author1 = new Author("author-1", "Donald", "Horne");
         Author author2 = new Author("author-2", "Norman", "Lindsay");
         
-        Book book1 = new Book("book-1", "The Lucky Country", 300, "author-1");
-        Book book2 = new Book("book-2", "The Magic Pudding: Being The Adventures of Bunyip Bluegum and his friends Bill Barnacle and Sam Sawnoff", 250, "author-2");
+        Book book1 = new Book("book-1", "The Lucky Country", 300, "author-1", "Non-Fiction");
+        Book book2 = new Book("book-2", "The Magic Pudding: Being The Adventures of Bunyip Bluegum and his friends Bill Barnacle and Sam Sawnoff", 250, "author-2", "Children");
         
         // Mock repository responses
         when(bookRepository.findById("book-1")).thenReturn(java.util.Optional.of(book1));
@@ -59,6 +59,9 @@ class BookControllerTest {
         Page<Book> bookPage = new PageImpl<>(allBooks, PageRequest.of(0, 10), allBooks.size());
         when(bookRepository.findBooks(any(PageRequest.class))).thenReturn(bookPage);
         when(bookRepository.findBooksAfterCursor(anyString(), any(PageRequest.class))).thenReturn(bookPage);
+        when(bookRepository.findBooksWithSearch(anyString(), any(PageRequest.class))).thenReturn(bookPage);
+        when(bookRepository.findBooksWithGenre(anyString(), any(PageRequest.class))).thenReturn(bookPage);
+        when(bookRepository.findBooksWithSearchAndGenre(anyString(), anyString(), any(PageRequest.class))).thenReturn(bookPage);
         when(bookRepository.count()).thenReturn(2L);
     }
 
@@ -181,10 +184,12 @@ class BookControllerTest {
                         name: "New Book"
                         pageCount: 200
                         authorId: "author-1"
+                        genre: "Fiction"
                     }) {
                         id
                         name
                         pageCount
+                        genre
                         author {
                             id
                             firstName
@@ -396,5 +401,163 @@ class BookControllerTest {
                 .path("data.books.pageInfo.hasPreviousPage")
                 .entity(Boolean.class)
                 .isEqualTo(true);
+    }
+    
+    @Test
+    @WithMockUser(roles = "USER")
+    void shouldReturnBooksWithSearchFilter() {
+        String document = """
+                query {
+                    books(first: 2, search: "Lucky") {
+                        edges {
+                            cursor
+                            node {
+                                id
+                                name
+                                pageCount
+                                genre
+                                author {
+                                    id
+                                    firstName
+                                    lastName
+                                }
+                            }
+                        }
+                        pageInfo {
+                            hasNextPage
+                            hasPreviousPage
+                            startCursor
+                            endCursor
+                        }
+                        totalCount
+                    }
+                }
+                """;
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.books.edges")
+                .entityList(Object.class)
+                .hasSize(2);
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.books.edges[0].node.genre")
+                .entity(String.class)
+                .isEqualTo("Non-Fiction");
+    }
+    
+    @Test
+    @WithMockUser(roles = "USER")
+    void shouldReturnBooksWithGenreFilter() {
+        String document = """
+                query {
+                    books(first: 2, genre: "Non-Fiction") {
+                        edges {
+                            cursor
+                            node {
+                                id
+                                name
+                                pageCount
+                                genre
+                                author {
+                                    id
+                                    firstName
+                                    lastName
+                                }
+                            }
+                        }
+                        pageInfo {
+                            hasNextPage
+                            hasPreviousPage
+                            startCursor
+                            endCursor
+                        }
+                        totalCount
+                    }
+                }
+                """;
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.books.edges")
+                .entityList(Object.class)
+                .hasSize(2);
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.books.edges[0].node.genre")
+                .entity(String.class)
+                .isEqualTo("Non-Fiction");
+    }
+    
+    @Test
+    @WithMockUser(roles = "USER")
+    void shouldReturnBooksWithSearchAndGenreFilter() {
+        String document = """
+                query {
+                    books(first: 2, search: "Lucky", genre: "Non-Fiction") {
+                        edges {
+                            cursor
+                            node {
+                                id
+                                name
+                                pageCount
+                                genre
+                                author {
+                                    id
+                                    firstName
+                                    lastName
+                                }
+                            }
+                        }
+                        pageInfo {
+                            hasNextPage
+                            hasPreviousPage
+                            startCursor
+                            endCursor
+                        }
+                        totalCount
+                    }
+                }
+                """;
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.books.edges")
+                .entityList(Object.class)
+                .hasSize(2);
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.books.edges[0].node.genre")
+                .entity(String.class)
+                .isEqualTo("Non-Fiction");
+    }
+    
+    @Test
+    @WithMockUser(roles = "USER")
+    void shouldReturnBookWithGenre() {
+        String document = """
+                query {
+                    bookById(id: "book-1") {
+                        id
+                        name
+                        pageCount
+                        genre
+                        author {
+                            id
+                            firstName
+                            lastName
+                        }
+                    }
+                }
+                """;
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.bookById.genre")
+                .entity(String.class)
+                .isEqualTo("Non-Fiction");
     }
 }

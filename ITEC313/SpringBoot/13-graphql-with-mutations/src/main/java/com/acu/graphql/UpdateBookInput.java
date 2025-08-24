@@ -4,14 +4,16 @@ public class UpdateBookInput {
     private String name;
     private Integer pageCount;
     private String authorId;
+    private String genre;
     
     // Default constructor
     public UpdateBookInput() {}
     
-    public UpdateBookInput(String name, Integer pageCount, String authorId) {
+    public UpdateBookInput(String name, Integer pageCount, String authorId, String genre) {
         this.name = name;
         this.pageCount = pageCount;
         this.authorId = authorId;
+        this.genre = genre;
     }
     
     // Getters and Setters
@@ -37,5 +39,13 @@ public class UpdateBookInput {
     
     public void setAuthorId(String authorId) {
         this.authorId = authorId;
+    }
+    
+    public String getGenre() {
+        return genre;
+    }
+    
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 }
