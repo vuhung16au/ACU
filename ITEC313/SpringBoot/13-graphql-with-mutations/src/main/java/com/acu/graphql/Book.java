@@ -18,6 +18,9 @@ public class Book {
     @Column(name = "author_id")
     private String authorId;
     
+    @Column(name = "cursor")
+    private String cursor;
+    
     // Default constructor for JPA
     public Book() {}
     
@@ -26,6 +29,7 @@ public class Book {
         this.name = name;
         this.pageCount = pageCount;
         this.authorId = authorId;
+        this.cursor = java.util.Base64.getEncoder().encodeToString(id.getBytes());
     }
     
     // Getters and Setters
@@ -59,5 +63,13 @@ public class Book {
     
     public void setAuthorId(String authorId) {
         this.authorId = authorId;
+    }
+    
+    public String getCursor() {
+        return cursor;
+    }
+    
+    public void setCursor(String cursor) {
+        this.cursor = cursor;
     }
 }

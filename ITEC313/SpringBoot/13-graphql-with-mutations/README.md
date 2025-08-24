@@ -127,6 +127,64 @@ query {
 }
 ```
 
+### Query books with cursor-based pagination:
+
+```graphql
+query {
+  books(first: 5) {
+    edges {
+      cursor
+      node {
+        id
+        name
+        pageCount
+        author {
+          id
+          firstName
+          lastName
+        }
+      }
+    }
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
+    totalCount
+  }
+}
+```
+
+### Query books with cursor pagination (get next page):
+
+```graphql
+query {
+  books(first: 5, after: "Ym9vay0x") {
+    edges {
+      cursor
+      node {
+        id
+        name
+        pageCount
+        author {
+          id
+          firstName
+          lastName
+        }
+      }
+    }
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
+    totalCount
+  }
+}
+```
+
 ### Expected Response:
 
 ```json
@@ -141,6 +199,52 @@ query {
         "firstName": "Donald",
         "lastName": "Horne"
       }
+    }
+  }
+}
+```
+
+### Pagination Response Example:
+
+```json
+{
+  "data": {
+    "books": {
+      "edges": [
+        {
+          "cursor": "Ym9vay0x",
+          "node": {
+            "id": "book-1",
+            "name": "The Lucky Country",
+            "pageCount": 300,
+            "author": {
+              "id": "author-1",
+              "firstName": "Donald",
+              "lastName": "Horne"
+            }
+          }
+        },
+        {
+          "cursor": "Ym9vay0y",
+          "node": {
+            "id": "book-2",
+            "name": "The Magic Pudding",
+            "pageCount": 250,
+            "author": {
+              "id": "author-2",
+              "firstName": "Norman",
+              "lastName": "Lindsay"
+            }
+          }
+        }
+      ],
+      "pageInfo": {
+        "hasNextPage": true,
+        "hasPreviousPage": false,
+        "startCursor": "Ym9vay0x",
+        "endCursor": "Ym9vay0y"
+      },
+      "totalCount": 2002
     }
   }
 }
@@ -266,6 +370,7 @@ The GraphQL schema defines the following types:
 
 ### Query Type
 - **bookById(id: ID)**: Retrieve a book by its ID
+- **books(first: Int, after: String)**: Retrieve books with cursor-based pagination
 
 ### Mutation Type
 - **createBook(input: CreateBookInput!)**: Create a new book
@@ -276,6 +381,9 @@ The GraphQL schema defines the following types:
 ### Object Types
 - **Book**: Book type with id, name, pageCount, and author fields
 - **Author**: Author type with id, firstName, and lastName fields
+- **BookConnection**: Paginated connection containing edges, pageInfo, and totalCount
+- **BookEdge**: Edge containing cursor and book node
+- **PageInfo**: Pagination metadata with hasNextPage, hasPreviousPage, startCursor, and endCursor
 
 ### Input Types
 - **CreateBookInput**: Input for creating books (name, pageCount, authorId)
@@ -287,6 +395,7 @@ The GraphQL schema defines the following types:
 The project includes comprehensive tests for both queries and mutations:
 
 - **Query Tests**: Test book retrieval with and without author information
+- **Pagination Tests**: Test cursor-based pagination functionality
 - **Mutation Tests**: Test all CRUD operations (create, update, delete)
 - **Error Handling**: Test scenarios with non-existent resources
 - **Integration Tests**: Full application context tests

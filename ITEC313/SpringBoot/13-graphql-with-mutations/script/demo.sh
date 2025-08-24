@@ -66,7 +66,34 @@ curl -X POST \
 echo
 echo
 
-echo "3. Testing GraphQL Mutations..."
+echo "3. Testing GraphQL Pagination..."
+
+# Test 11: Query books with pagination
+echo
+echo "📖 Querying books with pagination (first 3):"
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -d '{
+    "query": "query { books(first: 3) { edges { cursor node { id name pageCount author { id firstName lastName } } } pageInfo { hasNextPage hasPreviousPage startCursor endCursor } totalCount } }"
+  }' \
+  http://localhost:8081/graphql
+
+echo
+echo
+
+# Test 12: Query books with cursor pagination
+echo "📖 Querying books with cursor pagination:"
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -d '{
+    "query": "query { books(first: 2, after: \"Ym9vay0x\") { edges { cursor node { id name pageCount author { id firstName lastName } } } pageInfo { hasNextPage hasPreviousPage startCursor endCursor } totalCount } }"
+  }' \
+  http://localhost:8081/graphql
+
+echo
+echo
+
+echo "4. Testing GraphQL Mutations..."
 
 # Test 5: Create a new author
 echo
@@ -150,7 +177,9 @@ echo "📖 Available books:"
 echo "   - book-1: The Lucky Country by Donald Horne"
 echo "   - book-2: The Magic Pudding by Norman Lindsay (deleted in demo)"
 echo
-echo "🔄 Mutations demonstrated:"
+echo "🔄 Features demonstrated:"
+echo "   - bookById: Query individual books"
+echo "   - books: Paginated book queries with cursor-based pagination"
 echo "   - createAuthor: Add new authors"
 echo "   - createBook: Add new books"
 echo "   - updateBook: Modify existing books"

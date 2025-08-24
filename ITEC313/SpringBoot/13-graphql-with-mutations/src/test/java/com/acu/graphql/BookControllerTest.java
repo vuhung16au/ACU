@@ -5,10 +5,16 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.graphql.GraphQlTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.graphql.test.tester.GraphQlTester;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.any;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.any;
+import java.util.Arrays;
+import java.util.List;
 
 @GraphQlTest(BookController.class)
 class BookControllerTest {
@@ -46,6 +52,13 @@ class BookControllerTest {
         // Mock existsById
         when(bookRepository.existsById("book-1")).thenReturn(true);
         when(bookRepository.existsById("non-existent")).thenReturn(false);
+        
+        // Mock pagination methods
+        List<Book> allBooks = Arrays.asList(book1, book2);
+        Page<Book> bookPage = new PageImpl<>(allBooks, PageRequest.of(0, 10), allBooks.size());
+        when(bookRepository.findBooks(any(PageRequest.class))).thenReturn(bookPage);
+        when(bookRepository.findBooksAfterCursor(anyString(), any(PageRequest.class))).thenReturn(bookPage);
+        when(bookRepository.count()).thenReturn(2L);
     }
 
     @Test
@@ -284,5 +297,93 @@ class BookControllerTest {
                 .path("data.deleteBook")
                 .entity(Boolean.class)
                 .isEqualTo(false);
+    }
+    
+    @Test
+    void shouldReturnBooksWithPagination() {
+        String document = """
+                query {
+                    books(first: 2) {
+                        edges {
+                            cursor
+                            node {
+                                id
+                                name
+                                pageCount
+                                author {
+                                    id
+                                    firstName
+                                    lastName
+                                }
+                            }
+                        }
+                        pageInfo {
+                            hasNextPage
+                            hasPreviousPage
+                            startCursor
+                            endCursor
+                        }
+                        totalCount
+                    }
+                }
+                """;
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.books.edges")
+                .entityList(Object.class)
+                .hasSize(2);
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.books.pageInfo.hasNextPage")
+                .entity(Boolean.class)
+                .isEqualTo(false);
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.books.pageInfo.hasPreviousPage")
+                .entity(Boolean.class)
+                .isEqualTo(false);
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.books.totalCount")
+                .entity(Integer.class)
+                .isEqualTo(2);
+    }
+    
+    @Test
+    void shouldReturnBooksWithCursorPagination() {
+        String document = """
+                query {
+                    books(first: 1, after: "Ym9vay0x") {
+                        edges {
+                            cursor
+                            node {
+                                id
+                                name
+                                pageCount
+                            }
+                        }
+                        pageInfo {
+                            hasNextPage
+                            hasPreviousPage
+                        }
+                    }
+                }
+                """;
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.books.edges")
+                .entityList(Object.class)
+                .hasSize(1);
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.books.pageInfo.hasPreviousPage")
+                .entity(Boolean.class)
+                .isEqualTo(true);
     }
 }

@@ -1,5 +1,6 @@
 type Query {
     bookById(id: ID): Book
+    books(first: Int, after: String): BookConnection
 }
 
 type Mutation {
@@ -37,4 +38,22 @@ input UpdateBookInput {
     name: String
     pageCount: Int
     authorId: String
+}
+
+type BookConnection {
+    edges: [BookEdge!]!
+    pageInfo: PageInfo!
+    totalCount: Int!
+}
+
+type BookEdge {
+    cursor: String!
+    node: Book!
+}
+
+type PageInfo {
+    hasNextPage: Boolean!
+    hasPreviousPage: Boolean!
+    startCursor: String
+    endCursor: String
 }
