@@ -1,9 +1,11 @@
 server:
-  port: 8088
+  port: 8089
 
 spring:
   application:
     name: data-service
+  config:
+    import: optional:configserver:http://localhost:8888
   cloud:
     config:
       uri: http://localhost:8888
@@ -11,7 +13,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/microservices
     username: postgres
-    password: password
+    password: postgres
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
