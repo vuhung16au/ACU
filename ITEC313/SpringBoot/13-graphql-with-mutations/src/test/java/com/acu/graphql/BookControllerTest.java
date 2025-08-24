@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.graphql.test.tester.GraphQlTester;
+import org.springframework.security.test.context.support.WithMockUser;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -62,6 +63,7 @@ class BookControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "USER")
     void shouldReturnBookWithAuthor() {
         String document = """
                 query {
@@ -104,6 +106,7 @@ class BookControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "USER")
     void shouldReturnSecondBookWithAuthor() {
         String document = """
                 query {
@@ -146,6 +149,7 @@ class BookControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "USER")
     void shouldReturnNullForNonExistentBook() {
         String document = """
                 query {
@@ -169,6 +173,7 @@ class BookControllerTest {
     }
     
     @Test
+    @WithMockUser(roles = "ADMIN")
     void shouldCreateBook() {
         String document = """
                 mutation {
@@ -209,6 +214,7 @@ class BookControllerTest {
     }
     
     @Test
+    @WithMockUser(roles = "ADMIN")
     void shouldCreateAuthor() {
         String document = """
                 mutation {
@@ -237,6 +243,7 @@ class BookControllerTest {
     }
     
     @Test
+    @WithMockUser(roles = "ADMIN")
     void shouldUpdateBook() {
         String document = """
                 mutation {
@@ -270,6 +277,7 @@ class BookControllerTest {
     }
     
     @Test
+    @WithMockUser(roles = "ADMIN")
     void shouldDeleteBook() {
         String document = """
                 mutation {
@@ -285,6 +293,7 @@ class BookControllerTest {
     }
     
     @Test
+    @WithMockUser(roles = "ADMIN")
     void shouldReturnFalseForDeleteNonExistentBook() {
         String document = """
                 mutation {
@@ -300,6 +309,7 @@ class BookControllerTest {
     }
     
     @Test
+    @WithMockUser(roles = "USER")
     void shouldReturnBooksWithPagination() {
         String document = """
                 query {
@@ -354,6 +364,7 @@ class BookControllerTest {
     }
     
     @Test
+    @WithMockUser(roles = "USER")
     void shouldReturnBooksWithCursorPagination() {
         String document = """
                 query {

@@ -14,13 +14,39 @@ else
 fi
 
 echo
-echo "2. Testing GraphQL Queries..."
+echo "2. Testing Authentication..."
+
+# Login to get JWT token
+echo "🔐 Logging in with default credentials..."
+LOGIN_RESPONSE=$(curl -s -X POST \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "313@acu.com",
+    "password": "123456"
+  }' \
+  http://localhost:8081/auth/login)
+
+# Extract token from response
+TOKEN=$(echo $LOGIN_RESPONSE | grep -o '"token":"[^"]*"' | cut -d'"' -f4)
+
+if [ -z "$TOKEN" ]; then
+    echo "❌ Login failed. Please check if the server is running and the default user exists."
+    echo "Response: $LOGIN_RESPONSE"
+    exit 1
+fi
+
+echo "✅ Login successful! JWT token obtained."
+echo "Token: ${TOKEN:0:50}..."
+
+echo
+echo "3. Testing GraphQL Queries..."
 
 # Test 1: Query book-1 (The Lucky Country)
 echo
 echo "📚 Querying 'The Lucky Country' (book-1):"
 curl -X POST \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
   -d '{
     "query": "query { bookById(id: \"book-1\") { id name pageCount author { id firstName lastName } } }"
   }' \
@@ -33,6 +59,7 @@ echo
 echo "📚 Querying 'The Magic Pudding' (book-2):"
 curl -X POST \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
   -d '{
     "query": "query { bookById(id: \"book-2\") { id name pageCount author { id firstName lastName } } }"
   }' \
@@ -45,6 +72,7 @@ echo
 echo "❌ Querying non-existent book:"
 curl -X POST \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
   -d '{
     "query": "query { bookById(id: \"non-existent\") { id name pageCount author { id firstName lastName } } }"
   }' \
@@ -57,6 +85,7 @@ echo
 echo "🔧 Querying with variables:"
 curl -X POST \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
   -d '{
     "query": "query GetBook($id: ID!) { bookById(id: $id) { id name pageCount author { firstName lastName } } }",
     "variables": { "id": "book-1" }
@@ -66,13 +95,14 @@ curl -X POST \
 echo
 echo
 
-echo "3. Testing GraphQL Pagination..."
+echo "4. Testing GraphQL Pagination..."
 
 # Test 11: Query books with pagination
 echo
 echo "📖 Querying books with pagination (first 3):"
 curl -X POST \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
   -d '{
     "query": "query { books(first: 3) { edges { cursor node { id name pageCount author { id firstName lastName } } } pageInfo { hasNextPage hasPreviousPage startCursor endCursor } totalCount } }"
   }' \
@@ -85,6 +115,7 @@ echo
 echo "📖 Querying books with cursor pagination:"
 curl -X POST \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
   -d '{
     "query": "query { books(first: 2, after: \"Ym9vay0x\") { edges { cursor node { id name pageCount author { id firstName lastName } } } pageInfo { hasNextPage hasPreviousPage startCursor endCursor } totalCount } }"
   }' \
@@ -93,13 +124,14 @@ curl -X POST \
 echo
 echo
 
-echo "4. Testing GraphQL Mutations..."
+echo "5. Testing GraphQL Mutations..."
 
 # Test 5: Create a new author
 echo
 echo "👤 Creating a new author:"
 curl -X POST \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
   -d '{
     "query": "mutation { createAuthor(input: { firstName: \"Jane\", lastName: \"Austen\" }) { id firstName lastName } }"
   }' \
@@ -112,6 +144,7 @@ echo
 echo "📖 Creating a new book:"
 curl -X POST \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
   -d '{
     "query": "mutation { createBook(input: { name: \"Pride and Prejudice\", pageCount: 432, authorId: \"author-1\" }) { id name pageCount author { id firstName lastName } } }"
   }' \
@@ -124,6 +157,7 @@ echo
 echo "✏️ Updating book-1:"
 curl -X POST \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
   -d '{
     "query": "mutation { updateBook(id: \"book-1\", input: { name: \"The Lucky Country - Updated Edition\", pageCount: 320 }) { id name pageCount author { id firstName lastName } } }"
   }' \
@@ -136,6 +170,7 @@ echo
 echo "🗑️ Deleting book-2:"
 curl -X POST \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
   -d '{
     "query": "mutation { deleteBook(id: \"book-2\") }"
   }' \
@@ -148,6 +183,7 @@ echo
 echo "❌ Trying to delete non-existent book:"
 curl -X POST \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
   -d '{
     "query": "mutation { deleteBook(id: \"non-existent\") }"
   }' \
@@ -160,6 +196,7 @@ echo
 echo "✅ Verifying book-1 was updated:"
 curl -X POST \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
   -d '{
     "query": "query { bookById(id: \"book-1\") { id name pageCount author { id firstName lastName } } }"
   }' \
@@ -173,14 +210,21 @@ echo
 echo "💡 You can also access the interactive GraphiQL interface at:"
 echo "   http://localhost:8081/graphiql"
 echo
+echo "🔐 Authentication:"
+echo "   - Default user: 313@acu.com"
+echo "   - Default password: 123456"
+echo "   - Role: ADMIN (can perform all operations)"
+echo
 echo "📖 Available books:"
 echo "   - book-1: The Lucky Country by Donald Horne"
 echo "   - book-2: The Magic Pudding by Norman Lindsay (deleted in demo)"
 echo
 echo "🔄 Features demonstrated:"
+echo "   - Authentication: JWT-based login"
+echo "   - Authorization: Role-based access control"
 echo "   - bookById: Query individual books"
 echo "   - books: Paginated book queries with cursor-based pagination"
-echo "   - createAuthor: Add new authors"
-echo "   - createBook: Add new books"
-echo "   - updateBook: Modify existing books"
-echo "   - deleteBook: Remove books"
+echo "   - createAuthor: Add new authors (ADMIN only)"
+echo "   - createBook: Add new books (ADMIN only)"
+echo "   - updateBook: Modify existing books (ADMIN only)"
+echo "   - deleteBook: Remove books (ADMIN only)"

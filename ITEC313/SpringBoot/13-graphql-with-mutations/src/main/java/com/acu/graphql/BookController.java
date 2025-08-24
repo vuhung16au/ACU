@@ -7,6 +7,7 @@ import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.graphql.data.method.annotation.SchemaMapping;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
@@ -68,6 +69,7 @@ public class BookController {
     }
     
     @MutationMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public Book createBook(@Argument CreateBookInput input) {
         String id = "book-" + UUID.randomUUID().toString().substring(0, 8);
         Book book = new Book(id, input.getName(), input.getPageCount(), input.getAuthorId());
@@ -75,6 +77,7 @@ public class BookController {
     }
     
     @MutationMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public Author createAuthor(@Argument CreateAuthorInput input) {
         String id = "author-" + UUID.randomUUID().toString().substring(0, 8);
         Author author = new Author(id, input.getFirstName(), input.getLastName());
@@ -82,6 +85,7 @@ public class BookController {
     }
     
     @MutationMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public Book updateBook(@Argument String id, @Argument UpdateBookInput input) {
         Book existingBook = bookRepository.findById(id).orElse(null);
         if (existingBook == null) {
@@ -102,6 +106,7 @@ public class BookController {
     }
     
     @MutationMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public Boolean deleteBook(@Argument String id) {
         if (bookRepository.existsById(id)) {
             bookRepository.deleteById(id);
