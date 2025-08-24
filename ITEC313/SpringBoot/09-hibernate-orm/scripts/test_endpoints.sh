@@ -114,17 +114,8 @@ curl -X GET "$BASE_URL/actuator/info"
 echo -e "\n\nMetrics..."
 curl -X GET "$BASE_URL/actuator/metrics"
 
-# Test H2 Console (if running in dev mode)
-echo -e "\n\n5. Testing H2 Console:"
-echo "----------------------"
-echo "H2 Console URL: $BASE_URL/h2-console"
-echo "JDBC URL: jdbc:h2:mem:testdb"
-echo "Username: sa"
-echo "Password: password"
-
 echo -e "\n\nTesting completed!"
 echo "===================="
 echo "Application URLs:"
 echo "- REST API: $BASE_URL"
-echo "- H2 Console: $BASE_URL/h2-console"
 echo "- Actuator: $BASE_URL/actuator"

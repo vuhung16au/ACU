@@ -1,6 +1,6 @@
 -- Create authors table
 CREATE TABLE authors (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     email VARCHAR(255) UNIQUE,
     biography VARCHAR(500),
@@ -11,7 +11,7 @@ CREATE TABLE authors (
 
 -- Create books table
 CREATE TABLE books (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     title VARCHAR(200) NOT NULL,
     description VARCHAR(1000),
     publication_year INTEGER NOT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE books (
 
 -- Create tags table
 CREATE TABLE tags (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     name VARCHAR(50) NOT NULL UNIQUE,
     description VARCHAR(200),
     created_at DATE NOT NULL,

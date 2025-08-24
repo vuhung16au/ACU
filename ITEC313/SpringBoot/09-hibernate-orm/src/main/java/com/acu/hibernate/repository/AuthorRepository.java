@@ -47,7 +47,7 @@ public interface AuthorRepository extends JpaRepository<Author, Long> {
     Page<Author> findByNameContainingIgnoreCase(String name, Pageable pageable);
     
     // Custom query with count
-    @Query("SELECT COUNT(a) FROM Author a WHERE a.books.size > :minBooks")
+    @Query("SELECT COUNT(a) FROM Author a WHERE SIZE(a.books) > :minBooks")
     long countAuthorsWithMoreThanBooks(@Param("minBooks") int minBooks);
     
     // Find authors by book count
