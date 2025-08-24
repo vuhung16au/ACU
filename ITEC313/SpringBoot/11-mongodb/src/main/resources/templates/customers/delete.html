@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Delete Customer</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 600px; margin: 0 auto; }
+        .header { background: #f4f4f4; padding: 15px; margin-bottom: 20px; border-radius: 5px; }
+        .warning { background: #fff3cd; border: 1px solid #ffeaa7; padding: 15px; margin-bottom: 20px; border-radius: 4px; }
+        .customer-info { background: #f8f9fa; padding: 15px; margin-bottom: 20px; border-radius: 4px; }
+        .customer-info p { margin: 5px 0; }
+        .btn { padding: 10px 20px; text-decoration: none; border-radius: 4px; display: inline-block; margin-right: 10px; }
+        .btn-danger { background-color: #dc3545; color: white; border: none; cursor: pointer; }
+        .btn-secondary { background-color: #6c757d; color: white; }
+        .btn:hover { opacity: 0.8; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Delete Customer</h1>
+        </div>
+        
+        <div class="warning">
+            <strong>Warning:</strong> This action cannot be undone. Are you sure you want to delete this customer?
+        </div>
+        
+        <div class="customer-info">
+            <h3>Customer Details:</h3>
+            <p><strong>ID:</strong> <span th:text="${customer.id}">ID</span></p>
+            <p><strong>First Name:</strong> <span th:text="${customer.firstName}">First Name</span></p>
+            <p><strong>Last Name:</strong> <span th:text="${customer.lastName}">Last Name</span></p>
+            <p><strong>City:</strong> <span th:text="${customer.city}">City</span></p>
+            <p><strong>Country:</strong> <span th:text="${customer.country}">Country</span></p>
+        </div>
+        
+        <form th:action="@{/customers/delete/{id}(id=${customer.id})}" method="post">
+            <button type="submit" class="btn btn-danger">Delete Customer</button>
+            <a href="/customers" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Search Customers</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        .header { background: #f4f4f4; padding: 15px; margin-bottom: 20px; border-radius: 5px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input[type="text"], select { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+        .btn { padding: 10px 20px; text-decoration: none; border-radius: 4px; display: inline-block; margin-right: 10px; }
+        .btn-primary { background-color: #007bff; color: white; border: none; cursor: pointer; }
+        .btn-secondary { background-color: #6c757d; color: white; }
+        .btn:hover { opacity: 0.8; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #f2f2f2; font-weight: bold; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+        .action-links a { margin-right: 10px; text-decoration: none; }
+        .edit { color: #28a745; }
+        .delete { color: #dc3545; }
+        .no-results { text-align: center; padding: 20px; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Search Customers</h1>
+        </div>
+        
+        <div class="nav-links">
+            <a href="/customers" class="btn btn-secondary">Back to Customer List</a>
+        </div>
+        
+        <form th:action="@{/customers/search}" method="post">
+            <div class="form-group">
+                <label for="searchType">Search By:</label>
+                <select id="searchType" name="searchType" required>
+                    <option value="">Select search criteria</option>
+                    <option value="firstName" th:selected="${searchType == 'firstName'}">First Name</option>
+                    <option value="lastName" th:selected="${searchType == 'lastName'}">Last Name</option>
+                    <option value="city" th:selected="${searchType == 'city'}">City</option>
+                    <option value="country" th:selected="${searchType == 'country'}">Country</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="searchValue">Search Value:</label>
+                <input type="text" id="searchValue" name="searchValue" th:value="${searchValue}" required>
+            </div>
+            
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Search</button>
+                <a href="/customers/search" class="btn btn-secondary">Clear</a>
+            </div>
+        </form>
+        
+        <!-- Search Results -->
+        <div th:if="${searchResults != null}">
+            <h2>Search Results</h2>
+            
+            <div th:if="${#lists.isEmpty(searchResults)}" class="no-results">
+                <p>No customers found matching your search criteria.</p>
+            </div>
+            
+            <table th:if="${!#lists.isEmpty(searchResults)}">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>City</th>
+                        <th>Country</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="customer : ${searchResults}">
+                        <td th:text="${customer.id}">ID</td>
+                        <td th:text="${customer.firstName}">First Name</td>
+                        <td th:text="${customer.lastName}">Last Name</td>
+                        <td th:text="${customer.city}">City</td>
+                        <td th:text="${customer.country}">Country</td>
+                        <td class="action-links">
+                            <a th:href="@{/customers/edit/{id}(id=${customer.id})}" class="edit">Edit</a>
+                            <a th:href="@{/customers/delete/{id}(id=${customer.id})}" class="delete">Delete</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

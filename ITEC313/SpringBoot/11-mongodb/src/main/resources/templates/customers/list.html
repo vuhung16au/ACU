@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Customer Management</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header { background: #f4f4f4; padding: 15px; margin-bottom: 20px; border-radius: 5px; }
+        .nav-links { margin-bottom: 20px; }
+        .nav-links a { margin-right: 15px; text-decoration: none; color: #007bff; }
+        .nav-links a:hover { text-decoration: underline; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #f2f2f2; font-weight: bold; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+        .action-links a { margin-right: 10px; text-decoration: none; }
+        .edit { color: #28a745; }
+        .delete { color: #dc3545; }
+        .btn { padding: 8px 16px; text-decoration: none; border-radius: 4px; display: inline-block; }
+        .btn-primary { background-color: #007bff; color: white; }
+        .btn-success { background-color: #28a745; color: white; }
+        .btn-warning { background-color: #ffc107; color: black; }
+        .btn-danger { background-color: #dc3545; color: white; }
+        .btn-info { background-color: #17a2b8; color: white; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Customer Management System</h1>
+        </div>
+        
+        <div class="nav-links">
+            <a href="/customers/add" class="btn btn-success">Add New Customer</a>
+            <a href="/customers/search" class="btn btn-info">Search Customers</a>
+        </div>
+
+        <h2>Customer List</h2>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>City</th>
+                    <th>Country</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="customer : ${customers}">
+                    <td th:text="${customer.id}">ID</td>
+                    <td th:text="${customer.firstName}">First Name</td>
+                    <td th:text="${customer.lastName}">Last Name</td>
+                    <td th:text="${customer.city}">City</td>
+                    <td th:text="${customer.country}">Country</td>
+                    <td class="action-links">
+                        <a th:href="@{/customers/edit/{id}(id=${customer.id})}" class="edit">Edit</a>
+                        <a th:href="@{/customers/delete/{id}(id=${customer.id})}" class="delete">Delete</a>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(customers)}">
+                    <td colspan="6" style="text-align: center;">No customers found</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
