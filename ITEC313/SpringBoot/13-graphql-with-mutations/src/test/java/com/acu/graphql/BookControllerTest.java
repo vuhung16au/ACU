@@ -62,6 +62,39 @@ class BookControllerTest {
         when(bookRepository.findBooksWithSearch(anyString(), any(PageRequest.class))).thenReturn(bookPage);
         when(bookRepository.findBooksWithGenre(anyString(), any(PageRequest.class))).thenReturn(bookPage);
         when(bookRepository.findBooksWithSearchAndGenre(anyString(), anyString(), any(PageRequest.class))).thenReturn(bookPage);
+        
+        // Mock sorting methods
+        when(bookRepository.findBooksOrderByName(any(PageRequest.class))).thenReturn(bookPage);
+        when(bookRepository.findBooksAfterCursorOrderByName(anyString(), any(PageRequest.class))).thenReturn(bookPage);
+        when(bookRepository.findBooksOrderByPageCount(any(PageRequest.class))).thenReturn(bookPage);
+        when(bookRepository.findBooksAfterCursorOrderByPageCount(anyString(), any(PageRequest.class))).thenReturn(bookPage);
+        when(bookRepository.findBooksOrderByGenre(any(PageRequest.class))).thenReturn(bookPage);
+        when(bookRepository.findBooksAfterCursorOrderByGenre(anyString(), any(PageRequest.class))).thenReturn(bookPage);
+        
+        // Mock search with sorting
+        when(bookRepository.findBooksWithSearchOrderByName(anyString(), any(PageRequest.class))).thenReturn(bookPage);
+        when(bookRepository.findBooksAfterCursorWithSearchOrderByName(anyString(), anyString(), any(PageRequest.class))).thenReturn(bookPage);
+        when(bookRepository.findBooksWithSearchOrderByPageCount(anyString(), any(PageRequest.class))).thenReturn(bookPage);
+        when(bookRepository.findBooksAfterCursorWithSearchOrderByPageCount(anyString(), anyString(), any(PageRequest.class))).thenReturn(bookPage);
+        when(bookRepository.findBooksWithSearchOrderByGenre(anyString(), any(PageRequest.class))).thenReturn(bookPage);
+        when(bookRepository.findBooksAfterCursorWithSearchOrderByGenre(anyString(), anyString(), any(PageRequest.class))).thenReturn(bookPage);
+        
+        // Mock genre with sorting
+        when(bookRepository.findBooksWithGenreOrderByName(anyString(), any(PageRequest.class))).thenReturn(bookPage);
+        when(bookRepository.findBooksAfterCursorWithGenreOrderByName(anyString(), anyString(), any(PageRequest.class))).thenReturn(bookPage);
+        when(bookRepository.findBooksWithGenreOrderByPageCount(anyString(), any(PageRequest.class))).thenReturn(bookPage);
+        when(bookRepository.findBooksAfterCursorWithGenreOrderByPageCount(anyString(), anyString(), any(PageRequest.class))).thenReturn(bookPage);
+        when(bookRepository.findBooksWithGenreOrderByGenre(anyString(), any(PageRequest.class))).thenReturn(bookPage);
+        when(bookRepository.findBooksAfterCursorWithGenreOrderByGenre(anyString(), anyString(), any(PageRequest.class))).thenReturn(bookPage);
+        
+        // Mock search and genre with sorting
+        when(bookRepository.findBooksWithSearchAndGenreOrderByName(anyString(), anyString(), any(PageRequest.class))).thenReturn(bookPage);
+        when(bookRepository.findBooksAfterCursorWithSearchAndGenreOrderByName(anyString(), anyString(), anyString(), any(PageRequest.class))).thenReturn(bookPage);
+        when(bookRepository.findBooksWithSearchAndGenreOrderByPageCount(anyString(), anyString(), any(PageRequest.class))).thenReturn(bookPage);
+        when(bookRepository.findBooksAfterCursorWithSearchAndGenreOrderByPageCount(anyString(), anyString(), anyString(), any(PageRequest.class))).thenReturn(bookPage);
+        when(bookRepository.findBooksWithSearchAndGenreOrderByGenre(anyString(), anyString(), any(PageRequest.class))).thenReturn(bookPage);
+        when(bookRepository.findBooksAfterCursorWithSearchAndGenreOrderByGenre(anyString(), anyString(), anyString(), any(PageRequest.class))).thenReturn(bookPage);
+        
         when(bookRepository.count()).thenReturn(2L);
     }
 
@@ -557,6 +590,270 @@ class BookControllerTest {
         graphQlTester.document(document)
                 .execute()
                 .path("data.bookById.genre")
+                .entity(String.class)
+                .isEqualTo("Non-Fiction");
+    }
+    
+    @Test
+    @WithMockUser(roles = "USER")
+    void shouldReturnBooksOrderedByName() {
+        String document = """
+                query {
+                    books(first: 2, orderBy: NAME) {
+                        edges {
+                            cursor
+                            node {
+                                id
+                                name
+                                pageCount
+                                genre
+                                author {
+                                    id
+                                    firstName
+                                    lastName
+                                }
+                            }
+                        }
+                        pageInfo {
+                            hasNextPage
+                            hasPreviousPage
+                            startCursor
+                            endCursor
+                        }
+                        totalCount
+                    }
+                }
+                """;
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.books.edges")
+                .entityList(Object.class)
+                .hasSize(2);
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.books.totalCount")
+                .entity(Integer.class)
+                .isEqualTo(2);
+    }
+    
+    @Test
+    @WithMockUser(roles = "USER")
+    void shouldReturnBooksOrderedByPageCount() {
+        String document = """
+                query {
+                    books(first: 2, orderBy: PAGE_COUNT) {
+                        edges {
+                            cursor
+                            node {
+                                id
+                                name
+                                pageCount
+                                genre
+                                author {
+                                    id
+                                    firstName
+                                    lastName
+                                }
+                            }
+                        }
+                        pageInfo {
+                            hasNextPage
+                            hasPreviousPage
+                            startCursor
+                            endCursor
+                        }
+                        totalCount
+                    }
+                }
+                """;
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.books.edges")
+                .entityList(Object.class)
+                .hasSize(2);
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.books.totalCount")
+                .entity(Integer.class)
+                .isEqualTo(2);
+    }
+    
+    @Test
+    @WithMockUser(roles = "USER")
+    void shouldReturnBooksOrderedByGenre() {
+        String document = """
+                query {
+                    books(first: 2, orderBy: GENRE) {
+                        edges {
+                            cursor
+                            node {
+                                id
+                                name
+                                pageCount
+                                genre
+                                author {
+                                    id
+                                    firstName
+                                    lastName
+                                }
+                            }
+                        }
+                        pageInfo {
+                            hasNextPage
+                            hasPreviousPage
+                            startCursor
+                            endCursor
+                        }
+                        totalCount
+                    }
+                }
+                """;
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.books.edges")
+                .entityList(Object.class)
+                .hasSize(2);
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.books.totalCount")
+                .entity(Integer.class)
+                .isEqualTo(2);
+    }
+    
+    @Test
+    @WithMockUser(roles = "USER")
+    void shouldReturnBooksWithSearchAndOrderBy() {
+        String document = """
+                query {
+                    books(first: 2, search: "Lucky", orderBy: NAME) {
+                        edges {
+                            cursor
+                            node {
+                                id
+                                name
+                                pageCount
+                                genre
+                                author {
+                                    id
+                                    firstName
+                                    lastName
+                                }
+                            }
+                        }
+                        pageInfo {
+                            hasNextPage
+                            hasPreviousPage
+                            startCursor
+                            endCursor
+                        }
+                        totalCount
+                    }
+                }
+                """;
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.books.edges")
+                .entityList(Object.class)
+                .hasSize(2);
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.books.edges[0].node.genre")
+                .entity(String.class)
+                .isEqualTo("Non-Fiction");
+    }
+    
+    @Test
+    @WithMockUser(roles = "USER")
+    void shouldReturnBooksWithGenreAndOrderBy() {
+        String document = """
+                query {
+                    books(first: 2, genre: "Non-Fiction", orderBy: PAGE_COUNT) {
+                        edges {
+                            cursor
+                            node {
+                                id
+                                name
+                                pageCount
+                                genre
+                                author {
+                                    id
+                                    firstName
+                                    lastName
+                                }
+                            }
+                        }
+                        pageInfo {
+                            hasNextPage
+                            hasPreviousPage
+                            startCursor
+                            endCursor
+                        }
+                        totalCount
+                    }
+                }
+                """;
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.books.edges")
+                .entityList(Object.class)
+                .hasSize(2);
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.books.edges[0].node.genre")
+                .entity(String.class)
+                .isEqualTo("Non-Fiction");
+    }
+    
+    @Test
+    @WithMockUser(roles = "USER")
+    void shouldReturnBooksWithSearchGenreAndOrderBy() {
+        String document = """
+                query {
+                    books(first: 2, search: "Lucky", genre: "Non-Fiction", orderBy: GENRE) {
+                        edges {
+                            cursor
+                            node {
+                                id
+                                name
+                                pageCount
+                                genre
+                                author {
+                                    id
+                                    firstName
+                                    lastName
+                                }
+                            }
+                        }
+                        pageInfo {
+                            hasNextPage
+                            hasPreviousPage
+                            startCursor
+                            endCursor
+                        }
+                        totalCount
+                    }
+                }
+                """;
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.books.edges")
+                .entityList(Object.class)
+                .hasSize(2);
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.books.edges[0].node.genre")
                 .entity(String.class)
                 .isEqualTo("Non-Fiction");
     }

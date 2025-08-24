@@ -1,6 +1,12 @@
 type Query {
     bookById(id: ID): Book
-    books(first: Int, after: String, search: String, genre: String): BookConnection
+    books(first: Int, after: String, search: String, genre: String, orderBy: BookOrderBy): BookConnection
+}
+
+enum BookOrderBy {
+    NAME
+    PAGE_COUNT
+    GENRE
 }
 
 type Mutation {

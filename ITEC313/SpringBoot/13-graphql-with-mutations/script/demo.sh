@@ -163,7 +163,87 @@ curl -X POST \
 echo
 echo
 
-echo "5. Testing GraphQL Mutations..."
+echo "6. Testing GraphQL Sorting..."
+
+# Test 16: Query books ordered by name
+echo "📚 Querying books ordered by name:"
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{
+    "query": "query { books(first: 5, orderBy: NAME) { edges { cursor node { id name pageCount genre author { id firstName lastName } } } pageInfo { hasNextPage hasPreviousPage startCursor endCursor } totalCount } }"
+  }' \
+  http://localhost:8081/graphql
+
+echo
+echo
+
+# Test 17: Query books ordered by page count
+echo "📚 Querying books ordered by page count:"
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{
+    "query": "query { books(first: 5, orderBy: PAGE_COUNT) { edges { cursor node { id name pageCount genre author { id firstName lastName } } } pageInfo { hasNextPage hasPreviousPage startCursor endCursor } totalCount } }"
+  }' \
+  http://localhost:8081/graphql
+
+echo
+echo
+
+# Test 18: Query books ordered by genre
+echo "📚 Querying books ordered by genre:"
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{
+    "query": "query { books(first: 5, orderBy: GENRE) { edges { cursor node { id name pageCount genre author { id firstName lastName } } } pageInfo { hasNextPage hasPreviousPage startCursor endCursor } totalCount } }"
+  }' \
+  http://localhost:8081/graphql
+
+echo
+echo
+
+# Test 19: Query books with search and ordered by name
+echo "🔍📚 Querying books with search and ordered by name (search: 'Lucky', orderBy: NAME):"
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{
+    "query": "query { books(first: 5, search: \"Lucky\", orderBy: NAME) { edges { cursor node { id name pageCount genre author { id firstName lastName } } } pageInfo { hasNextPage hasPreviousPage startCursor endCursor } totalCount } }"
+  }' \
+  http://localhost:8081/graphql
+
+echo
+echo
+
+# Test 20: Query books with genre filter and ordered by page count
+echo "📚 Querying books with genre filter and ordered by page count (genre: 'Non-Fiction', orderBy: PAGE_COUNT):"
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{
+    "query": "query { books(first: 5, genre: \"Non-Fiction\", orderBy: PAGE_COUNT) { edges { cursor node { id name pageCount genre author { id firstName lastName } } } pageInfo { hasNextPage hasPreviousPage startCursor endCursor } totalCount } }"
+  }' \
+  http://localhost:8081/graphql
+
+echo
+echo
+
+# Test 21: Query books with search, genre filter, and ordered by genre
+echo "🔍📚 Querying books with search, genre filter, and ordered by genre (search: 'Lucky', genre: 'Non-Fiction', orderBy: GENRE):"
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{
+    "query": "query { books(first: 5, search: \"Lucky\", genre: \"Non-Fiction\", orderBy: GENRE) { edges { cursor node { id name pageCount genre author { id firstName lastName } } } pageInfo { hasNextPage hasPreviousPage startCursor endCursor } totalCount } }"
+  }' \
+  http://localhost:8081/graphql
+
+echo
+echo
+
+echo "7. Testing GraphQL Mutations..."
 
 # Test 5: Create a new author
 echo
@@ -266,6 +346,8 @@ echo "   - books: Paginated book queries with cursor-based pagination"
 echo "   - books: Search filtering by book name"
 echo "   - books: Genre filtering"
 echo "   - books: Combined search and genre filtering"
+echo "   - books: Sorting by name, page count, and genre"
+echo "   - books: Combined filtering and sorting"
 echo "   - createAuthor: Add new authors (ADMIN only)"
 echo "   - createBook: Add new books (ADMIN only)"
 echo "   - updateBook: Modify existing books (ADMIN only)"

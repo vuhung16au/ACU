@@ -25,6 +25,8 @@ This project implements a comprehensive GraphQL server that provides access to a
 - **2002 books** with diverse titles, genres, and page counts (150-800 pages)
 - GraphQL queries to retrieve books by ID with their associated author information
 - GraphQL queries with filtering capabilities (search by name, filter by genre, combined filtering)
+- GraphQL queries with sorting capabilities (sort by name, page count, genre)
+- GraphQL queries with combined filtering and sorting
 - GraphQL mutations for full CRUD operations (Create, Read, Update, Delete) with role-based permissions
 - RESTful GraphQL endpoint at `/graphql` (requires authentication)
 - Authentication endpoint at `/auth/login` for obtaining JWT tokens
@@ -306,9 +308,9 @@ query {
 }
 ```
 
-## GraphQL Queries with Filtering
+## GraphQL Queries with Filtering and Sorting
 
-The project now supports advanced filtering capabilities for book queries:
+The project now supports advanced filtering and sorting capabilities for book queries:
 
 ### Query books with search filter:
 
@@ -375,6 +377,126 @@ query {
 ```graphql
 query {
   books(first: 5, search: "Lucky", genre: "Non-Fiction") {
+    edges {
+      cursor
+      node {
+        id
+        name
+        pageCount
+        genre
+        author {
+          id
+          firstName
+          lastName
+        }
+      }
+    }
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
+    totalCount
+  }
+}
+```
+
+### Query books with sorting:
+
+```graphql
+query {
+  books(first: 5, orderBy: NAME) {
+    edges {
+      cursor
+      node {
+        id
+        name
+        pageCount
+        genre
+        author {
+          id
+          firstName
+          lastName
+        }
+      }
+    }
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
+    totalCount
+  }
+}
+```
+
+### Query books with search and sorting:
+
+```graphql
+query {
+  books(first: 5, search: "Lucky", orderBy: PAGE_COUNT) {
+    edges {
+      cursor
+      node {
+        id
+        name
+        pageCount
+        genre
+        author {
+          id
+          firstName
+          lastName
+        }
+      }
+    }
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
+    totalCount
+  }
+}
+```
+
+### Query books with genre filter and sorting:
+
+```graphql
+query {
+  books(first: 5, genre: "Non-Fiction", orderBy: GENRE) {
+    edges {
+      cursor
+      node {
+        id
+        name
+        pageCount
+        genre
+        author {
+          id
+          firstName
+          lastName
+        }
+      }
+    }
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
+    totalCount
+  }
+}
+```
+
+### Query books with combined filtering and sorting:
+
+```graphql
+query {
+  books(first: 5, search: "Lucky", genre: "Non-Fiction", orderBy: NAME) {
     edges {
       cursor
       node {
@@ -531,7 +653,7 @@ The GraphQL schema defines the following types:
 
 ### Query Type
 - **bookById(id: ID)**: Retrieve a book by its ID
-- **books(first: Int, after: String, search: String, genre: String)**: Retrieve books with cursor-based pagination and filtering
+- **books(first: Int, after: String, search: String, genre: String, orderBy: BookOrderBy)**: Retrieve books with cursor-based pagination, filtering, and sorting
 
 ### Mutation Type
 - **createBook(input: CreateBookInput!)**: Create a new book
@@ -545,6 +667,9 @@ The GraphQL schema defines the following types:
 - **BookConnection**: Paginated connection containing edges, pageInfo, and totalCount
 - **BookEdge**: Edge containing cursor and book node
 - **PageInfo**: Pagination metadata with hasNextPage, hasPreviousPage, startCursor, and endCursor
+
+### Enum Types
+- **BookOrderBy**: Sorting options for books (NAME, PAGE_COUNT, GENRE)
 
 ### Input Types
 - **CreateBookInput**: Input for creating books (name, pageCount, authorId, genre)

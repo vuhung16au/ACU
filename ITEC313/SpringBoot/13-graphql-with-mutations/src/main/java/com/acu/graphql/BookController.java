@@ -29,33 +29,17 @@ public class BookController {
     }
     
     @QueryMapping
-    public BookConnection books(@Argument Integer first, @Argument String after, @Argument String search, @Argument String genre) {
+    public BookConnection books(@Argument Integer first, @Argument String after, @Argument String search, @Argument String genre, @Argument BookOrderBy orderBy) {
         // Default to 10 if first is not specified
         int limit = (first != null) ? Math.min(first, 100) : 10; // Max 100 items per page
         
         Page<Book> bookPage;
         if (after != null && !after.isEmpty()) {
-            // Find books after the cursor with filters
-            if (search != null && !search.isEmpty() && genre != null && !genre.isEmpty()) {
-                bookPage = bookRepository.findBooksAfterCursorWithSearchAndGenre(after, search, genre, PageRequest.of(0, limit + 1));
-            } else if (search != null && !search.isEmpty()) {
-                bookPage = bookRepository.findBooksAfterCursorWithSearch(after, search, PageRequest.of(0, limit + 1));
-            } else if (genre != null && !genre.isEmpty()) {
-                bookPage = bookRepository.findBooksAfterCursorWithGenre(after, genre, PageRequest.of(0, limit + 1));
-            } else {
-                bookPage = bookRepository.findBooksAfterCursor(after, PageRequest.of(0, limit + 1));
-            }
+            // Find books after the cursor with filters and sorting
+            bookPage = getBooksAfterCursorWithFiltersAndSorting(after, search, genre, orderBy, limit);
         } else {
-            // First page with filters
-            if (search != null && !search.isEmpty() && genre != null && !genre.isEmpty()) {
-                bookPage = bookRepository.findBooksWithSearchAndGenre(search, genre, PageRequest.of(0, limit + 1));
-            } else if (search != null && !search.isEmpty()) {
-                bookPage = bookRepository.findBooksWithSearch(search, PageRequest.of(0, limit + 1));
-            } else if (genre != null && !genre.isEmpty()) {
-                bookPage = bookRepository.findBooksWithGenre(genre, PageRequest.of(0, limit + 1));
-            } else {
-                bookPage = bookRepository.findBooks(PageRequest.of(0, limit + 1));
-            }
+            // First page with filters and sorting
+            bookPage = getBooksWithFiltersAndSorting(search, genre, orderBy, limit);
         }
         
         List<Book> books = bookPage.getContent();
@@ -77,6 +61,172 @@ public class BookController {
         PageInfo pageInfo = new PageInfo(hasNextPage, after != null && !after.isEmpty(), startCursor, endCursor);
         
         return new BookConnection(edges, pageInfo, (int) bookRepository.count());
+    }
+    
+    private Page<Book> getBooksWithFiltersAndSorting(String search, String genre, BookOrderBy orderBy, int limit) {
+        boolean hasSearch = search != null && !search.isEmpty();
+        boolean hasGenre = genre != null && !genre.isEmpty();
+        
+        if (hasSearch && hasGenre) {
+            return getBooksWithSearchAndGenreAndSorting(search, genre, orderBy, limit);
+        } else if (hasSearch) {
+            return getBooksWithSearchAndSorting(search, orderBy, limit);
+        } else if (hasGenre) {
+            return getBooksWithGenreAndSorting(genre, orderBy, limit);
+        } else {
+            return getBooksWithSorting(orderBy, limit);
+        }
+    }
+    
+    private Page<Book> getBooksAfterCursorWithFiltersAndSorting(String after, String search, String genre, BookOrderBy orderBy, int limit) {
+        boolean hasSearch = search != null && !search.isEmpty();
+        boolean hasGenre = genre != null && !genre.isEmpty();
+        
+        if (hasSearch && hasGenre) {
+            return getBooksAfterCursorWithSearchAndGenreAndSorting(after, search, genre, orderBy, limit);
+        } else if (hasSearch) {
+            return getBooksAfterCursorWithSearchAndSorting(after, search, orderBy, limit);
+        } else if (hasGenre) {
+            return getBooksAfterCursorWithGenreAndSorting(after, genre, orderBy, limit);
+        } else {
+            return getBooksAfterCursorWithSorting(after, orderBy, limit);
+        }
+    }
+    
+    private Page<Book> getBooksWithSorting(BookOrderBy orderBy, int limit) {
+        if (orderBy == null) {
+            return bookRepository.findBooks(PageRequest.of(0, limit + 1));
+        }
+        
+        switch (orderBy) {
+            case NAME:
+                return bookRepository.findBooksOrderByName(PageRequest.of(0, limit + 1));
+            case PAGE_COUNT:
+                return bookRepository.findBooksOrderByPageCount(PageRequest.of(0, limit + 1));
+            case GENRE:
+                return bookRepository.findBooksOrderByGenre(PageRequest.of(0, limit + 1));
+            default:
+                return bookRepository.findBooks(PageRequest.of(0, limit + 1));
+        }
+    }
+    
+    private Page<Book> getBooksAfterCursorWithSorting(String after, BookOrderBy orderBy, int limit) {
+        if (orderBy == null) {
+            return bookRepository.findBooksAfterCursor(after, PageRequest.of(0, limit + 1));
+        }
+        
+        switch (orderBy) {
+            case NAME:
+                return bookRepository.findBooksAfterCursorOrderByName(after, PageRequest.of(0, limit + 1));
+            case PAGE_COUNT:
+                return bookRepository.findBooksAfterCursorOrderByPageCount(after, PageRequest.of(0, limit + 1));
+            case GENRE:
+                return bookRepository.findBooksAfterCursorOrderByGenre(after, PageRequest.of(0, limit + 1));
+            default:
+                return bookRepository.findBooksAfterCursor(after, PageRequest.of(0, limit + 1));
+        }
+    }
+    
+    private Page<Book> getBooksWithSearchAndSorting(String search, BookOrderBy orderBy, int limit) {
+        if (orderBy == null) {
+            return bookRepository.findBooksWithSearch(search, PageRequest.of(0, limit + 1));
+        }
+        
+        switch (orderBy) {
+            case NAME:
+                return bookRepository.findBooksWithSearchOrderByName(search, PageRequest.of(0, limit + 1));
+            case PAGE_COUNT:
+                return bookRepository.findBooksWithSearchOrderByPageCount(search, PageRequest.of(0, limit + 1));
+            case GENRE:
+                return bookRepository.findBooksWithSearchOrderByGenre(search, PageRequest.of(0, limit + 1));
+            default:
+                return bookRepository.findBooksWithSearch(search, PageRequest.of(0, limit + 1));
+        }
+    }
+    
+    private Page<Book> getBooksAfterCursorWithSearchAndSorting(String after, String search, BookOrderBy orderBy, int limit) {
+        if (orderBy == null) {
+            return bookRepository.findBooksAfterCursorWithSearch(after, search, PageRequest.of(0, limit + 1));
+        }
+        
+        switch (orderBy) {
+            case NAME:
+                return bookRepository.findBooksAfterCursorWithSearchOrderByName(after, search, PageRequest.of(0, limit + 1));
+            case PAGE_COUNT:
+                return bookRepository.findBooksAfterCursorWithSearchOrderByPageCount(after, search, PageRequest.of(0, limit + 1));
+            case GENRE:
+                return bookRepository.findBooksAfterCursorWithSearchOrderByGenre(after, search, PageRequest.of(0, limit + 1));
+            default:
+                return bookRepository.findBooksAfterCursorWithSearch(after, search, PageRequest.of(0, limit + 1));
+        }
+    }
+    
+    private Page<Book> getBooksWithGenreAndSorting(String genre, BookOrderBy orderBy, int limit) {
+        if (orderBy == null) {
+            return bookRepository.findBooksWithGenre(genre, PageRequest.of(0, limit + 1));
+        }
+        
+        switch (orderBy) {
+            case NAME:
+                return bookRepository.findBooksWithGenreOrderByName(genre, PageRequest.of(0, limit + 1));
+            case PAGE_COUNT:
+                return bookRepository.findBooksWithGenreOrderByPageCount(genre, PageRequest.of(0, limit + 1));
+            case GENRE:
+                return bookRepository.findBooksWithGenreOrderByGenre(genre, PageRequest.of(0, limit + 1));
+            default:
+                return bookRepository.findBooksWithGenre(genre, PageRequest.of(0, limit + 1));
+        }
+    }
+    
+    private Page<Book> getBooksAfterCursorWithGenreAndSorting(String after, String genre, BookOrderBy orderBy, int limit) {
+        if (orderBy == null) {
+            return bookRepository.findBooksAfterCursorWithGenre(after, genre, PageRequest.of(0, limit + 1));
+        }
+        
+        switch (orderBy) {
+            case NAME:
+                return bookRepository.findBooksAfterCursorWithGenreOrderByName(after, genre, PageRequest.of(0, limit + 1));
+            case PAGE_COUNT:
+                return bookRepository.findBooksAfterCursorWithGenreOrderByPageCount(after, genre, PageRequest.of(0, limit + 1));
+            case GENRE:
+                return bookRepository.findBooksAfterCursorWithGenreOrderByGenre(after, genre, PageRequest.of(0, limit + 1));
+            default:
+                return bookRepository.findBooksAfterCursorWithGenre(after, genre, PageRequest.of(0, limit + 1));
+        }
+    }
+    
+    private Page<Book> getBooksWithSearchAndGenreAndSorting(String search, String genre, BookOrderBy orderBy, int limit) {
+        if (orderBy == null) {
+            return bookRepository.findBooksWithSearchAndGenre(search, genre, PageRequest.of(0, limit + 1));
+        }
+        
+        switch (orderBy) {
+            case NAME:
+                return bookRepository.findBooksWithSearchAndGenreOrderByName(search, genre, PageRequest.of(0, limit + 1));
+            case PAGE_COUNT:
+                return bookRepository.findBooksWithSearchAndGenreOrderByPageCount(search, genre, PageRequest.of(0, limit + 1));
+            case GENRE:
+                return bookRepository.findBooksWithSearchAndGenreOrderByGenre(search, genre, PageRequest.of(0, limit + 1));
+            default:
+                return bookRepository.findBooksWithSearchAndGenre(search, genre, PageRequest.of(0, limit + 1));
+        }
+    }
+    
+    private Page<Book> getBooksAfterCursorWithSearchAndGenreAndSorting(String after, String search, String genre, BookOrderBy orderBy, int limit) {
+        if (orderBy == null) {
+            return bookRepository.findBooksAfterCursorWithSearchAndGenre(after, search, genre, PageRequest.of(0, limit + 1));
+        }
+        
+        switch (orderBy) {
+            case NAME:
+                return bookRepository.findBooksAfterCursorWithSearchAndGenreOrderByName(after, search, genre, PageRequest.of(0, limit + 1));
+            case PAGE_COUNT:
+                return bookRepository.findBooksAfterCursorWithSearchAndGenreOrderByPageCount(after, search, genre, PageRequest.of(0, limit + 1));
+            case GENRE:
+                return bookRepository.findBooksAfterCursorWithSearchAndGenreOrderByGenre(after, search, genre, PageRequest.of(0, limit + 1));
+            default:
+                return bookRepository.findBooksAfterCursorWithSearchAndGenre(after, search, genre, PageRequest.of(0, limit + 1));
+        }
     }
 
     @SchemaMapping
