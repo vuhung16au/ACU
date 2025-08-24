@@ -1,0 +1,164 @@
+{
+  "people": [
+    {
+      "name": "Alice Johnson",
+      "age": 28,
+      "email": "alice.johnson@email.com",
+      "location": "San Francisco",
+      "experienceYears": 5
+    },
+    {
+      "name": "Bob Smith",
+      "age": 35,
+      "email": "bob.smith@email.com",
+      "location": "New York",
+      "experienceYears": 8
+    },
+    {
+      "name": "Carol Davis",
+      "age": 42,
+      "email": "carol.davis@email.com",
+      "location": "Boston",
+      "experienceYears": 12
+    },
+    {
+      "name": "David Wilson",
+      "age": 25,
+      "email": "david.wilson@email.com",
+      "location": "Austin",
+      "experienceYears": 2
+    },
+    {
+      "name": "Eve Brown",
+      "age": 30,
+      "email": "eve.brown@email.com",
+      "location": "Seattle",
+      "experienceYears": 6
+    }
+  ],
+  "technologies": [
+    {
+      "name": "Java",
+      "description": "Programming Language",
+      "version": "17",
+      "popularityScore": 9
+    },
+    {
+      "name": "Spring Boot",
+      "description": "Framework",
+      "version": "3.2",
+      "popularityScore": 8
+    },
+    {
+      "name": "Neo4j",
+      "description": "Database",
+      "version": "5.0",
+      "popularityScore": 7
+    },
+    {
+      "name": "Docker",
+      "description": "Containerization",
+      "version": "24.0",
+      "popularityScore": 8
+    },
+    {
+      "name": "Kubernetes",
+      "description": "Orchestration",
+      "version": "1.28",
+      "popularityScore": 7
+    },
+    {
+      "name": "Python",
+      "description": "Programming Language",
+      "version": "3.11",
+      "popularityScore": 9
+    },
+    {
+      "name": "React",
+      "description": "Frontend Framework",
+      "version": "18.0",
+      "popularityScore": 8
+    },
+    {
+      "name": "PostgreSQL",
+      "description": "Database",
+      "version": "15.0",
+      "popularityScore": 8
+    }
+  ],
+  "companies": [
+    {
+      "name": "TechCorp",
+      "industry": "Software",
+      "size": "Enterprise",
+      "foundedYear": 1995
+    },
+    {
+      "name": "StartupXYZ",
+      "industry": "FinTech",
+      "size": "Startup",
+      "foundedYear": 2020
+    },
+    {
+      "name": "GlobalSoft",
+      "industry": "Consulting",
+      "size": "SME",
+      "foundedYear": 2005
+    }
+  ],
+  "projects": [
+    {
+      "name": "E-commerce Platform",
+      "description": "Online shopping platform",
+      "status": "Active",
+      "startDate": "2024-01-15",
+      "budget": 500
+    },
+    {
+      "name": "Mobile Banking App",
+      "description": "Digital banking application",
+      "status": "Active",
+      "startDate": "2024-03-01",
+      "budget": 300
+    },
+    {
+      "name": "Data Analytics Dashboard",
+      "description": "Business intelligence platform",
+      "status": "Completed",
+      "startDate": "2023-09-01",
+      "budget": 200
+    }
+  ],
+  "skills": [
+    {
+      "name": "Problem Solving",
+      "level": "Advanced",
+      "category": "Technical"
+    },
+    {
+      "name": "Team Leadership",
+      "level": "Expert",
+      "category": "Soft Skills"
+    },
+    {
+      "name": "Agile Methodology",
+      "level": "Advanced",
+      "category": "Process"
+    },
+    {
+      "name": "System Design",
+      "level": "Expert",
+      "category": "Technical"
+    },
+    {
+      "name": "Code Review",
+      "level": "Advanced",
+      "category": "Technical"
+    },
+    {
+      "name": "Testing",
+      "level": "Intermediate",
+      "category": "Technical"
+    }
+  ]
+}
