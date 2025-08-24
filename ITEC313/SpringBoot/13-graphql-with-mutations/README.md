@@ -16,9 +16,10 @@ A simple GraphQL service built with Spring Boot and Spring for GraphQL. This pro
 
 ## Project Description
 
-This project implements a simple GraphQL server that provides access to Australian books and their authors. The service includes:
+This project implements a comprehensive GraphQL server that provides access to a large collection of books and their authors. The service includes:
 
-- Two Australian books: "The Lucky Country" by Donald Horne and "The Magic Pudding" by Norman Lindsay
+- **1002 authors** with realistic names from various backgrounds
+- **2002 books** with diverse titles, genres, and page counts (150-800 pages)
 - GraphQL queries to retrieve books by ID with their associated author information
 - GraphQL mutations for full CRUD operations (Create, Read, Update, Delete)
 - RESTful GraphQL endpoint at `/graphql`
@@ -77,6 +78,11 @@ docker/
    - Database: `graphql_db`
    - Username: `postgres`
    - Password: `postgres`
+
+4. **Sample Data**:
+   - The database will be automatically populated with **1002 authors** and **2002 books**
+   - Sample data includes realistic names, diverse book titles, and varied page counts
+   - Data is generated using templates that create believable book titles and author names
 
 ## How to Build
 
@@ -227,6 +233,8 @@ This script includes curl commands and GraphQL queries/mutations to demonstrate:
 
 ## Available Books
 
+The database now contains **2002 books** written by **1002 authors**, including:
+
 1. **"The Lucky Country"** by Donald Horne (1964)
    - A book about Australia that has become a nickname for the country
    - ID: `book-1`
@@ -234,6 +242,15 @@ This script includes curl commands and GraphQL queries/mutations to demonstrate:
 2. **"The Magic Pudding: Being The Adventures of Bunyip Bluegum and his friends Bill Barnacle and Sam Sawnoff"** by Norman Lindsay (1918)
    - A classic Australian children's book
    - ID: `book-2`
+
+3. **Plus 2000 additional books** with realistic titles such as:
+   - "The Secret of Paris" by Mia Taylor
+   - "The Dark Castle in Prague" by various authors
+   - "Helen and the Bridge" by various authors
+   - "Big Ocean" by various authors
+   - And many more with diverse themes, locations, and characters
+
+The sample data includes books with page counts ranging from 150 to 800 pages, covering various genres and themes including adventures, mysteries, historical fiction, and contemporary literature.
 
 ## Maven Commands
 
