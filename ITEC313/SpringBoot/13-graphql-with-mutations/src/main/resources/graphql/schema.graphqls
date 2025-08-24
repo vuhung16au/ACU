@@ -1,6 +1,9 @@
 type Query {
     bookById(id: ID): Book
     books(first: Int, after: String, search: String, genre: String, orderBy: BookOrderBy): BookConnection
+    genres: [Genre!]!
+    genreById(id: ID): Genre
+    booksByGenre(genreId: ID!, first: Int, after: String): BookConnection
 }
 
 enum BookOrderBy {
@@ -12,8 +15,13 @@ enum BookOrderBy {
 type Mutation {
     createBook(input: CreateBookInput!): Book
     createAuthor(input: CreateAuthorInput!): Author
+    createGenre(input: CreateGenreInput!): Genre
     updateBook(id: ID!, input: UpdateBookInput!): Book
+    updateGenre(id: ID!, input: UpdateGenreInput!): Genre
     deleteBook(id: ID!): Boolean
+    deleteGenre(id: ID!): Boolean
+    addGenreToBook(bookId: ID!, genreId: ID!): Book
+    removeGenreFromBook(bookId: ID!, genreId: ID!): Book
 }
 
 type Book {
@@ -21,6 +29,7 @@ type Book {
     name: String
     pageCount: Int
     genre: String
+    genres: [Genre!]!
     author: Author
 }
 
@@ -28,6 +37,13 @@ type Author {
     id: ID
     firstName: String
     lastName: String
+}
+
+type Genre {
+    id: ID
+    name: String
+    description: String
+    books: [Book!]!
 }
 
 input CreateBookInput {
@@ -42,11 +58,21 @@ input CreateAuthorInput {
     lastName: String!
 }
 
+input CreateGenreInput {
+    name: String!
+    description: String
+}
+
 input UpdateBookInput {
     name: String
     pageCount: Int
     authorId: String
     genre: String
+}
+
+input UpdateGenreInput {
+    name: String
+    description: String
 }
 
 type BookConnection {

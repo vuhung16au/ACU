@@ -1,6 +1,8 @@
 package com.acu.graphql;
 
 import jakarta.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "books")
@@ -22,7 +24,15 @@ public class Book {
     private String cursor;
     
     @Column(name = "genre")
-    private String genre;
+    private String genre; // Keeping for backward compatibility
+    
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "book_genres",
+        joinColumns = @JoinColumn(name = "book_id"),
+        inverseJoinColumns = @JoinColumn(name = "genre_id")
+    )
+    private Set<Genre> genres = new HashSet<>();
     
     // Default constructor for JPA
     public Book() {}
@@ -83,5 +93,24 @@ public class Book {
     
     public void setGenre(String genre) {
         this.genre = genre;
+    }
+    
+    public Set<Genre> getGenres() {
+        return genres;
+    }
+    
+    public void setGenres(Set<Genre> genres) {
+        this.genres = genres;
+    }
+    
+    // Helper methods for genre management
+    public void addGenre(Genre genre) {
+        this.genres.add(genre);
+        genre.getBooks().add(this);
+    }
+    
+    public void removeGenre(Genre genre) {
+        this.genres.remove(genre);
+        genre.getBooks().remove(this);
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -23,9 +24,65 @@ public class BookController {
     @Autowired
     private AuthorRepository authorRepository;
     
+    @Autowired
+    private GenreRepository genreRepository;
+    
     @QueryMapping
     public Book bookById(@Argument String id) {
         return bookRepository.findById(id).orElse(null);
+    }
+    
+    @QueryMapping
+    public List<Genre> genres() {
+        return genreRepository.findAll();
+    }
+    
+    @QueryMapping
+    public Genre genreById(@Argument String id) {
+        return genreRepository.findById(id).orElse(null);
+    }
+    
+    @QueryMapping
+    public BookConnection booksByGenre(@Argument String genreId, @Argument Integer first, @Argument String after) {
+        // Default to 10 if first is not specified
+        int limit = (first != null) ? Math.min(first, 100) : 10; // Max 100 items per page
+        
+        Genre genre = genreRepository.findById(genreId).orElse(null);
+        if (genre == null) {
+            return new BookConnection(List.of(), new PageInfo(false, false, null, null), 0);
+        }
+        
+        // Get books for this genre with pagination
+        List<Book> books = genre.getBooks().stream()
+                .sorted((b1, b2) -> b1.getId().compareTo(b2.getId()))
+                .collect(Collectors.toList());
+        
+        // Apply cursor-based pagination
+        int startIndex = 0;
+        if (after != null && !after.isEmpty()) {
+            for (int i = 0; i < books.size(); i++) {
+                if (books.get(i).getCursor().equals(after)) {
+                    startIndex = i + 1;
+                    break;
+                }
+            }
+        }
+        
+        int endIndex = Math.min(startIndex + limit, books.size());
+        List<Book> pageBooks = books.subList(startIndex, endIndex);
+        
+        // Convert books to edges
+        List<BookEdge> edges = pageBooks.stream()
+                .map(book -> new BookEdge(book.getCursor(), book))
+                .collect(Collectors.toList());
+        
+        // Create page info
+        String startCursor = edges.isEmpty() ? null : edges.get(0).getCursor();
+        String endCursor = edges.isEmpty() ? null : edges.get(edges.size() - 1).getCursor();
+        boolean hasNextPage = endIndex < books.size();
+        PageInfo pageInfo = new PageInfo(hasNextPage, after != null && !after.isEmpty(), startCursor, endCursor);
+        
+        return new BookConnection(edges, pageInfo, books.size());
     }
     
     @QueryMapping
@@ -234,6 +291,16 @@ public class BookController {
         return authorRepository.findById(book.getAuthorId()).orElse(null);
     }
     
+    @SchemaMapping
+    public List<Genre> genres(Book book) {
+        return genreRepository.findByBookId(book.getId());
+    }
+    
+    @SchemaMapping
+    public List<Book> books(Genre genre) {
+        return new ArrayList<>(genre.getBooks());
+    }
+    
     @MutationMapping
     @PreAuthorize("hasRole('ADMIN')")
     public Book createBook(@Argument CreateBookInput input) {
@@ -282,5 +349,69 @@ public class BookController {
             return true;
         }
         return false;
+    }
+    
+    @MutationMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    public Genre createGenre(@Argument CreateGenreInput input) {
+        String id = "genre-" + UUID.randomUUID().toString().substring(0, 8);
+        Genre genre = new Genre(id, input.getName(), input.getDescription());
+        return genreRepository.save(genre);
+    }
+    
+    @MutationMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    public Genre updateGenre(@Argument String id, @Argument UpdateGenreInput input) {
+        Genre existingGenre = genreRepository.findById(id).orElse(null);
+        if (existingGenre == null) {
+            return null;
+        }
+        
+        if (input.getName() != null) {
+            existingGenre.setName(input.getName());
+        }
+        if (input.getDescription() != null) {
+            existingGenre.setDescription(input.getDescription());
+        }
+        
+        return genreRepository.save(existingGenre);
+    }
+    
+    @MutationMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    public Boolean deleteGenre(@Argument String id) {
+        if (genreRepository.existsById(id)) {
+            genreRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+    
+    @MutationMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    public Book addGenreToBook(@Argument String bookId, @Argument String genreId) {
+        Book book = bookRepository.findById(bookId).orElse(null);
+        Genre genre = genreRepository.findById(genreId).orElse(null);
+        
+        if (book == null || genre == null) {
+            return null;
+        }
+        
+        book.addGenre(genre);
+        return bookRepository.save(book);
+    }
+    
+    @MutationMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    public Book removeGenreFromBook(@Argument String bookId, @Argument String genreId) {
+        Book book = bookRepository.findById(bookId).orElse(null);
+        Genre genre = genreRepository.findById(genreId).orElse(null);
+        
+        if (book == null || genre == null) {
+            return null;
+        }
+        
+        book.removeGenre(genre);
+        return bookRepository.save(book);
     }
 }

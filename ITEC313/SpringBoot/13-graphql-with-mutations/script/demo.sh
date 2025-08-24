@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "=== Spring Boot GraphQL Server Demo ==="
+echo "=== Spring Boot GraphQL Server Demo (with Many-to-Many Genres) ==="
 echo
 
 # Check if the server is running
@@ -295,7 +295,62 @@ curl -X POST \
 echo
 echo
 
-echo "7. Testing GraphQL Mutations..."
+echo "7. Testing Genre Queries..."
+
+# Test 22: Query all genres
+echo
+echo "📚 Querying all genres:"
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{
+    "query": "query { genres { id name description } }"
+  }' \
+  http://localhost:8081/graphql
+
+echo
+echo
+
+# Test 23: Query genre by ID
+echo "📚 Querying genre by ID (genre-1):"
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{
+    "query": "query { genreById(id: \"genre-1\") { id name description books { id name } } }"
+  }' \
+  http://localhost:8081/graphql
+
+echo
+echo
+
+# Test 24: Query books by genre
+echo "📚 Querying books by genre (genre-2 - Non-Fiction):"
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{
+    "query": "query { booksByGenre(genreId: \"genre-2\", first: 5) { edges { cursor node { id name pageCount author { firstName lastName } } } pageInfo { hasNextPage } totalCount } }"
+  }' \
+  http://localhost:8081/graphql
+
+echo
+echo
+
+# Test 25: Query book with genres
+echo "📚 Querying book with genres (book-1):"
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{
+    "query": "query { bookById(id: \"book-1\") { id name pageCount genre genres { id name description } author { firstName lastName } } }"
+  }' \
+  http://localhost:8081/graphql
+
+echo
+echo
+
+echo "8. Testing GraphQL Mutations..."
 
 # Test 5: Create a new author
 echo
@@ -376,6 +431,45 @@ curl -X POST \
 echo
 echo
 
+# Test 26: Create a new genre
+echo "📚 Creating a new genre:"
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{
+    "query": "mutation { createGenre(input: { name: \"Young Adult\", description: \"Literature written for young adults\" }) { id name description } }"
+  }' \
+  http://localhost:8081/graphql
+
+echo
+echo
+
+# Test 27: Add genre to book
+echo "📚 Adding genre to book:"
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{
+    "query": "mutation { addGenreToBook(bookId: \"book-1\", genreId: \"genre-1\") { id name genres { id name } } }"
+  }' \
+  http://localhost:8081/graphql
+
+echo
+echo
+
+# Test 28: Query book with multiple genres
+echo "📚 Querying book with multiple genres:"
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{
+    "query": "query { bookById(id: \"book-1\") { id name genres { id name description } } }"
+  }' \
+  http://localhost:8081/graphql
+
+echo
+echo
+
 echo "=== Demo completed ==="
 echo
 echo "💡 You can also access the interactive GraphiQL interface at:"
@@ -401,7 +495,16 @@ echo "   - books: Genre filtering"
 echo "   - books: Combined search and genre filtering"
 echo "   - books: Sorting by name, page count, and genre"
 echo "   - books: Combined filtering and sorting"
+echo "   - genres: Query all genres"
+echo "   - genreById: Query individual genres with their books"
+echo "   - booksByGenre: Query books by specific genre"
+echo "   - Many-to-Many: Books can have multiple genres"
 echo "   - createAuthor: Add new authors (ADMIN only)"
 echo "   - createBook: Add new books (ADMIN only)"
+echo "   - createGenre: Add new genres (ADMIN only)"
 echo "   - updateBook: Modify existing books (ADMIN only)"
+echo "   - updateGenre: Modify existing genres (ADMIN only)"
 echo "   - deleteBook: Remove books (ADMIN only)"
+echo "   - deleteGenre: Remove genres (ADMIN only)"
+echo "   - addGenreToBook: Add genre to book (ADMIN only)"
+echo "   - removeGenreFromBook: Remove genre from book (ADMIN only)"

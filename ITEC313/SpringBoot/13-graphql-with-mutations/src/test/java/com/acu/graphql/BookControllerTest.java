@@ -29,6 +29,9 @@ class BookControllerTest {
     @MockBean
     private AuthorRepository authorRepository;
     
+    @MockBean
+    private GenreRepository genreRepository;
+    
     @BeforeEach
     void setUp() {
         // Setup test data
@@ -96,6 +99,13 @@ class BookControllerTest {
         when(bookRepository.findBooksAfterCursorWithSearchAndGenreOrderByGenre(anyString(), anyString(), anyString(), any(PageRequest.class))).thenReturn(bookPage);
         
         when(bookRepository.count()).thenReturn(2L);
+        
+        // Mock genre repository methods
+        when(genreRepository.findAll()).thenReturn(Arrays.asList());
+        when(genreRepository.findById(anyString())).thenReturn(java.util.Optional.empty());
+        when(genreRepository.findByBookId(anyString())).thenReturn(Arrays.asList());
+        when(genreRepository.save(any(Genre.class))).thenAnswer(invocation -> invocation.getArgument(0));
+        when(genreRepository.existsById(anyString())).thenReturn(false);
     }
 
     @Test

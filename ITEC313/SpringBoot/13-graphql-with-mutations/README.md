@@ -18,7 +18,7 @@ A simple GraphQL service built with Spring Boot and Spring for GraphQL. This pro
 
 ## Project Description
 
-This project implements a comprehensive GraphQL server that provides access to a large collection of books and their authors. The service includes:
+This project implements a comprehensive GraphQL server that provides access to a large collection of books and their authors, with a many-to-many relationship between books and genres. The service includes:
 
 ### Key Features
 
@@ -29,11 +29,15 @@ This project implements a comprehensive GraphQL server that provides access to a
 - **Authentication & Authorization**: JWT-based authentication with role-based access control
 - **1002 authors** with realistic names from various backgrounds
 - **2002 books** with diverse titles, genres, and page counts (150-800 pages)
-- GraphQL queries to retrieve books by ID with their associated author information
+- **15 genres** with descriptions covering various literary categories
+- **Many-to-Many relationship** between books and genres (a book can belong to multiple genres)
+- GraphQL queries to retrieve books by ID with their associated author and genre information
 - GraphQL queries with filtering capabilities (search by name, filter by genre, combined filtering)
 - GraphQL queries with sorting capabilities (sort by name, page count, genre)
 - GraphQL queries with combined filtering and sorting
 - GraphQL mutations for full CRUD operations (Create, Read, Update, Delete) with role-based permissions
+- Genre management with full CRUD operations
+- Book-Genre relationship management (add/remove genres from books)
 - RESTful GraphQL endpoint at `/graphql` (requires authentication)
 - Authentication endpoint at `/auth/login` for obtaining JWT tokens
 - Interactive GraphiQL interface at `/graphiql` (when enabled)
@@ -47,10 +51,12 @@ src/
 ├── main/
 │   ├── java/com/acu/graphql/
 │   │   ├── Author.java              # Author JPA entity
-│   │   ├── Book.java                # Book JPA entity
+│   │   ├── Book.java                # Book JPA entity (with many-to-many genres)
+│   │   ├── Genre.java               # Genre JPA entity
 │   │   ├── User.java                # User JPA entity for authentication
 │   │   ├── AuthorRepository.java    # JPA repository for authors
 │   │   ├── BookRepository.java      # JPA repository for books
+│   │   ├── GenreRepository.java     # JPA repository for genres
 │   │   ├── UserRepository.java      # JPA repository for users
 │   │   ├── BookController.java      # GraphQL controller with queries and mutations
 │   │   ├── AuthController.java      # Authentication controller for login
@@ -61,7 +67,9 @@ src/
 │   │   ├── DataInitializer.java     # Data initializer for default user
 │   │   ├── CreateBookInput.java     # Input type for creating books
 │   │   ├── CreateAuthorInput.java   # Input type for creating authors
+│   │   ├── CreateGenreInput.java    # Input type for creating genres
 │   │   ├── UpdateBookInput.java     # Input type for updating books
+│   │   ├── UpdateGenreInput.java    # Input type for updating genres
 │   │   └── GraphqlServerApplication.java  # Main application class
 │   └── resources/
 │       ├── application.properties   # Application configuration
@@ -75,6 +83,7 @@ src/
 docker/
 ├── docker-compose.yml               # Docker setup for PostgreSQL and pgAdmin
 ├── init.sql                         # Database initialization script
+├── add_cursor_column.sql            # Migration script for genres and book_genres
 └── README.md                        # Docker setup instructions
 ```
 
@@ -102,9 +111,10 @@ docker/
    - Password: `postgres`
 
 4. **Sample Data**:
-   - The database will be automatically populated with **1002 authors** and **2002 books**
-   - Sample data includes realistic names, diverse book titles, and varied page counts
+   - The database will be automatically populated with **1002 authors**, **2002 books**, and **15 genres**
+   - Sample data includes realistic names, diverse book titles, varied page counts, and genre descriptions
    - Data is generated using templates that create believable book titles and author names
+   - Books are automatically linked to genres based on their existing genre field
 
 ## How to Build
 
@@ -166,6 +176,42 @@ The application uses JWT-based authentication with the following default credent
 1. **Run all tests**: `mvn test`
 2. **Run specific test class**: `mvn test -Dtest=BookControllerTest`
 3. **Run integration tests**: `mvn test -Dtest=GraphqlServerApplicationTests`
+
+## Many-to-Many Genre Relationship
+
+This project now supports a many-to-many relationship between books and genres, allowing:
+
+- **Multiple Genres per Book**: A book can belong to multiple genres (e.g., "Science Fiction" + "Adventure")
+- **Genre Management**: Full CRUD operations for genres with descriptions
+- **Flexible Categorization**: Books can be categorized more accurately and flexibly
+- **Backward Compatibility**: The existing `genre` string field is maintained for compatibility
+
+### Database Schema
+
+```sql
+-- Genres table
+CREATE TABLE genres (
+    id VARCHAR(50) PRIMARY KEY,
+    name VARCHAR(100) UNIQUE NOT NULL,
+    description TEXT
+);
+
+-- Junction table for many-to-many relationship
+CREATE TABLE book_genres (
+    book_id VARCHAR(50) NOT NULL,
+    genre_id VARCHAR(50) NOT NULL,
+    PRIMARY KEY (book_id, genre_id),
+    FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE,
+    FOREIGN KEY (genre_id) REFERENCES genres(id) ON DELETE CASCADE
+);
+```
+
+### Sample Genres
+
+The system includes 15 predefined genres:
+- Fiction, Non-Fiction, Science Fiction, Fantasy, Mystery
+- Thriller, Romance, Adventure, Historical Fiction, Biography
+- Children, Horror, Poetry, Drama, Comedy
 
 ## GraphQL Queries
 
@@ -642,6 +688,86 @@ query {
 }
 ```
 
+### Query all genres:
+
+```graphql
+query {
+  genres {
+    id
+    name
+    description
+  }
+}
+```
+
+### Query genre by ID with books:
+
+```graphql
+query {
+  genreById(id: "genre-1") {
+    id
+    name
+    description
+    books {
+      id
+      name
+      pageCount
+      author {
+        firstName
+        lastName
+      }
+    }
+  }
+}
+```
+
+### Query books by specific genre:
+
+```graphql
+query {
+  booksByGenre(genreId: "genre-2", first: 5) {
+    edges {
+      cursor
+      node {
+        id
+        name
+        pageCount
+        author {
+          firstName
+          lastName
+        }
+      }
+    }
+    pageInfo {
+      hasNextPage
+      totalCount
+    }
+  }
+}
+```
+
+### Query book with multiple genres:
+
+```graphql
+query {
+  bookById(id: "book-1") {
+    id
+    name
+    pageCount
+    genre
+    genres {
+      id
+      name
+      description
+    }
+    author {
+      firstName
+      lastName
+    }
+  }
+}
+```
+
 ## GraphQL Mutations
 
 The project now supports full CRUD operations through GraphQL mutations. **All mutations require ADMIN role authentication**:
@@ -716,6 +842,76 @@ mutation {
 
 **Response**: Returns `true` if the book was deleted successfully, `false` if the book doesn't exist.
 
+### 5. Create Genre
+
+```graphql
+mutation {
+  createGenre(input: {
+    name: "Young Adult"
+    description: "Literature written for young adults"
+  }) {
+    id
+    name
+    description
+  }
+}
+```
+
+### 6. Update Genre
+
+```graphql
+mutation {
+  updateGenre(id: "genre-1", input: {
+    name: "Contemporary Fiction"
+    description: "Modern fiction set in contemporary times"
+  }) {
+    id
+    name
+    description
+  }
+}
+```
+
+### 7. Delete Genre
+
+```graphql
+mutation {
+  deleteGenre(id: "genre-1")
+}
+```
+
+**Response**: Returns `true` if the genre was deleted successfully, `false` if the genre doesn't exist.
+
+### 8. Add Genre to Book
+
+```graphql
+mutation {
+  addGenreToBook(bookId: "book-1", genreId: "genre-1") {
+    id
+    name
+    genres {
+      id
+      name
+    }
+  }
+}
+```
+
+### 9. Remove Genre from Book
+
+```graphql
+mutation {
+  removeGenreFromBook(bookId: "book-1", genreId: "genre-1") {
+    id
+    name
+    genres {
+      id
+      name
+    }
+  }
+}
+```
+
 **Note**: All mutations require a valid JWT token with ADMIN role in the Authorization header:
 ```
 Authorization: Bearer YOUR_JWT_TOKEN
@@ -774,16 +970,25 @@ The GraphQL schema defines the following types:
 ### Query Type
 - **bookById(id: ID)**: Retrieve a book by its ID
 - **books(first: Int, after: String, search: String, genre: String, orderBy: BookOrderBy)**: Retrieve books with cursor-based pagination, filtering, and sorting
+- **genres**: Retrieve all genres
+- **genreById(id: ID)**: Retrieve a genre by its ID
+- **booksByGenre(genreId: ID!, first: Int, after: String)**: Retrieve books by specific genre with pagination
 
 ### Mutation Type
 - **createBook(input: CreateBookInput!)**: Create a new book
 - **createAuthor(input: CreateAuthorInput!)**: Create a new author
+- **createGenre(input: CreateGenreInput!)**: Create a new genre
 - **updateBook(id: ID!, input: UpdateBookInput!)**: Update an existing book
+- **updateGenre(id: ID!, input: UpdateGenreInput!)**: Update an existing genre
 - **deleteBook(id: ID!)**: Delete a book by ID
+- **deleteGenre(id: ID!)**: Delete a genre by ID
+- **addGenreToBook(bookId: ID!, genreId: ID!)**: Add a genre to a book
+- **removeGenreFromBook(bookId: ID!, genreId: ID!)**: Remove a genre from a book
 
 ### Object Types
-- **Book**: Book type with id, name, pageCount, genre, and author fields
+- **Book**: Book type with id, name, pageCount, genre, genres, and author fields
 - **Author**: Author type with id, firstName, and lastName fields
+- **Genre**: Genre type with id, name, description, and books fields
 - **BookConnection**: Paginated connection containing edges, pageInfo, and totalCount
 - **BookEdge**: Edge containing cursor and book node
 - **PageInfo**: Pagination metadata with hasNextPage, hasPreviousPage, startCursor, and endCursor
@@ -794,7 +999,9 @@ The GraphQL schema defines the following types:
 ### Input Types
 - **CreateBookInput**: Input for creating books (name, pageCount, authorId, genre)
 - **CreateAuthorInput**: Input for creating authors (firstName, lastName)
+- **CreateGenreInput**: Input for creating genres (name, description)
 - **UpdateBookInput**: Input for updating books (optional name, pageCount, authorId, genre)
+- **UpdateGenreInput**: Input for updating genres (optional name, description)
 
 ## Testing
 
