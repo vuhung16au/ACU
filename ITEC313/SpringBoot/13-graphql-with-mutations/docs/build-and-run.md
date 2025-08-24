@@ -208,7 +208,7 @@ For production deployment:
 Use the provided demo script to test the GraphQL API:
 
 ```bash
-./script/demo.sh
+script/demo.sh
 ```
 
 This script includes curl commands and GraphQL queries/mutations to demonstrate:

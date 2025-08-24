@@ -139,6 +139,6 @@ The `docker/` directory contains:
 
 Sample data is generated using templates that create believable book titles and author names. Books are automatically linked to genres based on their existing genre field.
 
-For more information about the data generation process, see the `generate_sample_data.py` script in the root directory.
+For more information about the data generation process, see the `script/generate_sample_data.py` script.
 ```
 
