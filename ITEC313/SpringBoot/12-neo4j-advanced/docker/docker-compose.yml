@@ -3,7 +3,7 @@ version: '3.8'
 services:
   neo4j:
     image: neo4j:latest
-    container_name: neo4j-demo
+    container_name: neo4j-demo-advanced
     ports:
       - "7474:7474"  # HTTP
       - "7687:7687"  # Bolt

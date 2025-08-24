@@ -84,3 +84,8 @@ Thumbs.db
 # Application specific
 application-local.properties
 application-dev.properties
+
+
+# Project specific
+
+Prompt.md
