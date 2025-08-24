@@ -1,0 +1,37 @@
+# version: '3.8'
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: acu-graphql-postgres
+    environment:
+      POSTGRES_DB: graphql_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - graphql-network
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: acu-graphql-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: 313@acu.com
+      PGADMIN_DEFAULT_PASSWORD: password
+    ports:
+      - "8080:80"
+    depends_on:
+      - postgres
+    networks:
+      - graphql-network
+
+volumes:
+  postgres_data:
+
+networks:
+  graphql-network:
+    driver: bridge
