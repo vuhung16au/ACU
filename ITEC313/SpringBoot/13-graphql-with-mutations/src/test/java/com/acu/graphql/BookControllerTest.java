@@ -7,6 +7,8 @@ import org.springframework.boot.test.autoconfigure.graphql.GraphQlTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.graphql.test.tester.GraphQlTester;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.any;
+import static org.mockito.ArgumentMatchers.anyString;
 
 @GraphQlTest(BookController.class)
 class BookControllerTest {
@@ -36,6 +38,14 @@ class BookControllerTest {
         
         when(authorRepository.findById("author-1")).thenReturn(java.util.Optional.of(author1));
         when(authorRepository.findById("author-2")).thenReturn(java.util.Optional.of(author2));
+        
+        // Mock save operations
+        when(bookRepository.save(any(Book.class))).thenAnswer(invocation -> invocation.getArgument(0));
+        when(authorRepository.save(any(Author.class))).thenAnswer(invocation -> invocation.getArgument(0));
+        
+        // Mock existsById
+        when(bookRepository.existsById("book-1")).thenReturn(true);
+        when(bookRepository.existsById("non-existent")).thenReturn(false);
     }
 
     @Test
@@ -143,5 +153,136 @@ class BookControllerTest {
                 .execute()
                 .path("data.bookById")
                 .valueIsNull();
+    }
+    
+    @Test
+    void shouldCreateBook() {
+        String document = """
+                mutation {
+                    createBook(input: {
+                        name: "New Book"
+                        pageCount: 200
+                        authorId: "author-1"
+                    }) {
+                        id
+                        name
+                        pageCount
+                        author {
+                            id
+                            firstName
+                            lastName
+                        }
+                    }
+                }
+                """;
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.createBook.name")
+                .entity(String.class)
+                .isEqualTo("New Book");
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.createBook.pageCount")
+                .entity(Integer.class)
+                .isEqualTo(200);
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.createBook.author.firstName")
+                .entity(String.class)
+                .isEqualTo("Donald");
+    }
+    
+    @Test
+    void shouldCreateAuthor() {
+        String document = """
+                mutation {
+                    createAuthor(input: {
+                        firstName: "John"
+                        lastName: "Doe"
+                    }) {
+                        id
+                        firstName
+                        lastName
+                    }
+                }
+                """;
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.createAuthor.firstName")
+                .entity(String.class)
+                .isEqualTo("John");
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.createAuthor.lastName")
+                .entity(String.class)
+                .isEqualTo("Doe");
+    }
+    
+    @Test
+    void shouldUpdateBook() {
+        String document = """
+                mutation {
+                    updateBook(id: "book-1", input: {
+                        name: "Updated Book Name"
+                        pageCount: 350
+                    }) {
+                        id
+                        name
+                        pageCount
+                        author {
+                            id
+                            firstName
+                            lastName
+                        }
+                    }
+                }
+                """;
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.updateBook.name")
+                .entity(String.class)
+                .isEqualTo("Updated Book Name");
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.updateBook.pageCount")
+                .entity(Integer.class)
+                .isEqualTo(350);
+    }
+    
+    @Test
+    void shouldDeleteBook() {
+        String document = """
+                mutation {
+                    deleteBook(id: "book-1")
+                }
+                """;
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.deleteBook")
+                .entity(Boolean.class)
+                .isEqualTo(true);
+    }
+    
+    @Test
+    void shouldReturnFalseForDeleteNonExistentBook() {
+        String document = """
+                mutation {
+                    deleteBook(id: "non-existent")
+                }
+                """;
+
+        graphQlTester.document(document)
+                .execute()
+                .path("data.deleteBook")
+                .entity(Boolean.class)
+                .isEqualTo(false);
     }
 }

@@ -14,7 +14,7 @@ else
 fi
 
 echo
-echo "2. Testing GraphQL endpoint..."
+echo "2. Testing GraphQL Queries..."
 
 # Test 1: Query book-1 (The Lucky Country)
 echo
@@ -66,6 +66,81 @@ curl -X POST \
 echo
 echo
 
+echo "3. Testing GraphQL Mutations..."
+
+# Test 5: Create a new author
+echo
+echo "👤 Creating a new author:"
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -d '{
+    "query": "mutation { createAuthor(input: { firstName: \"Jane\", lastName: \"Austen\" }) { id firstName lastName } }"
+  }' \
+  http://localhost:8081/graphql
+
+echo
+echo
+
+# Test 6: Create a new book
+echo "📖 Creating a new book:"
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -d '{
+    "query": "mutation { createBook(input: { name: \"Pride and Prejudice\", pageCount: 432, authorId: \"author-1\" }) { id name pageCount author { id firstName lastName } } }"
+  }' \
+  http://localhost:8081/graphql
+
+echo
+echo
+
+# Test 7: Update a book
+echo "✏️ Updating book-1:"
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -d '{
+    "query": "mutation { updateBook(id: \"book-1\", input: { name: \"The Lucky Country - Updated Edition\", pageCount: 320 }) { id name pageCount author { id firstName lastName } } }"
+  }' \
+  http://localhost:8081/graphql
+
+echo
+echo
+
+# Test 8: Delete a book
+echo "🗑️ Deleting book-2:"
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -d '{
+    "query": "mutation { deleteBook(id: \"book-2\") }"
+  }' \
+  http://localhost:8081/graphql
+
+echo
+echo
+
+# Test 9: Try to delete non-existent book
+echo "❌ Trying to delete non-existent book:"
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -d '{
+    "query": "mutation { deleteBook(id: \"non-existent\") }"
+  }' \
+  http://localhost:8081/graphql
+
+echo
+echo
+
+# Test 10: Verify book-1 was updated
+echo "✅ Verifying book-1 was updated:"
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -d '{
+    "query": "query { bookById(id: \"book-1\") { id name pageCount author { id firstName lastName } } }"
+  }' \
+  http://localhost:8081/graphql
+
+echo
+echo
+
 echo "=== Demo completed ==="
 echo
 echo "💡 You can also access the interactive GraphiQL interface at:"
@@ -73,4 +148,10 @@ echo "   http://localhost:8081/graphiql"
 echo
 echo "📖 Available books:"
 echo "   - book-1: The Lucky Country by Donald Horne"
-echo "   - book-2: The Magic Pudding by Norman Lindsay"
+echo "   - book-2: The Magic Pudding by Norman Lindsay (deleted in demo)"
+echo
+echo "🔄 Mutations demonstrated:"
+echo "   - createAuthor: Add new authors"
+echo "   - createBook: Add new books"
+echo "   - updateBook: Modify existing books"
+echo "   - deleteBook: Remove books"

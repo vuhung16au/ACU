@@ -1,6 +1,6 @@
 # Spring Boot GraphQL Server
 
-A simple GraphQL service built with Spring Boot and Spring for GraphQL. This project demonstrates how to create a GraphQL API in Java using Spring Boot.
+A simple GraphQL service built with Spring Boot and Spring for GraphQL. This project demonstrates how to create a GraphQL API in Java using Spring Boot with full CRUD (Create, Read, Update, Delete) capabilities.
 
 ## Technologies Used
 
@@ -20,6 +20,7 @@ This project implements a simple GraphQL server that provides access to Australi
 
 - Two Australian books: "The Lucky Country" by Donald Horne and "The Magic Pudding" by Norman Lindsay
 - GraphQL queries to retrieve books by ID with their associated author information
+- GraphQL mutations for full CRUD operations (Create, Read, Update, Delete)
 - RESTful GraphQL endpoint at `/graphql`
 - Interactive GraphiQL interface at `/graphiql` (when enabled)
 - PostgreSQL database with Docker setup for data persistence
@@ -35,7 +36,10 @@ src/
 │   │   ├── Book.java                # Book JPA entity
 │   │   ├── AuthorRepository.java    # JPA repository for authors
 │   │   ├── BookRepository.java      # JPA repository for books
-│   │   ├── BookController.java      # GraphQL controller
+│   │   ├── BookController.java      # GraphQL controller with queries and mutations
+│   │   ├── CreateBookInput.java     # Input type for creating books
+│   │   ├── CreateAuthorInput.java   # Input type for creating authors
+│   │   ├── UpdateBookInput.java     # Input type for updating books
 │   │   └── GraphqlServerApplication.java  # Main application class
 │   └── resources/
 │       ├── application.properties   # Application configuration
@@ -43,7 +47,7 @@ src/
 │           └── schema.graphqls      # GraphQL schema definition
 └── test/
     └── java/com/acu/graphql/
-        ├── BookControllerTest.java  # GraphQL controller tests
+        ├── BookControllerTest.java  # GraphQL controller tests (queries and mutations)
         └── GraphqlServerApplicationTests.java  # Integration tests
 docker/
 ├── docker-compose.yml               # Docker setup for PostgreSQL and pgAdmin
@@ -136,15 +140,90 @@ query {
 }
 ```
 
+## GraphQL Mutations
+
+The project now supports full CRUD operations through GraphQL mutations:
+
+### 1. Create Author
+
+```graphql
+mutation {
+  createAuthor(input: {
+    firstName: "Jane"
+    lastName: "Austen"
+  }) {
+    id
+    firstName
+    lastName
+  }
+}
+```
+
+### 2. Create Book
+
+```graphql
+mutation {
+  createBook(input: {
+    name: "Pride and Prejudice"
+    pageCount: 432
+    authorId: "author-1"
+  }) {
+    id
+    name
+    pageCount
+    author {
+      id
+      firstName
+      lastName
+    }
+  }
+}
+```
+
+### 3. Update Book
+
+```graphql
+mutation {
+  updateBook(id: "book-1", input: {
+    name: "The Lucky Country - Updated Edition"
+    pageCount: 320
+  }) {
+    id
+    name
+    pageCount
+    author {
+      id
+      firstName
+      lastName
+    }
+  }
+}
+```
+
+### 4. Delete Book
+
+```graphql
+mutation {
+  deleteBook(id: "book-1")
+}
+```
+
+**Response**: Returns `true` if the book was deleted successfully, `false` if the book doesn't exist.
+
 ## Demo Script
 
-Use the provided demo script to test the GraphQL API:
+Use the provided demo script to test the GraphQL API including all mutations:
 
 ```bash
 ./script/demo.sh
 ```
 
-This script includes curl commands and GraphQL queries to demonstrate the functionality.
+This script includes curl commands and GraphQL queries/mutations to demonstrate:
+- Querying existing books
+- Creating new authors and books
+- Updating book information
+- Deleting books
+- Error handling for non-existent resources
 
 ## Available Books
 
@@ -160,7 +239,7 @@ This script includes curl commands and GraphQL queries to demonstrate the functi
 
 - `mvn clean`: Clean the project
 - `mvn compile`: Compile the source code
-- `mvn test`: Run tests
+- `mvn test`: Run tests (including mutation tests)
 - `mvn spring-boot:run`: Run the application
 - `mvn package`: Create a JAR file
 
@@ -168,6 +247,31 @@ This script includes curl commands and GraphQL queries to demonstrate the functi
 
 The GraphQL schema defines the following types:
 
-- **Query**: Root query type with `bookById` field
+### Query Type
+- **bookById(id: ID)**: Retrieve a book by its ID
+
+### Mutation Type
+- **createBook(input: CreateBookInput!)**: Create a new book
+- **createAuthor(input: CreateAuthorInput!)**: Create a new author
+- **updateBook(id: ID!, input: UpdateBookInput!)**: Update an existing book
+- **deleteBook(id: ID!)**: Delete a book by ID
+
+### Object Types
 - **Book**: Book type with id, name, pageCount, and author fields
 - **Author**: Author type with id, firstName, and lastName fields
+
+### Input Types
+- **CreateBookInput**: Input for creating books (name, pageCount, authorId)
+- **CreateAuthorInput**: Input for creating authors (firstName, lastName)
+- **UpdateBookInput**: Input for updating books (optional name, pageCount, authorId)
+
+## Testing
+
+The project includes comprehensive tests for both queries and mutations:
+
+- **Query Tests**: Test book retrieval with and without author information
+- **Mutation Tests**: Test all CRUD operations (create, update, delete)
+- **Error Handling**: Test scenarios with non-existent resources
+- **Integration Tests**: Full application context tests
+
+All tests use Spring Boot Test framework and Mockito for mocking dependencies.
