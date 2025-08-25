@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CORS Test - Spring Boot Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            min-height: 20px;
+        }
+        .success {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        .info {
+            background-color: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        }
+        input[type="text"] {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌐 CORS Test - Spring Boot Demo</h1>
+        
+        <div class="test-section">
+            <h3>Test 1: Basic Greeting (Default)</h3>
+            <button onclick="testBasicGreeting()">Test Basic Greeting</button>
+            <div id="basic-result" class="result"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>Test 2: Custom Greeting</h3>
+            <input type="text" id="customName" placeholder="Enter a name" value="Spring Boot">
+            <button onclick="testCustomGreeting()">Test Custom Greeting</button>
+            <div id="custom-result" class="result"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>Test 3: CORS Headers Check</h3>
+            <button onclick="testCORSHeaders()">Check CORS Headers</button>
+            <div id="cors-result" class="result"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>Test 4: Multiple Requests</h3>
+            <button onclick="testMultipleRequests()">Send 3 Requests</button>
+            <div id="multiple-result" class="result"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>Test 5: Error Handling</h3>
+            <button onclick="testErrorHandling()">Test Error Handling</button>
+            <div id="error-result" class="result"></div>
+        </div>
+
+        <div class="info">
+            <h4>Instructions:</h4>
+            <p>1. Make sure the Spring Boot application is running on <code>http://localhost:8080</code></p>
+            <p>2. This page should be served from <code>http://localhost:9000</code> (CORS allowed origin)</p>
+            <p>3. Click the buttons above to test different scenarios</p>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:8080';
+
+        function displayResult(elementId, message, isSuccess = true) {
+            const element = document.getElementById(elementId);
+            element.className = `result ${isSuccess ? 'success' : 'error'}`;
+            element.innerHTML = message;
+        }
+
+        function displayInfo(elementId, message) {
+            const element = document.getElementById(elementId);
+            element.className = 'result info';
+            element.innerHTML = message;
+        }
+
+        async function testBasicGreeting() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/greeting`);
+                const data = await response.json();
+                displayResult('basic-result', 
+                    `✅ Success!<br>
+                     ID: ${data.id}<br>
+                     Content: ${data.content}<br>
+                     Status: ${response.status}`);
+            } catch (error) {
+                displayResult('basic-result', 
+                    `❌ Error: ${error.message}`, false);
+            }
+        }
+
+        async function testCustomGreeting() {
+            try {
+                const name = document.getElementById('customName').value || 'Spring Boot';
+                const response = await fetch(`${API_BASE_URL}/greeting?name=${encodeURIComponent(name)}`);
+                const data = await response.json();
+                displayResult('custom-result', 
+                    `✅ Success!<br>
+                     ID: ${data.id}<br>
+                     Content: ${data.content}<br>
+                     Name used: ${name}`);
+            } catch (error) {
+                displayResult('custom-result', 
+                    `❌ Error: ${error.message}`, false);
+            }
+        }
+
+        async function testCORSHeaders() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/greeting`);
+                const data = await response.json();
+                
+                const corsHeaders = [];
+                if (response.headers.get('Access-Control-Allow-Origin')) {
+                    corsHeaders.push(`Access-Control-Allow-Origin: ${response.headers.get('Access-Control-Allow-Origin')}`);
+                }
+                if (response.headers.get('Access-Control-Allow-Methods')) {
+                    corsHeaders.push(`Access-Control-Allow-Methods: ${response.headers.get('Access-Control-Allow-Methods')}`);
+                }
+                if (response.headers.get('Access-Control-Allow-Headers')) {
+                    corsHeaders.push(`Access-Control-Allow-Headers: ${response.headers.get('Access-Control-Allow-Headers')}`);
+                }
+
+                displayResult('cors-result', 
+                    `✅ CORS Headers Found:<br>
+                     ${corsHeaders.join('<br>')}<br>
+                     Response: ${JSON.stringify(data, null, 2)}`);
+            } catch (error) {
+                displayResult('cors-result', 
+                    `❌ Error: ${error.message}`, false);
+            }
+        }
+
+        async function testMultipleRequests() {
+            try {
+                const results = [];
+                for (let i = 1; i <= 3; i++) {
+                    const response = await fetch(`${API_BASE_URL}/greeting?name=Request${i}`);
+                    const data = await response.json();
+                    results.push(`Request ${i}: ID=${data.id}, Content="${data.content}"`);
+                }
+                displayResult('multiple-result', 
+                    `✅ Multiple Requests Completed:<br>
+                     ${results.join('<br>')}`);
+            } catch (error) {
+                displayResult('multiple-result', 
+                    `❌ Error: ${error.message}`, false);
+            }
+        }
+
+        async function testErrorHandling() {
+            try {
+                // Test with a non-existent endpoint
+                const response = await fetch(`${API_BASE_URL}/nonexistent`);
+                if (response.ok) {
+                    displayResult('error-result', 
+                        `⚠️ Unexpected: Non-existent endpoint returned success`, false);
+                } else {
+                    displayResult('error-result', 
+                        `✅ Error handling works correctly:<br>
+                         Status: ${response.status} ${response.statusText}`);
+                }
+            } catch (error) {
+                displayResult('error-result', 
+                    `✅ Error caught as expected:<br>
+                     ${error.message}`);
+            }
+        }
+
+        // Auto-test on page load
+        window.addEventListener('load', function() {
+            displayInfo('basic-result', 'Click "Test Basic Greeting" to start testing...');
+        });
+    </script>
+</body>
+</html>
