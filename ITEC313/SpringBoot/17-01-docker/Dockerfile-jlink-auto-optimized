@@ -1,0 +1,72 @@
+# Multi-stage build with automatic module detection using jdeps
+FROM eclipse-temurin:21-jdk-alpine AS jre-builder
+
+# Install necessary tools
+RUN apk add --no-cache binutils maven
+
+WORKDIR /app
+
+# Copy Maven files
+COPY pom.xml .
+COPY mvnw .
+COPY .mvn .mvn
+
+# Download dependencies
+RUN ./mvnw dependency:go-offline -B
+
+# Copy source code
+COPY src ./src
+
+# Build the application
+RUN ./mvnw clean package -DskipTests
+
+# Extract the JAR to analyze dependencies
+RUN mkdir -p /tmp/extracted && cd /tmp/extracted && jar -xf /app/target/*.jar
+
+# Use jdeps to automatically determine required modules
+# This analyzes the actual dependencies of your application
+RUN jdeps --print-module-deps --ignore-missing-deps /app/target/*.jar > /tmp/modules.txt
+
+# Create a custom JRE with only the automatically detected modules
+RUN jlink \
+    --add-modules $(cat /tmp/modules.txt) \
+    --strip-debug \
+    --no-man-pages \
+    --no-header-files \
+    --compress=2 \
+    --output /opt/jre
+
+# Extract layers for the runtime stage
+RUN mkdir -p /app/target/dependency && (cd /app/target/dependency; jar -xf /app/target/*.jar)
+
+# Runtime stage
+FROM alpine:latest
+
+# Install necessary runtime dependencies
+RUN apk add --no-cache libc6-compat
+
+# Copy the custom JRE from the jre-builder stage
+COPY --from=jre-builder /opt/jre /opt/jre
+
+# Create a non-root user
+RUN addgroup -S spring && adduser -S spring -G spring
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the application layers from the jre-builder stage
+COPY --from=jre-builder /app/target/dependency/BOOT-INF/lib /app/lib
+COPY --from=jre-builder /app/target/dependency/META-INF /app/META-INF
+COPY --from=jre-builder /app/target/dependency/BOOT-INF/classes /app
+
+# Switch to non-root user
+USER spring:spring
+
+# Set the PATH to use our custom JRE
+ENV PATH="/opt/jre/bin:${PATH}"
+
+# Expose the application port
+EXPOSE 8080
+
+# Run the application
+ENTRYPOINT ["java", "-cp", "app:app/lib/*", "hello.Application"]

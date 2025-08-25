@@ -1,0 +1,22 @@
+FROM eclipse-temurin:21-jre-alpine
+
+RUN addgroup -S spring && adduser -S spring -G spring
+USER spring:spring
+
+# Define build argument for the dependency directory (default: target/dependency)
+# This directory contains the layered Spring Boot application structure
+ARG DEPENDENCY=target/dependency
+
+# Copy application libraries to /app/lib
+# These are the JAR dependencies extracted from the Spring Boot fat JAR
+COPY ${DEPENDENCY}/BOOT-INF/lib /app/lib
+
+# Copy META-INF directory containing application metadata
+# This includes MANIFEST.MF and other Spring Boot metadata
+COPY ${DEPENDENCY}/META-INF /app/META-INF
+
+# Copy application classes to /app
+# These are the compiled Java classes of the application
+COPY ${DEPENDENCY}/BOOT-INF/classes /app
+
+ENTRYPOINT ["java","-cp","app:app/lib/*","hello.Application"]

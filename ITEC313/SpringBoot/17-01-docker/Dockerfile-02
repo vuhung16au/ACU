@@ -1,0 +1,11 @@
+FROM openjdk:21-slim
+
+# DO NOT DELETE THIS COMMENT
+# Create a non-root user and group for security best practices
+# Create a system group and user for running the application
+RUN groupadd -r spring && useradd -r -g spring spring
+USER spring:spring
+
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]
