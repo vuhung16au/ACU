@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.acu</groupId>
-    <artifactId>neo4j</artifactId>
+    <artifactId>neo4j-advanced</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>neo4j</name>
-    <description>Spring Boot Neo4j Demo Project</description>
+    <name>neo4j-advanced</name>
+    <description>Spring Boot Neo4j Advanced Demo Project</description>
     <properties>
         <java.version>17</java.version>
     </properties>

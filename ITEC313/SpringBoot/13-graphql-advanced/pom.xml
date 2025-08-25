@@ -13,10 +13,10 @@
     </parent>
 
     <groupId>com.acu</groupId>
-    <artifactId>graphql</artifactId>
+    <artifactId>graphql-advanced</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>graphql</name>
-    <description>Spring Boot GraphQL Server</description>
+    <name>graphql-advanced</name>
+    <description>Spring Boot GraphQL Advanced Server</description>
 
     <properties>
         <java.version>17</java.version>
