@@ -211,6 +211,74 @@ The application includes:
 
 ## Troubleshooting
 
+### Version Mismatch Issues
+
+**Problem**: You see a different version in the application logs than what's in your `pom.xml`.
+
+**Example**:
+```bash
+# Current pom.xml shows:
+<version>0.0.4-SNAPSHOT</version>
+
+# But application logs show:
+v0.0.1-SNAPSHOT
+```
+
+**Root Cause**: The running container was built from an older version of your code. The version in the logs comes from the JAR file that was built into the Docker image, not from the current `pom.xml` file.
+
+**Why This Happens**:
+1. **Container Image Version**: The container image might not exist in the registry, or Kubernetes might be using a cached version
+2. **Build Process**: When you build the Docker image, it uses the version from `pom.xml` at build time
+3. **Deployment**: If the target image doesn't exist, Kubernetes might fall back to an older version
+
+**Solutions**:
+
+1. **Rebuild and redeploy** with the current version:
+   ```bash
+   # Build and push new image with current version
+   ./scripts/build-and-push.sh
+   
+   # Restart deployment to use new image
+   kubectl rollout restart deployment/kube-app -n kube-app-ns
+   
+   # Check logs to verify new version
+   kubectl logs -f deployment/kube-app -n kube-app-ns
+   ```
+
+2. **Check if the image exists** in your registry:
+   ```bash
+   # Try to pull the image to see if it exists
+   docker pull vuhunghn/kube:0.0.4-SNAPSHOT
+   
+   # Check what images are available locally
+   docker images | grep vuhunghn/kube
+   ```
+
+3. **Verify the deployment** is using the correct image:
+   ```bash
+   # Check deployment configuration
+   kubectl describe deployment kube-app -n kube-app-ns
+   
+   # Check what image the pods are actually using
+   kubectl get pods -n kube-app-ns -o jsonpath='{.items[*].spec.containers[*].image}'
+   ```
+
+4. **Force image pull** to ensure latest version:
+   ```bash
+   # Delete pods to force recreation with new image
+   kubectl delete pods -l app=kube-app -n kube-app-ns
+   
+   # Or scale down and up
+   kubectl scale deployment kube-app --replicas=0 -n kube-app-ns
+   kubectl scale deployment kube-app --replicas=3 -n kube-app-ns
+   ```
+
+**Prevention**:
+- Always run `./scripts/build-and-push.sh` after version changes
+- Use `./scripts/deploy.sh` for complete build and deployment workflow
+- Check image tags in your registry regularly
+- Use `imagePullPolicy: Always` in deployment (already configured)
+
 ### Check Pod Status
 ```bash
 kubectl get pods -n kube-app-ns
