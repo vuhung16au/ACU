@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.3.2</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>com.acu</groupId>
+    <artifactId>spring-boot-examples</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+    <name>Spring Boot Examples</name>
+    <description>Collection of Spring Boot examples and tutorials</description>
+
+    <properties>
+        <java.version>17</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <spring-cloud.version>2023.0.0</spring-cloud.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+    </properties>
+
+    <modules>
+        <!-- Basic Spring Boot Examples -->
+        <module>00-hello-spring</module>
+        <module>01-quick-start</module>
+        <module>02-core-config</module>
+        <module>03-web-thymeleaf-i18n</module>
+        <module>04-rest-advanced</module>
+        
+        <!-- Data and Persistence -->
+        <module>05-data-jpa</module>
+        <module>09-hibernate-orm</module>
+        
+        <!-- Messaging and Integration -->
+        <module>06-kafka</module>
+        
+        <!-- Microservices -->
+        <module>07-microservices/api-gateway</module>
+        <module>07-microservices/config-server</module>
+        <module>07-microservices/data-service</module>
+        <module>07-microservices/eureka-server</module>
+        
+        <!-- Web and UI -->
+        <module>08-spring-mvc</module>
+        <module>14-vaadin</module>
+        <module>15-stomp-websocket</module>
+        <module>16-cors</module>
+        
+        <!-- Databases -->
+        <module>10-redis</module>
+        <module>11-mongodb</module>
+        <module>12-neo4j</module>
+        <module>12-neo4j-advanced</module>
+        
+        <!-- GraphQL -->
+        <module>13-graphql-basic</module>
+        <module>13-graphql-advanced</module>
+        
+        <!-- DevOps and Deployment -->
+        <module>17-01-docker</module>
+        <module>17-02-kubernetes</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Spring Cloud Dependencies -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <!-- Spring Boot Maven Plugin -->
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <configuration>
+                        <excludes>
+                            <exclude>
+                                <groupId>org.springframework.boot</groupId>
+                                <artifactId>spring-boot-devtools</artifactId>
+                            </exclude>
+                        </excludes>
+                    </configuration>
+                </plugin>
+                
+                <!-- Maven Compiler Plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <release>${java.version}</release>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                    </configuration>
+                </plugin>
+                
+                <!-- Maven Surefire Plugin for Tests -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <configuration>
+                        <skipTests>false</skipTests>
+                        <includes>
+                            <include>**/*Test.java</include>
+                            <include>**/*Tests.java</include>
+                        </includes>
+                    </configuration>
+                </plugin>
+                
+                <!-- Maven Failsafe Plugin for Integration Tests -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <configuration>
+                        <skipTests>false</skipTests>
+                        <includes>
+                            <include>**/*IT.java</include>
+                            <include>**/*IntegrationTest.java</include>
+                        </includes>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        
+        <plugins>
+            <!-- Maven Compiler Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+            
+            <!-- Maven Surefire Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <!-- Profile to skip tests during build -->
+        <profile>
+            <id>skip-tests</id>
+            <properties>
+                <skipTests>true</skipTests>
+                <maven.test.skip>true</maven.test.skip>
+            </properties>
+        </profile>
+        
+        <!-- Profile to build only specific modules -->
+        <profile>
+            <id>basic-examples</id>
+            <modules>
+                <module>00-hello-spring</module>
+                <module>01-quick-start</module>
+                <module>02-core-config</module>
+                <module>03-web-thymeleaf-i18n</module>
+                <module>04-rest-advanced</module>
+            </modules>
+        </profile>
+        
+        <profile>
+            <id>data-examples</id>
+            <modules>
+                <module>05-data-jpa</module>
+                <module>09-hibernate-orm</module>
+                <module>10-redis</module>
+                <module>11-mongodb</module>
+                <module>12-neo4j</module>
+                <module>12-neo4j-advanced</module>
+            </modules>
+        </profile>
+        
+        <profile>
+            <id>microservices</id>
+            <modules>
+                <module>07-microservices/api-gateway</module>
+                <module>07-microservices/config-server</module>
+                <module>07-microservices/data-service</module>
+                <module>07-microservices/eureka-server</module>
+            </modules>
+        </profile>
+    </profiles>
+</project>
