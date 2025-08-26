@@ -69,18 +69,18 @@ When you run the application, you should see output similar to this:
 
 ```
 2024-01-XX XX:XX:XX.XXX  INFO 12345 --- [main] c.a.c.AppRunner : .... Fetching books
-2024-01-XX XX:XX:XX.XXX  INFO 12345 --- [main] c.a.c.AppRunner : isbn-1234 -->Book{isbn='isbn-1234', title='Some book'}
-2024-01-XX XX:XX:XX.XXX  INFO 12345 --- [main] c.a.c.AppRunner : isbn-4567 -->Book{isbn='isbn-4567', title='Some book'}
-2024-01-XX XX:XX:XX.XXX  INFO 12345 --- [main] c.a.c.AppRunner : isbn-1234 -->Book{isbn='isbn-1234', title='Some book'}
-2024-01-XX XX:XX:XX.XXX  INFO 12345 --- [main] c.a.c.AppRunner : isbn-4567 -->Book{isbn='isbn-4567', title='Some book'}
-2024-01-XX XX:XX:XX.XXX  INFO 12345 --- [main] c.a.c.AppRunner : isbn-1234 -->Book{isbn='isbn-1234', title='Some book'}
-2024-01-XX XX:XX:XX.XXX  INFO 12345 --- [main] c.a.c.AppRunner : isbn-1234 -->Book{isbn='isbn-1234', title='Some book'}
+2024-01-XX XX:XX:XX.XXX  INFO 12345 --- [main] c.a.c.AppRunner : isbn-978-0-14-318069-9 -->Book{isbn='978-0-14-318069-9', title='The Lucky Country'}
+2024-01-XX XX:XX:XX.XXX  INFO 12345 --- [main] c.a.c.AppRunner : isbn-978-1-4842-8761-5 -->Book{isbn='978-1-4842-8761-5', title='Spring Boot 3 and Spring Framework 6'}
+2024-01-XX XX:XX:XX.XXX  INFO 12345 --- [main] c.a.c.AppRunner : isbn-978-0-13-793510-9 -->Book{isbn='978-0-13-793510-9', title='The Art of Computer Programming, Volume 1, Fascicle 1: MMIX'}
+2024-01-XX XX:XX:XX.XXX  INFO 12345 --- [main] c.a.c.AppRunner : isbn-978-0-14-318069-9 -->Book{isbn='978-0-14-318069-9', title='The Lucky Country'}
+2024-01-XX XX:XX:XX.XXX  INFO 12345 --- [main] c.a.c.AppRunner : isbn-978-1-4842-8761-5 -->Book{isbn='978-1-4842-8761-5', title='Spring Boot 3 and Spring Framework 6'}
+2024-01-XX XX:XX:XX.XXX  INFO 12345 --- [main] c.a.c.AppRunner : isbn-978-0-13-793510-9 -->Book{isbn='978-0-13-793510-9', title='The Art of Computer Programming, Volume 1, Fascicle 1: MMIX'}
 ```
 
 ### Observing Caching Behavior
-1. **First requests** (isbn-1234, isbn-4567): Will take ~3 seconds each (cache miss)
+1. **First requests** (The Lucky Country, Spring Boot 3, Art of Computer Programming): Will take ~3 seconds each (cache miss)
 2. **Subsequent requests**: Will be instant (cache hit)
-3. **Notice the timing**: The first two requests will be slow, but the rest will be fast
+3. **Notice the timing**: The first three requests will be slow, but the rest will be fast
 
 ## Project Structure
 
