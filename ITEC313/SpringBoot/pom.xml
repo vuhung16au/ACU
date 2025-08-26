@@ -66,6 +66,9 @@
         <!-- DevOps and Deployment -->
         <module>17-01-docker</module>
         <module>17-02-kubernetes</module>
+        
+        <!-- Caching -->
+        <module>18-01-caching</module>
     </modules>
 
     <dependencyManagement>
