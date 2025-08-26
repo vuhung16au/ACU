@@ -14,7 +14,7 @@
     <artifactId>spring-boot-examples</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
-    <name>Spring Boot Examples</name>
+    <name>00-Spring Boot Examples</name>
     <description>Collection of Spring Boot examples and tutorials</description>
 
     <properties>
@@ -33,12 +33,7 @@
         <module>02-core-config</module>
         <module>03-web-thymeleaf-i18n</module>
         <module>04-rest-advanced</module>
-        
-        <!-- Data and Persistence -->
         <module>05-data-jpa</module>
-        <module>09-hibernate-orm</module>
-        
-        <!-- Messaging and Integration -->
         <module>06-kafka</module>
         
         <!-- Microservices -->
@@ -49,19 +44,16 @@
         
         <!-- Web and UI -->
         <module>08-spring-mvc</module>
-        <module>14-vaadin</module>
-        <module>15-stomp-websocket</module>
-        <module>16-cors</module>
-        
-        <!-- Databases -->
+        <module>09-hibernate-orm</module>
         <module>10-redis</module>
         <module>11-mongodb</module>
         <module>12-neo4j</module>
         <module>12-neo4j-advanced</module>
-        
-        <!-- GraphQL -->
         <module>13-graphql-basic</module>
         <module>13-graphql-advanced</module>
+        <module>14-vaadin</module>
+        <module>15-stomp-websocket</module>
+        <module>16-cors</module>
         
         <!-- DevOps and Deployment -->
         <module>17-01-docker</module>
@@ -69,6 +61,9 @@
         
         <!-- Caching -->
         <module>18-01-caching</module>
+        
+        <!-- Batch Processing -->
+        <module>19-01-batch</module>
     </modules>
 
     <dependencyManagement>

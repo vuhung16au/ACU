@@ -11,7 +11,7 @@
     <groupId>com.acu</groupId>
     <artifactId>spring-mvc</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>spring-mvc</name>
+    <name>08-spring-mvc</name>
     <description>Spring MVC Web Application</description>
     <properties>
         <java.version>17</java.version>

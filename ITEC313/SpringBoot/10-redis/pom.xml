@@ -11,7 +11,7 @@
     <groupId>com.acu.redis</groupId>
     <artifactId>demo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>redis-demo</name>
+    <name>10-spring-redis</name>
     <description>Demo project for Spring Boot with Redis messaging</description>
     <properties>
         <java.version>21</java.version>

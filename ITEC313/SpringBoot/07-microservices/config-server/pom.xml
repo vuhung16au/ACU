@@ -11,7 +11,7 @@
     <groupId>com.acu</groupId>
     <artifactId>config-server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>config-server</name>
+    <name>07-config-server</name>
     <description>Config Server for Microservices</description>
     <properties>
         <java.version>17</java.version>

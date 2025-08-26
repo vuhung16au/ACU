@@ -11,7 +11,7 @@
     <groupId>com.acu</groupId>
     <artifactId>eureka-server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>eureka-server</name>
+    <name>07-eureka-server</name>
     <description>Eureka Server for Microservices</description>
     <properties>
         <java.version>17</java.version>

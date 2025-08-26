@@ -13,7 +13,7 @@
     <groupId>com.acu.mongodb</groupId>
     <artifactId>demo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>demo</name>
+    <name>11-spring-mongodb</name>
     <description>Spring Boot Web Application with MongoDB - Customer Management System</description>
     
     <properties>

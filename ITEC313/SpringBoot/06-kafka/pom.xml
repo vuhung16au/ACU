@@ -11,7 +11,7 @@
     <groupId>com.acu</groupId>
     <artifactId>kafka</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>kafka</name>
+    <name>06-spring-kafka</name>
     <description>Spring Boot Kafka Demo</description>
     <properties>
         <java.version>17</java.version>

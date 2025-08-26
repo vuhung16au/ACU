@@ -11,7 +11,7 @@
     <groupId>com.acu</groupId>
     <artifactId>vaadin</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>crud-with-vaadin</name>
+    <name>14-spring-crud-with-vaadin</name>
     <description>Demo project for Spring Boot with Vaadin</description>
     <properties>
         <java.version>17</java.version>

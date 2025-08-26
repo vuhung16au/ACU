@@ -15,7 +15,7 @@
     <groupId>com.acu</groupId>
     <artifactId>graphql-advanced</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>graphql-advanced</name>
+    <name>13-spring-graphql-advanced</name>
     <description>Spring Boot GraphQL Advanced Server</description>
 
     <properties>

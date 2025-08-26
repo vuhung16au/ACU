@@ -11,7 +11,7 @@
     <groupId>com.acu</groupId>
     <artifactId>neo4j</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>neo4j</name>
+    <name>12-spring-neo4j</name>
     <description>Spring Boot Neo4j Demo Project</description>
     <properties>
         <java.version>17</java.version>

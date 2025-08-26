@@ -11,7 +11,7 @@
     <groupId>com.acu</groupId>
     <artifactId>cors</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>cors</name>
+    <name>16-spring-cors</name>
     <description>CORS Demo Project</description>
     <properties>
         <java.version>17</java.version>

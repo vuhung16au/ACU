@@ -15,7 +15,7 @@
     <groupId>com.acu</groupId>
     <artifactId>graphql</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>graphql</name>
+    <name>13-spring-graphql-basic</name>
     <description>Spring Boot GraphQL Server</description>
 
     <properties>

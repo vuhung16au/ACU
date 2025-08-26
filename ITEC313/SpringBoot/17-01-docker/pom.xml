@@ -11,7 +11,7 @@
     <groupId>com.acu.docker</groupId>
     <artifactId>gs-spring-boot-docker</artifactId>
     <version>0.1.0</version>
-    <name>gs-spring-boot-docker</name>
+    <name>17-01-spring-boot-docker</name>
     <description>Demo project for Spring Boot with Docker</description>
     <properties>
         <java.version>21</java.version>
