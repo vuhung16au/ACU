@@ -126,10 +126,10 @@ application-*.properties
 !application.properties
 
 # Docker
-.dockerignore
-Dockerfile
-docker-compose.yml
-docker-compose.yaml
+# .dockerignore
+# Dockerfile
+# docker-compose.yml
+# docker-compose.yaml
 .docker/
 
 # Kubernetes

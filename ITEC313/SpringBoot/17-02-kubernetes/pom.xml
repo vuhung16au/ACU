@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.acu</groupId>
 	<artifactId>kube</artifactId>
-	<version>0.0.4-SNAPSHOT</version>
+	<version>0.0.8-optimized</version>
 	<name>kube</name>
 	<description>Kubernetes project for Spring Boot</description>
 	<url/>

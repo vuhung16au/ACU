@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: kube-app
-        image: vuhunghn/kube:0.0.4-SNAPSHOT
+        image: vuhunghn/kube:0.0.8-optimized
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
