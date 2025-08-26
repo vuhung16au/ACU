@@ -13,7 +13,7 @@
     <groupId>com.acu</groupId>
     <artifactId>hello-spring</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>00 Hello Spring (REST API)</name>
+    <name>00-Hello Spring (REST API)</name>
     <description>Simple REST API using Spring Boot (Sydney-themed, in-memory, with endpoint tests)</description>
 
     <properties>
