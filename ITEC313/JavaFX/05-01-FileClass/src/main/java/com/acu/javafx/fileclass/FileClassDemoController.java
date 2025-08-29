@@ -33,7 +33,7 @@ public class FileClassDemoController {
     @FXML
     public void initialize() {
         // Set default values
-        filePathField.setText("image/us.gif");
+        filePathField.setText("images/au.gif");
         sourceFileField.setText("sample.txt");
         targetFileField.setText("replaced.txt");
         oldStringField.setText("text");
