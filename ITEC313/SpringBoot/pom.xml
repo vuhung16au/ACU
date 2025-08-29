@@ -14,7 +14,7 @@
     <artifactId>spring-boot-examples</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
-    <name>00-Spring Boot Examples</name>
+    <name>99-All Spring Boot Examples</name>
     <description>Collection of Spring Boot examples and tutorials</description>
 
     <properties>
