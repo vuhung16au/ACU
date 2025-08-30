@@ -22,6 +22,7 @@ public class ReadData {
             // Create a File instance
             File file = new File(filename);
             
+            // It is a good practice to check if the file exists
             if (!file.exists()) {
                 result.append("File does not exist: ").append(filename);
                 return result.toString();
@@ -30,7 +31,7 @@ public class ReadData {
             // Create a Scanner for the file
             Scanner input = new Scanner(file);
 
-            // Read data from a file
+            // Read data from the input file
             while (input.hasNext()) {
                 String firstName = input.next();
                 String mi = input.next();

@@ -21,23 +21,30 @@ public class WriteDataWithAutoClose {
         try {
             File file = new File(filename);
             
+            // It is a good practice to check if the file exists
             if (file.exists()) {
                 result.append("File already exists: ").append(filename);
                 return result.toString();
             }
 
+            // try-with-resources to automatically close the file
+            // the resource `output` is automatically closed when the try block exits
+            // make the exception handling safer
             try (
-                // Create a file - automatically closed when try block exits
                 PrintWriter output = new PrintWriter(file);
             ) {
                 // Write formatted output to the file
                 output.print("John T. Perez ");
+
+                // print in a new line
                 output.println(90);
                 output.print("Jamal K. Johnson ");
                 output.println(85);
             }
             
             result.append("Successfully wrote data to file: ").append(filename);
+
+            // No need to close the file manually
             
         } catch (Exception e) {
             result.append("Error writing to file: ").append(e.getMessage());

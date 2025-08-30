@@ -23,20 +23,21 @@ public class ReplaceText {
         StringBuilder result = new StringBuilder();
         
         try {
-            // Check if source file exists
+            // It is a good practice to check if the file exists
             File source = new File(sourceFile);
             if (!source.exists()) {
                 result.append("Source file ").append(sourceFile).append(" does not exist");
                 return result.toString();
             }
 
-            // Check if target file exists
+            // It is a good practice to check if the file exists
             File target = new File(targetFile);
             if (target.exists()) {
                 result.append("Target file ").append(targetFile).append(" already exists");
                 return result.toString();
             }
 
+            // Handle the exception if the file does not exist
             try (
                 // Create input and output files
                 Scanner input = new Scanner(source);
@@ -44,6 +45,8 @@ public class ReplaceText {
             ) {        
                 while (input.hasNext()) {
                     String s1 = input.nextLine();
+
+                    // Replace the old string with the new string
                     String s2 = s1.replaceAll(oldStr, newStr);
                     output.println(s2);
                 }
@@ -68,6 +71,7 @@ public class ReplaceText {
     public static String createSampleFile(String filename) {
         StringBuilder result = new StringBuilder();
         
+        // It is a good practice to check if the file exists
         try {
             File file = new File(filename);
             
@@ -76,6 +80,7 @@ public class ReplaceText {
                 return result.toString();
             }
 
+            // Create a PrintWriter to write to the file
             try (PrintWriter output = new PrintWriter(file)) {
                 output.println("This is a sample text file.");
                 output.println("It contains some text to replace.");

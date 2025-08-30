@@ -19,6 +19,7 @@ public class WriteData {
     public static String writeDataToFile(String filename) {
         StringBuilder result = new StringBuilder();
         
+        // It is a good practice to check if the file exists
         try {
             File file = new File(filename);
             
@@ -32,6 +33,8 @@ public class WriteData {
 
             // Write formatted output to the file
             output.print("John T. Perez ");
+
+            // print in a new line
             output.println(90);
             output.print("Jamal K. Johnson ");
             output.println(85);

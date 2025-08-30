@@ -46,6 +46,6 @@ public class TestFileClass {
      * @return a formatted string containing all file properties
      */
     public static String testDefaultFile() {
-        return testFileProperties("image/us.gif");
+        return testFileProperties("images/au.gif");
     }
 } 
