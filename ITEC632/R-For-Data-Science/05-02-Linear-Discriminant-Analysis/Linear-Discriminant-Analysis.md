@@ -35,14 +35,16 @@ Unlike Principal Component Analysis (PCA) which focuses on maximizing variance, 
 
 LDA finds the optimal projection that maximizes the Fisher criterion:
 
-```
-J(w) = (w^T * S_B * w) / (w^T * S_W * w)
-```
+
+\[
+J(\mathbf{w}) = \frac{\mathbf{w}^T \mathbf{S}_B \mathbf{w}}{\mathbf{w}^T \mathbf{S}_W \mathbf{w}}
+\]
+
 
 Where:
-- `S_B` is the between-class scatter matrix
-- `S_W` is the within-class scatter matrix
-- `w` is the projection vector
+- $S_B$ is the between-class scatter matrix
+- $S_W$ is the within-class scatter matrix
+- $w$ is the projection vector
 
 ### Assumptions
 
