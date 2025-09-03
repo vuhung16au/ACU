@@ -5,8 +5,7 @@ RapidMiner is a no-code/low-code solution. Have you ever wondered how to turn a 
 This tutorial will guide how to to turn a RapidMiner AI Studio process file (`.rmp`) into an R program.
 
 # Prerequisites
-- RapidMiner AI Studio
-- R
+- RScript
 
 # Basic Steps
 1. Understand your objectives, 
@@ -16,4 +15,4 @@ This tutorial will guide how to to turn a RapidMiner AI Studio process file (`.r
 5. Instruct the AI coding agent to convert the no-code process (`.rmp`) file into a pro-code program (`R`)
 6. Run the R script and make sure it works as expected
 
-The best part here is how to write a good prompt.
+Note: Likely, the R script will contain some errors, you need to fix them manually.

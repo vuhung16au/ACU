@@ -1,0 +1,43 @@
+# OS
+.DS_Store
+
+# IDE / Editors
+.vscode/
+.idea/
+*.code-workspace
+
+# R
+.Rhistory
+.RData
+.Rproj.user/
+.Ruserdata
+
+# Python / misc
+__pycache__/
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints/
+
+# RapidMiner / temporary
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# Project outputs (keep inputs tracked)
+outputs/
+**/outputs/
+# Keep inputs committed
+!**/inputs/
+!**/inputs/**
+
+# Generated analysis artifacts
+**/frequent_itemsets.csv
+**/association_rules.csv
+
+# Logs
+*.log
+
+# Project specific
+Prompts.md
