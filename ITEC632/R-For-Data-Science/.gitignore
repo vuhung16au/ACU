@@ -1,0 +1,50 @@
+# R / RStudio ----
+.Rproj.user/
+*.Rproj
+.Rhistory
+.Rapp.history
+.RData
+.Ruserdata
+.Rout
+.Rout.save
+
+# R build/check artifacts ----
+.Rcheck/
+
+# Package management (packrat / renv) ----
+packrat/
+.packrat/
+renv/library/
+renv/staging/
+renv/python/
+
+# Environment/secrets (keep project-level templates under version control) ----
+.Renviron
+
+# knitr / R Markdown ----
+*_cache/
+cache/
+*_files/
+figure/
+*.utf8.md
+*.knit.md
+*.nb.html
+
+# Quarto / Bookdown / Blogdown outputs ----
+.quarto/
+_freeze/
+_site/
+_book/
+bookdown_files/
+public/
+
+# OS / Editor cruft ----
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+
+# Project specific ----
+
+Prompt.md
