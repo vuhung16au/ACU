@@ -1,0 +1,182 @@
+---
+title: "Naive Bayes Classifier — Adult Income Dataset"
+author: "ITEC632"
+output:
+  github_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, fig.path = "05-04-Naive-Bayes-Classifier/images/", dev.args = list(bg = "white"))
+```
+
+# Introduction
+
+This report implements a Gaussian Naive Bayes classifier to predict whether a person makes more than 50K a year using the Adult Income dataset. The flow mirrors the reference notebook: load libraries and data, perform EDA and preprocessing, split the data, train the model, evaluate with metrics, visualize confusion matrix, plot predicted probability histogram, and compute ROC-AUC and cross-validation.
+
+## Import libraries
+
+```{r}
+packages <- c("e1071", "caret", "ggplot2", "dplyr", "pROC", "tidyr", "naivebayes")
+installed <- rownames(installed.packages())
+missing <- setdiff(packages, installed)
+if (length(missing) > 0) install.packages(missing, repos = "https://cloud.r-project.org", quiet = TRUE)
+lapply(packages, library, character.only = TRUE)
+```
+
+## Import dataset
+
+```{r}
+module_dir <- "."  # knit working directory is the document's folder
+path_csv <- file.path(module_dir, "Income-Dataset", "adult.csv")
+col_names <- c("age","workclass","fnlwgt","education","education_num","marital_status",
+               "occupation","relationship","race","sex","capital_gain","capital_loss",
+               "hours_per_week","native_country","income")
+adult <- read.csv(path_csv, header = FALSE, strip.white = TRUE, stringsAsFactors = FALSE)
+colnames(adult) <- col_names
+head(adult)
+```
+
+## Exploratory data analysis
+
+```{r}
+# Replace '?' with NA in categorical columns
+adult$workclass[adult$workclass == "?"] <- NA
+adult$occupation[adult$occupation == "?"] <- NA
+adult$native_country[adult$native_country == "?"] <- NA
+
+# Summary
+str(adult)
+summary(adult)
+
+# Target distribution
+adult$income <- factor(adult$income, levels = c("<=50K", ">50K"))
+ggplot(adult, aes(income)) +
+  geom_bar(fill = "#2c7fb8") +
+  theme_minimal() +
+  labs(title = "Income Class Distribution", x = "Income", y = "Count")
+```
+
+## Declare feature matrix and target; split train/test
+
+```{r}
+set.seed(123)
+train_idx <- caret::createDataPartition(adult$income, p = 0.7, list = FALSE)
+adult_train <- adult[train_idx, ]
+adult_test  <- adult[-train_idx, ]
+
+# Impute NA in categorical columns with mode from training
+mode_value <- function(x){ ux <- na.omit(x); if (!length(ux)) return(NA); names(sort(table(ux), TRUE))[1] }
+for (col in c("workclass","occupation","native_country")){
+  m <- mode_value(adult_train[[col]])
+  adult_train[[col]][is.na(adult_train[[col]])] <- m
+  adult_test[[col]][is.na(adult_test[[col]])] <- m
+}
+
+# Factors for categoricals; align levels
+for (col in c("workclass","education","marital_status","occupation","relationship","race","sex","native_country","income")){
+  adult_train[[col]] <- as.factor(adult_train[[col]])
+  adult_test[[col]] <- factor(adult_test[[col]], levels = levels(adult_train[[col]]))
+}
+
+# Scale numeric columns (z-score)
+numeric_cols <- c("age","fnlwgt","education_num","capital_gain","capital_loss","hours_per_week")
+params <- lapply(adult_train[numeric_cols], function(x) list(mu = mean(x), sd = sd(x)))
+for (col in numeric_cols){
+  mu <- params[[col]]$mu; sdv <- params[[col]]$sd
+  adult_train[[col]] <- if (is.na(sdv) || sdv == 0) adult_train[[col]] - mu else (adult_train[[col]] - mu)/sdv
+  adult_test[[col]]  <- if (is.na(sdv) || sdv == 0) adult_test[[col]] - mu else (adult_test[[col]] - mu)/sdv
+}
+```
+
+## Feature correlation (numeric)
+
+```{r}
+corr_df <- cor(adult[numeric_cols])
+
+ggplot(as.data.frame(as.table(corr_df)), aes(Var1, Var2, fill = Freq)) +
+  geom_tile() +
+  scale_fill_gradient2(low = "#d7191c", mid = "#ffffbf", high = "#1a9641", midpoint = 0) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(title = "Correlation Matrix (Numeric Features)", x = NULL, y = NULL, fill = "r")
+```
+
+## Model training
+
+```{r}
+nb_model <- e1071::naiveBayes(income ~ ., data = adult_train)
+nb_model
+```
+
+## Predictions and accuracy
+
+```{r}
+y_pred <- predict(nb_model, adult_test, type = "class")
+y_prob <- predict(nb_model, adult_test, type = "raw")
+caret::confusionMatrix(y_pred, adult_test$income, positive = ">50K")
+```
+
+## Confusion matrix heatmap
+
+```{r}
+cm <- caret::confusionMatrix(y_pred, adult_test$income, positive = ">50K")
+cm_df <- as.data.frame(cm$table)
+colnames(cm_df) <- c("Reference","Prediction","Freq")
+
+ggplot(cm_df, aes(Reference, Prediction, fill = Freq)) +
+  geom_tile() +
+  geom_text(aes(label = Freq), color = "white", fontface = "bold") +
+  scale_fill_gradient(low = "#74add1", high = "#313695") +
+  theme_minimal() +
+  labs(title = "Confusion Matrix", x = "Actual", y = "Predicted")
+```
+
+## Histogram of predicted probabilities (>50K)
+
+```{r}
+prob_pos <- y_prob[, ">50K"]
+
+ggplot(data.frame(prob_pos = prob_pos), aes(prob_pos)) +
+  geom_histogram(bins = 10, fill = "#1b9e77", color = "white") +
+  theme_minimal() +
+  labs(title = "Histogram of predicted probabilities of salaries >50K",
+       x = "Predicted probabilities of salaries >50K", y = "Frequency") +
+  xlim(0, 1)
+```
+
+## ROC curve and AUC
+
+```{r}
+roc_obj <- pROC::roc(response = adult_test$income, predictor = prob_pos, levels = c("<=50K", ">50K"), direction = ">")
+auc_val <- pROC::auc(roc_obj)
+auc_val
+
+plot_df <- data.frame(fpr = 1 - roc_obj$specificities, tpr = roc_obj$sensitivities)
+
+ggplot(plot_df, aes(fpr, tpr)) +
+  geom_line(color = "#d73027", size = 1.1) +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "gray50") +
+  theme_minimal() +
+  labs(title = sprintf("ROC Curve (Naive Bayes) — AUC = %.4f", as.numeric(auc_val)),
+       x = "False Positive Rate (1 - Specificity)", y = "True Positive Rate (Sensitivity)")
+```
+
+## k-Fold Cross Validation
+
+```{r}
+set.seed(123)
+tr_ctrl <- caret::trainControl(method = "cv", number = 5)
+cv_model <- caret::train(
+  x = adult_train %>% dplyr::select(-income),
+  y = adult_train$income,
+  method = "naive_bayes",
+  trControl = tr_ctrl
+)
+cv_model$results
+max(cv_model$results$Accuracy)
+```
+
+# Conclusion
+
+The Naive Bayes classifier achieves strong baseline accuracy on the Adult dataset with fast training and simple preprocessing. The ROC-AUC and cross-validated accuracy provide additional evidence of robust performance.
