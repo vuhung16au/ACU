@@ -180,27 +180,7 @@ After completing this project, you will understand:
 - **Data visualization** techniques
 - **R programming** for machine learning
 
-## 🔍 Troubleshooting
 
-### Common Issues
-
-1. **Package Installation Errors**
-   ```r
-   # Install packages manually if needed
-   install.packages(c("class", "caret", "ggplot2", "dplyr", "corrplot", "gridExtra"))
-   ```
-
-2. **Encoding Issues**
-   - The script automatically handles Turkish character encoding
-   - If problems persist, check your R locale settings
-
-3. **Memory Issues**
-   - Reduce dataset size for testing
-   - Close other R sessions to free memory
-
-4. **Plot Saving Errors**
-   - Ensure the `images/` directory exists
-   - Check write permissions in the project folder
 
 ### Performance Tips
 
@@ -215,26 +195,3 @@ After completing this project, you will understand:
 - **Data Preprocessing**: [Feature Scaling Methods](https://en.wikipedia.org/wiki/Feature_scaling)
 - **Model Evaluation**: [Confusion Matrix](https://en.wikipedia.org/wiki/Confusion_matrix)
 
-## 🤝 Contributing
-
-Feel free to:
-- **Report issues** or bugs
-- **Suggest improvements** to the code
-- **Add new features** or visualizations
-- **Improve documentation**
-
-## 📄 License
-
-This project is for educational purposes. The dataset and code are provided as-is for learning and research.
-
-## 👨‍💻 Author
-
-Data Science Project - ITEC632 Course  
-**Date**: 2024  
-**Course**: R for Data Science
-
----
-
-**Happy Learning! 🎉**
-
-For questions or support, please refer to the course materials or instructor.
