@@ -1,0 +1,251 @@
+---
+title: "Quadratic Discriminant Analysis with Heart Disease Dataset"
+author: "Data Science Analysis"
+date: "`r Sys.Date()`"
+output:
+  github_document:
+    toc: true
+    toc_depth: 3
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cosmo
+    highlight: tango
+    code_folding: show
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  fig.width = 10,
+  fig.height = 6,
+  fig.align = "center"
+)
+
+install_if_missing <- function(pkgs) {
+  for (p in pkgs) {
+    if (!requireNamespace(p, quietly = TRUE)) {
+      install.packages(p, repos = "https://cloud.r-project.org", quiet = TRUE)
+    }
+  }
+}
+
+install_if_missing(c("MASS", "ggplot2", "dplyr", "corrplot", "gridExtra", "pROC", "tidyr", "knitr"))
+
+library(MASS)
+library(ggplot2)
+library(dplyr)
+library(corrplot)
+library(gridExtra)
+library(pROC)
+library(tidyr)
+library(knitr)
+
+set.seed(123)
+
+if (!dir.exists("images")) dir.create("images")
+```
+
+## Introduction
+
+Quadratic Discriminant Analysis (QDA) is a supervised classification technique that models each class with its own covariance matrix, allowing for non-linear decision boundaries. This makes QDA more flexible than LDA when class covariances differ.
+
+- **Goal**: Explore QDA using a simple synthetic example and the heart disease dataset.
+- **Outputs**: Figures and metrics summarizing QDA performance.
+
+## Sample Data Demonstration
+
+We first illustrate QDA on two Gaussian classes with different covariance matrices.
+
+```{r sample_data}
+# Generate two classes with different covariance matrices
+generate_sample_data <- function(n_per_class = 200) {
+  mu1 <- c(0, 0)
+  mu2 <- c(2, 2)
+  Sigma1 <- matrix(c(1.0, 0.6, 0.6, 1.0), 2, 2)
+  Sigma2 <- matrix(c(1.8, -0.7, -0.7, 1.0), 2, 2)
+  class1 <- MASS::mvrnorm(n = n_per_class, mu = mu1, Sigma = Sigma1)
+  class2 <- MASS::mvrnorm(n = n_per_class, mu = mu2, Sigma = Sigma2)
+  rbind(
+    data.frame(x1 = class1[,1], x2 = class1[,2], class = factor("Class A")),
+    data.frame(x1 = class2[,1], x2 = class2[,2], class = factor("Class B"))
+  )
+}
+
+sample_df <- generate_sample_data()
+head(sample_df)
+```
+
+```{r sample_qda_plot, fig.width=8, fig.height=6}
+qda_fit <- qda(class ~ x1 + x2, data = sample_df)
+
+x1_seq <- seq(min(sample_df$x1) - 1, max(sample_df$x1) + 1, length.out = 200)
+x2_seq <- seq(min(sample_df$x2) - 1, max(sample_df$x2) + 1, length.out = 200)
+grid <- expand.grid(x1 = x1_seq, x2 = x2_seq)
+grid$pred <- predict(qda_fit, grid)$class
+
+p_sample <- ggplot() +
+  geom_tile(data = grid, aes(x = x1, y = x2, fill = pred), alpha = 0.2) +
+  geom_point(data = sample_df, aes(x = x1, y = x2, color = class), size = 1.8, alpha = 0.8) +
+  scale_fill_manual(values = c("Class A" = "#c6dbef", "Class B" = "#fdd0a2"), name = "QDA region") +
+  scale_color_manual(values = c("Class A" = "#3182bd", "Class B" = "#e6550d")) +
+  labs(title = "Sample Data: QDA Decision Regions",
+       x = "x1", y = "x2") +
+  theme_minimal() +
+  theme(legend.position = "bottom",
+        panel.background = element_rect(fill = "white"))
+
+print(p_sample)
+
+ggsave("images/01_sample_data_qda.png", p_sample, width = 8, height = 6, dpi = 300, bg = "white")
+```
+
+## Heart Disease Dataset
+
+We now apply QDA to the heart disease dataset.
+
+```{r heart_load}
+heart <- read.csv("Heart-Disease-Dataset/heart.csv")
+cat("Rows:", nrow(heart), "Cols:", ncol(heart), "\n")
+head(heart)
+```
+
+### Preprocessing
+
+```{r heart_preprocess}
+# Drop known faulty rows if present
+if ("ca" %in% names(heart)) heart <- heart[!(heart$ca == 4), ]
+if ("thal" %in% names(heart)) heart <- heart[!(heart$thal == 0), ]
+
+# Target to factor
+if ("target" %in% names(heart)) {
+  heart$target <- factor(heart$target, levels = c(0,1), labels = c("NoDisease", "Disease"))
+}
+
+# Integer-coded categoricals (optional)
+cat_cols <- intersect(c("sex", "cp", "fbs", "restecg", "exang", "slope", "ca", "thal"), names(heart))
+for (cc in cat_cols) heart[[cc]] <- factor(heart[[cc]])
+
+# Quick check
+str(heart)
+```
+
+### EDA
+
+```{r eda_plots, fig.width=10, fig.height=8}
+# Target distribution
+p_target <- ggplot(heart, aes(x = target, fill = target)) +
+  geom_bar(alpha = 0.9) +
+  scale_fill_manual(values = c("NoDisease" = "#6baed6", "Disease" = "#fd8d3c")) +
+  labs(title = "Target Distribution", x = "Target", y = "Count") +
+  theme_minimal() +
+  theme(panel.background = element_rect(fill = "white"), legend.position = "none")
+
+print(p_target)
+
+ggsave("images/02_target_distribution.png", p_target, width = 6, height = 4, dpi = 300, bg = "white")
+
+# Correlation plot of numeric variables
+num_cols <- names(heart)[sapply(heart, is.numeric)]
+if (length(num_cols) > 1) {
+  cor_mat <- suppressWarnings(cor(heart[, num_cols], use = "pairwise.complete.obs"))
+  corrplot(cor_mat, method = "color", type = "upper", addCoef.col = "black",
+           tl.col = "black", tl.srt = 45,
+           title = "Heart Dataset: Numeric Correlation Matrix",
+           mar = c(0,0,2,0))
+}
+```
+
+```{r histograms, fig.width=12, fig.height=8}
+sel <- intersect(c("age", "trestbps", "chol", "thalach", "oldpeak"), names(heart))
+if (length(sel) > 0) {
+  long_df <- tidyr::pivot_longer(heart[, c(sel, "target")], cols = all_of(sel), names_to = "feature", values_to = "value")
+  p_hist <- ggplot(long_df, aes(x = value, fill = target)) +
+    geom_histogram(bins = 30, alpha = 0.6, position = "identity") +
+    facet_wrap(~feature, scales = "free", ncol = 2) +
+    scale_fill_manual(values = c("NoDisease" = "#6baed6", "Disease" = "#fd8d3c")) +
+    labs(title = "Selected Numeric Features", x = "Value", y = "Frequency") +
+    theme_minimal() +
+    theme(panel.background = element_rect(fill = "white"))
+  print(p_hist)
+  ggsave("images/04_numeric_histograms.png", p_hist, width = 10, height = 8, dpi = 300, bg = "white")
+}
+```
+
+## QDA Modeling
+
+```{r qda_model}
+# Predictors: numeric only
+numeric_cols <- setdiff(names(heart)[sapply(heart, is.numeric)], c("target"))
+stopifnot(length(numeric_cols) >= 2)
+
+set.seed(123)
+idx <- sample(seq_len(nrow(heart)), size = floor(0.7 * nrow(heart)))
+train <- heart[idx, ]
+test  <- heart[-idx, ]
+
+form <- as.formula(paste("target ~", paste(numeric_cols, collapse = " + ")))
+qda_model <- qda(form, data = train)
+
+pred_train <- predict(qda_model, train)
+pred_test  <- predict(qda_model, test)
+
+acc_train <- mean(pred_train$class == train$target)
+acc_test  <- mean(pred_test$class == test$target)
+
+cat(sprintf("Train Accuracy: %.2f%%\n", 100 * acc_train))
+cat(sprintf("Test  Accuracy: %.2f%%\n", 100 * acc_test))
+```
+
+```{r confusion_matrix, fig.width=8, fig.height=6}
+cm <- table(Actual = test$target, Predicted = pred_test$class)
+cm_df <- as.data.frame(cm)
+
+p_cm <- ggplot(cm_df, aes(x = Predicted, y = Actual, fill = Freq)) +
+  geom_tile() +
+  scale_fill_gradient(low = "white", high = "red", name = "Count") +
+  geom_text(aes(label = Freq), color = "black", size = 4) +
+  labs(title = sprintf("QDA Confusion Matrix (Test) — Acc: %.1f%%", 100 * acc_test),
+       x = "Predicted", y = "Actual") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        panel.background = element_rect(fill = "white"))
+
+print(p_cm)
+
+ggsave("images/05_confusion_matrix.png", p_cm, width = 7, height = 5.5, dpi = 300, bg = "white")
+```
+
+```{r roc_curve, fig.width=7, fig.height=6}
+if (!is.null(pred_test$posterior)) {
+  pos_prob <- pred_test$posterior[, "Disease"]
+  y_true <- as.numeric(test$target == "Disease")
+  roc_obj <- pROC::roc(response = y_true, predictor = pos_prob, quiet = TRUE)
+  auc_val <- as.numeric(pROC::auc(roc_obj))
+
+  roc_df <- data.frame(tpr = roc_obj$sensitivities, fpr = 1 - roc_obj$specificities)
+  p_roc <- ggplot(roc_df, aes(x = fpr, y = tpr)) +
+    geom_line(color = "#2c7fb8", size = 1) +
+    geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "gray60") +
+    coord_equal() +
+    labs(title = sprintf("ROC Curve (AUC = %.3f)", auc_val), x = "False Positive Rate", y = "True Positive Rate") +
+    theme_minimal() +
+    theme(panel.background = element_rect(fill = "white"))
+
+  print(p_roc)
+  ggsave("images/06_roc_curve.png", p_roc, width = 6, height = 5, dpi = 300, bg = "white")
+}
+```
+
+## Discussion
+
+- QDA models class-specific covariance, enabling curved boundaries and improved performance when class covariances differ.
+- For the heart dataset, key numeric predictors (e.g., age, thalach, oldpeak) contribute to separability, but performance depends on train/test split.
+
+## References
+
+- MASS package documentation for QDA implementation
+- Heart disease dataset (Cleveland) data dictionary from Kaggle
+
