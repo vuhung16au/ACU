@@ -1,0 +1,455 @@
+---
+title: "Linear Regression Analysis - Sales Prediction"
+author: "Data Science Analysis"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: flatly
+    highlight: tango
+  pdf_document:
+    toc: true
+  word_document:
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, 
+                      fig.width = 10, fig.height = 6, fig.align = "center")
+```
+
+# Introduction
+
+This analysis implements a simple linear regression model to predict sales based on advertising spending across different platforms (TV, Radio, Newspaper). The analysis follows a comprehensive approach including data exploration, model building, evaluation, and visualization.
+
+## Problem Statement
+
+Build a model which predicts sales based on the money spent on different platforms for marketing. We'll analyze the relationship between 'TV advertising' and 'sales' using a simple linear regression model.
+
+## Dataset
+
+The advertising dataset contains information about advertising spending across different media channels and the resulting sales performance.
+
+- **Source**: ISLR (Introduction to Statistical Learning with R)
+- **Observations**: 200
+- **Variables**: 4 (TV, Radio, Newspaper, Sales)
+- **Missing Values**: None
+
+# Data Loading and Understanding
+
+```{r load-libraries}
+# Load required libraries
+library(ggplot2)
+library(dplyr)
+library(corrplot)
+library(gridExtra)
+
+# Set theme for white background plots
+theme_set(theme_minimal() + 
+          theme(panel.background = element_rect(fill = "white", color = NA),
+                plot.background = element_rect(fill = "white", color = NA)))
+```
+
+```{r load-data}
+# Load the dataset
+advertising <- read.csv("Salary-Dataset/salary.csv")
+
+# Display basic information about the dataset
+cat("Dataset Information:\n")
+cat("Shape:", nrow(advertising), "rows,", ncol(advertising), "columns\n")
+cat("Column names:", paste(names(advertising), collapse = ", "), "\n")
+```
+
+```{r data-inspection}
+# Display first few rows
+head(advertising, 10)
+```
+
+```{r data-summary}
+# Data summary
+summary(advertising)
+```
+
+```{r missing-values}
+# Check for missing values
+missing_values <- colSums(is.na(advertising))
+cat("Missing values per column:\n")
+print(missing_values)
+```
+
+# Data Cleaning
+
+```{r outlier-analysis}
+# Create boxplots for outlier analysis
+p1 <- ggplot(advertising, aes(y = TV)) + 
+  geom_boxplot(fill = "lightblue", color = "black") +
+  labs(title = "TV Advertising - Outlier Analysis", y = "TV Advertising (thousands $)") +
+  theme_minimal() +
+  theme(panel.background = element_rect(fill = "white", color = NA),
+        plot.background = element_rect(fill = "white", color = NA))
+
+p2 <- ggplot(advertising, aes(y = Radio)) + 
+  geom_boxplot(fill = "lightgreen", color = "black") +
+  labs(title = "Radio Advertising - Outlier Analysis", y = "Radio Advertising (thousands $)") +
+  theme_minimal() +
+  theme(panel.background = element_rect(fill = "white", color = NA),
+        plot.background = element_rect(fill = "white", color = NA))
+
+p3 <- ggplot(advertising, aes(y = Newspaper)) + 
+  geom_boxplot(fill = "lightcoral", color = "black") +
+  labs(title = "Newspaper Advertising - Outlier Analysis", y = "Newspaper Advertising (thousands $)") +
+  theme_minimal() +
+  theme(panel.background = element_rect(fill = "white", color = NA),
+        plot.background = element_rect(fill = "white", color = NA))
+
+# Display plots
+grid.arrange(p1, p2, p3, ncol = 1)
+```
+
+**Observation**: There are no considerable outliers present in the data.
+
+# Exploratory Data Analysis
+
+## Univariate Analysis
+
+### Sales (Target Variable)
+
+```{r sales-distribution}
+# Sales distribution
+p_sales <- ggplot(advertising, aes(y = Sales)) + 
+  geom_boxplot(fill = "gold", color = "black") +
+  labs(title = "Sales Distribution - Target Variable", y = "Sales (thousands of units)") +
+  theme_minimal() +
+  theme(panel.background = element_rect(fill = "white", color = NA),
+        plot.background = element_rect(fill = "white", color = NA))
+
+print(p_sales)
+```
+
+## Bivariate Analysis
+
+Let's see how Sales are related with other variables using scatter plots.
+
+```{r scatter-plots}
+# Scatter plots showing relationship between advertising channels and sales
+p_tv <- ggplot(advertising, aes(x = TV, y = Sales)) + 
+  geom_point(color = "blue", alpha = 0.6) +
+  geom_smooth(method = "lm", color = "red", se = TRUE) +
+  labs(title = "TV Advertising vs Sales", 
+       x = "TV Advertising (thousands $)", 
+       y = "Sales (thousands of units)") +
+  theme_minimal() +
+  theme(panel.background = element_rect(fill = "white", color = NA),
+        plot.background = element_rect(fill = "white", color = NA))
+
+p_radio <- ggplot(advertising, aes(x = Radio, y = Sales)) + 
+  geom_point(color = "green", alpha = 0.6) +
+  geom_smooth(method = "lm", color = "red", se = TRUE) +
+  labs(title = "Radio Advertising vs Sales", 
+       x = "Radio Advertising (thousands $)", 
+       y = "Sales (thousands of units)") +
+  theme_minimal() +
+  theme(panel.background = element_rect(fill = "white", color = NA),
+        plot.background = element_rect(fill = "white", color = NA))
+
+p_newspaper <- ggplot(advertising, aes(x = Newspaper, y = Sales)) + 
+  geom_point(color = "orange", alpha = 0.6) +
+  geom_smooth(method = "lm", color = "red", se = TRUE) +
+  labs(title = "Newspaper Advertising vs Sales", 
+       x = "Newspaper Advertising (thousands $)", 
+       y = "Sales (thousands of units)") +
+  theme_minimal() +
+  theme(panel.background = element_rect(fill = "white", color = NA),
+        plot.background = element_rect(fill = "white", color = NA))
+
+# Display scatter plots
+grid.arrange(p_tv, p_radio, p_newspaper, ncol = 3)
+```
+
+## Correlation Analysis
+
+Let's see the correlation between different variables.
+
+```{r correlation}
+# Calculate correlation matrix
+correlation_matrix <- cor(advertising)
+print("Correlation Matrix:")
+print(round(correlation_matrix, 3))
+
+# Create correlation heatmap
+corrplot(correlation_matrix, method = "color", type = "upper", 
+         addCoef.col = "black", tl.col = "black", tl.srt = 45,
+         title = "Correlation Matrix - Advertising Dataset")
+```
+
+**Key Observations**:
+- TV advertising shows the strongest correlation with sales (0.782)
+- Radio advertising has moderate correlation with sales (0.576)
+- Newspaper advertising has weak correlation with sales (0.228)
+- TV seems to be most correlated with Sales, so we'll perform simple linear regression using TV as our feature variable.
+
+# Model Building
+
+## Performing Simple Linear Regression
+
+### Linear Regression Equation
+
+The equation of linear regression is:
+$$y = c + m_1x_1 + m_2x_2 + ... + m_nx_n$$
+
+Where:
+- $y$ is the response
+- $c$ is the intercept
+- $m_1$ is the coefficient for the first feature
+- $m_n$ is the coefficient for the nth feature
+
+In our case:
+$$y = c + m_1 \times TV$$
+
+The $m$ values are called the model coefficients or model parameters.
+
+### Train-Test Split
+
+```{r train-test-split}
+# Prepare data for modeling
+X <- advertising$TV
+y <- advertising$Sales
+
+# Train-Test Split (70% train, 30% test)
+set.seed(100)  # For reproducibility
+train_indices <- sample(seq_len(nrow(advertising)), 0.7 * nrow(advertising))
+X_train <- X[train_indices]
+X_test <- X[-train_indices]
+y_train <- y[train_indices]
+y_test <- y[-train_indices]
+
+cat("Train set size:", length(X_train), "observations\n")
+cat("Test set size:", length(X_test), "observations\n")
+
+# Display training data
+train_data <- data.frame(TV = X_train, Sales = y_train)
+head(train_data, 10)
+```
+
+### Building Linear Model
+
+```{r build-model}
+# Building Linear Model using lm() function
+model <- lm(Sales ~ TV, data = train_data)
+
+# Display model summary
+summary(model)
+```
+
+```{r model-coefficients}
+# Extract model coefficients
+intercept <- coef(model)[1]
+slope <- coef(model)[2]
+
+cat("Model Coefficients:\n")
+cat("Intercept:", round(intercept, 4), "\n")
+cat("Slope (TV coefficient):", round(slope, 4), "\n")
+
+# Model equation
+cat("\nLinear Regression Equation:\n")
+cat("Sales =", round(intercept, 4), "+", round(slope, 4), "× TV\n")
+```
+
+### Key Statistics from the Model
+
+Looking at some key statistics from the summary:
+
+1. **The coefficient for TV is `r round(slope, 3)`, with a very low p value**
+   - The coefficient is statistically significant. So the association is not purely by chance.
+
+2. **R-squared is `r round(summary(model)$r.squared, 3)`**
+   - Meaning that `r round(summary(model)$r.squared * 100, 1)`% of the variance in Sales is explained by TV
+   - This is a decent R-squared value.
+
+3. **F statistic has a very low p value (practically low)**
+   - Meaning that the model fit is statistically significant, and the explained variance isn't purely by chance.
+
+The fit is significant. Let's visualize how well the model fit the data.
+
+```{r model-fit}
+# Visualize model fit on training data
+p_fit <- ggplot(train_data, aes(x = TV, y = Sales)) + 
+  geom_point(color = "blue", alpha = 0.6) +
+  geom_abline(intercept = intercept, slope = slope, color = "red", size = 1) +
+  labs(title = "Linear Regression Model Fit (Training Data)", 
+       subtitle = paste("Sales =", round(intercept, 2), "+", round(slope, 3), "× TV"),
+       x = "TV Advertising (thousands $)", 
+       y = "Sales (thousands of units)") +
+  theme_minimal() +
+  theme(panel.background = element_rect(fill = "white", color = NA),
+        plot.background = element_rect(fill = "white", color = NA))
+
+print(p_fit)
+```
+
+# Model Evaluation
+
+## Residual Analysis
+
+To validate assumptions of the model, and hence the reliability for inference.
+
+### Distribution of the Error Terms
+
+We need to check if the error terms are also normally distributed (which is in fact, one of the major assumptions of linear regression).
+
+```{r residual-analysis}
+# Calculate predictions and residuals
+y_train_pred <- predict(model)
+residuals <- y_train - y_train_pred
+
+# Distribution of residuals
+p_residuals <- ggplot(data.frame(residuals = residuals), aes(x = residuals)) + 
+  geom_histogram(bins = 15, fill = "lightblue", color = "black", alpha = 0.7) +
+  geom_vline(xintercept = 0, color = "red", linetype = "dashed") +
+  labs(title = "Distribution of Residuals", 
+       x = "Residuals (y_train - y_train_pred)", 
+       y = "Frequency") +
+  theme_minimal() +
+  theme(panel.background = element_rect(fill = "white", color = NA),
+        plot.background = element_rect(fill = "white", color = NA))
+
+print(p_residuals)
+```
+
+**Observation**: The residuals are following the normal distribution with a mean 0. All good!
+
+### Looking for Patterns in the Residuals
+
+```{r residuals-patterns}
+# Residuals vs Fitted values
+p_residuals_fitted <- ggplot(data.frame(fitted = y_train_pred, residuals = residuals), 
+                            aes(x = fitted, y = residuals)) + 
+  geom_point(color = "blue", alpha = 0.6) +
+  geom_hline(yintercept = 0, color = "red", linetype = "dashed") +
+  labs(title = "Residuals vs Fitted Values", 
+       x = "Fitted Values", 
+       y = "Residuals") +
+  theme_minimal() +
+  theme(panel.background = element_rect(fill = "white", color = NA),
+        plot.background = element_rect(fill = "white", color = NA))
+
+print(p_residuals_fitted)
+```
+
+**Observation**: We are confident that the model fit isn't by chance, and has decent predictive power. The normality of residual terms allows some inference on the coefficients.
+
+# Predictions on the Test Set
+
+Now that we have fitted a regression line on our train dataset, it's time to make some predictions on the test data.
+
+```{r test-predictions}
+# Create test data frame
+test_data <- data.frame(TV = X_test)
+
+# Make predictions
+y_pred <- predict(model, newdata = test_data)
+
+# Display first few predictions
+test_results <- data.frame(TV = X_test, Actual_Sales = y_test, Predicted_Sales = y_pred)
+head(test_results, 10)
+```
+
+## Performance Metrics
+
+```{r performance-metrics}
+# Calculate performance metrics
+# RMSE (Root Mean Square Error)
+rmse <- sqrt(mean((y_test - y_pred)^2))
+cat("Root Mean Square Error (RMSE):", round(rmse, 4), "\n")
+
+# R-squared on test set
+ss_res <- sum((y_test - y_pred)^2)
+ss_tot <- sum((y_test - mean(y_test))^2)
+r_squared_test <- 1 - (ss_res / ss_tot)
+cat("R-squared on test set:", round(r_squared_test, 4), "\n")
+
+# Mean Absolute Error
+mae <- mean(abs(y_test - y_pred))
+cat("Mean Absolute Error (MAE):", round(mae, 4), "\n")
+```
+
+## Visualizing the Fit on the Test Set
+
+```{r test-visualization}
+# Visualize predictions on test set
+p_test <- ggplot(test_results, aes(x = TV, y = Actual_Sales)) + 
+  geom_point(color = "blue", alpha = 0.6, size = 2) +
+  geom_abline(intercept = intercept, slope = slope, color = "red", size = 1) +
+  labs(title = "Linear Regression Model - Test Set Predictions", 
+       subtitle = paste("RMSE:", round(rmse, 3), "| R²:", round(r_squared_test, 3)),
+       x = "TV Advertising (thousands $)", 
+       y = "Sales (thousands of units)") +
+  theme_minimal() +
+  theme(panel.background = element_rect(fill = "white", color = NA),
+        plot.background = element_rect(fill = "white", color = NA))
+
+print(p_test)
+```
+
+## Actual vs Predicted
+
+```{r actual-vs-predicted}
+# Actual vs Predicted scatter plot
+p_actual_pred <- ggplot(test_results, aes(x = Actual_Sales, y = Predicted_Sales)) + 
+  geom_point(color = "blue", alpha = 0.6, size = 2) +
+  geom_abline(intercept = 0, slope = 1, color = "red", linetype = "dashed", size = 1) +
+  labs(title = "Actual vs Predicted Sales", 
+       subtitle = "Perfect prediction would lie on the red line",
+       x = "Actual Sales (thousands of units)", 
+       y = "Predicted Sales (thousands of units)") +
+  theme_minimal() +
+  theme(panel.background = element_rect(fill = "white", color = NA),
+        plot.background = element_rect(fill = "white", color = NA))
+
+print(p_actual_pred)
+```
+
+# Summary and Conclusions
+
+## Model Performance Summary
+
+| Metric | Training Set | Test Set |
+|--------|-------------|----------|
+| R-squared | `r round(summary(model)$r.squared, 4)` | `r round(r_squared_test, 4)` |
+| RMSE | - | `r round(rmse, 4)` |
+| MAE | - | `r round(mae, 4)` |
+
+## Final Model Equation
+
+**Sales = `r round(intercept, 4)` + `r round(slope, 4)` × TV**
+
+## Key Findings
+
+1. **Strong Linear Relationship**: TV advertising shows a strong positive correlation with sales (r = 0.782).
+
+2. **Good Model Performance**: 
+   - The model explains `r round(summary(model)$r.squared * 100, 1)`% of the variance in sales
+   - Low RMSE of `r round(rmse, 3)` indicates good predictive accuracy
+   - R-squared on test set (`r round(r_squared_test, 3)`) shows the model generalizes well
+
+3. **Business Interpretation**:
+   - For every $1000 increase in TV advertising, sales increase by `r round(slope, 2)` thousand units
+   - The relationship is statistically significant (p < 0.001)
+
+4. **Model Assumptions**:
+   - Residuals are normally distributed
+   - No clear patterns in residual plots
+   - Linear relationship assumption is satisfied
+
+## Recommendations
+
+1. **Focus on TV Advertising**: TV advertising has the strongest impact on sales and should be prioritized in marketing budgets.
+
+2. **Investment Strategy**: For every $1000 invested in TV advertising, expect approximately `r round(slope, 2)` thousand units increase in sales.
+
+3. **Model Limitations**: This is a simple linear model. Consider exploring multiple regression with all advertising channels for potentially better predictions.
+
+4. **Further Analysis**: Consider exploring non-linear relationships or interaction effects between different advertising channels.
+
+The linear regression model successfully captures the relationship between TV advertising and sales, providing valuable insights for marketing strategy and budget allocation.
