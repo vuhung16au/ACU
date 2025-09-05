@@ -1,0 +1,483 @@
+---
+title: "Logistic Regression Analysis - Weather Prediction"
+author: "Data Science Analysis"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: flatly
+    highlight: tango
+  pdf_document:
+    toc: true
+  word_document:
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, 
+                      fig.width = 10, fig.height = 6, fig.align = "center")
+```
+
+# Introduction
+
+This analysis implements a logistic regression model to predict whether it will rain tomorrow in Australia based on weather data. The analysis follows a comprehensive approach including data exploration, preprocessing, model building, evaluation, and visualization.
+
+## Problem Statement
+
+Build a binary classification model to predict whether it will rain tomorrow (Yes/No) based on various weather features including temperature, humidity, pressure, wind conditions, and location.
+
+## Dataset
+
+The Australian weather dataset contains historical weather observations from multiple locations across Australia.
+
+- **Source**: Australian Bureau of Meteorology
+- **Observations**: 142,193
+- **Variables**: 24 (including target variable RainTomorrow)
+- **Time Period**: 2007-2017
+- **Target Variable**: RainTomorrow (Yes/No)
+
+# Data Loading and Understanding
+
+```{r load-libraries}
+# Load required libraries
+library(ggplot2)
+library(dplyr)
+library(corrplot)
+library(gridExtra)
+library(caret)
+library(pROC)
+library(VIM)
+
+# Set theme for white background plots
+theme_set(theme_minimal() + 
+          theme(panel.background = element_rect(fill = "white", color = NA),
+                plot.background = element_rect(fill = "white", color = NA)))
+```
+
+```{r load-data}
+# Load the dataset
+weather_data <- read.csv("Weather-Dataset/weatherAUS.csv")
+
+# Display basic information about the dataset
+cat("Dataset Information:\n")
+cat("Shape:", nrow(weather_data), "rows,", ncol(weather_data), "columns\n")
+cat("Column names:", paste(names(weather_data), collapse = ", "), "\n")
+```
+
+```{r data-inspection}
+# Display first few rows
+head(weather_data, 10)
+```
+
+```{r data-summary}
+# Data summary
+summary(weather_data)
+```
+
+```{r missing-values}
+# Check for missing values
+missing_values <- colSums(is.na(weather_data))
+cat("Missing values per column:\n")
+print(missing_values)
+```
+
+# Data Preprocessing
+
+## Feature Engineering
+
+```{r feature-engineering}
+# Drop RISK_MM variable as mentioned in the reference notebook
+weather_data <- weather_data[, !names(weather_data) %in% c("RISK_MM")]
+
+# Feature Engineering - Extract date components
+weather_data$Date <- as.Date(weather_data$Date)
+weather_data$Year <- as.numeric(format(weather_data$Date, "%Y"))
+weather_data$Month <- as.numeric(format(weather_data$Date, "%m"))
+weather_data$Day <- as.numeric(format(weather_data$Date, "%d"))
+
+# Drop the original Date variable
+weather_data <- weather_data[, !names(weather_data) %in% c("Date")]
+
+cat("After feature engineering:\n")
+cat("Shape:", nrow(weather_data), "rows,", ncol(weather_data), "columns\n")
+```
+
+## Variable Types Analysis
+
+```{r variable-types}
+# Identify categorical and numerical variables
+categorical_vars <- names(weather_data)[sapply(weather_data, is.character)]
+numerical_vars <- names(weather_data)[sapply(weather_data, is.numeric)]
+
+cat("Categorical variables:", paste(categorical_vars, collapse = ", "), "\n")
+cat("Numerical variables:", paste(numerical_vars, collapse = ", "), "\n")
+```
+
+# Exploratory Data Analysis
+
+## Target Variable Analysis
+
+```{r target-analysis}
+# Target variable distribution
+target_dist <- table(weather_data$RainTomorrow)
+print(target_dist)
+cat("Proportions:\n")
+print(prop.table(target_dist))
+
+# Create target variable distribution plot
+p_target <- ggplot(weather_data, aes(x = RainTomorrow, fill = RainTomorrow)) + 
+  geom_bar(alpha = 0.7) +
+  scale_fill_manual(values = c("No" = "lightblue", "Yes" = "lightcoral")) +
+  labs(title = "Distribution of RainTomorrow (Target Variable)", 
+       x = "Rain Tomorrow", 
+       y = "Count") +
+  theme_minimal() +
+  theme(panel.background = element_rect(fill = "white", color = NA),
+        plot.background = element_rect(fill = "white", color = NA),
+        legend.position = "none")
+
+print(p_target)
+```
+
+## Missing Values Analysis
+
+```{r missing-analysis}
+# Missing values analysis for numerical variables
+missing_data <- weather_data[, numerical_vars]
+missing_summary <- colSums(is.na(missing_data))
+missing_df <- data.frame(Variable = names(missing_summary), Missing_Count = missing_summary)
+missing_df$Missing_Percentage <- (missing_df$Missing_Count / nrow(weather_data)) * 100
+
+p_missing <- ggplot(missing_df, aes(x = reorder(Variable, Missing_Percentage), y = Missing_Percentage)) + 
+  geom_bar(stat = "identity", fill = "lightcoral", alpha = 0.7) +
+  coord_flip() +
+  labs(title = "Missing Values Analysis", 
+       x = "Variables", 
+       y = "Missing Percentage (%)") +
+  theme_minimal() +
+  theme(panel.background = element_rect(fill = "white", color = NA),
+        plot.background = element_rect(fill = "white", color = NA))
+
+print(p_missing)
+```
+
+## Correlation Analysis
+
+```{r correlation}
+# Correlation analysis for numerical variables
+numerical_data <- weather_data[, numerical_vars]
+correlation_matrix <- cor(numerical_data, use = "complete.obs")
+
+# Create correlation heatmap
+corrplot(correlation_matrix, method = "color", type = "upper", 
+         addCoef.col = "black", tl.col = "black", tl.srt = 45,
+         title = "Correlation Matrix - Weather Dataset")
+```
+
+# Data Preprocessing
+
+## Missing Value Imputation
+
+```{r imputation}
+# Handle missing values in numerical variables (use median imputation)
+for (var in numerical_vars) {
+  if (sum(is.na(weather_data[[var]])) > 0) {
+    median_val <- median(weather_data[[var]], na.rm = TRUE)
+    weather_data[[var]][is.na(weather_data[[var]])] <- median_val
+    cat("Imputed missing values in", var, "with median:", round(median_val, 2), "\n")
+  }
+}
+
+# Handle missing values in categorical variables (use mode)
+for (var in categorical_vars) {
+  if (sum(is.na(weather_data[[var]])) > 0) {
+    mode_val <- names(sort(table(weather_data[[var]]), decreasing = TRUE))[1]
+    weather_data[[var]][is.na(weather_data[[var]])] <- mode_val
+    cat("Imputed missing values in", var, "with mode:", mode_val, "\n")
+  }
+}
+
+# Check if all missing values are handled
+cat("\nMissing values after imputation:\n")
+missing_after <- colSums(is.na(weather_data))
+print(missing_after)
+```
+
+## Feature Engineering - Dummy Variables
+
+```{r dummy-variables}
+# Convert categorical variables to factors
+for (var in categorical_vars) {
+  weather_data[[var]] <- as.factor(weather_data[[var]])
+}
+
+# Create dummy variables for Location (high cardinality)
+location_dummies <- model.matrix(~ Location - 1, data = weather_data)
+location_dummies <- as.data.frame(location_dummies)
+
+# Create dummy variables for wind directions
+wind_gust_dummies <- model.matrix(~ WindGustDir - 1, data = weather_data)
+wind_gust_dummies <- as.data.frame(wind_gust_dummies)
+
+wind_dir9am_dummies <- model.matrix(~ WindDir9am - 1, data = weather_data)
+wind_dir9am_dummies <- as.data.frame(wind_dir9am_dummies)
+
+wind_dir3pm_dummies <- model.matrix(~ WindDir3pm - 1, data = weather_data)
+wind_dir3pm_dummies <- as.data.frame(wind_dir3pm_dummies)
+
+# Create dummy variables for RainToday
+rain_today_dummies <- model.matrix(~ RainToday - 1, data = weather_data)
+rain_today_dummies <- as.data.frame(rain_today_dummies)
+
+# Combine all features
+weather_processed <- cbind(
+  weather_data[, numerical_vars],
+  location_dummies,
+  wind_gust_dummies,
+  wind_dir9am_dummies,
+  wind_dir3pm_dummies,
+  rain_today_dummies
+)
+
+# Add target variable
+weather_processed$RainTomorrow <- weather_data$RainTomorrow
+
+cat("Processed dataset shape:", nrow(weather_processed), "rows,", ncol(weather_processed), "columns\n")
+```
+
+# Model Building
+
+## Train-Test Split
+
+```{r train-test-split}
+# Prepare features and target
+X <- weather_processed[, !names(weather_processed) %in% c("RainTomorrow")]
+y <- weather_processed$RainTomorrow
+
+# Split the data
+set.seed(100)  # For reproducibility
+train_indices <- createDataPartition(y, p = 0.8, list = FALSE)
+X_train <- X[train_indices, ]
+X_test <- X[-train_indices, ]
+y_train <- y[train_indices]
+y_test <- y[-train_indices]
+
+cat("Train set size:", nrow(X_train), "observations\n")
+cat("Test set size:", nrow(X_test), "observations\n")
+
+# Check class distribution in train and test sets
+cat("\nClass distribution in training set:\n")
+print(table(y_train))
+cat("Class distribution in test set:\n")
+print(table(y_test))
+```
+
+## Feature Scaling
+
+```{r feature-scaling}
+# Scale numerical features
+preprocess_params <- preProcess(X_train, method = c("center", "scale"))
+X_train_scaled <- predict(preprocess_params, X_train)
+X_test_scaled <- predict(preprocess_params, X_test)
+
+cat("Features scaled using standardization\n")
+```
+
+## Building Logistic Regression Model
+
+```{r build-model}
+# Build Logistic Regression Model
+train_data <- data.frame(X_train_scaled, RainTomorrow = y_train)
+
+# Fit logistic regression model
+logistic_model <- glm(RainTomorrow ~ ., data = train_data, family = binomial)
+
+# Display model summary
+summary(logistic_model)
+```
+
+# Model Evaluation
+
+## Predictions and Accuracy
+
+```{r predictions}
+# Predictions on training set
+y_train_pred_prob <- predict(logistic_model, newdata = X_train_scaled, type = "response")
+y_train_pred <- ifelse(y_train_pred_prob > 0.5, "Yes", "No")
+
+# Predictions on test set
+y_test_pred_prob <- predict(logistic_model, newdata = X_test_scaled, type = "response")
+y_test_pred <- ifelse(y_test_pred_prob > 0.5, "Yes", "No")
+
+# Calculate accuracy
+train_accuracy <- mean(y_train_pred == y_train)
+test_accuracy <- mean(y_test_pred == y_test)
+
+cat("Training Accuracy:", round(train_accuracy, 4), "\n")
+cat("Test Accuracy:", round(test_accuracy, 4), "\n")
+```
+
+## Confusion Matrix
+
+```{r confusion-matrix}
+# Confusion Matrix
+confusion_matrix <- table(Actual = y_test, Predicted = y_test_pred)
+print(confusion_matrix)
+
+# Calculate additional metrics
+TP <- confusion_matrix[2, 2]  # True Positives
+TN <- confusion_matrix[1, 1]  # True Negatives
+FP <- confusion_matrix[1, 2]  # False Positives
+FN <- confusion_matrix[2, 1]  # False Negatives
+
+precision <- TP / (TP + FP)
+recall <- TP / (TP + FN)
+f1_score <- 2 * (precision * recall) / (precision + recall)
+
+cat("\nPerformance Metrics:\n")
+cat("Precision:", round(precision, 4), "\n")
+cat("Recall (Sensitivity):", round(recall, 4), "\n")
+cat("F1-Score:", round(f1_score, 4), "\n")
+```
+
+## ROC Curve and AUC
+
+```{r roc-curve}
+# ROC Curve
+roc_obj <- roc(y_test, y_test_pred_prob)
+auc_score <- auc(roc_obj)
+
+cat("AUC Score:", round(auc_score, 4), "\n")
+
+# Plot ROC Curve
+plot(roc_obj, main = "ROC Curve - Logistic Regression", 
+     col = "blue", lwd = 2)
+abline(a = 0, b = 1, col = "red", lty = 2)
+text(0.6, 0.2, paste("AUC =", round(auc_score, 3)), cex = 1.2)
+```
+
+## Feature Importance
+
+```{r feature-importance}
+# Get coefficients
+coefficients <- coef(logistic_model)
+coefficients <- coefficients[!is.na(coefficients)]
+coefficients <- coefficients[abs(coefficients) > 0.1]  # Filter significant coefficients
+
+# Create feature importance plot
+if (length(coefficients) > 0) {
+  importance_df <- data.frame(
+    Feature = names(coefficients),
+    Coefficient = abs(coefficients)
+  )
+  importance_df <- importance_df[order(importance_df$Coefficient, decreasing = TRUE), ]
+  importance_df <- head(importance_df, 15)  # Top 15 features
+  
+  p_importance <- ggplot(importance_df, aes(x = reorder(Feature, Coefficient), y = Coefficient)) + 
+    geom_bar(stat = "identity", fill = "lightgreen", alpha = 0.7) +
+    coord_flip() +
+    labs(title = "Top 15 Feature Importance (Logistic Regression)", 
+         x = "Features", 
+         y = "Absolute Coefficient Value") +
+    theme_minimal() +
+    theme(panel.background = element_rect(fill = "white", color = NA),
+          plot.background = element_rect(fill = "white", color = NA))
+  
+  print(p_importance)
+}
+```
+
+## Prediction Probability Distribution
+
+```{r probability-distribution}
+# Prediction Probability Distribution
+prob_df <- data.frame(Probability = y_test_pred_prob, Actual = y_test)
+
+p_prob_dist <- ggplot(prob_df, aes(x = Probability, fill = Actual)) + 
+  geom_histogram(bins = 30, alpha = 0.7, position = "identity") +
+  scale_fill_manual(values = c("No" = "lightblue", "Yes" = "lightcoral")) +
+  labs(title = "Distribution of Prediction Probabilities", 
+       x = "Predicted Probability of Rain", 
+       y = "Frequency") +
+  theme_minimal() +
+  theme(panel.background = element_rect(fill = "white", color = NA),
+        plot.background = element_rect(fill = "white", color = NA))
+
+print(p_prob_dist)
+```
+
+# Cross-Validation
+
+```{r cross-validation}
+# Perform 5-fold cross-validation
+cv_results <- train(
+  RainTomorrow ~ ., 
+  data = train_data, 
+  method = "glm", 
+  family = "binomial",
+  trControl = trainControl(method = "cv", number = 5)
+)
+
+cat("Cross-validation results:\n")
+print(cv_results)
+```
+
+# Summary and Conclusions
+
+## Model Performance Summary
+
+| Metric | Value |
+|--------|-------|
+| Training Accuracy | `r round(train_accuracy, 4)` |
+| Test Accuracy | `r round(test_accuracy, 4)` |
+| Precision | `r round(precision, 4)` |
+| Recall | `r round(recall, 4)` |
+| F1-Score | `r round(f1_score, 4)` |
+| AUC Score | `r round(auc_score, 4)` |
+| Cross-validation Accuracy | `r round(cv_results$results$Accuracy, 4)` |
+
+## Key Findings
+
+1. **Model Performance**: The logistic regression model achieved `r round(test_accuracy * 100, 1)`% accuracy on the test set.
+
+2. **Discriminative Ability**: AUC score of `r round(auc_score, 3)` indicates `r ifelse(auc_score > 0.8, "excellent", ifelse(auc_score > 0.7, "good", "fair"))` discriminative ability.
+
+3. **Class Imbalance**: The dataset shows class imbalance with more "No Rain" observations than "Rain" observations.
+
+4. **Feature Importance**: The model identifies key weather features that are most predictive of rain tomorrow.
+
+## Business Interpretation
+
+1. **Weather Prediction**: The model can predict rain tomorrow with reasonable accuracy, which is valuable for:
+   - Agricultural planning
+   - Event planning
+   - Transportation logistics
+   - Water resource management
+
+2. **Key Predictors**: The most important features for rain prediction include:
+   - Current day rainfall (RainToday)
+   - Humidity levels
+   - Pressure measurements
+   - Wind conditions
+   - Location-specific factors
+
+## Model Limitations
+
+1. **Class Imbalance**: The dataset has more "No Rain" observations, which may bias the model toward predicting "No Rain".
+
+2. **Feature Engineering**: Some features may benefit from additional engineering or transformation.
+
+3. **Temporal Patterns**: The model doesn't explicitly capture seasonal or temporal patterns in the data.
+
+## Recommendations
+
+1. **Threshold Tuning**: Consider adjusting the classification threshold (currently 0.5) to optimize for specific business objectives.
+
+2. **Feature Selection**: Implement feature selection techniques to reduce model complexity and improve interpretability.
+
+3. **Ensemble Methods**: Consider ensemble methods like Random Forest or Gradient Boosting for potentially better performance.
+
+4. **Regularization**: Apply regularization techniques (L1/L2) to prevent overfitting and improve generalization.
+
+The logistic regression model provides a solid foundation for weather prediction with good interpretability and reasonable performance metrics.
