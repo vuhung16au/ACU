@@ -10,9 +10,10 @@ The application demonstrates the following recursion algorithms:
 2. **Compute Fibonacci** - Recursive Fibonacci number calculation
 3. **Recursive Selection Sort** - Sorting algorithm using recursion
 4. **Recursive Binary Search** - Efficient search algorithm
-5. **Directory Size** - Recursive file system traversal
-6. **Tower of Hanoi** - Classic recursive puzzle solution
-7. **Factorial (Tail Recursion)** - Optimized tail-recursive factorial
+5. **Directory Size** - Recursive file system traversal (interactive)
+6. **Directory Size with Options** - CLI version with command-line options
+7. **Tower of Hanoi** - Classic recursive puzzle solution
+8. **Factorial (Tail Recursion)** - Optimized tail-recursive factorial
 
 ## Technical Specifications
 
@@ -44,7 +45,8 @@ The project is buildable and runnable on:
 │   │   │       ├── ComputeFibonacci.java       # Fibonacci implementation
 │   │   │       ├── RecursiveSelectionSort.java # Selection sort
 │   │   │       ├── RecursiveBinarySearch.java  # Binary search
-│   │   │       ├── DirectorySize.java          # Directory size calculator
+│   │   │       ├── DirectorySize.java          # Directory size calculator (interactive)
+│   │   │       ├── DirectorySizeWithOptions.java # CLI directory size with options
 │   │   │       ├── TowerOfHanoi.java          # Tower of Hanoi solver
 │   │   │       └── ComputeFactorialTailRecursion.java # Tail recursion
 │   │   └── resources/                          # Application resources
@@ -180,6 +182,39 @@ java -jar target/recursion-demo-1.0.0.jar
 
 ### CLI Mode (Command Line)
 
+#### Directory Size with Options (New CLI Application)
+
+The `DirectorySizeWithOptions.java` is a standalone CLI application that provides an enhanced version of the directory size calculator with professional command-line interface features:
+
+**Features:**
+- **Command-line argument parsing** using Apache Commons CLI
+- **Human-readable output** with byte formatting (B, KB, MB, GB)
+- **Verbose mode** for detailed file-by-file scanning information
+- **Error handling** for invalid directories and missing arguments
+- **Help system** with usage instructions
+
+**Command-line Options:**
+- `-d, --directory <path>`: Required. Specify the directory to analyze
+- `-v, --verbose`: Optional. Enable verbose output showing individual files
+- `-h, --help`: Show help information and usage
+
+**Example Usage:**
+```bash
+# Basic usage - calculate size of src directory
+java -cp "target/classes:$(mvn dependency:build-classpath -Dmdep.outputFile=/dev/stdout -q)" com.acu.javafx.recursion.DirectorySizeWithOptions -d src
+
+# Verbose mode - show detailed file information
+java -cp "target/classes:$(mvn dependency:build-classpath -Dmdep.outputFile=/dev/stdout -q)" com.acu.javafx.recursion.DirectorySizeWithOptions -d src -v
+
+# Long form options
+java -cp "target/classes:$(mvn dependency:build-classpath -Dmdep.outputFile=/dev/stdout -q)" com.acu.javafx.recursion.DirectorySizeWithOptions --directory . --verbose
+
+# Show help
+java -cp "target/classes:$(mvn dependency:build-classpath -Dmdep.outputFile=/dev/stdout -q)" com.acu.javafx.recursion.DirectorySizeWithOptions --help
+```
+
+#### Other Algorithms (Makefile-based)
+
 Each algorithm can be run individually from the command line using the Makefile:
 
 **Factorial:**
@@ -194,10 +229,25 @@ make run-fibonacci
 # Enter an index when prompted
 ```
 
-**Directory Size:**
+**Directory Size (Interactive):**
 ```bash
 make run-directory-size
 # Enter a directory path when prompted
+```
+
+**Directory Size with CLI Options:**
+```bash
+# Basic usage
+java -cp "target/classes:$(mvn dependency:build-classpath -Dmdep.outputFile=/dev/stdout -q)" com.acu.javafx.recursion.DirectorySizeWithOptions -d <directory>
+
+# Verbose mode
+java -cp "target/classes:$(mvn dependency:build-classpath -Dmdep.outputFile=/dev/stdout -q)" com.acu.javafx.recursion.DirectorySizeWithOptions -d <directory> -v
+
+# Long form options
+java -cp "target/classes:$(mvn dependency:build-classpath -Dmdep.outputFile=/dev/stdout -q)" com.acu.javafx.recursion.DirectorySizeWithOptions --directory <directory> --verbose
+
+# Help
+java -cp "target/classes:$(mvn dependency:build-classpath -Dmdep.outputFile=/dev/stdout -q)" com.acu.javafx.recursion.DirectorySizeWithOptions --help
 ```
 
 **Binary Search:**
@@ -254,17 +304,31 @@ make run
 - **Output**: Index of key or insertion point
 - **Algorithm**: Compare middle element, recursively search left or right half
 
-### 5. Directory Size
-- **Input**: Directory path
+### 5. Directory Size (Interactive)
+- **Input**: Directory path (prompted)
 - **Output**: Total size in bytes
 - **Algorithm**: Recursively sum file sizes in directory tree
 
-### 6. Tower of Hanoi
+### 6. Directory Size with Options (CLI)
+- **Input**: Directory path via command-line options
+- **Output**: Total size in bytes with human-readable formatting
+- **Options**: 
+  - `-d, --directory`: Required directory path
+  - `-v, --verbose`: Show detailed file-by-file output
+  - `-h, --help`: Display help information
+- **Algorithm**: Recursively sum file sizes in directory tree
+- **Features**: 
+  - Command-line argument parsing with Apache Commons CLI
+  - Human-readable byte formatting (B, KB, MB, GB)
+  - Verbose mode for detailed scanning information
+  - Error handling for invalid directories
+
+### 7. Tower of Hanoi
 - **Input**: Number of disks
 - **Output**: Sequence of moves to solve puzzle
 - **Algorithm**: Move n-1 disks to auxiliary, move nth disk, move n-1 disks to destination
 
-### 7. Factorial (Tail Recursion)
+### 8. Factorial (Tail Recursion)
 - **Input**: Non-negative integer n
 - **Output**: n! (factorial of n)
 - **Optimization**: Tail-recursive implementation for better performance
@@ -277,6 +341,7 @@ The project uses Maven with the following key features:
 
 - **Java 24** compilation target
 - **JavaFX 21** dependencies
+- **Apache Commons CLI 1.6.0** for command-line argument parsing
 - **Cross-platform** dependency management
 - **Platform detection** for native libraries
 - **Executable JAR** creation with Maven Shade plugin
