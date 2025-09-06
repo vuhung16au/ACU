@@ -310,4 +310,7 @@ This project demonstrates:
 ## Screenshots
 
 ![Knight's Tour Demo](images/06-05-KnightTour.png)
+<!-- ![Knight's Tour Demo](https://youtube.com/shorts/44tY0SFZCPo?feature=share) -->
+[![Watch the Tour](https://img.youtube.com/vi/44tY0SFZCPo/default.jpg)](https://youtu.be/44tY0SFZCPo)
+
 
