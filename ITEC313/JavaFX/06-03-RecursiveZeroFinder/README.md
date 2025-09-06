@@ -248,21 +248,7 @@ mvn javafx:run
 - **ZeroFinderDemo**: JavaFX application and UI
 - **RecursiveZeroFinderTest**: Comprehensive test suite
 
-## Troubleshooting
 
-### Common Issues
-
-#### 1. JavaFX Not Found
-**Solution**: Ensure JavaFX dependencies are properly configured in `pom.xml`
-
-#### 2. Compilation Errors
-**Solution**: Check Java version (requires Java 24 or later)
-
-#### 3. No Zero Found
-**Solution**: Verify that f(l)f(r) ≤ 0 (sign change required)
-
-#### 4. Function Evaluation Error
-**Solution**: Check function expression syntax
 
 ### Debug Mode
 
@@ -271,34 +257,6 @@ Run with debug output:
 mvn javafx:run -Djavafx.debug=true
 ```
 
-### Performance Issues
-
-For very small tolerances or wide intervals:
-- Consider iterative implementation for better performance
-- Use double precision arithmetic carefully
-- Monitor recursion depth
-
-## Educational Value
-
-This project demonstrates:
-- **Recursive Algorithms**: Implementation and analysis
-- **Numerical Methods**: Root finding techniques
-- **JavaFX Programming**: Modern GUI development
-- **Testing**: Comprehensive test-driven development
-- **Error Handling**: Robust input validation
-- **Documentation**: Clear code comments and explanations
-
-## License
-
-This project is part of the ACU JavaFX educational series and is intended for educational purposes.
-
-## Contributing
-
-Contributions are welcome! Please:
-1. Follow the existing code style
-2. Add tests for new features
-3. Update documentation
-4. Ensure all tests pass
 
 ## Screenshots
 

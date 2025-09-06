@@ -203,22 +203,6 @@ mvn test -Dtest=AnagramCheckerTest
 mvn test jacoco:report
 ```
 
-## Troubleshooting
-
-### Common Issues
-
-#### 1. JavaFX Not Found
-**Solution**: Ensure JavaFX dependencies are properly configured in `pom.xml`
-
-#### 2. Module System Issues
-**Solution**: Check `module-info.java` for correct module declarations
-
-#### 3. Test Failures
-**Solution**: Run `mvn clean test` to ensure clean test environment
-
-#### 4. Platform-Specific Issues
-**Solution**: Use the appropriate Maven profile for your platform
-
 ### Debug Mode
 
 Run with debug output:
@@ -248,21 +232,3 @@ This project demonstrates:
 
 ![Anagram Checker Demo](images/06-02-Anagram-Checker.png)
 
-## License
-
-This project is part of the ACU JavaFX educational series and is available under the MIT License.
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests for new functionality
-5. Submit a pull request
-
-## Support
-
-For questions or issues:
-- Check the documentation in the `docs/` folder
-- Review the test cases for usage examples
-- Create an issue in the repository
