@@ -1,3 +1,51 @@
+# Finish `06-02-Recursion-Check-Anagrams`
+
+The purpose of this project is to check if two words are anagrams of each other.
+
+```
+(Identifying anagrams) Two words are anagrams of each other if they contain the
+same letters that are arranged in different orders. Write a recursive method that
+can identify if two given words are anagrams of each other.
+```
+
+This project is currently a Hello World project.
+
+Please finish the project by adding the following features:
+- Add a text field for the input string: Word 1
+- Add a text field for the input string: Word 2
+- Add a button to check if the input string is an anagram: Check Anagram
+
+- Add a label to display the result
+- Add a button to clear the input and result
+- Add a button to exit the application
+
+Write JUnit tests to check the anagram checking logic.
+
+Make sure the following commands work:
+- mvn test
+- mvn clean compile
+- mvn javafx:run
+without any errors.
+
+The directory structure should be like this:
+- 06-02-Recursion-Check-Anagrams
+    - src
+    - test
+    - docs/
+    - pom.xml
+    - README.md
+    - images/
+
+Other requirements:
+- Keep the code as simple as possible.
+- Comment the code to explain the logic, for educational purposes.
+- Use the same structure as the other projects in the repository (e.g `05-02-BinaryIO`)
+- Use the same naming conventions as the other projects in the repository.
+- Use the same documentation structure as the other projects in the repository.
+- Use the same testing structure as the other projects in the repository.
+
+----------------------------------------------------------
+
 # Add screenshots to the README.md
 
 Add screenshots of the JavaFX application to the `README.md` file in the sub-folder of each project.
