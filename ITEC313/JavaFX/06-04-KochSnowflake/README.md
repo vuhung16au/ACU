@@ -250,5 +250,6 @@ mvn javafx:run -Djavafx.debug=true
 
 ![Koch Snowflake Demo](images/koch-snowflake-demo.png)
 
-*The application showing a Koch snowflake of order 3 with interactive controls*
+![Koch Snowflake Demo](images/06-04-KochSnowflake.png)
+
 

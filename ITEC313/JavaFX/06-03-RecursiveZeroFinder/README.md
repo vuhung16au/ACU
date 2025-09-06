@@ -260,4 +260,4 @@ mvn javafx:run -Djavafx.debug=true
 
 ## Screenshots
 
-*Screenshots will be added to the images/ directory showing the application interface and results.*
+[06-03-RecursiveZeroFinder.png](images/06-03-RecursiveZeroFinder.png)
