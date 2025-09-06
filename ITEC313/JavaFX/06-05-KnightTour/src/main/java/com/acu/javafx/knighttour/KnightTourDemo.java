@@ -59,7 +59,7 @@ public class KnightTourDemo extends Application {
         
         // Create scene and show stage
         Scene scene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
-        primaryStage.setTitle("Knight's Tour Demo - Exercise18_33");
+        primaryStage.setTitle("Knight's Recursive Adventure");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
