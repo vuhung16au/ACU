@@ -2,6 +2,8 @@
 
 This project implements a comprehensive sales dashboard using R and ggplot2 to visualize sales data insights.
 
+![Combined Dashboard](images/00_combined_dashboard.png)
+
 ## Overview
 
 The dashboard provides key performance indicators and visualizations for sales data analysis, including:
@@ -123,4 +125,8 @@ The dashboard provides insights into:
 - Data aggregation uses dplyr for efficient processing
 - White backgrounds are enforced for all plots
 - Error handling included for robust execution
+
+# Screenshots
+
+![Combined Dashboard](images/00_combined_dashboard.png) ![Total Sales](images/01_total_sales.png) ![Sales by Years](images/02_sales_by_years.png) ![Orders by Years](images/03_orders_by_years.png) ![Total Quantity](images/04_total_quantity.png) ![Quantity by Years](images/05_quantity_by_years.png) ![Quantity by Months](images/06_quantity_by_months.png)
 
