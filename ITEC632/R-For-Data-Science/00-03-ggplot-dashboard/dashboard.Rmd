@@ -1,0 +1,393 @@
+---
+title: "Sales Dashboard - Comprehensive Analysis"
+author: "Data Science Analysis"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: flatly
+    highlight: tango
+  pdf_document:
+    toc: true
+  word_document:
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, 
+                      fig.width = 10, fig.height = 6, fig.align = "center")
+```
+
+# Introduction
+
+This dashboard provides a comprehensive analysis of sales data using R and ggplot2. The analysis includes key performance indicators, trends, and visualizations to understand sales performance across different time periods and metrics.
+
+## Problem Statement
+
+Create a sales dashboard that provides insights into:
+- Overall sales performance
+- Sales trends over time
+- Order volume analysis
+- Product quantity patterns
+- Monthly and yearly performance metrics
+
+## Dataset
+
+The sales dataset contains comprehensive transaction data including:
+- **Source**: Sales transaction records
+- **Observations**: 2,825 records
+- **Variables**: 25 attributes
+- **Time Period**: 2023-2024
+- **Key Metrics**: Sales, Orders, Quantity
+
+# Data Loading and Understanding
+
+```{r load-libraries}
+# Load required libraries
+library(ggplot2)
+library(dplyr)
+library(lubridate)
+library(scales)
+library(gridExtra)
+library(grid)
+
+# Set theme for white background plots
+theme_set(theme_minimal() + 
+          theme(panel.background = element_rect(fill = "white", color = NA),
+                plot.background = element_rect(fill = "white", color = NA)))
+```
+
+```{r load-data}
+# Load the dataset
+sales_data <- read.csv("sales-dataset/sales.csv")
+
+# Display basic information about the dataset
+cat("Dataset Information:\n")
+cat("Shape:", nrow(sales_data), "rows,", ncol(sales_data), "columns\n")
+cat("Column names:", paste(names(sales_data), collapse = ", "), "\n")
+```
+
+```{r data-inspection}
+# Display first few rows
+head(sales_data, 10)
+```
+
+```{r data-summary}
+# Data summary
+summary(sales_data)
+```
+
+```{r missing-values}
+# Check for missing values
+missing_values <- colSums(is.na(sales_data))
+cat("Missing values per column:\n")
+print(missing_values)
+```
+
+# Data Preprocessing
+
+## Date Processing
+
+```{r date-processing}
+# Convert ORDERDATE to proper date format
+sales_data$ORDERDATE <- as.Date(sales_data$ORDERDATE, format = "%m/%d/%Y")
+
+# Extract additional date components
+sales_data$Year <- year(sales_data$ORDERDATE)
+sales_data$Month <- month(sales_data$ORDERDATE)
+sales_data$Month_Name <- month.name[sales_data$Month]
+
+# Ensure numeric columns are properly formatted
+sales_data$SALES <- as.numeric(sales_data$SALES)
+sales_data$QUANTITYORDERED <- as.numeric(sales_data$QUANTITYORDERED)
+sales_data$PRICEEACH <- as.numeric(sales_data$PRICEEACH)
+
+cat("After date processing:\n")
+cat("Date range:", min(sales_data$ORDERDATE), "to", max(sales_data$ORDERDATE), "\n")
+cat("Years covered:", paste(unique(sales_data$Year), collapse = ", "), "\n")
+```
+
+## Data Quality Check
+
+```{r data-quality}
+# Check data types
+cat("Data types:\n")
+str(sales_data)
+
+# Check for any remaining missing values
+cat("\nMissing values after processing:\n")
+missing_after <- colSums(is.na(sales_data))
+print(missing_after)
+```
+
+# Dashboard Visualizations
+
+## 1. Total Sales Overview
+
+```{r total-sales}
+# Calculate total sales
+total_sales <- sum(sales_data$SALES, na.rm = TRUE)
+
+# Create total sales visualization
+p1 <- ggplot(data.frame(metric = "Total Sales", value = total_sales), 
+             aes(x = metric, y = value)) +
+  geom_bar(stat = "identity", fill = "steelblue", alpha = 0.7, width = 0.5) +
+  geom_text(aes(label = dollar_format()(value)), 
+            vjust = -0.5, size = 4, fontface = "bold") +
+  labs(title = "Total Sales Overview", 
+       x = "", 
+       y = "Total Sales ($)") +
+  theme_minimal() +
+  theme(panel.background = element_rect(fill = "white", color = NA),
+        plot.background = element_rect(fill = "white", color = NA),
+        axis.text.x = element_blank(),
+        axis.ticks.x = element_blank()) +
+  scale_y_continuous(labels = dollar_format())
+
+print(p1)
+
+cat("Total Sales:", dollar_format()(total_sales), "\n")
+```
+
+## 2. Sales by Years
+
+```{r sales-by-years}
+# Calculate sales by year
+sales_by_year <- sales_data %>%
+  group_by(Year) %>%
+  summarise(Total_Sales = sum(SALES, na.rm = TRUE), .groups = 'drop')
+
+# Create sales by years visualization
+p2 <- ggplot(sales_by_year, aes(x = Year, y = Total_Sales)) +
+  geom_line(color = "steelblue", linewidth = 2) +
+  geom_point(color = "darkblue", size = 3) +
+  geom_text(aes(label = dollar_format()(Total_Sales)), 
+            vjust = -1, size = 3.5) +
+  labs(title = "Total Sales by Years", 
+       x = "Year", 
+       y = "Total Sales ($)") +
+  theme_minimal() +
+  theme(panel.background = element_rect(fill = "white", color = NA),
+        plot.background = element_rect(fill = "white", color = NA)) +
+  scale_y_continuous(labels = dollar_format()) +
+  scale_x_continuous(breaks = unique(sales_by_year$Year))
+
+print(p2)
+
+# Display sales by year data
+print(sales_by_year)
+```
+
+## 3. Orders by Years
+
+```{r orders-by-years}
+# Calculate orders by year
+orders_by_year <- sales_data %>%
+  group_by(Year) %>%
+  summarise(Total_Orders = n_distinct(ORDERNUMBER), .groups = 'drop')
+
+# Create orders by years visualization
+p3 <- ggplot(orders_by_year, aes(x = Year, y = Total_Orders)) +
+  geom_line(color = "darkgreen", linewidth = 2) +
+  geom_point(color = "darkolivegreen", size = 3) +
+  geom_text(aes(label = comma_format()(Total_Orders)), 
+            vjust = -1, size = 3.5) +
+  labs(title = "Total Orders by Years", 
+       x = "Year", 
+       y = "Total Orders") +
+  theme_minimal() +
+  theme(panel.background = element_rect(fill = "white", color = NA),
+        plot.background = element_rect(fill = "white", color = NA)) +
+  scale_y_continuous(labels = comma_format()) +
+  scale_x_continuous(breaks = unique(orders_by_year$Year))
+
+print(p3)
+
+# Display orders by year data
+print(orders_by_year)
+```
+
+## 4. Total Quantity Overview
+
+```{r total-quantity}
+# Calculate total quantity
+total_quantity <- sum(sales_data$QUANTITYORDERED, na.rm = TRUE)
+
+# Create total quantity visualization
+p4 <- ggplot(data.frame(metric = "Total Quantity", value = total_quantity), 
+             aes(x = metric, y = value)) +
+  geom_bar(stat = "identity", fill = "darkorange", alpha = 0.7, width = 0.5) +
+  geom_text(aes(label = comma_format()(value)), 
+            vjust = -0.5, size = 4, fontface = "bold") +
+  labs(title = "Total Quantity Overview", 
+       x = "", 
+       y = "Total Quantity") +
+  theme_minimal() +
+  theme(panel.background = element_rect(fill = "white", color = NA),
+        plot.background = element_rect(fill = "white", color = NA),
+        axis.text.x = element_blank(),
+        axis.ticks.x = element_blank()) +
+  scale_y_continuous(labels = comma_format())
+
+print(p4)
+
+cat("Total Quantity:", total_quantity, "\n")
+```
+
+## 5. Quantity by Years
+
+```{r quantity-by-years}
+# Calculate quantity by year
+quantity_by_year <- sales_data %>%
+  group_by(Year) %>%
+  summarise(Total_Quantity = sum(QUANTITYORDERED, na.rm = TRUE), .groups = 'drop')
+
+# Create quantity by years visualization
+p5 <- ggplot(quantity_by_year, aes(x = Year, y = Total_Quantity)) +
+  geom_line(color = "darkorange", linewidth = 2) +
+  geom_point(color = "orange", size = 3) +
+  geom_text(aes(label = comma_format()(Total_Quantity)), 
+            vjust = -1, size = 3.5) +
+  labs(title = "Total Quantity by Years", 
+       x = "Year", 
+       y = "Total Quantity") +
+  theme_minimal() +
+  theme(panel.background = element_rect(fill = "white", color = NA),
+        plot.background = element_rect(fill = "white", color = NA)) +
+  scale_y_continuous(labels = comma_format()) +
+  scale_x_continuous(breaks = unique(quantity_by_year$Year))
+
+print(p5)
+
+# Display quantity by year data
+print(quantity_by_year)
+```
+
+## 6. Quantity by Months
+
+```{r quantity-by-months}
+# Calculate quantity by month
+quantity_by_month <- sales_data %>%
+  group_by(Month_Name) %>%
+  summarise(Total_Quantity = sum(QUANTITYORDERED, na.rm = TRUE), .groups = 'drop') %>%
+  mutate(Month_Name = factor(Month_Name, levels = month.name))
+
+# Create quantity by months visualization
+p6 <- ggplot(quantity_by_month, aes(x = Month_Name, y = Total_Quantity)) +
+  geom_bar(stat = "identity", fill = "purple", alpha = 0.7) +
+  geom_text(aes(label = comma_format()(Total_Quantity)), 
+            vjust = -0.5, size = 3, angle = 45) +
+  labs(title = "Total Quantity by Months", 
+       x = "Month", 
+       y = "Total Quantity") +
+  theme_minimal() +
+  theme(panel.background = element_rect(fill = "white", color = NA),
+        plot.background = element_rect(fill = "white", color = NA),
+        axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_y_continuous(labels = comma_format())
+
+print(p6)
+
+# Display quantity by month data
+print(quantity_by_month)
+```
+
+# Summary and Analysis
+
+## Key Performance Indicators
+
+```{r kpi-summary}
+# Calculate key performance indicators
+cat("=== KEY PERFORMANCE INDICATORS ===\n")
+cat("Total Sales:", dollar_format()(total_sales), "\n")
+cat("Total Quantity:", total_quantity, "\n")
+```
+
+## Year-over-Year Analysis
+
+```{r year-analysis}
+cat("\n=== YEAR-OVER-YEAR ANALYSIS ===\n")
+for (i in 1:nrow(sales_by_year)) {
+  year <- sales_by_year$Year[i]
+  sales <- sales_by_year$Total_Sales[i]
+  orders <- orders_by_year$Total_Orders[i]
+  quantity <- quantity_by_year$Total_Quantity[i]
+  
+  cat("Year", year, ":\n")
+  cat("  - Sales:", dollar_format()(sales), "\n")
+  cat("  - Orders:", orders, "\n")
+  cat("  - Quantity:", quantity, "\n")
+  cat("\n")
+}
+```
+
+## Monthly Patterns
+
+```{r monthly-patterns}
+cat("=== MONTHLY QUANTITY PATTERNS ===\n")
+for (i in 1:nrow(quantity_by_month)) {
+  month <- quantity_by_month$Month_Name[i]
+  quantity <- quantity_by_month$Total_Quantity[i]
+  cat("-", month, ":", quantity, "units\n")
+}
+```
+
+# Business Insights
+
+## Key Findings
+
+1. **Sales Performance**: The dashboard shows comprehensive sales performance across multiple metrics.
+
+2. **Temporal Trends**: Analysis reveals sales, order, and quantity trends over time periods.
+
+3. **Seasonal Patterns**: Monthly analysis provides insights into seasonal variations in product quantity.
+
+4. **Operational Metrics**: Key performance indicators help understand business efficiency.
+
+## Recommendations
+
+1. **Performance Monitoring**: Use these visualizations for regular performance monitoring.
+
+2. **Trend Analysis**: Monitor year-over-year trends to identify growth patterns.
+
+3. **Seasonal Planning**: Use monthly patterns for inventory and resource planning.
+
+4. **Goal Setting**: Use historical data to set realistic targets for future periods.
+
+## Dashboard Usage
+
+This dashboard provides:
+- **Executive Summary**: High-level KPIs for management reporting
+- **Trend Analysis**: Time-series visualizations for trend identification
+- **Operational Insights**: Detailed metrics for operational decision-making
+- **Performance Tracking**: Tools for monitoring business performance
+
+The visualizations are designed with white backgrounds for professional presentation and can be easily integrated into reports and presentations.
+
+# Combined Dashboard
+
+## Comprehensive Dashboard View
+
+```{r combined-dashboard}
+# Create a combined dashboard layout
+combined_dashboard <- grid.arrange(
+  p1, p2, p3,  # Top row: Total Sales, Sales by Years, Orders by Years
+  p4, p5, p6,  # Bottom row: Total Quantity, Quantity by Years, Quantity by Months
+  ncol = 3,
+  nrow = 2,
+  top = textGrob("Sales Dashboard - Comprehensive Analysis", 
+                 gp = gpar(fontsize = 20, fontface = "bold")),
+  bottom = textGrob("Data Source: Sales Dataset | Generated with R & ggplot2", 
+                    gp = gpar(fontsize = 10, col = "gray50"))
+)
+
+print(combined_dashboard)
+```
+
+This combined dashboard provides a comprehensive overview of all key sales metrics in a single view, similar to professional business intelligence dashboards. The layout is organized in a 2x3 grid with:
+
+- **Top Row**: Total Sales, Sales by Years, Orders by Years
+- **Bottom Row**: Total Quantity, Quantity by Years, Quantity by Months
+
+The dashboard maintains consistent styling and white backgrounds for professional presentation.
