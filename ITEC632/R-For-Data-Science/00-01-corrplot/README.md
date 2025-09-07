@@ -3,6 +3,7 @@
 ## Overview
 This directory contains comprehensive examples of corrplot, R's powerful package for visualizing correlation matrices. The examples demonstrate various visualization methods and techniques using simple, generated sample data.
 
+![Combined Correlation Plots](images/combined_corrplots_2x5.png)
 ## Contents
 - `corrplot.R` - Main R script with all examples
 - `corrplot.md` - Detailed documentation and explanations
@@ -164,3 +165,7 @@ The script generates 10 high-quality PNG images in the `images/` directory, each
 - `add`: Whether to add to existing plot
 - `mar`: Plot margins
 - `bg`: Background color
+
+# Screenshots 
+
+![Basic Correlation](images/01_basic_correlation.png) ![Correlation Numbers](images/02_correlation_numbers.png) ![Correlation Color](images/03_correlation_color.png) ![Mixed Correlation](images/04_mixed_correlation.png) ![Financial Correlation](images/05_financial_correlation.png) ![Weather Correlation](images/06_weather_correlation.png) ![Reordered Correlation](images/07_reordered_correlation.png) ![Confidence Correlation](images/08_confidence_correlation.png) ![Custom Correlation](images/09_custom_correlation.png) ![Summary Correlation](images/10_summary_correlation.png)

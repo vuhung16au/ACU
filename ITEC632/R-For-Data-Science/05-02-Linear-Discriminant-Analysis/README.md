@@ -5,6 +5,8 @@
 
 This project demonstrates Linear Discriminant Analysis (LDA) using the Pokemon dataset to classify Pokemon types based on their base stats. LDA is a supervised dimensionality reduction technique that finds linear combinations of features to maximize class separability.
 
+![Combined LDA Plots](images/combined_lda_3x2.png)
+
 ## 🎯 Project Overview
 
 Linear Discriminant Analysis is a powerful technique that serves two main purposes:
@@ -196,7 +198,9 @@ Where:
 - **R documentation**: For base R functions and packages
 - **ggplot2 documentation**: For visualization customization
 
+# Screenshots
 
+![Sample Data](images/01_sample_data_lda.png) ![LDA Coefficients](images/02_lda_coefficients.png) ![Pokemon LDA Projection](images/03_pokemon_lda_projection.png) ![Pokemon LDA LD1 LD3](images/04_pokemon_lda_ld1_ld3.png) ![Confusion Matrix](images/05_confusion_matrix.png) ![Correlation Matrix](images/06_correlation_matrix.png) ![Feature Importance](images/07_feature_importance.png)
 ---
 
 **Happy analyzing! 🎉**

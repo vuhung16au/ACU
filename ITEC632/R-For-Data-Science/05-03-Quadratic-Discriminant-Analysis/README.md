@@ -7,6 +7,8 @@ This module implements Quadratic Discriminant Analysis (QDA). It includes:
 - EDA visuals (target distribution, correlation matrix, histograms)
 - Evaluation visuals (confusion matrix, ROC curve)
 
+![Combined QDA Plots](images/combined_qda_3x2.png)
+
 ## Files
 
 - `Quadratic-Discriminant-Analysis.R` — R script to run end-to-end, generates images
@@ -38,3 +40,7 @@ The rendered markdown will be saved as `Quadratic-Discriminant-Analysis.md` alon
 - The dataset is small; results can vary with the random train/test split.
 - We use only numeric predictors for QDA to keep it simple and robust.
 - Known faulty rows (`ca == 4`, `thal == 0`) are removed if present.
+
+# Screenshots
+
+![Sample Data](images/01_sample_data_qda.png) ![Target Distribution](images/02_target_distribution.png) ![Correlation Matrix](images/03_correlation_matrix.png) ![Numeric Histograms](images/04_numeric_histograms.png) ![Confusion Matrix](images/05_confusion_matrix.png) ![ROC Curve](images/06_roc_curve.png)

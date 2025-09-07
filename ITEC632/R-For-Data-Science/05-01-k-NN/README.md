@@ -4,6 +4,10 @@
 
 This project implements **k-Nearest Neighbors (k-NN)** classification to distinguish between two varieties of Turkish pumpkin seeds based on morphological features. The analysis demonstrates fundamental machine learning concepts including data preprocessing, feature scaling, model selection, and performance evaluation.
 
+
+![Combined k-NN Plots](images/combined_knn_2x2.png)
+
+
 ## 🎯 Project Goals
 
 - Implement k-NN classification from scratch
@@ -195,3 +199,6 @@ After completing this project, you will understand:
 - **Data Preprocessing**: [Feature Scaling Methods](https://en.wikipedia.org/wiki/Feature_scaling)
 - **Model Evaluation**: [Confusion Matrix](https://en.wikipedia.org/wiki/Confusion_matrix)
 
+# Screenshots
+
+![Class Distribution](images/01_class_distribution.png) ![Feature Importance](images/02_feature_importance.png) ![k-NN Accuracy vs k](images/03_knn_accuracy_vs_k.png) ![Correlation Matrix](images/04_correlation_matrix.png)

@@ -4,6 +4,8 @@
 
 This project implements a simple linear regression model to predict sales based on advertising spending across different platforms (TV, Radio, Newspaper). The analysis follows a comprehensive approach including data exploration, model building, evaluation, and visualization.
 
+![Combined Linear Regression Plots](images/combined_linear_regression_4x2.png)
+
 ## Dataset
 
 - **File**: `Salary-Dataset/advertising.csv`
@@ -97,3 +99,7 @@ The analysis generates several visualizations:
 - Prediction vs actual plots
 
 All plots are saved as PNG files with white backgrounds in the `images/` directory.
+
+# Screenshots
+
+![Outlier Analysis](images/01_outlier_analysis.png) ![Sales Distribution](images/02_sales_distribution.png) ![Scatter Plots](images/03_scatter_plots.png) ![Correlation Heatmap](images/04_correlation_heatmap.png) ![Model Fit (Training)](images/05_model_fit_training.png) ![Residual Distribution](images/06_residual_distribution.png) ![Residuals vs Fitted](images/07_residuals_vs_fitted.png) ![Test Predictions](images/08_test_predictions.png) ![Actual vs Predicted](images/09_actual_vs_predicted.png)

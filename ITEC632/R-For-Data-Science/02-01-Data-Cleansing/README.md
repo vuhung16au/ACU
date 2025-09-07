@@ -4,6 +4,8 @@
 
 This project demonstrates comprehensive data cleansing techniques using R on the Australia Sales Dataset. The analysis covers fundamental data quality issues, cleaning methodologies, and best practices for preparing data for analysis and machine learning applications.
 
+![Combined Data Cleansing Plots](images/combined_data_cleansing_4x2.png)
+
 ## 🎯 Project Goals
 
 - Implement systematic data cleansing workflow
@@ -247,3 +249,6 @@ After completing this project, you will understand:
 - Validated data ranges
 - Ensured data integrity
 
+# Screenshots
+
+![Data Overview](images/01_data_overview.png) ![Missing Values](images/02_missing_values.png) ![Data Types](images/03_data_types.png) ![Categorical Analysis](images/05_categorical_analysis.png) ![Numeric Distributions](images/06_numeric_distributions.png) ![Data Quality Summary](images/07_data_quality_summary.png) ![Cleaned Data Comparison](images/08_cleaned_data_comparison.png)

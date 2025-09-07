@@ -4,6 +4,8 @@
 
 This project implements a logistic regression model to predict whether it will rain tomorrow in Australia based on historical weather data. The analysis follows a comprehensive machine learning pipeline including data exploration, preprocessing, model building, evaluation, and visualization.
 
+![Combined Logistic Regression Plots](images/combined_logistic_regression_3x2.png)
+
 ## Problem Statement
 
 Build a binary classification model to predict whether it will rain tomorrow (Yes/No) based on various weather features including temperature, humidity, pressure, wind conditions, and location.
@@ -242,10 +244,6 @@ Rscript Logistic-Regression.R
 Rscript -e "rmarkdown::render('Logistic-Regression.Rmd')"
 ```
 
-### Output Files
-- **Logistic-Regression.html**: Complete analysis report
-- **images/**: All visualization plots with white backgrounds
-- **Logistic-Regression.md**: Markdown documentation
-- **Weather-Dataset-Logistic-Regression.md**: Detailed dataset description
+# Screenshots
 
-This implementation demonstrates a complete machine learning pipeline for binary classification, following best practices in data science and providing valuable insights for weather prediction applications.
+![Target Distribution](images/01_target_distribution.png) ![Missing Values Analysis](images/02_missing_values_analysis.png) ![Correlation Heatmap](images/03_correlation_heatmap.png) ![ROC Curve](images/04_roc_curve.png) ![Feature Importance](images/05_feature_importance.png) ![Probability Distribution](images/06_probability_distribution.png)

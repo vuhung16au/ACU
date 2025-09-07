@@ -3,6 +3,8 @@
 ## Overview
 This directory contains comprehensive examples of ggplot2, R's powerful data visualization package. The examples demonstrate various plot types and techniques using simple, generated sample data.
 
+![Combined ggplot2 Plots](images/combined_ggplot2_3x2.png)
+
 ## Contents
 - `ggplot2.R` - Main R script with all examples
 - `ggplot2.md` - Detailed documentation and explanations
@@ -92,3 +94,6 @@ The script generates 7 high-quality PNG images in the `images/` directory, each 
 5. Experiment with custom themes and styling
 
 
+# Screenshots
+
+![Scatter Plot](images/01_scatter_plot.png) ![Bar Chart](images/02_bar_chart.png) ![Line Chart](images/03_line_chart.png) ![Box Plot](images/04_box_plot.png) ![Histogram](images/05_histogram.png) ![Faceted Plot](images/06_faceted_plot.png) ![Density Plot](images/07_density_plot.png)
