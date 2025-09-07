@@ -1,0 +1,62 @@
+# R-specific files
+.Rhistory
+.Rapp.history
+.RData
+.Ruserdata
+.Rproj.user/
+.Rproj
+.Rprofile
+.Renviron
+
+# R Markdown files
+*.Rmd
+*.md
+*.html
+*.pdf
+
+# Generated images and plots
+images/
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.pdf
+
+# R Markdown output files
+*_files/
+*_cache/
+*.knit.md
+
+# Temporary files
+*.tmp
+*.temp
+*~
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Log files
+*.log
+
+# Backup files
+*.bak
+*.backup
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Keep the sales dataset
+!sales-dataset/
+!sales-dataset/sales.csv
