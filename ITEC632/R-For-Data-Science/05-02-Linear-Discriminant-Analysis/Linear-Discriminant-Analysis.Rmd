@@ -33,7 +33,7 @@ library(gridExtra) # For arranging multiple plots
 library(knitr)     # For better table formatting
 
 # Set seed for reproducibility
-set.seed(123)
+set.seed(16)
 ```
 
 ## Introduction

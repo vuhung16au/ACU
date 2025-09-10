@@ -43,7 +43,7 @@ library(pROC)
 library(tidyr)
 library(knitr)
 
-set.seed(123)
+set.seed(16)
 
 if (!dir.exists("images")) dir.create("images")
 ```
@@ -181,7 +181,7 @@ if (length(sel) > 0) {
 numeric_cols <- setdiff(names(heart)[sapply(heart, is.numeric)], c("target"))
 stopifnot(length(numeric_cols) >= 2)
 
-set.seed(123)
+set.seed(16)
 idx <- sample(seq_len(nrow(heart)), size = floor(0.7 * nrow(heart)))
 train <- heart[idx, ]
 test  <- heart[-idx, ]

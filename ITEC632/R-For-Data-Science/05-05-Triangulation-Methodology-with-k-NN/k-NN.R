@@ -12,7 +12,7 @@ suppressPackageStartupMessages({
   library(pROC)
 })
 
-set.seed(123)
+set.seed(16)
 
 # Paths
 base_dir <- "05-05-Triangulation-Methodology-with-k-NN"
@@ -33,14 +33,14 @@ pokemon <- pokemon %>%
   na.omit()
 
 # Train/test split
-set.seed(123)
+set.seed(16)
 train_index <- createDataPartition(pokemon$Fast, p = 0.8, list = FALSE)
 train_df <- pokemon[train_index, ]
 test_df  <- pokemon[-train_index, ]
 
 # If test set is empty or has <2 classes, create a simple stratified split with at least 1 per class when possible
 if (nrow(test_df) == 0 || length(unique(test_df$Fast)) < 2) {
-  set.seed(123)
+  set.seed(16)
   test_idx <- c()
   for (lvl in levels(pokemon$Fast)) {
     idx_lvl <- which(pokemon$Fast == lvl)
@@ -70,7 +70,7 @@ y_train <- train_df$Fast
 y_test  <- test_df$Fast
 
 # Cross-validation to choose k
-set.seed(123)
+set.seed(16)
 # Cap k by training size - 1
 max_k_global <- max(1, min(25, nrow(train_df) - 1))
 k_grid <- seq(1, max_k_global, by = 2)
@@ -111,7 +111,7 @@ p_cv <- ggplot(cv_results, aes(x = k, y = Accuracy)) +
 ggsave(file.path(img_dir, "01_cv_accuracy_vs_k.png"), p_cv, width = 7, height = 5, dpi = 300, bg = "white")
 
 # Fit final model and predict on test
-set.seed(123)
+set.seed(16)
 # Cap best_k by available training size
 best_k_use <- min(best_k, max(1, nrow(x_train) - 1))
 

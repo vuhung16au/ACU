@@ -202,7 +202,7 @@ cat("Processed dataset shape:", nrow(weather_processed), "rows,", ncol(weather_p
 
 # Train-Test Split
 cat("\n=== Train-Test Split ===\n")
-set.seed(100)  # For reproducibility
+set.seed(16)  # For reproducibility
 
 # Prepare features and target
 X <- weather_processed[, !names(weather_processed) %in% c("RainTomorrow")]

@@ -60,7 +60,7 @@ ggplot(adult, aes(income)) +
 ## Declare feature matrix and target; split train/test
 
 ```{r}
-set.seed(123)
+set.seed(16)
 train_idx <- caret::createDataPartition(adult$income, p = 0.7, list = FALSE)
 adult_train <- adult[train_idx, ]
 adult_test  <- adult[-train_idx, ]
@@ -165,7 +165,7 @@ ggplot(plot_df, aes(fpr, tpr)) +
 ## k-Fold Cross Validation
 
 ```{r}
-set.seed(123)
+set.seed(16)
 tr_ctrl <- caret::trainControl(method = "cv", number = 5)
 cv_model <- caret::train(
   x = adult_train %>% dplyr::select(-income),

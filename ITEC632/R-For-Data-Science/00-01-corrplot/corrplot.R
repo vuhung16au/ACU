@@ -6,7 +6,7 @@ library(corrplot)
 library(RColorBrewer)
 
 # Set seed for reproducible results
-set.seed(123)
+set.seed(16)
 
 # Create simple sample data
 # Sample 1: Student performance data (continuous variables)

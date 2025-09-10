@@ -217,7 +217,7 @@ X <- advertising$TV
 y <- advertising$Sales
 
 # Train-Test Split (70% train, 30% test)
-set.seed(100)  # For reproducibility
+set.seed(16)  # For reproducibility
 train_indices <- sample(seq_len(nrow(advertising)), 0.7 * nrow(advertising))
 X_train <- X[train_indices]
 X_test <- X[-train_indices]

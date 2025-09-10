@@ -55,7 +55,7 @@ adult[char_cols] <- lapply(adult[char_cols], trimws)
 adult$income <- factor(adult$income, levels = c("<=50K", ">50K"))
 
 # Train-test split ---------------------------------------------------------
-set.seed(123)
+set.seed(16)
 train_idx <- caret::createDataPartition(adult$income, p = 0.7, list = FALSE)
 adult_train <- adult[train_idx, ]
 adult_test  <- adult[-train_idx, ]
@@ -178,7 +178,7 @@ plot_roc <- ggplot(data.frame(fpr = 1 - roc_obj$specificities, tpr = roc_obj$sen
 ggplot2::ggsave(filename = file.path(images_dir, "05_roc_curve.png"), plot = plot_roc, width = 6.5, height = 5, dpi = 150, bg = "white")
 
 # Cross-validation (5-fold) ------------------------------------------------
-set.seed(123)
+set.seed(16)
 train_ctrl <- caret::trainControl(method = "cv", number = 5)
 cv_model <- caret::train(
   x = adult_train %>% dplyr::select(-income),

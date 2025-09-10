@@ -256,7 +256,7 @@ X <- weather_processed[, !names(weather_processed) %in% c("RainTomorrow")]
 y <- weather_processed$RainTomorrow
 
 # Split the data
-set.seed(100)  # For reproducibility
+set.seed(16)  # For reproducibility
 train_indices <- createDataPartition(y, p = 0.8, list = FALSE)
 X_train <- X[train_indices, ]
 X_test <- X[-train_indices, ]

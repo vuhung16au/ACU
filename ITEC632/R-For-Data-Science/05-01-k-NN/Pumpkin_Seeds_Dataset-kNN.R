@@ -17,7 +17,7 @@
 
 # Clear workspace and set seed for reproducibility
 rm(list = ls())
-set.seed(123)
+set.seed(16)
 
 # =============================================================================
 # 1. LOAD AND EXPLORE DATA

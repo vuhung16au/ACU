@@ -1,7 +1,7 @@
 # Multivariate Normal: simulation, density/probability, and conditional distributions
 # Reproducible, self-contained example using MASS::mvrnorm and mvtnorm
 
-set.seed(632)
+set.seed(16)
 
 # -------- Utilities --------
 ensure_package <- function(pkg_name) {

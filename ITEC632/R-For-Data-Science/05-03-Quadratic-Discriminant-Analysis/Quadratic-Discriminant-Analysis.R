@@ -20,7 +20,7 @@ library(gridExtra) # For arranging multiple plots
 library(pROC)      # For ROC curve
 library(tidyr)     # For pivot_longer
 
-set.seed(123)
+set.seed(16)
 
 # Create images directory if it doesn't exist
 if (!dir.exists("images")) {

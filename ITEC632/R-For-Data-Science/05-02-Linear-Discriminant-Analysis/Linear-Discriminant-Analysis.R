@@ -9,7 +9,7 @@ library(corrplot)  # For correlation matrix visualization
 library(gridExtra) # For arranging multiple plots
 
 # Set seed for reproducibility
-set.seed(123)
+set.seed(16)
 
 # Create images directory if it doesn't exist
 if (!dir.exists("images")) {

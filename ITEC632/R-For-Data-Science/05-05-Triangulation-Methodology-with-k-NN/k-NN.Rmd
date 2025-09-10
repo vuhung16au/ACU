@@ -9,7 +9,7 @@ knit: (function(inputFile, encoding) { rmarkdown::render(inputFile, encoding = e
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, fig.path = "05-05-Triangulation-Methodology-with-k-NN/images/", fig.width = 7, fig.height = 5)
-set.seed(123)
+set.seed(16)
 ```
 
 ## Overview
@@ -57,13 +57,13 @@ glimpse(pokemon)
 ## Train/Test Split and Scaling
 
 ```{r}
-set.seed(123)
+set.seed(16)
 train_index <- createDataPartition(pokemon$Fast, p = 0.8, list = FALSE)
 train_df <- pokemon[train_index, ]
 test_df  <- pokemon[-train_index, ]
 
 if (nrow(test_df) == 0 || length(unique(test_df$Fast)) < 2) {
-  set.seed(123)
+  set.seed(16)
   test_idx <- c()
   for (lvl in levels(pokemon$Fast)) {
     idx_lvl <- which(pokemon$Fast == lvl)
@@ -95,7 +95,7 @@ summary(y_test)
 ## Cross-Validation to Select k
 
 ```{r}
-set.seed(123)
+set.seed(16)
 max_k_global <- max(1, min(25, nrow(train_df) - 1))
 k_grid <- seq(1, max_k_global, by = 2)
 cv_results <- data.frame(k = integer(), Accuracy = numeric())
@@ -135,7 +135,7 @@ cv_plot
 ## Fit Final Model and Evaluate
 
 ```{r}
-set.seed(123)
+set.seed(16)
 best_k_use <- min(best_k, max(1, nrow(x_train) - 1))
 
 if (nrow(x_test) == 0) {
