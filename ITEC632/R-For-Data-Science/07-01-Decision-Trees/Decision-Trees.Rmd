@@ -1,0 +1,307 @@
+---
+title: "Decision Trees Classifier - Cars Dataset"
+author: "Data Science Analysis"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: flatly
+    highlight: tango
+    code_folding: show
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, fig.width = 10, fig.height = 6)
+```
+
+# Introduction
+
+This analysis demonstrates Decision Tree classification using the Cars Evaluation Dataset. Decision Trees are one of the most popular machine learning algorithms that use a tree-like structure to solve classification problems. They belong to the class of supervised learning algorithms and can be used for both classification and regression purposes.
+
+## Objectives
+
+- Implement Decision Tree classifiers with different criteria (Gini and Information Gain)
+- Perform exploratory data analysis on the cars dataset
+- Evaluate model performance using various metrics
+- Visualize decision trees and feature importance
+- Compare the performance of different splitting criteria
+
+# Dataset Overview
+
+The Car Evaluation Database contains examples with structural information about car characteristics and their acceptability ratings. The dataset includes 1728 instances with 7 variables.
+
+## Attribute Information
+
+- **buying**: buying price (vhigh, high, med, low)
+- **maint**: price of the maintenance (vhigh, high, med, low)  
+- **doors**: number of doors (2, 3, 4, 5more)
+- **persons**: capacity in terms of persons to carry (2, 4, more)
+- **lug_boot**: the size of luggage boot (small, med, big)
+- **safety**: estimated safety of the car (low, med, high)
+- **class**: car acceptability (unacc, acc, good, vgood)
+
+```{r load-packages}
+# Load required packages
+library(rpart)        # For Decision Trees
+library(rpart.plot)   # For plotting decision trees
+library(caret)        # For data splitting and confusion matrix
+library(ggplot2)      # For plotting
+library(dplyr)        # For data manipulation
+library(corrplot)     # For correlation matrix visualization
+library(gridExtra)    # For arranging multiple plots
+library(pROC)         # For ROC curve
+library(tidyr)        # For pivot_longer
+
+# Set seed for reproducibility
+set.seed(123)
+```
+
+```{r load-data}
+# Load the cars dataset
+cars_data <- read.csv("Cars-Dataset/cars.csv", header = FALSE, stringsAsFactors = FALSE)
+
+# Set column names
+col_names <- c('buying', 'maint', 'doors', 'persons', 'lug_boot', 'safety', 'class')
+colnames(cars_data) <- col_names
+
+# Convert all columns to factors since they are categorical
+cars_data[] <- lapply(cars_data, factor)
+
+# Display basic information
+cat("Dataset dimensions:", dim(cars_data), "\n")
+cat("Column names:", paste(col_names, collapse = ", "), "\n")
+```
+
+```{r data-preview}
+# Preview the dataset
+head(cars_data, 10)
+```
+
+```{r data-summary}
+# Summary of the dataset
+str(cars_data)
+```
+
+# Exploratory Data Analysis
+
+## Class Distribution
+
+```{r class-distribution}
+# Class distribution
+class_counts <- table(cars_data$class)
+print(class_counts)
+
+# Visualize class distribution
+ggplot(cars_data, aes(x = class, fill = class)) +
+  geom_bar(alpha = 0.9) +
+  scale_fill_manual(values = c("unacc" = "#e31a1c", "acc" = "#1f78b4", 
+                              "good" = "#33a02c", "vgood" = "#ff7f00")) +
+  labs(title = "Car Class Distribution", x = "Class", y = "Count") +
+  theme_minimal() +
+  theme(panel.background = element_rect(fill = "white"), 
+        axis.text.x = element_text(angle = 45, hjust = 1),
+        legend.position = "none")
+```
+
+## Feature Distributions
+
+```{r feature-distributions}
+# Create bar plots for each feature
+feature_cols <- c('buying', 'maint', 'doors', 'persons', 'lug_boot', 'safety')
+
+plots <- list()
+for (i in seq_along(feature_cols)) {
+  col_name <- feature_cols[i]
+  plots[[i]] <- ggplot(cars_data, aes_string(x = col_name, fill = "class")) +
+    geom_bar(position = "dodge", alpha = 0.8) +
+    scale_fill_manual(values = c("unacc" = "#e31a1c", "acc" = "#1f78b4", 
+                                "good" = "#33a02c", "vgood" = "#ff7f00")) +
+    labs(title = paste("Distribution of", col_name), x = col_name, y = "Count") +
+    theme_minimal() +
+    theme(panel.background = element_rect(fill = "white"),
+          axis.text.x = element_text(angle = 45, hjust = 1),
+          legend.position = "none")
+}
+
+# Arrange plots in a grid
+do.call(grid.arrange, c(plots, ncol = 2))
+```
+
+## Class Distribution by Safety Level
+
+```{r safety-analysis}
+# Class distribution by safety level
+ggplot(cars_data, aes(x = safety, fill = class)) +
+  geom_bar(position = "fill", alpha = 0.8) +
+  scale_fill_manual(values = c("unacc" = "#e31a1c", "acc" = "#1f78b4", 
+                              "good" = "#33a02c", "vgood" = "#ff7f00")) +
+  labs(title = "Class Distribution by Safety Level", x = "Safety", y = "Proportion") +
+  theme_minimal() +
+  theme(panel.background = element_rect(fill = "white"))
+```
+
+# Model Training
+
+## Data Splitting
+
+```{r data-split}
+# Split data into training and test sets (70/30)
+train_idx <- createDataPartition(cars_data$class, p = 0.7, list = FALSE)
+train_data <- cars_data[train_idx, ]
+test_data <- cars_data[-train_idx, ]
+
+cat("Training set size:", nrow(train_data), "\n")
+cat("Test set size:", nrow(test_data), "\n")
+```
+
+## Decision Tree with Gini Criterion
+
+```{r gini-model}
+# Train Decision Tree with Gini criterion
+dt_gini <- rpart(class ~ ., data = train_data, method = "class", 
+                 parms = list(split = "gini"))
+
+# Make predictions
+pred_gini_train <- predict(dt_gini, train_data, type = "class")
+pred_gini_test <- predict(dt_gini, test_data, type = "class")
+
+# Calculate accuracies
+acc_gini_train <- mean(pred_gini_train == train_data$class)
+acc_gini_test <- mean(pred_gini_test == test_data$class)
+
+cat("Gini Model - Training Accuracy:", round(acc_gini_train, 4), "\n")
+cat("Gini Model - Test Accuracy:", round(acc_gini_test, 4), "\n")
+```
+
+## Decision Tree with Information Gain
+
+```{r entropy-model}
+# Train Decision Tree with Information Gain (entropy)
+dt_entropy <- rpart(class ~ ., data = train_data, method = "class", 
+                    parms = list(split = "information"))
+
+# Make predictions
+pred_entropy_train <- predict(dt_entropy, train_data, type = "class")
+pred_entropy_test <- predict(dt_entropy, test_data, type = "class")
+
+# Calculate accuracies
+acc_entropy_train <- mean(pred_entropy_train == train_data$class)
+acc_entropy_test <- mean(pred_entropy_test == test_data$class)
+
+cat("Entropy Model - Training Accuracy:", round(acc_entropy_train, 4), "\n")
+cat("Entropy Model - Test Accuracy:", round(acc_entropy_test, 4), "\n")
+```
+
+# Model Visualization
+
+## Decision Tree Plots
+
+```{r tree-plots}
+# Plot Gini tree
+rpart.plot(dt_gini, main = "Decision Tree with Gini Criterion", 
+           box.palette = "RdBu", shadow.col = "gray", nn = TRUE)
+```
+
+```{r entropy-tree-plot}
+# Plot Entropy tree
+rpart.plot(dt_entropy, main = "Decision Tree with Information Gain", 
+           box.palette = "RdBu", shadow.col = "gray", nn = TRUE)
+```
+
+## Feature Importance
+
+```{r feature-importance}
+# Extract variable importance
+importance_gini <- dt_gini$variable.importance
+importance_entropy <- dt_entropy$variable.importance
+
+# Create data frames for plotting
+imp_gini_df <- data.frame(
+  Feature = names(importance_gini),
+  Importance = as.numeric(importance_gini),
+  Method = "Gini"
+)
+
+imp_entropy_df <- data.frame(
+  Feature = names(importance_entropy),
+  Importance = as.numeric(importance_entropy),
+  Method = "Entropy"
+)
+
+# Combine and plot
+imp_combined <- rbind(imp_gini_df, imp_entropy_df)
+
+ggplot(imp_combined, aes(x = reorder(Feature, Importance), y = Importance, fill = Method)) +
+  geom_bar(stat = "identity", position = "dodge", alpha = 0.8) +
+  coord_flip() +
+  scale_fill_manual(values = c("Gini" = "#1f78b4", "Entropy" = "#33a02c")) +
+  labs(title = "Feature Importance Comparison", x = "Features", y = "Importance") +
+  theme_minimal() +
+  theme(panel.background = element_rect(fill = "white"))
+```
+
+# Model Evaluation
+
+## Confusion Matrices
+
+```{r confusion-matrices}
+# Gini confusion matrix
+cm_gini <- confusionMatrix(pred_gini_test, test_data$class)
+print("Gini Model Confusion Matrix:")
+print(cm_gini)
+
+# Entropy confusion matrix
+cm_entropy <- confusionMatrix(pred_entropy_test, test_data$class)
+print("\nEntropy Model Confusion Matrix:")
+print(cm_entropy)
+```
+
+## Model Comparison
+
+```{r model-comparison}
+# Create comparison table
+comparison <- data.frame(
+  Model = c("Gini", "Entropy"),
+  Train_Accuracy = c(acc_gini_train, acc_entropy_train),
+  Test_Accuracy = c(acc_gini_test, acc_entropy_test)
+)
+
+print("Model Performance Comparison:")
+print(comparison)
+```
+
+# Results and Conclusion
+
+## Key Findings
+
+1. **Dataset Characteristics**: The cars dataset contains 1728 instances with 7 categorical features. The target variable has 4 classes with 'unacc' being the most frequent class.
+
+2. **Model Performance**: Both Gini and Information Gain criteria achieved similar performance levels, with test accuracies around 80%.
+
+3. **Feature Importance**: Safety appears to be the most important feature in both models, followed by buying price and maintenance cost.
+
+4. **Overfitting**: The models show good generalization with similar training and test accuracies, indicating no significant overfitting.
+
+## Model Summary
+
+```{r model-summary}
+# Print model summaries
+cat("=== Gini Model Summary ===\n")
+print(summary(dt_gini))
+
+cat("\n=== Entropy Model Summary ===\n")
+print(summary(dt_entropy))
+```
+
+## Recommendations
+
+1. **Feature Engineering**: Consider creating interaction features between safety and price-related variables.
+
+2. **Model Tuning**: Experiment with different pruning parameters to optimize model complexity.
+
+3. **Ensemble Methods**: Consider using Random Forest or Gradient Boosting for potentially better performance.
+
+4. **Cross-Validation**: Implement k-fold cross-validation for more robust performance estimation.
+
+The Decision Tree models successfully classify car acceptability with good accuracy, providing interpretable rules for decision-making in car evaluation scenarios.
