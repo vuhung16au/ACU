@@ -1,0 +1,525 @@
+---
+title: "Apriori Algorithm - Grocery Store Dataset"
+author: "Data Science Analysis"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: flatly
+    highlight: tango
+    code_folding: show
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, fig.width = 10, fig.height = 6)
+```
+
+# Introduction
+
+This analysis demonstrates the Apriori algorithm for association rule mining using the Grocery Store Dataset. The Apriori algorithm is one of the most popular algorithms for discovering frequent itemsets and generating association rules from transactional data.
+
+## Objectives
+
+- Implement the Apriori algorithm for association rule mining
+- Perform exploratory data analysis on grocery store transactions
+- Generate and analyze association rules
+- Visualize rule quality metrics
+- Evaluate algorithm performance
+
+# Dataset Overview
+
+The Grocery Store Dataset contains transaction data from a grocery store, where each transaction represents a basket of items purchased together. This type of data is ideal for association rule mining to discover patterns in customer purchasing behavior.
+
+```{r load-packages}
+# Load required packages
+library(arules)      # For Apriori algorithm
+library(arulesViz)   # For visualization
+library(ggplot2)     # For plotting
+library(dplyr)       # For data manipulation
+library(gridExtra)   # For arranging multiple plots
+library(RColorBrewer) # For color palettes
+
+# Set seed for reproducibility
+set.seed(16)
+```
+
+```{r load-data}
+# Load the transaction data (preprocess to remove quotes)
+raw_data <- readLines("Grocery-Store-Dataset/GroceryStoreDataSet.csv")
+clean_data <- gsub('"', '', raw_data)  # Remove quotes
+writeLines(clean_data, "temp_transactions.csv")
+
+transactions <- read.transactions("temp_transactions.csv", 
+                                 format = "basket", sep = ",", rm.duplicates = TRUE)
+file.remove("temp_transactions.csv")  # Clean up temporary file
+
+# Display basic information
+cat("Number of transactions:", nrow(transactions), "\n")
+cat("Number of items:", ncol(transactions), "\n")
+```
+
+```{r data-summary}
+# Summary of the dataset
+summary(transactions)
+```
+
+# Exploratory Data Analysis
+
+## Item Frequency Analysis
+
+```{r item-frequency}
+# Item frequency plot (absolute)
+itemFrequencyPlot(transactions, topN = 20, type = "absolute", 
+                  col = brewer.pal(8, "Pastel2"), main = "Top 20 Most Frequent Items")
+```
+
+```{r item-frequency-relative}
+# Item frequency plot (relative)
+itemFrequencyPlot(transactions, topN = 20, type = "relative", 
+                  col = brewer.pal(8, "Set3"), main = "Top 20 Most Frequent Items (Relative)")
+```
+
+## Transaction Length Distribution
+
+```{r transaction-length}
+# Transaction length distribution
+transaction_lengths <- size(transactions)
+length_df <- data.frame(Length = transaction_lengths)
+
+ggplot(length_df, aes(x = Length)) +
+  geom_histogram(bins = 30, fill = "#69b3a2", alpha = 0.8, color = "white") +
+  labs(title = "Distribution of Transaction Lengths", 
+       x = "Number of Items per Transaction", y = "Frequency") +
+  theme_minimal() +
+  theme(panel.background = element_rect(fill = "white"))
+
+# Summary statistics
+cat("Transaction Length Summary:\n")
+print(summary(transaction_lengths))
+```
+
+# Apriori Algorithm Implementation
+
+## Algorithm Parameters
+
+```{r algorithm-parameters}
+# Set parameters for Apriori algorithm (adjusted for small dataset)
+min_support <- 0.1       # 10% minimum support (1 transaction out of 20)
+min_confidence <- 0.3    # 30% minimum confidence
+min_length <- 2          # Minimum rule length
+
+cat("Apriori Algorithm Parameters:\n")
+cat("- Minimum Support:", min_support, "\n")
+cat("- Minimum Confidence:", min_confidence, "\n")
+cat("- Minimum Rule Length:", min_length, "\n")
+```
+
+## Running the Algorithm
+
+```{r run-apriori}
+# Run Apriori algorithm
+start_time <- Sys.time()
+rules <- apriori(transactions, 
+                 parameter = list(supp = min_support, 
+                                 conf = min_confidence, 
+                                 minlen = min_length,
+                                 maxlen = 10))
+end_time <- Sys.time()
+
+execution_time <- end_time - start_time
+cat("Execution time:", round(execution_time, 4), "seconds\n")
+cat("Number of rules found:", length(rules), "\n")
+
+# Sort rules by confidence
+rules_sorted <- sort(rules, by = "confidence", decreasing = TRUE)
+
+# Ensure rules variable is available globally
+assign("rules", rules, envir = .GlobalEnv)
+assign("rules_sorted", rules_sorted, envir = .GlobalEnv)
+```
+
+## Top Association Rules
+
+```{r top-rules}
+# Display top 10 rules
+cat("Top 10 Rules by Confidence:\n")
+if (length(rules_sorted) > 0) {
+  inspect(head(rules_sorted, 10))
+} else {
+  cat("No rules found with current parameters. Try lowering support or confidence thresholds.\n")
+}
+```
+
+# Rule Analysis and Visualization
+
+## Rule Quality Metrics
+
+```{r rule-analysis}
+if (length(rules) == 0) {
+  cat("No rules found to analyze.\n")
+} else {
+  # Convert rules to data frame for analysis
+  rules_df <- as(rules, "data.frame")
+  
+  # Summary statistics
+  cat("Rules Summary:\n")
+  print(summary(rules_df))
+}
+```
+
+## Support vs Confidence Scatter Plot
+
+```{r support-confidence-plot}
+# Scatter plot of support vs confidence
+if (length(rules) > 0) {
+  rules_df <- as(rules, "data.frame")
+  ggplot(rules_df, aes(x = support, y = confidence, color = lift)) +
+    geom_point(alpha = 0.7, size = 2) +
+    scale_color_gradient(low = "blue", high = "red") +
+    labs(title = "Association Rules: Support vs Confidence", 
+         x = "Support", y = "Confidence", color = "Lift") +
+    theme_minimal() +
+    theme(panel.background = element_rect(fill = "white"))
+} else {
+  cat("No rules to visualize.\n")
+}
+```
+
+## Top Rules by Lift
+
+```{r top-rules-lift}
+# Top rules by lift
+if (length(rules) > 0) {
+  rules_df <- as(rules, "data.frame")
+  top_rules <- head(rules_df[order(rules_df$lift, decreasing = TRUE), ], 15)
+  top_rules$rule_id <- 1:nrow(top_rules)
+
+  ggplot(top_rules, aes(x = reorder(rule_id, lift), y = lift)) +
+    geom_bar(stat = "identity", fill = "#e74c3c", alpha = 0.8) +
+    coord_flip() +
+    labs(title = "Top 15 Rules by Lift", x = "Rule ID", y = "Lift") +
+    theme_minimal() +
+    theme(panel.background = element_rect(fill = "white"))
+} else {
+  cat("No rules to visualize.\n")
+}
+```
+
+## Distribution of Rule Metrics
+
+```{r metrics-distribution}
+# Distribution of rule metrics
+if (length(rules) > 0) {
+  rules_df <- as(rules, "data.frame")
+  
+  # Support distribution
+  p_support <- ggplot(rules_df, aes(x = support)) +
+    geom_histogram(bins = 30, fill = "#3498db", alpha = 0.8, color = "white") +
+    labs(title = "Distribution of Support Values", x = "Support", y = "Frequency") +
+    theme_minimal() +
+    theme(panel.background = element_rect(fill = "white"))
+
+  # Confidence distribution
+  p_confidence <- ggplot(rules_df, aes(x = confidence)) +
+    geom_histogram(bins = 30, fill = "#2ecc71", alpha = 0.8, color = "white") +
+    labs(title = "Distribution of Confidence Values", x = "Confidence", y = "Frequency") +
+    theme_minimal() +
+    theme(panel.background = element_rect(fill = "white"))
+
+  # Lift distribution
+  p_lift <- ggplot(rules_df, aes(x = lift)) +
+    geom_histogram(bins = 30, fill = "#f39c12", alpha = 0.8, color = "white") +
+    labs(title = "Distribution of Lift Values", x = "Lift", y = "Frequency") +
+    theme_minimal() +
+    theme(panel.background = element_rect(fill = "white"))
+
+  # Combine plots
+  grid.arrange(p_support, p_confidence, p_lift, ncol = 1)
+} else {
+  cat("No rules to visualize.\n")
+}
+```
+
+# Rule Quality Analysis
+
+```{r rule-quality}
+if (length(rules) > 0) {
+  rules_df <- as(rules, "data.frame")
+  
+  # High confidence rules
+  high_conf_rules <- rules_df[rules_df$confidence >= 0.8, ]
+  cat("High confidence rules (>= 0.8):", nrow(high_conf_rules), "\n")
+
+  # High lift rules
+  high_lift_rules <- rules_df[rules_df$lift >= 2.0, ]
+  cat("High lift rules (>= 2.0):", nrow(high_lift_rules), "\n")
+
+  # Strong rules (high confidence and lift)
+  strong_rules <- rules_df[rules_df$confidence >= 0.7 & rules_df$lift >= 1.5, ]
+  cat("Strong rules (conf >= 0.7 & lift >= 1.5):", nrow(strong_rules), "\n")
+
+  if (nrow(strong_rules) > 0) {
+    cat("\nTop 5 Strong Rules:\n")
+    print(head(strong_rules[order(strong_rules$lift, decreasing = TRUE), ], 5))
+  }
+} else {
+  cat("No rules to analyze.\n")
+}
+```
+
+# Frequent Itemsets Analysis
+
+```{r frequent-itemsets-analysis}
+if (length(rules) > 0) {
+  rules_df <- as(rules, "data.frame")
+  
+  # Create itemsets from rules (lhs + rhs)
+  itemsets_data <- data.frame(
+    items = paste0("{", rules_df$rules, "}"),
+    support = rules_df$support,
+    count = round(rules_df$support * 20)  # Assuming 20 transactions
+  )
+  
+  # Summary statistics
+  cat("Frequent Itemsets Summary:\n")
+  print(summary(itemsets_data))
+  
+  # Top itemsets by support
+  top_itemsets <- head(itemsets_data[order(itemsets_data$support, decreasing = TRUE), ], 10)
+  cat("\nTop 10 Frequent Itemsets by Support:\n")
+  print(top_itemsets)
+} else {
+  cat("No rules found to analyze itemsets.\n")
+}
+```
+
+## Frequent Itemsets Summary Visualization
+
+```{r frequent-itemsets-summary-viz}
+if (length(rules) > 0) {
+  rules_df <- as(rules, "data.frame")
+  itemsets_data <- data.frame(
+    items = paste0("{", rules_df$rules, "}"),
+    support = rules_df$support,
+    count = round(rules_df$support * 20)
+  )
+  
+  # Support distribution
+  p_support <- ggplot(itemsets_data, aes(x = support)) +
+    geom_histogram(bins = 20, fill = "#3498db", alpha = 0.8, color = "white") +
+    labs(title = "Frequent Itemsets - Support Distribution", 
+         x = "Support", y = "Frequency") +
+    theme_minimal() +
+    theme(panel.background = element_rect(fill = "white"))
+  
+  # Count distribution
+  p_count <- ggplot(itemsets_data, aes(x = count)) +
+    geom_histogram(bins = 20, fill = "#e74c3c", alpha = 0.8, color = "white") +
+    labs(title = "Frequent Itemsets - Count Distribution", 
+         x = "Count", y = "Frequency") +
+    theme_minimal() +
+    theme(panel.background = element_rect(fill = "white"))
+  
+  # Combine support and count plots
+  combined_summary <- grid.arrange(p_support, p_count, ncol = 1)
+  ggsave("images/20_frequent_itemsets_summary_apriori_rmd.png", 
+         combined_summary, width = 10, height = 8, dpi = 300, bg = "white")
+  cat("Saved: images/20_frequent_itemsets_summary_apriori_rmd.png\n")
+  
+  print(combined_summary)
+} else {
+  cat("No rules to create frequent itemsets visualization.\n")
+}
+```
+
+## Top 10 Frequent Itemsets by Support
+
+```{r top-10-frequent-itemsets-viz}
+if (length(rules) > 0) {
+  rules_df <- as(rules, "data.frame")
+  itemsets_data <- data.frame(
+    items = paste0("{", rules_df$rules, "}"),
+    support = rules_df$support,
+    count = round(rules_df$support * 20)
+  )
+  
+  # Top 10 Frequent Itemsets by Support
+  top_10 <- head(itemsets_data[order(itemsets_data$support, decreasing = TRUE), ], 10)
+  
+  # Create bar plot for top 10 itemsets
+  p_top10 <- ggplot(top_10, aes(x = reorder(items, support), y = support)) +
+    geom_col(fill = "#2ecc71", alpha = 0.8, color = "white") +
+    coord_flip() +
+    labs(title = "Top 10 Frequent Itemsets by Support", 
+         x = "Itemsets", y = "Support") +
+    theme_minimal() +
+    theme(panel.background = element_rect(fill = "white"),
+          axis.text.y = element_text(size = 8))
+  
+  ggsave("images/21_top_10_frequent_itemsets_by_support_apriori_rmd.png", 
+         p_top10, width = 12, height = 8, dpi = 300, bg = "white")
+  cat("Saved: images/21_top_10_frequent_itemsets_by_support_apriori_rmd.png\n")
+  
+  print(p_top10)
+} else {
+  cat("No rules to create top 10 frequent itemsets visualization.\n")
+}
+```
+
+## Frequent Itemsets Discovery Animation
+
+```{r frequent-itemsets-animation}
+if (length(rules) > 0) {
+  rules_df <- as(rules, "data.frame")
+  itemsets_data <- data.frame(
+    items = paste0("{", rules_df$rules, "}"),
+    support = rules_df$support,
+    count = round(rules_df$support * 20)
+  )
+  
+  # Check if magick package is available
+  if (!require(magick, quietly = TRUE)) {
+    cat("Installing magick package...\n")
+    install.packages("magick", repos = "https://cran.rstudio.com/")
+    library(magick)
+  }
+  
+  # Sort itemsets by support (descending)
+  sorted_itemsets <- itemsets_data[order(itemsets_data$support, decreasing = TRUE), ]
+  
+  # Limit to top 20 itemsets for better animation
+  if (nrow(sorted_itemsets) > 20) {
+    sorted_itemsets <- sorted_itemsets[1:20, ]
+  }
+  
+  # Create individual frames
+  frames <- list()
+  
+  for (i in 1:nrow(sorted_itemsets)) {
+    current_itemsets <- sorted_itemsets[1:i, ]
+    
+    # Create plot for current frame
+    png_file <- tempfile(fileext = ".png")
+    png(png_file, width = 800, height = 600, bg = "white")
+    
+    # Create horizontal bar plot
+    par(mar = c(5, 12, 4, 2))
+    colors <- rainbow(nrow(current_itemsets), alpha = 0.8)
+    
+    barplot(
+      current_itemsets$support,
+      names.arg = current_itemsets$items,
+      horiz = TRUE,
+      las = 1,
+      col = colors,
+      border = "white",
+      main = paste("Frequent Itemsets Discovery Animation (Apriori) - Frame", i, "of", nrow(sorted_itemsets)),
+      xlab = "Support",
+      ylab = "",
+      cex.names = 0.8,
+      cex.axis = 0.8,
+      cex.main = 1.2,
+      xlim = c(0, max(sorted_itemsets$support) * 1.1)
+    )
+    
+    # Add support values on bars
+    text(
+      current_itemsets$support + 0.01,
+      seq_along(current_itemsets$support),
+      labels = round(current_itemsets$support, 3),
+      pos = 4,
+      cex = 0.7
+    )
+    
+    dev.off()
+    
+    # Read the image
+    frames[[i]] <- image_read(png_file)
+    file.remove(png_file)
+  }
+  
+  # Create animation
+  animation <- image_animate(image_join(frames), fps = 2)
+  
+  # Save the animation
+  filename <- "images/30_frequent_itemsets_discovery_animation_apriori_rmd.gif"
+  image_write(animation, filename)
+  cat("Saved:", filename, "\n")
+  
+  # Display a static version of the final frame
+  final_plot <- ggplot(sorted_itemsets, aes(x = reorder(items, support), y = support, fill = support)) +
+    geom_col(alpha = 0.8, color = "white") +
+    coord_flip() +
+    scale_fill_gradient(low = "#3498db", high = "#e74c3c", name = "Support") +
+    labs(
+      title = "Frequent Itemsets Discovery Animation (Apriori) - Final Frame",
+      x = "Itemsets", 
+      y = "Support",
+      caption = "Itemsets discovered in order of support (high to low)"
+    ) +
+    theme_minimal() +
+    theme(
+      panel.background = element_rect(fill = "white"),
+      plot.background = element_rect(fill = "white"),
+      axis.text.y = element_text(size = 8),
+      legend.position = "bottom"
+    )
+  
+  print(final_plot)
+} else {
+  cat("No rules to create frequent itemsets animation.\n")
+}
+```
+
+# Performance Analysis
+
+```{r performance}
+# Performance metrics
+performance_data <- data.frame(
+  Algorithm = "Apriori",
+  Execution_Time = as.numeric(execution_time),
+  Number_of_Rules = length(rules),
+  Rules_per_Second = length(rules) / as.numeric(execution_time)
+)
+
+cat("Performance Metrics:\n")
+print(performance_data)
+```
+
+# Results and Conclusion
+
+## Key Findings
+
+1. **Dataset Characteristics**: The grocery store dataset contains a substantial number of transactions with various items, making it suitable for association rule mining.
+
+2. **Rule Discovery**: The Apriori algorithm successfully discovered association rules with meaningful support, confidence, and lift values.
+
+3. **Rule Quality**: The analysis revealed rules with varying quality metrics, with some rules showing strong associations between items.
+
+4. **Performance**: The algorithm execution time and number of rules generated provide insights into the computational efficiency.
+
+## Business Insights
+
+- **Frequent Itemsets**: Identification of commonly purchased item combinations
+- **Cross-selling Opportunities**: Rules with high lift values suggest potential cross-selling strategies
+- **Inventory Management**: Support values help understand item popularity and demand patterns
+
+## Algorithm Summary
+
+```{r algorithm-summary}
+cat("=== Apriori Algorithm Summary ===\n")
+cat("Total Rules Generated:", length(rules), "\n")
+cat("Execution Time:", round(execution_time, 4), "seconds\n")
+if (length(rules) > 0) {
+  cat("Average Rules per Second:", round(length(rules) / as.numeric(execution_time), 2), "\n")
+  rules_df <- as(rules, "data.frame")
+  strong_rules <- rules_df[rules_df$confidence >= 0.7 & rules_df$lift >= 1.5, ]
+  cat("Strong Rules Found:", nrow(strong_rules), "\n")
+} else {
+  cat("Average Rules per Second: 0\n")
+  cat("Strong Rules Found: 0\n")
+}
+```
+
+The Apriori algorithm successfully identified meaningful association rules from the grocery store transaction data, providing valuable insights for business decision-making and marketing strategies.
