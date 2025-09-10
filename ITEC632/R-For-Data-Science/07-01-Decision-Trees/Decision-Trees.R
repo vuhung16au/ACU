@@ -1,4 +1,4 @@
-# Decision Trees Classifier — Cars Dataset (R)
+ Decision Trees Classifier — Cars Dataset (R)
 # This script demonstrates Decision Tree classification for car evaluation
 
 # Helper: install missing packages quietly
@@ -22,7 +22,7 @@ library(gridExtra)    # For arranging multiple plots
 library(pROC)         # For ROC curve
 library(tidyr)        # For pivot_longer
 
-set.seed(123)
+set.seed(16)
 
 # Create images directory if it doesn't exist
 if (!dir.exists("images")) {
