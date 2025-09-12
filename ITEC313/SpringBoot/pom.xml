@@ -65,6 +65,9 @@
         <!-- Batch Processing -->
         <module>19-01-batch</module>
         
+        <!-- Realtime / Streaming -->
+        <module>20-spring-boot-sse</module>
+        
         <!-- Event Sourcing & CQRS -->
         <module>30-spring-boot-event-sourcing</module>
     </modules>
