@@ -64,6 +64,9 @@
         
         <!-- Batch Processing -->
         <module>19-01-batch</module>
+        
+        <!-- Event Sourcing & CQRS -->
+        <module>30-spring-boot-event-sourcing</module>
     </modules>
 
     <dependencyManagement>
