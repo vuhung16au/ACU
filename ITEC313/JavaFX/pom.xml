@@ -78,6 +78,7 @@
         <module>50-01-RESTful-API-Gemini</module>
         <module>50-03-Spring-JPA</module>
         <module>07-10-Combine-Colliding-Bouncing-Balls</module>
+        <module>07-11-Hangman-Game</module>
     </modules>
 
     <build>
