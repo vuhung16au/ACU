@@ -103,10 +103,14 @@ tokens_lemma   <- tokens_filtered %>% mutate(lemma = textstem::lemmatize_words(t
 ## N-grams and Visualization
 
 ```{r ngrams-plots, fig.width=10, fig.height=6}
-dir.create("09-01-Text-Mining/images", showWarnings = FALSE, recursive = TRUE)
+# Resolve module directory from this file location; save images under <module>/images
+this_file <- knitr::current_input()
+module_dir <- dirname(normalizePath(this_file))
+img_dir <- file.path(module_dir, "images")
+dir.create(img_dir, showWarnings = FALSE, recursive = TRUE)
 save_plot <- function(p, filename, width = 10, height = 6) {
   p_out <- p + theme_bw() + theme(plot.background = element_rect(fill = "white", color = NA), panel.background = element_rect(fill = "white"))
-  ggsave(filename = file.path("09-01-Text-Mining/images", filename), plot = p_out, width = width, height = height, dpi = 150, bg = "white")
+  ggsave(filename = file.path(img_dir, filename), plot = p_out, width = width, height = height, dpi = 150, bg = "white")
 }
 
 top_terms <- tokens_filtered %>% count(candidate, token, sort = TRUE) %>% group_by(candidate) %>% slice_max(n, n = 15) %>% ungroup()

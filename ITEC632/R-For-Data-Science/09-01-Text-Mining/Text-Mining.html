@@ -1739,10 +1739,14 @@ tokens_lemma   &lt;- tokens_filtered %&gt;% mutate(lemma = textstem::lemmatize_w
 </div>
 <div id="n-grams-and-visualization" class="section level2">
 <h2>N-grams and Visualization</h2>
-<pre class="r"><code>dir.create(&quot;09-01-Text-Mining/images&quot;, showWarnings = FALSE, recursive = TRUE)
+<pre class="r"><code># Resolve module directory from this file location; save images under &lt;module&gt;/images
+this_file &lt;- knitr::current_input()
+module_dir &lt;- dirname(normalizePath(this_file))
+img_dir &lt;- file.path(module_dir, &quot;images&quot;)
+dir.create(img_dir, showWarnings = FALSE, recursive = TRUE)
 save_plot &lt;- function(p, filename, width = 10, height = 6) {
   p_out &lt;- p + theme_bw() + theme(plot.background = element_rect(fill = &quot;white&quot;, color = NA), panel.background = element_rect(fill = &quot;white&quot;))
-  ggsave(filename = file.path(&quot;09-01-Text-Mining/images&quot;, filename), plot = p_out, width = width, height = height, dpi = 150, bg = &quot;white&quot;)
+  ggsave(filename = file.path(img_dir, filename), plot = p_out, width = width, height = height, dpi = 150, bg = &quot;white&quot;)
 }
 
 top_terms &lt;- tokens_filtered %&gt;% count(candidate, token, sort = TRUE) %&gt;% group_by(candidate) %&gt;% slice_max(n, n = 15) %&gt;% ungroup()

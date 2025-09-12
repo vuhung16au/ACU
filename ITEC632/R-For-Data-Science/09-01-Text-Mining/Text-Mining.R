@@ -19,8 +19,16 @@ suppressPackageStartupMessages({
   library(e1071)
 })
 
-dataset_dir <- file.path("09-01-Text-Mining", "2016-US-Presidential-Race-Dataset")
-images_dir <- file.path("09-01-Text-Mining", "images")
+# Resolve this script's directory so outputs are saved next to it
+args_all <- commandArgs(trailingOnly = FALSE)
+script_arg <- grep("^--file=", args_all, value = TRUE)
+script_path <- if (length(script_arg) > 0) sub("^--file=", "", script_arg[1]) else NA_character_
+script_path <- tryCatch(normalizePath(script_path), error = function(e) NA_character_)
+if (is.na(script_path) || script_path == "") script_path <- tryCatch(normalizePath("09-01-Text-Mining/Text-Mining.R"), error = function(e) getwd())
+base_dir <- dirname(script_path)
+
+dataset_dir <- file.path(base_dir, "2016-US-Presidential-Race-Dataset")
+images_dir <- file.path(base_dir, "images")
 if (!dir.exists(images_dir)) dir.create(images_dir, recursive = TRUE)
 
 save_plot <- function(p, filename, width = 10, height = 6) {
