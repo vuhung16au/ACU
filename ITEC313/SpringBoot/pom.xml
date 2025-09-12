@@ -68,6 +68,9 @@
         <!-- Realtime / Streaming -->
         <module>20-spring-boot-sse</module>
         
+        <!-- Resilience & Rate Limiting -->
+        <module>21-spring-boot-rate-limiting</module>
+        
         <!-- Event Sourcing & CQRS -->
         <module>30-spring-boot-event-sourcing</module>
     </modules>
