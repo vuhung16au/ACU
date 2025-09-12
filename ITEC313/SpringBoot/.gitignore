@@ -81,3 +81,7 @@ docker/data/
 
 # Note: Do NOT ignore the Maven Wrapper jar; it should remain committed
 # .mvn/wrapper/maven-wrapper.jar
+
+
+# Project specific
+Prompt.md

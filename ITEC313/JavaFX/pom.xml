@@ -40,6 +40,7 @@
         <module>05-01-FileClass</module>
         <module>05-02-BinaryIO</module>
         <module>06-01-Recursion</module>
+        <module>06-07-Eight-Queens</module>
         <module>07-01-List-Stack-Queue-PriorityQueue</module>
         <module>07-02-Sets-Maps</module>
         <module>07-03-MultipleBounceBall</module>
@@ -73,6 +74,8 @@
         <module>33-02-TicTacToe-MultiPlayer</module>
         <module>34-01-Database</module>
         <module>34-02-Database-JDBC-basic</module>
+        <module>50-01-RESTful-API-Gemini</module>
+        <module>50-03-Spring-JPA</module>
     </modules>
 
     <build>

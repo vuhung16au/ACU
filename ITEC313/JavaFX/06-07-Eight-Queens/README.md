@@ -2,6 +2,8 @@
 
 JavaFX visualization of the N‑Queens problem with step‑by‑step animation. Enter N (1–16), click "Solve Eight Queens" and watch queens placed while attacked squares are shown as dots.
 
+Let's solve the Eight Queens problem with animation: Place queens on a chessboard so that no two queens can attack each other.
+
 ### Run
 
 - `mvn clean compile`
