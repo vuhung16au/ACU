@@ -20,7 +20,17 @@ fi
 
 # Set JavaFX modules path (adjust this path based on your JavaFX installation)
 JAVAFX_PATH=""
-if [ -d "/usr/local/openjfx/lib" ]; then
+# Homebrew path on Apple Silicon
+if [ -d "/opt/homebrew/opt/openjfx/lib" ]; then
+    JAVAFX_PATH="/opt/homebrew/opt/openjfx/lib"
+# Homebrew path on Intel Macs
+elif [ -d "/usr/local/opt/openjfx/lib" ]; then
+    JAVAFX_PATH="/usr/local/opt/openjfx/lib"
+# Custom SDK path example
+elif [ -d "$HOME/javafx-sdks/javafx-sdk-21.0.8/lib" ]; then
+    JAVAFX_PATH="$HOME/javafx-sdks/javafx-sdk-21.0.8/lib"
+# Fallbacks
+elif [ -d "/usr/local/openjfx/lib" ]; then
     JAVAFX_PATH="/usr/local/openjfx/lib"
 elif [ -d "/opt/openjfx/lib" ]; then
     JAVAFX_PATH="/opt/openjfx/lib"
@@ -33,7 +43,8 @@ fi
 
 # Compile the application
 echo "Compiling application..."
-javac -cp ".:$JAVAFX_PATH/*" src/main/java/com/acu/javafx/evaluateexpression/*.java
+mkdir -p target/classes
+javac -cp ".:$JAVAFX_PATH/*" -d target/classes src/main/java/com/acu/javafx/evaluateexpression/*.java
 
 if [ $? -ne 0 ]; then
     echo "Error: Compilation failed"
@@ -43,9 +54,13 @@ fi
 # Run the application
 echo "Launching application..."
 if [ -n "$JAVAFX_PATH" ]; then
-    java --module-path "$JAVAFX_PATH" --add-modules javafx.controls,javafx.fxml,javafx.graphics,javafx.base -cp "src/main/java" com.acu.javafx.evaluateexpression.EvaluateExpressionApp
+    java --module-path "$JAVAFX_PATH" \
+         --add-modules javafx.controls,javafx.fxml \
+         --enable-native-access=javafx.graphics \
+         -cp "target/classes" \
+         com.acu.javafx.evaluateexpression.EvaluateExpressionApp
 else
-    java -cp "src/main/java" com.acu.javafx.evaluateexpression.EvaluateExpressionApp
+    java -cp "target/classes" com.acu.javafx.evaluateexpression.EvaluateExpressionApp
 fi
 
 echo "Application finished." 

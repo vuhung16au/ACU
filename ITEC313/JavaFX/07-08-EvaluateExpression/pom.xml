@@ -65,6 +65,7 @@
                 <version>${javafx.maven.plugin.version}</version>
                 <configuration>
                     <mainClass>com.acu.javafx.evaluateexpression.EvaluateExpressionApp</mainClass>
+                    <!-- The plugin will resolve platform-specific JavaFX artifacts automatically. -->
                 </configuration>
             </plugin>
 
@@ -102,7 +103,8 @@
                 </os>
             </activation>
             <properties>
-                <javafx.platform>mac</javafx.platform>
+                <!-- Use Apple Silicon classifier on M1/M2/M3 Macs -->
+                <javafx.platform>mac-aarch64</javafx.platform>
             </properties>
         </profile>
 
