@@ -4,18 +4,30 @@ import java.util.Stack;
 
 public class EvaluateExpression {
   public static void main(String[] args) {
+    String expression;
+    
     // Check number of arguments passed
-    if (args.length != 1) {
+    if (args.length == 0) {
+      // Default expression for debugging
+      expression = "(1 + 2) * 4 - 3";
+      System.out.println("No expression provided. Using default expression: " + expression);
+    } else if (args.length == 1) {
+      expression = args[0];
+    } else {
       System.out.println(
         "Usage: java EvaluateExpression \"expression\"");
       System.exit(1);
+      return; // This line will never be reached, but added for completeness
     }
 
     try {
-      System.out.println(evaluateExpression(args[0]));
+      int result = evaluateExpression(expression);
+      System.out.println("Expression: " + expression);
+      System.out.println("Result: " + result);
     }
     catch (Exception ex) {
-      System.out.println("Wrong expression: " + args[0]);
+      System.out.println("Wrong expression: " + expression);
+      ex.printStackTrace(); // Print stack trace for debugging
     }
   }
 
