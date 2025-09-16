@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="654.0" prefWidth="513.0" style="-fx-background-color: #2E1A47;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.acu.javafx.calculator.controllers.NormalController">
+    <children>
+        <Label fx:id="labelAnswer" alignment="CENTER_RIGHT" layoutX="14.0" layoutY="14.0" prefHeight="73.0" prefWidth="482.0" textAlignment="RIGHT" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="28.0" />
+         </font></Label>
+        <TextField fx:id="inputField" alignment="TOP_RIGHT" layoutX="13.0" layoutY="96.0" prefHeight="84.0" prefWidth="482.0" style="-fx-background-color: #EDE7F6;">
+         <font>
+            <Font name="System Bold" size="40.0" />
+         </font></TextField>
+        <Button fx:id="buttonScientific" layoutX="16.0" layoutY="196.0" mnemonicParsing="false" onAction="#handleSwitchToScientific" prefHeight="80.0" prefWidth="115.0" style="-fx-background-color: #7A52AA;" text="Sci" disable="true">
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+        </Button>
+        <Button fx:id="buttonClearAll" layoutX="138.0" layoutY="196.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="115.0" style="-fx-background-color: #6A3DBE;" text="CA" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="35.0" />
+            </font>
+        </Button>
+        <Button fx:id="buttonBackspace" layoutX="260.0" layoutY="196.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="115.0" style="-fx-background-color: #6A3DBE;" text="⌫" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="35.0" />
+            </font>
+        </Button>
+        <Button fx:id="buttonDivide" layoutX="382.0" layoutY="196.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="115.0" style="-fx-background-color: #6A3DBE;" text="÷" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="35.0" />
+            </font>
+        </Button>
+        <Button fx:id="buttonSeven" layoutX="16.0" layoutY="285.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="115.0" style="-fx-background-color: #9C6ADE;" text="7">
+            <font>
+                <Font name="System Bold" size="35.0" />
+            </font>
+        </Button>
+        <Button fx:id="buttonZero" layoutX="16.0" layoutY="553.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="115.0" style="-fx-background-color: #9C6ADE;" text="0">
+            <font>
+                <Font name="System Bold" size="35.0" />
+            </font>
+        </Button>
+        <Button fx:id="buttonOne" layoutX="16.0" layoutY="464.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="115.0" style="-fx-background-color: #9C6ADE;" text="1">
+            <font>
+                <Font name="System Bold" size="35.0" />
+            </font>
+        </Button>
+        <Button fx:id="buttonFour" layoutX="16.0" layoutY="374.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="115.0" style="-fx-background-color: #9C6ADE;" text="4">
+            <font>
+                <Font name="System Bold" size="35.0" />
+            </font>
+        </Button>
+        <Button fx:id="buttonEight" layoutX="138.0" layoutY="285.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="115.0" style="-fx-background-color: #9C6ADE;" text="8">
+            <font>
+                <Font name="System Bold" size="35.0" />
+            </font>
+        </Button>
+        <Button fx:id="buttonNine" layoutX="260.0" layoutY="285.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="115.0" style="-fx-background-color: #9C6ADE;" text="9">
+            <font>
+                <Font name="System Bold" size="35.0" />
+            </font>
+        </Button>
+        <Button fx:id="buttonMultiply" layoutX="382.0" layoutY="285.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="115.0" style="-fx-background-color: #6A3DBE;" text="x" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="35.0" />
+            </font>
+        </Button>
+        <Button fx:id="buttonFive" layoutX="138.0" layoutY="374.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="115.0" style="-fx-background-color: #9C6ADE;" text="5">
+            <font>
+                <Font name="System Bold" size="35.0" />
+            </font>
+        </Button>
+        <Button fx:id="buttonSix" layoutX="260.0" layoutY="374.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="115.0" style="-fx-background-color: #9C6ADE;" text="6">
+            <font>
+                <Font name="System Bold" size="35.0" />
+            </font>
+        </Button>
+        <Button fx:id="buttonSubtract" layoutX="382.0" layoutY="374.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="115.0" style="-fx-background-color: #6A3DBE;" text="-" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="35.0" />
+            </font>
+        </Button>
+        <Button fx:id="buttonTwo" layoutX="138.0" layoutY="464.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="115.0" style="-fx-background-color: #9C6ADE;" text="2">
+            <font>
+                <Font name="System Bold" size="35.0" />
+            </font>
+        </Button>
+        <Button fx:id="buttonThree" layoutX="260.0" layoutY="464.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="115.0" style="-fx-background-color: #9C6ADE;" text="3">
+            <font>
+                <Font name="System Bold" size="35.0" />
+            </font>
+        </Button>
+        <Button fx:id="buttonAdd" layoutX="382.0" layoutY="464.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="115.0" style="-fx-background-color: #6A3DBE;" text="+" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="35.0" />
+            </font>
+        </Button>
+        <Button fx:id="buttonDecimal" layoutX="138.0" layoutY="553.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="115.0" style="-fx-background-color: #B39DDB;" text=".">
+            <font>
+                <Font name="System Bold" size="35.0" />
+            </font>
+        </Button>
+        <Button fx:id="buttonEquals" layoutX="261.0" layoutY="553.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="236.0" style="-fx-background-color: #6A3DBE;" text="=" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="35.0" />
+            </font>
+        </Button>
+    </children>
+</AnchorPane>
+
+
