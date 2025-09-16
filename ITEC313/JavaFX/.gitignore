@@ -144,3 +144,5 @@ test-output/
 # Application specific
 *.properties.local
 config/local/ 
+
+Prompt.md
