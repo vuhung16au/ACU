@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.acu.itec313</groupId>
+    <artifactId>java-25-new-features</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+
+    <name>Java 25 New Features Showcase</name>
+    <description>Demonstration of key new features introduced in Java 25 LTS</description>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.release>17</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <exec.mainClass>AllFeaturesDemo</exec.mainClass>
+    </properties>
+
+    <dependencies>
+        <!-- JUnit 5 for testing -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.10.0</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <sourceDirectory>samples</sourceDirectory>
+        <plugins>
+            <!-- Maven Compiler Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.12.1</version>
+                <configuration>
+                    <release>${maven.compiler.release}</release>
+                </configuration>
+            </plugin>
+
+            <!-- Maven Exec Plugin for running examples -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <mainClass>${exec.mainClass}</mainClass>
+                </configuration>
+            </plugin>
+
+            <!-- Maven Surefire Plugin for testing -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.2</version>
+                <configuration>
+                </configuration>
+            </plugin>
+
+            <!-- Maven JAR Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>${exec.mainClass}</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <!-- Profiles for running individual examples -->
+    <profiles>
+        <profile>
+            <id>class-file-api</id>
+            <properties>
+                <exec.mainClass>ClassFileApiDemo</exec.mainClass>
+            </properties>
+        </profile>
+        <profile>
+            <id>stream-gatherers</id>
+            <properties>
+                <exec.mainClass>StreamGatherersDemo</exec.mainClass>
+            </properties>
+        </profile>
+        <profile>
+            <id>implicit-class</id>
+            <properties>
+                <exec.mainClass>ImplicitClassDemo</exec.mainClass>
+            </properties>
+        </profile>
+        <profile>
+            <id>unnamed-variables</id>
+            <properties>
+                <exec.mainClass>UnnamedVariablesDemo</exec.mainClass>
+            </properties>
+        </profile>
+        <profile>
+            <id>string-templates</id>
+            <properties>
+                <exec.mainClass>StringTemplatesDemo</exec.mainClass>
+            </properties>
+        </profile>
+        <profile>
+            <id>structured-concurrency</id>
+            <properties>
+                <exec.mainClass>StructuredConcurrencyDemo</exec.mainClass>
+            </properties>
+        </profile>
+        <profile>
+            <id>vector-api</id>
+            <properties>
+                <exec.mainClass>VectorApiDemo</exec.mainClass>
+            </properties>
+        </profile>
+        <profile>
+            <id>foreign-function</id>
+            <properties>
+                <exec.mainClass>ForeignFunctionDemo</exec.mainClass>
+            </properties>
+        </profile>
+        <profile>
+            <id>pattern-matching</id>
+            <properties>
+                <exec.mainClass>PatternMatchingDemo</exec.mainClass>
+            </properties>
+        </profile>
+        <profile>
+            <id>virtual-threads</id>
+            <properties>
+                <exec.mainClass>VirtualThreadsDemo</exec.mainClass>
+            </properties>
+        </profile>
+    </profiles>
+</project>
