@@ -141,10 +141,10 @@ public class PatternMatchingDemo {
         for (Person person : people) {
             // Nested pattern matching with record destructuring (simulated)
             String info;
-            if (person instanceof Person p) {
-                String name = p.name();
-                int age = p.age();
-                Address address = p.address();
+            if (person != null) {
+                String name = person.name();
+                int age = person.age();
+                Address address = person.address();
                 String street = address.street();
                 String city = address.city();
                 String country = address.country();
@@ -369,10 +369,10 @@ public class PatternMatchingDemo {
             String location;
             if (person == null) {
                 location = "No person";
-            } else if (person instanceof Person p) {
-                String name = p.name();
-                int age = p.age();
-                Address address = p.address();
+            } else if (person != null) {
+                String name = person.name();
+                int age = person.age();
+                Address address = person.address();
                 if (address == null) {
                     location = name + " has no address";
                 } else {

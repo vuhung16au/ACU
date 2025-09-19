@@ -1,18 +1,15 @@
 /**
- * Virtual Threads Improvements Demo - Java 25 Feature
+ * Virtual Threads Improvements Demo - Java 25 Feature (Simulated for Java 17)
  * 
  * Virtual Threads were introduced in Java 21 and have been improved in Java 25
- * with better performance, debugging capabilities, and integration.
+ * This demo simulates virtual thread concepts using Java 17 features.
  * 
  * Course: ITEC313 - Advanced Programming Concepts
  * @author Java 25 Features Demo
  * Date: 2025
  */
 
-import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.concurrent.*;
-import java.util.stream.IntStream;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -20,339 +17,255 @@ public class VirtualThreadsDemo {
     
     public static void main(String[] args) throws InterruptedException {
         System.out.println("=== Java 25 Virtual Threads Improvements Demo ===\n");
+        System.out.println("Note: Simulating Virtual Threads concepts using Java 17\n");
         
-        basicVirtualThreads();
+        virtualThreadsConcept();
         performanceComparison();
-        structuredTaskScope();
-        virtualThreadPooling();
-        debuggingImprovements();
+        structuredConcurrency();
         scalabilityDemo();
+        debuggingFeatures();
     }
     
     /**
-     * Demonstrates basic virtual thread creation and usage
+     * Explains virtual threads concept and benefits
      */
-    private static void basicVirtualThreads() throws InterruptedException {
-        System.out.println("1. Basic Virtual Threads:");
+    private static void virtualThreadsConcept() {
+        System.out.println("1. Virtual Threads Concept:");
+        System.out.println("Java 25 Virtual Threads provide:");
+        System.out.println("- Lightweight threads (millions possible)");
+        System.out.println("- No thread pool management needed");
+        System.out.println("- Better scalability for I/O-bound tasks");
+        System.out.println("- Simplified concurrent programming");
         
-        // Creating virtual threads (available since Java 21)
-        Thread virtualThread1 = Thread.ofVirtual().name("virtual-1").start(() -> {
-            System.out.println("Running in virtual thread: " + Thread.currentThread().getName());
-            try {
-                Thread.sleep(1000); // This doesn't block platform threads
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-        });
+        System.out.println("\nJava 25 syntax:");
+        System.out.println("Thread.ofVirtual().start(() -> {");
+        System.out.println("    // Your concurrent work here");
+        System.out.println("});");
         
-        // Using virtual thread executor
-        try (ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor()) {
-            Future<String> future = executor.submit(() -> {
-                Thread.sleep(500);
-                return "Task completed in virtual thread: " + Thread.currentThread().getName();
-            });
-            
-            System.out.println("Main thread continues immediately");
-            System.out.println(future.get()); // Wait for completion
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
+        System.out.println("\nVirtual Thread Executor:");
+        System.out.println("try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {");
+        System.out.println("    executor.submit(() -> doWork());");
+        System.out.println("}");
         
-        virtualThread1.join();
         System.out.println();
     }
     
     /**
-     * Compares performance between platform and virtual threads
+     * Simulates performance comparison between platform and virtual threads
      */
     private static void performanceComparison() throws InterruptedException {
-        System.out.println("2. Performance Comparison:");
+        System.out.println("2. Performance Comparison (Simulated):");
         
-        int numberOfTasks = 10_000;
+        int numberOfTasks = 1000;
         
-        // Platform threads (limited by OS)
-        System.out.println("Testing with platform threads (limited to thread pool):");
+        // Platform threads simulation
+        System.out.println("Simulating platform threads (limited pool):");
         long startTime = System.currentTimeMillis();
         
-        try (ExecutorService platformExecutor = Executors.newFixedThreadPool(100)) {
-            List<Future<Void>> futures = new ArrayList<>();
-            
-            for (int i = 0; i < numberOfTasks; i++) {
-                Future<Void> future = platformExecutor.submit(() -> {
-                    try {
-                        Thread.sleep(10); // Simulate I/O
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
-                    }
-                    return null;
-                });
-                futures.add(future);
-            }
-            
-            // Wait for all tasks to complete
-            for (Future<Void> future : futures) {
+        ExecutorService platformExecutor = Executors.newFixedThreadPool(50);
+        CountDownLatch platformLatch = new CountDownLatch(numberOfTasks);
+        
+        for (int i = 0; i < numberOfTasks; i++) {
+            platformExecutor.submit(() -> {
                 try {
-                    future.get();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
+                    Thread.sleep(10); // Simulate I/O
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                } finally {
+                    platformLatch.countDown();
                 }
-            }
+            });
         }
         
+        platformLatch.await();
+        platformExecutor.shutdown();
         long platformTime = System.currentTimeMillis() - startTime;
-        System.out.println("Platform threads time: " + platformTime + " ms");
         
-        // Virtual threads
-        System.out.println("Testing with virtual threads:");
+        // Virtual threads simulation (using cached pool as approximation)
+        System.out.println("Simulating virtual threads (unlimited scalability):");
         startTime = System.currentTimeMillis();
         
-        try (ExecutorService virtualExecutor = Executors.newVirtualThreadPerTaskExecutor()) {
-            List<Future<Void>> futures = new ArrayList<>();
-            
-            for (int i = 0; i < numberOfTasks; i++) {
-                Future<Void> future = virtualExecutor.submit(() -> {
-                    try {
-                        Thread.sleep(10); // Simulate I/O
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
-                    }
-                    return null;
-                });
-                futures.add(future);
-            }
-            
-            // Wait for all tasks to complete
-            for (Future<Void> future : futures) {
+        ExecutorService virtualExecutor = Executors.newCachedThreadPool();
+        CountDownLatch virtualLatch = new CountDownLatch(numberOfTasks);
+        
+        for (int i = 0; i < numberOfTasks; i++) {
+            virtualExecutor.submit(() -> {
                 try {
-                    future.get();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
+                    Thread.sleep(10); // Simulate I/O
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                } finally {
+                    virtualLatch.countDown();
                 }
-            }
+            });
         }
         
+        virtualLatch.await();
+        virtualExecutor.shutdown();
         long virtualTime = System.currentTimeMillis() - startTime;
-        System.out.println("Virtual threads time: " + virtualTime + " ms");
-        System.out.println("Performance improvement: " + 
-                          String.format("%.2f%%", ((double)(platformTime - virtualTime) / platformTime) * 100));
+        
+        System.out.println("Platform threads: " + platformTime + " ms");
+        System.out.println("Simulated virtual: " + virtualTime + " ms");
+        System.out.println("Note: Real virtual threads would show dramatic improvement");
+        System.out.println("especially with millions of concurrent I/O operations");
         
         System.out.println();
     }
     
     /**
-     * Demonstrates structured task scope (improved in Java 25)
+     * Demonstrates structured concurrency concept
      */
-    private static void structuredTaskScope() {
-        System.out.println("3. Structured Task Scope (Java 25 improvements):");
+    private static void structuredConcurrency() throws InterruptedException {
+        System.out.println("3. Structured Concurrency (Java 25 improvement):");
         
-        // Note: This simulates the concept as the actual API may not be available
-        System.out.println("Simulating structured concurrency with virtual threads:");
+        System.out.println("Java 25 structured concurrency syntax:");
+        System.out.println("try (var scope = StructuredTaskScope.ShutdownOnFailure()) {");
+        System.out.println("    Future<String> task1 = scope.fork(() -> fetchUserData());");
+        System.out.println("    Future<String> task2 = scope.fork(() -> fetchPreferences());");
+        System.out.println("    scope.join(); // Wait for all or fail fast");
+        System.out.println("    return new UserProfile(task1.resultNow(), task2.resultNow());");
+        System.out.println("}");
         
-        try (ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor()) {
-            List<Future<String>> tasks = new ArrayList<>();
-            
-            // Submit related tasks as a unit
-            tasks.add(executor.submit(() -> {
-                Thread.sleep(100);
-                return "Database query completed";
-            }));
-            
-            tasks.add(executor.submit(() -> {
-                Thread.sleep(150);
-                return "API call completed";
-            }));
-            
-            tasks.add(executor.submit(() -> {
-                Thread.sleep(80);
-                return "Cache lookup completed";
-            }));
-            
-            // Wait for all related tasks
-            System.out.println("Waiting for all related tasks to complete...");
-            for (Future<String> task : tasks) {
+        // Simulate structured concurrency with CompletableFuture
+        System.out.println("\nSimulating structured concurrency:");
+        ExecutorService executor = Executors.newFixedThreadPool(3);
+        
+        try {
+            CompletableFuture<String> userData = CompletableFuture.supplyAsync(() -> {
                 try {
-                    System.out.println("- " + task.get());
-                } catch (ExecutionException e) {
-                    System.err.println("Task failed: " + e.getCause().getMessage());
+                    Thread.sleep(100);
+                    return "User data loaded";
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    throw new RuntimeException(e);
                 }
-            }
+            }, executor);
             
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            System.err.println("Tasks interrupted");
+            CompletableFuture<String> preferences = CompletableFuture.supplyAsync(() -> {
+                try {
+                    Thread.sleep(150);
+                    return "Preferences loaded";
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    throw new RuntimeException(e);
+                }
+            }, executor);
+            
+            CompletableFuture<String> permissions = CompletableFuture.supplyAsync(() -> {
+                try {
+                    Thread.sleep(80);
+                    return "Permissions verified";
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    throw new RuntimeException(e);
+                }
+            }, executor);
+            
+            // Wait for all tasks (structured approach)
+            CompletableFuture<Void> allTasks = CompletableFuture.allOf(userData, preferences, permissions);
+            allTasks.get(1, TimeUnit.SECONDS);
+            
+            System.out.println("All tasks completed:");
+            System.out.println("- " + userData.get());
+            System.out.println("- " + preferences.get());
+            System.out.println("- " + permissions.get());
+            
+        } catch (ExecutionException | TimeoutException e) {
+            System.err.println("Tasks failed or timed out: " + e.getMessage());
+        } finally {
+            executor.shutdown();
         }
         
-        System.out.println();
-    }
-    
-    /**
-     * Demonstrates virtual thread pooling improvements
-     */
-    private static void virtualThreadPooling() {
-        System.out.println("4. Virtual Thread Pooling (Java 25 improvements):");
-        
-        // In Java 25, virtual thread creation and pooling is further optimized
-        System.out.println("Creating large number of virtual threads efficiently:");
-        
-        long startTime = System.currentTimeMillis();
-        List<Thread> threads = new ArrayList<>();
-        
-        // Create many virtual threads - this is efficient due to improvements
-        for (int i = 0; i < 1_000_000; i++) {
-            Thread vt = Thread.ofVirtual().name("worker-" + i).unstarted(() -> {
-                // Minimal work to demonstrate creation overhead
-                Math.sqrt(i);
-            });
-            threads.add(vt);
-        }
-        
-        long creationTime = System.currentTimeMillis() - startTime;
-        System.out.println("Created 1,000,000 virtual threads in: " + creationTime + " ms");
-        
-        // Start and join a subset to demonstrate execution
-        startTime = System.currentTimeMillis();
-        List<Thread> subset = threads.subList(0, 1000);
-        subset.forEach(Thread::start);
-        
-        for (Thread thread : subset) {
-            try {
-                thread.join();
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                break;
-            }
-        }
-        
-        long executionTime = System.currentTimeMillis() - startTime;
-        System.out.println("Executed 1,000 virtual threads in: " + executionTime + " ms");
-        
-        System.out.println();
-    }
-    
-    /**
-     * Demonstrates debugging improvements for virtual threads in Java 25
-     */
-    private static void debuggingImprovements() throws InterruptedException {
-        System.out.println("5. Debugging Improvements (Java 25):");
-        
-        // Enhanced thread naming and identification
-        Thread virtualThread = Thread.ofVirtual()
-            .name("debug-example")
-            .uncaughtExceptionHandler((t, e) -> {
-                System.err.println("Exception in virtual thread " + t.getName() + ": " + e.getMessage());
-            })
-            .start(() -> {
-                System.out.println("Virtual thread info:");
-                System.out.println("- Name: " + Thread.currentThread().getName());
-                System.out.println("- Is virtual: " + Thread.currentThread().isVirtual());
-                System.out.println("- Thread ID: " + Thread.currentThread().threadId());
-                
-                // Simulate some work with better stack trace information
-                doSomeWork();
-            });
-        
-        virtualThread.join();
-        
-        // Demonstrating thread dump information (improved in Java 25)
-        System.out.println("\nVirtual thread monitoring:");
-        Thread monitoringThread = Thread.ofVirtual().name("monitoring").start(() -> {
-            System.out.println("Monitoring thread started");
-            try {
-                Thread.sleep(100);
-                System.out.println("Monitoring completed");
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-        });
-        
-        monitoringThread.join();
         System.out.println();
     }
     
     /**
      * Demonstrates scalability improvements
      */
-    private static void scalabilityDemo() {
-        System.out.println("6. Scalability Demo:");
+    private static void scalabilityDemo() throws InterruptedException {
+        System.out.println("4. Scalability Demo:");
         
-        // Simulate high-concurrency scenario
-        int numberOfClients = 100_000;
-        System.out.println("Simulating " + numberOfClients + " concurrent client connections");
+        System.out.println("Java 25 Virtual Threads enable:");
+        System.out.println("- Millions of concurrent connections");
+        System.out.println("- One virtual thread per request model");
+        System.out.println("- No thread pool tuning needed");
+        System.out.println("- Automatic scaling");
         
-        CountDownLatch latch = new CountDownLatch(numberOfClients);
+        // Simulate handling many concurrent requests
+        int numberOfRequests = 5000; // Much smaller than millions possible with virtual threads
+        System.out.println("\nSimulating " + numberOfRequests + " concurrent requests:");
+        
+        ExecutorService executor = Executors.newCachedThreadPool();
+        CountDownLatch latch = new CountDownLatch(numberOfRequests);
         long startTime = System.currentTimeMillis();
         
-        try (ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor()) {
-            
-            for (int i = 0; i < numberOfClients; i++) {
-                final int clientId = i;
-                executor.submit(() -> {
-                    try {
-                        // Simulate client request processing
-                        simulateClientRequest(clientId);
-                    } finally {
-                        latch.countDown();
-                    }
-                });
-            }
-            
-            // Wait for all clients to be processed
-            try {
-                latch.await(30, TimeUnit.SECONDS);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
+        for (int i = 0; i < numberOfRequests; i++) {
+            final int requestId = i;
+            executor.submit(() -> {
+                try {
+                    // Simulate request processing
+                    simulateRequest(requestId);
+                } finally {
+                    latch.countDown();
+                }
+            });
         }
         
+        latch.await(10, TimeUnit.SECONDS);
+        executor.shutdown();
         long totalTime = System.currentTimeMillis() - startTime;
-        System.out.println("Processed " + numberOfClients + " clients in: " + totalTime + " ms");
-        System.out.println("Average processing time per client: " + 
-                          String.format("%.3f ms", (double) totalTime / numberOfClients));
         
-        System.out.println("\nNote: This would be impossible with platform threads due to memory limits");
-        System.out.println("Virtual threads make this level of concurrency practical");
+        System.out.println("Processed " + numberOfRequests + " requests in " + totalTime + " ms");
+        System.out.println("Note: Virtual threads would handle millions of requests efficiently");
+        
+        System.out.println();
     }
     
     /**
-     * Helper method for debugging demonstration
+     * Demonstrates debugging improvements
      */
-    private static void doSomeWork() {
-        try {
-            // Simulate some processing
-            Thread.sleep(50);
-            
-            // Chain of method calls for stack trace demonstration
-            methodA();
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-    }
-    
-    private static void methodA() {
-        methodB();
-    }
-    
-    private static void methodB() {
-        // This will show in stack traces with improved virtual thread debugging
-        System.out.println("Work completed in nested method call");
+    private static void debuggingFeatures() {
+        System.out.println("5. Debugging Improvements in Java 25:");
+        
+        System.out.println("Enhanced virtual thread debugging:");
+        System.out.println("- thread.isVirtual() method");
+        System.out.println("- Better thread dumps");
+        System.out.println("- Improved stack traces");
+        System.out.println("- JFR (Java Flight Recorder) integration");
+        System.out.println("- Better IDE debugging support");
+        
+        System.out.println("\nVirtual thread information:");
+        Thread currentThread = Thread.currentThread();
+        System.out.println("- Current thread: " + currentThread.getName());
+        System.out.println("- Thread ID: " + currentThread.getId());
+        System.out.println("- Thread state: " + currentThread.getState());
+        System.out.println("- Is daemon: " + currentThread.isDaemon());
+        System.out.println("- Priority: " + currentThread.getPriority());
+        
+        System.out.println("\nIn Java 25, virtual threads provide additional methods:");
+        System.out.println("- isVirtual(): boolean");
+        System.out.println("- Enhanced toString() output");
+        System.out.println("- Better monitoring capabilities");
+        
+        System.out.println();
     }
     
     /**
-     * Simulates processing a client request
+     * Simulates processing a request
      */
-    private static void simulateClientRequest(int clientId) {
+    private static void simulateRequest(int requestId) {
         try {
-            // Simulate I/O operation (database query, API call, etc.)
-            Thread.sleep(10);
-            
-            // Simulate CPU work
-            double result = Math.pow(clientId, 2) % 1000;
-            
-            // Simulate more I/O
+            // Simulate I/O-bound work
             Thread.sleep(5);
             
-            if (clientId % 10000 == 0) {
-                System.out.println("Processed client " + clientId);
+            // Simulate some CPU work
+            double result = Math.sqrt(requestId);
+            
+            // More I/O simulation
+            Thread.sleep(2);
+            
+            if (requestId % 500 == 0) {
+                System.out.println("Processed request " + requestId);
             }
             
         } catch (InterruptedException e) {

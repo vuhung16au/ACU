@@ -16,11 +16,11 @@ public class UnnamedVariablesDemo {
     
     // Example record for pattern matching demonstrations
     record Point(int x, int y) {}
-    record Circle(Point center, double radius) {}
-    record Rectangle(Point topLeft, Point bottomRight) {}
+    record Circle(Point center, double radius) implements Shape {}
+    record Rectangle(Point topLeft, Point bottomRight) implements Shape {}
     
-    // Example sealed class hierarchy for pattern matching
-    sealed interface Shape permits Circle, Rectangle {}
+    // Sealed interface for type-safe pattern matching (simulated concept)
+    interface Shape {} // In Java 25: sealed interface Shape permits Circle, Rectangle {}
     
     public static void main(String[] args) {
         System.out.println("=== Java 25 Unnamed Variables & Patterns Demo ===\n");
@@ -248,9 +248,9 @@ public class UnnamedVariablesDemo {
         
         for (Circle circle : circles) {
             // Traditional nested pattern matching (simulated)
-            if (circle instanceof Circle c) {
-                Point p = c.center();
-                double radius = c.radius();
+            if (circle != null) {
+                Point p = circle.center();
+                double radius = circle.radius();
                 if (p.x() == 0 && p.y() == 0) {
                     System.out.println("Circle at origin with radius " + radius);
                 } else {

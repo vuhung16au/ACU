@@ -12,6 +12,8 @@
 
 import java.util.Arrays;
 import java.util.Random;
+import java.util.function.BinaryOperator;
+import java.util.function.UnaryOperator;
 
 public class VectorApiDemo {
     
@@ -96,7 +98,7 @@ public class VectorApiDemo {
         System.out.println("A / B:    " + Arrays.toString(division));
         
         // Square root (unary operation)
-        float[] sqrt = simulateUnaryVectorOperation(a, (float x) -> (float) Math.sqrt(x));
+        float[] sqrt = simulateUnaryVectorOperation(a, x -> (float) Math.sqrt(x));
         System.out.println("sqrt(A):  " + Arrays.toString(sqrt));
         
         System.out.println();
@@ -155,13 +157,19 @@ public class VectorApiDemo {
             result[i] = array1[i] * array1[i] + array2[i] * array2[i];  // dot product style
         }
         long scalarTime = System.nanoTime() - startTime;
-        float scalarSum = Arrays.stream(result).sum();
+        float scalarSum = 0;
+        for (float value : result) {
+            scalarSum += value;
+        }
         
         // Vector benchmark (simulated)
         startTime = System.nanoTime();
         simulateVectorDotProduct(array1, array2, result);
         long vectorTime = System.nanoTime() - startTime;
-        float vectorSum = Arrays.stream(result).sum();
+        float vectorSum = 0;
+        for (float value : result) {
+            vectorSum += value;
+        }
         
         System.out.println("Scalar approach:  " + String.format("%.2f ms", scalarTime / 1_000_000.0));
         System.out.println("Vector approach:  " + String.format("%.2f ms", vectorTime / 1_000_000.0));
@@ -225,7 +233,7 @@ public class VectorApiDemo {
     }
     
     private static float[] simulateVectorOperation(float[] a, float[] b, 
-                                                  java.util.function.BinaryOperator<Float> operation) {
+                                                  BinaryOperator<Float> operation) {
         float[] result = new float[a.length];
         for (int i = 0; i < a.length; i++) {
             result[i] = operation.apply(a[i], b[i]);
@@ -234,7 +242,7 @@ public class VectorApiDemo {
     }
     
     private static float[] simulateUnaryVectorOperation(float[] a, 
-                                                       java.util.function.UnaryOperator<Float> operation) {
+                                                       UnaryOperator<Float> operation) {
         float[] result = new float[a.length];
         for (int i = 0; i < a.length; i++) {
             result[i] = operation.apply(a[i]);
@@ -258,7 +266,7 @@ public class VectorApiDemo {
     }
     
     private static float[][] simulateElementWiseOperation(float[][] a, float[][] b, 
-                                                         java.util.function.BinaryOperator<Float> operation) {
+                                                         BinaryOperator<Float> operation) {
         float[][] result = new float[a.length][a[0].length];
         for (int i = 0; i < a.length; i++) {
             for (int j = 0; j < a[0].length; j++) {
