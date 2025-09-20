@@ -85,7 +85,7 @@ public class SudokuSolver extends Application {
         // Draw the initial grid
         drawGrid();
         
-        primaryStage.setTitle("Exercise22_21 - Sudoku Solver");
+        primaryStage.setTitle("Sudoku Solver");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
