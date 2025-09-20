@@ -4,6 +4,8 @@
 
 This JavaFX application demonstrates the Convex Hull algorithm using the Graham Scan method. The convex hull is the smallest convex polygon that contains all the given points. This application provides an interactive way to explore and understand the convex hull concept through a modern, user-friendly interface.
 
+![Convex Hull Screenshot](images/ConvexHull.png)
+
 ## Features
 
 ### 🎯 Core Functionality

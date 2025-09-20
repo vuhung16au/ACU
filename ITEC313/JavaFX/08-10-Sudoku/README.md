@@ -4,6 +4,8 @@
 
 This JavaFX application provides an interactive Sudoku puzzle solver with a graphical user interface. Users can input numbers, load sample puzzles, and solve them using a backtracking algorithm. The application demonstrates advanced JavaFX concepts including Canvas drawing, event handling, and algorithmic problem-solving.
 
+![Sudoku Solver Screenshot](images/SudokuSolver.png)
+
 ## Features
 
 ### 🎯 Core Functionality
