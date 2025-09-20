@@ -45,3 +45,9 @@ Recommended combinations:
 - No, you can use any Linux distribution
 - Kali has many pre-installed tools for penetration testing and security research
 - If you use another distribution, you may need to install additional tools manually
+
+# Useful Tools for Learning 
+
+- [Google Notebook LM](https://notebooklm.google.com/)
+- AI Chatbots such as [Gemini](https://gemini.google.com/)
+- AI (coding) assistants such as [GitHub Copilot Agent Mode](https://github.com/features/copilot). Free for students.
