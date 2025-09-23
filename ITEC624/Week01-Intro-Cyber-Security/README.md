@@ -46,6 +46,12 @@ Recommended combinations:
 - Kali has many pre-installed tools for penetration testing and security research
 - If you use another distribution, you may need to install additional tools manually
 
+# Free Shells
+
+- [Google Colab](https://colab.research.google.com/)
+- [Google Firebase Studio](https://studio.firebase.google.com/)
+- ~~[THC-Segfault](https://www.thc.org/segfault/)~~
+
 # Useful Tools for Learning 
 
 - [Google Notebook LM](https://notebooklm.google.com/)
