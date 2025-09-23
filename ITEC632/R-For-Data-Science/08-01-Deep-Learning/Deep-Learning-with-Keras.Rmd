@@ -294,28 +294,144 @@ if (tf_ok) {
 }
 ```
 
-## Figures
+# Visual Analysis and Findings
 
-```r
-library(knitr)
-imgs <- c(
-  "fig01_limit_bal.png",
-  "fig01b_limit_bal_overlay.png",
-  "fig02_gender.png",
-  "fig03_education.png",
-  "fig04_marriage.png",
-  "fig05_age.png",
-  "fig06_payment_status.png",
-  "fig07_bill_amount.png",
-  "fig08_prev_payment.png",
-  "fig09_correlation_heatmap.png",
-  "fig10_training_history.png",
-  "fig11_roc.png"
-)
-for (f in imgs) {
-  cat("\n### ", f, "\n\n", sep = "")
-  print(knitr::include_graphics(file.path("images", f)))
-}
+## Credit Limit Analysis
+
+```{r fig01, echo=FALSE, fig.cap="Credit Limit Distribution"}
+knitr::include_graphics("images/fig01_limit_bal.png")
 ```
+
+**Findings:**
+- The credit limit distribution is right-skewed with most customers having limits between NT$10,000 and NT$200,000
+- A significant portion of customers have relatively low credit limits
+- The distribution suggests a diverse customer base with varying creditworthiness
+
+```{r fig01b, echo=FALSE, fig.cap="Credit Limit Distribution by Default Status"}
+knitr::include_graphics("images/fig01b_limit_bal_overlay.png")
+```
+
+**Key Insights:**
+- Customers with lower credit limits show higher default rates
+- The overlay reveals that default cases (blue) are more concentrated in the lower credit limit ranges
+- This suggests credit limit is a strong predictor of default risk
+
+## Demographic Analysis
+
+```{r fig02, echo=FALSE, fig.cap="Gender Distribution by Default Status"}
+knitr::include_graphics("images/fig02_gender.png")
+```
+
+**Gender Analysis:**
+- Slight gender imbalance in the dataset
+- Default rates appear similar between genders, suggesting gender is not a strong predictor
+- Both male and female customers show comparable default patterns
+
+```{r fig03, echo=FALSE, fig.cap="Education Level Distribution by Default Status"}
+knitr::include_graphics("images/fig03_education.png")
+```
+
+**Education Insights:**
+- University graduates form the largest group
+- Graduate school students show the lowest default rates
+- High school graduates and "Other" education categories show higher default rates
+- Education level appears to be a meaningful predictor of default risk
+
+```{r fig04, echo=FALSE, fig.cap="Marriage Status Distribution by Default Status"}
+knitr::include_graphics("images/fig04_marriage.png")
+```
+
+**Marriage Status Analysis:**
+- Married individuals form the majority of the dataset
+- Single individuals show slightly higher default rates
+- Marriage status provides some predictive value for default risk
+
+```{r fig05, echo=FALSE, fig.cap="Age Distribution by Default Status"}
+knitr::include_graphics("images/fig05_age.png")
+```
+
+**Age Patterns:**
+- Age distribution is relatively normal with peak around 30-40 years
+- Younger customers (20-30) show higher default rates
+- Middle-aged customers (30-50) show lower default rates
+- Age is a significant predictor of default risk
+
+## Payment Behavior Analysis
+
+```{r fig06, echo=FALSE, fig.cap="Payment Status Patterns Across 6 Months"}
+knitr::include_graphics("images/fig06_payment_status.png")
+```
+
+**Payment Status Insights:**
+- Most customers pay on time (status 0)
+- Customers with payment delays (positive values) show higher default rates
+- The pattern is consistent across all 6 months, indicating payment behavior is a strong predictor
+- Customers with longer payment delays show exponentially higher default rates
+
+```{r fig07, echo=FALSE, fig.cap="Bill Amount Distribution Across 6 Months"}
+knitr::include_graphics("images/fig07_bill_amount.png")
+```
+
+**Bill Amount Analysis:**
+- Bill amounts show high variability with many zero amounts
+- Default cases tend to have higher bill amounts
+- The log scale reveals the wide range of bill amounts
+- Bill amounts are positively correlated with default risk
+
+```{r fig08, echo=FALSE, fig.cap="Previous Payment Amount Distribution Across 6 Months"}
+knitr::include_graphics("images/fig08_prev_payment.png")
+```
+
+**Payment Amount Insights:**
+- Payment amounts show similar patterns to bill amounts
+- Default cases tend to have lower payment amounts relative to bill amounts
+- The ratio of payment to bill amount is likely a strong predictor
+- Many customers make minimum payments or no payments
+
+## Correlation Analysis
+
+```{r fig09, echo=FALSE, fig.cap="Feature Correlation Heatmap"}
+knitr::include_graphics("images/fig09_correlation_heatmap.png")
+```
+
+**Correlation Findings:**
+- Strong positive correlations between consecutive payment statuses (PAY_0 to PAY_6)
+- Bill amounts show high correlation within each month
+- Payment amounts are moderately correlated
+- Credit limit shows negative correlation with default risk
+- Age shows weak negative correlation with default risk
+
+## Model Training Results
+
+```{r fig10, echo=FALSE, fig.cap="Neural Network Training History"}
+knitr::include_graphics("images/fig10_training_history.png")
+```
+
+**Training Analysis:**
+- The model shows good convergence with both training and validation curves
+- No significant overfitting observed
+- Early stopping likely prevented overfitting
+- The model achieved reasonable accuracy on both training and validation sets
+
+## Model Performance
+
+```{r fig11, echo=FALSE, fig.cap="ROC Curve for Model Evaluation"}
+knitr::include_graphics("images/fig11_roc.png")
+```
+
+**ROC Analysis:**
+- The ROC curve shows the model's ability to distinguish between default and non-default cases
+- AUC value indicates the model's predictive performance
+- The curve above the diagonal line indicates the model performs better than random guessing
+
+## Summary of Key Findings
+
+1. **Credit Limit**: Lower credit limits are associated with higher default rates
+2. **Demographics**: Education level and age are significant predictors, while gender shows minimal impact
+3. **Payment Behavior**: Payment delays and amounts are the strongest predictors of default
+4. **Temporal Patterns**: Payment behavior is consistent across months, indicating stable customer patterns
+5. **Model Performance**: The neural network successfully learned patterns to predict credit card defaults
+
+The analysis reveals that financial behavior (payment history, amounts) and demographic factors (education, age) are the most important predictors of credit card default, while the neural network model effectively captures these relationships for prediction.
 
 

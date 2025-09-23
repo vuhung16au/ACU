@@ -4,7 +4,6 @@ This dataset contains information on default payments, demographics, credit data
 
 ## Source Files
 - Data: `08-01-Deep-Learning/CreditCard-Dataset/CreditCard.csv`
-- Description: `08-01-Deep-Learning/CreditCard-Dataset/CreditCard-description.txt` (refer there for the full, original metadata wording)
 
 ## Columns
 - `ID`: Unique identifier

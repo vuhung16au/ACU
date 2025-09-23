@@ -1,6 +1,6 @@
 # Deep Learning with Keras in R — Credit Card Default Prediction
 
-This module mirrors the structure of the provided Python notebook using R and the `keras` package. It trains a simple feed-forward neural network to predict `default.payment.next.month` using the UCI Credit Card dataset.
+This module trains a simple feed-forward neural network to predict `default.payment.next.month` using the UCI Credit Card dataset.
 
 ## Files
 - `Deep-Learning-with-Keras.R`: Script to run the full workflow and save figures to `images/`.

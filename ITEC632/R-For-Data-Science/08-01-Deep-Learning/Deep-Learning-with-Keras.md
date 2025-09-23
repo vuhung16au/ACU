@@ -1,17 +1,3 @@
----
-title: "Deep Learning with Keras in R — Credit Card Default Prediction"
-output:
-  md_document:
-    variant: gfm
-    preserve_yaml: true
-    toc: true
-    toc_depth: 2
-  html_document:
-    toc: true
-    toc_depth: 2
-    theme: readable
-    df_print: paged
----
 
 - [Overview](#overview)
 - [Packages and Setup](#packages-and-setup)
@@ -20,16 +6,6 @@ output:
 - [Correlation Heatmap](#correlation-heatmap)
 - [Modeling with Keras](#modeling-with-keras)
 - [Evaluation](#evaluation)
-
-``` r
-knitr::opts_chunk$set(
-  echo = TRUE, message = FALSE, warning = FALSE,
-  fig.path = "images/", dpi = 150, dev = "png"
-)
-library(ggplot2)
-theme_set(theme_bw())
-if (!dir.exists("images")) dir.create("images", recursive = TRUE)
-```
 
 ## Overview
 
