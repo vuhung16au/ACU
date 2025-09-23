@@ -27,7 +27,7 @@ if (!dir.exists("images")) dir.create("images", recursive = TRUE)
 
 # Introduction
 
-This analysis demonstrates a feed-forward neural network using `keras3` (TensorFlow backend) to predict `default.payment.next.month` on the UCI Credit Card dataset, following the structure of the Decision Trees Rmd and the original Jupyter notebook.
+This analysis demonstrates a feed-forward neural network using `keras3` (TensorFlow backend) to predict `default.payment.next.month` on the UCI Credit Card dataset.
 
 ## Objectives
 

@@ -47,7 +47,7 @@ if (!dir.exists(images_dir)) dir.create(images_dir, recursive = TRUE)
 stopifnot(file.exists(data_path))
 df <- readr::read_csv(data_path, show_col_types = FALSE)
 
-# Standardize names to match Python notebook expectations
+# Standardize names
 names(df) <- make.names(names(df))
 
 # Target variable
