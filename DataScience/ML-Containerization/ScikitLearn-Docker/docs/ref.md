@@ -1,0 +1,2 @@
+- https://www.datacamp.com/tutorial/docker-for-data-science-introduction
+- https://www.geeksforgeeks.org/data-engineering/docker-for-data-science/
