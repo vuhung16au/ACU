@@ -1,0 +1,7 @@
+cd /Users/vuhung/00.Work/02.ACU/github/ITEC313/SpringBoot/40-springboot-nextjs-postgres
+printf "%s\n" \
+"POSTGRES_DB=blogdb" \
+"POSTGRES_USER=bloguser" \
+"POSTGRES_PASSWORD=blogpassword" \
+"SPRING_JPA_HIBERNATE_DDL_AUTO=update" \
+"NEXT_PUBLIC_API_BASE_URL=http://localhost:8080" > .env
