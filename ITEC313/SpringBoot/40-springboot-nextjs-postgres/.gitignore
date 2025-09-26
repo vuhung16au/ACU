@@ -1,0 +1,28 @@
+# Node
+node_modules/
+.next/
+
+# Java / Gradle
+build/
+out/
+.gradle/
+*.log
+
+# IDE
+.idea/
+.project
+.classpath
+.settings/
+.vscode/
+
+# OS
+.DS_Store
+
+# Docker volumes
+postgres/data/
+
+# Env files
+.env
+.env.*
+
+

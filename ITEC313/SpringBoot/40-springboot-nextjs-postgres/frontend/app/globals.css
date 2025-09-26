@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body {
+  height: 100%;
+}
+
+body {
+  @apply bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100;
+  color-scheme: light dark;
+}
+
+/* Ensure link and interactive hover/focus states are visible in both themes */
+a, button {
+  @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/60;
+}
+
+
+
