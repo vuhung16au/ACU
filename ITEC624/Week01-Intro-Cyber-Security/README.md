@@ -52,8 +52,21 @@ Recommended combinations:
 - [Google Firebase Studio](https://studio.firebase.google.com/)
 - ~~[THC-Segfault](https://www.thc.org/segfault/)~~
 
+
+# Linux Distributions
+
+- Kali Linux (for hacking)
+- Ubuntu Linux (for general use)
+- Windows Subsystem for Linux (WSL) (for Windows users)
+
 # Useful Tools for Learning 
 
 - [Google Notebook LM](https://notebooklm.google.com/)
 - AI Chatbots such as [Gemini](https://gemini.google.com/)
 - AI (coding) assistants such as [GitHub Copilot Agent Mode](https://github.com/features/copilot). Free for students.
+
+# Get Helps 
+
+- Help Yourself first. Use Google, YouTube, ChatGPT, Gemini, etc.
+- Help from Peers. Collaborate with your classmates.
+- Help from Instructors. Ask questions, don't be shy.
