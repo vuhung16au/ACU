@@ -71,9 +71,19 @@ Recommended combinations:
 - Help from Peers. Collaborate with your classmates.
 - Help from Instructors. Ask questions, don't be shy.
 
+
+# How to Pass the Course
+
+- Research the Assessment Tests and find out what you need to do. 
+- Study the course materials and practice the skills.
+- Get help from (GPTs) and peers, instructors.
+- Complete the assessments on time.
+
 # Commmuication Tools
 
 - Discussion Forum (asynchronous)
-- [Loom](https://loom.com) (asynchronous)
+- [Loom](https://loom.com) (asynchronous). 
+- [My Apps](https://myapps.microsoft.com/) →[MS Clipchamp](https://www.microsoft.com/en/microsoft-365/clipchamp?market=af) (asynchronous)
 - Email (asynchronous)
+- LMS Messaging Feature (asynchronous)
 - [MS Teams](https://www.microsoft.com/en-au/microsoft-teams/) (from [My Apps](https://myapps.microsoft.com/))(synchronous)
