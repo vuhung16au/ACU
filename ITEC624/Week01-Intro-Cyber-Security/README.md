@@ -70,3 +70,10 @@ Recommended combinations:
 - Help Yourself first. Use Google, YouTube, ChatGPT, Gemini, etc.
 - Help from Peers. Collaborate with your classmates.
 - Help from Instructors. Ask questions, don't be shy.
+
+# Commmuication Tools
+
+- Discussion Forum (asynchronous)
+- [Loom](https://loom.com) (asynchronous)
+- Email (asynchronous)
+- [MS Teams](https://www.microsoft.com/en-au/microsoft-teams/) (from [My Apps](https://myapps.microsoft.com/))(synchronous)
