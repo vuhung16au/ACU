@@ -49,3 +49,6 @@ Thumbs.db
 
 Prompt.md
 TODO.md
+
+#Ignore cursor AI rules
+.cursor/rules/codacy.mdc

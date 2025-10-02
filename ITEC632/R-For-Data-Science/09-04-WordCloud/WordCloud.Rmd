@@ -1,0 +1,297 @@
+---
+title: "WordCloud Analysis of Australia Dataset"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    theme: readable
+    df_print: paged
+  md_document:
+    variant: gfm
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, fig.align = "center", fig.width = 10, fig.height = 6, dev.args = list(bg = "white"))
+```
+
+## Overview
+
+This document demonstrates word cloud analysis and text mining techniques using a synthetic dataset about Australia. The analysis covers:
+
+- Text preprocessing and tokenization
+- Word frequency analysis
+- Word cloud generation
+- Category-wise text analysis
+- Bigram analysis
+- Document-term matrix creation
+
+The dataset contains multiple text files covering different aspects of Australia including geography, cities, wildlife, culture, tourism, history, economy, and sports.
+
+## Libraries and Data Loading
+
+```{r libraries}
+pkgs <- c("tidyverse", "tidytext", "tm", "wordcloud", "RColorBrewer", "SnowballC")
+for (p in pkgs) if (!requireNamespace(p, quietly = TRUE)) install.packages(p, repos = "https://cloud.r-project.org")
+
+library(tidyverse)
+library(tidytext)
+library(tm)
+library(wordcloud)
+library(RColorBrewer)
+library(SnowballC)
+```
+
+```{r load-data}
+# Robust dataset path resolution for multiple render locations
+candidates <- c(
+  tryCatch(here::here("09-04-WordCloud", "Australia-Dataset"), error = function(e) NA_character_),
+  file.path("09-04-WordCloud", "Australia-Dataset"),
+  "Australia-Dataset",
+  file.path("..", "09-04-WordCloud", "Australia-Dataset")
+)
+root_dir <- candidates[which(dir.exists(candidates))][1]
+stopifnot(!is.na(root_dir))
+
+read_texts <- function(root_dir) {
+  files <- list.files(root_dir, pattern = "\\.txt$", full.names = TRUE)
+  stopifnot(length(files) > 0)
+  tibble(
+    doc_id = basename(files),
+    path = files,
+    category = dplyr::case_when(
+      grepl("geography", tolower(files)) ~ "Geography",
+      grepl("cities", tolower(files)) ~ "Cities",
+      grepl("wildlife", tolower(files)) ~ "Wildlife",
+      grepl("culture", tolower(files)) ~ "Culture",
+      grepl("tourism", tolower(files)) ~ "Tourism",
+      grepl("history", tolower(files)) ~ "History",
+      grepl("economy", tolower(files)) ~ "Economy",
+      grepl("sports", tolower(files)) ~ "Sports",
+      TRUE ~ "Other"
+    ),
+    text = purrr::map_chr(files, ~ paste(readLines(.x, warn = FALSE, encoding = "UTF-8"), collapse = " \n "))
+  )
+}
+
+docs <- read_texts(root_dir)
+```
+
+## Dataset Overview
+
+```{r dataset-overview}
+cat("Dataset contains", nrow(docs), "documents\n")
+cat("Categories:", paste(unique(docs$category), collapse = ", "), "\n")
+cat("Total characters:", sum(nchar(docs$text)), "\n")
+cat("Average document length:", round(mean(nchar(docs$text))), "characters\n")
+
+# Show document summary
+docs %>% 
+  mutate(doc_length = nchar(text)) %>% 
+  select(doc_id, category, doc_length) %>% 
+  arrange(desc(doc_length))
+```
+
+## Text Preprocessing and Tokenization
+
+```{r tokenize}
+# Tokenize and clean the text
+tokens <- docs %>% 
+  mutate(text_lower = stringr::str_to_lower(text)) %>% 
+  tidytext::unnest_tokens(token, text_lower)
+
+# Remove stop words and filter tokens
+tokens_filtered <- tokens %>% 
+  anti_join(tidytext::stop_words, by = c("token" = "word")) %>% 
+  filter(stringr::str_detect(token, "^[a-z]+$"), nchar(token) >= 3)
+
+cat("Total tokens after filtering:", nrow(tokens_filtered), "\n")
+cat("Unique words after filtering:", length(unique(tokens_filtered$token)), "\n")
+```
+
+## Word Frequency Analysis
+
+```{r word-freq}
+# Get word frequencies
+word_freq <- tokens_filtered %>% 
+  count(token, sort = TRUE)
+
+# Display top words
+head(word_freq, 20)
+```
+
+```{r word-freq-plot, fig.width=10, fig.height=6}
+# Create word frequency plot
+this_file <- knitr::current_input()
+module_dir <- dirname(normalizePath(this_file))
+img_dir <- file.path(module_dir, "images")
+dir.create(img_dir, showWarnings = FALSE, recursive = TRUE)
+
+save_plot <- function(p, filename, width = 10, height = 6) {
+  p_out <- p + theme_bw() + theme(plot.background = element_rect(fill = "white", color = NA), panel.background = element_rect(fill = "white"))
+  ggsave(filename = file.path(img_dir, filename), plot = p_out, width = width, height = height, dpi = 150, bg = "white")
+}
+
+p1 <- word_freq %>% 
+  slice_max(n, n = 20) %>% 
+  mutate(token = reorder(token, n)) %>% 
+  ggplot(aes(token, n)) + 
+  geom_col(fill = "steelblue") + 
+  coord_flip() + 
+  labs(title = "Top 20 Most Frequent Words in Australia Dataset", 
+       x = "Word", y = "Frequency") +
+  theme_minimal()
+
+save_plot(p1, "word_frequency_plot.png")
+p1
+```
+
+## Word Cloud Generation
+
+```{r wordcloud-basic, fig.width=10, fig.height=6}
+# Create basic word cloud
+wordcloud(words = word_freq$token, 
+          freq = word_freq$n, 
+          max.words = 100, 
+          random.order = FALSE, 
+          rot.per = 0.35, 
+          colors = brewer.pal(8, "Dark2"))
+```
+
+```{r wordcloud-colors, fig.width=10, fig.height=6}
+# Create word cloud with different colors
+wordcloud(words = word_freq$token, 
+          freq = word_freq$n, 
+          max.words = 100, 
+          random.order = FALSE, 
+          rot.per = 0.35, 
+          colors = brewer.pal(8, "Set2"))
+```
+
+## Category-wise Analysis
+
+```{r category-analysis}
+# Category-wise word frequencies
+category_freq <- tokens_filtered %>% 
+  count(category, token, sort = TRUE) %>% 
+  group_by(category) %>% 
+  slice_max(n, n = 10) %>% 
+  ungroup()
+
+# Display top words by category
+category_freq %>% 
+  group_by(category) %>% 
+  slice_head(n = 5) %>% 
+  ungroup()
+```
+
+```{r category-plot, fig.width=12, fig.height=8}
+# Top words by category plot
+p2 <- category_freq %>% 
+  mutate(token = tidytext::reorder_within(token, n, category)) %>% 
+  ggplot(aes(token, n, fill = category)) + 
+  geom_col(show.legend = FALSE) + 
+  facet_wrap(~ category, scales = "free_y") + 
+  tidytext::scale_x_reordered() + 
+  coord_flip() + 
+  labs(title = "Top Words by Category", 
+       x = "Word", y = "Frequency") +
+  theme_minimal()
+
+save_plot(p2, "word_frequency_by_category.png")
+p2
+```
+
+## Bigram Analysis
+
+```{r bigrams}
+# Extract bigrams
+bigrams <- docs %>% 
+  mutate(text_lower = stringr::str_to_lower(text)) %>% 
+  tidytext::unnest_tokens(bigram, text_lower, token = "ngrams", n = 2)
+
+# Clean bigrams
+bigrams_clean <- bigrams %>% 
+  tidyr::separate(bigram, c("w1", "w2"), sep = " ", fill = "right", remove = FALSE) %>% 
+  filter(!is.na(w2)) %>% 
+  anti_join(tidytext::stop_words, by = c("w1" = "word")) %>% 
+  anti_join(tidytext::stop_words, by = c("w2" = "word")) %>% 
+  count(bigram, sort = TRUE)
+
+# Display top bigrams
+head(bigrams_clean, 20)
+```
+
+```{r bigram-plot, fig.width=10, fig.height=6}
+# Top bigrams plot
+p3 <- bigrams_clean %>% 
+  slice_max(n, n = 20) %>% 
+  mutate(bigram = reorder(bigram, n)) %>% 
+  ggplot(aes(bigram, n)) + 
+  geom_col(fill = "seagreen") + 
+  coord_flip() + 
+  labs(title = "Top 20 Bigrams in Australia Dataset", 
+       x = "Bigram", y = "Frequency") +
+  theme_minimal()
+
+save_plot(p3, "bigram_frequency_plot.png")
+p3
+```
+
+```{r bigram-wordcloud, fig.width=10, fig.height=6}
+# Bigram word cloud
+wordcloud(words = bigrams_clean$bigram, 
+          freq = bigrams_clean$n, 
+          max.words = 50, 
+          random.order = FALSE, 
+          rot.per = 0.35, 
+          colors = brewer.pal(8, "Dark2"))
+```
+
+## Document-Term Matrix
+
+```{r dtm}
+# Create document-term matrix
+dtm <- tokens_filtered %>% 
+  count(doc_id, token) %>% 
+  tidytext::cast_dtm(document = doc_id, term = token, value = n)
+
+# Display matrix dimensions
+cat("Document-term matrix dimensions:", dim(dtm), "\n")
+cat("Sparsity:", round(100 * (1 - length(dtm$v) / (dtm$nrow * dtm$ncol)), 2), "%\n")
+
+# Show matrix summary
+inspect(dtm[1:3, 1:10])
+```
+
+## Summary Statistics
+
+```{r summary}
+# Dataset summary
+cat("Dataset Summary:\n")
+cat("Total documents:", nrow(docs), "\n")
+cat("Total unique words:", nrow(word_freq), "\n")
+cat("Total bigrams:", nrow(bigrams_clean), "\n")
+cat("Document-term matrix dimensions:", dim(dtm), "\n")
+
+# Word frequency distribution
+word_freq %>% 
+  summarise(
+    min_freq = min(n),
+    max_freq = max(n),
+    mean_freq = round(mean(n), 2),
+    median_freq = median(n)
+  )
+```
+
+## Conclusion
+
+This analysis demonstrates various text mining and word cloud techniques using the Australia dataset:
+
+1. **Text Preprocessing**: Successfully tokenized and cleaned the text data
+2. **Word Frequency Analysis**: Identified the most common words across all documents
+3. **Word Cloud Visualization**: Created multiple word cloud visualizations with different color schemes
+4. **Category Analysis**: Analyzed word frequencies within different document categories
+5. **Bigram Analysis**: Extracted and analyzed two-word phrases
+6. **Document-Term Matrix**: Created a matrix representation for further analysis
+
+The word clouds effectively visualize the most important terms in the Australia dataset, with "australia" being the most frequent word, followed by terms like "country", "world", "australian", and "national". The analysis reveals the thematic content of each document category and provides insights into the linguistic patterns in the dataset.
