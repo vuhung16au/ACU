@@ -65,6 +65,7 @@
         <module>09-01-Sorting</module>
         <module>09-02-HeapSort</module>
         <module>09-03-GenericSort</module>
+        <module>09-04-ExternalSort</module>
         <module>10-01-ArrayList</module>
         <module>10-02-LinkedList</module>
         <module>10-03-Stack</module>
