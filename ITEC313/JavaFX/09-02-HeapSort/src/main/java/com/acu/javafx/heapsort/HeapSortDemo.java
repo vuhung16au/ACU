@@ -50,7 +50,7 @@ public class HeapSortDemo extends Application {
         createUI();
         
         // Set up the scene
-        Scene scene = new Scene(createMainLayout(), 1000, 600);
+        Scene scene = new Scene(createMainLayout(), 1300, 600);
         primaryStage.setTitle("Heap Sort Visualization");
         primaryStage.setScene(scene);
         primaryStage.show();
