@@ -1,0 +1,25 @@
+# Keep Australia dataset text files
+!Australia-Dataset/*.txt
+!Australia-Dataset/README.md
+
+# Ignore temporary files
+*.tmp
+*.temp
+*~
+
+# Ignore R session files
+.RData
+.Rhistory
+.Ruserdata
+
+# Ignore output files that can be regenerated
+*.html
+*.pdf
+
+# Keep important output files
+!WordCloud.html
+!WordCloud.md
+
+# Ignore system files
+.DS_Store
+Thumbs.db
