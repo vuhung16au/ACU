@@ -103,6 +103,45 @@ public final class GenericSorts {
         return i;
     }
 
+    // ----------------------- Heap Sort -----------------------
+
+    public static <E extends Comparable<E>> void heapSort(E[] list) {
+        heapSort(list, Comparator.naturalOrder());
+    }
+
+    public static <E> void heapSort(E[] list, Comparator<? super E> comparator) {
+        int n = list.length;
+        if (n < 2) return;
+
+        // Build max-heap according to comparator
+        for (int i = (n >>> 1) - 1; i >= 0; i--) {
+            siftDown(list, i, n, comparator);
+        }
+
+        // Extract elements from heap one by one
+        for (int end = n - 1; end > 0; end--) {
+            E tmp = list[0]; list[0] = list[end]; list[end] = tmp;
+            siftDown(list, 0, end, comparator);
+        }
+    }
+
+    private static <E> void siftDown(E[] a, int start, int endExclusive, Comparator<? super E> c) {
+        int root = start;
+        while (true) {
+            int leftChild = (root << 1) + 1;
+            if (leftChild >= endExclusive) return;
+            int rightChild = leftChild + 1;
+
+            int swapIndex = root;
+            if (c.compare(a[swapIndex], a[leftChild]) < 0) swapIndex = leftChild;
+            if (rightChild < endExclusive && c.compare(a[swapIndex], a[rightChild]) < 0) swapIndex = rightChild;
+
+            if (swapIndex == root) return;
+            E tmp = a[root]; a[root] = a[swapIndex]; a[swapIndex] = tmp;
+            root = swapIndex;
+        }
+    }
+
     // Utility to verify sorted order in tests
     public static <E> boolean isSorted(E[] a, Comparator<? super E> c) {
         for (int i = 1; i < a.length; i++) {

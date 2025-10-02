@@ -196,7 +196,8 @@ public class HeapSortDemo extends Application {
         Integer[] array = listToSort.toArray(new Integer[0]);
         HeapSort.heapSort(array);
         
-        sortedList = Arrays.asList(array);
+        // Use a mutable list to avoid UnsupportedOperationException on clear/remove
+        sortedList = new ArrayList<>(Arrays.asList(array));
         
         log("Sorted array: " + sortedList);
         log("Heap Sort completed!");
@@ -215,8 +216,9 @@ public class HeapSortDemo extends Application {
     
     private void reset() {
         heap = new Heap<>();
-        originalList.clear();
-        sortedList.clear();
+        // Replace with new mutable lists to be safe even if previous lists were fixed-size
+        originalList = new ArrayList<>();
+        sortedList = new ArrayList<>();
         updateDisplay();
         log("Reset completed");
     }
