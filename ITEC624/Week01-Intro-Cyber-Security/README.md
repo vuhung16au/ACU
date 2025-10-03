@@ -13,13 +13,13 @@
 
 # Native Linux
 
-- [Kali Linux](https://www.kali.org/) (for hacking)
 - Ubuntu Linux (for general use)
 
 # Kali Linux
 
 - [Kali Linux](https://www.kali.org/) (for hacking)
 - [Installation guide](https://www.kali.org/get-kali/#kali-platforms)
+- [Kali](https://hub.docker.com/u/kalilinux/) on Docker
 
 Kali runs on a variety of platforms, including:
 - VirtualBox
