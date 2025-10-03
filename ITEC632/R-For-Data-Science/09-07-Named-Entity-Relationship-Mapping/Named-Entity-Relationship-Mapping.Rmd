@@ -1,0 +1,739 @@
+---
+title: "Named Entity Relationship Mapping in R"
+author: "Data Science Project"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    theme: flatly
+    toc: true
+    toc_float: true
+    code_folding: show
+    css: |
+      body { background-color: white; }
+      .main-container { background-color: white; }
+      .content { background-color: white; }
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  fig.width = 10,
+  fig.height = 6,
+  dpi = 300
+)
+
+# Set theme for plots with white background
+library(ggplot2)
+theme_set(theme_minimal() + 
+  theme(
+    plot.background = element_rect(fill = "white", color = NA),
+    panel.background = element_rect(fill = "white", color = NA),
+    legend.background = element_rect(fill = "white", color = NA)
+  ))
+```
+
+# Named Entity Relationship Mapping in R
+
+## Overview
+
+This project demonstrates **Named Entity Recognition (NER)** and **Entity Relationship Mapping** using R. We extract named entities (people, organizations, locations) from Wikipedia articles and map their relationships using dependency parsing techniques.
+
+## Key Concepts
+
+- **Named Entity Recognition (NER)**: Identifying and classifying named entities in text
+- **Dependency Parsing**: Analyzing grammatical relationships between words
+- **Entity Relationship Mapping**: Discovering connections between entities
+- **Network Analysis**: Visualizing entity relationships as graphs
+
+## Required Packages
+
+```{r packages, message=FALSE}
+# Set CRAN mirror
+options(repos = c(CRAN = "https://cran.rstudio.com/"))
+
+# Install and load required packages
+required_packages <- c(
+  "udpipe", "WikipediR", "rvest", "tidyverse", 
+  "ggplot2", "dplyr", "stringr", "igraph", "ggraph", 
+  "wordcloud", "RColorBrewer", "tm"
+)
+
+# Function to install packages if not already installed
+install_if_missing <- function(packages) {
+  for (pkg in packages) {
+    if (!require(pkg, character.only = TRUE, quietly = TRUE)) {
+      cat(paste("Installing package:", pkg, "\n"))
+      install.packages(pkg, dependencies = TRUE, repos = "https://cran.rstudio.com/")
+      library(pkg, character.only = TRUE)
+    }
+  }
+}
+
+# Install and load packages
+install_if_missing(required_packages)
+```
+
+## Data Collection from Wikipedia
+
+```{r data-collection}
+# Function to collect Wikipedia articles
+collect_wikipedia_articles <- function() {
+  cat("Collecting Wikipedia articles...\n")
+  
+  # Define topics for article collection
+  topics <- c(
+    "Apple Inc.",
+    "Microsoft Corporation", 
+    "Google LLC",
+    "Tesla Inc.",
+    "Amazon.com",
+    "Elon Musk",
+    "Tim Cook",
+    "Bill Gates",
+    "Sundar Pichai",
+    "Jeff Bezos",
+    "Silicon Valley",
+    "Seattle",
+    "San Francisco",
+    "New York City",
+    "California"
+  )
+  
+  articles_data <- list()
+  
+  for (topic in topics) {
+    tryCatch({
+      cat(paste("Fetching article:", topic, "\n"))
+      
+      # Get article content using WikipediR
+      article_content <- WikipediR::page_content(
+        language = "en",
+        project = "wikipedia",
+        page_name = topic,
+        as_wikitext = FALSE,
+        clean_response = TRUE
+      )
+      
+      if (!is.null(article_content) && !is.null(article_content$parse) && !is.null(article_content$parse$text)) {
+        content <- article_content$parse$text$`*`
+        if (!is.null(content) && nchar(content) > 100) {
+          articles_data[[topic]] <- list(
+            title = topic,
+            content = content,
+            url = paste0("https://en.wikipedia.org/wiki/", gsub(" ", "_", topic))
+          )
+          cat(paste("Successfully fetched", topic, "- Content length:", nchar(content), "\n"))
+        } else {
+          cat(paste("Warning: Empty or short content for", topic, "\n"))
+        }
+      } else {
+        cat(paste("Warning: Failed to fetch content for", topic, "\n"))
+      }
+    }, error = function(e) {
+      cat(paste("Error fetching", topic, ":", e$message, "\n"))
+    })
+  }
+  
+  cat(paste("Successfully collected", length(articles_data), "articles\n"))
+  return(articles_data)
+}
+
+# Collect articles
+wikipedia_articles <- collect_wikipedia_articles()
+
+# If no articles were collected, create sample data
+if (length(wikipedia_articles) == 0) {
+  cat("No Wikipedia articles collected. Creating sample data...\n")
+  
+  sample_articles <- list(
+    "Apple Inc." = list(
+      title = "Apple Inc.",
+      content = "Apple Inc. is an American multinational technology company headquartered in Cupertino, California. The company was founded by Steve Jobs, Steve Wozniak, and Ronald Wayne in 1976. Apple is known for its consumer electronics, software, and online services. The current CEO is Tim Cook, who succeeded Steve Jobs in 2011. Apple's headquarters are located in Cupertino, California, in Silicon Valley. The company designs and manufactures consumer electronics, computer software, and online services. Apple is the world's largest technology company by revenue and, since January 2021, the world's most valuable company.",
+      url = "https://en.wikipedia.org/wiki/Apple_Inc."
+    ),
+    "Microsoft Corporation" = list(
+      title = "Microsoft Corporation",
+      content = "Microsoft Corporation is an American multinational technology corporation headquartered in Redmond, Washington. The company was founded by Bill Gates and Paul Allen in 1975. Microsoft is known for its Windows operating system, Office productivity suite, and Azure cloud services. The current CEO is Satya Nadella, who succeeded Steve Ballmer in 2014. Microsoft's headquarters are located in Redmond, Washington. The company develops, manufactures, licenses, supports, and sells computer software, consumer electronics, personal computers, and related services.",
+      url = "https://en.wikipedia.org/wiki/Microsoft"
+    ),
+    "Google LLC" = list(
+      title = "Google LLC",
+      content = "Google LLC is an American multinational technology company specializing in Internet-related services and products. The company was founded by Larry Page and Sergey Brin in 1998. Google is known for its search engine, Android operating system, and cloud computing services. The current CEO is Sundar Pichai, who became CEO in 2015. Google's headquarters are located in Mountain View, California, in Silicon Valley. The company provides Internet-related services and products, which include online advertising technologies, search, cloud computing, software, and hardware.",
+      url = "https://en.wikipedia.org/wiki/Google"
+    ),
+    "Tesla Inc." = list(
+      title = "Tesla Inc.",
+      content = "Tesla Inc. is an American electric vehicle and clean energy company founded by Elon Musk in 2003. Tesla is known for its electric cars, energy storage systems, and solar panels. The current CEO is Elon Musk. Tesla's headquarters are located in Austin, Texas. The company designs, manufactures, and sells electric vehicles, energy generation and storage systems, and related products and services. Tesla is one of the world's most valuable companies and is a leader in the electric vehicle market.",
+      url = "https://en.wikipedia.org/wiki/Tesla_Inc."
+    ),
+    "Amazon.com" = list(
+      title = "Amazon.com",
+      content = "Amazon.com Inc. is an American multinational technology company founded by Jeff Bezos in 1994. Amazon is known for its e-commerce platform, cloud computing services, and digital streaming. The current CEO is Andy Jassy, who succeeded Jeff Bezos in 2021. Amazon's headquarters are located in Seattle, Washington. The company focuses on e-commerce, cloud computing, digital streaming, and artificial intelligence. Amazon is one of the world's most valuable companies and is a leader in the e-commerce market.",
+      url = "https://en.wikipedia.org/wiki/Amazon.com"
+    )
+  )
+  
+  wikipedia_articles <- sample_articles
+  cat(paste("Created", length(wikipedia_articles), "sample articles\n"))
+}
+```
+
+## Text Preprocessing
+
+```{r text-preprocessing}
+# Function to clean and preprocess text
+preprocess_text <- function(text) {
+  # Remove HTML tags
+  text <- gsub("<[^>]+>", "", text)
+  
+  # Remove extra whitespace
+  text <- gsub("\\s+", " ", text)
+  
+  # Remove special characters but keep basic punctuation
+  text <- gsub("[^a-zA-Z0-9\\s.,!?;:]", "", text)
+  
+  # Convert to lowercase
+  text <- tolower(text)
+  
+  return(trimws(text))
+}
+
+# Preprocess all articles
+processed_articles <- list()
+for (name in names(wikipedia_articles)) {
+  processed_articles[[name]] <- list(
+    title = wikipedia_articles[[name]]$title,
+    content = preprocess_text(wikipedia_articles[[name]]$content),
+    url = wikipedia_articles[[name]]$url
+  )
+}
+
+# Display preprocessing results
+cat("Preprocessing completed for", length(processed_articles), "articles\n")
+```
+
+## Named Entity Recognition
+
+```{r ner}
+# Initialize UDPipe model
+cat("Initializing UDPipe model...\n")
+model_file <- udpipe::udpipe_download_model(language = "english")
+udpipe_model <- udpipe::udpipe_load_model(model_file)
+
+# Function to extract named entities
+extract_named_entities <- function(text, model) {
+  # Check if text is valid
+  if (is.null(text) || length(text) == 0 || is.na(text) || nchar(text) == 0) {
+    return(data.frame(
+      token = character(),
+      lemma = character(),
+      upos = character(),
+      dep_rel = character(),
+      head_token_id = character(),
+      entity_type = character(),
+      stringsAsFactors = FALSE
+    ))
+  }
+  
+  # Split text into sentences for processing
+  sentences <- strsplit(text, "\\.|\\!|\\?")[[1]]
+  sentences <- sentences[nchar(sentences) > 10]  # Filter out very short sentences
+  
+  if (length(sentences) == 0) {
+    return(data.frame(
+      token = character(),
+      lemma = character(),
+      upos = character(),
+      dep_rel = character(),
+      head_token_id = character(),
+      entity_type = character(),
+      stringsAsFactors = FALSE
+    ))
+  }
+  
+  # Process each sentence
+  all_entities <- list()
+  for (i in seq_along(sentences)) {
+    sentence <- trimws(sentences[i])
+    if (nchar(sentence) > 0) {
+      tryCatch({
+        # Annotate text with UDPipe
+        annotation <- udpipe::udpipe_annotate(model, sentence)
+        annotation_df <- as.data.frame(annotation)
+        
+        if (nrow(annotation_df) > 0) {
+          # Extract entities based on POS tags and dependency relations
+          entities <- annotation_df %>%
+            filter(upos %in% c("PROPN", "NOUN")) %>%
+            select(token, lemma, upos, dep_rel, head_token_id) %>%
+            mutate(
+              entity_type = case_when(
+                # People - proper nouns that are subjects or objects
+                upos == "PROPN" & dep_rel %in% c("nsubj", "obj", "obl") & 
+                tolower(token) %in% c("steve", "jobs", "tim", "cook", "bill", "gates", "sundar", "pichai", 
+                                    "jeff", "bezos", "elon", "musk", "larry", "page", "sergey", "brin",
+                                    "paul", "allen", "ronald", "wayne", "steve", "wozniak", "andy", "jassy") ~ "PERSON",
+                # Organizations - proper nouns that are companies
+                upos == "PROPN" & (dep_rel %in% c("nmod", "compound") | 
+                tolower(token) %in% c("apple", "microsoft", "google", "tesla", "amazon", "inc", "corporation", "llc")) ~ "ORGANIZATION", 
+                # Locations - proper nouns that are places
+                upos == "PROPN" & (dep_rel %in% c("obl", "nmod") | 
+                tolower(token) %in% c("cupertino", "california", "redmond", "washington", "mountain", "view", 
+                                     "austin", "texas", "seattle", "silicon", "valley", "america", "american")) ~ "LOCATION",
+                # Default classification
+                upos == "PROPN" ~ "ORGANIZATION",
+                upos == "NOUN" ~ "OTHER",
+                TRUE ~ "OTHER"
+              )
+            ) %>%
+            # Filter out common words and short tokens
+            filter(nchar(token) > 2, !tolower(token) %in% c("the", "and", "or", "but", "in", "on", "at", "to", "for", "of", "with", "by"))
+          
+          all_entities[[i]] <- entities
+        }
+      }, error = function(e) {
+        cat(paste("Error processing sentence:", e$message, "\n"))
+      })
+    }
+  }
+  
+  # Combine all entities
+  if (length(all_entities) > 0) {
+    combined_entities <- do.call(rbind, all_entities)
+    return(combined_entities)
+  } else {
+    return(data.frame(
+      token = character(),
+      lemma = character(),
+      upos = character(),
+      dep_rel = character(),
+      head_token_id = character(),
+      entity_type = character(),
+      stringsAsFactors = FALSE
+    ))
+  }
+}
+
+# Extract entities from all articles
+all_entities <- list()
+for (name in names(processed_articles)) {
+  cat(paste("Extracting entities from:", name, "\n"))
+  entities <- extract_named_entities(processed_articles[[name]]$content, udpipe_model)
+  all_entities[[name]] <- entities
+}
+
+# Combine all entities
+combined_entities <- do.call(rbind, all_entities)
+combined_entities$source <- rep(names(all_entities), sapply(all_entities, nrow))
+
+# Display entity extraction results
+cat("Total entities extracted:", nrow(combined_entities), "\n")
+```
+
+## Entity Type Analysis
+
+```{r entity-analysis}
+# Entity type distribution
+entity_type_dist <- combined_entities %>%
+  group_by(entity_type) %>%
+  summarise(count = n(), .groups = 'drop') %>%
+  arrange(desc(count))
+
+# Top entities by frequency
+top_entities <- combined_entities %>%
+  group_by(token, entity_type) %>%
+  summarise(frequency = n(), .groups = 'drop') %>%
+  arrange(desc(frequency)) %>%
+  head(20)
+
+# Display results
+print("Entity Type Distribution:")
+print(entity_type_dist)
+
+print("\nTop 10 Most Frequent Entities:")
+print(head(top_entities, 10))
+```
+
+## Entity Type Distribution
+
+```{r entity-distribution-plot, fig.width=10, fig.height=6}
+# Entity Type Distribution Plot
+p1 <- ggplot(entity_type_dist, aes(x = reorder(entity_type, count), y = count)) +
+  geom_col(fill = "steelblue", alpha = 0.7) +
+  coord_flip() +
+  labs(
+    title = "Distribution of Named Entity Types",
+    x = "Entity Type",
+    y = "Count",
+    subtitle = "Extracted from Wikipedia articles"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.background = element_rect(fill = "white", color = NA),
+    panel.background = element_rect(fill = "white", color = NA)
+  )
+
+print(p1)
+```
+
+## Top Entities by Frequency
+
+```{r top-entities-plot, fig.width=12, fig.height=8}
+# Top Entities by Frequency Plot
+p2 <- ggplot(top_entities, aes(x = reorder(token, frequency), y = frequency, fill = entity_type)) +
+  geom_col(alpha = 0.8) +
+  coord_flip() +
+  labs(
+    title = "Top 20 Most Frequent Named Entities",
+    x = "Entity",
+    y = "Frequency",
+    fill = "Entity Type",
+    subtitle = "Based on frequency across all articles"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.background = element_rect(fill = "white", color = NA),
+    panel.background = element_rect(fill = "white", color = NA),
+    legend.background = element_rect(fill = "white", color = NA)
+  )
+
+print(p2)
+```
+
+## Dependency Parsing for Relationship Mapping
+
+```{r relationship-extraction}
+# Function to extract entity relationships
+extract_entity_relationships <- function(annotation_df) {
+  relationships <- data.frame(
+    entity1 = character(),
+    entity2 = character(),
+    relationship = character(),
+    sentence = character(),
+    stringsAsFactors = FALSE
+  )
+  
+  if (nrow(annotation_df) == 0) {
+    return(relationships)
+  }
+  
+  # Find relationships based on dependency patterns
+  for (i in 1:nrow(annotation_df)) {
+    row <- annotation_df[i, ]
+    
+    # Look for proper nouns and nouns that could be entities
+    if ((row$upos == "PROPN" || row$upos == "NOUN") && !is.na(row$head_token_id) && row$head_token_id != 0) {
+      head_token <- annotation_df[annotation_df$token_id == row$head_token_id, ]
+      
+      if (nrow(head_token) > 0 && (head_token$upos == "PROPN" || head_token$upos == "NOUN")) {
+        # Skip if it's the same token
+        if (row$token != head_token$token) {
+          relationship_type <- case_when(
+            row$dep_rel == "nsubj" ~ "subject_of",
+            row$dep_rel == "obj" ~ "object_of", 
+            row$dep_rel == "obl" ~ "related_to",
+            row$dep_rel == "nmod" ~ "modifier_of",
+            row$dep_rel == "compound" ~ "compound_of",
+            row$dep_rel == "conj" ~ "conjunction_with",
+            row$dep_rel == "appos" ~ "apposition_to",
+            TRUE ~ "associated_with"
+          )
+          
+          # Create sentence context
+          sentence_tokens <- annotation_df$token[!is.na(annotation_df$token)]
+          sentence_context <- paste(sentence_tokens, collapse = " ")
+          
+          relationships <- rbind(relationships, data.frame(
+            entity1 = row$token,
+            entity2 = head_token$token,
+            relationship = relationship_type,
+            sentence = sentence_context,
+            stringsAsFactors = FALSE
+          ))
+        }
+      }
+    }
+  }
+  
+  # Also look for co-occurrence relationships within the same sentence
+  proper_nouns <- annotation_df[annotation_df$upos == "PROPN", ]
+  if (nrow(proper_nouns) > 1) {
+    for (i in 1:(nrow(proper_nouns)-1)) {
+      for (j in (i+1):nrow(proper_nouns)) {
+        if (proper_nouns$token[i] != proper_nouns$token[j]) {
+          sentence_tokens <- annotation_df$token[!is.na(annotation_df$token)]
+          sentence_context <- paste(sentence_tokens, collapse = " ")
+          
+          relationships <- rbind(relationships, data.frame(
+            entity1 = proper_nouns$token[i],
+            entity2 = proper_nouns$token[j],
+            relationship = "co_occurs_with",
+            sentence = sentence_context,
+            stringsAsFactors = FALSE
+          ))
+        }
+      }
+    }
+  }
+  
+  return(relationships)
+}
+
+# Extract relationships from all articles
+all_relationships <- list()
+for (name in names(processed_articles)) {
+  cat(paste("Extracting relationships from:", name, "\n"))
+  
+  # Check if content is valid
+  content <- processed_articles[[name]]$content
+  if (is.null(content) || length(content) == 0 || is.na(content) || nchar(content) == 0) {
+    all_relationships[[name]] <- data.frame(
+      entity1 = character(),
+      entity2 = character(),
+      relationship = character(),
+      sentence = character(),
+      stringsAsFactors = FALSE
+    )
+    next
+  }
+  
+  # Split text into sentences for processing
+  sentences <- strsplit(content, "\\.|\\!|\\?")[[1]]
+  sentences <- sentences[nchar(sentences) > 10]  # Filter out very short sentences
+  
+  if (length(sentences) == 0) {
+    all_relationships[[name]] <- data.frame(
+      entity1 = character(),
+      entity2 = character(),
+      relationship = character(),
+      sentence = character(),
+      stringsAsFactors = FALSE
+    )
+    next
+  }
+  
+  # Process each sentence
+  all_sentence_relationships <- list()
+  for (i in seq_along(sentences)) {
+    sentence <- trimws(sentences[i])
+    if (nchar(sentence) > 0) {
+      tryCatch({
+        # Get annotation for relationship extraction
+        annotation <- udpipe::udpipe_annotate(udpipe_model, sentence)
+        annotation_df <- as.data.frame(annotation)
+        
+        if (nrow(annotation_df) > 0) {
+          relationships <- extract_entity_relationships(annotation_df)
+          all_sentence_relationships[[i]] <- relationships
+        }
+      }, error = function(e) {
+        cat(paste("Error processing sentence:", e$message, "\n"))
+      })
+    }
+  }
+  
+  # Combine all relationships
+  if (length(all_sentence_relationships) > 0) {
+    combined_relationships <- do.call(rbind, all_sentence_relationships)
+    all_relationships[[name]] <- combined_relationships
+  } else {
+    all_relationships[[name]] <- data.frame(
+      entity1 = character(),
+      entity2 = character(),
+      relationship = character(),
+      sentence = character(),
+      stringsAsFactors = FALSE
+    )
+  }
+}
+
+# Combine all relationships
+combined_relationships <- do.call(rbind, all_relationships)
+combined_relationships$source <- rep(names(all_relationships), sapply(all_relationships, nrow))
+
+# Relationship type distribution
+relationship_dist <- combined_relationships %>%
+  group_by(relationship) %>%
+  summarise(count = n(), .groups = 'drop') %>%
+  arrange(desc(count))
+
+cat("Total relationships found:", nrow(combined_relationships), "\n")
+print("Relationship Type Distribution:")
+print(relationship_dist)
+```
+
+## Relationship Type Distribution
+
+```{r relationship-distribution-plot, fig.width=10, fig.height=6}
+# Relationship Type Distribution Plot
+p3 <- ggplot(relationship_dist, aes(x = reorder(relationship, count), y = count)) +
+  geom_col(fill = "darkgreen", alpha = 0.7) +
+  coord_flip() +
+  labs(
+    title = "Distribution of Entity Relationship Types",
+    x = "Relationship Type",
+    y = "Count",
+    subtitle = "Dependency-based relationship extraction"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.background = element_rect(fill = "white", color = NA),
+    panel.background = element_rect(fill = "white", color = NA)
+  )
+
+print(p3)
+```
+
+## Entity Relationship Network
+
+```{r network-visualization, fig.width=12, fig.height=8}
+# Entity Network Visualization
+if (nrow(combined_relationships) > 0) {
+  # Create network graph
+  network_data <- combined_relationships %>%
+    filter(!is.na(entity1) & !is.na(entity2)) %>%
+    select(entity1, entity2, relationship) %>%
+    head(50)  # Limit for visualization
+  
+  if (nrow(network_data) > 0) {
+    # Create igraph object
+    g <- graph_from_data_frame(network_data, directed = TRUE)
+    
+    # Calculate layout
+    layout <- layout_with_fr(g)
+    
+    # Create network plot
+    p4 <- ggraph(g, layout = layout) +
+      geom_edge_link(aes(color = relationship), alpha = 0.6, arrow = arrow(length = unit(2, 'mm'))) +
+      geom_node_point(size = 3, color = "red", alpha = 0.8) +
+      geom_node_text(aes(label = name), size = 2, repel = TRUE) +
+      labs(
+        title = "Entity Relationship Network",
+        subtitle = "Top 50 entity relationships from Wikipedia articles",
+        color = "Relationship Type"
+      ) +
+      theme_void() +
+      theme(
+        plot.background = element_rect(fill = "white", color = NA),
+        panel.background = element_rect(fill = "white", color = NA),
+        legend.background = element_rect(fill = "white", color = NA)
+      )
+    
+    print(p4)
+  }
+}
+```
+
+## Word Cloud of Entities
+
+```{r wordcloud, fig.width=10, fig.height=6}
+# Word Cloud of Entities
+if (nrow(combined_entities) > 0) {
+  # Prepare data for word cloud
+  entity_freq <- combined_entities %>%
+    group_by(token) %>%
+    summarise(frequency = n(), .groups = 'drop') %>%
+    arrange(desc(frequency)) %>%
+    head(100)
+  
+  if (nrow(entity_freq) > 0) {
+    wordcloud(
+      words = entity_freq$token,
+      freq = entity_freq$frequency,
+      min.freq = 2,
+      max.words = 100,
+      random.order = FALSE,
+      colors = brewer.pal(8, "Dark2"),
+      bg = "white"
+    )
+  }
+}
+```
+
+## Articles Summary
+
+```{r articles-summary}
+# Articles Summary
+articles_summary <- data.frame(
+  Article = names(processed_articles),
+  Word_Count = sapply(processed_articles, function(x) {
+    if (is.null(x$content) || length(x$content) == 0 || is.na(x$content) || nchar(x$content) == 0) {
+      return(0)
+    }
+    return(length(strsplit(x$content, "\\s+")[[1]]))
+  }),
+  Entity_Count = sapply(all_entities, function(x) if (is.null(x)) 0 else nrow(x)),
+  Relationship_Count = sapply(all_relationships, function(x) if (is.null(x)) 0 else nrow(x)),
+  stringsAsFactors = FALSE
+)
+
+print("Articles Summary:")
+print(articles_summary)
+```
+
+## Entities per Article
+
+```{r entities-per-article-plot, fig.width=10, fig.height=6}
+# Entities per Article Plot
+p6 <- ggplot(articles_summary, aes(x = reorder(Article, Entity_Count), y = Entity_Count)) +
+  geom_col(fill = "orange", alpha = 0.7) +
+  coord_flip() +
+  labs(
+    title = "Entity Count by Article",
+    x = "Article",
+    y = "Number of Entities",
+    subtitle = "Named entities extracted per Wikipedia article"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.background = element_rect(fill = "white", color = NA),
+    panel.background = element_rect(fill = "white", color = NA)
+  )
+
+print(p6)
+```
+
+## Results Summary
+
+```{r results-summary}
+cat("\n=== NAMED ENTITY RELATIONSHIP MAPPING RESULTS ===\n")
+cat(paste("Total articles processed:", length(processed_articles), "\n"))
+cat(paste("Total entities extracted:", nrow(combined_entities), "\n"))
+cat(paste("Total relationships found:", nrow(combined_relationships), "\n"))
+
+cat("\nEntity Type Distribution:\n")
+print(entity_type_dist)
+
+cat("\nTop 10 Most Frequent Entities:\n")
+print(head(top_entities, 10))
+
+cat("\nRelationship Type Distribution:\n")
+print(relationship_dist)
+
+cat("\nArticles Summary:\n")
+print(articles_summary)
+
+cat("\n=== ANALYSIS COMPLETE ===\n")
+```
+
+## Key Findings
+
+1. **Entity Extraction**: Successfully extracted named entities from Wikipedia articles using UDPipe
+2. **Entity Types**: Identified people, organizations, locations, and other entities
+3. **Relationships**: Mapped entity relationships using dependency parsing
+4. **Network Analysis**: Visualized entity relationships as network graphs
+5. **Frequency Analysis**: Analyzed most frequent entities and relationship types
+
+## Applications
+
+- **Information Extraction**: Automatically extract structured information from unstructured text
+- **Knowledge Graph Construction**: Build knowledge graphs from text data
+- **Question Answering**: Support question answering systems
+- **Text Mining**: Enhance text mining and NLP applications
+- **Research**: Support academic and research applications
+
+## Conclusion
+
+This project demonstrates the power of R for Named Entity Recognition and relationship mapping. The combination of UDPipe for NER and dependency parsing provides a robust framework for extracting structured information from unstructured text data.
