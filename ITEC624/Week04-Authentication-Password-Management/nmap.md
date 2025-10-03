@@ -63,3 +63,88 @@ nmap -sn 192.168.0.0/24           # host discovery only (ping sweep)
 - Coordinate with network owners; heavy scans can trigger alerts.
 
 
+
+---
+
+### Comprehensive list of commands and usage
+
+Here’s a comprehensive list of nmap-related commands with concise explanations of their structure, options, and purposes. This augments the quick guide above and adds additional examples and output options.
+
+### Nmap commands and examples
+
+1. man nmap
+   - Description: Opens the manual for nmap, detailing all usage, options, and documentation.
+   - Options Used: None (manual open).
+
+2. nmap 192.168.56.101
+   - Description: Basic scan of a target IP, discovering open ports and services.
+   - Options Used: None (default scan).
+
+3. nmap -sP 192.168.56.0/24
+   - Description: Ping scan to identify which hosts are up in a subnet.
+   - Options Used:
+     - -sP (ping scan): Deprecated; use -sn in recent nmap versions.
+     - 192.168.56.0/24 (subnet notation): Scans all IPs in that subnet.
+
+4. nmap 192.168.56.101 -sV
+   - Description: Service version detection on a specific IP.
+   - Options Used:
+     - -sV: Attempts to determine service/version info on open ports.
+
+5. nmap 192.168.56.101 -oN scan1
+   - Description: Performs a scan and outputs results to scan1 in normal text format.
+   - Options Used:
+     - -oN scan1: Normal output to file scan1.
+
+6. cat scan1
+   - Description: Displays the scan output file created above (shell command; not an nmap flag).
+
+### Additional nmap commands table
+
+| Command                                   | Description                                                         | Options Used                        |
+|-------------------------------------------|---------------------------------------------------------------------|-------------------------------------|
+| nmap 192.168.237.129 -F                   | Scan 100 most common ports (Fast)                                   | -F                                  |
+| nmap 192.168.237.129 -p-                  | Scan all 65535 ports                                                | -p-                                 |
+| nmap 192.168.237.129 -p 1-100             | Scan ports 1 to 100                                                 | -p 1-100                            |
+| nmap 192.168.237.129 -p 1-100,101-500     | Scan two port ranges: 1–100 and 101–500                             | -p 1-100,101-500                    |
+| nmap 192.168.237.0/24 -sP                 | Ping scan of the network (use -sn instead in newer versions)        | -sP                                 |
+| nmap 192.168.237.0/24                     | Scan a subnet                                                       | (CIDR, no extra options)            |
+| nmap 192.168.237.129 -sS                  | SYN scan                                                            | -sS                                 |
+| nmap 192.168.237.129 -sT                  | TCP connect scan                                                    | -sT                                 |
+| nmap 192.168.237.129 -sV                  | Service version detection                                           | -sV                                 |
+| nmap 192.168.237.129 -O                   | OS detection                                                        | -O                                  |
+| nmap 192.168.237.129 -A                   | Aggressive mode (OS, version, script scan, traceroute)              | -A                                  |
+
+#### Output options
+- -oN [file]: Normal output format
+- -oG [file]: Greppable format
+- -oX [file]: XML format
+- -oA [basename]: Output all formats at once
+
+---
+
+## Other ways to use nmap
+
+- Basic host discovery: Find live hosts (nmap -sn [subnet])
+- Scan custom port ranges: Only scan ports you care about (-p 80,443,8080)
+- Detect OS and hardware: (-O)
+- Save scan results: Output to file as needed (-oN, -oX, -oG, -oA)
+- Evade firewalls: Use timing options or spoofing (-f, -D, -S)
+- Run safe default scripts: (-sC)
+- Scan IPv6: (nmap -6 [ipv6_target])
+- Scan with custom timing: (-T4, -T5; faster, but may miss details)
+
+## Advanced nmap techniques
+
+- Script scanning & automation: Use the nmap scripting engine for vulnerability scans (-sC for default scripts, --script <scriptname> for specific ones)
+  - Example: nmap --script=vuln [target]
+- Decoy scanning: Hide your scan source (-D [decoy1,decoy2])
+- Fragmentation: Evade some firewalls (-f)
+- Spoof source IP: (-S [ip])
+- Idle scan: Fully stealthy scanning using a zombie host (-sI [zombie_ip])
+- Aggressive detection: (-A for OS, version, scripts, traceroute)
+- Custom scan timing: (-T0 to -T5)
+- UDP scan: (-sU)
+- Scan IPv6 targets: (-6)
+- Output for integration: Use XML or grep format (-oX, -oG) for scripting and automation integration
+
