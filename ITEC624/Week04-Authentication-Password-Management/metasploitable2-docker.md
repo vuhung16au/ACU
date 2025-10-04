@@ -30,6 +30,6 @@ ifconfig
 **Educational Notes:**  
 - Metasploitable2 is a purposely vulnerable Linux VM for practicing exploitation and enumeration.
 - Running it in Docker is safe: containers are isolated and can be reset quickly.
-- Always use Metasploitable2 in a controlled, non-production environment.[1][2][3]
+- Always use Metasploitable2 in a controlled, non-production environment.
 
 *This setup will get you started within minutes, ideal for beginners and anyone looking to hone their ethical hacking skills.*
