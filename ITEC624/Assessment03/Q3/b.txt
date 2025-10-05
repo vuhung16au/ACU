@@ -1,0 +1,28 @@
+PDF Password Cracking Results
+=============================
+
+Password: dddddd
+
+Cracking Process:
+================
+Used pdfcrack with optimized brute force attack for 6-digit numeric passwords.
+Command: /opt/homebrew/bin/pdfcrack -f Act2.pdf -n 6 -m 6 -c 0123456789
+
+Output:
+=======
+PDF version 1.6
+Security Handler: Standard
+V: 2
+R: 3
+P: -1060
+Length: 128
+Encrypted Metadata: True
+FileID: 72a5b7d8f2bb0d40afe9ef3ef673f414
+U: db4c21fd12e7105f39f333b8f33204ef00000000000000000000000000000000
+O: 9043fdaf4dd2f6b6a29b71b37bba20370461312b0acfb4f2e2da3a31f9c3d9ad
+found user-password: 'dddddd'
+
+Secret Message:
+==============
+Congratulations!!!
+   You got it!!
