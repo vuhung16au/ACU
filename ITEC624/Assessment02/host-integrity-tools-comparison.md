@@ -28,3 +28,4 @@ Tripwire, FCheck, sXid, and AIDE are all host-based security tools designed to m
 - https://www.tripwire.com
 - https://www.redhat.com/en/blog/security-monitoring-tripwire
 - https://github.com/aide/aide
+- https://www.dnsstuff.com/tripwire-alternatives
