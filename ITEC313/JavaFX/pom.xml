@@ -87,6 +87,7 @@
         <module>07-11-Hangman-Game</module>
         <module>07-12-Postfix-Notation</module>
         <module>07-13-Flat-Precedence-Calculator</module>
+        <module>40-01-FXGL-RainDrop</module>
     </modules>
 
     <build>
