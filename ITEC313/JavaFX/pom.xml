@@ -88,6 +88,7 @@
         <module>07-12-Postfix-Notation</module>
         <module>07-13-Flat-Precedence-Calculator</module>
         <module>40-01-FXGL-RainDrop</module>
+        <module>40-02-FXGL-FlappyBird</module>
     </modules>
 
     <build>
