@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.acu.fxgl</groupId>
+    <artifactId>FlappyBirdClone</artifactId>
+    <version>1.0</version>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>25</maven.compiler.source>
+        <maven.compiler.target>25</maven.compiler.target>
+        <javafx.version>25</javafx.version>
+        <java.version>25</java.version>
+
+        <!-- plugins -->
+        <maven.compiler.version>3.13.0</maven.compiler.version>
+        <maven.shade.version>3.5.1</maven.shade.version>
+        <jfx.maven.plugin.version>0.0.8</jfx.maven.plugin.version>
+        <fxgl.version>21</fxgl.version>
+        <mainClassName>com.acu.fxgl.flappy.FlappyBirdApp</mainClassName>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.github.almasb</groupId>
+            <artifactId>fxgl</artifactId>
+            <version>${fxgl.version}</version>
+        </dependency>
+        
+        <!-- JavaFX dependencies for Java 25 -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-media</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+    </dependencies>
+
+    <repositories>
+        <repository>
+            <id>oss.sonatype.org-snapshot</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </repository>
+    </repositories>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.version}</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>${jfx.maven.plugin.version}</version>
+                <configuration>
+                    <stripDebug>true</stripDebug>
+                    <compress>2</compress>
+                    <noHeaderFiles>true</noHeaderFiles>
+                    <noManPages>true</noManPages>
+                    <launcher>Start-game</launcher>
+                    <jlinkImageName>game</jlinkImageName>
+                    <jlinkZipName>flappybirds-game</jlinkZipName>
+                    <mainClass>${mainClassName}</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <!-- Profile for Java 21 -->
+        <profile>
+            <id>java21</id>
+            <activation>
+                <property>
+                    <name>java.version</name>
+                    <value>21</value>
+                </property>
+            </activation>
+            <properties>
+                <maven.compiler.source>21</maven.compiler.source>
+                <maven.compiler.target>21</maven.compiler.target>
+                <javafx.version>21</javafx.version>
+            </properties>
+        </profile>
+        
+        <!-- Profile for Java 25 (default) -->
+        <profile>
+            <id>java25</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <maven.compiler.source>25</maven.compiler.source>
+                <maven.compiler.target>25</maven.compiler.target>
+                <javafx.version>25</javafx.version>
+            </properties>
+        </profile>
+    </profiles>
+
+</project>
