@@ -79,6 +79,17 @@ Recommended combinations:
 - Get help from (GPTs) and peers, instructors.
 - Complete the assessments on time.
 
+# Security News 
+
+- [The Hacker News](https://thehackernews.com/): Focuses on current global hacking trends, vulnerability disclosures, and exploit releases.
+- [Wired Security News](https://www.wired.com/category/security/): News, analysis, and advice on cybersecurity, privacy, hacking, and digital threats.
+- [Security Week](https://www.securityweek.com/): Provides news and insights on the latest cybersecurity threats and trends.
+
+# Security Podcasts
+
+- https://www.sans.org/blog/cybersecurity-podcast-roundup
+- https://nordlayer.com/blog/cybersecurity-podcasts-to-check-out/
+
 # Commmuication Tools
 
 - Discussion Forum (asynchronous)
