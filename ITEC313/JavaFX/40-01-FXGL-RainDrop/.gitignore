@@ -86,3 +86,9 @@ javafx-*
 
 # Ignore cursor AI rules
 .cursor/rules/codacy.mdc
+
+#Ignore vscode AI rules
+.github/instructions/codacy.instructions.md
+
+# Project specific
+Prompt.md

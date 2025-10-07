@@ -189,3 +189,10 @@ temp/
 
 # Project specific
 Prompt.md
+
+#Ignore vscode AI rules
+.github/instructions/codacy.instructions.md
+
+# Project specific
+Prompt.md
+logs/
