@@ -91,6 +91,7 @@
         <module>40-01-FXGL-RainDrop</module>
         <module>40-02-FXGL-FlappyBird</module>
         <module>40-03-FXGL-SlotMachine</module>
+        <module>10-06-HanoiTowerSolver</module>
     </modules>
 
     <build>
