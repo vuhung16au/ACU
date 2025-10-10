@@ -70,6 +70,7 @@
         <module>10-02-LinkedList</module>
         <module>10-03-Stack</module>
         <module>10-04-Queue</module>
+        <module>10-05-EvaluatingExpressions</module>
         <module>11-01-BinarySearchTrees</module>
         <module>11-02-HuffmanCode</module>
         <module>12-01-AVL-Trees</module>
