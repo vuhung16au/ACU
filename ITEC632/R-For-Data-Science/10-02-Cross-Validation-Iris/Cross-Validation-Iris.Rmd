@@ -1,0 +1,413 @@
+---
+title: "Cross-Validation in R: Iris Dataset Classification"
+author: "Data Science Course"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    theme: flatly
+    toc: true
+    toc_float: true
+    code_folding: show
+    fig_width: 10
+    fig_height: 6
+    df_print: paged
+  pdf_document:
+    toc: true
+    fig_width: 10
+    fig_height: 6
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  fig.width = 10,
+  fig.height = 6,
+  fig.align = "center"
+)
+```
+
+# Cross-Validation in R: Iris Dataset Classification
+
+This notebook demonstrates the implementation of cross-validation techniques in R for classification using the famous Iris dataset. We'll explore how to use cross-validation to compare different machine learning algorithms and select the best performing model.
+
+## Setup and Data Loading
+
+```{r load-libraries}
+# Load required libraries
+library(caret)
+library(e1071)
+library(randomForest)
+library(class)
+library(ggplot2)
+library(dplyr)
+library(gridExtra)
+library(knitr)
+# library(VIM)  # Not needed for this analysis
+
+# Set theme for consistent plotting
+theme_set(theme_minimal() + theme(plot.background = element_rect(fill = "white", color = NA)))
+```
+
+```{r load-data}
+# Load the iris dataset
+cat("Loading iris dataset...\n")
+data(iris)
+
+# Display basic information about the dataset
+cat("Dataset Information:\n")
+cat("Dataset dimensions:", dim(iris), "\n")
+cat("Column names:", colnames(iris), "\n")
+cat("Species distribution:\n")
+print(table(iris$Species))
+```
+
+```{r data-overview}
+# Display first few rows
+cat("First 6 rows of the dataset:\n")
+print(head(iris))
+
+# Basic statistics
+cat("Dataset summary:\n")
+print(summary(iris))
+```
+
+## Data Visualization
+
+```{r sepal-plot, fig.width=8, fig.height=6}
+# Sepal measurements scatter plot
+p1 <- ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
+  geom_point(size = 2, alpha = 0.7) +
+  labs(title = "Sepal Length vs Sepal Width by Species",
+       x = "Sepal Length (cm)",
+       y = "Sepal Width (cm)") +
+  theme_minimal() +
+  theme(plot.background = element_rect(fill = "white", color = NA))
+
+print(p1)
+```
+
+```{r petal-plot, fig.width=8, fig.height=6}
+# Petal measurements scatter plot
+p2 <- ggplot(iris, aes(x = Petal.Length, y = Petal.Width, color = Species)) +
+  geom_point(size = 2, alpha = 0.7) +
+  labs(title = "Petal Length vs Petal Width by Species",
+       x = "Petal Length (cm)",
+       y = "Petal Width (cm)") +
+  theme_minimal() +
+  theme(plot.background = element_rect(fill = "white", color = NA))
+
+print(p2)
+```
+
+```{r boxplots, fig.width=12, fig.height=6}
+# Box plots for feature distributions
+p3 <- ggplot(iris, aes(x = Species, y = Sepal.Length, fill = Species)) +
+  geom_boxplot(alpha = 0.7) +
+  labs(title = "Sepal Length Distribution by Species",
+       x = "Species",
+       y = "Sepal Length (cm)") +
+  theme_minimal() +
+  theme(plot.background = element_rect(fill = "white", color = NA))
+
+p4 <- ggplot(iris, aes(x = Species, y = Petal.Length, fill = Species)) +
+  geom_boxplot(alpha = 0.7) +
+  labs(title = "Petal Length Distribution by Species",
+       x = "Species",
+       y = "Petal Length (cm)") +
+  theme_minimal() +
+  theme(plot.background = element_rect(fill = "white", color = NA))
+
+# Combine plots
+grid.arrange(p3, p4, ncol = 2)
+```
+
+## Cross-Validation Setup
+
+```{r cv-setup}
+# Define cross-validation control
+cv_control <- trainControl(
+  method = "cv",           # k-fold cross-validation
+  number = 10,             # 10-fold CV
+  classProbs = TRUE,       # Enable class probabilities
+  summaryFunction = defaultSummary  # Default summary function
+)
+
+# Prepare data for modeling
+X <- iris[, 1:4]  # Features
+y <- iris$Species  # Target variable
+
+cat("Cross-validation setup:\n")
+cat("- Method: 10-fold cross-validation\n")
+cat("- Features:", ncol(X), "\n")
+cat("- Samples:", nrow(X), "\n")
+cat("- Classes:", length(unique(y)), "\n")
+```
+
+## Model Training with Cross-Validation
+
+```{r knn-model}
+# 1. k-Nearest Neighbors (k-NN)
+cat("Training k-NN model with cross-validation...\n")
+knn_model <- train(
+  x = X,
+  y = y,
+  method = "knn",
+  trControl = cv_control,
+  tuneGrid = expand.grid(k = c(1, 3, 5, 7, 9, 11, 13, 15))
+)
+
+print(knn_model)
+```
+
+```{r svm-model}
+# 2. Support Vector Machine (SVM)
+cat("Training SVM model with cross-validation...\n")
+svm_model <- train(
+  x = X,
+  y = y,
+  method = "svmRadial",
+  trControl = cv_control,
+  tuneGrid = expand.grid(
+    C = c(0.1, 1, 10, 100),
+    sigma = c(0.1, 1, 10)
+  )
+)
+
+print(svm_model)
+```
+
+```{r rf-model}
+# 3. Random Forest
+cat("Training Random Forest model with cross-validation...\n")
+rf_model <- train(
+  x = X,
+  y = y,
+  method = "rf",
+  trControl = cv_control,
+  tuneGrid = expand.grid(mtry = c(1, 2, 3, 4))
+)
+
+print(rf_model)
+```
+
+```{r nb-model}
+# 4. Naive Bayes
+cat("Training Naive Bayes model with cross-validation...\n")
+nb_model <- train(
+  x = X,
+  y = y,
+  method = "nb",
+  trControl = cv_control
+)
+
+print(nb_model)
+```
+
+```{r lda-model}
+# 5. Linear Discriminant Analysis (LDA)
+cat("Training LDA model with cross-validation...\n")
+lda_model <- train(
+  x = X,
+  y = y,
+  method = "lda",
+  trControl = cv_control
+)
+
+print(lda_model)
+```
+
+## Model Comparison
+
+```{r model-comparison}
+# Compare model performance
+cat("Comparing model performance...\n")
+results <- resamples(list(
+  kNN = knn_model,
+  SVM = svm_model,
+  RandomForest = rf_model,
+  NaiveBayes = nb_model,
+  LDA = lda_model
+))
+
+# Display results summary
+cat("Cross-validation results summary:\n")
+print(summary(results))
+```
+
+```{r performance-plot, fig.width=10, fig.height=6}
+# Create performance comparison plot
+# Extract accuracy values for plotting
+accuracy_data <- data.frame(
+  Model = rep(c("kNN", "SVM", "RandomForest", "NaiveBayes", "LDA"), each = 10),
+  Accuracy = c(
+    knn_model$resample$Accuracy,
+    svm_model$resample$Accuracy,
+    rf_model$resample$Accuracy,
+    nb_model$resample$Accuracy,
+    lda_model$resample$Accuracy
+  )
+)
+
+p5 <- ggplot(accuracy_data, aes(x = Model, y = Accuracy, fill = Model)) +
+  geom_boxplot(alpha = 0.7) +
+  labs(title = "Model Performance Comparison (10-Fold CV)",
+       x = "Model",
+       y = "Accuracy") +
+  theme_minimal() +
+  theme(plot.background = element_rect(fill = "white", color = NA),
+        axis.text.x = element_text(angle = 45, hjust = 1))
+
+print(p5)
+```
+
+## Best Model Selection
+
+```{r best-model}
+# Best model selection
+best_accuracy <- max(accuracy_data$Accuracy)
+best_model_name <- accuracy_data$Model[which.max(accuracy_data$Accuracy)]
+cat("Best performing model:", best_model_name, "\n")
+cat("Best accuracy:", best_accuracy, "\n")
+```
+
+## Feature Importance Analysis
+
+```{r feature-importance}
+# Feature importance analysis (using Random Forest)
+cat("Feature importance analysis:\n")
+importance_scores <- varImp(rf_model)
+print(importance_scores)
+```
+
+```{r feature-importance-plot, fig.width=8, fig.height=6}
+# Create feature importance plot
+importance_df <- data.frame(
+  feature = rownames(importance_scores$importance),
+  importance = importance_scores$importance$Overall
+) %>%
+  arrange(desc(importance))
+
+p6 <- ggplot(importance_df, aes(x = reorder(feature, importance), y = importance)) +
+  geom_col(fill = "steelblue", alpha = 0.7) +
+  coord_flip() +
+  labs(title = "Feature Importance (Random Forest)",
+       x = "Features",
+       y = "Importance Score") +
+  theme_minimal() +
+  theme(plot.background = element_rect(fill = "white", color = NA))
+
+print(p6)
+```
+
+## Confusion Matrix Analysis
+
+```{r confusion-matrix}
+# Confusion matrix for best model
+cat("Creating confusion matrix for best model...\n")
+if (best_model_name == "kNN") {
+  final_model <- knn_model
+} else if (best_model_name == "SVM") {
+  final_model <- svm_model
+} else if (best_model_name == "RandomForest") {
+  final_model <- rf_model
+} else if (best_model_name == "NaiveBayes") {
+  final_model <- nb_model
+} else {
+  final_model <- lda_model
+}
+
+# Make predictions on the full dataset
+predictions <- predict(final_model, X)
+confusion_matrix <- confusionMatrix(predictions, y)
+print(confusion_matrix)
+```
+
+```{r confusion-matrix-plot, fig.width=8, fig.height=6}
+# Create confusion matrix visualization
+cm_data <- as.data.frame(confusion_matrix$table)
+p7 <- ggplot(cm_data, aes(x = Reference, y = Prediction, fill = Freq)) +
+  geom_tile() +
+  geom_text(aes(label = Freq), color = "white", size = 4) +
+  scale_fill_gradient(low = "lightblue", high = "darkblue") +
+  labs(title = paste("Confusion Matrix -", best_model_name),
+       x = "Actual",
+       y = "Predicted") +
+  theme_minimal() +
+  theme(plot.background = element_rect(fill = "white", color = NA))
+
+print(p7)
+```
+
+## Cross-Validation Performance by Fold
+
+```{r cv-by-fold, fig.width=10, fig.height=6}
+# Cross-validation results by fold
+cv_results <- data.frame(
+  Model = rep(c("kNN", "SVM", "RandomForest", "NaiveBayes", "LDA"), each = 10),
+  Fold = rep(1:10, 5),
+  Accuracy = c(
+    knn_model$resample$Accuracy,
+    svm_model$resample$Accuracy,
+    rf_model$resample$Accuracy,
+    nb_model$resample$Accuracy,
+    lda_model$resample$Accuracy
+  )
+)
+
+p8 <- ggplot(cv_results, aes(x = Fold, y = Accuracy, color = Model)) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 2) +
+  labs(title = "Cross-Validation Performance by Fold",
+       x = "Fold",
+       y = "Accuracy") +
+  theme_minimal() +
+  theme(plot.background = element_rect(fill = "white", color = NA))
+
+print(p8)
+```
+
+## Summary and Results
+
+```{r summary}
+# Summary statistics
+cat("\n=== Cross-Validation Summary ===\n")
+cat("Dataset: Iris (150 samples, 4 features, 3 classes)\n")
+cat("Cross-validation: 10-fold CV\n")
+cat("Best model:", best_model_name, "\n")
+cat("Best accuracy:", round(max(results$values$Accuracy), 4), "\n")
+cat("Models tested: k-NN, SVM, Random Forest, Naive Bayes, LDA\n")
+
+# Save results to CSV
+results_summary <- data.frame(
+  Model = c("kNN", "SVM", "RandomForest", "NaiveBayes", "LDA"),
+  Mean_Accuracy = c(
+    mean(knn_model$resample$Accuracy),
+    mean(svm_model$resample$Accuracy),
+    mean(rf_model$resample$Accuracy),
+    mean(nb_model$resample$Accuracy),
+    mean(lda_model$resample$Accuracy)
+  ),
+  SD_Accuracy = c(
+    sd(knn_model$resample$Accuracy),
+    sd(svm_model$resample$Accuracy),
+    sd(rf_model$resample$Accuracy),
+    sd(nb_model$resample$Accuracy),
+    sd(lda_model$resample$Accuracy)
+  )
+)
+
+kable(results_summary, caption = "Cross-Validation Results Summary")
+```
+
+## Conclusion
+
+This analysis demonstrates the power of cross-validation in selecting optimal machine learning models for classification tasks. The key findings include:
+
+1. **Cross-validation provides robust model evaluation** by testing models on multiple data splits
+2. **Different algorithms perform differently** on the same dataset, highlighting the importance of model comparison
+3. **Feature importance analysis** reveals which measurements are most predictive of iris species
+4. **The process is systematic and reproducible** using R's caret package
+
+The cross-validation approach ensures that our model selection is robust and generalizes well to unseen data, which is crucial for real-world machine learning applications.
