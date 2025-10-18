@@ -1,0 +1,297 @@
+---
+title: "Stock Time Series Analysis and Visualization in R"
+author: "Data Science Project"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    theme: flatly
+    highlight: tango
+    toc: true
+    toc_float: true
+    code_folding: show
+  pdf_document:
+    toc: true
+    number_sections: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  fig.width = 12,
+  fig.height = 6,
+  fig.align = "center",
+  out.width = "100%"
+)
+
+# Load required libraries
+library(ggplot2)
+library(dplyr)
+library(lubridate)
+library(tseries)
+library(zoo)
+library(gridExtra)
+library(knitr)
+
+# Set theme for white background plots
+theme_set(theme_minimal() + 
+          theme(panel.background = element_rect(fill = "white", color = NA),
+                plot.background = element_rect(fill = "white", color = NA),
+                panel.grid.major = element_line(color = "gray90"),
+                panel.grid.minor = element_line(color = "gray95")))
+```
+
+# Stock Time Series Analysis and Visualization in R
+
+This document demonstrates comprehensive time series analysis and visualization techniques using R, focusing on stock market data. The analysis includes trend analysis, stationarity testing, autocorrelation analysis, and various visualization techniques commonly used in financial time series analysis.
+
+## Dataset Overview
+
+The dataset contains historical stock price data for AABA (Altaba Inc.) from 2006-2016, including daily stock market information with various price metrics and trading volume.
+
+```{r load-data}
+# Load stock data
+df <- read.csv("Stock-Dataset/stock_data.csv", stringsAsFactors = FALSE)
+
+# Remove the unnamed first column if it exists
+if (names(df)[1] == "X" || names(df)[1] == "") {
+  df <- df[, -1]
+}
+
+# Convert Date column to proper date format
+df$Date <- as.Date(df$Date, format = "%m/%d/%Y")
+
+# Display first few rows
+kable(head(df, 10), caption = "First 10 rows of the stock dataset")
+```
+
+```{r data-summary}
+# Basic data summary
+cat("Dataset Summary:\n")
+cat("Period:", min(df$Date), "to", max(df$Date), "\n")
+cat("Total observations:", nrow(df), "\n")
+cat("Columns:", paste(names(df), collapse = ", "), "\n\n")
+
+# Summary statistics
+kable(summary(df), caption = "Summary Statistics")
+```
+
+## Time Series Visualization
+
+### High Price Over Time
+
+```{r high-price-plot}
+# Time series plot for High price
+p1 <- ggplot(df, aes(x = Date, y = High)) +
+  geom_line(color = "blue", linewidth = 0.8) +
+  labs(title = "Share Highest Price Over Time",
+       x = "Date",
+       y = "High Price") +
+  theme_minimal() +
+  theme(panel.background = element_rect(fill = "white", color = NA),
+        plot.background = element_rect(fill = "white", color = NA))
+
+print(p1)
+```
+
+### Monthly Resampling
+
+```{r monthly-resampling}
+# Create monthly aggregated data
+df_monthly <- df %>%
+  mutate(YearMonth = floor_date(Date, "month")) %>%
+  group_by(YearMonth) %>%
+  summarise(High = mean(High, na.rm = TRUE),
+            Open = mean(Open, na.rm = TRUE),
+            Low = mean(Low, na.rm = TRUE),
+            Close = mean(Close, na.rm = TRUE),
+            Volume = mean(Volume, na.rm = TRUE),
+            .groups = 'drop')
+
+p2 <- ggplot(df_monthly, aes(x = YearMonth, y = High)) +
+  geom_line(color = "blue", linewidth = 0.8) +
+  labs(title = "Monthly Resampling Highest Price Over Time",
+       x = "Date (Monthly)",
+       y = "High Price") +
+  theme_minimal() +
+  theme(panel.background = element_rect(fill = "white", color = NA),
+        plot.background = element_rect(fill = "white", color = NA))
+
+print(p2)
+```
+
+### Multiple Price Metrics
+
+```{r multiple-metrics}
+# Reshape data for multiple metrics
+df_long <- df %>%
+  select(Date, Open, High, Low, Close) %>%
+  tidyr::pivot_longer(cols = c(Open, High, Low, Close), 
+                      names_to = "Price_Type", 
+                      values_to = "Price")
+
+p3 <- ggplot(df_long, aes(x = Date, y = Price, color = Price_Type)) +
+  geom_line(linewidth = 0.8) +
+  labs(title = "Stock Price Metrics Over Time",
+       x = "Date",
+       y = "Price",
+       color = "Price Type") +
+  theme_minimal() +
+  theme(panel.background = element_rect(fill = "white", color = NA),
+        plot.background = element_rect(fill = "white", color = NA),
+        legend.position = "bottom")
+
+print(p3)
+```
+
+## Statistical Analysis
+
+### Autocorrelation Function (ACF) Analysis
+
+```{r acf-analysis}
+# Create time series object for Volume
+volume_ts <- ts(df$Volume, start = c(2006, 1), frequency = 252)  # 252 trading days per year
+
+# ACF plot
+acf_result <- acf(volume_ts, lag.max = 40, plot = TRUE, 
+                  main = "Autocorrelation Function (ACF) Plot for Volume")
+```
+
+### Stationarity Testing
+
+```{r stationarity-test}
+# Augmented Dickey-Fuller Test for High price
+adf_result_high <- adf.test(df$High)
+
+cat("ADF Test Results for High Price:\n")
+cat("ADF Statistic:", round(adf_result_high$statistic, 4), "\n")
+cat("p-value:", round(adf_result_high$p.value, 6), "\n")
+cat("Critical Values:\n")
+if (!is.null(adf_result_high$critical)) {
+  print(round(adf_result_high$critical, 4))
+} else {
+  cat("Critical values not available\n")
+}
+
+# Interpretation
+if (adf_result_high$p.value < 0.05) {
+  cat("\n✓ The series is stationary (p < 0.05)\n")
+} else {
+  cat("\n✗ The series is not stationary (p >= 0.05)\n")
+}
+```
+
+### Differencing to Achieve Stationarity
+
+```{r differencing}
+# Create differenced series
+df$high_diff <- c(NA, diff(df$High))
+
+# Plot original vs differenced series
+p4 <- ggplot(df, aes(x = Date)) +
+  geom_line(aes(y = High, color = "Original High"), linewidth = 0.8) +
+  geom_line(aes(y = high_diff, color = "Differenced High"), linetype = "dashed", linewidth = 0.8) +
+  scale_color_manual(values = c("Original High" = "blue", "Differenced High" = "green")) +
+  labs(title = "Original vs Differenced High Price",
+       x = "Date",
+       y = "Price",
+       color = "Series") +
+  theme_minimal() +
+  theme(panel.background = element_rect(fill = "white", color = NA),
+        plot.background = element_rect(fill = "white", color = NA),
+        legend.position = "bottom")
+
+print(p4)
+
+# ADF test on differenced series
+high_diff_clean <- df$high_diff[!is.na(df$high_diff)]
+adf_result_diff <- adf.test(high_diff_clean)
+
+cat("\nADF Test Results for Differenced High Price:\n")
+cat("ADF Statistic:", round(adf_result_diff$statistic, 4), "\n")
+cat("p-value:", round(adf_result_diff$p.value, 6), "\n")
+
+if (adf_result_diff$p.value < 0.05) {
+  cat("✓ Differenced series is stationary (p < 0.05)\n")
+} else {
+  cat("✗ Differenced series may not be stationary (p >= 0.05)\n")
+}
+```
+
+## Advanced Time Series Techniques
+
+### Moving Average Smoothing
+
+```{r moving-average}
+# Calculate moving average
+window_size <- 120
+df$high_smoothed <- rollmean(df$High, k = window_size, fill = NA, align = "right")
+
+p5 <- ggplot(df, aes(x = Date)) +
+  geom_line(aes(y = High, color = "Original High"), linewidth = 0.8) +
+  geom_line(aes(y = high_smoothed, color = "Moving Average"), 
+            linetype = "dashed", linewidth = 0.8) +
+  scale_color_manual(values = c("Original High" = "blue", 
+                               "Moving Average" = "orange")) +
+  labs(title = "Original vs Moving Average",
+       x = "Date",
+       y = "High Price",
+       color = "Series") +
+  theme_minimal() +
+  theme(panel.background = element_rect(fill = "white", color = NA),
+        plot.background = element_rect(fill = "white", color = NA),
+        legend.position = "bottom")
+
+print(p5)
+```
+
+### Volume Analysis
+
+```{r volume-analysis}
+# Volume over time
+p6 <- ggplot(df, aes(x = Date, y = Volume)) +
+  geom_line(color = "purple", linewidth = 0.8) +
+  labs(title = "Trading Volume Over Time",
+       x = "Date",
+       y = "Volume") +
+  theme_minimal() +
+  theme(panel.background = element_rect(fill = "white", color = NA),
+        plot.background = element_rect(fill = "white", color = NA))
+
+print(p6)
+
+# Volume statistics
+cat("Volume Statistics:\n")
+cat("Mean Volume:", round(mean(df$Volume, na.rm = TRUE), 0), "\n")
+cat("Median Volume:", round(median(df$Volume, na.rm = TRUE), 0), "\n")
+cat("Min Volume:", min(df$Volume, na.rm = TRUE), "\n")
+cat("Max Volume:", max(df$Volume, na.rm = TRUE), "\n")
+```
+
+## Summary and Conclusions
+
+```{r summary}
+# Final summary
+cat("Analysis Summary:\n")
+cat("================\n")
+cat("Dataset period:", min(df$Date), "to", max(df$Date), "\n")
+cat("Total observations:", nrow(df), "\n")
+cat("High price range: $", round(min(df$High, na.rm = TRUE), 2), " to $", round(max(df$High, na.rm = TRUE), 2), "\n")
+cat("Volume range:", min(df$Volume, na.rm = TRUE), " to ", max(df$Volume, na.rm = TRUE), "\n\n")
+
+cat("Stationarity Test Results:\n")
+cat("Original High Price - ADF Statistic:", round(adf_result_high$statistic, 4), 
+    ", p-value:", round(adf_result_high$p.value, 6), "\n")
+cat("Differenced High Price - ADF Statistic:", round(adf_result_diff$statistic, 4), 
+    ", p-value:", round(adf_result_diff$p.value, 6), "\n")
+
+cat("\nKey Findings:\n")
+cat("- The original high price series is not stationary\n")
+cat("- First differencing makes the series stationary\n")
+cat("- Moving averages help identify long-term trends\n")
+cat("- Volume shows significant variability over time\n")
+cat("- Multiple price metrics show similar patterns\n")
+```
+
+This analysis demonstrates various time series techniques including visualization, stationarity testing, differencing, and smoothing methods commonly used in financial data analysis.
