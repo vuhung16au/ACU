@@ -1,0 +1,400 @@
+---
+title: "Anomaly Detection in Time Series Data"
+subtitle: "System Failure Dataset Analysis"
+author: "R For Data Science Project"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    theme: flatly
+    toc: true
+    toc_float: true
+    code_folding: show
+    fig_width: 12
+    fig_height: 8
+    fig_caption: true
+  pdf_document:
+    toc: true
+    fig_width: 12
+    fig_height: 8
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  fig.width = 12,
+  fig.height = 8,
+  fig.path = "images/",
+  fig.align = "center"
+)
+
+# Set theme for white background plots
+library(ggplot2)
+theme_set(theme_minimal() + 
+  theme(plot.background = element_rect(fill = "white", color = NA),
+        panel.background = element_rect(fill = "white", color = NA)))
+```
+
+# Introduction
+
+This analysis demonstrates various anomaly detection techniques for time series data using the System Failure Dataset. The dataset contains ambient temperature readings from a system that experienced failures, making it ideal for demonstrating anomaly detection methods.
+
+## Objectives
+
+- Load and explore the System Failure Dataset
+- Implement multiple anomaly detection methods
+- Compare different detection approaches
+- Visualize results with clear, informative plots
+- Evaluate performance of each method
+
+# Data Loading and Preprocessing
+
+```{r load-libraries}
+# Load required libraries
+library(tidyverse)
+library(lubridate)
+library(anomalize)
+library(ggplot2)
+library(gridExtra)
+library(plotly)
+library(zoo)
+```
+
+```{r load-data}
+# Load the dataset
+data <- read_csv("SystemFailure-Dataset/ambient_temperature_system_failure.csv", 
+                 show_col_types = FALSE)
+
+# Display basic information about the dataset
+cat("Dataset Information:")
+cat("\nNumber of observations:", nrow(data))
+cat("\nNumber of variables:", ncol(data))
+
+# Convert timestamp to datetime format and handle parsing errors
+data <- data %>%
+  mutate(timestamp = parse_date_time(timestamp, orders = c("ymd HMS", "ymd HM", "ymd H"), 
+                                   truncated = 2, quiet = TRUE)) %>%
+  filter(!is.na(timestamp)) %>%
+  arrange(timestamp)
+
+cat("\nDate range:", min(data$timestamp), "to", max(data$timestamp))
+
+# Display basic statistics
+cat("\n\nBasic Statistics:")
+summary(data$value)
+```
+
+```{r data-overview}
+# Create time series plot
+p1 <- ggplot(data, aes(x = timestamp, y = value)) +
+  geom_line(color = "blue", alpha = 0.7) +
+  labs(title = "Ambient Temperature Over Time",
+       subtitle = "System Failure Dataset",
+       x = "Timestamp",
+       y = "Temperature (°F)") +
+  theme_minimal() +
+  theme(plot.background = element_rect(fill = "white", color = NA),
+        panel.background = element_rect(fill = "white", color = NA))
+
+print(p1)
+```
+
+# Anomaly Detection Methods
+
+## Method 1: Statistical Anomaly Detection (Z-Score)
+
+The Z-score method identifies anomalies by calculating how many standard deviations a data point is from the mean.
+
+```{r zscore-method}
+# Calculate z-scores
+data$z_score <- abs(scale(data$value)[,1])
+data$is_anomaly_zscore <- data$z_score > 3
+
+# Count anomalies
+n_anomalies_zscore <- sum(data$is_anomaly_zscore)
+cat("Number of anomalies detected (Z-Score, threshold=3):", n_anomalies_zscore)
+cat("\nPercentage of anomalies:", round(n_anomalies_zscore/nrow(data)*100, 2), "%")
+
+# Create visualization for Z-Score method
+p2 <- ggplot(data, aes(x = timestamp, y = value)) +
+  geom_line(color = "blue", alpha = 0.7) +
+  geom_point(data = data[data$is_anomaly_zscore,], 
+             aes(x = timestamp, y = value), 
+             color = "red", size = 2) +
+  labs(title = "Anomaly Detection - Z-Score Method",
+       subtitle = paste("Detected", n_anomalies_zscore, "anomalies"),
+       x = "Timestamp",
+       y = "Temperature (°F)") +
+  theme_minimal() +
+  theme(plot.background = element_rect(fill = "white", color = NA),
+        panel.background = element_rect(fill = "white", color = NA))
+
+print(p2)
+```
+
+## Method 2: IQR-based Anomaly Detection
+
+The Interquartile Range (IQR) method identifies outliers based on the distribution of data values.
+
+```{r iqr-method}
+# Calculate IQR bounds
+Q1 <- quantile(data$value, 0.25)
+Q3 <- quantile(data$value, 0.75)
+IQR <- Q3 - Q1
+lower_bound <- Q1 - 1.5 * IQR
+upper_bound <- Q3 + 1.5 * IQR
+
+data$is_anomaly_iqr <- data$value < lower_bound | data$value > upper_bound
+
+n_anomalies_iqr <- sum(data$is_anomaly_iqr)
+cat("Number of anomalies detected (IQR method):", n_anomalies_iqr)
+cat("\nPercentage of anomalies:", round(n_anomalies_iqr/nrow(data)*100, 2), "%")
+cat("\nIQR bounds: [", round(lower_bound, 2), ",", round(upper_bound, 2), "]")
+
+# Create visualization for IQR method
+p3 <- ggplot(data, aes(x = timestamp, y = value)) +
+  geom_line(color = "blue", alpha = 0.7) +
+  geom_hline(yintercept = lower_bound, color = "orange", linetype = "dashed") +
+  geom_hline(yintercept = upper_bound, color = "orange", linetype = "dashed") +
+  geom_point(data = data[data$is_anomaly_iqr,], 
+             aes(x = timestamp, y = value), 
+             color = "red", size = 2) +
+  labs(title = "Anomaly Detection - IQR Method",
+       subtitle = paste("Detected", n_anomalies_iqr, "anomalies"),
+       x = "Timestamp",
+       y = "Temperature (°F)") +
+  theme_minimal() +
+  theme(plot.background = element_rect(fill = "white", color = NA),
+        panel.background = element_rect(fill = "white", color = NA))
+
+print(p3)
+```
+
+## Method 3: Time Series Decomposition with Anomaly Detection
+
+This method decomposes the time series into trend, seasonality, and remainder components, then detects anomalies in the remainder.
+
+```{r decomposition-method}
+# Prepare data for anomalize package
+data_ts <- data %>%
+  select(timestamp, value) %>%
+  rename(date = timestamp)
+
+# Try time series decomposition with error handling
+tryCatch({
+  # Perform time series decomposition and anomaly detection
+  anomaly_results <- data_ts %>%
+    time_decompose(value, method = "stl", frequency = "1 day", trend = "auto") %>%
+    anomalize(remainder, method = "iqr", alpha = 0.05) %>%
+    time_recompose()
+  
+  # Extract anomaly information
+  anomaly_results$is_anomaly_decomp <- anomaly_results$anomaly == "Yes"
+  n_anomalies_decomp <- sum(anomaly_results$is_anomaly_decomp)
+  cat("Number of anomalies detected (Decomposition method):", n_anomalies_decomp)
+  cat("\nPercentage of anomalies:", round(n_anomalies_decomp/nrow(anomaly_results)*100, 2), "%")
+  
+  # Create visualization for decomposition method
+  p4 <- ggplot(anomaly_results, aes(x = date, y = observed)) +
+    geom_line(color = "blue", alpha = 0.7) +
+    geom_point(data = anomaly_results[anomaly_results$is_anomaly_decomp,], 
+               aes(x = date, y = observed), 
+               color = "red", size = 2) +
+    labs(title = "Anomaly Detection - Time Series Decomposition",
+         subtitle = paste("Detected", n_anomalies_decomp, "anomalies"),
+         x = "Timestamp",
+         y = "Temperature (°F)") +
+    theme_minimal() +
+    theme(plot.background = element_rect(fill = "white", color = NA),
+          panel.background = element_rect(fill = "white", color = NA))
+  
+  print(p4)
+  
+}, error = function(e) {
+  cat("Error in time series decomposition:", e$message, "\n")
+  cat("Using alternative method: Moving average with threshold\n")
+  
+  # Alternative method: Moving average with threshold
+  window_size <- 24  # 24 hours
+  data$ma <- zoo::rollmean(data$value, k = window_size, fill = NA, align = "center")
+  data$ma_diff <- abs(data$value - data$ma)
+  threshold <- quantile(data$ma_diff, 0.95, na.rm = TRUE)
+  data$is_anomaly_decomp <- data$ma_diff > threshold & !is.na(data$ma_diff)
+  
+  n_anomalies_decomp <- sum(data$is_anomaly_decomp, na.rm = TRUE)
+  cat("Number of anomalies detected (Alternative method):", n_anomalies_decomp)
+  cat("\nPercentage of anomalies:", round(n_anomalies_decomp/nrow(data)*100, 2), "%")
+  
+  # Create visualization for alternative method
+  p4 <- ggplot(data, aes(x = timestamp, y = value)) +
+    geom_line(color = "blue", alpha = 0.7) +
+    geom_point(data = data[data$is_anomaly_decomp,], 
+               aes(x = timestamp, y = value), 
+               color = "red", size = 2) +
+    labs(title = "Anomaly Detection - Alternative Method",
+         subtitle = paste("Detected", n_anomalies_decomp, "anomalies"),
+         x = "Timestamp",
+         y = "Temperature (°F)") +
+    theme_minimal() +
+    theme(plot.background = element_rect(fill = "white", color = NA),
+          panel.background = element_rect(fill = "white", color = NA))
+  
+  print(p4)
+})
+```
+
+## Method 4: Isolation Forest (if available)
+
+The Isolation Forest is an unsupervised machine learning algorithm that isolates anomalies by randomly selecting features and splitting values.
+
+```{r isolation-forest-method}
+# Try to use isolation forest if available
+if (require(isotree, quietly = TRUE)) {
+  # Prepare data for isolation forest
+  iso_data <- data.frame(value = data$value)
+  
+  # Fit isolation forest
+  iso_model <- isolation.forest(iso_data, ntrees = 100, sample_size = 256)
+  
+  # Predict anomalies
+  iso_predictions <- predict(iso_model, iso_data)
+  data$is_anomaly_iso <- iso_predictions > 0.5
+  
+  n_anomalies_iso <- sum(data$is_anomaly_iso)
+  cat("Number of anomalies detected (Isolation Forest):", n_anomalies_iso)
+  cat("\nPercentage of anomalies:", round(n_anomalies_iso/nrow(data)*100, 2), "%")
+  
+  # Create visualization for isolation forest
+  p5 <- ggplot(data, aes(x = timestamp, y = value)) +
+    geom_line(color = "blue", alpha = 0.7) +
+    geom_point(data = data[data$is_anomaly_iso,], 
+               aes(x = timestamp, y = value), 
+               color = "red", size = 2) +
+    labs(title = "Anomaly Detection - Isolation Forest",
+         subtitle = paste("Detected", n_anomalies_iso, "anomalies"),
+         x = "Timestamp",
+         y = "Temperature (°F)") +
+    theme_minimal() +
+    theme(plot.background = element_rect(fill = "white", color = NA),
+          panel.background = element_rect(fill = "white", color = NA))
+  
+  print(p5)
+} else {
+  cat("Isolation Forest package not available. Skipping this method.")
+  data$is_anomaly_iso <- FALSE
+  n_anomalies_iso <- 0
+}
+```
+
+# Method Comparison
+
+```{r method-comparison}
+# Comparison of Methods
+comparison_df <- data.frame(
+  Method = c("Z-Score", "IQR", "Decomposition", "Isolation Forest"),
+  Anomalies_Detected = c(n_anomalies_zscore, n_anomalies_iqr, n_anomalies_decomp, n_anomalies_iso),
+  Percentage = c(round(n_anomalies_zscore/nrow(data)*100, 2),
+                 round(n_anomalies_iqr/nrow(data)*100, 2),
+                 round(n_anomalies_decomp/nrow(data)*100, 2),
+                 round(n_anomalies_iso/nrow(data)*100, 2))
+)
+
+# Display comparison table
+knitr::kable(comparison_df, caption = "Comparison of Anomaly Detection Methods")
+
+# Create comparison plot
+p6 <- ggplot(comparison_df, aes(x = Method, y = Anomalies_Detected, fill = Method)) +
+  geom_bar(stat = "identity") +
+  geom_text(aes(label = paste(Anomalies_Detected, "(", Percentage, "%)")), 
+            vjust = -0.5, size = 3) +
+  labs(title = "Comparison of Anomaly Detection Methods",
+       subtitle = "Number of anomalies detected by each method",
+       x = "Detection Method",
+       y = "Number of Anomalies") +
+  theme_minimal() +
+  theme(plot.background = element_rect(fill = "white", color = NA),
+        panel.background = element_rect(fill = "white", color = NA),
+        legend.position = "none")
+
+print(p6)
+```
+
+# Comprehensive Visualization
+
+```{r comprehensive-viz}
+# Combine all methods in one plot
+data_combined <- data %>%
+  select(timestamp, value, is_anomaly_zscore, is_anomaly_iqr) %>%
+  mutate(anomaly_any = is_anomaly_zscore | is_anomaly_iqr)
+
+p7 <- ggplot(data_combined, aes(x = timestamp, y = value)) +
+  geom_line(color = "blue", alpha = 0.7) +
+  geom_point(data = data_combined[data_combined$is_anomaly_zscore,], 
+             aes(x = timestamp, y = value), 
+             color = "red", size = 1.5, alpha = 0.7) +
+  geom_point(data = data_combined[data_combined$is_anomaly_iqr,], 
+             aes(x = timestamp, y = value), 
+             color = "orange", size = 1.5, alpha = 0.7) +
+  labs(title = "Comprehensive Anomaly Detection Results",
+       subtitle = "Red: Z-Score anomalies, Orange: IQR anomalies",
+       x = "Timestamp",
+       y = "Temperature (°F)") +
+  theme_minimal() +
+  theme(plot.background = element_rect(fill = "white", color = NA),
+        panel.background = element_rect(fill = "white", color = NA))
+
+print(p7)
+```
+
+# Results and Discussion
+
+## Statistical Summary
+
+```{r statistical-summary}
+cat("=== Statistical Summary ===")
+cat("\nDataset size:", nrow(data), "observations")
+cat("\nTime period:", min(data$timestamp), "to", max(data$timestamp))
+cat("\nTemperature range:", round(min(data$value), 2), "to", round(max(data$value), 2), "°F")
+cat("\nMean temperature:", round(mean(data$value), 2), "°F")
+cat("\nStandard deviation:", round(sd(data$value), 2), "°F")
+```
+
+## Performance Metrics
+
+```{r performance-metrics}
+cat("=== Performance Metrics ===")
+cat("\nZ-Score method: Detected", n_anomalies_zscore, "anomalies (", 
+    round(n_anomalies_zscore/nrow(data)*100, 2), "%)")
+cat("\nIQR method: Detected", n_anomalies_iqr, "anomalies (", 
+    round(n_anomalies_iqr/nrow(data)*100, 2), "%)")
+cat("\nDecomposition method: Detected", n_anomalies_decomp, "anomalies (", 
+    round(n_anomalies_decomp/nrow(data)*100, 2), "%)")
+if (n_anomalies_iso > 0) {
+  cat("\nIsolation Forest: Detected", n_anomalies_iso, "anomalies (", 
+      round(n_anomalies_iso/nrow(data)*100, 2), "%)")
+}
+```
+
+## Key Findings
+
+1. **Z-Score Method**: Identifies extreme values based on statistical distribution
+2. **IQR Method**: Uses quartile-based approach for outlier detection
+3. **Decomposition Method**: Considers time series structure and seasonality
+4. **Isolation Forest**: Machine learning approach for unsupervised anomaly detection
+
+## Conclusions
+
+This analysis demonstrates multiple approaches to anomaly detection in time series data. Each method has its strengths:
+
+- **Statistical methods** (Z-Score, IQR) are simple and interpretable
+- **Time series decomposition** accounts for temporal patterns
+- **Machine learning methods** can capture complex relationships
+
+The choice of method depends on the specific requirements of the application, including the nature of the data, computational resources, and the need for interpretability.
+
+# References
+
+- [Numenta Anomaly Benchmark (NAB)](https://github.com/numenta/NAB)
+- [Anomaly Detection in Time Series Data - GeeksforGeeks](https://www.geeksforgeeks.org/machine-learning/anomaly-detection-in-time-series-data/)
+- [R anomalize package documentation](https://business-science.github.io/timetk/articles/TK08_Automatic_Anomaly_Detection.html)
