@@ -93,6 +93,7 @@
         <module>40-03-FXGL-SlotMachine</module>
         <module>10-06-HanoiTowerSolver</module>
         <module>10-07-DirectorySize</module>
+        <module>60-02-2048-game</module>
     </modules>
 
     <build>
