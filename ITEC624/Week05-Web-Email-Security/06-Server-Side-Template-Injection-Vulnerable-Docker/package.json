@@ -1,0 +1,25 @@
+{
+  "name": "ssti-lab-vulnerable",
+  "version": "1.0.0",
+  "description": "Intentionally vulnerable SSTI (Server-Side Template Injection) demo for learning",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "security",
+    "ssti",
+    "template-injection",
+    "training",
+    "vulnerable"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "handlebars": "^4.7.8",
+    "mustache": "^4.2.0",
+    "nunjucks": "^3.2.4"
+  }
+}

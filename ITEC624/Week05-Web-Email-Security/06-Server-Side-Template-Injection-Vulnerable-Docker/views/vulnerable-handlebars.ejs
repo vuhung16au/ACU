@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Handlebars SSTI Vulnerability</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #3C1053 0%, #B51825 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            color: #3C1053;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .warning {
+            background: #F2120C;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #3C1053;
+            font-weight: bold;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #918B83;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        button {
+            background: #3C1053;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #B51825;
+        }
+        .result {
+            background: #F2EFEB;
+            border: 2px solid #918B83;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 20px;
+            min-height: 100px;
+        }
+        .nav {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .nav a {
+            color: #3C1053;
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 8px 16px;
+            border-radius: 5px;
+            background: #F2EFEB;
+            display: inline-block;
+        }
+        .nav a:hover {
+            background: #918B83;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Handlebars Template Injection</h1>
+        <div class="warning">
+            ⚠️ VULNERABLE: This endpoint directly renders user input as Handlebars template code!
+        </div>
+        
+        <div class="nav">
+            <a href="/">Home</a>
+            <a href="/ejs">EJS</a>
+            <a href="/handlebars">Handlebars</a>
+            <a href="/mustache">Mustache</a>
+            <a href="/nunjucks">Nunjucks</a>
+            <a href="/advanced">Advanced</a>
+            <a href="/safe">Safe Example</a>
+        </div>
+
+        <form method="GET">
+            <div class="form-group">
+                <label for="input">Handlebars Template Code:</label>
+                <input type="text" id="input" name="input" value="<%= userInput %>" placeholder="Enter Handlebars template code...">
+            </div>
+            <button type="submit">Execute Handlebars Template</button>
+        </form>
+
+        <div class="result">
+            <h3>Handlebars Output:</h3>
+            <div id="handlebars-output"></div>
+        </div>
+
+        <div style="margin-top: 30px; padding: 20px; background: #F2EFEB; border-radius: 8px;">
+            <h3>💡 Handlebars SSTI Payloads:</h3>
+            <ul>
+                <li><code>&#123;&#123; global.process.env &#125;&#125;</code></li>
+                <li><code>&#123;&#123; global.process.version &#125;&#125;</code></li>
+                <li><code>&#123;&#123; global.process.platform &#125;&#125;</code></li>
+                <li><code>&#123;&#123; global.process.cwd &#125;&#125;</code></li>
+                <li><code>&#123;&#123; global.process.arch &#125;&#125;</code></li>
+                <li><code>&#123;&#123; global.process.uptime &#125;&#125;</code></li>
+                <li><code>&#123;&#123; global.process.mainModule.require('child_process').exec('id') &#125;&#125;</code></li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js"></script>
+    <script>
+        // This simulates the server-side Handlebars compilation
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('form');
+            const output = document.getElementById('handlebars-output');
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const input = document.getElementById('input').value;
+                
+                try {
+                    // Simulate Handlebars compilation (this is what happens on the server)
+                    const template = Handlebars.compile(input);
+                    const result = template({ userInput: input });
+                    output.innerHTML = result;
+                } catch (error) {
+                    output.innerHTML = '<span style="color: red;">Error: ' + error.message + '</span>';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
