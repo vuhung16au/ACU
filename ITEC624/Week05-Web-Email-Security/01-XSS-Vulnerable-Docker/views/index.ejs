@@ -6,12 +6,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>XSS Lab - Vulnerable</title>
     <style>
-      body { font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif; margin: 2rem; }
-      .hint { background: #fff3cd; color: #664d03; padding: 1rem; border-radius: 6px; border: 1px solid #ffe69c; margin-top: 1rem; }
-      .container { max-width: 720px; margin: 0 auto; }
-      input[type=text] { width: 100%; padding: .6rem .8rem; font-size: 1rem; }
-      .result { margin-top: 1rem; padding: 1rem; border: 1px solid #ddd; border-radius: 6px; }
-      a { color: #0d6efd; }
+      body { 
+        font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif; 
+        margin: 2rem; 
+        background-color: #F2EFEB; /* Soft Ivory */
+        color: #302C2A; /* Deep Charcoal */
+      }
+      .hint { 
+        background: #F2EFEB; /* Soft Ivory */
+        color: #3C1053; /* Purple */
+        padding: 1rem; 
+        border-radius: 6px; 
+        border: 2px solid #3C1053; /* Purple */
+        margin-top: 1rem; 
+        box-shadow: 0 2px 4px rgba(60, 16, 83, 0.1);
+      }
+      .container { 
+        max-width: 720px; 
+        margin: 0 auto; 
+        background-color: #FFFFFF;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(60, 16, 83, 0.1);
+      }
+      input[type=text] { 
+        width: 100%; 
+        padding: .6rem .8rem; 
+        font-size: 1rem; 
+        border: 2px solid #918B83; /* Warm Stone */
+        border-radius: 4px;
+        background-color: #FFFFFF;
+      }
+      .result { 
+        margin-top: 1rem; 
+        padding: 1rem; 
+        border: 2px solid #3C1053; /* Purple */
+        border-radius: 6px; 
+        background-color: #F2EFEB; /* Soft Ivory */
+      }
+      a { 
+        color: #3C1053; /* Purple */
+        text-decoration: none;
+        font-weight: 500;
+      }
+      a:hover { 
+        color: #B51825; /* Faculty Purple */
+        text-decoration: underline;
+      }
+      h1 { 
+        color: #3C1053; /* Purple */
+        border-bottom: 3px solid #3C1053;
+        padding-bottom: 0.5rem;
+      }
+      button { 
+        background-color: #3C1053; /* Purple */
+        color: #FFFFFF;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1rem;
+        margin-top: 0.5rem;
+      }
+      button:hover { 
+        background-color: #B51825; /* Faculty Purple */
+      }
+      code { 
+        background-color: #F2EFEB; /* Soft Ivory */
+        color: #3C1053; /* Purple */
+        padding: 0.2rem 0.4rem;
+        border-radius: 3px;
+        font-family: monospace;
+        border: 1px solid #918B83; /* Warm Stone */
+      }
     </style>
   </head>
   <body>

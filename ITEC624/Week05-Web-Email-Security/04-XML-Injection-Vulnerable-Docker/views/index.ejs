@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>XML/XPath Injection Lab - Vulnerable</title>
+    <style>
+      body { 
+        font-family: sans-serif; 
+        margin: 2rem; 
+        background-color: #F2EFEB; /* Soft Ivory */
+        color: #302C2A; /* Deep Charcoal */
+      }
+      input { 
+        margin: 0.25rem; 
+        padding: 0.5rem;
+        border: 2px solid #918B83; /* Warm Stone */
+        border-radius: 4px;
+        background-color: #FFFFFF;
+      }
+      .error { 
+        color: #F2120C; /* Red */
+        background-color: #F2EFEB;
+        padding: 0.5rem;
+        border-left: 4px solid #F2120C;
+      }
+      .ok { 
+        color: #3C1053; /* Purple */
+        background-color: #F2EFEB;
+        padding: 0.5rem;
+        border-left: 4px solid #3C1053;
+      }
+      .hint { 
+        color: #918B83; /* Warm Stone */
+        font-style: italic;
+      }
+      .box { 
+        border: 2px solid #3C1053; /* Purple */
+        padding: 1.5rem; 
+        margin: 1rem 0;
+        background-color: #FFFFFF;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(60, 16, 83, 0.1);
+      }
+      h1 { 
+        color: #3C1053; /* Purple */
+        border-bottom: 3px solid #3C1053;
+        padding-bottom: 0.5rem;
+      }
+      h2 { 
+        color: #B51825; /* Faculty Purple */
+        margin-top: 2rem;
+      }
+      button { 
+        background-color: #3C1053; /* Purple */
+        color: #FFFFFF;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 4px;
+        cursor: pointer;
+        margin: 0.5rem;
+      }
+      button:hover { 
+        background-color: #B51825; /* Faculty Purple */
+      }
+      a { 
+        color: #3C1053; /* Purple */
+        text-decoration: none;
+      }
+      a:hover { 
+        color: #B51825; /* Faculty Purple */
+        text-decoration: underline;
+      }
+      code { 
+        background-color: #F2EFEB; /* Soft Ivory */
+        color: #3C1053; /* Purple */
+        padding: 0.2rem 0.4rem;
+        border-radius: 3px;
+        font-family: monospace;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>XML/XPath Injection Lab</h1>
+    <p>This login form is intentionally vulnerable. The server constructs an XPath with your inputs.</p>
+    <div class="box">
+      <form method="post" action="/login">
+        <div>
+          <label>Username:</label>
+          <input name="username" value="<%= username %>" />
+        </div>
+        <div>
+          <label>Password:</label>
+          <input name="password" value="<%= password %>" type="text" />
+        </div>
+        <button type="submit">Login (vulnerable)</button>
+      </form>
+      <p class="hint">Hint: Try breaking the XPath predicate using quotes and or conditions.</p>
+      <p>Example: username <code>admin' or '1'='1</code> with any password.</p>
+    </div>
+
+    <% if (error) { %>
+      <p class="error"><%= error %></p>
+    <% } %>
+    <% if (result) { %>
+      <p class="ok"><%= result %></p>
+    <% } %>
+
+    <hr />
+    <h2>Safe Path Demo</h2>
+    <div class="box">
+      <form method="post" action="/safe-login">
+        <div>
+          <label>Username:</label>
+          <input name="username" value="<%= username %>" />
+        </div>
+        <div>
+          <label>Password:</label>
+          <input name="password" value="<%= password %>" type="text" />
+        </div>
+        <button type="submit">Login (safe)</button>
+      </form>
+      <p>Safe approach avoids building dynamic XPath from user input.</p>
+      <p>See also <a href="/safe">/safe</a>.</p>
+    </div>
+  </body>
+  </html>
+
+

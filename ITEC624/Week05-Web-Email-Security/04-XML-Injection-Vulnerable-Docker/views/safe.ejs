@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>XML/XPath Injection Lab - Safe</title>
+    <style>
+      body { 
+        font-family: sans-serif; 
+        margin: 2rem; 
+        background-color: #F2EFEB; /* Soft Ivory */
+        color: #302C2A; /* Deep Charcoal */
+      }
+      .error { 
+        color: #F2120C; /* Red */
+        background-color: #F2EFEB;
+        padding: 0.5rem;
+        border-left: 4px solid #F2120C;
+      }
+      .ok { 
+        color: #3C1053; /* Purple */
+        background-color: #F2EFEB;
+        padding: 0.5rem;
+        border-left: 4px solid #3C1053;
+      }
+      h1 { 
+        color: #3C1053; /* Purple */
+        border-bottom: 3px solid #3C1053;
+        padding-bottom: 0.5rem;
+      }
+      a { 
+        color: #3C1053; /* Purple */
+        text-decoration: none;
+        background-color: #FFFFFF;
+        padding: 0.5rem 1rem;
+        border: 2px solid #3C1053;
+        border-radius: 4px;
+        display: inline-block;
+        margin-top: 1rem;
+      }
+      a:hover { 
+        color: #FFFFFF;
+        background-color: #3C1053;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Safe Login</h1>
+    <% if (error) { %>
+      <p class="error"><%= error %></p>
+    <% } %>
+    <% if (result) { %>
+      <p class="ok"><%= result %></p>
+    <% } %>
+    <p><a href="/">Back</a></p>
+  </body>
+  </html>
+
+

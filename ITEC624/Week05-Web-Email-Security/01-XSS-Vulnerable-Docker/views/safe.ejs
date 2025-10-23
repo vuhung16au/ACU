@@ -6,10 +6,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>XSS Lab - Safe</title>
     <style>
-      body { font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif; margin: 2rem; }
-      .container { max-width: 720px; margin: 0 auto; }
-      .result { margin-top: 1rem; padding: 1rem; border: 1px solid #ddd; border-radius: 6px; }
-      a { color: #0d6efd; }
+      body { 
+        font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif; 
+        margin: 2rem; 
+        background-color: #F2EFEB; /* Soft Ivory */
+        color: #302C2A; /* Deep Charcoal */
+      }
+      .container { 
+        max-width: 720px; 
+        margin: 0 auto; 
+        background-color: #FFFFFF;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(60, 16, 83, 0.1);
+      }
+      .result { 
+        margin-top: 1rem; 
+        padding: 1rem; 
+        border: 2px solid #3C1053; /* Purple */
+        border-radius: 6px; 
+        background-color: #F2EFEB; /* Soft Ivory */
+      }
+      a { 
+        color: #3C1053; /* Purple */
+        text-decoration: none;
+        background-color: #FFFFFF;
+        padding: 0.5rem 1rem;
+        border: 2px solid #3C1053;
+        border-radius: 4px;
+        display: inline-block;
+        margin-top: 1rem;
+        font-weight: 500;
+      }
+      a:hover { 
+        color: #FFFFFF;
+        background-color: #3C1053;
+      }
+      h1 { 
+        color: #3C1053; /* Purple */
+        border-bottom: 3px solid #3C1053;
+        padding-bottom: 0.5rem;
+      }
+      code { 
+        background-color: #F2EFEB; /* Soft Ivory */
+        color: #3C1053; /* Purple */
+        padding: 0.2rem 0.4rem;
+        border-radius: 3px;
+        font-family: monospace;
+        border: 1px solid #918B83; /* Warm Stone */
+      }
     </style>
   </head>
   <body>
