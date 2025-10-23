@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+        }
+        .vulnerable {
+            border-color: #e74c3c;
+            background-color: #fdf2f2;
+        }
+        .safe {
+            border-color: #27ae60;
+            background-color: #f2fdf2;
+        }
+        .form-group {
+            margin: 15px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .vulnerable button {
+            background-color: #e74c3c;
+        }
+        .vulnerable button:hover {
+            background-color: #c0392b;
+        }
+        .safe button {
+            background-color: #27ae60;
+        }
+        .safe button:hover {
+            background-color: #229954;
+        }
+        .error {
+            color: #e74c3c;
+            background-color: #fdf2f2;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .info {
+            background-color: #e8f4fd;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+        }
+        .warning {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+        }
+        .file-list {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+        }
+        .file-list a {
+            color: #3498db;
+            text-decoration: none;
+            margin-right: 15px;
+        }
+        .file-list a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔓 Path Traversal Vulnerability Lab</h1>
+        
+        <% if (error) { %>
+            <div class="error">
+                <strong>Error:</strong> <%= error %>
+            </div>
+        <% } %>
+
+        <div class="info">
+            <h3>📚 About Path Traversal</h3>
+            <p>Path Traversal (also known as Directory Traversal) is a vulnerability that allows attackers to access files and directories outside the intended directory structure. This can lead to unauthorized access to sensitive files like configuration files, passwords, or other critical system files.</p>
+        </div>
+
+        <div class="warning">
+            <h3>⚠️ Educational Purpose Only</h3>
+            <p>This lab is designed for educational purposes to understand Path Traversal vulnerabilities. The vulnerable implementation is intentionally insecure and should never be used in production environments.</p>
+        </div>
+
+        <div class="section vulnerable">
+            <h2>🔴 Vulnerable Implementation</h2>
+            <p>This endpoint directly uses user input to construct file paths without any validation or sanitization.</p>
+            <form action="/vulnerable" method="GET">
+                <div class="form-group">
+                    <label for="vulnerable-file">Filename to read:</label>
+                    <input type="text" id="vulnerable-file" name="file" placeholder="e.g., readme.txt" value="readme.txt">
+                </div>
+                <button type="submit">Read File (Vulnerable)</button>
+            </form>
+            <div class="info">
+                <strong>Try these payloads:</strong>
+                <ul>
+                    <li><code>../../../etc/passwd</code> - Access system files</li>
+                    <li><code>../sensitive-data.txt</code> - Access files outside the intended directory</li>
+                    <li><code>....//....//....//etc//passwd</code> - Bypass basic filters</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section safe">
+            <h2>🟢 Safe Implementation</h2>
+            <p>This endpoint validates and sanitizes user input to prevent path traversal attacks.</p>
+            <form action="/safe" method="GET">
+                <div class="form-group">
+                    <label for="safe-file">Filename to read:</label>
+                    <input type="text" id="safe-file" name="file" placeholder="e.g., readme.txt" value="readme.txt">
+                </div>
+                <button type="submit">Read File (Safe)</button>
+            </form>
+            <div class="info">
+                <strong>Security measures:</strong>
+                <ul>
+                    <li>Input validation (no '..' or path separators)</li>
+                    <li>Path resolution and directory checking</li>
+                    <li>Whitelist-based access control</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📁 Available Files</h2>
+            <p>Click to view available files in the application:</p>
+            <a href="/files" class="button">List Files</a>
+        </div>
+
+        <div class="info">
+            <h3>🎯 Learning Objectives</h3>
+            <ul>
+                <li>Understand how Path Traversal vulnerabilities occur</li>
+                <li>Learn common attack techniques and payloads</li>
+                <li>Compare vulnerable vs secure implementations</li>
+                <li>Implement proper input validation and sanitization</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
