@@ -1,9 +1,10 @@
-# Overview 
+# Overview
 
-This document gives a quick, practical overview of several classic network and security tools and how to run them from the command line on Kali Linux. For each tool you'll find:
+This document gives a quick, practical overview of several classic network and security tools and how to run them from the command line on Linux. For each tool you'll find:
 
 - What it is and what it does
 - A sample command you can run
+- Cross-platform syntax differences where applicable
 
 ## NSLOOKUP
 
@@ -11,38 +12,107 @@ What it is and what it does:
 
 - nslookup is a simple DNS query tool. It lets you resolve hostnames to IPs (and vice versa), query specific DNS record types (A, AAAA, MX, TXT, etc.), and test using different DNS servers.
 
-Sample command line run (Kali Linux):
+Sample command line run (Linux):
 
 - Basic A record lookup:
   - `nslookup -type=A example.com`
 - Query MX records using a specific DNS server (Google DNS):
   - `nslookup -type=MX example.com 8.8.8.8`
+- Interactive mode for multiple queries:
+  - `nslookup` (then enter commands like `set type=MX` and `example.com`)
+
+**Cross-platform syntax differences:**
+
+- **Linux/Unix**: `nslookup -type=A example.com`
+- **Windows**: `nslookup -type=A example.com` (same syntax)
+- **macOS**: `nslookup -type=A example.com` (same syntax)
+- **Note**: All platforms use the same nslookup syntax, but some Linux distributions may require installing the `dnsutils` package: `sudo apt install dnsutils` (Ubuntu/Debian) or `sudo yum install bind-utils` (RHEL/CentOS)
 
 ## TRACERT
 
 What it is and what it does:
 
-- Tracing the route packets take to a destination helps diagnose routing problems and latency. On Windows the command is `tracert`. On Kali Linux, use `traceroute` (or `tracepath`).
+- Tracing the route packets take to a destination helps diagnose routing problems and latency. The command varies by platform: `tracert` on Windows, `traceroute` on Linux/macOS.
 
-Sample command line run (Kali Linux):
+Sample command line run (Linux):
 
 - ICMP-based traceroute to 8.8.8.8:
   - `sudo traceroute -I 8.8.8.8`
 - UDP default traceroute to a domain:
   - `traceroute example.com`
+- TCP-based traceroute (useful for firewalled networks):
+  - `sudo traceroute -T -p 80 example.com`
+- Specify number of hops and timeout:
+  - `traceroute -m 15 -w 3 example.com`
+
+**Cross-platform syntax differences:**
+
+- **Linux**: `traceroute example.com` (may require `sudo` for ICMP)
+- **Windows**: `tracert example.com` (different command name, no sudo needed)
+- **macOS**: `traceroute example.com` (same as Linux)
+- **Note**: Linux may require installing traceroute: `sudo apt install traceroute` (Ubuntu/Debian) or `sudo yum install traceroute` (RHEL/CentOS)
 
 ## PING
 
 What it is and what it does:
 
-- ping sends ICMP Echo Requests to a host to measure reachability and round-trip time. It’s a first-step connectivity and latency check.
+- ping sends ICMP Echo Requests to a host to measure reachability and round-trip time. It's a first-step connectivity and latency check.
 
-Sample command line run (Kali Linux):
+Sample command line run (Linux):
 
 - Send 4 echo requests to 1.1.1.1:
   - `ping -c 4 1.1.1.1`
 - Specify an interface (e.g., eth0) and count:
   - `ping -I eth0 -c 4 example.com`
+- Continuous ping with interval:
+  - `ping -i 2 example.com`
+- Ping with specific packet size:
+  - `ping -s 1000 example.com`
+- Ping with timeout:
+  - `ping -W 5 example.com`
+
+**Cross-platform syntax differences:**
+
+- **Linux**: `ping -c 4 example.com` (count with -c)
+- **Windows**: `ping -n 4 example.com` (count with -n)
+- **macOS**: `ping -c 4 example.com` (same as Linux)
+- **Note**: Linux ping is usually pre-installed, but on some minimal distributions you may need: `sudo apt install iputils-ping` (Ubuntu/Debian) or `sudo yum install iputils` (RHEL/CentOS)
+
+## Special IP Addresses
+
+When testing network connectivity and DNS resolution, these special IP addresses are commonly used:
+
+### 1.1.1.1 (Cloudflare DNS)
+
+- **Provider**: Cloudflare
+- **Purpose**: Fast, privacy-focused DNS resolver
+- **Features**:
+  - No logging of personal data
+  - Fast response times
+  - Supports DNS over HTTPS (DoH) and DNS over TLS (DoT)
+- **Test commands**:
+  - `ping 1.1.1.1`
+  - `nslookup example.com 1.1.1.1`
+
+### 8.8.8.8 (Google DNS)
+
+- **Provider**: Google
+- **Purpose**: Reliable, widely-used DNS resolver
+- **Features**:
+  - High availability and reliability
+  - Global anycast network
+  - Supports DNSSEC
+- **Test commands**:
+  - `ping 8.8.8.8`
+  - `nslookup example.com 8.8.8.8`
+
+**Why use these IPs for testing:**
+
+- They are always available and respond to ping
+- They provide reliable DNS resolution
+- They help test if internet connectivity is working
+- They can bypass local DNS issues
+- They're useful for comparing DNS response times
 
 ## SATAN
 
@@ -57,10 +127,9 @@ Sample command line run (modern equivalent on Kali):
 - Probe a specific service/port with targeted NSE scripts:
   - `sudo nmap -sV --script "default,vuln,auth" -p 22,80,443 <target>`
 
+Note: If you specifically need SATAN for research or history, you'd have to build it from archived sources in a controlled lab environment. Prefer current tools (Nmap/NSE, OpenVAS/Greenbone, Nessus).
 
-Note: If you specifically need SATAN for research or history, you’d have to build it from archived sources in a controlled lab environment. Prefer current tools (Nmap/NSE, OpenVAS/Greenbone, Nessus).
-
-## IP Scanner
+## IP Scanner (nmap)
 
 What it is and what it does:
 
@@ -126,8 +195,6 @@ Sample command line run (Kali Linux):
 - Network scan (SYN scan, all ports) against a single host:
   - `sudo nmap -sS -p- -T4 10.0.0.5`
 
-
-
 ### John the Ripper (jumbo)
 
 What it is and what it does:
@@ -140,7 +207,6 @@ Sample command line run (Kali Linux):
   - `unshadow passwd.txt shadow.txt > hashes.txt && john --wordlist=/usr/share/wordlists/rockyou.txt hashes.txt`
 - Show cracked credentials:
   - `john --show hashes.txt`
-
 
 ### Nessus (Tenable)
 
