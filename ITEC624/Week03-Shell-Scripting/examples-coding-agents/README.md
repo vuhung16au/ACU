@@ -4,6 +4,8 @@
 
 This repository contains a collection of progressive shell scripting examples designed specifically for use with AI coding agents like **GitHub Copilot**, **Cursor**, **Rovo**, **Gemini**, and other AI-powered development tools. Each script demonstrates fundamental bash programming concepts while providing practical, real-world automation examples.
 
+Youtube demo: https://youtu.be/sScvOjkHjCA
+
 ### 📁 Project Structure
 
 ```
