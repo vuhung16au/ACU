@@ -75,6 +75,11 @@ brew install john
 
 https://www.openwall.com/wordlists/
 
+
+### Using `john` to crack password hashes
+
+See `john*/doc` folder for documentation and examples (`john/doc/EXAMPLES`).
+
 ---
 
 ## Further reading
