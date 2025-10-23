@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic SSRF Vulnerability</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #F2EFEB 0%, #918B83 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(48, 44, 42, 0.2);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #F2120C 0%, #3C1053 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.2em;
+            font-weight: 300;
+        }
+        .content {
+            padding: 40px;
+        }
+        .form-section {
+            background: #F2EFEB;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .form-section h2 {
+            color: #3C1053;
+            margin-top: 0;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #302C2A;
+            font-weight: bold;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #918B83;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: #3C1053;
+        }
+        .btn {
+            background: #3C1053;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s ease;
+        }
+        .btn:hover {
+            background: #B51825;
+        }
+        .result-section {
+            background: #302C2A;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .result-section h3 {
+            color: #F2120C;
+            margin-top: 0;
+        }
+        .result-content {
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+        .error {
+            color: #F2120C;
+        }
+        .success {
+            color: #4CAF50;
+        }
+        .hint {
+            background: #918B83;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .hint h4 {
+            margin-top: 0;
+            color: #F2EFEB;
+        }
+        .examples {
+            background: #3C1053;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .examples h3 {
+            margin-top: 0;
+            color: #F2EFEB;
+        }
+        .examples ul {
+            list-style: none;
+            padding: 0;
+        }
+        .examples li {
+            padding: 8px 0;
+            border-bottom: 1px solid #B51825;
+        }
+        .examples li:last-child {
+            border-bottom: none;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #3C1053;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-link:hover {
+            color: #B51825;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌐 Basic SSRF Vulnerability</h1>
+        </div>
+        
+        <div class="content">
+            <a href="/" class="back-link">← Back to Home</a>
+            
+            <div class="form-section">
+                <h2>Test Basic SSRF</h2>
+                <p>This endpoint is vulnerable to SSRF attacks. Try accessing internal services or external URLs.</p>
+                
+                <form method="GET">
+                    <div class="form-group">
+                        <label for="url">Target URL:</label>
+                        <input type="text" id="url" name="url" placeholder="http://example.com" value="<%= url || '' %>">
+                    </div>
+                    <button type="submit" class="btn">Make Request</button>
+                </form>
+            </div>
+
+            <% if (url) { %>
+                <div class="result-section">
+                    <h3>Request Result</h3>
+                    <p><strong>Target URL:</strong> <%= url %></p>
+                    
+                    <% if (error) { %>
+                        <div class="error">
+                            <strong>Error:</strong> <%= error %>
+                        </div>
+                    <% } else if (result) { %>
+                        <div class="success">
+                            <strong>Response:</strong>
+                        </div>
+                        <div class="result-content"><%= JSON.stringify(result, null, 2) %></div>
+                    <% } %>
+                </div>
+            <% } %>
+
+            <div class="hint">
+                <h4>💡 Hint</h4>
+                <p>Try accessing internal services like <code>http://localhost:8080/admin</code> or <code>http://localhost:3306/api/data</code></p>
+            </div>
+
+            <div class="examples">
+                <h3>🎯 Attack Examples</h3>
+                <p>Try these URLs to test different SSRF scenarios:</p>
+                <ul>
+                    <li><strong>Internal Admin:</strong> http://localhost:8080/admin</li>
+                    <li><strong>Internal Database:</strong> http://localhost:3306/api/data</li>
+                    <li><strong>Internal Redis:</strong> http://localhost:6379/cache</li>
+                    <li><strong>Internal Search:</strong> http://localhost:9200/search</li>
+                    <li><strong>External API:</strong> https://httpbin.org/get</li>
+                    <li><strong>Cloud Metadata:</strong> http://169.254.169.254/latest/meta-data/</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

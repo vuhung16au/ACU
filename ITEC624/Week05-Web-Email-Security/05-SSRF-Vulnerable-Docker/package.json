@@ -1,0 +1,24 @@
+{
+  "name": "ssrf-lab-vulnerable",
+  "version": "1.0.0",
+  "description": "Intentionally vulnerable SSRF demo for learning web security",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "security",
+    "ssrf",
+    "training",
+    "vulnerable",
+    "server-side-request-forgery"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "axios": "^1.6.0",
+    "request": "^2.88.2"
+  }
+}

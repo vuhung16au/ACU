@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSRF Vulnerability Lab</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #F2EFEB 0%, #918B83 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(48, 44, 42, 0.2);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #3C1053 0%, #B51825 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        .header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+        .content {
+            padding: 40px;
+        }
+        .warning {
+            background: #F2120C;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .service-card {
+            background: #F2EFEB;
+            border: 2px solid #918B83;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(48, 44, 42, 0.2);
+        }
+        .service-card h3 {
+            color: #3C1053;
+            margin-top: 0;
+        }
+        .service-card p {
+            color: #302C2A;
+            margin-bottom: 15px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #3C1053;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn:hover {
+            background: #B51825;
+        }
+        .btn-safe {
+            background: #918B83;
+        }
+        .btn-safe:hover {
+            background: #302C2A;
+        }
+        .info-section {
+            background: #F2EFEB;
+            padding: 30px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+        .info-section h2 {
+            color: #3C1053;
+            margin-top: 0;
+        }
+        .info-section ul {
+            color: #302C2A;
+            line-height: 1.6;
+        }
+        .internal-services {
+            background: #302C2A;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .internal-services h3 {
+            color: #F2120C;
+            margin-top: 0;
+        }
+        .internal-services ul {
+            list-style: none;
+            padding: 0;
+        }
+        .internal-services li {
+            padding: 5px 0;
+            border-bottom: 1px solid #918B83;
+        }
+        .internal-services li:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔒 SSRF Vulnerability Lab</h1>
+            <p>Server-Side Request Forgery (SSRF) Educational Environment</p>
+        </div>
+        
+        <div class="content">
+            <div class="warning">
+                ⚠️ WARNING: This application contains intentional security vulnerabilities for educational purposes only!
+            </div>
+
+            <h2>Available SSRF Attack Vectors</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>🌐 Basic SSRF</h3>
+                    <p>Simple URL parameter injection without validation</p>
+                    <a href="/vulnerable" class="btn">Test Basic SSRF</a>
+                </div>
+                
+                <div class="service-card">
+                    <h3>📡 Request Library SSRF</h3>
+                    <p>SSRF using the request library (different attack vector)</p>
+                    <a href="/vulnerable-request" class="btn">Test Request SSRF</a>
+                </div>
+                
+                <div class="service-card">
+                    <h3>📁 File Protocol SSRF</h3>
+                    <p>Local file access through file:// protocol</p>
+                    <a href="/vulnerable-file" class="btn">Test File SSRF</a>
+                </div>
+                
+                <div class="service-card">
+                    <h3>🔗 Gopher Protocol SSRF</h3>
+                    <p>Advanced SSRF using gopher:// protocol</p>
+                    <a href="/vulnerable-gopher" class="btn">Test Gopher SSRF</a>
+                </div>
+                
+                <div class="service-card">
+                    <h3>✅ Safe Implementation</h3>
+                    <p>Properly secured endpoint with validation</p>
+                    <a href="/safe" class="btn btn-safe">Test Safe Endpoint</a>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h2>🎯 Learning Objectives</h2>
+                <ul>
+                    <li>Understand how SSRF vulnerabilities occur</li>
+                    <li>Learn to identify vulnerable code patterns</li>
+                    <li>Practice exploiting different SSRF attack vectors</li>
+                    <li>Implement proper input validation and URL filtering</li>
+                    <li>Understand the impact of SSRF on internal services</li>
+                </ul>
+            </div>
+
+            <div class="internal-services">
+                <h3>🏠 Simulated Internal Services</h3>
+                <p>These services represent internal infrastructure that should be protected:</p>
+                <ul>
+                    <% Object.entries(internalServices).forEach(([name, service]) => { %>
+                        <li><strong><%= name %></strong>: http://localhost:<%= service.port %><%= service.endpoint %></li>
+                    <% }); %>
+                </ul>
+                <p><em>Try accessing these internal services through the vulnerable endpoints!</em></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
