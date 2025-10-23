@@ -48,6 +48,33 @@ Try these small exercises (place your work in `examples/`):
 4. Given a CSV file, print the second column and the average of that column using `awk`.
 5. Build a pipeline that sorts unique words from a text file by frequency (use `tr`, `sort`, `uniq`, and `head`).
 
+## John the Ripper 
+
+### Install `john` from source code
+
+1. Download the latest source code from the [official website](https://www.openwall.com/john/).
+2. Extract the downloaded archive
+
+```bash 
+# wget https://www.openwall.com/john/k/john-1.9.0-jumbo-1.tar.gz
+tar -xvf john-<version>.tar.gz
+cd john-<version>/src
+#./configure --help 
+# ./configure --prefix=$HOME/bin
+./configure 
+make 
+# sudo make install
+```
+
+### Install `john` on MacOS using Homebrew
+
+```bash
+brew install john
+```
+### Wordlist files for `john`
+
+https://www.openwall.com/wordlists/
+
 ---
 
 ## Further reading
@@ -56,6 +83,7 @@ Try these small exercises (place your work in `examples/`):
 - `sed` manual (`man sed`) and GNU sed handbook
 - `awk` by Aho, Kernighan, and Weinberger; `gawk` manual
 - TLDP Advanced Bash-Scripting Guide
+
 
 ---
 
