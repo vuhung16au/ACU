@@ -1,0 +1,23 @@
+{
+  "name": "sql-injection-lab-vulnerable",
+  "version": "1.0.0",
+  "description": "Intentionally vulnerable SQL injection demo for learning",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "security",
+    "sql-injection",
+    "training",
+    "vulnerable",
+    "database"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "sqlite3": "^5.1.6"
+  }
+}

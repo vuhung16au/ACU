@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - SQL Injection Lab</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .user-info {
+            background-color: #e7f3ff;
+            border: 1px solid #b3d9ff;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .query-info {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .query-info pre {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-size: 12px;
+        }
+        .nav-links {
+            margin-bottom: 20px;
+        }
+        .nav-links a {
+            color: #007bff;
+            text-decoration: none;
+            margin-right: 15px;
+        }
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+        .logout-btn {
+            background-color: #dc3545;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .logout-btn:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎉 Login Successful!</h1>
+        
+        <div class="nav-links">
+            <a href="/">Back to Login</a>
+            <a href="/search">Search Users (Vulnerable)</a>
+            <a href="/safe-search">Search Users (Safe)</a>
+            <a href="/schema">Database Schema</a>
+        </div>
+
+        <% if (message) { %>
+            <div class="user-info">
+                <h3>Welcome!</h3>
+                <p><strong>Message:</strong> <%= message %></p>
+            </div>
+        <% } %>
+
+        <% if (user) { %>
+            <div class="user-info">
+                <h3>User Information:</h3>
+                <p><strong>ID:</strong> <%= user.id %></p>
+                <p><strong>Username:</strong> <%= user.username %></p>
+                <p><strong>Email:</strong> <%= user.email %></p>
+                <p><strong>Role:</strong> <%= user.role %></p>
+                <p><strong>Password Hash:</strong> <%= user.password %></p>
+            </div>
+        <% } %>
+
+        <% if (query) { %>
+            <div class="query-info">
+                <h3>Executed SQL Query:</h3>
+                <pre><%= query %></pre>
+                <p><em>This shows the exact SQL query that was executed against the database.</em></p>
+            </div>
+        <% } %>
+
+        <a href="/" class="logout-btn">Logout</a>
+    </div>
+</body>
+</html>
