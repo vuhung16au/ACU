@@ -1,0 +1,22 @@
+FROM alpine:latest
+
+# Install necessary packages
+RUN apk add --no-cache \
+    iptables \
+    iproute2 \
+    net-tools \
+    curl \
+    wget \
+    tcpdump \
+    nmap \
+    && rm -rf /var/cache/apk/*
+
+# Copy firewall setup script
+COPY firewall-setup.sh /usr/local/bin/firewall-setup.sh
+RUN chmod +x /usr/local/bin/firewall-setup.sh
+
+# Create directory for logs
+RUN mkdir -p /var/log/firewall
+
+# Set up the firewall rules on container start
+CMD ["/usr/local/bin/firewall-setup.sh"]

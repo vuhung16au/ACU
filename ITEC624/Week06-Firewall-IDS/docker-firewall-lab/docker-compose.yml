@@ -1,0 +1,75 @@
+version: '3.8'
+
+services:
+  server:
+    image: nginx:alpine
+    container_name: server
+    networks:
+      - security_net
+    ports:
+      - "8080:80"  # Internal web server
+      - "2222:22"  # SSH service
+    volumes:
+      - ./server-config:/etc/nginx/conf.d
+      - ./server-content:/usr/share/nginx/html
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:80/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    depends_on:
+      - firewall
+
+  firewall:
+    build:
+      context: .
+      dockerfile: Dockerfile.firewall
+    container_name: firewall
+    networks:
+      - security_net
+    ports:
+      - "80:80"    # HTTP traffic redirected to server:8080
+      - "443:443"  # HTTPS traffic
+      - "22:22"    # SSH traffic
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    sysctls:
+      - net.ipv4.ip_forward=1
+    healthcheck:
+      test: ["CMD", "iptables", "-L", "INPUT"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    depends_on:
+      - client
+
+  client:
+    image: alpine:latest
+    container_name: client
+    networks:
+      - security_net
+    volumes:
+      - ./client-scripts:/scripts
+    command: >
+      sh -c "
+        apk add --no-cache curl telnet netcat-openbsd wget &&
+        echo 'Client container ready. Use: docker exec -it client sh' &&
+        tail -f /dev/null
+      "
+    healthcheck:
+      test: ["CMD", "ping", "-c", "1", "firewall"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  security_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.0.0/16
+          gateway: 172.18.0.1

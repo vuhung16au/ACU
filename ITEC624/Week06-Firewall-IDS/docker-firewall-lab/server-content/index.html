@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firewall Lab Server</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        .info {
+            background-color: #e8f4f8;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .endpoint {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-left: 4px solid #007bff;
+            margin: 10px 0;
+        }
+        .status {
+            color: #28a745;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛡️ Firewall Lab Server</h1>
+        
+        <div class="info">
+            <h3>Server Status: <span class="status">ONLINE</span></h3>
+            <p>This server is protected by a firewall container. Test the firewall rules using the client container.</p>
+        </div>
+        
+        <h3>Available Endpoints:</h3>
+        <div class="endpoint">
+            <strong>GET /</strong> - This page (HTTP on port 80/8080)
+        </div>
+        <div class="endpoint">
+            <strong>GET /health</strong> - Health check endpoint
+        </div>
+        <div class="endpoint">
+            <strong>GET /api</strong> - API endpoint returning JSON
+        </div>
+        
+        <h3>Firewall Lab Scenarios:</h3>
+        <ul>
+            <li><strong>Scenario 1:</strong> Block all traffic except HTTP and SSH</li>
+            <li><strong>Scenario 2:</strong> Port redirection (80 → 8080)</li>
+            <li><strong>Scenario 3:</strong> Block specific host (client IP)</li>
+            <li><strong>Scenario 4:</strong> Allow traffic from specific host</li>
+        </ul>
+        
+        <div class="info">
+            <h4>Testing Instructions:</h4>
+            <p>Use the client container to test connectivity:</p>
+            <code>docker exec -it client sh</code>
+            <p>Then run curl commands to test the firewall rules.</p>
+        </div>
+    </div>
+</body>
+</html>
