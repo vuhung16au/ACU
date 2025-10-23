@@ -94,6 +94,7 @@
         <module>10-06-HanoiTowerSolver</module>
         <module>10-07-DirectorySize</module>
         <module>60-02-2048-game</module>
+        <module>60-03-Snake-Game</module>
     </modules>
 
     <build>

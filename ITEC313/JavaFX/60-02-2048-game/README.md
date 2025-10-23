@@ -1,6 +1,6 @@
 # 2048 Game - JavaFX Implementation
 
-A JavaFX implementation of the popular 2048 puzzle game, featuring ACU brand colors and modern UI design.
+A JavaFX implementation of the popular 2048 puzzle game.
 
 ## Game Logic
 
@@ -14,7 +14,6 @@ The 2048 game is a sliding puzzle where players combine numbered tiles on a 4×4
 
 ## Key Features
 
-- **ACU Brand Colors**: Uses official ACU color scheme throughout the interface
 - **Responsive Design**: Clean, modern JavaFX interface with smooth animations
 - **Keyboard Controls**: Intuitive arrow key and WASD controls
 - **Score Tracking**: Real-time score display and game status
@@ -29,7 +28,6 @@ The 2048 game is a sliding puzzle where players combine numbered tiles on a 4×4
 - **`Board`**: Game logic engine that manages the 4×4 grid, tile movements, and merging
 - **`Tile`**: Represents individual game tiles with values and positions
 - **`GameGrid`**: Visual representation of the game board using JavaFX GridPane
-- **`ACUColorScheme`**: Defines the color palette using ACU brand colors
 - **`HelpDialog`**: Interactive help dialog with game instructions and controls
 
 ### Game Flow
@@ -49,16 +47,6 @@ The 2048 game is a sliding puzzle where players combine numbered tiles on a 4×4
 - **Shift + ?**: Show help dialog
 - **NEW GAME Button**: Start a new game
 - **? Button**: Show help dialog with game instructions
-
-## ACU Color Scheme
-
-The game uses the official ACU brand colors:
-
-- **Primary Purple**: #3C1053 (RGB: 60, 16, 83)
-- **ACU Red**: #F2120C (RGB: 242, 18, 12)
-- **Soft Ivory**: #F2EFEB (RGB: 242, 239, 235) - Background
-- **Warm Stone**: #918B83 (RGB: 145, 139, 131) - Grid background
-- **Deep Charcoal**: #302C2A (RGB: 48, 44, 42) - Text
 
 ## Building and Running
 
@@ -124,7 +112,6 @@ This implementation demonstrates:
 - **Object-Oriented Design**: Well-structured classes with clear responsibilities
 - **Unit Testing**: Comprehensive test coverage for game logic
 - **Maven Project Management**: Proper Maven configuration and build process
-- **Brand Integration**: Consistent use of ACU brand colors and design principles
 
 ## Testing
 
@@ -132,7 +119,6 @@ The project includes comprehensive unit tests covering:
 
 - Tile creation, movement, and merging
 - Board initialization and game state management
-- Color scheme consistency and ACU brand color usage
 - Game logic edge cases and win/lose conditions
 
 Run tests with:
@@ -140,6 +126,3 @@ Run tests with:
 mvn test
 ```
 
-## License
-
-This project is part of the ACU JavaFX Course materials.
