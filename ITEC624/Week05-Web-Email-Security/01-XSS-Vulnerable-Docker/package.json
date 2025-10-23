@@ -1,0 +1,22 @@
+{
+  "name": "xss-lab-vulnerable",
+  "version": "1.0.0",
+  "description": "Intentionally vulnerable XSS demo (reflected XSS) for learning",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "security",
+    "xss",
+    "training",
+    "vulnerable"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.19.2"
+  }
+}
+

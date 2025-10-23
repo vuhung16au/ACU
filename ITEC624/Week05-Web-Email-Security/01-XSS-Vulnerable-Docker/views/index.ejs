@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>XSS Lab - Vulnerable</title>
+    <style>
+      body { font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif; margin: 2rem; }
+      .hint { background: #fff3cd; color: #664d03; padding: 1rem; border-radius: 6px; border: 1px solid #ffe69c; margin-top: 1rem; }
+      .container { max-width: 720px; margin: 0 auto; }
+      input[type=text] { width: 100%; padding: .6rem .8rem; font-size: 1rem; }
+      .result { margin-top: 1rem; padding: 1rem; border: 1px solid #ddd; border-radius: 6px; }
+      a { color: #0d6efd; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Reflected XSS - Vulnerable Demo</h1>
+      <p>Type something and submit. Your input will be reflected without encoding.</p>
+      <form method="GET" action="/">
+        <input name="q" type="text" placeholder="Try: <img src=x onerror=alert(1)>" value="<%- userInput %>" />
+        <p><button type="submit">Search</button> or <a href="/safe?q=<%= encodeURIComponent(userInput) %>">see safe version</a></p>
+      </form>
+
+      <div class="result">
+        <strong>Echoed back (unsafe):</strong>
+        <div>
+          <!-- Intentionally unescaped to demonstrate reflected XSS -->
+          <%- userInput %>
+        </div>
+      </div>
+
+      <div class="hint">
+        <strong>Hint:</strong> Supply HTML with an event handler, e.g. <code>&lt;img src=x onerror=alert('xss')&gt;</code>. Also try script tags.
+      </div>
+    </div>
+  </body>
+  </html>
+
+
