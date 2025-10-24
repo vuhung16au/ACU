@@ -1,3 +1,9 @@
+# AWS - Amazon Web Services 
+
+- AWS Certified Cloud Practitioner
+- AWS Certified Solutions Architect - Associate
+- [AWS Certified Security - Specialty](https://aws.amazon.com/certification/certified-security-specialty/)
+
 # CEH - Certified Ethical Hacker
 
 ## Exam Topics
