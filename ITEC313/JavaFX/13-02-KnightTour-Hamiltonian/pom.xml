@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.acu.javafx</groupId>
+    <artifactId>knight-tour-demo</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+
+    <name>Knight's Tour (Hamiltonian Cycle) Demo</name>
+    <description>JavaFX application solving a closed Knight's Tour via Hamiltonian cycle reduction with animation</description>
+
+    <properties>
+        <maven.compiler.source>24</maven.compiler.source>
+        <maven.compiler.target>24</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <javafx.version>24</javafx.version>
+        <javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
+    </properties>
+
+    <!-- Platform detection properties -->
+    <profiles>
+        <profile>
+            <id>mac-aarch64</id>
+            <activation>
+                <os>
+                    <family>mac</family>
+                    <arch>aarch64</arch>
+                </os>
+            </activation>
+            <properties>
+                <javafx.platform>mac-aarch64</javafx.platform>
+            </properties>
+        </profile>
+        <profile>
+            <id>mac-x86_64</id>
+            <activation>
+                <os>
+                    <family>mac</family>
+                    <arch>x86_64</arch>
+                </os>
+            </activation>
+            <properties>
+                <javafx.platform>mac</javafx.platform>
+            </properties>
+        </profile>
+        <profile>
+            <id>linux-x86_64</id>
+            <activation>
+                <os>
+                    <family>unix</family>
+                    <name>linux</name>
+                    <arch>x86_64</arch>
+                </os>
+            </activation>
+            <properties>
+                <javafx.platform>linux</javafx.platform>
+            </properties>
+        </profile>
+        <profile>
+            <id>linux-aarch64</id>
+            <activation>
+                <os>
+                    <family>unix</family>
+                    <name>linux</name>
+                    <arch>aarch64</arch>
+                </os>
+            </activation>
+            <properties>
+                <javafx.platform>linux-aarch64</javafx.platform>
+            </properties>
+        </profile>
+        <profile>
+            <id>win-x86_64</id>
+            <activation>
+                <os>
+                    <family>windows</family>
+                    <arch>x86_64</arch>
+                </os>
+            </activation>
+            <properties>
+                <javafx.platform>win</javafx.platform>
+            </properties>
+        </profile>
+        <profile>
+            <id>win-aarch64</id>
+            <activation>
+                <os>
+                    <family>windows</family>
+                    <arch>aarch64</arch>
+                </os>
+            </activation>
+            <properties>
+                <javafx.platform>win-aarch64</javafx.platform>
+            </properties>
+        </profile>
+    </profiles>
+
+    <dependencies>
+        <!-- JavaFX Controls -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>${javafx.version}</version>
+            <classifier>${javafx.platform}</classifier>
+        </dependency>
+
+        <!-- JavaFX FXML -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${javafx.version}</version>
+            <classifier>${javafx.platform}</classifier>
+        </dependency>
+
+        <!-- JavaFX Graphics -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+            <version>${javafx.version}</version>
+            <classifier>${javafx.platform}</classifier>
+        </dependency>
+
+        <!-- JavaFX Base -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-base</artifactId>
+            <version>${javafx.version}</version>
+            <classifier>${javafx.platform}</classifier>
+        </dependency>
+
+        <!-- JUnit for testing -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.10.0</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Maven Compiler Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <source>24</source>
+                    <target>24</target>
+                </configuration>
+            </plugin>
+
+            <!-- JavaFX Maven Plugin -->
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>${javafx.maven.plugin.version}</version>
+                <configuration>
+                    <mainClass>com.acu.javafx.knighttour.KnightTourDemo</mainClass>
+                </configuration>
+            </plugin>
+
+            <!-- Maven Surefire Plugin for testing -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.1.2</version>
+            </plugin>
+
+            <!-- Maven Shade Plugin for creating executable JAR -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.4.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>com.acu.javafx.knighttour.KnightTourDemo</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
