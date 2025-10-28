@@ -97,6 +97,7 @@
         <module>60-02-2048-game</module>
         <module>60-03-Snake-Game</module>
         <module>13-01-NineTailsProblem</module>
+        <module>13-03-ConnectedCircles-Problem</module>
     </modules>
 
     <build>
