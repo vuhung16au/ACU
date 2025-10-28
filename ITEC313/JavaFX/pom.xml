@@ -96,6 +96,7 @@
         <module>10-07-DirectorySize</module>
         <module>60-02-2048-game</module>
         <module>60-03-Snake-Game</module>
+        <module>13-01-NineTailsProblem</module>
     </modules>
 
     <build>
