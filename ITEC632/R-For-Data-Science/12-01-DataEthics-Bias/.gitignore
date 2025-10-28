@@ -1,0 +1,166 @@
+# .gitignore for Data Ethics and Bias Analysis Module
+
+# R-specific files
+.Rhistory
+.Rapp.history
+.RData
+.Ruserdata
+.Rproj.user/
+.Rproj
+.Rcheck/
+.Rbuildignore
+
+# R Markdown files
+*.Rmd
+!DataEthics_Analysis.Rmd
+*.md
+!README.md
+!DataEthics-Bias.md
+!docs/*.md
+!.github/instructions/*.md
+
+# Generated files
+*.html
+*.pdf
+*.log
+*.aux
+*.out
+*.toc
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+
+# Data files (keep sample data)
+*.csv
+!loan_data_sim.csv
+*.xlsx
+*.xls
+*.json
+*.xml
+
+# Images (keep sample images)
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.eps
+*.pdf
+
+# R package files
+*.tar.gz
+*.zip
+*.Rproj
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# Analysis outputs
+analysis_summary.rds
+compliance_assessment.csv
+bias_report.html
+bias_history.rds
+
+# Generated datasets
+*_generated.csv
+*_augmented.csv
+*_mitigated.csv
+
+# Model files
+*.rds
+*.pkl
+*.joblib
+*.h5
+*.pb
+
+# Log files
+*.log
+logs/
+log/
+
+# Cache directories
+.cache/
+cache/
+__pycache__/
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# Node modules (if using any JS tools)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Jupyter notebooks
+.ipynb_checkpoints/
+
+# RStudio files
+*.Rproj.user/
+
+# Compiled documents
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+*.toc
+
+# Backup files
+*~
+*.bak
+*.backup
+*.orig
+
+# Test files
+test_*.R
+*_test.R
+tests/
+test/
+
+# Documentation builds
+docs/_build/
+docs/build/
+site/
+
+# Coverage reports
+coverage/
+*.coverage
+.coverage.*
+
+# Profiling data
+*.prof
+*.Rprof
+
+# R package documentation
+man/
+vignettes/
+inst/
+src/
+R/
+DESCRIPTION
+NAMESPACE

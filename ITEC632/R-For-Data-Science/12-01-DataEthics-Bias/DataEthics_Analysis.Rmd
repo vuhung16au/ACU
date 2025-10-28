@@ -1,0 +1,503 @@
+---
+title: "Data Ethics and Bias Analysis - Loan Application Dataset"
+subtitle: "Demonstrating Algorithmic Bias Detection and Mitigation in Australian Context"
+author: "R for Data Science Course"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: flatly
+    code_folding: show
+    fig_width: 10
+    fig_height: 6
+    df_print: paged
+  pdf_document:
+    toc: true
+    fig_width: 10
+    fig_height: 6
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  fig.width = 10,
+  fig.height = 6,
+  dpi = 300
+)
+```
+
+# Executive Summary
+
+This analysis demonstrates how algorithmic bias can be systematically introduced and detected in machine learning models, with specific focus on Australian legal compliance requirements. We analyze a simulated loan application dataset to identify discriminatory patterns and implement mitigation strategies.
+
+**Key Findings:**
+- Significant disparities in loan approval rates across protected groups
+- Machine learning models perpetuate and amplify existing biases
+- Multiple violations of Australian anti-discrimination laws
+- Effective mitigation strategies can reduce bias while maintaining model performance
+
+---
+
+# 1. Data Overview and Structure
+
+## 1.1 Dataset Description
+
+The `loan_data_sim.csv` dataset contains 2,000 simulated loan applications designed to demonstrate various forms of algorithmic bias. The dataset includes both legitimate business factors and protected attributes that could lead to unfair lending practices.
+
+```{r data-loading}
+# Load required libraries
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+library(caret)
+library(yardstick)
+library(rpart)
+library(gridExtra)
+library(VIM)
+library(knitr)
+
+# Load data
+loan_data <- read.csv("loan_data_sim.csv", stringsAsFactors = TRUE)
+
+# Display basic information
+cat("Dataset dimensions:", dim(loan_data), "\n")
+cat("Target variable distribution:\n")
+table(loan_data$loan_approved)
+```
+
+## 1.2 Data Structure
+
+```{r data-structure}
+# Display data structure
+str(loan_data)
+
+# Summary statistics
+summary(loan_data)
+```
+
+## 1.3 Missing Values Analysis
+
+```{r missing-values}
+# Check for missing values
+missing_summary <- loan_data %>%
+  summarise_all(~sum(is.na(.))) %>%
+  gather(key = "Variable", value = "Missing_Count") %>%
+  arrange(desc(Missing_Count))
+
+kable(missing_summary, caption = "Missing Values Summary")
+
+# Visualize missing values pattern if any exist
+if(sum(is.na(loan_data)) > 0) {
+  aggr(loan_data, col = c('navyblue', 'red'), numbers = TRUE, sortVars = TRUE)
+}
+```
+
+---
+
+# 2. Bias Detection and Disparity Analysis
+
+## 2.1 Gender-Based Disparity
+
+```{r gender-disparity}
+# Calculate gender-based approval rates
+gender_disparity <- loan_data %>%
+  group_by(gender) %>%
+  summarise(
+    total_applications = n(),
+    approved_count = sum(loan_approved == "YES"),
+    approval_rate = mean(loan_approved == "YES") * 100,
+    .groups = 'drop'
+  )
+
+kable(gender_disparity, caption = "Gender-based Approval Rates", digits = 2)
+
+# Visualize gender disparity
+p1 <- ggplot(gender_disparity, aes(x = gender, y = approval_rate, fill = gender)) +
+  geom_bar(stat = "identity", alpha = 0.7) +
+  geom_text(aes(label = paste0(round(approval_rate, 1), "%")), 
+            vjust = -0.5, size = 4, fontface = "bold") +
+  labs(title = "Loan Approval Rates by Gender",
+       subtitle = "Demonstrating Gender-based Disparity",
+       x = "Gender", y = "Approval Rate (%)",
+       caption = "Data shows potential gender discrimination") +
+  theme_minimal() +
+  theme(legend.position = "none",
+        plot.title = element_text(size = 14, face = "bold"),
+        plot.subtitle = element_text(size = 12, color = "red"))
+
+print(p1)
+```
+
+## 2.2 Age-Based Disparity
+
+```{r age-disparity}
+# Calculate age-based approval rates
+age_disparity <- loan_data %>%
+  group_by(age_group) %>%
+  summarise(
+    total_applications = n(),
+    approved_count = sum(loan_approved == "YES"),
+    approval_rate = mean(loan_approved == "YES") * 100,
+    .groups = 'drop'
+  )
+
+kable(age_disparity, caption = "Age-based Approval Rates", digits = 2)
+
+# Visualize age disparity
+p2 <- ggplot(age_disparity, aes(x = age_group, y = approval_rate, fill = age_group)) +
+  geom_bar(stat = "identity", alpha = 0.7) +
+  geom_text(aes(label = paste0(round(approval_rate, 1), "%")), 
+            vjust = -0.5, size = 3.5, fontface = "bold") +
+  labs(title = "Loan Approval Rates by Age Group",
+       subtitle = "Demonstrating Age-based Disparity",
+       x = "Age Group", y = "Approval Rate (%)",
+       caption = "Data shows potential age discrimination") +
+  theme_minimal() +
+  theme(legend.position = "none",
+        plot.title = element_text(size = 14, face = "bold"),
+        plot.subtitle = element_text(size = 12, color = "red"),
+        axis.text.x = element_text(angle = 45, hjust = 1))
+
+print(p2)
+```
+
+## 2.3 Ethnicity-Based Disparity
+
+```{r ethnicity-disparity}
+# Calculate ethnicity-based approval rates
+ethnicity_disparity <- loan_data %>%
+  group_by(ethnicity) %>%
+  summarise(
+    total_applications = n(),
+    approved_count = sum(loan_approved == "YES"),
+    approval_rate = mean(loan_approved == "YES") * 100,
+    .groups = 'drop'
+  )
+
+kable(ethnicity_disparity, caption = "Ethnicity-based Approval Rates", digits = 2)
+
+# Visualize ethnicity disparity
+p3 <- ggplot(ethnicity_disparity, aes(x = ethnicity, y = approval_rate, fill = ethnicity)) +
+  geom_bar(stat = "identity", alpha = 0.7) +
+  geom_text(aes(label = paste0(round(approval_rate, 1), "%")), 
+            vjust = -0.5, size = 3.5, fontface = "bold") +
+  labs(title = "Loan Approval Rates by Ethnicity",
+       subtitle = "Demonstrating Racial/Ethnic Disparity",
+       x = "Ethnicity", y = "Approval Rate (%)",
+       caption = "Data shows potential racial discrimination") +
+  theme_minimal() +
+  theme(legend.position = "none",
+        plot.title = element_text(size = 14, face = "bold"),
+        plot.subtitle = element_text(size = 12, color = "red"),
+        axis.text.x = element_text(angle = 45, hjust = 1))
+
+print(p3)
+```
+
+## 2.4 Intersectional Bias Analysis
+
+```{r intersectional-analysis}
+# Intersectional analysis (Gender + Ethnicity)
+intersectional_disparity <- loan_data %>%
+  group_by(gender, ethnicity) %>%
+  summarise(
+    total_applications = n(),
+    approved_count = sum(loan_approved == "YES"),
+    approval_rate = mean(loan_approved == "YES") * 100,
+    .groups = 'drop'
+  ) %>%
+  filter(total_applications >= 10)  # Filter for statistical significance
+
+kable(intersectional_disparity, caption = "Intersectional Analysis (Gender + Ethnicity)", digits = 2)
+
+# Intersectional visualization
+p4 <- ggplot(intersectional_disparity, 
+             aes(x = ethnicity, y = approval_rate, fill = gender)) +
+  geom_bar(stat = "identity", position = "dodge", alpha = 0.7) +
+  geom_text(aes(label = paste0(round(approval_rate, 1), "%")), 
+            position = position_dodge(width = 0.9), 
+            vjust = -0.5, size = 3, fontface = "bold") +
+  labs(title = "Intersectional Bias Analysis",
+       subtitle = "Loan Approval Rates by Gender and Ethnicity",
+       x = "Ethnicity", y = "Approval Rate (%)",
+       fill = "Gender",
+       caption = "Shows compounded discrimination effects") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        plot.title = element_text(size = 14, face = "bold"),
+        plot.subtitle = element_text(size = 12, color = "red"))
+
+print(p4)
+```
+
+---
+
+# 3. Algorithmic Bias Demonstration
+
+## 3.1 Model Training Setup
+
+```{r model-setup}
+# Prepare data for modeling
+loan_data$loan_approved_binary <- ifelse(loan_data$loan_approved == "YES", 1, 0)
+
+# Create training and testing sets
+set.seed(123)
+trainIndex <- createDataPartition(loan_data$loan_approved_binary, p = 0.7, list = FALSE)
+train_data <- loan_data[trainIndex, ]
+test_data <- loan_data[-trainIndex, ]
+
+cat("Training set size:", nrow(train_data), "\n")
+cat("Testing set size:", nrow(test_data), "\n")
+```
+
+## 3.2 Biased Model Training
+
+```{r biased-model}
+# Train biased model (including protected attributes)
+biased_model <- glm(loan_approved_binary ~ 
+                   gender + age_group + ethnicity + postcode +
+                   annual_income + credit_score + employment_years + 
+                   debt_to_income_ratio + loan_amount + loan_purpose + 
+                   previous_defaults + education_level + marital_status + 
+                   occupation_category,
+                   data = train_data, family = binomial)
+
+# Make predictions
+biased_predictions <- predict(biased_model, newdata = test_data, type = "response")
+biased_predicted_class <- ifelse(biased_predictions > 0.5, 1, 0)
+
+# Overall model performance
+cat("Biased Model Performance (Overall):\n")
+confusion_matrix_biased <- confusionMatrix(factor(biased_predicted_class), 
+                                         factor(test_data$loan_approved_binary))
+print(confusion_matrix_biased)
+```
+
+## 3.3 Group-Specific Performance Analysis
+
+```{r group-performance}
+# Function to calculate group-specific metrics
+calculate_group_metrics <- function(predictions, actual, group_var, group_value) {
+  group_mask <- test_data[[group_var]] == group_value & !is.na(test_data[[group_var]])
+  if(sum(group_mask, na.rm = TRUE) == 0) return(NULL)
+  
+  group_pred <- predictions[group_mask]
+  group_actual <- actual[group_mask]
+  
+  # Calculate metrics
+  tp <- sum(group_pred == 1 & group_actual == 1)
+  fp <- sum(group_pred == 1 & group_actual == 0)
+  fn <- sum(group_pred == 0 & group_actual == 1)
+  tn <- sum(group_pred == 0 & group_actual == 0)
+  
+  precision <- ifelse(tp + fp > 0, tp / (tp + fp), 0)
+  recall <- ifelse(tp + fn > 0, tp / (tp + fn), 0)
+  f1_score <- ifelse(precision + recall > 0, 2 * precision * recall / (precision + recall), 0)
+  accuracy <- (tp + tn) / (tp + fp + fn + tn)
+  
+  return(data.frame(
+    group = group_value,
+    group_size = sum(group_mask),
+    accuracy = accuracy,
+    precision = precision,
+    recall = recall,
+    f1_score = f1_score,
+    approval_rate = mean(group_actual)
+  ))
+}
+
+# Gender-based model performance
+gender_performance <- map_dfr(unique(test_data$gender), function(g) {
+  calculate_group_metrics(biased_predicted_class, test_data$loan_approved_binary, "gender", g)
+})
+
+kable(gender_performance, caption = "Model Performance by Gender", digits = 3)
+
+# Ethnicity-based model performance
+ethnicity_performance <- map_dfr(unique(test_data$ethnicity[!is.na(test_data$ethnicity)]), function(e) {
+  calculate_group_metrics(biased_predicted_class, test_data$loan_approved_binary, "ethnicity", e)
+})
+
+kable(ethnicity_performance, caption = "Model Performance by Ethnicity", digits = 3)
+```
+
+## 3.4 Performance Disparity Visualization
+
+```{r performance-visualization}
+# Visualize performance disparities
+p5 <- ggplot(gender_performance, aes(x = group, y = recall, fill = group)) +
+  geom_bar(stat = "identity", alpha = 0.7) +
+  geom_text(aes(label = paste0(round(recall, 3))), 
+            vjust = -0.5, size = 4, fontface = "bold") +
+  labs(title = "Model Recall by Gender",
+       subtitle = "Shows differential performance across groups",
+       x = "Gender", y = "Recall (True Positive Rate)",
+       caption = "Lower recall indicates higher false negative rate") +
+  theme_minimal() +
+  theme(legend.position = "none",
+        plot.title = element_text(size = 14, face = "bold"),
+        plot.subtitle = element_text(size = 12, color = "red"))
+
+print(p5)
+```
+
+---
+
+# 4. Bias Mitigation and Fairness
+
+## 4.1 Fair Model Training
+
+```{r fair-model}
+# Train fair model (without protected attributes)
+fair_model <- glm(loan_approved_binary ~ 
+                 annual_income + credit_score + employment_years + 
+                 debt_to_income_ratio + loan_amount + loan_purpose + 
+                 previous_defaults,
+                 data = train_data, family = binomial)
+
+# Make predictions
+fair_predictions <- predict(fair_model, newdata = test_data, type = "response")
+fair_predicted_class <- ifelse(fair_predictions > 0.5, 1, 0)
+
+# Overall model performance
+cat("Fair Model Performance (Overall):\n")
+confusion_matrix_fair <- confusionMatrix(factor(fair_predicted_class), 
+                                        factor(test_data$loan_approved_binary))
+print(confusion_matrix_fair)
+```
+
+## 4.2 Fairness Metrics Comparison
+
+```{r fairness-metrics}
+# Demographic Parity Analysis
+demographic_parity_biased <- test_data %>%
+  mutate(predicted_approved = biased_predicted_class) %>%
+  group_by(gender) %>%
+  summarise(approval_rate = mean(predicted_approved), .groups = 'drop')
+
+demographic_parity_fair <- test_data %>%
+  mutate(predicted_approved = fair_predicted_class) %>%
+  group_by(gender) %>%
+  summarise(approval_rate = mean(predicted_approved), .groups = 'drop')
+
+cat("Biased Model - Gender Approval Rates:\n")
+kable(demographic_parity_biased, caption = "Biased Model Gender Approval Rates", digits = 3)
+
+cat("Fair Model - Gender Approval Rates:\n")
+kable(demographic_parity_fair, caption = "Fair Model Gender Approval Rates", digits = 3)
+
+# Equalized Odds Analysis
+equalized_odds_analysis <- test_data %>%
+  mutate(
+    biased_pred = biased_predicted_class,
+    fair_pred = fair_predicted_class,
+    actual = loan_approved_binary
+  ) %>%
+  group_by(gender) %>%
+  summarise(
+    biased_tpr = sum(biased_pred == 1 & actual == 1) / sum(actual == 1),
+    biased_fpr = sum(biased_pred == 1 & actual == 0) / sum(actual == 0),
+    fair_tpr = sum(fair_pred == 1 & actual == 1) / sum(actual == 1),
+    fair_fpr = sum(fair_pred == 1 & actual == 0) / sum(actual == 0),
+    .groups = 'drop'
+  )
+
+kable(equalized_odds_analysis, caption = "Equalized Odds Analysis", digits = 3)
+```
+
+---
+
+# 5. Australian Legal Compliance Assessment
+
+## 5.1 Legal Framework Analysis
+
+```{r compliance-analysis}
+# Generate compliance findings
+compliance_findings <- data.frame(
+  Issue = c("Gender Discrimination", "Age Discrimination", "Racial Discrimination", 
+           "Proxy Discrimination", "Lack of Transparency", "Data Minimization Violation"),
+  Severity = c("HIGH", "HIGH", "HIGH", "MEDIUM", "HIGH", "MEDIUM"),
+  Legal_Violation = c("Anti-Discrimination Act", "Age Discrimination Act", 
+                     "Racial Discrimination Act", "Indirect Discrimination",
+                     "Privacy Act APP 5", "Privacy Act APP 3"),
+  Recommendation = c("Remove gender from model", "Remove age from model",
+                    "Remove ethnicity from model", "Audit proxy variables",
+                    "Implement explainable AI", "Collect only necessary data")
+)
+
+kable(compliance_findings, caption = "Australian Legal Compliance Assessment")
+```
+
+## 5.2 Compliance Violations Summary
+
+**Key Legal Violations Identified:**
+
+1. **Privacy Act 1988 (Australian Privacy Principles)**
+   - Collection of sensitive information (gender, ethnicity) requires explicit consent
+   - Use of personal information must be necessary and directly related to purpose
+   - Data minimization principle violated by collecting unnecessary protected attributes
+
+2. **Anti-Discrimination Acts (Federal and State)**
+   - Direct discrimination: Using gender/ethnicity in decision-making is prohibited
+   - Indirect discrimination: Proxy variables creating disparate impact are unlawful
+   - Equal opportunity requirements violated by biased approval rates
+
+3. **Australian Human Rights Commission Act 1986**
+   - Right to equality before the law violated by differential treatment
+   - Right to non-discrimination in employment/services violated
+
+4. **Fair Lending Guidelines**
+   - Responsible lending requires assessment based on creditworthiness alone
+   - Transparency requirements mandate explainable, non-discriminatory decisions
+
+---
+
+# 6. Recommendations and Next Steps
+
+## 6.1 Immediate Actions Required
+
+1. **Remove all protected attributes from the model**
+2. **Audit proxy variables for correlation with protected attributes**
+3. **Implement regular bias testing and monitoring**
+4. **Establish explainable AI framework for decision transparency**
+5. **Conduct regular compliance audits**
+
+## 6.2 Technical Mitigation Strategies
+
+1. **Use adversarial debiasing techniques**
+2. **Implement demographic parity constraints**
+3. **Apply equalized odds post-processing**
+4. **Use synthetic data augmentation for underrepresented groups**
+5. **Implement continuous monitoring of model fairness**
+
+## 6.3 Organizational Measures
+
+1. **Establish AI ethics committee**
+2. **Implement bias impact assessments**
+3. **Provide staff training on algorithmic fairness**
+4. **Establish external audit processes**
+5. **Create incident response procedures for bias detection**
+
+---
+
+# 7. Conclusion
+
+This analysis demonstrates the critical importance of algorithmic fairness in machine learning systems, particularly in the Australian regulatory context. The findings show that:
+
+- **Bias exists at multiple levels**: Direct discrimination through protected attributes and indirect discrimination through proxy variables
+- **Machine learning models amplify existing biases**: Models trained on biased data perpetuate and often worsen discriminatory patterns
+- **Mitigation is possible**: Removing protected attributes and implementing fairness constraints can significantly reduce bias
+- **Legal compliance is essential**: Australian laws provide clear frameworks for preventing algorithmic discrimination
+
+**Final Recommendation**: Organizations must implement comprehensive bias detection and mitigation strategies to ensure compliance with Australian anti-discrimination laws and ethical AI principles.
+
+---
+
+# Session Information
+
+```{r session-info}
+sessionInfo()
+```

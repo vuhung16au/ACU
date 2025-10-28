@@ -1,0 +1,143 @@
+name: Bias Detection and Compliance Check
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 9 * * 1'  # Weekly on Mondays at 9 AM
+
+jobs:
+  bias-detection:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      
+    - name: Set up R
+      uses: r-lib/actions/setup-r@v2
+      with:
+        r-version: '4.3'
+        
+    - name: Install system dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev
+        
+    - name: Install R packages
+      run: |
+        R -e "install.packages(c('tidyverse', 'caret', 'yardstick', 'rpart', 'gridExtra', 'VIM', 'knitr', 'rmarkdown'), repos='https://cran.rstudio.com/')"
+        
+    - name: Generate dataset
+      run: |
+        cd 12-01-DataEthics-Bias
+        Rscript generate_dataset.R
+        
+    - name: Run bias detection analysis
+      run: |
+        cd 12-01-DataEthics-Bias
+        Rscript DataEthics_Analysis.R
+        
+    - name: Generate compliance report
+      run: |
+        cd 12-01-DataEthics-Bias
+        R -e "rmarkdown::render('DataEthics_Analysis.Rmd')"
+        
+    - name: Check for bias violations
+      run: |
+        cd 12-01-DataEthics-Bias
+        R -e "
+        # Load analysis results
+        if(file.exists('compliance_assessment.csv')) {
+          compliance <- read.csv('compliance_assessment.csv')
+          high_severity <- sum(compliance\$Severity == 'HIGH')
+          if(high_severity > 0) {
+            cat('WARNING: Found', high_severity, 'high-severity compliance violations\n')
+            print(compliance[compliance\$Severity == 'HIGH', ])
+            exit(1)
+          } else {
+            cat('SUCCESS: No high-severity compliance violations detected\n')
+          }
+        } else {
+          cat('ERROR: Compliance assessment file not found\n')
+          exit(1)
+        }
+        "
+        
+    - name: Upload analysis artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: bias-analysis-results
+        path: |
+          12-01-DataEthics-Bias/images/
+          12-01-DataEthics-Bias/compliance_assessment.csv
+          12-01-DataEthics-Bias/analysis_summary.rds
+          12-01-DataEthics-Bias/DataEthics_Analysis.html
+        
+    - name: Comment on PR with results
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const fs = require('fs');
+          let comment = '## 🤖 Automated Bias Detection Results\n\n';
+          
+          if(fs.existsSync('12-01-DataEthics-Bias/compliance_assessment.csv')) {
+            const compliance = fs.readFileSync('12-01-DataEthics-Bias/compliance_assessment.csv', 'utf8');
+            const lines = compliance.split('\n');
+            const violations = lines.filter(line => line.includes('HIGH')).length;
+            
+            if(violations > 0) {
+              comment += '⚠️ **HIGH-SEVERITY VIOLATIONS DETECTED**\n\n';
+              comment += 'The analysis found ' + violations + ' high-severity compliance violations.\n\n';
+              comment += 'Please review the compliance assessment and implement recommended fixes.\n\n';
+            } else {
+              comment += '✅ **No high-severity violations detected**\n\n';
+              comment += 'The bias detection analysis completed successfully with no critical issues.\n\n';
+            }
+          } else {
+            comment += '❌ **Analysis failed**\n\n';
+            comment += 'The bias detection analysis could not complete successfully.\n\n';
+          }
+          
+          comment += '### 📊 Analysis Artifacts\n';
+          comment += '- Compliance Assessment: `compliance_assessment.csv`\n';
+          comment += '- Visualization Images: `images/` folder\n';
+          comment += '- Analysis Report: `DataEthics_Analysis.html`\n\n';
+          comment += '### 🔍 Next Steps\n';
+          comment += '1. Review the compliance assessment results\n';
+          comment += '2. Address any high-severity violations\n';
+          comment += '3. Implement recommended mitigation strategies\n';
+          comment += '4. Re-run the analysis to verify fixes\n\n';
+          comment += '---\n';
+          comment += '*This automated analysis helps ensure compliance with Australian anti-discrimination laws and algorithmic fairness principles.*';
+          
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: comment
+          });
+
+  security-scan:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        scan-type: 'fs'
+        scan-ref: '.'
+        format: 'sarif'
+        output: 'trivy-results.sarif'
+        
+    - name: Upload Trivy scan results
+      uses: github/codeql-action/upload-sarif@v2
+      if: always()
+      with:
+        sarif_file: 'trivy-results.sarif'
