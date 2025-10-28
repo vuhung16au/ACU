@@ -151,10 +151,6 @@ This module addresses compliance with:
 
 ## 📚 Additional Resources
 
-### Academic Papers
-- Barocas, S., Hardt, M., & Narayanan, A. (2019). *Fairness and Machine Learning*
-- Mehrabi, N., et al. (2021). "A Survey on Bias and Fairness in Machine Learning"
-
 ### Australian Guidelines
 - [Australian Human Rights Commission - AI and Human Rights](https://humanrights.gov.au/our-work/rights-and-freedoms/publications/artificial-intelligence-and-human-rights-discussion-paper)
 - [OAIC - Privacy Act Guidelines](https://www.oaic.gov.au/privacy/privacy-legislation/privacy-act)
@@ -163,15 +159,6 @@ This module addresses compliance with:
 - **Fairlearn**: Microsoft's fairness assessment toolkit
 - **AI Fairness 360**: IBM's comprehensive fairness library
 - **What-If Tool**: Google's model interpretability platform
-
-## 🤝 Contributing
-
-This module is part of the R for Data Science curriculum. Contributions are welcome for:
-
-- Additional bias detection techniques
-- Extended compliance frameworks
-- New mitigation strategies
-- Enhanced visualizations
 
 ## 📄 License
 
