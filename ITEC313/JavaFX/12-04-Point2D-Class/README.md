@@ -276,34 +276,4 @@ mvn javafx:run
 2. **Enhance GUI**: Add more visualization features
 3. **Improve Tests**: Add more edge cases and scenarios
 
-## Troubleshooting
 
-### Common Issues
-
-#### 1. JavaFX Not Found
-**Solution**: Ensure JavaFX dependencies are properly configured in `pom.xml`
-
-#### 2. Compilation Errors
-**Solution**: Verify Java 24+ is installed and Maven is properly configured
-
-#### 3. Test Failures
-**Solution**: Check that all dependencies are resolved and tests are properly written
-
-### Debug Mode
-
-Run with debug output:
-```bash
-mvn javafx:run -Djavafx.debug=true
-```
-
-## Screenshots
-
-The application features a modern interface with:
-- Clean input forms for coordinate entry
-- Real-time visualization canvas
-- Comprehensive output display
-- ACU-branded color scheme
-
-## License
-
-This project is part of the ACU JavaFX Course educational materials.
