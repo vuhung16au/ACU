@@ -1,0 +1,51 @@
+{
+  "nodes": [
+    { "name": "Perth", "x": 200, "y": 700 },
+    { "name": "Adelaide", "x": 620, "y": 780 },
+    { "name": "Melbourne", "x": 700, "y": 820 },
+    { "name": "Sydney", "x": 820, "y": 780 },
+    { "name": "Canberra", "x": 800, "y": 820 },
+    { "name": "Brisbane", "x": 900, "y": 700 },
+    { "name": "Gold Coast", "x": 920, "y": 730 },
+    { "name": "Logan", "x": 910, "y": 720 },
+    { "name": "Redlands", "x": 930, "y": 710 },
+    { "name": "Newcastle", "x": 860, "y": 740 },
+    { "name": "Alice Springs", "x": 700, "y": 600 },
+    { "name": "Darwin", "x": 760, "y": 300 },
+    { "name": "Cairns", "x": 980, "y": 420 }
+  ],
+  "edges": [
+    { "from": "Sydney", "to": "Melbourne", "distance": 878 },
+    { "from": "Sydney", "to": "Canberra", "distance": 286 },
+    { "from": "Sydney", "to": "Brisbane", "distance": 915 },
+    { "from": "Sydney", "to": "Newcastle", "distance": 168 },
+    { "from": "Sydney", "to": "Adelaide", "distance": 1374 },
+    { "from": "Sydney", "to": "Gold Coast", "distance": 850 },
+
+    { "from": "Melbourne", "to": "Adelaide", "distance": 727 },
+    { "from": "Melbourne", "to": "Canberra", "distance": 662 },
+    { "from": "Melbourne", "to": "Newcastle", "distance": 1030 },
+
+    { "from": "Brisbane", "to": "Gold Coast", "distance": 78 },
+    { "from": "Brisbane", "to": "Logan", "distance": 59 },
+    { "from": "Brisbane", "to": "Redlands", "distance": 35 },
+    { "from": "Brisbane", "to": "Newcastle", "distance": 740 },
+    { "from": "Brisbane", "to": "Cairns", "distance": 1705 },
+
+    { "from": "Adelaide", "to": "Perth", "distance": 2696 },
+    { "from": "Adelaide", "to": "Alice Springs", "distance": 1533 },
+    { "from": "Adelaide", "to": "Canberra", "distance": 1160 },
+
+    { "from": "Perth", "to": "Alice Springs", "distance": 2415 },
+    { "from": "Perth", "to": "Darwin", "distance": 4020 },
+
+    { "from": "Alice Springs", "to": "Darwin", "distance": 1497 },
+    { "from": "Alice Springs", "to": "Cairns", "distance": 2340 },
+
+    { "from": "Darwin", "to": "Cairns", "distance": 2450 },
+
+    { "from": "Canberra", "to": "Newcastle", "distance": 422 }
+  ]
+}
+
+

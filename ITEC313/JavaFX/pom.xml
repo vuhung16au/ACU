@@ -99,6 +99,7 @@
         <module>13-01-NineTailsProblem</module>
         <module>13-03-ConnectedCircles-Problem</module>
         <module>13-04-Sudoku-Graph</module>
+        <module>13-05-ShortestPath-Australia-Graph</module>
     </modules>
 
     <build>

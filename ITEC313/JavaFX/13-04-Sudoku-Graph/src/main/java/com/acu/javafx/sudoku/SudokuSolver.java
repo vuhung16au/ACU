@@ -745,7 +745,7 @@ public class SudokuSolver extends Application {
         scroller.setFitToWidth(true);
         scroller.setPannable(true);
         
-        Scene scene = new Scene(scroller, 800, 500);
+        Scene scene = new Scene(scroller, 1000, 700);
         graphStage.setScene(scene);
         graphStage.show();
     }
