@@ -52,35 +52,7 @@ public class Graph {
 }
 ```
 
-### Python Implementation
-
-```python
-from collections import defaultdict, deque
-
-class Graph:
-    def __init__(self, directed=False):
-        self.graph = defaultdict(list)
-        self.directed = directed
-    
-    def add_vertex(self, vertex):
-        if vertex not in self.graph:
-            self.graph[vertex] = []
-    
-    def add_edge(self, from_vertex, to_vertex):
-        self.add_vertex(from_vertex)
-        self.add_vertex(to_vertex)
-        self.graph[from_vertex].append(to_vertex)
-        
-        if not self.directed:
-            self.graph[to_vertex].append(from_vertex)
-    
-    def get_neighbors(self, vertex):
-        return self.graph.get(vertex, [])
-    
-    def print_graph(self):
-        for vertex, neighbors in self.graph.items():
-            print(f"{vertex} -> {neighbors}")
-```
+ 
 
 ---
 
@@ -134,34 +106,7 @@ public class GraphTraversal {
 }
 ```
 
-#### Python Implementation
-```python
-def dfs_recursive(graph, start, visited=None):
-    if visited is None:
-        visited = set()
-    
-    visited.add(start)
-    print(start, end=" ")
-    
-    for neighbor in graph.get_neighbors(start):
-        if neighbor not in visited:
-            dfs_recursive(graph, neighbor, visited)
-
-def dfs_iterative(graph, start):
-    visited = set()
-    stack = [start]
-    
-    while stack:
-        vertex = stack.pop()
-        
-        if vertex not in visited:
-            visited.add(vertex)
-            print(vertex, end=" ")
-            
-            for neighbor in graph.get_neighbors(vertex):
-                if neighbor not in visited:
-                    stack.append(neighbor)
-```
+ 
 
 ### 2. Breadth-First Search (BFS)
 
@@ -188,22 +133,7 @@ public void bfs(Graph graph, int start) {
 }
 ```
 
-#### Python Implementation
-```python
-def bfs(graph, start):
-    visited = set()
-    queue = deque([start])
-    visited.add(start)
-    
-    while queue:
-        vertex = queue.popleft()
-        print(vertex, end=" ")
-        
-        for neighbor in graph.get_neighbors(vertex):
-            if neighbor not in visited:
-                visited.add(neighbor)
-                queue.append(neighbor)
-```
+ 
 
 ---
 
@@ -690,4 +620,4 @@ public class GraphExample {
 
 ---
 
-This comprehensive collection of examples demonstrates the practical implementation of graph theory concepts in real-world scenarios. Each example includes both Java and Python implementations where applicable, making it accessible to developers with different language preferences.
+This comprehensive collection of examples demonstrates the practical implementation of graph theory concepts in real-world scenarios using Java.

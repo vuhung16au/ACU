@@ -1,4 +1,4 @@
-# 13-01 – Nine Tails Problem (JavaFX)
+# Nine Tails Problem
 
 A simple JavaFX app for the classic Nine Tails problem.
 
@@ -8,31 +8,39 @@ A simple JavaFX app for the classic Nine Tails problem.
 
 Nine Tails is a puzzle consisting of a 3x3 grid of coins, each showing either Heads or Tails. The goal is to flip all coins to Tails by clicking on coins showing Heads. Clicking a coin flips it and its adjacent coins (up, down, left, right).
 
+> The game board consists of a \(3 \times 3\) grid (or generally, \(N \times N\)), where each cell is a coin. Each coin is either:
+>
+> - \(0\) = Head (white)
+> - \(1\) = Tail (purple)
+
 # How to Play Nine Tails
 
 - Click on a coin showing Heads (white) to flip it and its adjacent coins (up, down, left, right).
-- The objective is to turn all coins to Tails (purple) in the fewest moves possible.
-- Use the "Solve" button to find the minimum steps from the current configuration to the goal state.
+
+The objective is to turn all coins to \(\mathrm{Tail}\) (purple) in the fewest moves possible.
+Use the "Solve" button to find the minimum steps from the current configuration to the goal state.
 
 ## What it shows
-- The board is an N x N grid of coins (default 3 x 3). 0 = Head (white), 1 = Tail (purple).
-- A legal move: click a Head to flip it and its 4-neighbors (up/down/left/right).
-- The goal is all coins Tail. The Solve button finds the minimum steps.
+- The board is an \(N \times N\) grid of coins (default \(3 \times 3\)).
+- \(0 = \mathrm{Head}\) (white), \(1 = \mathrm{Tail}\) (purple).
+- A legal move: click a coin showing \(\mathrm{Head}\) to flip it and its 4-neighbors (up, down, left, right).
+- The goal: all coins \(\mathrm{Tail}\). The Solve button finds the minimum steps.
 
 ## How it works (short and sharp)
-- Each board state is encoded as an integer bitset. Bit i corresponds to cell i.
-- We precompute masks that toggle a cell and its neighbors.
-- We build a BFS tree rooted at the target state (all tails). From that tree we read the
-  shortest path from any start to the target.
+
+Each board state is encoded as an integer bitset: bit \(i\) corresponds to cell \(i\).
+Total number of possible board states is \(2^{N \times N}\).
+Masks are precomputed to toggle a cell and its neighbors.
+A BFS tree is built rooted at the target state (all tails); from that tree, we read the shortest path from any start to the target.
 
 ## Run
 ```
-mvn clean javafx:run -f 13-01-NineTailsProblem/pom.xml
+mvn clean javafx:run
 ```
 
-## UI
-- ACU colors: Purple for tails, white for heads; dark strokes and accent buttons.
-- Buttons: Solve, Reset, New, Size.
+## Documentation
+
+See [Documentation](docs/README.md) for more details. 
 
 ## Structure
 - `src/main/java/com/acu/ninetails/NineTailsModel.java` – core model + BFS.

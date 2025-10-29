@@ -10,7 +10,7 @@
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>Sudoku Solver</name>
+    <name>Sudoku Solver (Graph Theory)</name>
     <description>JavaFX application for solving Sudoku puzzles</description>
 
     <properties>

@@ -527,17 +527,27 @@ Maximum matching: 3 assignments possible
 ### 1. **Graph Traversal Algorithms**
 
 #### **Depth-First Search (DFS)**
-```python
-def dfs(graph, start, visited=None):
-    if visited is None:
-        visited = set()
-    
-    visited.add(start)
-    print(start)
-    
-    for neighbor in graph[start]:
-        if neighbor not in visited:
-            dfs(graph, neighbor, visited)
+```java
+import java.util.*;
+
+public class DFSExample {
+    private final Map<Integer, List<Integer>> graph;
+    private final Set<Integer> visited = new HashSet<>();
+
+    public DFSExample(Map<Integer, List<Integer>> graph) {
+        this.graph = graph;
+    }
+
+    public void dfs(int start) {
+        visited.add(start);
+        System.out.println(start);
+        for (int neighbor : graph.getOrDefault(start, Collections.emptyList())) {
+            if (!visited.contains(neighbor)) {
+                dfs(neighbor);
+            }
+        }
+    }
+}
 ```
 
 **Applications**:
@@ -547,22 +557,34 @@ def dfs(graph, start, visited=None):
 - Connected components
 
 #### **Breadth-First Search (BFS)**
-```python
-from collections import deque
+```java
+import java.util.*;
 
-def bfs(graph, start):
-    visited = set()
-    queue = deque([start])
-    visited.add(start)
-    
-    while queue:
-        vertex = queue.popleft()
-        print(vertex)
-        
-        for neighbor in graph[vertex]:
-            if neighbor not in visited:
-                visited.add(neighbor)
-                queue.append(neighbor)
+public class BFSExample {
+    private final Map<Integer, List<Integer>> graph;
+
+    public BFSExample(Map<Integer, List<Integer>> graph) {
+        this.graph = graph;
+    }
+
+    public void bfs(int start) {
+        Set<Integer> visited = new HashSet<>();
+        Queue<Integer> queue = new ArrayDeque<>();
+        visited.add(start);
+        queue.add(start);
+
+        while (!queue.isEmpty()) {
+            int vertex = queue.poll();
+            System.out.println(vertex);
+            for (int neighbor : graph.getOrDefault(vertex, Collections.emptyList())) {
+                if (!visited.contains(neighbor)) {
+                    visited.add(neighbor);
+                    queue.add(neighbor);
+                }
+            }
+        }
+    }
+}
 ```
 
 **Applications**:
@@ -573,55 +595,84 @@ def bfs(graph, start):
 ### 2. **Shortest Path Algorithms**
 
 #### **Dijkstra's Algorithm**
-```python
-import heapq
+```java
+import java.util.*;
 
-def dijkstra(graph, start):
-    distances = {vertex: float('infinity') for vertex in graph}
-    distances[start] = 0
-    pq = [(0, start)]
-    
-    while pq:
-        current_distance, current_vertex = heapq.heappop(pq)
-        
-        if current_distance > distances[current_vertex]:
-            continue
-            
-        for neighbor, weight in graph[current_vertex].items():
-            distance = current_distance + weight
-            
-            if distance < distances[neighbor]:
-                distances[neighbor] = distance
-                heapq.heappush(pq, (distance, neighbor))
-    
-    return distances
+public class DijkstraExample {
+    // graph: vertex -> (neighbor -> weight)
+    public Map<Integer, Integer> dijkstra(Map<Integer, Map<Integer, Integer>> graph, int start) {
+        Map<Integer, Integer> distances = new HashMap<>();
+        for (int v : graph.keySet()) {
+            distances.put(v, Integer.MAX_VALUE);
+        }
+        distances.put(start, 0);
+
+        PriorityQueue<int[]> pq = new PriorityQueue<>(Comparator.comparingInt(a -> a[1]));
+        pq.offer(new int[]{start, 0});
+
+        while (!pq.isEmpty()) {
+            int[] cur = pq.poll();
+            int vertex = cur[0];
+            int dist = cur[1];
+            if (dist > distances.get(vertex)) continue;
+
+            for (Map.Entry<Integer, Integer> e : graph.getOrDefault(vertex, Collections.emptyMap()).entrySet()) {
+                int neighbor = e.getKey();
+                int weight = e.getValue();
+                int newDist = dist + weight;
+                if (newDist < distances.getOrDefault(neighbor, Integer.MAX_VALUE)) {
+                    distances.put(neighbor, newDist);
+                    pq.offer(new int[]{neighbor, newDist});
+                }
+            }
+        }
+        return distances;
+    }
+}
 ```
 
 ### 3. **Minimum Spanning Tree**
 
 #### **Kruskal's Algorithm**
-```python
-def kruskal(graph):
-    edges = []
-    for u in graph:
-        for v, weight in graph[u].items():
-            edges.append((weight, u, v))
-    
-    edges.sort()
-    parent = {vertex: vertex for vertex in graph}
-    
-    def find(x):
-        if parent[x] != x:
-            parent[x] = find(parent[x])
-        return parent[x]
-    
-    mst = []
-    for weight, u, v in edges:
-        if find(u) != find(v):
-            mst.append((u, v, weight))
-            parent[find(u)] = find(v)
-    
-    return mst
+```java
+import java.util.*;
+
+public class KruskalExample {
+    static class Edge {
+        int from, to, weight;
+        Edge(int from, int to, int weight) { this.from = from; this.to = to; this.weight = weight; }
+    }
+
+    static class UnionFind {
+        int[] parent, rank;
+        UnionFind(int n) {
+            parent = new int[n];
+            rank = new int[n];
+            for (int i = 0; i < n; i++) parent[i] = i;
+        }
+        int find(int x) { return parent[x] == x ? x : (parent[x] = find(parent[x])); }
+        boolean union(int a, int b) {
+            int pa = find(a), pb = find(b);
+            if (pa == pb) return false;
+            if (rank[pa] < rank[pb]) parent[pa] = pb;
+            else if (rank[pb] < rank[pa]) parent[pb] = pa;
+            else { parent[pb] = pa; rank[pa]++; }
+            return true;
+        }
+    }
+
+    public List<Edge> kruskal(List<Edge> edges, int numVertices) {
+        edges.sort(Comparator.comparingInt(e -> e.weight));
+        UnionFind uf = new UnionFind(numVertices);
+        List<Edge> mst = new ArrayList<>();
+        for (Edge e : edges) {
+            if (uf.union(e.from, e.to)) {
+                mst.add(e);
+            }
+        }
+        return mst;
+    }
+}
 ```
 
 ---
