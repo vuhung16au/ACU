@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.acu.javafx</groupId>
-    <artifactId>knight-tour-demo</artifactId>
+    <artifactId>knight-tour-demo-hamiltonian-cycle</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 

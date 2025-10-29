@@ -47,7 +47,7 @@ The application provides an interactive visualization where users can:
 │   ├── algorithm.md                 # Algorithm explanation
 │   └── architecture.md              # Application architecture
 ├── images/
-│   └── 06-05-KnightTour.png         # Application screenshot
+│   └── KnightTour-Hamiltonian.png    # Application screenshot
 ├── pom.xml                          # Maven configuration
 ├── run.sh                           # Unix/Linux/macOS run script
 ├── run.bat                          # Windows run script
@@ -94,7 +94,7 @@ mvn clean package
 mvn clean package
 
 # Run the application
-java -jar target/knight-tour-demo-1.0.0.jar
+java -jar target/knight-tour-demo-hamiltonian-cycle-1.0.0.jar
 ```
 
 ## Usage Guide
@@ -218,7 +218,7 @@ The test suite covers:
 ```bash
 # Clone the repository
 git clone <repository-url>
-cd 06-05-KnightTour
+cd 13-02-KnightTour-Hamiltonian
 
 # Build the project
 mvn clean package
@@ -305,7 +305,7 @@ This project demonstrates:
 
 ## Screenshots
 
-![Knight's Tour Demo](images/06-05-KnightTour.png)
+![Knight's Tour Demo](images/KnightTour-Hamiltonian.png)
 <!-- ![Knight's Tour Demo](https://youtube.com/shorts/44tY0SFZCPo?feature=share) -->
 [![Watch the Tour](https://img.youtube.com/vi/44tY0SFZCPo/default.jpg)](https://youtu.be/44tY0SFZCPo)
 
