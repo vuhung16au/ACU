@@ -96,7 +96,7 @@ References work in two parts: **in-text citations** and a **reference list**.
 - **In-text**: "Cybersecurity is essential for protecting digital assets (Smith 2023)."
 - **In reference list**: Smith, J 2023, 'Cybersecurity Basics', Academic Press, London.
 
-## Difference Between IEEE, Harvard Style Referencing, and APA Style Referencing
+## Difference Between IEEE and Harvard Style Referencing
 
 ### IEEE (Institute of Electrical and Electronics Engineers)
 - **In-text citations**: Numbered in square brackets [1], [2]
@@ -117,16 +117,6 @@ References work in two parts: **in-text citations** and a **reference list**.
 **Example:**
 - In-text: "Network security protocols (Smith 2023) are essential..."
 - Reference: Smith, J 2023, 'Network Security Protocols', Academic Press, London.
-
-### APA (American Psychological Association)
-- **In-text citations**: Author and year, with page numbers for quotes (Smith, 2023, p. 45)
-- **Reference list**: Alphabetically ordered
-- **Format**: Author, A. A. (Year). Title. Publisher.
-- **Use**: Common in psychology, education, and social sciences
-
-**Example:**
-- In-text: "Network security protocols (Smith, 2023) are essential..."
-- Reference: Smith, J. (2023). Network security protocols. Academic Press.
 
 **Note:** For this course, **Harvard style** is the preferred referencing format.
 
