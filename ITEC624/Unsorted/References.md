@@ -42,6 +42,8 @@ A good reference includes all necessary information in the correct format. The r
 - URL
 - Date accessed
 
+**Important Note:** When citing URLs or websites, the **accessed date is required**. This is because web content can change or be removed, so the date you accessed the information is crucial for verification purposes.
+
 **Key Principles:**
 - **Accuracy**: All information must be correct
 - **Completeness**: Include all required elements
