@@ -13,7 +13,7 @@ Good [morning/afternoon]. Today I'll present our project on Heart Disease Predic
 
 ## Slide 2: Dataset Description (30 seconds)
 
-We used the Heart Disease Dataset 2020, which contains 319,796 records with 18 variables. The target variable is HeartDisease, indicating presence or absence of heart disease. One key challenge we faced was class imbalance, which we addressed using specialized techniques.
+We used the Heart Disease Dataset 2020, which contains 319,795 records with 18 variables. The target variable is HeartDisease, indicating presence or absence of heart disease. The dataset showed severe class imbalance with only 8.6% positive cases (27,373 cases) versus 91.4% negative cases (292,422 cases), creating an imbalance ratio of approximately 10.7 to 1. This significant imbalance required specialized handling techniques, which we addressed using SMOTE.
 
 ---
 
@@ -37,19 +37,19 @@ We built and evaluated 6 different machine learning models: Logistic Regression,
 
 ## Slide 6: Model Performance (45 seconds)
 
-We evaluated all models using multiple metrics including Accuracy, Precision, Recall, F1-Score, and AUC-ROC. The top 2 performing models were [Model 1] and [Model 2]. These models showed the best balance of performance metrics, with particularly strong AUC-ROC scores, which is crucial for imbalanced datasets.
+We evaluated all models using multiple metrics including Accuracy, Precision, Recall, F1-Score, and AUC-ROC. All models achieved accuracy above 74%, with Neural Network and Decision Tree reaching 79.3-79.4% accuracy. The top 2 performing models were Neural Network and Random Forest. Neural Network achieved the best F1-Score of 0.273 and AUC-ROC of 0.700, while Random Forest showed strong performance with F1-Score of 0.266 and AUC-ROC of 0.687. These models demonstrated the best balance of performance metrics, with particularly strong AUC-ROC scores, which is crucial for imbalanced datasets.
 
 ---
 
 ## Slide 7: Model Comparison (45 seconds)
 
-Our model selection was based on several criteria: primarily F1-Score and AUC-ROC, but also considering the balance between precision and recall, model interpretability, and computational efficiency. After comprehensive comparison, we selected Random Forest and Logistic Regression as our top models, as they demonstrated the best overall performance.
+Our model selection was based on several criteria: primarily F1-Score and AUC-ROC, but also considering the balance between precision and recall, model interpretability, and computational efficiency. After comprehensive comparison, we selected Neural Network and Random Forest as our top models. Neural Network demonstrated the best overall performance with F1-Score of 0.273 and AUC-ROC of 0.700, while Random Forest showed strong performance with F1-Score of 0.266 and AUC-ROC of 0.687, plus the added benefit of interpretability through feature importance analysis.
 
 ---
 
 ## Slide 8: Conclusion (30 seconds)
 
-In conclusion, we successfully identified key risk factors for heart disease and developed predictive models with strong performance. The selected models can be used for early risk identification and preventive healthcare applications. This work demonstrates the potential of machine learning in clinical decision support.
+In conclusion, we successfully identified key risk factors for heart disease and developed predictive models with strong performance. Our Neural Network model achieved 79.3% accuracy with F1-Score of 0.273, while Random Forest achieved 79.0% accuracy with F1-Score of 0.266. The selected models can be used for early risk identification and preventive healthcare applications, with Neural Network providing maximum predictive performance and Random Forest offering interpretability for clinical decision support. This work demonstrates the potential of machine learning in healthcare applications.
 
 ---
 

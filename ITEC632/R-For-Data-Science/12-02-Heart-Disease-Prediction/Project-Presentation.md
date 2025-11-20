@@ -4,18 +4,22 @@
 
 - **Project Title**: Heart Disease Prediction Using Machine Learning
 - **Objective**: Develop predictive models to identify heart disease risk
-- **Dataset**: 319,796 records, 18 variables
-- **Approach**: Multiple machine learning algorithms
+- **Dataset**: 319,795 records, 18 variables
+- **Approach**: Six machine learning algorithms evaluated
+- **Results**: Neural Network and Random Forest selected as top models
 
 ---
 
 ## Slide 2: Dataset Description
 
 - **Source**: Heart Disease Dataset 2020 (cleaned)
-- **Size**: 319,796 rows, 18 columns
+- **Size**: 319,795 rows, 18 columns
 - **Target**: HeartDisease (Yes/No)
-- **Challenge**: Class imbalance
-- **Variables**: Demographics, health conditions, lifestyle factors
+- **Challenge**: Severe class imbalance
+  - No Heart Disease: 292,422 (91.4%)
+  - Heart Disease: 27,373 (8.6%)
+  - Imbalance Ratio: 0.094 (10.7:1)
+- **Variables**: Demographics, health conditions, lifestyle factors, health metrics
 
 ---
 
@@ -60,23 +64,29 @@
 ## Slide 6: Model Performance
 
 - **Evaluation Metrics**:
-  - Accuracy, Precision, Recall
-  - F1-Score, AUC-ROC
+  - Accuracy: 74.5% - 79.4% across all models
+  - Precision: 15.6% - 19.6%
+  - Recall: 44.1% - 53.0%
+  - F1-Score: 0.230 - 0.273
+  - AUC-ROC: 0.635 - 0.703
 - **Top 2 Models**:
-  - [Model 1]: Best overall performance
-  - [Model 2]: Good balance of metrics
-- **Key Strength**: High AUC-ROC scores
+  - **Neural Network**: Best F1-Score (0.273), AUC-ROC (0.700)
+  - **Random Forest**: Second-best F1-Score (0.266), AUC-ROC (0.687)
+- **Key Strength**: Strong AUC-ROC scores indicating good discriminative ability
 
 ---
 
 ## Slide 7: Model Comparison
 
 - **Comparison Criteria**:
-  - F1-Score and AUC-ROC (primary)
+  - F1-Score and AUC-ROC (primary metrics for imbalanced data)
   - Precision and Recall balance
   - Model interpretability
   - Computational efficiency
-- **Selected Models**: Random Forest and Logistic Regression
+- **Selected Models**: 
+  - **Neural Network**: Best performance (F1: 0.273, AUC: 0.700)
+  - **Random Forest**: Strong performance with interpretability (F1: 0.266, AUC: 0.687)
+- **Performance Summary**: All models achieved >74% accuracy, Neural Network and Random Forest showed best balance
 
 ---
 
