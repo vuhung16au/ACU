@@ -11,7 +11,7 @@
 # R Markdown files
 *.Rmd
 !Heart-Disease-Prediction.Rmd
-*.md
+# *.md
 !README.md
 !Project-Report.md
 !Project-Presentation.md
@@ -19,7 +19,7 @@
 !Heart-Disease-Dataset/*.md
 
 # Generated files
-*.html
+# *.html
 *.pdf
 *.log
 *.aux
@@ -145,3 +145,6 @@ coverage/
 *.prof
 *.Rprof
 
+# Keep 
+
+!Prompts*.md
