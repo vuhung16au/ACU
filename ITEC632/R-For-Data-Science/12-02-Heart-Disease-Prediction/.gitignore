@@ -36,7 +36,8 @@
 !Heart-Disease-Dataset/heart_2020_cleaned.csv
 
 # Images (keep structure)
-*.png
+!images/*.png
+# *.png
 *.jpg
 *.jpeg
 *.gif
