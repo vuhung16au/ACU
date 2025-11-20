@@ -83,6 +83,7 @@ The following visualizations were generated during exploratory data analysis:
 - Numeric variable distributions: Histograms for BMI, PhysicalHealth, MentalHealth, and SleepTime showing the distribution patterns of each variable
 - Categorical variable distributions:
 
+
 ![Smoking Status Distribution](images/barplot_Smoking.png)
 *Figure 5: Smoking prevalence split by heart disease status.*
 

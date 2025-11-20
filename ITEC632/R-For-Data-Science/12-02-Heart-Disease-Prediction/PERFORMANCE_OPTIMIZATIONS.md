@@ -1,5 +1,6 @@
 # Performance Optimizations
 
+
 ## Why the Script Was Slow
 
 The original script was taking a very long time to run due to several factors:
