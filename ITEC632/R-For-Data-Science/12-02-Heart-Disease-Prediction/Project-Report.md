@@ -81,26 +81,52 @@ The following visualizations were generated during exploratory data analysis:
 *Figure 4: Distribution of heart disease cases showing severe class imbalance (91.4% "No" vs 8.6% "Yes")*
 
 - Numeric variable distributions: Histograms for BMI, PhysicalHealth, MentalHealth, and SleepTime showing the distribution patterns of each variable
-- Categorical variable distributions: Bar charts for Smoking (`images/barplot_Smoking.png`), Alcohol Drinking (`images/barplot_AlcoholDrinking.png`), Stroke (`images/barplot_Stroke.png`), and Difficulty Walking (`images/barplot_DiffWalking.png`)
+- Categorical variable distributions:
+
+![Smoking Status Distribution](images/barplot_Smoking.png)
+*Figure 5: Smoking prevalence split by heart disease status.*
+
+![Alcohol Consumption Distribution](images/barplot_AlcoholDrinking.png)
+*Figure 6: Alcohol drinking patterns across heart disease classes.*
+
+![Stroke History Distribution](images/barplot_Stroke.png)
+*Figure 7: Stroke history proportions for each heart disease class.*
+
+![Difficulty Walking Distribution](images/barplot_DiffWalking.png)
+*Figure 8: Difficulty walking responses across the target variable.*
 
 **Comparative Visualizations:**
 
 ![Correlation Heatmap](images/correlation_heatmap.png)
 
-*Figure 5: Correlation heatmap showing relationships between numeric variables and heart disease. Darker colors indicate stronger correlations.*
+*Figure 9: Correlation heatmap showing relationships between numeric variables and heart disease. Darker colors indicate stronger correlations.*
 
-- Box plots by target variable: 
-  - BMI by Heart Disease (`images/boxplot_BMI_by_target.png`)
-  - Physical Health by Heart Disease (`images/boxplot_PhysicalHealth_by_target.png`)
-  - Mental Health by Heart Disease (`images/boxplot_MentalHealth_by_target.png`)
-  - Sleep Time by Heart Disease (`images/boxplot_SleepTime_by_target.png`)
+- Box plots by target variable:
+
+![BMI by Heart Disease](images/boxplot_BMI_by_target.png)
+*Figure 10: BMI distribution differences between heart disease classes.*
+
+![Physical Health by Heart Disease](images/boxplot_PhysicalHealth_by_target.png)
+*Figure 11: Physical health days grouped by heart disease outcome.*
+
+![Mental Health by Heart Disease](images/boxplot_MentalHealth_by_target.png)
+*Figure 12: Mental health days grouped by heart disease outcome.*
+
+![Sleep Time by Heart Disease](images/boxplot_SleepTime_by_target.png)
+*Figure 13: Sleep duration comparison between heart disease classes.*
 
 These visualizations compare distributions of numeric variables between heart disease groups, revealing significant differences in means and distributions.
 
 **Model Visualizations:**
-- Decision Tree visualization (`images/decision_tree.png`): Shows the decision paths and rules
-- Feature Importance plot (`images/feature_importance.png`): Ranks variables by their contribution to Random Forest predictions
-- ROC Curves (`images/roc_curves.png`): Compares model performance across all algorithms
+
+![Decision Tree Visualization](images/decision_tree.png)
+*Figure 14: Decision tree decision paths and rules highlighting the top variables.*
+
+![Random Forest Feature Importance](images/feature_importance.png)
+*Figure 15: Feature importance rankings from the Random Forest model.*
+
+![ROC Curves for All Models](images/roc_curves.png)
+*Figure 16: ROC curves comparing performance across all algorithms.*
 
 ### 3.4 Statistical Analysis
 
