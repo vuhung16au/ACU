@@ -127,8 +127,32 @@ clean-logs: ## Clear log files only
 demo: ## Run automated demonstration
 	@bash scripts/demo.sh
 
-video: ## Generate video tutorial
-	@bash scripts/video_tutorial.sh
+video: ## Generate terminal video tutorial (shows all anomaly injection types)
+	@bash scripts/video_tutorial.sh terminal anomaly
+
+video-demo: ## Generate video showing basic demo scenario
+	@bash scripts/video_tutorial.sh terminal demo
+
+video-tests: ## Generate video showing all test scenarios
+	@bash scripts/video_tutorial.sh terminal tests
+
+video-anomaly: ## Generate video showing anomaly injection scenarios
+	@bash scripts/video_tutorial.sh terminal anomaly
+
+video-all: ## Generate comprehensive video with all scenarios
+	@bash scripts/video_tutorial.sh terminal all
+
+video-fullscreen: ## Generate full screen video tutorial (shows all anomaly injection types)
+	@bash scripts/video_tutorial.sh fullscreen anomaly
+
+video-fullscreen-tests: ## Generate full screen video with test scenarios
+	@bash scripts/video_tutorial.sh fullscreen tests
+
+video-fullscreen-anomaly: ## Generate full screen video with anomaly scenarios
+	@bash scripts/video_tutorial.sh fullscreen anomaly
+
+video-both: ## Generate both terminal and full screen recordings (shows all anomaly injection types)
+	@bash scripts/video_tutorial.sh both anomaly
 
 # Anomaly Injection
 inject-burst: ## Inject burst anomaly
