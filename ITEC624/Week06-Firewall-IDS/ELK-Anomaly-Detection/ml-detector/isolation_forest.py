@@ -38,7 +38,7 @@ class IsolationForestDetector:
         
         # Detection threshold
         thresholds = self.config.get('thresholds', {})
-        self.threshold = thresholds.get('isolation_forest', 0.7)
+        self.threshold = thresholds.get('isolation_forest', 0.4)
         
         print(f"[IF] Initialized with contamination={self.contamination}, "
               f"n_estimators={self.n_estimators}, threshold={self.threshold}")

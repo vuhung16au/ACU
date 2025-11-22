@@ -14,6 +14,17 @@ By default, the ELK Stack lab only generates **normal baseline traffic**. The sy
 
 #### **Quick Test (Recommended):**
 ```bash
+# Easy demonstration with extreme anomalies
+make inject-extreme
+sleep 60
+make report
+
+# View results
+open reports/lab_report_*.html
+```
+
+#### **Alternative - Single Burst Test:**
+```bash
 # Inject burst anomaly and wait for detection
 make inject-burst
 sleep 30

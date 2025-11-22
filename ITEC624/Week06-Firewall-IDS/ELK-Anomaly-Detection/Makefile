@@ -170,8 +170,15 @@ inject-scan: ## Inject scan pattern
 inject-all: ## Inject all anomaly types
 	docker-compose run --rm anomaly-injector python injector.py --type all --duration 30
 
+inject-extreme: ## Inject EXTREME anomalies for easy demonstration (recommended)
+	@bash scripts/inject_extreme_anomaly.sh
+
 inject-custom: ## Interactive custom anomaly injection
 	@bash scripts/inject_custom_anomaly.sh
+
+# Demonstration & Utilities
+generate-demo-scores: ## Generate demonstration anomaly scores for testing
+	@bash scripts/generate_demo_scores.sh
 
 # CI/CD
 ci-test: ## Run tests in CI mode (non-interactive)

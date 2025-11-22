@@ -24,6 +24,24 @@ LOG_RATE=$(calculate_log_rate "logs-*")
 SCORES=$(query_anomaly_scores)
 ANOMALY_COUNT=$(echo "$SCORES" | grep -o '"combined_label":1' | wc -l | tr -d ' ')
 
+# Debug: Check if anomaly-scores index exists and has data
+ANOMALY_INDEX_EXISTS=$(curl -s "$ES_URL/_cat/indices" | grep -c "anomaly-scores" || echo "0")
+ANOMALY_TOTAL_COUNT=$(echo "$SCORES" | grep -o '"combined_label":[01]' | wc -l | tr -d ' ')
+
+# Enhanced anomaly detection diagnostics
+if [ "$ANOMALY_COUNT" = "0" ]; then
+    # Check if we have any anomaly scores at all
+    if [ "$ANOMALY_INDEX_EXISTS" = "0" ]; then
+        ANOMALY_STATUS="No anomaly-scores index found. ML detector may not be running."
+    elif [ "$ANOMALY_TOTAL_COUNT" = "0" ]; then
+        ANOMALY_STATUS="ML detector running but no scores generated yet."
+    else
+        ANOMALY_STATUS="ML detector generating scores but no anomalies detected."
+    fi
+else
+    ANOMALY_STATUS="Anomalies successfully detected!"
+fi
+
 # Generate HTML
 cat > "$OUTPUT_FILE" << 'EOF'
 <!DOCTYPE html>
@@ -142,7 +160,20 @@ cat > "$OUTPUT_FILE" << 'EOF'
 
     <div class="section">
         <h2>Algorithm Performance</h2>
-        <p>Both algorithms detected anomalies in the monitored traffic. The combined approach provides comprehensive coverage of different anomaly types.</p>
+        <p><strong>Status:</strong> ANOMALY_STATUS_PLACEHOLDER</p>
+        <p>Both algorithms work together to detect different types of anomalies. The combined approach provides comprehensive coverage of volume-based and pattern-based anomalies.</p>
+    </div>
+
+    <div class="section">
+        <h2>Troubleshooting</h2>
+        <p>If no anomalies are detected, try the following:</p>
+        <ul>
+            <li><strong>Check services:</strong> <code>make health</code></li>
+            <li><strong>Run demo:</strong> <code>make demo</code></li>
+            <li><strong>Inject anomalies:</strong> <code>make inject-burst</code></li>
+            <li><strong>Monitor logs:</strong> <code>docker-compose logs ml-detector</code></li>
+            <li><strong>Check Elasticsearch:</strong> <code>curl http://localhost:9200/_cat/indices</code></li>
+        </ul>
     </div>
 
     <div class="footer">
@@ -158,6 +189,7 @@ sed -i.bak "s/TIMESTAMP_PLACEHOLDER/$(date '+%Y-%m-%d %H:%M:%S')/g" "$OUTPUT_FIL
 sed -i.bak "s/TOTAL_LOGS_PLACEHOLDER/$TOTAL_LOGS/g" "$OUTPUT_FILE"
 sed -i.bak "s/LOG_RATE_PLACEHOLDER/$LOG_RATE/g" "$OUTPUT_FILE"
 sed -i.bak "s/ANOMALY_COUNT_PLACEHOLDER/$ANOMALY_COUNT/g" "$OUTPUT_FILE"
+sed -i.bak "s/ANOMALY_STATUS_PLACEHOLDER/$ANOMALY_STATUS/g" "$OUTPUT_FILE"
 rm "${OUTPUT_FILE}.bak"
 
 log_success "Report generated: $OUTPUT_FILE"

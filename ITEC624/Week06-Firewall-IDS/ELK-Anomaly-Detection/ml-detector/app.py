@@ -258,27 +258,33 @@ class MLDetectionService:
             'combined_labels': ((if_labels + ae_labels) > 0).astype(int)  # OR logic
         }
     
-    def write_results_to_es(self, results, timestamp):
+    def write_results_to_es(self, results, timestamp_base, num_samples):
         """
         Write anomaly detection results back to Elasticsearch.
         
         Args:
             results: Detection results dictionary
-            timestamp: Timestamp for the results
+            timestamp_base: Base timestamp for the results
+            num_samples: Number of samples in the results
         """
         try:
-            doc = {
-                '@timestamp': timestamp,
-                'isolation_forest_score': float(results['isolation_forest_scores'][0]),
-                'isolation_forest_label': int(results['isolation_forest_labels'][0]),
-                'autoencoder_score': float(results['autoencoder_scores'][0]),
-                'autoencoder_label': int(results['autoencoder_labels'][0]),
-                'combined_score': float(results['combined_scores'][0]),
-                'combined_label': int(results['combined_labels'][0]),
-                'service': 'ml-detector'
-            }
+            # Write results for each time bucket
+            for i in range(num_samples):
+                doc = {
+                    '@timestamp': timestamp_base,
+                    'isolation_forest_score': float(results['isolation_forest_scores'][i]),
+                    'isolation_forest_label': int(results['isolation_forest_labels'][i]),
+                    'autoencoder_score': float(results['autoencoder_scores'][i]),
+                    'autoencoder_label': int(results['autoencoder_labels'][i]),
+                    'combined_score': float(results['combined_scores'][i]),
+                    'combined_label': int(results['combined_labels'][i]),
+                    'service': 'ml-detector',
+                    'sample_index': i
+                }
+                
+                self.es.index(index='anomaly-scores', document=doc)
             
-            self.es.index(index='anomaly-scores', document=doc)
+            print(f"[ML Service] Wrote {num_samples} anomaly score records to ES", flush=True)
             
         except Exception as e:
             print(f"[ML Service] Error writing results: {e}", file=sys.stderr, flush=True)
@@ -314,8 +320,8 @@ class MLDetectionService:
                 
                 print(f"[ML Service] Extracted {len(X)} feature vectors", flush=True)
                 
-                # Train models if not loaded
-                if not self.models_loaded and len(X) >= 50:
+                # Train models if not loaded (lowered threshold from 50 to 5)
+                if not self.models_loaded and len(X) >= 5:
                     # Train on first batch (assuming it's mostly normal)
                     self.train_models(X)
                     time.sleep(self.poll_interval)
@@ -336,10 +342,9 @@ class MLDetectionService:
                         print(f"  - Autoencoder: {ae_anomalies}/{len(X)} anomalies", flush=True)
                         print(f"  - Combined: {combined_anomalies}/{len(X)} anomalies", flush=True)
                         
-                        # Write results for the most recent time bucket
-                        if len(results['combined_scores']) > 0:
-                            timestamp = datetime.utcnow().isoformat()
-                            self.write_results_to_es(results, timestamp)
+                        # Write all results for each time bucket
+                        timestamp = datetime.utcnow().isoformat()
+                        self.write_results_to_es(results, timestamp, len(X))
                 
                 # Wait before next iteration
                 print(f"[ML Service] Waiting {self.poll_interval}s...", flush=True)

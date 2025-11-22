@@ -47,7 +47,7 @@ class AutoencoderDetector:
         
         # Detection threshold from config
         thresholds = self.config.get('thresholds', {})
-        self.threshold = thresholds.get('autoencoder_reconstruction', 0.15)
+        self.threshold = thresholds.get('autoencoder_reconstruction', 0.08)
         
         print(f"[AE] Initialized with architecture={self.architecture}, "
               f"epochs={self.epochs}, threshold={self.threshold}")

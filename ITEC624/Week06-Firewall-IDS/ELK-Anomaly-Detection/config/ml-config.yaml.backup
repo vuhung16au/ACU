@@ -1,5 +1,5 @@
 isolation_forest:
-  contamination: 0.15  # Increased from 0.05 to be more sensitive
+  contamination: 0.05
   n_estimators: 100
   max_samples: 256
   random_state: 42
@@ -14,8 +14,8 @@ autoencoder:
   early_stopping_patience: 5
 
 thresholds:
-  isolation_forest: 0.2  # Lowered from 0.4 for more sensitive detection
-  autoencoder_reconstruction: 0.04  # Lowered from 0.08 for more sensitive detection
+  isolation_forest: 0.4
+  autoencoder_reconstruction: 0.08
   
 features:
   - requests_per_minute
@@ -27,5 +27,5 @@ features:
 
 detection:
   window_size: 60  # seconds
-  min_samples: 5  # Lowered from 10 to detect with fewer samples
+  min_samples: 10  # minimum samples before detection
 

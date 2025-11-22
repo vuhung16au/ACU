@@ -13,6 +13,7 @@ A comprehensive, Docker-based educational laboratory demonstrating machine learn
 ## Screenshot
 
 ![elastic anomaly filter](images/elastic-anomaly-01.png)
+![anomaly detected](images/elastic-anomaly-02-detected.png)
 
 ## 🎯 Overview
 
