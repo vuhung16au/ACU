@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blocked Site - Malicious Content</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f8d7da;
+            border: 3px solid #dc3545;
+            border-radius: 10px;
+        }
+        h1 {
+            color: #721c24;
+        }
+        .status {
+            background-color: #dc3545;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .warning {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>⚠ Blocked Site (malicious-site.com)</h1>
+    <div class="status">YOU SHOULD NOT SEE THIS PAGE</div>
+    <div class="warning">
+        <h2>Simulated Malicious Website</h2>
+        <p>This page represents <strong>malicious-site.com</strong> - a blocked website.</p>
+        <p><strong>If you're seeing this page, one of the following happened:</strong></p>
+        <ul>
+            <li>❌ You bypassed the proxy (test should fail - network isolation failed)</li>
+            <li>❌ The Squid ACL rules are not configured correctly</li>
+            <li>❌ You accessed this server directly (not through the proxy)</li>
+        </ul>
+        <h3>Expected Behavior:</h3>
+        <p>When attempting to access malicious-site.com through the proxy, you should receive a <strong>403 Forbidden</strong> error page from Squid, not this content.</p>
+        <h3>Security Concept:</h3>
+        <p>In a real-world scenario, this represents malicious websites (phishing, malware distribution, command-and-control servers) that the organization wants to block. The forward proxy prevents users from reaching these dangerous destinations.</p>
+    </div>
+</body>
+</html>
+

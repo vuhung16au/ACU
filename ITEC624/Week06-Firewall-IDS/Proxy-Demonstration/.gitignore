@@ -1,0 +1,17 @@
+# Log files
+logs/*.log
+
+# Docker volumes
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.sublime-*
+

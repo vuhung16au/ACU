@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backend Server 2</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 30px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .server-id {
+            background-color: rgba(255,255,255,0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 1.5em;
+            text-align: center;
+            font-weight: bold;
+            border: 3px solid rgba(255,255,255,0.3);
+        }
+        .info {
+            background-color: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            line-height: 1.8;
+        }
+        .badge {
+            background-color: #00d4ff;
+            color: #333;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        li:before {
+            content: "→ ";
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎯 Response from Backend Server 2</h1>
+    
+    <div class="server-id">
+        SERVER IDENTIFIER: <span class="badge">BACKEND-2</span>
+    </div>
+
+    <div class="info">
+        <h2>✓ Successfully Reached Internal Server</h2>
+        <p>You have successfully connected to <strong>backend-server-2</strong> through the Nginx reverse proxy.</p>
+        
+        <h3>What This Demonstrates:</h3>
+        <ul>
+            <li>The reverse proxy received your request from the DMZ network</li>
+            <li>It selected this backend from the upstream pool (round-robin)</li>
+            <li>Your request was forwarded to the internal backend network</li>
+            <li>You never directly communicated with this server</li>
+        </ul>
+
+        <h3>Security Concepts:</h3>
+        <ul>
+            <li><strong>Topology Hiding:</strong> You don't know the real IP of this server</li>
+            <li><strong>Load Balancing:</strong> Traffic is distributed across multiple backends</li>
+            <li><strong>Single Entry Point:</strong> Reverse proxy is the only externally visible component</li>
+            <li><strong>Defense in Depth:</strong> Multiple network layers protect sensitive data</li>
+        </ul>
+
+        <h3>High Availability:</h3>
+        <p>If Backend Server 1 goes down, the reverse proxy automatically routes all traffic to this server. This ensures continuous service availability even during failures or maintenance.</p>
+
+        <h3>Real-World Example:</h3>
+        <p>This represents a redundant application server providing the same service as Server 1. Load balancing distributes user requests across both servers, improving performance and reliability.</p>
+
+        <p style="margin-top: 30px; text-align: center; font-size: 0.9em; opacity: 0.8;">
+            <strong>Note:</strong> In production, this server would have a private IP address (e.g., 10.x.x.x) and would be completely unreachable from external networks.
+        </p>
+    </div>
+</body>
+</html>
+

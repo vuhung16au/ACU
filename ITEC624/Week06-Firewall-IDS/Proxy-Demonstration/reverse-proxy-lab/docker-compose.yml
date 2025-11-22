@@ -1,0 +1,86 @@
+version: '3.8'
+
+services:
+  # Nginx reverse proxy (DMZ and backend networks)
+  nginx-reverse-proxy:
+    image: nginx:1.25-alpine
+    container_name: nginx-reverse-proxy
+    hostname: nginx-reverse-proxy
+    networks:
+      proxy-lab-dmz:
+        ipv4_address: 10.20.0.10
+      proxy-lab-backend:
+        ipv4_address: 10.21.0.10
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - nginx-logs:/var/log/nginx
+    ports:
+      - "8080:80"  # Optional: expose to host for browser testing
+    restart: unless-stopped
+
+  # Backend server 1 (internal network only)
+  backend-server-1:
+    image: nginx:1.25-alpine
+    container_name: backend-server-1
+    hostname: backend-server-1
+    networks:
+      proxy-lab-backend:
+        ipv4_address: 10.21.0.100
+    volumes:
+      - ./backend-servers/server1/index.html:/usr/share/nginx/html/index.html:ro
+    restart: unless-stopped
+
+  # Backend server 2 (internal network only)
+  backend-server-2:
+    image: nginx:1.25-alpine
+    container_name: backend-server-2
+    hostname: backend-server-2
+    networks:
+      proxy-lab-backend:
+        ipv4_address: 10.21.0.101
+    volumes:
+      - ./backend-servers/server2/index.html:/usr/share/nginx/html/index.html:ro
+    restart: unless-stopped
+
+  # Internet client (DMZ network only)
+  internet-client:
+    image: alpine:3.19
+    container_name: internet-client
+    hostname: internet-client
+    networks:
+      proxy-lab-dmz:
+        ipv4_address: 10.20.0.20
+    command: >
+      sh -c "
+      apk add --no-cache curl &&
+      tail -f /dev/null
+      "
+    depends_on:
+      - nginx-reverse-proxy
+      - backend-server-1
+      - backend-server-2
+    restart: unless-stopped
+
+networks:
+  # DMZ network - client and reverse proxy frontend
+  proxy-lab-dmz:
+    name: proxy-lab-dmz
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.20.0.0/24
+  
+  # Backend network - reverse proxy backend and internal servers
+  # Client has NO access to this network
+  proxy-lab-backend:
+    name: proxy-lab-backend
+    driver: bridge
+    internal: true  # No external connectivity
+    ipam:
+      config:
+        - subnet: 10.21.0.0/24
+
+volumes:
+  nginx-logs:
+    name: nginx-logs
+

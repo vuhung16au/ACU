@@ -1,0 +1,99 @@
+version: '3.8'
+
+services:
+  # Forward proxy (Squid)
+  squid-forward-proxy:
+    image: alpine:3.19
+    container_name: squid-forward-proxy
+    hostname: squid-forward-proxy
+    networks:
+      proxy-lab-internal:
+        ipv4_address: 10.10.0.10
+      proxy-lab-external:
+        ipv4_address: 10.11.0.10
+    volumes:
+      - ./squid/squid.conf:/etc/squid/squid.conf:ro
+      - squid-logs:/var/log/squid
+      - squid-cache:/var/cache/squid
+    tmpfs:
+      - /var/run:size=10M
+    command: >
+      sh -c "
+      apk add --no-cache squid &&
+      mkdir -p /var/log/squid /var/cache/squid /var/run &&
+      chown -R squid:squid /var/log/squid /var/cache/squid &&
+      echo '10.11.0.100  allowed-site.com www.allowed-site.com' >> /etc/hosts &&
+      echo '10.11.0.101  malicious-site.com www.malicious-site.com' >> /etc/hosts &&
+      rm -f /var/run/squid.pid /var/run/*.pid &&
+      if [ ! -d /var/cache/squid/00 ]; then squid -z -N; fi &&
+      rm -f /var/run/squid.pid &&
+      exec squid -N -d 1
+      "
+    restart: unless-stopped
+
+  # Client container (internal network only)
+  forward-client:
+    image: alpine:3.19
+    container_name: forward-client
+    hostname: forward-client
+    networks:
+      proxy-lab-internal:
+        ipv4_address: 10.10.0.20
+    command: >
+      sh -c "
+      apk add --no-cache curl &&
+      echo '10.11.0.100  allowed-site.com www.allowed-site.com' >> /etc/hosts &&
+      echo '10.11.0.101  malicious-site.com www.malicious-site.com' >> /etc/hosts &&
+      tail -f /dev/null
+      "
+    depends_on:
+      - squid-forward-proxy
+    restart: unless-stopped
+
+  # Allowed website server (external network)
+  allowed-site-server:
+    image: nginx:1.25-alpine
+    container_name: allowed-site-server
+    hostname: allowed-site-server
+    networks:
+      proxy-lab-external:
+        ipv4_address: 10.11.0.100
+    volumes:
+      - ./allowed-site/index.html:/usr/share/nginx/html/index.html:ro
+    restart: unless-stopped
+
+  # Blocked website server (external network)
+  blocked-site-server:
+    image: nginx:1.25-alpine
+    container_name: blocked-site-server
+    hostname: blocked-site-server
+    networks:
+      proxy-lab-external:
+        ipv4_address: 10.11.0.101
+    volumes:
+      - ./blocked-site/index.html:/usr/share/nginx/html/index.html:ro
+    restart: unless-stopped
+
+networks:
+  # Internal network - client and proxy only
+  proxy-lab-internal:
+    name: proxy-lab-internal
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.10.0.0/24
+  
+  # External network - proxy and web servers only
+  proxy-lab-external:
+    name: proxy-lab-external
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.11.0.0/24
+
+volumes:
+  squid-logs:
+    name: squid-logs
+  squid-cache:
+    name: squid-cache
+

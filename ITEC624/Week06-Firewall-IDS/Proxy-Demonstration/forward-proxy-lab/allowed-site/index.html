@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Allowed Site - Safe Content</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #d4edda;
+            border: 3px solid #28a745;
+            border-radius: 10px;
+        }
+        h1 {
+            color: #155724;
+        }
+        .status {
+            background-color: #28a745;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .info {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>✓ Allowed Site (allowed-site.com)</h1>
+    <div class="status">ACCESS GRANTED - This is a safe, allowed website</div>
+    <div class="info">
+        <h2>Welcome!</h2>
+        <p>You have successfully accessed <strong>allowed-site.com</strong> through the forward proxy.</p>
+        <p><strong>What this demonstrates:</strong></p>
+        <ul>
+            <li>The Squid forward proxy evaluated the destination domain</li>
+            <li>The domain matched the <code>allowed_domains</code> ACL</li>
+            <li>The proxy permitted the connection and relayed your request</li>
+            <li>This request is logged in the proxy's access log for audit purposes</li>
+        </ul>
+        <h3>Security Concept:</h3>
+        <p>In a corporate environment, this represents a legitimate business website (e.g., work-related resources, approved vendors) that employees are permitted to access. The forward proxy acts as a gatekeeper, ensuring only approved destinations are reachable.</p>
+        <h3>Learning Point:</h3>
+        <p><strong>Application-layer filtering</strong> allows granular control based on domain names, URLs, or even content - something impossible with simple packet-filtering firewalls that only see IP addresses and ports.</p>
+    </div>
+</body>
+</html>
+
