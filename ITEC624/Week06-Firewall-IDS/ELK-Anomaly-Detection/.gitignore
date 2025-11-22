@@ -1,0 +1,56 @@
+# Logs
+logs/**/*.log
+logs/normal/
+logs/anomaly/
+logs/ml-detector/
+
+# Elasticsearch data
+data/elasticsearch/
+
+# ML Models (tracked separately)
+data/models/*.h5
+data/models/*.pkl
+!data/models/.gitkeep
+
+# Exports and Reports
+exports/
+reports/
+
+# Python
+*.pyc
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env.local
+
+# Test results
+test-results/
+
+# Video files
+tutorial.cast
+tutorial.gif
+tutorial.mp4
+

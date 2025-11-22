@@ -1,0 +1,3 @@
+# This directory contains pre-trained ML models
+# Models are generated during `make build`
+

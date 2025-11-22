@@ -1,0 +1,76 @@
+name: ELK Anomaly Detection Tests
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Set up Docker Build
+        uses: docker/setup-buildx-action@v2
+      
+      - name: Check Docker Compose version
+        run: docker-compose version
+      
+      - name: Build containers
+        run: make build
+        timeout-minutes: 10
+      
+      - name: Start services
+        run: make up
+      
+      - name: Wait for services to be healthy
+        run: |
+          echo "Waiting for services to initialize..."
+          for i in {1..30}; do
+            if make health 2>&1 | grep -q "All systems are healthy"; then
+              echo "Services are ready!"
+              exit 0
+            fi
+            echo "Attempt $i/30: Services not ready yet, waiting..."
+            sleep 10
+          done
+          echo "Services did not become healthy in time"
+          docker-compose ps
+          docker-compose logs
+          exit 1
+        timeout-minutes: 8
+      
+      - name: Run CI tests
+        run: make ci-test
+        timeout-minutes: 5
+      
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: test-results/
+          retention-days: 7
+      
+      - name: Show logs on failure
+        if: failure()
+        run: |
+          echo "=== Docker Compose Services ==="
+          docker-compose ps
+          echo ""
+          echo "=== Elasticsearch Logs ==="
+          docker-compose logs elasticsearch | tail -100
+          echo ""
+          echo "=== ML Detector Logs ==="
+          docker-compose logs ml-detector | tail -100
+      
+      - name: Cleanup
+        if: always()
+        run: make down
+

@@ -1,0 +1,128 @@
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0
+    container_name: elk-elasticsearch
+    environment:
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms${ES_MEMORY:-2g} -Xmx${ES_MEMORY:-2g}"
+      - xpack.security.enabled=false
+      - xpack.security.enrollment.enabled=false
+      - xpack.security.http.ssl.enabled=false
+      - xpack.security.transport.ssl.enabled=false
+    ports:
+      - "${ES_PORT:-9200}:9200"
+    volumes:
+      - ./data/elasticsearch:/usr/share/elasticsearch/data
+    networks:
+      - elk-anomaly-net
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9200/_cluster/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.11.0
+    container_name: elk-kibana
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - SERVER_NAME=kibana
+      - XPACK_SECURITY_ENABLED=false
+    ports:
+      - "${KIBANA_PORT:-5601}:5601"
+    volumes:
+      - ./kibana/dashboards:/usr/share/kibana/dashboards
+    networks:
+      - elk-anomaly-net
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:5601/api/status || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:8.11.0
+    container_name: elk-logstash
+    environment:
+      - "LS_JAVA_OPTS=-Xms${LOGSTASH_MEMORY:-1g} -Xmx${LOGSTASH_MEMORY:-1g}"
+      - XPACK_MONITORING_ENABLED=false
+    ports:
+      - "5000:5000/tcp"
+      - "5000:5000/udp"
+    volumes:
+      - ./logstash/pipeline:/usr/share/logstash/pipeline
+    networks:
+      - elk-anomaly-net
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+
+  log-generator:
+    build:
+      context: ./log-generator
+      dockerfile: Dockerfile
+    container_name: elk-log-generator
+    environment:
+      - LOG_RATE=${LOG_RATE:-150}
+      - LOGSTASH_HOST=logstash
+      - LOGSTASH_PORT=5000
+      - DEV_MODE=${DEV_MODE:-true}
+    volumes:
+      - ./log-generator:/app
+      - ./logs/normal:/var/log/normal
+    networks:
+      - elk-anomaly-net
+    depends_on:
+      - logstash
+    command: python -u generator.py
+
+  anomaly-injector:
+    build:
+      context: ./anomaly-injector
+      dockerfile: Dockerfile
+    container_name: elk-anomaly-injector
+    environment:
+      - LOGSTASH_HOST=logstash
+      - LOGSTASH_PORT=5000
+      - ANOMALY_INTENSITY=${ANOMALY_INTENSITY:-8}
+    volumes:
+      - ./anomaly-injector:/app
+      - ./logs/anomaly:/var/log/anomaly
+    networks:
+      - elk-anomaly-net
+    depends_on:
+      - logstash
+    profiles:
+      - manual
+    command: python -u injector.py
+
+  ml-detector:
+    build:
+      context: ./ml-detector
+      dockerfile: Dockerfile
+    container_name: elk-ml-detector
+    environment:
+      - ELASTICSEARCH_HOST=http://elasticsearch:9200
+      - ML_POLL_INTERVAL=${ML_POLL_INTERVAL:-30}
+      - ML_DETECTION_THRESHOLD_IF=${ML_DETECTION_THRESHOLD_IF:-0.7}
+      - ML_DETECTION_THRESHOLD_AE=${ML_DETECTION_THRESHOLD_AE:-0.15}
+      - DEV_MODE=${DEV_MODE:-true}
+    volumes:
+      - ./ml-detector:/app
+      - ./data/models:/app/models
+      - ./logs/ml-detector:/app/logs
+      - ./config:/app/config
+    networks:
+      - elk-anomaly-net
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    command: python -u app.py
+
+networks:
+  elk-anomaly-net:
+    driver: bridge
+
