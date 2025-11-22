@@ -2,6 +2,12 @@
 
 A comprehensive, Docker-based educational laboratory demonstrating machine learning-powered anomaly detection in network and application traffic using the ELK Stack (Elasticsearch, Logstash, Kibana) with Isolation Forest and Autoencoder algorithms.
 
+## 🎥 Demo Video
+
+[![ELK Stack Anomaly Detection Tutorial](https://img.youtube.com/vi/JHC_Zs-km3Q/0.jpg)](https://www.youtube.com/watch?v=JHC_Zs-km3Q)
+
+**Watch the complete tutorial:** [ELK Stack Machine Learning Anomaly Detection - Complete Tutorial](https://www.youtube.com/watch?v=JHC_Zs-km3Q)
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Screenshot
