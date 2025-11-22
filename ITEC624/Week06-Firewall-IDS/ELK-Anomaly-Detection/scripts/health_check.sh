@@ -19,6 +19,7 @@ log_info "Checking Docker services..."
 echo ""
 
 services=("elasticsearch" "kibana" "logstash" "log-generator" "ml-detector")
+services_down=0
 
 for service in "${services[@]}"; do
     status=$(get_service_status "elk-$service")
@@ -27,8 +28,15 @@ for service in "${services[@]}"; do
     else
         echo "  $status $service"
         all_healthy=false
+        services_down=$((services_down + 1))
     fi
 done
+
+# If most services are down, suggest starting them
+if [ $services_down -gt 2 ]; then
+    echo ""
+    log_warning "Most services are not running. Start them with: make up"
+fi
 
 echo ""
 
@@ -43,7 +51,7 @@ if curl -s "$ES_URL/_cluster/health" > /dev/null 2>&1; then
             log_success "Elasticsearch cluster: $cluster_health"
             ;;
         "yellow")
-            log_warning "Elasticsearch cluster: $cluster_health"
+            log_warning "Elasticsearch cluster: $cluster_health (single-node cluster - this is expected)"
             ;;
         "red")
             log_error "Elasticsearch cluster: $cluster_health"
@@ -54,7 +62,7 @@ if curl -s "$ES_URL/_cluster/health" > /dev/null 2>&1; then
             ;;
     esac
 else
-    log_error "Cannot connect to Elasticsearch"
+    log_error "Cannot connect to Elasticsearch (is it running?)"
     all_healthy=false
 fi
 
@@ -64,30 +72,34 @@ log_info "Checking Kibana..."
 if curl -s "$KIBANA_URL/api/status" > /dev/null 2>&1; then
     log_success "Kibana is accessible at $KIBANA_URL"
 else
-    log_error "Cannot connect to Kibana"
+    log_error "Cannot connect to Kibana (is it running and fully initialized?)"
     all_healthy=false
 fi
 
-# Check log ingestion
+# Check log ingestion (only if Elasticsearch is accessible)
 log_info "Checking log ingestion..."
 
-log_count=$(get_doc_count "logs-*")
+if curl -s "$ES_URL/_cluster/health" > /dev/null 2>&1; then
+    log_count=$(get_doc_count "logs-*")
 
-if [ "$log_count" -gt 0 ]; then
-    log_success "Logs in Elasticsearch: $log_count documents"
+    if [ "$log_count" -gt 0 ]; then
+        log_success "Logs in Elasticsearch: $log_count documents"
+    else
+        log_warning "No logs found in Elasticsearch yet"
+    fi
+
+    # Check log rate
+    log_rate=$(calculate_log_rate "logs-*")
+
+    if [ "$log_rate" -gt 0 ]; then
+        log_success "Current log rate: ~$log_rate logs/minute"
+    elif [ "$log_count" -gt 0 ]; then
+        log_warning "Log rate is 0 (no recent logs in last minute)"
+    else
+        log_warning "Log generator may not be running yet"
+    fi
 else
-    log_warning "No logs found in Elasticsearch yet"
-fi
-
-# Check log rate
-log_rate=$(calculate_log_rate "logs-*")
-
-if [ "$log_rate" -gt 0 ]; then
-    log_success "Current log rate: ~$log_rate logs/minute"
-elif [ "$log_count" -gt 0 ]; then
-    log_warning "Log rate is 0 (no recent logs in last minute)"
-else
-    log_warning "Log generator may not be running yet"
+    log_warning "Skipping log checks - Elasticsearch not accessible"
 fi
 
 # Check ML detector

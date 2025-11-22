@@ -33,9 +33,14 @@ See [QUICKSTART.md](QUICKSTART.md) for a 3-minute getting started guide.
 git clone <repository-url>
 cd ELK-Anomaly-Detection
 
-# Build and start
+# Build and start (recommended for first run)
 make build
-make up
+make start       # Starts services + initializes Elasticsearch
+
+# OR manual setup
+make build
+make up         # Start services only
+make init       # Initialize Elasticsearch for single-node
 
 # Verify health
 make health

@@ -27,6 +27,19 @@ up: ## Start all services (detached mode)
 	@echo "$(YELLOW)Run 'make health' to check status$(NC)"
 	@echo "$(YELLOW)Kibana will be available at: http://localhost:5601$(NC)"
 
+init: ## Initialize Elasticsearch for single-node deployment
+	@echo "$(BLUE)Initializing Elasticsearch...$(NC)"
+	@bash scripts/init_elasticsearch.sh
+
+start: ## Start services and initialize (recommended for first run)
+	@echo "$(BLUE)Starting ELK Stack...$(NC)"
+	@$(MAKE) up
+	@echo "$(YELLOW)Waiting for services to be ready...$(NC)"
+	@sleep 10
+	@$(MAKE) init
+	@echo "$(GREEN)ELK Stack ready!$(NC)"
+	@echo "$(YELLOW)Run 'make health' to verify everything is working$(NC)"
+
 down: ## Stop all services
 	@echo "$(BLUE)Stopping all services...$(NC)"
 	docker-compose down
