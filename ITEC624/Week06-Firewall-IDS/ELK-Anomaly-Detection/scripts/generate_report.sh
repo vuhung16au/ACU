@@ -4,14 +4,15 @@
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
 source "$SCRIPT_DIR/utils.sh"
 
-# Create reports directory
-mkdir -p ../reports
+# Create reports directory in project root
+mkdir -p "$PROJECT_DIR/reports"
 
 # Generate filename with timestamp
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
-OUTPUT_FILE="../reports/lab_report_${TIMESTAMP}.html"
+OUTPUT_FILE="$PROJECT_DIR/reports/lab_report_${TIMESTAMP}.html"
 
 log_info "Generating HTML report..."
 
