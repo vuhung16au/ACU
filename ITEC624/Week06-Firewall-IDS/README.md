@@ -1,58 +1,22 @@
-# [Uncomplicated Firewall](https://wiki.alpinelinux.org/wiki/Uncomplicated_Firewall)
 
-- Basic setup for UFW on Alpine Linux (or other Linux distros).
-- Installation and configuration instructions.
 
-# Standard Services and Ports 
+## Projects
 
-Common services and their default ports.
+This repository contains three hands-on lab projects demonstrating network security concepts:
 
-| Service        | Port | Protocol |
-|----------------|------|----------|
-| HTTP           | 80   | TCP      |
-| HTTPS          | 443  | TCP      |
-| SSH            | 22   | TCP      |
-| FTP            | 21   | TCP      |
-| SMTP           | 25   | TCP      |
-| DNS            | 53   | UDP/TCP  |
-| DHCP           | 67   | UDP      |
-| MySQL          | 3306 | TCP      |
-| PostgreSQL     | 5432 | TCP      |
+### 1. Docker Firewall Lab
 
-# IMCP, TCP, and UDP Protocols
+Basic firewall setup and testing using Docker containers with UFW (Uncomplicated Firewall).
 
-| Protocol | Description                          |
-|----------|--------------------------------------|
-| ICMP     | Internet Control Message Protocol    | |
-| TCP      | Transmission Control Protocol        | |
-| UDP      | User Datagram Protocol               |
+- [docker-firewall-lab/README.md](docker-firewall-lab/README.md)
 
-# IPv4 and IPv6
+### 2. Proxy Demonstration
 
-- IPv4: Internet Protocol version 4
-- IPv6: Internet Protocol version 6
+Forward and reverse proxy configurations using Squid and Nginx.
 
-# Single-Home vs Dual-Home Systems
+- [Proxy-Demonstration/README.md](Proxy-Demonstration/README.md)
 
-- Single-Home: Connected to one network.
-- Dual-Home: Connected to two networks.
+### 3. ELK Stack Anomaly Detection
 
-# Intrusion & Anomaly Detection (AD)
-
-- Techniques to identify unauthorized access or unusual patterns in network traffic.
-
-Tools: Snort, Suricata, 
-
-# Filter DDoS
-
-- Methods to mitigate Distributed Denial of Service attacks.
-
-# Intrusion Detection Systems (IDSs)
-
-- Systems designed to detect unauthorized access or anomalies in network traffic.
-- Rules-based and behavior-based detection methods (traditional). Examples: Snort, Suricata.
-- Machine learning-based detection methods (modern). Examples: Darktrace, Vectra.
-
-# Docker Firewall Lab
-
-See: docker-firewall-lab
+Machine learning-based anomaly detection lab using Elasticsearch, Logstash, and Kibana.
+- [ELK-Anomaly-Detection/README.md](ELK-Anomaly-Detection/README.md)
