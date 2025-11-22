@@ -4,14 +4,15 @@
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 source "$SCRIPT_DIR/utils.sh"
 
-# Create exports directory
-mkdir -p ../exports
+# Create exports directory in project root
+mkdir -p "$PROJECT_ROOT/exports"
 
 # Generate filename with timestamp
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
-OUTPUT_FILE="../exports/results_${TIMESTAMP}.csv"
+OUTPUT_FILE="$PROJECT_ROOT/exports/results_${TIMESTAMP}.csv"
 
 log_info "Exporting anomaly detection results..."
 
