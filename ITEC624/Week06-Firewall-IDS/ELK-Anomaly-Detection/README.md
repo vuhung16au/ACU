@@ -4,6 +4,10 @@ A comprehensive, Docker-based educational laboratory demonstrating machine learn
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+## Screenshot
+
+![elastic anomaly filter](images/elastic-anomaly-01.png)
+
 ## 🎯 Overview
 
 This lab demonstrates how two complementary machine learning algorithms detect different types of anomalies in real-time:
