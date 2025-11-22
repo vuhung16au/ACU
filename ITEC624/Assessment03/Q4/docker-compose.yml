@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  kali-linux:
+    image: kalilinux/kali-rolling:latest
+    container_name: kali-linux
+    hostname: kali
+    privileged: true
+    networks:
+      pentest-net:
+        ipv4_address: 172.20.0.5
+    volumes:
+      - ./:/workspace
+    command: sleep infinity
+    tty: true
+    stdin_open: true
+
+  metasploitable2:
+    image: tleemcjr/metasploitable2
+    container_name: metasploitable2
+    hostname: metasploitable
+    networks:
+      pentest-net:
+        ipv4_address: 172.20.0.10
+    tty: true
+    stdin_open: true
+
+networks:
+  pentest-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
+          gateway: 172.20.0.1
+

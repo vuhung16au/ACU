@@ -1,0 +1,65 @@
+# Network Security Lab - Git Ignore
+
+# Temporary nmap output files
+*.nmap
+*.xml
+*.gnmap
+temp_*
+
+# Execution logs (keep in reports/)
+# reports/execution-summary-*.log
+
+# Docker volumes and data
+.docker/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+*~
+.directory
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+.vim/
+.netrwhist
+
+# Python cache (if any helper scripts are added)
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Environment files
+.env
+.env.local
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Large scan result files (optional - uncomment if needed)
+# reports/*.xml
+# reports/*.txt
+
+# Keep reports directory but ignore temp files
+reports/temp_*
+reports/.temp
+
+# OS generated files
+._*
+.Spotlight-V100
+.Trashes
+
