@@ -54,6 +54,7 @@ tutorial.cast
 tutorial.gif
 tutorial.mp4
 exports/
+reports/
 *.mp4
 tutorial_with_narration.mp4
 tutorial.cast
