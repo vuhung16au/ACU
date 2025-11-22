@@ -63,3 +63,8 @@ reports/.temp
 .Spotlight-V100
 .Trashes
 
+# Project specific files
+reports/
+Prompt.md
+PLAN-AT3-v1.md
+IMPLEMENTATION-SUMMARY.md
