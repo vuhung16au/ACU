@@ -1,0 +1,34 @@
+# Virtual Environment
+.venv/
+venv/
+ENV/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Test outputs
+baseline.txt
+results.txt
+intrusion_report.txt
+*.txt
+!README.md
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test folder (will be created by scripts)
+test-folder/
+
