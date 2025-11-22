@@ -150,10 +150,10 @@ echo "Container IP Addresses:"
 echo "  Kali Linux:       $KALI_IP"
 echo "  Metasploitable2:  $META_IP"
 
-# Install nmap in Kali if not present
+# Install nmap and iputils-ping in Kali if not present
 echo ""
-echo "Ensuring nmap is installed in Kali Linux container..."
-docker exec kali-linux bash -c "apt-get update -qq && apt-get install -y nmap > /dev/null 2>&1" &
+echo "Ensuring nmap and network utilities are installed in Kali Linux container..."
+docker exec kali-linux bash -c "apt-get update -qq && apt-get install -y nmap iputils-ping > /dev/null 2>&1" &
 INSTALL_PID=$!
 
 # Show a spinner while installing
@@ -168,20 +168,22 @@ wait $INSTALL_PID
 INSTALL_RESULT=$?
 
 if [ $INSTALL_RESULT -eq 0 ]; then
-    echo -e "\r${GREEN}✓${NC} Nmap installed successfully"
+    echo -e "\r${GREEN}✓${NC} Nmap and network utilities installed successfully"
 else
-    echo -e "\r${YELLOW}!${NC} Nmap installation may have issues, but continuing..."
+    echo -e "\r${YELLOW}!${NC} Installation may have issues, but continuing..."
 fi
 
 # Test connectivity between containers
 echo ""
 echo "Testing connectivity between containers..."
-docker exec kali-linux ping -c 2 $META_IP > /dev/null 2>&1
-
-if [ $? -eq 0 ]; then
-    echo -e "${GREEN}✓${NC} Connectivity test successful"
+# Try ping first, fallback to nmap if ping not available
+if docker exec kali-linux ping -c 2 $META_IP > /dev/null 2>&1; then
+    echo -e "${GREEN}✓${NC} Connectivity test successful (ping)"
+elif docker exec kali-linux nmap -sn -Pn $META_IP > /dev/null 2>&1; then
+    echo -e "${GREEN}✓${NC} Connectivity test successful (nmap)"
 else
-    echo -e "${YELLOW}!${NC} Warning: Connectivity test failed, but containers are running"
+    echo -e "${YELLOW}!${NC} Warning: Connectivity test inconclusive, but containers are running"
+    echo "  You can verify manually: docker exec kali-linux nmap -sn $META_IP"
 fi
 
 echo ""
