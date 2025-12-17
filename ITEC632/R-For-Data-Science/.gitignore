@@ -52,3 +52,20 @@ TODO.md
 
 #Ignore cursor AI rules
 .cursor/rules/codacy.mdc
+
+# Ignore .claude files
+.claude/
+
+# Image files
+
+# PNG files in any images folder (recursive)
+images/*.png
+**/images/*.png
+
+# If you want to ignore all PNG files everywhere
+# *.png
+
+# Other image files
+*.jpg
+*.jpeg
+*.gif
