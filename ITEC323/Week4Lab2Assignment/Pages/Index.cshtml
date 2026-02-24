@@ -1,0 +1,45 @@
+@page
+@model Week4Lab2Assignment.Pages.IndexModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Week 4 Lab 2 - Name and Language</title>
+</head>
+<body>
+    <h1>Week 4 Lab 2 Assignment</h1>
+    <p>This simple web page lets you enter your name and choose your favourite programming language.</p>
+
+    <form method="post">
+        @Html.AntiForgeryToken()
+
+        <div>
+            <label for="name">Enter your name:</label>
+            <input id="name" name="Name" value="@Model.Name" />
+        </div>
+
+        <div style="margin-top: 1rem;">
+            <label for="language">Choose your favourite programming language:</label>
+            <select id="language" name="FavouriteLanguage">
+                <option value="">-- Select a language --</option>
+                <option value="C#">C#</option>
+                <option value="Java">Java</option>
+                <option value="Python">Python</option>
+            </select>
+        </div>
+
+        <div style="margin-top: 1rem;">
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+
+    @if (!string.IsNullOrWhiteSpace(Model.ResultMessage))
+    {
+        <p style="margin-top: 1rem; font-weight: bold;">
+            @Model.ResultMessage
+        </p>
+    }
+</body>
+</html>
+
