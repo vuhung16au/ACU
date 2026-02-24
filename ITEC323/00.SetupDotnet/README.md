@@ -46,6 +46,38 @@ Or download the official installer:
 
 Visit the [official download page](https://dotnet.microsoft.com/download/dotnet) to get the installer.
 
+### Windows Subsystem for Linux (WSL)
+
+If you're using WSL on Windows, you can run .NET on both Windows and WSL independently:
+
+**Install .NET on WSL:**
+
+```bash
+# Inside WSL terminal
+sudo apt-get update && sudo apt-get install -y dotnet-sdk-10.0
+```
+
+**Key Points:**
+
+- **Separate installations:** .NET on Windows and WSL are independent. Installing on Windows doesn't install it in WSL
+- **Different environments:** Each environment has its own SDK, configurations, and project files
+- **File access:** WSL can access Windows files at `/mnt/c/`, but it's faster to keep projects in the WSL file system (`~/`)
+- **Performance:** Running .NET projects from WSL's native file system is faster than accessing Windows drives
+
+**Verify both installations:**
+
+```powershell
+# In Windows PowerShell
+dotnet --version
+```
+
+```bash
+# In WSL terminal
+dotnet --version
+```
+
+**Recommended workflow:** Use WSL for development if working with Linux-based tools, or Windows for better IDE integration (Visual Studio).
+
 ## Troubleshooting
 
 ### Verify Installation
