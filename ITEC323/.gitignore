@@ -1,0 +1,203 @@
+## .NET Core and .NET Framework
+# Build outputs
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]ld/
+
+## Visual Studio
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Visual Studio cache/options directory
+.vs/
+
+# Visual Studio auto generated files
+Generated\ Files/
+
+# MSTest test Results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# NUnit
+*.VisualState.xml
+TestResult.xml
+nunit-*.xml
+
+# Test Coverage
+*.coverage
+*.coveragexml
+
+## NuGet
+# NuGet packages folders
+**/packages/*
+!**/packages/build/
+*.nupkg
+*.snupkg
+**/[Pp]ackages/
+
+# NuGet Symbol Packages
+*.snupkg
+
+# NuGet v3's project.json files produces more files
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+## ASP.NET
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Static web assets
+**/wwwroot/lib/
+*.staticwebassets.runtime.json
+
+## JetBrains Rider
+.idea/
+*.sln.iml
+**/.idea/**/workspace.xml
+**/.idea/**/tasks.xml
+
+## Visual Studio Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+## macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+## Windows
+# Windows thumbnail cache files
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+
+# Windows folder config file
+[Dd]esktop.ini
+
+# Recycle Bin
+$RECYCLE.BIN/
+
+## Publish outputs
+publish/
+*.Publish.xml
+*.pubxml
+*.publishproj
+
+# Microsoft Azure Web App publish settings
+*.azurePubxml
+
+# NuGet Publish
+*.nupkg
+
+## Application-specific files
+# SQL Server files
+*.mdf
+*.ldf
+*.ndf
+
+# Local databases
+*.sdf
+*.db
+*.sqlite
+*.sqlite3
+
+# Files built by Visual Studio
+*_i.c
+*_p.c
+*_h.h
+*.ilk
+*.meta
+*.obj
+*.iobj
+*.pch
+*.pdb
+*.ipdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*_wpftmp.csproj
+*.log
+*.vspscc
+*.vssscc
+.builds
+*.pidb
+*.svclog
+*.scc
+
+# Backup & report files
+_UpgradeReport_Files/
+Backup*/
+UpgradeLog*.XML
+UpgradeLog*.htm
+ServiceFabricBackup/
+*.rptproj.bak
+
+# Node modules (if using npm for frontend)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Temporary files
+*.swp
+*.swo
+*~
+.tmp/
+
+# Azure Functions
+local.settings.json
+
+# LaTeX (if documentation uses LaTeX)
+*.aux
+*.out
+*.toc
+
+# Project-specific files
+Prompts.md
