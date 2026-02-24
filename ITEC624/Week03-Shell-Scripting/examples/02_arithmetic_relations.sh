@@ -4,9 +4,9 @@ set -euo pipefail
 if [[ $# -lt 2 ]]; then
   echo "Usage: $0 A B" >&2
   exit 1
-fi
+   fi
 
-a=$1
+ a=$1
 b=$2
 
 sum=$((a + b))
