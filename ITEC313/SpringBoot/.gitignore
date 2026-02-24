@@ -66,6 +66,7 @@ nbdist/
 .gradle/
 build/
 
+
 # -----------------------------
 # Environment / Secrets (keep real secrets out of VCS)
 # -----------------------------
@@ -87,3 +88,6 @@ docker/data/
 Prompt.md
 TODO-IDEAS.md
 TODO*.md
+40-springboot-nextjs-postgres/
+
+.codacy
