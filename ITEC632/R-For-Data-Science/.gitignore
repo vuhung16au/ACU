@@ -69,3 +69,5 @@ images/*.png
 *.jpg
 *.jpeg
 *.gif
+
+.codacy
