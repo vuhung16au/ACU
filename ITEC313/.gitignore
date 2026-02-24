@@ -333,3 +333,6 @@ spotbugs.xml
 !makefile
 !*.example
 !src/**/*.jar
+
+.codacy
+
