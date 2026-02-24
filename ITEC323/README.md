@@ -19,7 +19,12 @@ This repository provides practical examples and demonstrations covering:
 ```
 ITEC323/
 ├── README.md                    # This file
+├── LICENSE.md                   # MIT License
 ├── ITEC323.sln                  # Visual Studio solution file
+├── 00.00.DotnetOverview/        # .NET fundamentals and concepts
+│   ├── README.md
+│   ├── BuildTools.md            # Build tools comparison (Maven vs .NET)
+│   └── UnitTest.md              # Unit testing in .NET
 ├── 00.SetupDotnet/              # .NET setup instructions
 ├── AspNetHelloWorld/            # ASP.NET Core web application example
 │   ├── Program.cs
@@ -109,6 +114,9 @@ This repository includes examples and code for the following topics covered in I
 
 Each project folder contains its own documentation:
 
+- [**00.00.DotnetOverview/README.md**](00.00.DotnetOverview/README.md) - .NET fundamentals and concepts
+  - [BuildTools.md](00.00.DotnetOverview/BuildTools.md) - Build tools comparison for Java developers
+  - [UnitTest.md](00.00.DotnetOverview/UnitTest.md) - Unit testing in .NET
 - [**AspNetHelloWorld/README.md**](AspNetHelloWorld/README.md) - ASP.NET Core web application details
 - [**DotNetHelloWorldCLI/README.md**](DotNetHelloWorldCLI/README.md) - Console application details
 - [**00.SetupDotnet/README.md**](00.SetupDotnet/README.md) - .NET setup guide
