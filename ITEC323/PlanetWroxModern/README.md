@@ -2,6 +2,10 @@
 
 This is a modern, cross‑platform ASP.NET Core Razor Pages version of the original Web Forms project.
 
+## Screenshot
+
+![Screenshot](images/localhost5000.png)
+
 ### Prerequisites
 
 - .NET 10 SDK installed (`dotnet --info` should work in your terminal).
@@ -9,7 +13,7 @@ This is a modern, cross‑platform ASP.NET Core Razor Pages version of the origi
 ### How to build and run
 
 ```bash
-cd "Week 2/PlanetWroxModern"
+cd "PlanetWroxModern"
 
 # restore packages and build
 dotnet build
