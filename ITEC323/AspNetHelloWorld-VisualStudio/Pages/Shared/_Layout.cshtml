@@ -1,0 +1,24 @@
+@*
+  Shared layout roughly equivalent to Frontend.master / Default.aspx
+*@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"] - Planet Wrox</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <div id="PageWrapper">
+        <header>Header Goes Here</header>
+        <nav>Menu Goes Here</nav>
+        <section id="MainContent">
+            @RenderBody()
+        </section>
+        <aside id="Sidebar">Sidebar Goes Here</aside>
+        <footer>Footer Goes Here</footer>
+    </div>
+</body>
+</html>
+
