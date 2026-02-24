@@ -8,6 +8,9 @@ obj/
 *.userosscache
 *.sln.docstates
 
+# Visual Studio solution user options
+*.rsuser
+
 # Build results
 [Dd]ebug/
 [Rr]elease/
