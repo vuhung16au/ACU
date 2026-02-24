@@ -189,3 +189,13 @@ docs/build/
 # Maven wrapper
 .mvn/wrapper/maven-wrapper.jar
 .mvn/wrapper/maven-wrapper.properties 
+
+
+# Temporary files
+source.txt
+target.txt
+temp.dat 
+
+# Output files
+output.txt
+
