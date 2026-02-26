@@ -1,6 +1,3 @@
-You got it! Changing the name is as simple as updating the output flag in your command line.
-
-Here are the updated instructions to create your service as **HelloWorldApi**:
 
 ### Step 1: Create the Project
 
