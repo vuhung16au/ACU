@@ -214,6 +214,8 @@ public void GetStudentById_ValidId_ReturnsStudent()
    - [ ] Unit tests are included and passing
    - [ ] Required documentation files are present/updated
    - [ ] No sensitive information in code
+   - [ ] `dotnet build` runs without errors (when applicable)
+   - [ ] `dotnet run` runs without errors (when applicable)
    - [ ] Builds successfully with .NET 8.0 and .NET 9
 
 ## Detailed Guidelines
