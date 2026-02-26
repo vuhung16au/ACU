@@ -69,6 +69,29 @@ ScaffoldingReadMe.txt
 **/wwwroot/lib/
 *.staticwebassets.runtime.json
 
+## Blazor and Razor Pages
+# Blazor auto-generated files
+*.razor.g.cs
+*.cshtml.g.cs
+
+# Scoped CSS
+*.razor.css
+*.razor.rz.scp.css
+*.cshtml.css
+
+# Blazor WebAssembly
+blazor.boot.json.br
+blazor.boot.json.gz
+service-worker-assets.js
+service-worker.published.js
+
+# Razor design-time files
+*.razor.designer.cs
+*.cshtml.designer.cs
+
+# Blazor debugging
+.blazor/
+
 ## JetBrains Rider
 .idea/
 *.sln.iml
