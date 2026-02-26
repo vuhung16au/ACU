@@ -4,6 +4,13 @@
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
+**/[Bb]in/[Dd]ebug/
+
+# Explicit ignore rules for 01.HelloDotnet/04.Data (.NET project)
+01.HelloDotnet/04.Data/bin/
+01.HelloDotnet/04.Data/obj/
+01.HelloDotnet/04.Data/TestResults/
+01.HelloDotnet/04.Data/.vs/
 
 # Build results
 [Dd]ebug/
