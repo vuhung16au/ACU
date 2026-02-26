@@ -124,9 +124,4 @@ This project is intentionally simple:
 - [LM Studio Documentation](https://lmstudio.ai/)
 - [HttpClient in .NET](https://learn.microsoft.com/dotnet/fundamentals/networking/http/httpclient)
 - [System.Text.Json in .NET](https://learn.microsoft.com/dotnet/standard/serialization/system-text-json/overview)
-
----
-
-**Course**: ITEC323 - Application Development  
-**Institution**: Australian Catholic University (ACU)  
-**Last Updated**: February 2026
+- [Build smarter apps faster with .NET and AI](https://dotnet.microsoft.com/en-us/apps/ai)
