@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FRD-05 - HTML Forms</title>
+</head>
+<body>
+    <h1>HTML Forms</h1>
+    <p>This page demonstrates common form elements.</p>
+
+    <form action="#" method="get">
+        <h2>Sample form</h2>
+
+        <p>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name">
+        </p>
+
+        <p>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" required>
+        </p>
+
+        <p>
+            <label for="language">Favourite language:</label>
+            <select id="language" name="language">
+                <option value="">-- Choose one --</option>
+                <option value="csharp">C#</option>
+                <option value="java">Java</option>
+                <option value="python">Python</option>
+            </select>
+        </p>
+
+        <p>
+            <span>Subscribe to newsletter?</span>
+            <label><input type="radio" name="newsletter" value="yes"> Yes</label>
+            <label><input type="radio" name="newsletter" value="no"> No</label>
+        </p>
+
+        <p>
+            <label><input type="checkbox" name="terms" value="accepted" required> I agree to the terms</label>
+        </p>
+
+        <p>
+            <label for="message">Message:</label><br>
+            <textarea id="message" name="message" rows="4" cols="40" placeholder="Your message..."></textarea>
+        </p>
+
+        <p>
+            <button type="submit">Submit</button>
+            <button type="reset">Reset</button>
+        </p>
+    </form>
+</body>
+</html>
