@@ -1,0 +1,77 @@
+# .NET build and output
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Bb]ld/
+publish/
+*.nupkg
+*.snupkg
+artifacts/
+project.lock.json
+project.fragment.lock.json
+
+# NuGet
+**/packages/
+!**/packages/build/
+
+# ASP.NET Core / Razor
+**/wwwroot/lib/
+*.staticwebassets.runtime.json
+*.razor.g.cs
+*.cshtml.g.cs
+*.razor.css
+*.razor.rz.scp.css
+*.cshtml.css
+*.razor.designer.cs
+*.cshtml.designer.cs
+.blazor/
+ScaffoldingReadMe.txt
+
+# Blazor / PWA
+blazor.boot.json.br
+blazor.boot.json.gz
+service-worker-assets.js
+service-worker.published.js
+
+# IDEs and editors
+.vs/
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Test and coverage
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+*.coverage
+*.coveragexml
+
+# OS and temp
+.DS_Store
+Thumbs.db
+*.tmp
+*.temp
+*~
+.tmp/
+
+# Local / env (no secrets)
+.env
+.env.local
+.env.*.local
+local.settings.json
+
+# Node (if using npm for CSS/JS tooling)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

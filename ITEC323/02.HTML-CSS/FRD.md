@@ -1,5 +1,177 @@
-# FRD-07 - Continue to learn CSS
+# FRD-30 Implementing Webpages using C#
 
+I want to create a portfolio website that showcases my skills and projects.
+
+Save your responses (code and documentation) under the folder: 
+- `02.HTML-CSS/FRD-30-portfolio-website/`
+
+The website should have the following pages:
+- Home
+- About
+- Projects
+- Contact
+
+Make it professional and responsive.
+
+Programming Language: C#
+Framework: ASP.NET Core
+
+The tech stack you should use is:
+- HTML
+- CSS
+- JavaScript
+- C#
+- ASP.NET Core
+
+I am thinking of using `dotnet new` command to create the project.
+
+Other requirements: 
+- We are using dotnet 10.0
+- We are using macOS
+
+## First prompt
+
+- Please review the requirement above and suggest me the structure of the website (HTML, CSS, JavaScript).
+- And tell me other feedback you have; what should I add or change?
+
+## Next prompt (follow-up prompt)
+
+(Adjust the prompt based on the feedback you received)
+
+- Please implement the website according to the structure you suggested.
+- Create `02.HTML-CSS/FRD-30-portfolio-website/README.md` to explain the project and the code.
+- Create `02.HTML-CSS/FRD-30-portfolio-website/QUICKSTART.md` to explain how to buiild and run the project.
+- Create .gitignore file to ignore the files that are not needed (this is a dotnet project).
+
+
+---
+
+# FRD-20 - Create a portfolio website
+
+I want to create a portfolio website that showcases my skills and projects.
+
+Save it to files called 
+- `02.HTML-CSS/html/FRD-20-portfolio-website.html`
+- `02.HTML-CSS/css/FRD-20-portfolio-website.css`
+
+The website should have the following pages:
+- Home
+- About
+- Projects
+- Contact
+
+Make it professional and responsive.
+
+## Suggest me the structure of the website (HTML, CSS, JavaScript)
+
+
+# FRD-15 - Combine HTML + CSS - Animation
+Create a HTML + CSS page that demonstrates a animation.
+
+Save it to files called 
+- `02.HTML-CSS/html/FRD-15-animation.html`
+- `02.HTML-CSS/css/FRD-15-animation.css`
+
+Explain the code in the file and save it to a file called `02.HTML-CSS/docs/FRD-15-animation.md`
+
+
+# FRD-14 - Combine HTML + CSS - Responsive Design
+
+Create a HTML + CSS page that demonstrates a responsive design.
+
+Save it to files called 
+- `02.HTML-CSS/html/FRD-14-responsive-design.html`
+- `02.HTML-CSS/css/FRD-14-responsive-design.css`
+
+Explain the code in the file and save it to a file called `02.HTML-CSS/docs/FRD-14-responsive-design.md`
+
+
+# FRD-13 - Combine HTML + CSS - Grid Layout
+Create a HTML + CSS page that demonstrates a grid layout.
+
+Save it to files called 
+- `02.HTML-CSS/html/FRD-13-grid-layout.html`
+- `02.HTML-CSS/css/FRD-13-grid-layout.css`
+
+Explain the code in the file and save it to a file called `02.HTML-CSS/docs/FRD-13-grid-layout.md`
+
+
+# FRD-12 - Combine HTML + CSS - Flexbox Layout
+
+Create a HTML + CSS page that demonstrates a flexbox layout.
+
+Save it to files called 
+- `02.HTML-CSS/html/FRD-12-flexbox-layout.html`
+- `02.HTML-CSS/css/FRD-12-flexbox-layout.css`
+
+Explain the code in the file and save it to a file called `02.HTML-CSS/docs/FRD-12-flexbox-layout.md`
+
+
+# FRD-11 - Combine HTML + CSS - Simple Layout
+
+Create a simple HTML + CSS page that demonstrates a simple layout.
+
+Save it to files called 
+- `02.HTML-CSS/html/FRD-11-simple-layout.html`
+- `02.HTML-CSS/css/FRD-11-simple-layout.css`
+
+Explain the code in the file and save it to a file called `02.HTML-CSS/docs/FRD-11-simple-layout.md`
+
+
+# FRD-10 - Continue to learn CSS 
+
+Browse https://www.w3schools.com/css/default.asp and learn more about CSS.
+
+TL;DR:
+- CSS is a language that describes the style of an HTML document.
+- CSS is used to style the HTML elements.
+- CSS is used to create a visual presentation of the HTML document.
+- CSS is used to create a responsive design.
+- and much more ...
+
+# FRD-09 - Continue to learn CSS - Borders, Display, Float, Height, Width, Padding, Margin, Visibility
+
+Create a simple CSS page to demonstrate the use of CSS.
+
+- border
+- display
+- float
+- height, width
+- padding, margin
+- visibility
+
+Save it to files called 
+- `02.HTML-CSS/css/FRD-09-borders.css`
+- `02.HTML-CSS/css/FRD-09-borders.html`
+
+Explain the code in the file and save it to a file called `02.HTML-CSS/docs/FRD-09-borders.md`
+
+
+# FRD-08 - Continue to learn CSS - Fonts
+
+Create a simple CSS page to demonstrate the use of CSS.
+
+- font-family, font-size, font-weight, font-style
+
+Save it to files called 
+- `02.HTML-CSS/css/FRD-08-fonts.css`
+- `02.HTML-CSS/css/FRD-08-fonts.html`
+
+Explain the code in the file and save it to a file called `02.HTML-CSS/docs/FRD-08-fonts.md`
+
+
+# FRD-07 - Continue to learn CSS - Backgrounds
+
+Create a simple CSS page to demonstrate the use of CSS.
+
+- background-color, background-image
+- color
+
+Save it to files called 
+- `02.HTML-CSS/css/FRD-07-css.css`
+- `02.HTML-CSS/css/FRD-07-css.html`
+
+Explain the code in the file and save it to a file called `02.HTML-CSS/docs/FRD-07-css.md`
 
 # FRD-06 - Continue to learn HTML 
 
@@ -17,25 +189,25 @@ Save the  explanation to `yyy.md`
 
 Create a simple HTML page to demonstrate the use of forms.
 
-Save it to a file called `02.HTML+CSS/html/FRD-05-forms.html`
+Save it to a file called `02.HTML-CSS/html/FRD-05-forms.html`
 
-Explain the code in the file and save it to a file called `02.HTML+CSS/docs/FRD-05-forms.md`
+Explain the code in the file and save it to a file called `02.HTML-CSS/docs/FRD-05-forms.md`
 
 # FRD-04 - HTML - Links, Images
 
 Create a simple HTML page to demonstrate the use of links and images.
 
-Save it to a file called `02.HTML+CSS/FRD-04-links-images.html`
+Save it to a file called `02.HTML-CSS/FRD-04-links-images.html`
 
-Explain the code in the file and save it to a file called `02.HTML+CSS/docs/FRD-04-links-images.md`
+Explain the code in the file and save it to a file called `02.HTML-CSS/docs/FRD-04-links-images.md`
 
 # FRD-03 - HTML Elements, Attributes, Headings
 
 Create a simple HTML page to demonstrate the use of HTML elements, attributes, and headings.
 
-Save it to a file called `02.HTML+CSS/FRD-03-elements.html`
+Save it to a file called `02.HTML-CSS/FRD-03-elements.html`
 
-Explain the code in the file and save it to a file called `02.HTML+CSS/docs/FRD-03-elements.md`
+Explain the code in the file and save it to a file called `02.HTML-CSS/docs/FRD-03-elements.md`
 
 
 # FRD-02 - HTML Tables 
@@ -48,13 +220,13 @@ Create a simple HTML page that displays a table with the following columns:
 - Phone
 - Address
 
-Save it to a file called `02.HTML+CSS/FRD-02-tables.html`
+Save it to a file called `02.HTML-CSS/FRD-02-tables.html`
 
-Explain the code in the file and save it to a file called `02.HTML+CSS/docs/FRD-02-tables.md`
+Explain the code in the file and save it to a file called `02.HTML-CSS/docs/FRD-02-tables.md`
 
 # FRD-01 - Hello World HTML
 
 Create a simple HTML page that displays "Hello, World!"
-Save it to a file called `02.HTML+CSS/FRD-01-index.html`
+Save it to a file called `02.HTML-CSS/FRD-01-index.html`
 
-Explain the code in the file and save it to a file called `02.HTML+CSS/docs/FRD-01-index.md`
+Explain the code in the file and save it to a file called `02.HTML-CSS/docs/FRD-01-index.md`
