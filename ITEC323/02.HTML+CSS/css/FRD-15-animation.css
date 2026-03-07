@@ -1,0 +1,78 @@
+/* FRD-15 - CSS Animation: @keyframes and animation */
+
+body {
+    font-family: sans-serif;
+    margin: 1rem;
+}
+
+h2 {
+    margin-top: 1.5rem;
+}
+
+.box {
+    padding: 1rem 1.5rem;
+    background-color: #8b5cf6;
+    color: white;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    max-width: 200px;
+}
+
+/* Keyframes: fade in */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.fade-in {
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+/* Keyframes: slide and pulse */
+@keyframes slidePulse {
+    0% {
+        transform: translateX(0) scale(1);
+    }
+    50% {
+        transform: translateX(20px) scale(1.1);
+    }
+    100% {
+        transform: translateX(0) scale(1);
+    }
+}
+
+.slide-pulse {
+    animation: slidePulse 2s ease-in-out infinite;
+}
+
+/* Keyframes: spin */
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.spin {
+    animation: spin 3s linear infinite;
+}
+
+/* Keyframes: color change */
+@keyframes colorChange {
+    0%, 100% {
+        background-color: #8b5cf6;
+    }
+    50% {
+        background-color: #ec4899;
+    }
+}
+
+.color-change {
+    animation: colorChange 2s ease-in-out infinite;
+}

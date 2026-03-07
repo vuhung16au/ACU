@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FRD-09 - CSS Borders, Display, Float, Size, Spacing, Visibility</title>
+    <link rel="stylesheet" href="FRD-09-borders.css">
+</head>
+<body>
+    <h1>CSS: Borders, Display, Float, Size, Padding, Margin, Visibility</h1>
+    <p>This page demonstrates <code>border</code>, <code>display</code>, <code>float</code>, <code>height</code>/<code>width</code>, <code>padding</code>, <code>margin</code>, and <code>visibility</code>.</p>
+
+    <section class="section-border">
+        <h2>Border</h2>
+        <div class="box">Box with <code>border: 2px solid #334155</code> and <code>border-radius: 6px</code>.</div>
+        <div class="box-dashed">Box with <code>border: 2px dashed #64748b</code>.</div>
+    </section>
+
+    <section class="section-display">
+        <h2>Display</h2>
+        <p class="inline-example">These <span>spans</span> are <span>display: inline</span> (flow in a line).</p>
+        <div class="block-example">
+            <div>Block 1 (display: block)</div>
+            <div>Block 2 (display: block)</div>
+        </div>
+        <p class="inline-block-example"><span>A</span><span>B</span><span>C</span> — <code>inline-block</code> with set width.</p>
+    </section>
+
+    <section class="section-float">
+        <h2>Float</h2>
+        <div class="float-left">Left-floated box (float: left).</div>
+        <div class="float-right">Right-floated box (float: right).</div>
+        <p style="clear: both;">Text after floated boxes. Use <code>clear: both</code> or a clearfix so layout continues below.</p>
+    </section>
+
+    <section class="section-size">
+        <h2>Height &amp; Width</h2>
+        <div class="fixed-box">Fixed <code>width: 200px</code>, <code>height: 80px</code>, <code>box-sizing: border-box</code>.</div>
+        <div class="max-width-box">This box uses <code>max-width: 300px</code> so it doesn’t grow beyond that.</div>
+    </section>
+
+    <section class="section-spacing">
+        <h2>Padding &amp; Margin</h2>
+        <div class="padding-demo">This box has <code>padding: 20px</code> (space inside the border).</div>
+        <div class="margin-demo">This box has <code>margin: 20px 10px</code> (space outside the border).</div>
+    </section>
+
+    <section class="section-visibility">
+        <h2>Visibility</h2>
+        <div class="visible">Visible (default).</div>
+        <div class="hidden">This box has <code>visibility: hidden</code> — it leaves a gap.</div>
+        <div class="visible-after-hidden">This box is after the hidden one — the hidden element still takes up space.</div>
+        <p class="note">Compare with <code>display: none</code>, which removes the element from layout entirely.</p>
+    </section>
+</body>
+</html>
