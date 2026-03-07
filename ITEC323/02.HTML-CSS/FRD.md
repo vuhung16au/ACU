@@ -1,6 +1,17 @@
+# FRD-07 - Continue to learn CSS
+
+
 # FRD-06 - Continue to learn HTML 
 
 You can browse the link https://www.w3schools.com/html/html_intro.asp to learn more about HTML.
+
+Sample prompt:
+
+```
+Create a *single* HTML that demonstrates the use *ALL* important HTML elements.
+Save the file to `xxx.html`
+Save the  explanation to `yyy.md`
+```
 
 # FRD-05 - HTML - Forms
 
