@@ -1,0 +1,59 @@
+@page "/"
+@rendermode InteractiveServer
+@inject AppDbContext DbContext
+
+<PageTitle>User Directory</PageTitle>
+
+<div class="text-center">
+    <h1 class="display-4">User Directory</h1>
+    <p>Users loaded from the database with Entity Framework Core.</p>
+</div>
+
+<div class="user-table-container">
+    <table class="user-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Country</th>
+                <th>Created Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Users)
+            {
+                <tr>
+                    <td>@user.Id</td>
+                    <td>@user.Name</td>
+                    <td>@user.Email</td>
+                    <td>@user.Country</td>
+                    <td>@user.CreatedDate.ToString("MMM dd, yyyy")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @if (Users.Count == 0)
+    {
+        <p class="no-users">No users found.</p>
+    }
+    else
+    {
+        <p class="user-count">Total users: @Users.Count</p>
+    }
+</div>
+
+<div class="json-demo">
+    <h2>JSON representation</h2>
+    <p>Data in JSON format (common for web APIs).</p>
+    <pre><code>@JsonSerializer.Serialize(Users, new JsonSerializerOptions { WriteIndented = true })</code></pre>
+</div>
+
+@code {
+    private List<User> Users { get; set; } = [];
+
+    protected override async Task OnInitializedAsync()
+    {
+        Users = await DbContext.Users.ToListAsync();
+    }
+}

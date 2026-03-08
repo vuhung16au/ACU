@@ -1,0 +1,89 @@
+/* Blazor Advanced – layout and components (mirrors 06.RazorPages-Advanced) */
+body {
+  background-color: #f8f9fa;
+}
+
+/* User table and JSON demo */
+.user-table-container {
+  margin: 2rem 0;
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+
+.user-table thead {
+  background-color: #1b6ec2;
+  color: white;
+}
+
+.user-table th,
+.user-table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.user-table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.user-count {
+  text-align: right;
+  font-weight: bold;
+  color: #1b6ec2;
+  margin: 1rem 0 0 0;
+}
+
+.no-users {
+  text-align: center;
+  color: #6c757d;
+  padding: 2rem;
+  font-style: italic;
+}
+
+.json-demo {
+  margin: 2rem 0;
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.json-demo h2 {
+  color: #1b6ec2;
+  margin-bottom: 1rem;
+}
+
+.json-demo pre {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+.json-demo code {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9rem;
+  color: #212529;
+}
+
+.display-4 {
+  font-size: 3.5rem;
+  font-weight: 300;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .display-4 {
+    font-size: 2rem;
+  }
+}

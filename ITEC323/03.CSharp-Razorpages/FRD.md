@@ -1,3 +1,30 @@
+# Create a new project: Blazor Pages 
+
+Mirror the project structure and files from `03.CSharp-Razorpages/06.RazorPages-Advanced` to create a new ASP.NET Core Blazor web application that demonstrates some advanced concepts of Blazor and web development with C#.
+
+Save your response to `03.CSharp-Razorpages/07.BlazorPages-Advanced` 
+
+The projects "07.BlazorPages-Advanced" and "06.RazorPages-Advanced" should be similar, but "07.BlazorPages-Advanced" should use Blazor instead of Razor Pages.
+
+My environments:
+- dotnet 10.0 (installed) (dotnet --version 10.0.103)
+- C# 14 (installed)
+- VS Code (installed)
+- MacOS
+
+The project should include
+Keep the docs short and sharp.
+- README.md: Introduce the project
+- QUICKSTART.md: How to build and run (use dotnet new CLI commands)
+- docs/Key-Takeaways.md: Important concepts and learning points
+
+Acceptance Criteria:
+- The new project is created with the same structure as `06.RazorPages-Advanced`
+- `dotnet build` and `dotnet run` work successfully in the new project
+
+--- 
+
+
 # Create a new project: Razor Pages Advanced Concepts
 
 Mirror the project structure and files from `ITEC323/03.CSharp/05.RazorPages-Essentials` to create a new ASP.NET Core Razor Pages web application that demonstrates some advanced concepts of Razor Pages and web development with C#.
