@@ -1,0 +1,58 @@
+@*
+    _Layout.cshtml - The Master Template
+    
+    This is the "picture frame" that wraps all your pages.
+    Everything here appears on EVERY page that uses this layout.
+    
+    Key Concepts Demonstrated:
+    1. @RenderBody() - Where the page content appears
+    2. @RenderSection() - Optional placeholders for page-specific content
+    3. ViewBag/ViewData - Pass data from page to layout
+    4. Consistent HTML structure across entire site
+*@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title - BasicLayout Demo</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+    
+    @* Optional section for page-specific styles *@
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+    <header>
+        <h1>BasicLayout Demo</h1>
+        <p>Understanding Layouts in ASP.NET Core Razor Pages</p>
+        
+        @* Navigation menu - appears on all pages *@
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/About">About</a></li>
+                <li><a href="/Contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        @* @RenderBody() injects the content of the individual page here *@
+        @* This is where Index.cshtml, About.cshtml, Contact.cshtml content appears *@
+        @RenderBody()
+    </main>
+
+    <footer>
+        <hr />
+        <p>&copy; @DateTime.Now.Year - BasicLayout Demo</p>
+        <p>
+            <strong>Layout Demo:</strong> Notice how this header, navigation, and footer 
+            appear on all pages without duplicating code!
+        </p>
+    </footer>
+
+    @* Optional section for page-specific scripts *@
+    @* Pages can add their own JavaScript here without affecting other pages *@
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,96 @@
+@page
+@model AboutModel
+@{
+    ViewBag.Title = "About";
+}
+
+@*
+    About.cshtml - About Page
+    
+    Key Learning: This page also uses _Layout.cshtml automatically
+    because _ViewStart.cshtml sets it as the default layout.
+*@
+
+<div class="page-content">
+    <h2>About This Project</h2>
+    
+    <div class="info-box">
+        <h3>📚 Purpose</h3>
+        <p>
+            This project demonstrates the <strong>Layout System</strong> in ASP.NET Core Razor Pages.
+            It's designed to help you understand how to eliminate code duplication and create 
+            consistent-looking websites.
+        </p>
+    </div>
+
+    <div class="info-box">
+        <h3>🔍 Key Files Explained</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>File</th>
+                    <th>Purpose</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>_Layout.cshtml</code></td>
+                    <td>Master template with header, nav, footer</td>
+                </tr>
+                <tr>
+                    <td><code>_ViewStart.cshtml</code></td>
+                    <td>Tells pages which layout to use</td>
+                </tr>
+                <tr>
+                    <td><code>_ViewImports.cshtml</code></td>
+                    <td>Imports namespaces and tag helpers</td>
+                </tr>
+                <tr>
+                    <td><code>Index.cshtml</code></td>
+                    <td>Home page content (uses layout)</td>
+                </tr>
+                <tr>
+                    <td><code>About.cshtml</code></td>
+                    <td>This page (uses layout)</td>
+                </tr>
+                <tr>
+                    <td><code>Contact.cshtml</code></td>
+                    <td>Contact page (uses layout)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="info-box">
+        <h3>🎯 What Makes This "About" Page Special?</h3>
+        <p>
+            <strong>Nothing!</strong> That's the point. Like the Home and Contact pages, 
+            this page only contains its unique content. The layout system handles everything else.
+        </p>
+    </div>
+
+    <div class="info-box">
+        <h3>💡 The DRY Principle</h3>
+        <p>
+            <strong>DRY = Don't Repeat Yourself</strong>
+        </p>
+        <ul>
+            <li>❌ <strong>Bad:</strong> Copy header + nav + footer to every page (50 pages = 50 copies!)</li>
+            <li>✅ <strong>Good:</strong> Put header + nav + footer in layout once (50 pages = 1 copy!)</li>
+        </ul>
+        <p>
+            When you need to update the navigation, you change <code>_Layout.cshtml</code> once, 
+            and it updates on all 50 pages automatically!
+        </p>
+    </div>
+
+    <div class="info-box">
+        <h3>📊 Statistics</h3>
+        <ul>
+            <li><strong>Total Pages:</strong> 3 (Home, About, Contact)</li>
+            <li><strong>Layout Files:</strong> 1 (_Layout.cshtml)</li>
+            <li><strong>Lines of Duplicated Code:</strong> 0! 🎉</li>
+            <li><strong>Time to Add New Page:</strong> ~30 seconds (no copy/paste needed)</li>
+        </ul>
+    </div>
+</div>

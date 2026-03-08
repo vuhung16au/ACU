@@ -1,0 +1,11 @@
+@*
+    _ViewImports.cshtml
+    
+    This file imports namespaces and tag helpers for ALL pages.
+    Purpose: Avoid repeating @using statements on every page.
+    
+    Key Learning: Tag helpers like <partial> come from this import.
+*@
+@using BasicLayout
+@namespace BasicLayout.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers

@@ -1,0 +1,66 @@
+@page
+@model IndexModel
+@{
+    ViewBag.Title = "Home";
+}
+
+@*
+    Index.cshtml - Home Page
+    
+    Key Learning Points:
+    1. This page ONLY contains the unique content for the home page
+    2. The header, navigation, and footer come from _Layout.cshtml
+    3. @page makes this a Razor Page (routable)
+    4. ViewBag.Title is passed to the layout for the <title> tag
+    5. Everything here gets injected into @RenderBody() in the layout
+*@
+
+<div class="page-content">
+    <h2>Welcome to the BasicLayout Demo!</h2>
+    
+    <div class="info-box">
+        <h3>🎯 What You're Learning</h3>
+        <p>
+            This is the <strong>Home</strong> page. Notice the header, navigation, 
+            and footer above and below? They come from <code>_Layout.cshtml</code>, 
+            not from this file!
+        </p>
+    </div>
+
+    <div class="info-box">
+        <h3>📁 How It Works</h3>
+        <ol>
+            <li><code>_ViewStart.cshtml</code> says "use _Layout for all pages"</li>
+            <li><code>_Layout.cshtml</code> provides the HTML structure (header, nav, footer)</li>
+            <li><code>Index.cshtml</code> (this file) provides only the unique content</li>
+            <li>ASP.NET combines them: Layout wraps around this page's content</li>
+        </ol>
+    </div>
+
+    <div class="info-box">
+        <h3>✨ The Magic: @@RenderBody()</h3>
+        <p>
+            In <code>_Layout.cshtml</code>, there's a method called <code>@@RenderBody()</code>. 
+            That's where THIS content gets injected. It's like a placeholder that says 
+            "put the page content here!"
+        </p>
+    </div>
+
+    <div class="info-box">
+        <h3>🚀 Try This</h3>
+        <ul>
+            <li>Navigate to <a href="/About">About</a> and <a href="/Contact">Contact</a> pages</li>
+            <li>Notice how the header, navigation, and footer stay the same</li>
+            <li>Only the main content changes - that's the layout system at work!</li>
+            <li>View the page source (right-click → View Page Source) to see the full HTML</li>
+        </ul>
+    </div>
+
+    <div class="info-box challenge">
+        <h3>🎓 Challenge</h3>
+        <p>
+            Open <code>Pages/Shared/_Layout.cshtml</code> and change the site title 
+            in the header. Save and refresh - it changes on ALL pages!
+        </p>
+    </div>
+</div>

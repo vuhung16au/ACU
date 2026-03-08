@@ -1,0 +1,240 @@
+/*
+    site.css - Minimal Styling for BasicLayout Demo
+    
+    Purpose: Very basic styling to make the demo readable.
+    NOT using Bootstrap or Tailwind - keeping it simple to focus on layouts.
+    
+    Educational Note: In real projects, you'd use a CSS framework like Bootstrap or Tailwind.
+    See projects 02.BootstrapTheme and 03.TailwindTheme in this module.
+*/
+
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f5f5f5;
+}
+
+/* Layout structure */
+header {
+    background-color: #2c3e50;
+    color: white;
+    padding: 1.5rem 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+header h1 {
+    margin-bottom: 0.5rem;
+}
+
+header p {
+    color: #ecf0f1;
+    font-size: 0.9rem;
+}
+
+/* Navigation */
+nav {
+    margin-top: 1rem;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+nav a:hover {
+    background-color: #34495e;
+}
+
+/* Main content area */
+main {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.page-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.page-content h2 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid #3498db;
+}
+
+/* Info boxes */
+.info-box {
+    background-color: #ecf0f1;
+    border-left: 4px solid #3498db;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 4px;
+}
+
+.info-box.challenge {
+    background-color: #fff3cd;
+    border-left-color: #ffc107;
+}
+
+.info-box h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.info-box ul,
+.info-box ol {
+    margin-left: 1.5rem;
+}
+
+.info-box li {
+    margin-bottom: 0.5rem;
+}
+
+/* Code styling */
+code {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+}
+
+th, td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #3498db;
+    color: white;
+    font-weight: bold;
+}
+
+tbody tr:hover {
+    background-color: #f5f5f5;
+}
+
+/* Forms */
+.contact-form {
+    max-width: 600px;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+button[type="submit"] {
+    background-color: #3498db;
+    color: white;
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: #2980b9;
+}
+
+/* Footer */
+footer {
+    background-color: #2c3e50;
+    color: white;
+    padding: 2rem;
+    margin-top: 3rem;
+    text-align: center;
+}
+
+footer hr {
+    border: none;
+    border-top: 1px solid #34495e;
+    margin-bottom: 1rem;
+}
+
+footer p {
+    margin-bottom: 0.5rem;
+}
+
+footer strong {
+    color: #3498db;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    header {
+        padding: 1rem;
+    }
+    
+    nav ul {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    main {
+        margin: 1rem auto;
+    }
+    
+    .page-content {
+        padding: 1rem;
+    }
+    
+    .info-box {
+        padding: 1rem;
+    }
+}

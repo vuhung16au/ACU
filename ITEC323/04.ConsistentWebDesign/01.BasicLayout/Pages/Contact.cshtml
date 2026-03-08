@@ -1,0 +1,98 @@
+@page
+@model ContactModel
+@{
+    ViewBag.Title = "Contact";
+}
+
+@*
+    Contact.cshtml - Contact Page
+    
+    Key Learning: This page demonstrates @RenderSection() usage.
+    Notice the @section Scripts block at the bottom - this is optional
+    page-specific content that gets injected into the layout.
+*@
+
+<div class="page-content">
+    <h2>Contact Us</h2>
+    
+    <div class="info-box">
+        <h3>📧 Get in Touch</h3>
+        <p>This is the contact page. Like the other pages, it uses the same layout.</p>
+    </div>
+
+    <div class="info-box">
+        <h3>📝 Contact Form (Example)</h3>
+        <form method="post" class="contact-form">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" placeholder="Your name" />
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="your.email@example.com" />
+            </div>
+            
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="5" placeholder="Your message..."></textarea>
+            </div>
+            
+            <button type="submit">Send Message</button>
+        </form>
+    </div>
+
+    <div class="info-box">
+        <h3>🎯 Demonstrating @@RenderSection()</h3>
+        <p>
+            This page includes a <strong>@@section Scripts</strong> block below (view the source code).
+            This is <strong>optional page-specific content</strong> that gets injected into the layout.
+        </p>
+        <ul>
+            <li>The layout has: <code>@@RenderSection("Scripts", required: false)</code></li>
+            <li>This page defines: <code>@@section Scripts { ... }</code></li>
+            <li>Result: This page's scripts get added to the layout without affecting other pages</li>
+        </ul>
+        <p>
+            <strong>Try this:</strong> Open your browser's Developer Tools (F12), go to the Console tab, 
+            and you'll see a message that only appears on this page!
+        </p>
+    </div>
+
+    <div class="info-box">
+        <h3>💡 Why Sections Are Useful</h3>
+        <ul>
+            <li>Add page-specific JavaScript without loading it on all pages</li>
+            <li>Add page-specific CSS without affecting other pages</li>
+            <li>Keep the layout clean and let pages opt-in to additional features</li>
+        </ul>
+    </div>
+
+    <div class="info-box challenge">
+        <h3>🎓 Challenge</h3>
+        <p>
+            Try adding your own Razor section to the About or Home page.
+            Add a simple script with <code>alert("Hello!");</code> and see if it works!
+        </p>
+    </div>
+</div>
+
+@*
+    This is a SECTION - optional content specific to this page only.
+    The layout has @@RenderSection("Scripts", required: false) which says:
+    "If the page defines a Scripts section, render it here. If not, that's okay."
+*@
+@section Scripts {
+    <script>
+        // This script ONLY runs on the Contact page, not on Home or About
+        console.log("🎉 Contact page loaded!");
+        console.log("This message only appears on the Contact page because of the Scripts section");
+        
+        // Example: Form validation (just for demonstration)
+        document.querySelector('.contact-form')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('This is just a demo form. In a real app, this would submit to the server.');
+            console.log('Form submitted (demo only)');
+        });
+    </script>
+}
