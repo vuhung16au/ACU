@@ -92,7 +92,7 @@ Acceptance Criteria:
 - Common components (cards, alerts, buttons)
 - **Key Learning**: Bootstrap integration, CDN vs local files, responsive design
 
-### TODO: FR3: Partial Views Implementation
+### FR3: Partial Views Implementation
 **Priority**: High  
 **Description**: Students can create and use partial views for reusable components.
 
@@ -112,7 +112,7 @@ Acceptance Criteria:
 - Can add page-specific scripts and styles
 - Understand `IsSectionDefined()` checks
 
-### TODO: FR5: Multiple Layouts
+### FR5: Multiple Layouts
 **Priority**: Medium  
 **Description**: Students can implement different layouts for different site sections.
 
@@ -122,7 +122,7 @@ Acceptance Criteria:
 - Can implement public and admin layouts
 - Understand layout selection priority
 
-### TODO: FR6: DRY Principle Application
+### FR6: DRY Principle Application
 **Priority**: Critical  
 **Description**: Students eliminate code duplication across their web applications.
 
