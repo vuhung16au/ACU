@@ -1,3 +1,27 @@
+# TODO Create `AGENTS.md` for our dotnet projects 
+
+Save your responses to `ITEC323/03.CSharp/AGENTS.md`
+
+This file will document the agents (AI assistants) that we use for our C# projects, including their roles, capabilities, and how to interact with them. Including:
+
+With focus on: 
+- Technology Stack: dotnet 10, C# 14
+- Build & Test Commands: `dotnet build`, `dotnet run`, `dotnet test`
+- Coding Conventions: Follow C# best practices and naming conventions
+- Documentation Standards: Clear, concise, and beginner-friendly language
+- Project Structure: Consistent with ITEC323 repository standards
+- Modular Guidance: Provide specific, actionable advice for each project component
+- Responsiveness: Quick and accurate responses to coding questions and issues (when applicable, e.g: for mobile apps and web apps)
+- Documentation: Inline code comments and external documentation files (README.md, QUICKSTART.md, Key-Takeaways.md)
+
+Other requirements:
+- Security: Ensure that any code generated or suggested by the agent does not contain vulnerabilities or security risks
+- Compatibility: Ensure that any code generated or suggested by the agent is compatible with the specified .
+- Testing: Ensure that any code generated or suggested by the agent can be tested using the specified testing framework (e.g., xUnit, NUnit) (when applicable)
+
+Sample `AGENTS.md` content: https://github.com/microsoft/Generative-AI-for-beginners-dotnet/blob/main/AGENTS.md
+
+
 # TODO refactoring code & docs
 
 The main file `Program.cs` is too big, we should split it into multiple files for better organization and readability.
