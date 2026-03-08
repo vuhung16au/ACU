@@ -1,0 +1,146 @@
+@page
+@model ComponentsModel
+@{
+    ViewBag.Title = "Components";
+}
+
+<h1 class="mb-4">Bootstrap Components</h1>
+
+<!-- Alerts -->
+<section class="mb-5">
+    <h2 class="h4 mb-3">Alerts</h2>
+    <div class="alert alert-primary" role="alert">
+        <i class="bi bi-info-circle-fill"></i> Primary alert - Check out this important message!
+    </div>
+    <div class="alert alert-success" role="alert">
+        <i class="bi bi-check-circle-fill"></i> Success alert - Operation completed successfully!
+    </div>
+    <div class="alert alert-warning" role="alert">
+        <i class="bi bi-exclamation-triangle-fill"></i> Warning alert - Please be cautious!
+    </div>
+    <div class="alert alert-danger" role="alert">
+        <i class="bi bi-x-circle-fill"></i> Danger alert - Something went wrong!
+    </div>
+</section>
+
+<!-- Buttons -->
+<section class="mb-5">
+    <h2 class="h4 mb-3">Buttons</h2>
+    <button type="button" class="btn btn-primary">Primary</button>
+    <button type="button" class="btn btn-secondary">Secondary</button>
+    <button type="button" class="btn btn-success">Success</button>
+    <button type="button" class="btn btn-danger">Danger</button>
+    <button type="button" class="btn btn-warning">Warning</button>
+    <button type="button" class="btn btn-info">Info</button>
+    <button type="button" class="btn btn-outline-primary">Outline</button>
+</section>
+
+<!-- Cards -->
+<section class="mb-5">
+    <h2 class="h4 mb-3">Cards</h2>
+    <div class="row g-3">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Card Title</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Card Subtitle</h6>
+                    <p class="card-text">Some quick example text to build on the card title.</p>
+                    <a href="#" class="card-link">Card link</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-primary">
+                <div class="card-header bg-primary text-white">
+                    Featured
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Special Card</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-success">
+                <div class="card-body">
+                    <h5 class="card-title">Success Card</h5>
+                    <p class="card-text">This card has a success background color.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Badges -->
+<section class="mb-5">
+    <h2 class="h4 mb-3">Badges</h2>
+    <h4>
+        Example heading <span class="badge bg-primary">New</span>
+    </h4>
+    <h4>
+        Another heading <span class="badge bg-secondary">Hot</span>
+    </h4>
+    <button type="button" class="btn btn-primary">
+        Notifications <span class="badge bg-light text-dark">4</span>
+    </button>
+</section>
+
+<!-- List Group -->
+<section class="mb-5">
+    <h2 class="h4 mb-3">List Group</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <ul class="list-group">
+                <li class="list-group-item active">Active item</li>
+                <li class="list-group-item">Second item</li>
+                <li class="list-group-item">Third item</li>
+                <li class="list-group-item disabled">Disabled item</li>
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action list-group-item-primary">
+                    Primary link item
+                </a>
+                <a href="#" class="list-group-item list-group-item-action list-group-item-success">
+                    Success link item
+                </a>
+                <a href="#" class="list-group-item list-group-item-action list-group-item-warning">
+                    Warning link item
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Form -->
+<section class="mb-5">
+    <h2 class="h4 mb-3">Form Example</h2>
+    <form class="row g-3">
+        <div class="col-md-6">
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" class="form-control" id="firstName" placeholder="John">
+        </div>
+        <div class="col-md-6">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="lastName" placeholder="Doe">
+        </div>
+        <div class="col-12">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" placeholder="john.doe@example.com">
+        </div>
+        <div class="col-12">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="gridCheck">
+                <label class="form-check-label" for="gridCheck">
+                    Send me newsletters
+                </label>
+            </div>
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="reset" class="btn btn-secondary">Reset</button>
+        </div>
+    </form>
+</section>

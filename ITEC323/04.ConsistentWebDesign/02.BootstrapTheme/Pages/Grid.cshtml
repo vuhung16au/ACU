@@ -1,0 +1,179 @@
+@page
+@model GridModel
+@{
+    ViewBag.Title = "Grid System";
+}
+
+<h1 class="mb-4">Bootstrap Grid System</h1>
+
+<div class="alert alert-info mb-4">
+    <strong>12-Column System:</strong> Bootstrap divides the page into 12 columns. 
+    Use classes like <code>col-md-6</code> (6 columns on medium screens = 50% width).
+</div>
+
+<!-- Equal Width Columns -->
+<section class="mb-5">
+    <h2 class="h4 mb-3">Equal Width Columns</h2>
+    <div class="row g-3">
+        <div class="col">
+            <div class="p-3 border bg-light text-center">Column 1</div>
+        </div>
+        <div class="col">
+            <div class="p-3 border bg-light text-center">Column 2</div>
+        </div>
+        <div class="col">
+            <div class="p-3 border bg-light text-center">Column 3</div>
+        </div>
+    </div>
+</section>
+
+<!-- Specific Width Columns -->
+<section class="mb-5">
+    <h2 class="h4 mb-3">Specific Width Columns</h2>
+    <div class="row g-3 mb-3">
+        <div class="col-md-8">
+            <div class="p-3 border bg-primary text-white text-center">col-md-8 (66%)</div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-3 border bg-secondary text-white text-center">col-md-4 (33%)</div>
+        </div>
+    </div>
+    <div class="row g-3">
+        <div class="col-md-4">
+            <div class="p-3 border bg-success text-white text-center">col-md-4</div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-3 border bg-success text-white text-center">col-md-4</div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-3 border bg-success text-white text-center">col-md-4</div>
+        </div>
+    </div>
+</section>
+
+<!-- Responsive Breakpoints -->
+<section class="mb-5">
+    <h2 class="h4 mb-3">Responsive Breakpoints</h2>
+    <p>Resize your browser to see how columns adapt!</p>
+    <div class="row g-3">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="p-3 border bg-warning text-center">
+                <strong>Responsive</strong><br>
+                Full: 100%<br>
+                Small: 50%<br>
+                Medium: 33%<br>
+                Large: 25%
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="p-3 border bg-warning text-center">
+                <strong>Responsive</strong><br>
+                Full: 100%<br>
+                Small: 50%<br>
+                Medium: 33%<br>
+                Large: 25%
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="p-3 border bg-warning text-center">
+                <strong>Responsive</strong><br>
+                Full: 100%<br>
+                Small: 50%<br>
+                Medium: 33%<br>
+                Large: 25%
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="p-3 border bg-warning text-center">
+                <strong>Responsive</strong><br>
+                Full: 100%<br>
+                Small: 50%<br>
+                Medium: 33%<br>
+                Large: 25%
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Nested Grid -->
+<section class="mb-5">
+    <h2 class="h4 mb-3">Nested Grid</h2>
+    <div class="row g-3">
+        <div class="col-md-8">
+            <div class="p-3 border bg-info text-white">
+                <strong>Parent Column (8 columns)</strong>
+                <div class="row g-2 mt-2">
+                    <div class="col-6">
+                        <div class="p-2 border bg-light text-dark text-center">Nested 1</div>
+                    </div>
+                    <div class="col-6">
+                        <div class="p-2 border bg-light text-dark text-center">Nested 2</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-3 border bg-info text-white text-center">
+                <strong>Sidebar (4 columns)</strong>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Offset Columns -->
+<section class="mb-5">
+    <h2 class="h4 mb-3">Offset Columns</h2>
+    <div class="row g-3">
+        <div class="col-md-4 offset-md-4">
+            <div class="p-3 border bg-danger text-white text-center">
+                Centered (4 columns, offset by 4)
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Breakpoint Reference -->
+<section class="mb-5">
+    <h2 class="h4 mb-3">Breakpoint Reference</h2>
+    <table class="table table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Class</th>
+                <th>Screen Size</th>
+                <th>Width</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>col-</code></td>
+                <td>Extra small</td>
+                <td>&lt; 576px</td>
+            </tr>
+            <tr>
+                <td><code>col-sm-</code></td>
+                <td>Small</td>
+                <td>≥ 576px</td>
+            </tr>
+            <tr>
+                <td><code>col-md-</code></td>
+                <td>Medium</td>
+                <td>≥ 768px</td>
+            </tr>
+            <tr>
+                <td><code>col-lg-</code></td>
+                <td>Large</td>
+                <td>≥ 992px</td>
+            </tr>
+            <tr>
+                <td><code>col-xl-</code></td>
+                <td>Extra large</td>
+                <td>≥ 1200px</td>
+            </tr>
+            <tr>
+                <td><code>col-xxl-</code></td>
+                <td>Extra extra large</td>
+                <td>≥ 1400px</td>
+            </tr>
+        </tbody>
+    </table>
+</section>

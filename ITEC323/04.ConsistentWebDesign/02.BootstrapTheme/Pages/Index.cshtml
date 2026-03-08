@@ -1,0 +1,74 @@
+@page
+@model IndexModel
+@{
+    ViewBag.Title = "Home";
+}
+
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <!-- Hero Section -->
+        <div class="p-5 mb-4 bg-primary text-white rounded-3">
+            <h1 class="display-4">Bootstrap 5 Integration</h1>
+            <p class="lead">Learn how to integrate Bootstrap into ASP.NET Core Razor Pages for responsive, professional web design.</p>
+            <hr class="my-4 bg-white">
+            <p>This project demonstrates CDN integration, responsive components, and the Bootstrap grid system.</p>
+        </div>
+
+        <!-- Key Concepts -->
+        <div class="card mb-4">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0"><i class="bi bi-lightbulb"></i> Key Learning Points</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <strong>CDN Integration:</strong> Bootstrap loaded from CDN (no local files needed)
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Responsive Navigation:</strong> Mobile-friendly navbar with hamburger menu
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Grid System:</strong> 12-column responsive layout system
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Components:</strong> Pre-built UI elements (cards, buttons, alerts)
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="row g-3">
+            <div class="col-md-6">
+                <div class="card text-center h-100">
+                    <div class="card-body">
+                        <i class="bi bi-grid-3x3-gap fs-1 text-primary"></i>
+                        <h5 class="card-title mt-3">Grid System</h5>
+                        <p class="card-text">See how Bootstrap's responsive grid works</p>
+                        <a href="/Grid" class="btn btn-primary">Explore Grid</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card text-center h-100">
+                    <div class="card-body">
+                        <i class="bi bi-box-seam fs-1 text-success"></i>
+                        <h5 class="card-title mt-3">Components</h5>
+                        <p class="card-text">View common Bootstrap components</p>
+                        <a href="/Components" class="btn btn-success">View Components</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CDN vs Local -->
+        <div class="alert alert-warning mt-4" role="alert">
+            <h5 class="alert-heading"><i class="bi bi-info-circle"></i> CDN vs Local Files</h5>
+            <p class="mb-0">
+                This project uses <strong>CDN</strong> (Content Delivery Network) to load Bootstrap. 
+                Benefits: Faster loading, cached by browsers, always up-to-date. 
+                Alternative: Download Bootstrap files to <code>wwwroot/lib/</code> for offline use.
+            </p>
+        </div>
+    </div>
+</div>

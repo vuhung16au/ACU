@@ -67,6 +67,7 @@ Folder: 02.BootstrapTheme
 - Can integrate Tailwind CSS
 - Understand when to use each framework
 - Can create responsive layouts using framework utilities
+- Keep the code, docs, and instructions concise and focused on the core concepts without unnecessary details or distractions.
 
 My environment:
 - ASP.NET Core Razor Pages
