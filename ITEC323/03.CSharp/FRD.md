@@ -1,3 +1,84 @@
+# Create a new project: Razor Pages Advanced Concepts
+
+Mirror the project structure and files from `ITEC323/03.CSharp/05.RazorPages-Essentials` to create a new ASP.NET Core Razor Pages web application that demonstrates some advanced concepts of Razor Pages and web development with C#.
+
+Save your response to `ITEC323/03.CSharp/06.RazorPages-Advanced` 
+
+My environments:
+- dotnet 10.0 (installed) (dotnet --version 10.0.103)
+- C# 14 (installed)
+- VS Code (installed)
+- MacOS
+
+The project should include:
+Make the docs short and sharp.
+- README.md: Introduce the project
+- QUICKSTART.md: How to build and run (use dotnet new CLI commands)
+- docs/Key-Takeaways.md: Important concepts and learning points
+
+Acceptance Criteria:
+- The new project is created with the same structure as `05.RazorPages-Essentials`
+- `dotnet build` and `dotnet run` work successfully in the new project
+
+Other requirements:
+- The target audience for this project is beginners learning C# for the first time
+- Comment your code to explain key concepts and steps
+- Use simple language in documentation to ensure it's accessible to all learners
+- Ensure the project is compatible with .NET 10.0 and can be built and run on multiple platforms (Windows, macOS, Linux)
+
+The purpose of this project is to create a new ASP.NET Core Razor Pages web application that serves to demonstrate advanced topics in Razor Pages.
+
+The project demonstrates the following key concepts:
+
+- C# @foreach
+- Entity Framework Core: to fetch data
+- JSON is the primary format for modern webapps
+- Localization: English & Japanese: Users are able to switch between English and Japanese languages using a dropdown menu. The application uses ASP.NET Core's localization features to display content in the selected language.
+
+The webapp loads a database "users" (SQLite) (using Entity Framework Core) and displays the data in a table on the home page (using foreach loop). 
+
+---
+
+# Create a new project: Razor Pages Essentials
+
+Mirror the project structure and files from `ITEC323/03.CSharp/04.RazorPages-HelloWorld` to create a new ASP.NET Core Razor Pages web application that demonstrates the essential concepts of Razor Pages and web development with C#.
+
+Save your response to `ITEC323/03.CSharp/05.RazorPages-Essentials` 
+
+My environments:
+- dotnet 10.0 (installed) (dotnet --version 10.0.103)
+- C# 14 (installed)
+- VS Code (installed)
+- MacOS
+
+The project should include:
+- README.md: Introduce the project
+- QUICKSTART.md: How to build and run (use dotnet new CLI commands)
+- docs/Key-Takeaways.md: Important concepts and learning points
+
+Acceptance Criteria:
+- The new project is created with the same structure as `04.RazorPages-HelloWorld`
+- `dotnet build` and `dotnet run` work successfully in the new project
+
+Other requirements:
+- The target audience for this project is beginners learning C# for the first time
+- Comment your code to explain key concepts and steps
+- Use simple language in documentation to ensure it's accessible to all learners
+- Ensure the project is compatible with .NET 10.0 and can be built and run on multiple platforms (Windows, macOS, Linux)
+
+The purpose of this project is to create a new ASP.NET Core Razor Pages web application that serves as an introduction to web development with C#. This project will be structured similarly to the "Hello World" Razor Pages application, but will focus on introducing fundamental web development concepts.
+
+The project demonstrates the following key concepts:
+- Data, Validation and Navigation
+- Validation (Data Annotations)
+- [Required]
+- [EmailAddress]
+- Validation Tag Helpers
+- <span asp-validation-for="Email">
+- Navigation (Standard HTML & Razor Tag Helpers)
+
+---
+
 # Create a new project: Hello World for Razor Pages 
 
 Mirror the project structure and files from `ITEC323/03.CSharp/02.CSharpCore` to create a new Hello World ASP.NET Core Razor Pages web application.

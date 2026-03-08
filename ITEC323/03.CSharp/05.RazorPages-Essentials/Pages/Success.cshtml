@@ -1,0 +1,121 @@
+@page
+@model RazorPagesEssentials.Pages.SuccessModel
+@{
+    ViewData["Title"] = "Success";
+}
+
+<div class="success-container">
+    <div class="success-icon">
+        ✓
+    </div>
+    
+    <h1>@ViewData["Title"]</h1>
+    
+    <div class="success-message">
+        <p>@Model.SuccessMessage</p>
+    </div>
+    
+    <div class="success-actions">
+        <a asp-page="/Contact" class="btn btn-primary">Submit Another Message</a>
+        <a asp-page="/Index" class="btn btn-secondary">Return to Home</a>
+    </div>
+    
+    <div class="info-box">
+        <h3>💡 What You're Learning Here</h3>
+        <ul>
+            <li><strong>TempData:</strong> Used to pass data between pages during a redirect. The message you see above was stored in TempData on the Contact page and retrieved here.</li>
+            <li><strong>Navigation:</strong> The buttons below use <code>asp-page</code> tag helpers to link to other pages in your application.</li>
+            <li><strong>Post-Redirect-Get Pattern:</strong> After form submission, we redirect to this page instead of returning a view. This prevents duplicate form submissions if the user refreshes their browser.</li>
+        </ul>
+    </div>
+</div>
+
+<style>
+    .success-container {
+        text-align: center;
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 30px;
+    }
+    
+    .success-icon {
+        font-size: 80px;
+        color: #28a745;
+        margin-bottom: 20px;
+    }
+    
+    .success-message {
+        background-color: #d4edda;
+        border: 1px solid #c3e6cb;
+        color: #155724;
+        padding: 20px;
+        border-radius: 5px;
+        margin: 30px 0;
+    }
+    
+    .success-message p {
+        margin: 0;
+        font-size: 1.1em;
+    }
+    
+    .success-actions {
+        margin: 30px 0;
+    }
+    
+    .btn {
+        display: inline-block;
+        padding: 12px 24px;
+        margin: 0 10px;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-primary {
+        background-color: #007bff;
+        color: white;
+    }
+    
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+    
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+    }
+    
+    .btn-secondary:hover {
+        background-color: #545b62;
+    }
+    
+    .info-box {
+        text-align: left;
+        background-color: #e7f3ff;
+        border-left: 4px solid #2196F3;
+        padding: 20px;
+        margin-top: 40px;
+        border-radius: 5px;
+    }
+    
+    .info-box h3 {
+        margin-top: 0;
+        color: #1976D2;
+    }
+    
+    .info-box ul {
+        margin-bottom: 0;
+    }
+    
+    .info-box li {
+        margin-bottom: 10px;
+    }
+    
+    .info-box code {
+        background-color: #f5f5f5;
+        padding: 2px 6px;
+        border-radius: 3px;
+        font-family: 'Courier New', monospace;
+    }
+</style>

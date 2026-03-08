@@ -1,0 +1,89 @@
+@page
+@model RazorPagesEssentials.Pages.ContactModel
+@{
+    ViewData["Title"] = "Contact Us";
+}
+
+<div style="max-width: 600px; margin: 50px auto; font-family: Arial, sans-serif;">
+    <h1>Contact Us</h1>
+    <p style="color: #666; margin-bottom: 30px;">
+        Fill out the form below to send us a message. All fields are required.
+    </p>
+
+    <!-- 
+        Form Tag Helper: asp-page-handler tells the form to use the OnPost method
+        The form will submit data via POST to the same page
+    -->
+    <form method="post">
+        <!-- 
+            div asp-validation-summary shows all validation errors at once
+            ModelOnly means it won't show individual field errors (they're shown below each field)
+        -->
+        <div asp-validation-summary="ModelOnly" style="color: red; margin-bottom: 20px;"></div>
+
+        <!-- Name Field -->
+        <div style="margin-bottom: 20px;">
+            <!-- Label Tag Helper: asp-for creates a label for the Name property -->
+            <label asp-for="Name" style="display: block; font-weight: bold; margin-bottom: 5px;"></label>
+            
+            <!-- Input Tag Helper: asp-for creates an input bound to Name property -->
+            <input asp-for="Name" 
+                   style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px;" />
+            
+            <!-- Validation Tag Helper: displays error message for Name field -->
+            <span asp-validation-for="Name" style="color: red; font-size: 14px;"></span>
+        </div>
+
+        <!-- Email Field -->
+        <div style="margin-bottom: 20px;">
+            <label asp-for="Email" style="display: block; font-weight: bold; margin-bottom: 5px;"></label>
+            
+            <!-- asp-for automatically sets type="email" based on [EmailAddress] attribute -->
+            <input asp-for="Email" 
+                   style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px;" />
+            
+            <span asp-validation-for="Email" style="color: red; font-size: 14px;"></span>
+        </div>
+
+        <!-- Message Field -->
+        <div style="margin-bottom: 20px;">
+            <label asp-for="Message" style="display: block; font-weight: bold; margin-bottom: 5px;"></label>
+            
+            <!-- Textarea Tag Helper: asp-for creates a textarea for longer text -->
+            <textarea asp-for="Message" rows="5"
+                      style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; 
+                             font-size: 16px; font-family: Arial, sans-serif; resize: vertical;"></textarea>
+            
+            <span asp-validation-for="Message" style="color: red; font-size: 14px;"></span>
+        </div>
+
+        <!-- Submit Button -->
+        <div style="margin-top: 30px;">
+            <button type="submit" 
+                    style="background: #0066cc; color: white; padding: 12px 30px; border: none; 
+                           border-radius: 5px; font-size: 16px; font-weight: bold; cursor: pointer;">
+                Send Message
+            </button>
+            
+            <!-- Navigation back to home using standard HTML anchor -->
+            <a href="/" style="margin-left: 15px; color: #0066cc; text-decoration: none;">Cancel</a>
+        </div>
+    </form>
+
+    <!-- Information Box -->
+    <div style="margin-top: 40px; padding: 20px; background: #f8f9fa; border-radius: 5px;">
+        <h3 style="margin-top: 0;">How Validation Works</h3>
+        <ul style="margin: 0; padding-left: 20px; line-height: 1.8;">
+            <li><strong>[Required]</strong> - Field must have a value</li>
+            <li><strong>[EmailAddress]</strong> - Must be a valid email format</li>
+            <li><strong>[StringLength]</strong> - Message between 10-500 characters</li>
+            <li><strong>asp-validation-for</strong> - Shows error next to field</li>
+            <li><strong>ModelState.IsValid</strong> - Checks all validations passed</li>
+        </ul>
+    </div>
+</div>
+
+@* Enable client-side validation (validates without server round-trip) *@
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

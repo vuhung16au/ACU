@@ -1,0 +1,32 @@
+@page
+@model RazorPagesEssentials.Pages.IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div style="text-align: center; margin-top: 50px; font-family: Arial, sans-serif;">
+    <h1>@Model.WelcomeMessage</h1>
+    <p style="color: #666; font-size: 18px; margin: 20px 0;">
+        Learn the essential concepts of Razor Pages: forms, validation, and navigation.
+    </p>
+    
+    <div style="margin-top: 40px;">
+        <h2>What You'll Learn</h2>
+        <ul style="list-style: none; padding: 0; max-width: 600px; margin: 20px auto; text-align: left;">
+            <li style="padding: 10px; border-bottom: 1px solid #ddd;">✅ Creating forms with Razor Pages</li>
+            <li style="padding: 10px; border-bottom: 1px solid #ddd;">✅ Validating user input with Data Annotations</li>
+            <li style="padding: 10px; border-bottom: 1px solid #ddd;">✅ Using validation tag helpers</li>
+            <li style="padding: 10px; border-bottom: 1px solid #ddd;">✅ Navigating between pages</li>
+            <li style="padding: 10px;">✅ Handling form submission</li>
+        </ul>
+    </div>
+    
+    <div style="margin-top: 40px;">
+        <!-- Navigation using Razor Tag Helper -->
+        <a asp-page="/Contact" 
+           style="display: inline-block; background: #0066cc; color: white; padding: 15px 30px; 
+                  text-decoration: none; border-radius: 5px; font-weight: bold;">
+            Try the Contact Form
+        </a>
+    </div>
+</div>
