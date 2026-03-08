@@ -1,0 +1,52 @@
+@page
+@model ErrorModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+<!-- 
+    ============================================================================
+    Error Page
+    ============================================================================
+    
+    This page is displayed when an error occurs in the application.
+    It provides a user-friendly error message without exposing technical details.
+    
+    ============================================================================
+-->
+
+<div class="error-container">
+    <div class="error-icon">⚠️</div>
+    <h1>Oops! Something Went Wrong</h1>
+    
+    <p class="error-message">
+        We're sorry, but something unexpected happened while processing your request.
+    </p>
+
+    @if (Model.ShowRequestId)
+    {
+        <div class="error-details">
+            <p>
+                <strong>Request ID:</strong> <code>@Model.RequestId</code>
+            </p>
+            <p class="help-text">
+                Please include this ID when reporting the issue.
+            </p>
+        </div>
+    }
+
+    <div class="error-actions">
+        <a href="/" class="button">← Back to Home</a>
+    </div>
+
+    <!-- 
+        In Development Mode:
+        - You'll see detailed error messages and stack traces
+        - The Developer Exception Page provides debugging information
+        
+        In Production Mode:
+        - This page is shown instead (user-friendly)
+        - Technical details are hidden for security
+        - Errors are logged for administrators to review
+    -->
+</div>

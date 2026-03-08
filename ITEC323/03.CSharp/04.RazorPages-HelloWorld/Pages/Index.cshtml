@@ -1,0 +1,160 @@
+@page
+@model RazorPagesHelloWorld.Pages.IndexModel
+@{
+    ViewData["Title"] = "Hello World - Razor Pages";
+}
+
+@* 
+    ============================================================================
+    Index.cshtml - The View (Presentation)
+    ============================================================================
+    
+    This is a Razor Page (.cshtml file) that combines HTML with C# code.
+    
+    Key Concepts:
+    - The page directive makes this file a Razor Page (routable)
+    - The model directive specifies the PageModel class (Index.cshtml.cs)
+    - Code blocks {} for server-side logic
+    - Access C# properties and variables in HTML
+    - HTML: Standard markup for web page structure
+    
+    ============================================================================
+*@
+
+<div class="container">
+    <!-- Header Section -->
+    <div class="header">
+        <h1>🎉 @Model.WelcomeMessage</h1>
+        <p class="subtitle">Your First ASP.NET Core Razor Pages Application</p>
+    </div>
+
+    <!-- Information Cards -->
+    <div class="info-section">
+        <!-- Card 1: About This Project -->
+        <div class="card">
+            <h2>📚 About This Project</h2>
+            <p>
+                This is a simple "Hello World" web application built with 
+                <strong>ASP.NET Core Razor Pages</strong>. It demonstrates 
+                the fundamental concepts of building web applications with C#.
+            </p>
+        </div>
+
+        <!-- Card 2: System Information -->
+        <div class="card">
+            <h2>💻 System Information</h2>
+            <ul>
+                <li><strong>Framework:</strong> ASP.NET Core 10.0</li>
+                <li><strong>Language:</strong> C# 14</li>
+                <li><strong>.NET Version:</strong> @Model.DotNetVersion</li>
+                <li><strong>Current Time:</strong> @Model.CurrentDateTime</li>
+            </ul>
+        </div>
+
+        <!-- Card 3: Key Concepts -->
+        <div class="card">
+            <h2>🔑 Key Concepts Covered</h2>
+            <ul>
+                @* Razor syntax: Loop through the KeyConcepts list *@
+                @foreach (var concept in Model.KeyConcepts)
+                {
+                    <li>@concept</li>
+                }
+            </ul>
+        </div>
+    </div>
+
+    <!-- How It Works Section -->
+    <div class="how-it-works">
+        <h2>🚀 How This Application Works</h2>
+        <div class="steps">
+            <div class="step">
+                <span class="step-number">1</span>
+                <div class="step-content">
+                    <h3>Request</h3>
+                    <p>Your browser sends an HTTP GET request to the server</p>
+                </div>
+            </div>
+            <div class="step">
+                <span class="step-number">2</span>
+                <div class="step-content">
+                    <h3>Routing</h3>
+                    <p>ASP.NET Core routes the request to Index.cshtml</p>
+                </div>
+            </div>
+            <div class="step">
+                <span class="step-number">3</span>
+                <div class="step-content">
+                    <h3>Processing</h3>
+                    <p>The OnGet() method in IndexModel runs and sets data</p>
+                </div>
+            </div>
+            <div class="step">
+                <span class="step-number">4</span>
+                <div class="step-content">
+                    <h3>Rendering</h3>
+                    <p>Razor engine combines C# data with HTML markup</p>
+                </div>
+            </div>
+            <div class="step">
+                <span class="step-number">5</span>
+                <div class="step-content">
+                    <h3>Response</h3>
+                    <p>Server sends HTML back to your browser to display</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- File Structure Section -->
+    <div class="file-structure">
+        <h2>📁 Project File Structure</h2>
+        <pre><code>04.RazorPages-HelloWorld/
+├── Program.cs              <span class="comment">// Application entry point and configuration</span>
+├── RazorPagesHelloWorld.csproj  <span class="comment">// Project file</span>
+├── Pages/
+│   ├── Index.cshtml        <span class="comment">// This file - the view (HTML + Razor)</span>
+│   └── Index.cshtml.cs     <span class="comment">// Page model (C# code-behind)</span>
+├── wwwroot/
+│   └── css/
+│       └── site.css        <span class="comment">// Stylesheet for styling</span>
+└── docs/
+    └── Key-Takeaways.md    <span class="comment">// Learning concepts documentation</span></code></pre>
+    </div>
+
+    <!-- Next Steps Section -->
+    <div class="next-steps">
+        <h2>🎯 Next Steps</h2>
+        <ol>
+            <li>Open <code>Pages/Index.cshtml.cs</code> to see the C# code-behind</li>
+            <li>Modify the <code>WelcomeMessage</code> property and refresh the page</li>
+            <li>Add new properties to <code>IndexModel</code> and display them here</li>
+            <li>Explore <code>wwwroot/css/site.css</code> to customize styling</li>
+            <li>Read <code>docs/Key-Takeaways.md</code> for detailed explanations</li>
+        </ol>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>
+            Built with ❤️ using ASP.NET Core Razor Pages<br>
+            <small>Part of the ITEC323 C# Course</small>
+        </p>
+    </div>
+</div>
+
+@* 
+    ============================================================================
+    Razor Syntax Quick Reference:
+    ============================================================================
+    
+    The "page" directive       - Makes this a routable Razor Page
+    The "model" directive      - Specifies the PageModel type
+    Model.PropertyName         - Accesses properties from PageModel
+    Code blocks {}             - Multi-line C# code block
+    Single expressions         - Single-line C# output
+    Control structures         - foreach, if, while in HTML
+    Razor comments like this   - Not sent to browser
+    
+    ============================================================================
+*@

@@ -1,3 +1,41 @@
+# Create a new project: Hello World for Razor Pages 
+
+Mirror the project structure and files from `ITEC323/03.CSharp/02.CSharpCore` to create a new Hello World ASP.NET Core Razor Pages web application.
+
+Save your response to `ITEC323/03.CSharp/04.RazorPages-HelloWorld` 
+
+My environments:
+- dotnet 10.0 (installed) (dotnet --version 10.0.103)
+- C# 14 (installed)
+- VS Code (installed)
+- MacOS
+
+The project should include:
+- README.md: Introduce the project
+- QUICKSTART.md: How to build and run (use dotnet new CLI commands)
+- docs/Key-Takeaways.md: Important concepts and learning points
+
+Acceptance Criteria:
+- The new project is created with the same structure as `02.CSharpCore`
+- `dotnet build` and `dotnet run` work successfully in the new project
+
+Other requirements:
+- The target audience for this project is beginners learning C# for the first time
+- Comment your code to explain key concepts and steps
+- Use simple language in documentation to ensure it's accessible to all learners
+- Ensure the project is compatible with .NET 10.0 and can be built and run on multiple platforms (Windows, macOS, Linux)
+
+The purpose of this project is to create a new ASP.NET Core Razor Pages web application that serves as an introduction to web development with C#. This project will be structured similarly to the "C# Core" console application, but will focus on introducing fundamental web development concepts such as HTTP, HTML, Razor syntax, and basic web application structure.
+
+The project demonstrates the following key concepts:
+- ASP.NET Core Razor Pages
+- HTTP and Web Servers
+- HTML and Razor Syntax
+- Web Application Structure
+- Building and Running Web Applications with .NET CLI
+- Help students understand the folder structure of a Razor Pages project and how the different files work together to create a web application. This includes explaining the purpose of `Pages/Index.cshtml`, `Pages/Index.cshtml.cs`, and the `wwwroot` folder for static assets.
+
+---
 # TODO Create `AGENTS.md` for our dotnet projects 
 
 Save your responses to `ITEC323/03.CSharp/AGENTS.md`

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Razor Pages Hello World</title>
+    
+    <!-- Link to our stylesheet -->
+    <link rel="stylesheet" href="~/css/site.css" />
+    
+    <!-- 
+        The ~ (tilde) is a special Razor symbol that means "start from wwwroot folder"
+        So ~/css/site.css becomes /css/site.css in the browser
+        And ASP.NET Core serves it from wwwroot/css/site.css
+    -->
+</head>
+<body>
+    <!-- 
+        ====================================================================
+        Shared Layout Template
+        ====================================================================
+        
+        This file defines the common structure for all pages in the app.
+        
+        Key Concepts:
+        - Layout: A template that wraps around each page's content
+        - @RenderBody(): Placeholder where page content is inserted
+        - All pages using this layout will have the same header and footer
+        - Only the middle section (body) changes between pages
+        
+        How It Works:
+        1. User requests a page (e.g., Index.cshtml)
+        2. _ViewStart.cshtml sets Layout = "_Layout"
+        3. This layout file loads
+        4. Page content is inserted at @RenderBody()
+        5. Complete HTML is sent to browser
+        
+        ====================================================================
+    -->
+    
+    <!-- Header Section - Appears on all pages -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <h1>🌐 ASP.NET Core</h1>
+                <span class="subtitle">Razor Pages Demo</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/" class="active">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#docs">Docs</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Area - This is where each page's content appears -->
+    <main>
+        @RenderBody()
+        
+        @* 
+            @RenderBody() is the most important part of a layout file.
+            
+            When Index.cshtml is rendered:
+            - Everything in Index.cshtml is inserted here
+            - The layout provides the structure (header, main, footer)
+            - The page provides the unique content
+            
+            Result:
+            <html>
+                <body>
+                    <header>...</header>
+                    <main>
+                        <!-- Index.cshtml content appears here -->
+                    </main>
+                    <footer>...</footer>
+                </body>
+            </html>
+        *@
+    </main>
+
+    <!-- Footer Section - Appears on all pages -->
+    <footer>
+        <div class="footer-container">
+            <p>
+                &copy; 2025 ASP.NET Core Razor Pages<br>
+                <small>
+                    Built with C# and ASP.NET Core 10.0 | 
+                    <a href="https://docs.microsoft.com/aspnet/core" target="_blank">Learn More</a>
+                </small>
+            </p>
+        </div>
+    </footer>
+
+    <!-- 
+        ====================================================================
+        Benefits of Using Layouts:
+        ====================================================================
+        
+        1. DRY Principle: Don't Repeat Yourself
+           - Header/footer code written once, used everywhere
+           - Change header in one place, updates all pages
+        
+        2. Consistency:
+           - All pages have the same look and feel
+           - Navigation is identical across the site
+        
+        3. Maintainability:
+           - Easy to update site-wide elements
+           - Add new pages without rewriting structure
+        
+        4. Separation of Concerns:
+           - Layout handles structure
+           - Pages handle content
+           - CSS handles styling
+        
+        ====================================================================
+    -->
+</body>
+</html>

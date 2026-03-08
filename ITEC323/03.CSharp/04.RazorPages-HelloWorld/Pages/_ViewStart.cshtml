@@ -1,0 +1,28 @@
+@{
+    Layout = "_Layout";
+}
+
+@* 
+    ============================================================================
+    _ViewStart.cshtml
+    ============================================================================
+    
+    This file runs before every Razor Page in your application.
+    It sets the default layout for all pages.
+    
+    Key Concepts:
+    - Runs automatically before each page renders
+    - Layout property specifies which layout template to use
+    - "_Layout" refers to Pages/Shared/_Layout.cshtml
+    - All pages will use this layout unless they override it
+    
+    Without this file:
+    - Each page would need to set its own layout
+    - Code would be repetitive: @{ Layout = "_Layout"; } in every file
+    
+    With this file:
+    - All pages automatically use _Layout.cshtml
+    - Individual pages can still override: @{ Layout = null; } or @{ Layout = "OtherLayout"; }
+    
+    ============================================================================
+*@
