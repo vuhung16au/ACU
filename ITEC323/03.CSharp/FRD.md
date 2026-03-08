@@ -1,3 +1,9 @@
+# TODO refactoring code & docs
+
+The main file `Program.cs` is too big, we should split it into multiple files for better organization and readability.
+
+The file `docs/Key-Takeaways.md` is also very long, we should break it down into multiple sections or separate files for easier navigation and learning.
+
 # Create a new project 
 
 Mirror the project structure and files from `ITEC323/03.CSharp/01.HelloWorldCLI` to create a new C# console application.
