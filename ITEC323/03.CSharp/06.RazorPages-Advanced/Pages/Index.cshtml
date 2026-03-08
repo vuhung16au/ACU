@@ -1,23 +1,24 @@
 @page
 @model IndexModel
+@inject IViewLocalizer Localizer
 @{
-    ViewData["Title"] = "User Directory";
+    ViewData["Title"] = Localizer["Title"];
 }
 
 <div class="text-center">
-    <h1 class="display-4">User Directory</h1>
-    <p>Demonstrating Entity Framework Core with SQLite and @@foreach loops</p>
+    <h1 class="display-4">@Localizer["Title"]</h1>
+    <p>@Localizer["Description"]</p>
 </div>
 
 <div class="user-table-container">
     <table class="user-table">
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Country</th>
-                <th>Created Date</th>
+                <th>@Localizer["ID"]</th>
+                <th>@Localizer["Name"]</th>
+                <th>@Localizer["Email"]</th>
+                <th>@Localizer["Country"]</th>
+                <th>@Localizer["CreatedDate"]</th>
             </tr>
         </thead>
         <tbody>
@@ -37,16 +38,16 @@
 
     @if (Model.Users.Count == 0)
     {
-        <p class="no-users">No users found in the database.</p>
+        <p class="no-users">@Localizer["NoUsers"]</p>
     }
     else
     {
-        <p class="user-count">Total Users: @Model.Users.Count</p>
+        <p class="user-count">@Localizer["TotalUsers"]: @Model.Users.Count</p>
     }
 </div>
 
 <div class="json-demo">
-    <h2>JSON Representation</h2>
-    <p>Here's how the data looks in JSON format (modern web apps use JSON for data exchange):</p>
+    <h2>@Localizer["JsonTitle"]</h2>
+    <p>@Localizer["JsonDescription"]</p>
     <pre><code>@System.Text.Json.JsonSerializer.Serialize(Model.Users, new System.Text.Json.JsonSerializerOptions { WriteIndented = true })</code></pre>
 </div>

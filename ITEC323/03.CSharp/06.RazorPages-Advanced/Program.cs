@@ -6,8 +6,9 @@ using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add Razor Pages
-builder.Services.AddRazorPages();
+// Add Razor Pages with view localization support
+builder.Services.AddRazorPages()
+    .AddViewLocalization();
 
 // Configure Entity Framework Core with SQLite
 // Connection string is stored in appsettings.json
@@ -17,11 +18,13 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // Configure Localization (multiple languages support)
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
-// Configure supported cultures (English and Japanese)
+// Configure supported cultures (English, Japanese, Nepali, Hindi)
 var supportedCultures = new[]
 {
     new CultureInfo("en"), // English
-    new CultureInfo("ja")  // Japanese
+    new CultureInfo("ja"), // Japanese
+    new CultureInfo("ne"), // Nepali
+    new CultureInfo("hi")  // Hindi
 };
 
 builder.Services.Configure<RequestLocalizationOptions>(options =>
