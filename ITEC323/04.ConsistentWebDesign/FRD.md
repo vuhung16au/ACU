@@ -92,7 +92,7 @@ Acceptance Criteria:
 - Common components (cards, alerts, buttons)
 - **Key Learning**: Bootstrap integration, CDN vs local files, responsive design
 
-### FR3: Partial Views Implementation
+### TODO: FR3: Partial Views Implementation
 **Priority**: High  
 **Description**: Students can create and use partial views for reusable components.
 
@@ -112,7 +112,7 @@ Acceptance Criteria:
 - Can add page-specific scripts and styles
 - Understand `IsSectionDefined()` checks
 
-### FR5: Multiple Layouts
+### TODO: FR5: Multiple Layouts
 **Priority**: Medium  
 **Description**: Students can implement different layouts for different site sections.
 
@@ -122,7 +122,7 @@ Acceptance Criteria:
 - Can implement public and admin layouts
 - Understand layout selection priority
 
-### FR6: DRY Principle Application
+### TODO: FR6: DRY Principle Application
 **Priority**: Critical  
 **Description**: Students eliminate code duplication across their web applications.
 
@@ -176,25 +176,25 @@ Acceptance Criteria:
 - Grid system examples
 - Common components (cards, buttons, forms)
 
-### 03.TailwindTheme
+### TODO: 03.TailwindTheme
 - Tailwind CSS integration
 - Utility-first approach
 - Same functionality as BootstrapTheme
 - Side-by-side comparison capability
 
-### 04.PartialViews
+### TODO: 04.PartialViews
 - At least 5 partial views (nav, footer, sidebar, card, alert)
 - Demonstrates data passing to partials
 - Shows when/why to create partials
 - DRY principle in action
 
-### 05.MultipleLayouts
+### TODO: 05.MultipleLayouts
 - Minimum 3 layouts (public, admin, print)
 - Folder-level `_ViewStart.cshtml`
 - Page-level layout override example
 - Different styling per layout type
 
-### 06.ComprehensiveExample
+### TODO: 06.ComprehensiveExample
 - Real-world application (e.g., blog, portfolio, e-commerce)
 - Uses all previous concepts
 - Multiple layouts and extensive partials
