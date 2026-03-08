@@ -4,6 +4,10 @@
 
 This project demonstrates how to integrate **Bootstrap 5** into ASP.NET Core Razor Pages to create responsive, professional-looking websites with minimal custom CSS.
 
+## Screenshot(s)
+
+![components](images/localhost-components.png) ![grid](images/localhost-grid.png) ![home](images/localhost-home.png)
+
 ## Learning Objectives
 
 - Integrate Bootstrap 5 via CDN
