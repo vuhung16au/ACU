@@ -1,3 +1,11 @@
+# TODO refactoring code & docs
+
+The main file `Program.cs` is too big, we should split it into multiple files for better organization and readability.
+
+The file `docs/Key-Takeaways.md` is also very long, we should break it down into multiple sections or separate files for easier navigation and learning.
+
+Apply to `ITEC323/03.CSharp/03.CSharpAdvanced` 
+
 # Create a new project: C# Advanced Concepts
 
 Mirror the project structure and files from `ITEC323/03.CSharp/02.CSharpCore` to create a new C# console application.
@@ -52,6 +60,8 @@ C# Throwing Exceptions
 The main file `Program.cs` is too big, we should split it into multiple files for better organization and readability.
 
 The file `docs/Key-Takeaways.md` is also very long, we should break it down into multiple sections or separate files for easier navigation and learning.
+
+Apply to `ITEC323/03.CSharp/02.CSharpCore`
 
 # Create a new project: CSharp Core Concepts 
 
