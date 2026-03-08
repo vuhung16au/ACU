@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - RazorPages Advanced</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-page="/Index">RazorPages Advanced</a>
+                <div class="language-switcher">
+                    <label for="language-select">Language:</label>
+                    <select id="language-select" onchange="changeLanguage(this.value)">
+                        <option value="en">English</option>
+                        <option value="ja">日本語 (Japanese)</option>
+                    </select>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2025 - RazorPages Advanced - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <script>
+        // Language switcher function
+        function changeLanguage(culture) {
+            // Reload page with new culture query parameter
+            window.location.href = window.location.pathname + '?culture=' + culture;
+        }
+
+        // Set the selected language in dropdown based on current culture
+        document.addEventListener('DOMContentLoaded', function() {
+            var urlParams = new URLSearchParams(window.location.search);
+            var culture = urlParams.get('culture') || 'en';
+            document.getElementById('language-select').value = culture;
+        });
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

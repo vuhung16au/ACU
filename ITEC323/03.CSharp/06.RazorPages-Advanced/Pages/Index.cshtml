@@ -1,0 +1,52 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "User Directory";
+}
+
+<div class="text-center">
+    <h1 class="display-4">User Directory</h1>
+    <p>Demonstrating Entity Framework Core with SQLite and @@foreach loops</p>
+</div>
+
+<div class="user-table-container">
+    <table class="user-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Country</th>
+                <th>Created Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @* @foreach loop iterates through all users from the database *@
+            @foreach (var user in Model.Users)
+            {
+                <tr>
+                    <td>@user.Id</td>
+                    <td>@user.Name</td>
+                    <td>@user.Email</td>
+                    <td>@user.Country</td>
+                    <td>@user.CreatedDate.ToString("MMM dd, yyyy")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @if (Model.Users.Count == 0)
+    {
+        <p class="no-users">No users found in the database.</p>
+    }
+    else
+    {
+        <p class="user-count">Total Users: @Model.Users.Count</p>
+    }
+</div>
+
+<div class="json-demo">
+    <h2>JSON Representation</h2>
+    <p>Here's how the data looks in JSON format (modern web apps use JSON for data exchange):</p>
+    <pre><code>@System.Text.Json.JsonSerializer.Serialize(Model.Users, new System.Text.Json.JsonSerializerOptions { WriteIndented = true })</code></pre>
+</div>
