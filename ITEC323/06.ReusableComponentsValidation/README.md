@@ -226,9 +226,3 @@ After completing this module:
 - **Week 7**: Database integration with Entity Framework Core
 - **Week 8**: Authentication and authorization
 - **Week 9**: API development and consumption
-
----
-
-**Module:** Week 6 - Reusable Components & Validation  
-**Target Framework:** .NET 10.0  
-**Last Updated:** March 2026
