@@ -99,11 +99,42 @@ service-worker.published.js
 # Blazor debugging
 .blazor/
 
-## JetBrains Rider
+## JetBrains Rider / Android Studio
 .idea/
 *.sln.iml
 **/.idea/**/workspace.xml
 **/.idea/**/tasks.xml
+
+## Android Studio (Kotlin, Java, Gradle)
+# Built application files
+*.apk
+*.aar
+*.ap_
+*.aab
+
+# Gradle
+.gradle/
+**/build/
+
+# Local configuration (SDK path, machine-specific)
+local.properties
+
+# Android Studio
+*.iml
+
+# Keystores and signing
+*.jks
+*.keystore
+
+# External native build
+.externalNativeBuild/
+.cxx/
+
+# Android Profiling
+*.hprof
+
+# Kotlin
+.kotlin/
 
 ## Visual Studio Code
 .vscode/
