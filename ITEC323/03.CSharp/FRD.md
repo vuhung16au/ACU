@@ -1,10 +1,59 @@
+# Create a new project: C# Advanced Concepts
+
+Mirror the project structure and files from `ITEC323/03.CSharp/02.CSharpCore` to create a new C# console application.
+
+Save your response to `ITEC323/03.CSharp/03.CSharpAdvanced` 
+
+The project should include:
+- README.md: Introduce the project
+- QUICKSTART.md: How to build and run
+- docs/Key-Takeaways.md: Important concepts and learning points
+
+Acceptance Criteria:
+- The new project is created with the same structure as `02.CSharpCore`
+- `dotnet build` and `dotnet run` work successfully in the new project
+
+Other requirements:
+- The target audience for this project is beginners learning C# for the first time
+- Comment your code to explain key concepts and steps
+- Use simple language in documentation to ensure it's accessible to all learners
+- Ensure the project is compatible with .NET 10.0 and can be built and run on multiple platforms (Windows, macOS, Linux)
+
+The purpose of this project is to create a new C# console application that helps learners understand more advanced C# programming concepts. This project will build upon the fundamentals introduced in the previous "C# Core" project and will cover topics such as object-oriented programming, classes and objects, inheritance, interfaces, and exception handling.
+
+This project will be structured similarly to the "02.CSharpCore" CLI application, but will focus on introducing advanced C# programming constructs such as classes, objects, inheritance, interfaces, and exception handling.
+
+The project demonstrates the following key concepts:
+
+C# Methods
+C# Method Parameters
+C# Method Overloading
+
+C# OOP
+C# Classes and Objects
+C# Class Members
+C# Constructors
+C# Access Modifiers
+C# Properties (Get and Set)
+C# Inheritance
+C# Polymorphism
+C# Abstraction
+C# Interface
+C# Enum
+C# Files
+C# Exceptions - Try..Catch
+C# Finally
+C# Throwing Exceptions
+
+---
+
 # TODO refactoring code & docs
 
 The main file `Program.cs` is too big, we should split it into multiple files for better organization and readability.
 
 The file `docs/Key-Takeaways.md` is also very long, we should break it down into multiple sections or separate files for easier navigation and learning.
 
-# Create a new project 
+# Create a new project: CSharp Core Concepts 
 
 Mirror the project structure and files from `ITEC323/03.CSharp/01.HelloWorldCLI` to create a new C# console application.
 
