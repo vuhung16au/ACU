@@ -41,7 +41,8 @@ fun SugarGridApp(
         bottomBar = {
             SugarGridBottomBar()
         },
-        containerColor = MaterialTheme.colorScheme.background
+        containerColor = MaterialTheme.colorScheme.background,
+        contentWindowInsets = WindowInsets.systemBars
     ) { innerPadding ->
         Column(
             modifier = Modifier
@@ -78,25 +79,25 @@ fun SugarGridTopBar() {
                 Icon(
                     imageVector = Icons.Filled.BakeryDining,
                     contentDescription = null,
-                    tint = Color(0xFFE64A19), // Orange for the icon only
+                    tint = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.size(24.dp)
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
                     text = "Recipe Keeper",
                     style = MaterialTheme.typography.titleLarge.copy(
-                        fontWeight = FontWeight.Normal,
-                        color = Color(0xFFE64A19) // Orange for text as per image_3.png
+                        fontWeight = FontWeight.SemiBold,
+                        color = MaterialTheme.colorScheme.primary
                     )
                 )
             }
         },
         actions = {
             IconButton(onClick = { /* TODO */ }) {
-                Icon(Icons.Default.Add, contentDescription = "Add", tint = Color(0xFFE64A19))
+                Icon(Icons.Default.Add, contentDescription = "Add", tint = MaterialTheme.colorScheme.primary)
             }
             IconButton(onClick = { /* TODO */ }) {
-                Icon(Icons.Default.Search, contentDescription = "Search", tint = Color(0xFFE64A19))
+                Icon(Icons.Default.Search, contentDescription = "Search", tint = MaterialTheme.colorScheme.primary)
             }
         },
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
@@ -115,7 +116,7 @@ fun FilterSection() {
             Text(
                 text = "All recipes (11)",
                 style = MaterialTheme.typography.bodyLarge,
-                fontWeight = FontWeight.Normal
+                fontWeight = FontWeight.Medium
             )
             Icon(Icons.Default.KeyboardArrowDown, contentDescription = null, modifier = Modifier.size(20.dp))
         }
@@ -124,12 +125,16 @@ fun FilterSection() {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 8.dp),
-            horizontalArrangement = Arrangement.spacedBy(0.dp) // No space between borders
+            horizontalArrangement = Arrangement.spacedBy(0.dp)
         ) {
-            FilterTab(selected = true, label = "Courses", modifier = Modifier.weight(1f))
-            FilterTab(selected = false, label = "Categories", modifier = Modifier.weight(1f))
-            FilterTab(selected = false, label = "Favorites", modifier = Modifier.weight(1f))
-            FilterTab(selected = false, label = "Recent", modifier = Modifier.weight(1f))
+            val tabs = listOf("Courses", "Categories", "Favorites", "Recent")
+            tabs.forEachIndexed { index, label ->
+                FilterTab(
+                    selected = index == 0,
+                    label = label,
+                    modifier = Modifier.weight(1f)
+                )
+            }
         }
     }
 }
@@ -138,8 +143,8 @@ fun FilterSection() {
 fun FilterTab(selected: Boolean, label: String, modifier: Modifier = Modifier) {
     Surface(
         shape = RoundedCornerShape(0.dp),
-        color = if (selected) Color(0xFFE64A19) else Color.Transparent,
-        border = androidx.compose.foundation.BorderStroke(0.5.dp, Color(0xFFE64A19)),
+        color = if (selected) MaterialTheme.colorScheme.primary else Color.Transparent,
+        border = androidx.compose.foundation.BorderStroke(0.5.dp, MaterialTheme.colorScheme.primary),
         modifier = modifier.height(36.dp)
     ) {
         Box(
@@ -147,8 +152,9 @@ fun FilterTab(selected: Boolean, label: String, modifier: Modifier = Modifier) {
         ) {
             Text(
                 text = label,
-                color = if (selected) Color.White else Color(0xFFE64A19),
-                style = MaterialTheme.typography.labelLarge
+                color = if (selected) Color.White else MaterialTheme.colorScheme.primary,
+                style = MaterialTheme.typography.labelMedium,
+                fontWeight = if (selected) FontWeight.Bold else FontWeight.Normal
             )
         }
     }
@@ -171,7 +177,7 @@ fun RecipeGrid(recipes: List<Recipe>) {
                 modifier = Modifier
                     .aspectRatio(1f)
                     .fillMaxWidth(),
-                color = Color(0xFFE64A19), // Specific orange from image_3.png
+                color = MaterialTheme.colorScheme.primary,
                 shape = RoundedCornerShape(2.dp)
             ) {
                 Box(modifier = Modifier.padding(8.dp)) {
@@ -179,12 +185,14 @@ fun RecipeGrid(recipes: List<Recipe>) {
                         text = "All",
                         color = Color.White,
                         style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.align(Alignment.BottomStart)
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.align(Alignment.TopStart)
                     )
                     Text(
-                        text = "11",
+                        text = "${recipes.size}",
                         color = Color.White,
                         style = MaterialTheme.typography.bodyMedium,
+                        fontWeight = FontWeight.Bold,
                         modifier = Modifier.align(Alignment.BottomEnd)
                     )
                 }
@@ -214,8 +222,8 @@ fun RecipeCard(recipe: Recipe) {
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
                     .fillMaxWidth()
-                    .background(Color(0xFFE64A19))
-                    .padding(vertical = 2.dp, horizontal = 4.dp)
+                    .background(MaterialTheme.colorScheme.primary)
+                    .padding(vertical = 4.dp, horizontal = 4.dp)
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -226,6 +234,7 @@ fun RecipeCard(recipe: Recipe) {
                         text = recipe.title,
                         color = Color.White,
                         style = MaterialTheme.typography.labelSmall,
+                        fontWeight = FontWeight.Medium,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                         modifier = Modifier.weight(1f)
@@ -233,7 +242,8 @@ fun RecipeCard(recipe: Recipe) {
                     Text(
                         text = "1",
                         color = Color.White,
-                        style = MaterialTheme.typography.labelSmall
+                        style = MaterialTheme.typography.labelSmall,
+                        fontWeight = FontWeight.Medium
                     )
                 }
             }
@@ -244,9 +254,8 @@ fun RecipeCard(recipe: Recipe) {
 @Composable
 fun SugarGridBottomBar() {
     NavigationBar(
-        containerColor = Color.White,
-        tonalElevation = 0.dp,
-        modifier = Modifier.background(Color.White)
+        containerColor = MaterialTheme.colorScheme.surface,
+        tonalElevation = 8.dp
     ) {
         NavigationBarItem(
             selected = true,
@@ -254,11 +263,11 @@ fun SugarGridBottomBar() {
             icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
             label = { Text("Home", fontSize = 10.sp) },
             colors = NavigationBarItemDefaults.colors(
-                selectedIconColor = Color(0xFFE64A19),
-                selectedTextColor = Color(0xFFE64A19),
+                selectedIconColor = MaterialTheme.colorScheme.primary,
+                selectedTextColor = MaterialTheme.colorScheme.primary,
                 indicatorColor = Color.Transparent,
-                unselectedIconColor = Color(0xFFE64A19),
-                unselectedTextColor = Color(0xFFE64A19)
+                unselectedIconColor = Color.Gray,
+                unselectedTextColor = Color.Gray
             )
         )
         NavigationBarItem(
@@ -267,8 +276,8 @@ fun SugarGridBottomBar() {
             icon = { Icon(Icons.AutoMirrored.Outlined.FormatListBulleted, contentDescription = "Shopping") },
             label = { Text("Shopping", fontSize = 10.sp) },
             colors = NavigationBarItemDefaults.colors(
-                unselectedIconColor = Color(0xFFE64A19),
-                unselectedTextColor = Color(0xFFE64A19)
+                unselectedIconColor = Color.Gray,
+                unselectedTextColor = Color.Gray
             )
         )
         NavigationBarItem(
@@ -277,8 +286,8 @@ fun SugarGridBottomBar() {
             icon = { Icon(Icons.Outlined.CalendarMonth, contentDescription = "Planner") },
             label = { Text("Planner", fontSize = 10.sp) },
             colors = NavigationBarItemDefaults.colors(
-                unselectedIconColor = Color(0xFFE64A19),
-                unselectedTextColor = Color(0xFFE64A19)
+                unselectedIconColor = Color.Gray,
+                unselectedTextColor = Color.Gray
             )
         )
         NavigationBarItem(
@@ -287,8 +296,8 @@ fun SugarGridBottomBar() {
             icon = { Icon(Icons.AutoMirrored.Outlined.MenuBook, contentDescription = "Cookbooks") },
             label = { Text("Cookbooks", fontSize = 10.sp) },
             colors = NavigationBarItemDefaults.colors(
-                unselectedIconColor = Color(0xFFE64A19),
-                unselectedTextColor = Color(0xFFE64A19)
+                unselectedIconColor = Color.Gray,
+                unselectedTextColor = Color.Gray
             )
         )
         NavigationBarItem(
@@ -297,8 +306,8 @@ fun SugarGridBottomBar() {
             icon = { Icon(Icons.Outlined.Settings, contentDescription = "Settings") },
             label = { Text("Settings", fontSize = 10.sp) },
             colors = NavigationBarItemDefaults.colors(
-                unselectedIconColor = Color(0xFFE64A19),
-                unselectedTextColor = Color(0xFFE64A19)
+                unselectedIconColor = Color.Gray,
+                unselectedTextColor = Color.Gray
             )
         )
     }
