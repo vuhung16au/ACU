@@ -2,6 +2,10 @@
 
 A minimal ASP.NET Core web application that serves "Hello World!" at the root URL. Built with .NET 10 and minimal APIs.
 
+# Quick Demo 
+
+[https://youtu.be/67Sv83pTdvc](https://youtu.be/67Sv83pTdvc)
+
 ## What this project does
 
 - Single endpoint: `GET /` returns `"Hello World!"`
