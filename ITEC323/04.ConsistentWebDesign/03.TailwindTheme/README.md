@@ -4,6 +4,10 @@
 
 This project demonstrates **Tailwind CSS** integration in ASP.NET Core Razor Pages using a utility-first approach.
 
+## Screenshots
+
+![layouts](images/localhost-layouts.png) ![home](images/localhost-home.png) ![components](images/localhost-components.png)
+
 ## Learning Objectives
 
 - Integrate Tailwind CSS via CDN
