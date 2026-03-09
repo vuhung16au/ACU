@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title - Tailwind Theme</title>
+
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind config (optional, for demo theme colors) -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            600: '#0284c7',
+                            700: '#0369a1'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    @RenderSection("Styles", required: false)
+</head>
+<body class="min-h-screen bg-slate-50 text-slate-900">
+    <header class="bg-white shadow-sm border-b border-slate-200">
+        <nav class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <a href="/" class="text-xl font-bold text-brand-700">Tailwind Demo</a>
+                <ul class="flex flex-wrap items-center gap-2 text-sm font-medium">
+                    <li><a href="/" class="rounded-md px-3 py-2 text-slate-700 hover:bg-brand-50 hover:text-brand-700">Home</a></li>
+                    <li><a href="/Components" class="rounded-md px-3 py-2 text-slate-700 hover:bg-brand-50 hover:text-brand-700">Components</a></li>
+                    <li><a href="/Grid" class="rounded-md px-3 py-2 text-slate-700 hover:bg-brand-50 hover:text-brand-700">Layout Utilities</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
+        @RenderBody()
+    </main>
+
+    <footer class="border-t border-slate-200 bg-white">
+        <div class="mx-auto max-w-6xl px-4 py-6 text-sm text-slate-600 sm:px-6 lg:px-8">
+            <p>&copy; @DateTime.Now.Year Tailwind Theme Demo | ITEC323</p>
+        </div>
+    </footer>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

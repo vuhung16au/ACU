@@ -1,0 +1,83 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06.RazorPages-Advanced", "06.RazorPages-Advanced", "{FB9B13C4-6EFA-BE02-99D1-FEA5490A006D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02.CSharpCore", "02.CSharpCore", "{23E68DB8-8F0D-4371-0D6B-B3D97FDF3A10}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01.HelloWorldCLI", "01.HelloWorldCLI", "{96A0E562-B725-BEAA-7AEA-970D21472899}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03.CSharpAdvanced", "03.CSharpAdvanced", "{67EC9C46-F439-A7F0-9732-8AFE6B21A228}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "07.BlazorPages-Advanced", "07.BlazorPages-Advanced", "{7C8630B1-0563-F9FE-88C3-C3A85B26F228}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05.RazorPages-Essentials", "05.RazorPages-Essentials", "{33BA26A0-1987-5548-B78C-1FABD2262B13}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04.RazorPages-HelloWorld", "04.RazorPages-HelloWorld", "{E18A960D-1A03-E887-CF31-9BCDBEF45B46}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RazorPagesAdvanced", "06.RazorPages-Advanced\RazorPagesAdvanced.csproj", "{69E682EE-69F0-CF49-8C7F-E289A15BAA09}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpCore", "02.CSharpCore\CSharpCore.csproj", "{51546C6C-EE4A-2B5A-69E1-8A06094CA722}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloWorldCLI", "01.HelloWorldCLI\HelloWorldCLI.csproj", "{8C6A0003-21D6-68C9-A308-60453CA45D16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpAdvanced", "03.CSharpAdvanced\CSharpAdvanced.csproj", "{8BE5B1EC-7D56-BC2F-536E-B88A130B76DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorPagesAdvanced", "07.BlazorPages-Advanced\BlazorPagesAdvanced.csproj", "{6A367BBB-48F2-37C1-C359-4B2395AFE4C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RazorPagesEssentials", "05.RazorPages-Essentials\RazorPagesEssentials.csproj", "{106EE780-4BBD-5CA6-0887-526AA3520B99}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RazorPagesHelloWorld", "04.RazorPages-HelloWorld\RazorPagesHelloWorld.csproj", "{E50331F8-93BD-AA26-1B90-7EEAC6D374F0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{69E682EE-69F0-CF49-8C7F-E289A15BAA09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69E682EE-69F0-CF49-8C7F-E289A15BAA09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69E682EE-69F0-CF49-8C7F-E289A15BAA09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69E682EE-69F0-CF49-8C7F-E289A15BAA09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51546C6C-EE4A-2B5A-69E1-8A06094CA722}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51546C6C-EE4A-2B5A-69E1-8A06094CA722}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51546C6C-EE4A-2B5A-69E1-8A06094CA722}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51546C6C-EE4A-2B5A-69E1-8A06094CA722}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C6A0003-21D6-68C9-A308-60453CA45D16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C6A0003-21D6-68C9-A308-60453CA45D16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C6A0003-21D6-68C9-A308-60453CA45D16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C6A0003-21D6-68C9-A308-60453CA45D16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BE5B1EC-7D56-BC2F-536E-B88A130B76DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BE5B1EC-7D56-BC2F-536E-B88A130B76DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BE5B1EC-7D56-BC2F-536E-B88A130B76DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BE5B1EC-7D56-BC2F-536E-B88A130B76DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A367BBB-48F2-37C1-C359-4B2395AFE4C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A367BBB-48F2-37C1-C359-4B2395AFE4C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A367BBB-48F2-37C1-C359-4B2395AFE4C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A367BBB-48F2-37C1-C359-4B2395AFE4C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{106EE780-4BBD-5CA6-0887-526AA3520B99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{106EE780-4BBD-5CA6-0887-526AA3520B99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{106EE780-4BBD-5CA6-0887-526AA3520B99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{106EE780-4BBD-5CA6-0887-526AA3520B99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E50331F8-93BD-AA26-1B90-7EEAC6D374F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E50331F8-93BD-AA26-1B90-7EEAC6D374F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E50331F8-93BD-AA26-1B90-7EEAC6D374F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E50331F8-93BD-AA26-1B90-7EEAC6D374F0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{69E682EE-69F0-CF49-8C7F-E289A15BAA09} = {FB9B13C4-6EFA-BE02-99D1-FEA5490A006D}
+		{51546C6C-EE4A-2B5A-69E1-8A06094CA722} = {23E68DB8-8F0D-4371-0D6B-B3D97FDF3A10}
+		{8C6A0003-21D6-68C9-A308-60453CA45D16} = {96A0E562-B725-BEAA-7AEA-970D21472899}
+		{8BE5B1EC-7D56-BC2F-536E-B88A130B76DA} = {67EC9C46-F439-A7F0-9732-8AFE6B21A228}
+		{6A367BBB-48F2-37C1-C359-4B2395AFE4C7} = {7C8630B1-0563-F9FE-88C3-C3A85B26F228}
+		{106EE780-4BBD-5CA6-0887-526AA3520B99} = {33BA26A0-1987-5548-B78C-1FABD2262B13}
+		{E50331F8-93BD-AA26-1B90-7EEAC6D374F0} = {E18A960D-1A03-E887-CF31-9BCDBEF45B46}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C50CC647-1BFA-4066-B78A-F790D8F73867}
+	EndGlobalSection
+EndGlobal
