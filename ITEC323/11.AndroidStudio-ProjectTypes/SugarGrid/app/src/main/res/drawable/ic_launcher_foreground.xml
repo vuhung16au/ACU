@@ -1,0 +1,22 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Frosting -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,28c-12,0 -22,8 -22,18 0,2 0.3,4 0.8,5.8 0.1,0.4 0.2,0.8 0.2,1.2 0,4 6,7 13,7s13,-3 13,-7c0,-0.4 0.1,-0.8 0.2,-1.2 0.5,-1.8 0.8,-3.8 0.8,-5.8 0,-10 -10,-18 -22,-18z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M32.8,51.8c-4.3,1.5 -6.8,3.7 -6.8,6.2 0,5 12.5,9 28,9s28,-4 28,-9c0,-2.5 -2.5,-4.7 -6.8,-6.2 -3.4,2.5 -11.3,4.2 -21.2,4.2s-17.8,-1.7 -21.2,-4.2z" />
+    <!-- Cupcake Liner with Grid -->
+    <path
+        android:fillColor="#FFE0B2"
+        android:pathData="M35,66l6,18h26l6,-18z" />
+    <!-- Grid Lines -->
+    <path
+        android:strokeColor="#F57C00"
+        android:strokeWidth="1"
+        android:pathData="M44,66l2,18M54,66v18M64,66l-2,18M35,72h38M35,78h38" />
+</vector>
