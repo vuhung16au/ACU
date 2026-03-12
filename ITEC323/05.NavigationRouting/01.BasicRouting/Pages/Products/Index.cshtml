@@ -1,0 +1,28 @@
+@page
+@model BasicRouting.Pages.Products.IndexModel
+@{
+    ViewData["Title"] = "Products";
+}
+
+<section class="panel">
+    <h2>Products routing examples</h2>
+    <p>
+        The URL <code>/Products</code> maps to <code>Pages/Products/Index.cshtml</code> because
+        <code>Index.cshtml</code> is the default page inside the <code>Products</code> folder.
+    </p>
+</section>
+
+<section class="product-list">
+    @foreach (var product in Model.Products)
+    {
+        <article class="product-item">
+            <h3>@product.Name</h3>
+            <p class="meta">Category: @product.Category | Price: @product.Price.ToString("C")</p>
+            <p>@product.Summary</p>
+            <div class="button-row">
+                <a class="button-link" asp-page="/Products/Details" asp-route-id="@product.Id">View details</a>
+                <a class="button-link secondary" asp-page="/Products/Edit" asp-route-id="@product.Id">Edit route</a>
+            </div>
+        </article>
+    }
+</section>

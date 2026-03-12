@@ -1,0 +1,40 @@
+@page "{id:int?}"
+@model BasicRouting.Pages.Products.EditModel
+@{
+    ViewData["Title"] = "Edit Product Route";
+}
+
+@if (Model.Product is null)
+{
+    <section class="empty-state">
+        <h2>Optional route parameter example</h2>
+        <p>
+            This page uses <code>@@page "{id:int?}"</code>, so the route value can be left out.
+            When no ID is supplied, the page still loads and can ask the user to choose a product.
+        </p>
+        <div class="button-row">
+            <a class="button-link" asp-page="/Products/Edit" asp-route-id="1">Edit product 1</a>
+            <a class="button-link secondary" asp-page="/Products/Edit" asp-route-id="2">Edit product 2</a>
+        </div>
+    </section>
+}
+else
+{
+    <article class="detail-card">
+        <h2>Optional route parameter example</h2>
+        <p><span class="route-chip">Route value</span> <code>id = @Model.Product.Id</code></p>
+        <p>This time the optional route value is present, so the page can load a specific record.</p>
+
+        <h3>@Model.Product.Name</h3>
+        <p class="meta">Category: @Model.Product.Category | Price: @Model.Product.Price.ToString("C")</p>
+        <p>@Model.Product.Summary</p>
+
+        <div class="code-sample">
+            <strong>Compare these URLs</strong>
+            <ul class="link-list">
+                <li><code>/Products/Edit</code> loads the page without a product.</li>
+                <li><code>/Products/Edit/@Model.Product.Id</code> loads the page with a product.</li>
+            </ul>
+        </div>
+    </article>
+}

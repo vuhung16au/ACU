@@ -1,0 +1,56 @@
+﻿@{
+    var currentPath = Context.Request.Path.Value ?? string.Empty;
+
+    string GetLinkClass(string pathPrefix)
+    {
+        if (pathPrefix == "/")
+        {
+            return string.Equals(currentPath, "/", StringComparison.OrdinalIgnoreCase)
+                ? "nav-link active"
+                : "nav-link";
+        }
+
+        return currentPath.StartsWith(pathPrefix, StringComparison.OrdinalIgnoreCase)
+            ? "nav-link active"
+            : "nav-link";
+    }
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Basic Routing</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+    <div class="site-shell">
+        <header class="site-header">
+            <div>
+                <p class="eyebrow">05.NavigationRouting</p>
+                <h1>01.BasicRouting</h1>
+                <p class="site-summary">Learn how Razor Pages turns folders and route templates into clean, readable URLs.</p>
+            </div>
+
+            <nav aria-label="Primary navigation" class="site-nav">
+                <a class="@GetLinkClass("/")" asp-page="/Index">Home</a>
+                <a class="@GetLinkClass("/About")" asp-page="/About">About</a>
+                <a class="@GetLinkClass("/Products")" asp-page="/Products/Index">Products</a>
+                <a class="@GetLinkClass("/Blog")" asp-page="/Blog/Index">Blog</a>
+                <a class="@GetLinkClass("/Courses")" asp-page="/Courses/Lookup" asp-route-code="ITEC323">Regex Demo</a>
+            </nav>
+        </header>
+
+        <main>
+            @RenderBody()
+        </main>
+
+        <footer class="site-footer">
+            <p>&copy; 2026 BasicRouting. Use the sample links to explore required, optional, regex, and custom route constraints.</p>
+        </footer>
+    </div>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

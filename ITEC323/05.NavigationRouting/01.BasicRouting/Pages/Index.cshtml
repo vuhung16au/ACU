@@ -1,0 +1,130 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Routing Overview";
+}
+
+<section class="hero panel">
+    <div>
+        <h2>Routing starts with the file system</h2>
+        <p>
+            Razor Pages uses <strong>folder-based routing</strong>. In most cases, the URL is based on the
+            path to the <code>.cshtml</code> file inside the <code>Pages</code> folder.
+        </p>
+        <p>
+            This project demonstrates default routes, required parameters, optional parameters,
+            regex constraints, and a custom slug constraint for friendly blog URLs.
+        </p>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat">
+            <strong>7</strong>
+            sample pages
+        </div>
+        <div class="stat">
+            <strong>4</strong>
+            route styles
+        </div>
+        <div class="stat">
+            <strong>1</strong>
+            custom constraint
+        </div>
+    </div>
+</section>
+
+<table class="route-table" aria-label="Route mapping examples">
+    <thead>
+        <tr>
+            <th>URL</th>
+            <th>Razor Page</th>
+            <th>What to notice</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>/</code></td>
+            <td><code>Pages/Index.cshtml</code></td>
+            <td><span class="route-chip">Default route</span><span class="route-chip">Home page</span></td>
+        </tr>
+        <tr>
+            <td><code>/About</code></td>
+            <td><code>Pages/About.cshtml</code></td>
+            <td><span class="route-chip">Simple route</span>File name becomes the URL.</td>
+        </tr>
+        <tr>
+            <td><code>/Products</code></td>
+            <td><code>Pages/Products/Index.cshtml</code></td>
+            <td><span class="route-chip">Folder route</span><code>Index.cshtml</code> becomes the default page for the folder.</td>
+        </tr>
+        <tr>
+            <td><code>/Products/Details/2</code></td>
+            <td><code>Pages/Products/Details.cshtml</code></td>
+            <td><span class="route-chip">Required parameter</span><span class="route-chip">int constraint</span></td>
+        </tr>
+        <tr>
+            <td><code>/Products/Edit</code> or <code>/Products/Edit/2</code></td>
+            <td><code>Pages/Products/Edit.cshtml</code></td>
+            <td><span class="route-chip">Optional parameter</span>Both URLs map to the same page.</td>
+        </tr>
+        <tr>
+            <td><code>/Blog/2026/3/getting-started-with-routing</code></td>
+            <td><code>Pages/Blog/Post.cshtml</code></td>
+            <td><span class="route-chip">Friendly URL</span><span class="route-chip">Custom slug constraint</span></td>
+        </tr>
+        <tr>
+            <td><code>/Courses/Lookup/ITEC323</code></td>
+            <td><code>Pages/Courses/Lookup.cshtml</code></td>
+            <td><span class="route-chip">Regex constraint</span>Only values matching the pattern are valid.</td>
+        </tr>
+    </tbody>
+</table>
+
+<section class="two-column">
+    <article class="panel">
+        <h3>How URL mapping works</h3>
+        <ol class="definition-list">
+            <li>ASP.NET Core starts in <code>Program.cs</code> and calls <code>app.MapRazorPages()</code>.</li>
+            <li>The framework looks inside the <code>Pages</code> folder.</li>
+            <li>Each page can use its file path or a custom route template in <code>@@page</code>.</li>
+            <li>Route values are passed to the <code>OnGet</code> method in the page model.</li>
+        </ol>
+    </article>
+
+    <article class="panel">
+        <h3>Try these examples</h3>
+        <ul class="example-list">
+            <li><a asp-page="/Products/Details" asp-route-id="1">/Products/Details/1</a></li>
+            <li><a asp-page="/Products/Edit">/Products/Edit</a></li>
+            <li><a asp-page="/Products/Edit" asp-route-id="3">/Products/Edit/3</a></li>
+            <li><a href="/Blog/2026/3/getting-started-with-routing">/Blog/2026/3/getting-started-with-routing</a></li>
+            <li><a asp-page="/Courses/Lookup" asp-route-code="ITEC323">/Courses/Lookup/ITEC323</a></li>
+        </ul>
+    </article>
+</section>
+
+<section class="card-grid">
+    <article class="panel">
+        <h3>Required parameter</h3>
+        <p><code>@@page "{id:int}"</code> means the page needs an integer route value.</p>
+        <a class="button-link" asp-page="/Products/Details" asp-route-id="2">Open product details</a>
+    </article>
+
+    <article class="panel">
+        <h3>Optional parameter</h3>
+        <p><code>@@page "{id:int?}"</code> allows the URL to omit the parameter.</p>
+        <a class="button-link" asp-page="/Products/Edit">Open edit without ID</a>
+    </article>
+
+    <article class="panel">
+        <h3>Friendly URLs</h3>
+        <p>Readable blog URLs communicate meaning better than query strings.</p>
+        <a class="button-link" asp-page="/Blog/Index">Explore blog routes</a>
+    </article>
+    
+    <article class="panel">
+        <h3>Regex validation</h3>
+        <p>Regex route constraints reject values that do not fit a pattern.</p>
+        <a class="button-link" asp-page="/Courses/Lookup" asp-route-code="ITEC323">Open course lookup</a>
+    </article>
+</section>

@@ -1,0 +1,25 @@
+@page
+@model BasicRouting.Pages.Blog.IndexModel
+@{
+    ViewData["Title"] = "Blog";
+}
+
+<section class="panel">
+    <h2>Friendly blog routes</h2>
+    <p>
+        Blog posts often use multiple route values to make the URL descriptive. This project combines
+        <code>year</code>, <code>month</code>, and a custom <code>slug</code> constraint.
+    </p>
+</section>
+
+<section class="post-list">
+    @foreach (var post in Model.Posts)
+    {
+        <article class="post-item">
+            <h3>@post.Title</h3>
+            <p class="meta">@post.Year / @post.Month | slug: @post.Slug</p>
+            <p>@post.Summary</p>
+            <a class="button-link" href="/Blog/@post.Year/@post.Month/@post.Slug">Open friendly URL</a>
+        </article>
+    }
+</section>
