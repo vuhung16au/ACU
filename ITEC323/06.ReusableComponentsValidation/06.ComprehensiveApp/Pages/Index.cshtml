@@ -1,0 +1,42 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+    ViewData["PageName"] = "Dashboard";
+}
+
+<section class="hero-panel mb-4">
+    <span class="eyebrow">Week 6 Capstone</span>
+    <h1>Combine components, validation, file handling, and security in one Razor Pages app.</h1>
+    <p class="lead mb-0">
+        This project reads and writes a CSV file, uses partial views for shared UI, and uses view components
+        for sidebar statistics and recent activity.
+    </p>
+</section>
+
+<section class="row g-3 mb-4">
+    <div class="col-md-6">
+        <article class="info-card h-100">
+            <h2 class="h5">User Directory</h2>
+            <p>Browse all saved users, open details, and move into edit or delete actions.</p>
+            <a class="btn btn-primary" asp-page="/Users">Open User Directory</a>
+        </article>
+    </div>
+    <div class="col-md-6">
+        <article class="info-card h-100">
+            <h2 class="h5">Add New User</h2>
+            <p>Create a new user with full validation, password rules, and bio handling.</p>
+            <a class="btn btn-outline-primary" asp-page="/Create">Create User</a>
+        </article>
+    </div>
+</section>
+
+<section class="info-panel">
+    <h2 class="h5">Capstone checklist</h2>
+    <ul class="mb-0">
+        <li>Partial views reuse the header, footer, user card, and user form fields.</li>
+        <li>View components calculate stats and recent activity in C# before rendering.</li>
+        <li>CSV reads and writes are asynchronous and handle missing or locked files gracefully.</li>
+        <li>Bio content is shown safely by default and sanitized before trusted HTML preview.</li>
+    </ul>
+</section>

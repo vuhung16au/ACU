@@ -1,0 +1,35 @@
+@page "{id:int}"
+@model DeleteModel
+@{
+    ViewData["Title"] = "Delete";
+    ViewData["PageName"] = "Delete User";
+}
+
+@if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+{
+    <section class="alert-panel">
+        <h2 class="h5">Delete Error</h2>
+        <p class="mb-0">@Model.ErrorMessage</p>
+    </section>
+}
+else if (Model.SelectedUser is not null)
+{
+    <section class="hero-panel hero-panel-compact mb-4">
+        <span class="eyebrow">Delete User</span>
+        <h1>Confirm before removing the record.</h1>
+        <p class="lead mb-0">This action rewrites the CSV file without the selected user.</p>
+    </section>
+
+    <section class="detail-panel mb-4">
+        <p class="mb-1"><strong>Name:</strong> @Model.SelectedUser.Name</p>
+        <p class="mb-1"><strong>Email:</strong> @Model.SelectedUser.Email</p>
+        <p class="mb-0"><strong>Recent Activity:</strong> @Model.SelectedUser.RecentActivity</p>
+    </section>
+
+    <form method="post" class="d-flex flex-wrap gap-2">
+        <input type="hidden" asp-for="SelectedUser.Id" />
+        <input type="hidden" asp-for="SelectedUser.Name" />
+        <button type="submit" class="btn btn-danger">Delete User</button>
+        <a class="btn btn-outline-secondary" asp-page="/Details" asp-route-id="@Model.SelectedUser.Id">Cancel</a>
+    </form>
+}

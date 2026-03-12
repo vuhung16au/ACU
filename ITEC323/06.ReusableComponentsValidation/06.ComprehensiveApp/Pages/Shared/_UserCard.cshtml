@@ -1,0 +1,14 @@
+@model ComprehensiveAppDemo.Models.User
+
+<article class="user-card">
+    <h2 class="h5">@Model.Name</h2>
+    <p class="mb-1"><strong>Email:</strong> @Model.Email</p>
+    <p class="mb-1"><strong>Phone:</strong> @Model.Phone</p>
+    <p class="mb-3"><strong>Age:</strong> @Model.Age</p>
+
+    <div class="actions">
+        <a class="btn btn-sm btn-primary" asp-page="/Details" asp-route-id="@Model.Id">Details</a>
+        <a class="btn btn-sm btn-outline-primary" asp-page="/Edit" asp-route-id="@Model.Id">Edit</a>
+        <a class="btn btn-sm btn-outline-danger" asp-page="/Delete" asp-route-id="@Model.Id">Delete</a>
+    </div>
+</article>

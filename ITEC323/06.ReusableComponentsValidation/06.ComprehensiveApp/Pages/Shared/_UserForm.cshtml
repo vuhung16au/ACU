@@ -1,0 +1,43 @@
+@model ComprehensiveAppDemo.Models.User
+
+<div class="mb-3">
+    <label asp-for="Name" class="form-label"></label>
+    <input asp-for="Name" class="form-control" aria-label="Full Name" />
+    <span asp-validation-for="Name" class="field-validation-error"></span>
+</div>
+
+<div class="mb-3">
+    <label asp-for="Email" class="form-label"></label>
+    <input asp-for="Email" class="form-control" aria-label="Email" />
+    <span asp-validation-for="Email" class="field-validation-error"></span>
+</div>
+
+<div class="mb-3">
+    <label asp-for="Phone" class="form-label"></label>
+    <input asp-for="Phone" class="form-control" aria-label="Phone" placeholder="0412345678" />
+    <span asp-validation-for="Phone" class="field-validation-error"></span>
+</div>
+
+<div class="mb-3">
+    <label asp-for="DateOfBirth" class="form-label"></label>
+    <input asp-for="DateOfBirth" class="form-control" aria-label="Date of Birth" />
+    <span asp-validation-for="DateOfBirth" class="field-validation-error"></span>
+</div>
+
+<div class="mb-3">
+    <label asp-for="Password" class="form-label"></label>
+    <input asp-for="Password" class="form-control" aria-label="Password" />
+    <span asp-validation-for="Password" class="field-validation-error"></span>
+</div>
+
+<div class="mb-3">
+    <label asp-for="ConfirmPassword" class="form-label"></label>
+    <input asp-for="ConfirmPassword" class="form-control" aria-label="Confirm Password" />
+    <span asp-validation-for="ConfirmPassword" class="field-validation-error"></span>
+</div>
+
+<div class="mb-3">
+    <label asp-for="Bio" class="form-label"></label>
+    <textarea asp-for="Bio" class="form-control" rows="5" aria-label="Bio"></textarea>
+    <span asp-validation-for="Bio" class="field-validation-error"></span>
+</div>

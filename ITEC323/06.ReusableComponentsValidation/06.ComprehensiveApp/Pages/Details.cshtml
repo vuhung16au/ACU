@@ -1,0 +1,60 @@
+@page "{id:int}"
+@model DetailsModel
+@{
+    ViewData["Title"] = "Details";
+    ViewData["PageName"] = "User Details";
+}
+
+@if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+{
+    <section class="alert-panel">
+        <h2 class="h5">User Error</h2>
+        <p class="mb-0">@Model.ErrorMessage</p>
+    </section>
+}
+else if (Model.SelectedUser is not null)
+{
+    <section class="hero-panel hero-panel-compact mb-4">
+        <span class="eyebrow">User Details</span>
+        <h1>@Model.SelectedUser.Name</h1>
+        <p class="lead mb-0">Review details, edit the record, or delete it from the CSV file.</p>
+    </section>
+
+    <section class="detail-panel mb-4">
+        <div class="row g-3">
+            <div class="col-md-6">
+                <p class="mb-1"><strong>Email:</strong> @Model.SelectedUser.Email</p>
+                <p class="mb-1"><strong>Phone:</strong> @Model.SelectedUser.Phone</p>
+                <p class="mb-1"><strong>Date of Birth:</strong> @Model.SelectedUser.DateOfBirth?.ToString("dd MMM yyyy")</p>
+                <p class="mb-0"><strong>Age:</strong> @Model.SelectedUser.Age</p>
+            </div>
+            <div class="col-md-6">
+                <p class="mb-1"><strong>Recent Activity:</strong> @Model.SelectedUser.RecentActivity</p>
+                <p class="mb-0"><strong>Password Stored:</strong> Hidden in the UI for security.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="row g-3">
+        <div class="col-lg-6">
+            <article class="detail-panel h-100">
+                <h2 class="h5">Safe Bio Output</h2>
+                <p class="small text-muted">Razor automatically encodes the bio, so HTML is shown as text.</p>
+                <div class="bio-preview">@Model.SelectedUser.Bio</div>
+            </article>
+        </div>
+        <div class="col-lg-6">
+            <article class="detail-panel h-100">
+                <h2 class="h5">Sanitized Bio Preview</h2>
+                <p class="small text-muted">Dangerous tags and attributes are removed before any trusted HTML preview.</p>
+                <div class="bio-preview">@Html.Raw(Model.SanitizedBio)</div>
+            </article>
+        </div>
+    </section>
+
+    <section class="mt-4 d-flex flex-wrap gap-2">
+        <a class="btn btn-primary" asp-page="/Edit" asp-route-id="@Model.SelectedUser.Id">Edit User</a>
+        <a class="btn btn-outline-danger" asp-page="/Delete" asp-route-id="@Model.SelectedUser.Id">Delete User</a>
+        <a class="btn btn-outline-secondary" asp-page="/Users">Back to Users</a>
+    </section>
+}

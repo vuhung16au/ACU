@@ -1,0 +1,20 @@
+<header class="site-header">
+    <div>
+        <a class="site-title" asp-page="/Index">Comprehensive User App</a>
+        <div class="text-muted">Reusable UI, validation, CSV CRUD, and XSS protection in one project</div>
+        <div class="breadcrumb-line">
+            Home
+            @if (ViewData["PageName"] is string pageName && !string.IsNullOrWhiteSpace(pageName) && pageName != "Home")
+            {
+                <text> / @pageName</text>
+            }
+        </div>
+    </div>
+
+    <nav class="site-nav" aria-label="Main navigation">
+        <a asp-page="/Index">Dashboard</a>
+        <a asp-page="/Users">Users</a>
+        <a asp-page="/Create">Create</a>
+        <a asp-page="/Privacy">Notes</a>
+    </nav>
+</header>

@@ -1,0 +1,9 @@
+@model ComprehensiveAppDemo.Models.UserStatsSummary
+
+<section class="sidebar-card">
+    <h2 class="h5 mb-3">User Stats</h2>
+    <div class="sidebar-value">@Model.TotalUsers</div>
+    <p class="text-muted mb-2">Total users in the CSV file</p>
+    <p class="mb-1"><strong>Adult Users:</strong> @Model.AdultUsers</p>
+    <p class="mb-0"><strong>Newest User:</strong> @Model.NewestUserName</p>
+</section>
