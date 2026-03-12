@@ -1,0 +1,32 @@
+@page
+@model PrivacyModel
+@{
+    ViewData["Title"] = "Privacy";
+}
+
+<section class="hero-panel hero-panel-compact">
+    <span class="eyebrow">Privacy And Scope</span>
+    <h1>This sample stays local and classroom-friendly.</h1>
+    <p class="lead mb-0">
+        Todo items are stored only in memory for the current session, and the API is designed for local learning rather than production use.
+    </p>
+</section>
+
+<section class="card-grid">
+    <article class="info-card">
+        <h2>Data Handling</h2>
+        <ul>
+            <li>No external database or cloud service is used.</li>
+            <li>Todo items reset when the app stops.</li>
+            <li>No sensitive student data is required.</li>
+        </ul>
+    </article>
+    <article class="info-card">
+        <h2>CORS Note</h2>
+        <ul>
+            <li>A development CORS policy is registered in <code>Program.cs</code>.</li>
+            <li>This supports later demonstrations where a frontend might run on a different local port.</li>
+            <li>For this project, the Razor Pages frontend calls the same local application.</li>
+        </ul>
+    </article>
+</section>

@@ -1,0 +1,49 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<section class="hero-panel">
+    <span class="eyebrow">Week 7 Project 04</span>
+    <h1>Build a complete local Todo API and frontend in one ASP.NET Core app.</h1>
+    <p class="lead">
+        This project combines a local REST API, an in-memory data store, and a Razor Pages frontend so students can practise
+        CRUD operations without any external dependencies.
+    </p>
+    <div class="action-row">
+        <a class="button button-primary" asp-page="/TodoDashboard">Open The Todo Dashboard</a>
+        <a class="button button-secondary" href="/api/todoitems" target="_blank" rel="noreferrer">View Raw JSON</a>
+    </div>
+</section>
+
+<section class="card-grid">
+    <article class="info-card">
+        <h2>What students practise</h2>
+        <ul>
+            <li>Create, read, update, and delete todo items through a local API.</li>
+            <li>Use correct HTTP status codes for successful and failing requests.</li>
+            <li>Handle loading states, clear errors, and success messages.</li>
+            <li>Refresh dashboard data automatically with simple polling.</li>
+        </ul>
+    </article>
+
+    <article class="info-card">
+        <h2>Why this app stays local</h2>
+        <ul>
+            <li>No internet connection is required.</li>
+            <li>No database is required because items live in memory.</li>
+            <li>No third-party API is required because the backend is part of the same app.</li>
+        </ul>
+    </article>
+</section>
+
+<section class="info-panel">
+    <h2>Suggested walkthrough</h2>
+    <ol>
+        <li>Load the dashboard and inspect the todo list JSON endpoint.</li>
+        <li>Create a todo item and confirm the API returns <code>201 Created</code>.</li>
+        <li>Update or delete an existing item and observe the summary cards change.</li>
+        <li>Wait for the polling refresh and confirm the latest summary time updates automatically.</li>
+    </ol>
+</section>

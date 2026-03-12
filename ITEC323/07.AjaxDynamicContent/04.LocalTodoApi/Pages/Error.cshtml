@@ -1,0 +1,18 @@
+@page
+@model ErrorModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+<section class="hero-panel hero-panel-compact">
+    <span class="eyebrow">Application Error</span>
+    <h1>Something went wrong.</h1>
+    <p class="lead">Use the browser network tab and console to inspect the failing todo API request.</p>
+
+    @if (Model.ShowRequestId)
+    {
+        <p><strong>Request ID:</strong> <code>@Model.RequestId</code></p>
+    }
+
+    <a class="button button-primary" asp-page="/Index">Return Home</a>
+</section>

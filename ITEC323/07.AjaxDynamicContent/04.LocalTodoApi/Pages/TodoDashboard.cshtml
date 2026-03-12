@@ -1,0 +1,124 @@
+@page
+@model TodoDashboardModel
+@{
+    ViewData["Title"] = "Todo Dashboard";
+}
+
+<section class="hero-panel hero-panel-compact">
+    <span class="eyebrow">Local Todo API</span>
+    <h1>Manage todo items with local CRUD requests.</h1>
+    <p class="lead mb-0">
+        The dashboard below calls the in-memory todo API. Only the summary cards and todo table update, so the page never performs a full refresh.
+    </p>
+</section>
+
+<section class="status-strip">
+    <div id="messagePanel" class="message-panel hidden" role="status" aria-live="polite"></div>
+    <div id="loadingPanel" class="loading-panel hidden" role="status" aria-live="polite">
+        Contacting the local todo API...
+    </div>
+</section>
+
+<section class="summary-grid">
+    <article class="summary-card">
+        <span class="summary-label">Total Items</span>
+        <strong id="totalItems">0</strong>
+    </article>
+    <article class="summary-card">
+        <span class="summary-label">Completed</span>
+        <strong id="completedItems">0</strong>
+    </article>
+    <article class="summary-card">
+        <span class="summary-label">Pending</span>
+        <strong id="pendingItems">0</strong>
+    </article>
+    <article class="summary-card">
+        <span class="summary-label">Last Refresh</span>
+        <strong id="generatedAt">Not loaded yet</strong>
+    </article>
+</section>
+
+<section class="layout-grid">
+    <article class="info-card">
+        <div class="section-heading">
+            <div>
+                <h2>Add Or Edit A Todo</h2>
+                <p class="text-muted">This form sends <code>POST</code> for new items and <code>PUT</code> for updates.</p>
+            </div>
+        </div>
+
+        <form id="todoForm" class="task-form">
+            <input type="hidden" id="todoId" />
+
+            <label for="title">Title</label>
+            <input id="title" name="title" maxlength="80" required />
+
+            <label for="category">Category</label>
+            <input id="category" name="category" maxlength="40" required />
+
+            <label for="dueDate">Due Date</label>
+            <input id="dueDate" name="dueDate" type="date" />
+
+            <label for="description">Description</label>
+            <textarea id="description" name="description" rows="4" maxlength="220"></textarea>
+
+            <label class="checkbox-row" for="isCompleted">
+                <input id="isCompleted" name="isCompleted" type="checkbox" />
+                Mark as completed
+            </label>
+
+            <div class="action-row">
+                <button id="saveButton" class="button button-primary" type="submit">Save Todo</button>
+                <button id="resetButton" class="button button-secondary" type="button">Clear Form</button>
+            </div>
+        </form>
+    </article>
+
+    <article class="info-card">
+        <div class="section-heading">
+            <div>
+                <h2>Todo List</h2>
+                <p class="text-muted">Use the action buttons to call the API without leaving the page.</p>
+            </div>
+            <div class="action-row">
+                <button id="loadButton" class="button button-secondary" type="button">Load Todos</button>
+                <button id="refreshButton" class="button button-secondary" type="button">Refresh Now</button>
+            </div>
+        </div>
+
+        <div class="table-wrap">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th>Status</th>
+                        <th>Due Date</th>
+                        <th>Updated</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="todoTableBody">
+                    <tr>
+                        <td colspan="6" class="empty-state">Click <strong>Load Todos</strong> to request items from the local API.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </article>
+</section>
+
+<section class="info-panel">
+    <h2>Todo API Endpoints Used On This Page</h2>
+    <ul class="mb-0">
+        <li><code>GET /api/todoitems</code> returns every todo item.</li>
+        <li><code>GET /api/todoitems/summary</code> returns the dashboard counts.</li>
+        <li><code>POST /api/todoitems</code> creates a new item and returns <code>201 Created</code>.</li>
+        <li><code>PUT /api/todoitems/{id}</code> updates an item in memory.</li>
+        <li><code>DELETE /api/todoitems/{id}</code> removes an item from memory.</li>
+    </ul>
+</section>
+
+@section Scripts {
+    <script src="~/js/todo-dashboard.js" asp-append-version="true"></script>
+}
