@@ -1,0 +1,189 @@
+@page
+@model DashboardModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<section class="hero-panel hero-panel-compact">
+    <span class="eyebrow">Comprehensive AJAX Dashboard</span>
+    <h1>Use the right technique for the right type of update.</h1>
+    <p class="lead mb-0">
+        Fetch API manages JSON CRUD and polling, while HTMX-style attributes request server-rendered fragments for simpler content swaps.
+    </p>
+</section>
+
+<section class="status-strip">
+    <div id="messagePanel" class="message-panel hidden" role="status" aria-live="polite"></div>
+    <div id="loadingPanel" class="loading-panel hidden" role="status" aria-live="polite">
+        Loading capstone data...
+    </div>
+</section>
+
+<section class="summary-grid">
+    <article class="summary-card">
+        <span class="summary-label">Total Tasks</span>
+        <strong id="totalTasks">0</strong>
+    </article>
+    <article class="summary-card">
+        <span class="summary-label">Completed</span>
+        <strong id="completedTasks">0</strong>
+    </article>
+    <article class="summary-card">
+        <span class="summary-label">Pending</span>
+        <strong id="pendingTasks">0</strong>
+    </article>
+    <article class="summary-card">
+        <span class="summary-label">Last Poll Refresh</span>
+        <strong id="refreshedAt">Not loaded yet</strong>
+    </article>
+</section>
+
+<section class="info-card mb-card">
+    <div class="section-heading">
+        <div>
+            <h2>Dashboard Status</h2>
+            <p class="text-muted mb-0">This summary panel refreshes every 15 seconds without touching the form or fragment sections.</p>
+        </div>
+        <strong id="statusText">Waiting for data</strong>
+    </div>
+</section>
+
+<section class="layout-grid">
+    <article class="info-card">
+        <div class="section-heading">
+            <div>
+                <h2>Fetch API Task Form</h2>
+                <p class="text-muted">This form sends JSON to the REST API and updates the table below.</p>
+            </div>
+        </div>
+
+        <form id="taskForm" class="task-form">
+            <input type="hidden" id="taskId" />
+
+            <label for="title">Title</label>
+            <input id="title" name="title" maxlength="80" required />
+
+            <label for="technique">Technique</label>
+            <input id="technique" name="technique" maxlength="30" required />
+
+            <label for="description">Description</label>
+            <textarea id="description" name="description" rows="4" maxlength="200"></textarea>
+
+            <label class="checkbox-row" for="isCompleted">
+                <input id="isCompleted" name="isCompleted" type="checkbox" />
+                Mark as completed
+            </label>
+
+            <div class="action-row">
+                <button id="saveButton" class="button button-primary" type="submit">Save Task</button>
+                <button id="resetButton" class="button button-secondary" type="button">Clear Form</button>
+            </div>
+        </form>
+    </article>
+
+    <article class="info-card">
+        <div class="section-heading">
+            <div>
+                <h2>Fetch API Task List</h2>
+                <p class="text-muted">These rows come from JSON endpoints and update without a full page reload.</p>
+            </div>
+            <div class="action-row">
+                <button id="loadButton" class="button button-secondary" type="button">Load Tasks</button>
+                <button id="refreshButton" class="button button-secondary" type="button">Refresh Now</button>
+            </div>
+        </div>
+
+        <div class="table-wrap">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Technique</th>
+                        <th>Status</th>
+                        <th>Updated</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="taskTableBody">
+                    <tr>
+                        <td colspan="5" class="empty-state">Click <strong>Load Tasks</strong> to request the capstone tasks.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </article>
+</section>
+
+<section class="layout-grid layout-grid-wide">
+    <article class="info-card">
+        <div class="section-heading">
+            <div>
+                <h2>HTMX-Style Technique Tip</h2>
+                <p class="text-muted">This panel requests a server-rendered HTML fragment instead of JSON.</p>
+            </div>
+            <button class="button button-secondary"
+                    hx-get="/fragments/technique-tip"
+                    hx-target="#techniqueTipPanel"
+                    hx-swap="innerHTML"
+                    hx-indicator="#tipLoading">
+                Load Tip
+            </button>
+        </div>
+        <div id="tipLoading" class="inline-indicator htmx-indicator">Loading technique tip...</div>
+        <div id="techniqueTipPanel">
+            <p class="empty-state">Click the button to load a server-rendered tip fragment.</p>
+        </div>
+    </article>
+
+    <article class="info-card">
+        <div class="section-heading">
+            <div>
+                <h2>HTMX-Style Reflection Feed</h2>
+                <p class="text-muted">Post a reflection and prepend the new HTML card to the feed.</p>
+            </div>
+            <button class="button button-secondary"
+                    hx-get="/fragments/reflection-feed"
+                    hx-target="#reflectionFeed"
+                    hx-swap="innerHTML"
+                    hx-indicator="#feedLoading">
+                Load Feed
+            </button>
+        </div>
+
+        <form hx-post="/fragments/reflection"
+              hx-target="#reflectionFeed"
+              hx-swap="afterbegin"
+              hx-indicator="#reflectionLoading"
+              class="task-form mb-card">
+            <label for="reflectionTechnique">Technique</label>
+            <input id="reflectionTechnique" name="Technique" maxlength="30" required />
+
+            <label for="reflectionMessage">Reflection</label>
+            <textarea id="reflectionMessage" name="Message" rows="4" maxlength="160" required></textarea>
+
+            <div class="action-row">
+                <button class="button button-primary" type="submit">Post Reflection</button>
+                <span id="reflectionLoading" class="inline-indicator htmx-indicator">Saving reflection...</span>
+            </div>
+        </form>
+
+        <div id="feedLoading" class="inline-indicator htmx-indicator">Loading reflection feed...</div>
+        <div id="reflectionFeed">
+            <p class="empty-state">Load the feed or post a reflection to show fragment updates.</p>
+        </div>
+    </article>
+</section>
+
+<section class="info-panel">
+    <h2>Capstone Checklist</h2>
+    <ul class="mb-0">
+        <li>Fetch API handles JSON CRUD and polling-driven summary updates.</li>
+        <li>HTMX-style attributes handle HTML fragment loading with minimal client logic.</li>
+        <li>CORS is configured in <code>Program.cs</code> for development scenarios.</li>
+        <li>Swagger UI documents the local API and is available at <code>/swagger</code> in development.</li>
+    </ul>
+</section>
+
+@section Scripts {
+    <script src="~/js/comprehensive-dashboard.js" asp-append-version="true"></script>
+}

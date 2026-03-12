@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - 07.ComprehensiveApp</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="site-header">
+        <div class="container shell-header">
+            <a class="brand" asp-page="/Index">07.ComprehensiveApp</a>
+            <nav class="site-nav">
+                <a asp-page="/Index">Home</a>
+                <a asp-page="/Dashboard">Dashboard</a>
+                <a asp-page="/Privacy">Privacy</a>
+                <a href="/swagger" target="_blank" rel="noreferrer">Swagger</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container page-content">
+        @RenderBody()
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            Week 7 capstone app combining Fetch CRUD, polling, HTMX-style fragments, CORS, and Swagger.
+        </div>
+    </footer>
+
+    <script src="~/js/htmx-lite.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

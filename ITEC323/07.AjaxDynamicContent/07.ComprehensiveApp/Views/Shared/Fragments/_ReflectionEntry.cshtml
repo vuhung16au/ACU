@@ -1,0 +1,6 @@
+@model ComprehensiveApp.Models.ReflectionEntry
+
+<article class="fragment-card">
+    <div class="fragment-meta">@Model.Technique · @Model.CreatedAt.ToString("dd MMM yyyy HH:mm")</div>
+    <p class="mb-0">@Model.Message</p>
+</article>

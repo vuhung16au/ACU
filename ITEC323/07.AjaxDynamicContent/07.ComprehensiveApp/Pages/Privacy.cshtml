@@ -1,0 +1,33 @@
+@page
+@model PrivacyModel
+@{
+    ViewData["Title"] = "Privacy";
+}
+
+<section class="hero-panel hero-panel-compact">
+    <span class="eyebrow">Privacy And Scope</span>
+    <h1>This capstone app remains fully local.</h1>
+    <p class="lead mb-0">
+        All data is stored in memory for the current session only, and the app uses local controllers and fragment endpoints instead of external services.
+    </p>
+</section>
+
+<section class="card-grid">
+    <article class="info-card">
+        <h2>Local Data</h2>
+        <ul>
+            <li>No database is required.</li>
+            <li>No external API is required.</li>
+            <li>Tasks and reflections reset when the app stops.</li>
+        </ul>
+    </article>
+
+    <article class="info-card">
+        <h2>CORS And Swagger</h2>
+        <ul>
+            <li>CORS is enabled in development so the API can be called from different local origins when needed.</li>
+            <li>Swagger UI is available in development for API discovery and testing.</li>
+            <li>XML comments are enabled so endpoint descriptions appear in the documentation.</li>
+        </ul>
+    </article>
+</section>

@@ -1,0 +1,50 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<section class="hero-panel">
+    <span class="eyebrow">Week 7 Capstone</span>
+    <h1>Combine several AJAX techniques in one local application.</h1>
+    <p class="lead">
+        This capstone project integrates Fetch API CRUD, polling-driven summary updates, HTMX-style server-rendered fragments,
+        local CORS configuration, and Swagger API documentation in one offline-friendly ASP.NET Core app.
+    </p>
+    <div class="action-row">
+        <a class="button button-primary" asp-page="/Dashboard">Open The Capstone Dashboard</a>
+        <a class="button button-secondary" href="/swagger" target="_blank" rel="noreferrer">Open Swagger UI</a>
+    </div>
+</section>
+
+<section class="card-grid">
+    <article class="info-card">
+        <h2>What this app integrates</h2>
+        <ul>
+            <li>Fetch API for JSON CRUD operations.</li>
+            <li>Polling for automatic summary refresh.</li>
+            <li>HTMX-style attributes for HTML fragment updates.</li>
+            <li>CORS registration for development scenarios.</li>
+            <li>Swagger UI for API discovery and testing.</li>
+        </ul>
+    </article>
+
+    <article class="info-card">
+        <h2>Why this matters</h2>
+        <ul>
+            <li>Students can compare multiple approaches in one place.</li>
+            <li>The code keeps server and client responsibilities separate.</li>
+            <li>The whole app runs locally without a database or external API.</li>
+        </ul>
+    </article>
+</section>
+
+<section class="info-panel">
+    <h2>Suggested walkthrough</h2>
+    <ol>
+        <li>Use Swagger to inspect the JSON task endpoints.</li>
+        <li>Create or edit a task through the Fetch-based dashboard form.</li>
+        <li>Watch the summary cards update through automatic polling.</li>
+        <li>Load a server-rendered tip and post a reflection through the HTMX-style panel.</li>
+    </ol>
+</section>
