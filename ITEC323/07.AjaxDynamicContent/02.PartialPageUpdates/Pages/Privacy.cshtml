@@ -1,0 +1,32 @@
+@page
+@model PrivacyModel
+@{
+    ViewData["Title"] = "Privacy";
+}
+
+<section class="hero-panel hero-panel-compact">
+    <span class="eyebrow">Privacy And Scope</span>
+    <h1>This sample stays local and simple.</h1>
+    <p class="lead mb-0">
+        The dashboard stores all data in memory for the current session, uses no external services, and exists only to teach targeted page updates.
+    </p>
+</section>
+
+<section class="card-grid">
+    <article class="info-card">
+        <h2>Data Handling</h2>
+        <ul>
+            <li>Announcements, spotlight data, and check-ins are sample classroom data.</li>
+            <li>No student login or database is required.</li>
+            <li>Data resets when the application stops.</li>
+        </ul>
+    </article>
+    <article class="info-card">
+        <h2>Teaching Focus</h2>
+        <ul>
+            <li>This project demonstrates partial page updates with plain JavaScript.</li>
+            <li>HTMX is intentionally left for the next project.</li>
+            <li>The goal is to see how independent sections can update without a full reload.</li>
+        </ul>
+    </article>
+</section>

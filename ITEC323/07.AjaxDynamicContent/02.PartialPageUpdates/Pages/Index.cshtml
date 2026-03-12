@@ -1,0 +1,49 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<section class="hero-panel">
+    <span class="eyebrow">Week 7 Project 02</span>
+    <h1>Update only the part of the page that needs new data.</h1>
+    <p class="lead">
+        This project demonstrates partial page updates with plain JavaScript. Each button targets a different section,
+        so students can see replace and append behavior without a full refresh.
+    </p>
+    <div class="action-row">
+        <a class="button button-primary" asp-page="/Dashboard">Open The Partial Updates Demo</a>
+        <a class="button button-secondary" href="/api/learningdashboard/announcements" target="_blank" rel="noreferrer">View Sample JSON</a>
+    </div>
+</section>
+
+<section class="card-grid">
+    <article class="info-card">
+        <h2>What students practise</h2>
+        <ul>
+            <li>Target one DOM section at a time with Fetch API responses.</li>
+            <li>Replace announcement content while leaving the form untouched.</li>
+            <li>Append new activity entries below the existing list.</li>
+            <li>Refresh summary cards independently from the rest of the page.</li>
+        </ul>
+    </article>
+
+    <article class="info-card">
+        <h2>Why this example matters</h2>
+        <ul>
+            <li>Students can see how page state survives when only one section updates.</li>
+            <li>The difference between replace and append becomes easy to observe.</li>
+            <li>The same backend can support several small page updates instead of one large reload.</li>
+        </ul>
+    </article>
+</section>
+
+<section class="info-panel">
+    <h2>Suggested walkthrough</h2>
+    <ol>
+        <li>Load the dashboard and type into the reflection form.</li>
+        <li>Refresh the announcements and confirm the form text stays in place.</li>
+        <li>Submit a check-in and watch only the activity log grow.</li>
+        <li>Refresh the summary cards separately to confirm the rest of the page stays unchanged.</li>
+    </ol>
+</section>

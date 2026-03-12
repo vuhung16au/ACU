@@ -1,0 +1,117 @@
+@page
+@model DashboardModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<section class="hero-panel hero-panel-compact">
+    <span class="eyebrow">Partial Update Dashboard</span>
+    <h1>Refresh sections independently with Fetch API.</h1>
+    <p class="lead mb-0">
+        The three panels below use separate requests. Refreshing one panel should not scroll the page or reset the others.
+    </p>
+</section>
+
+<section class="summary-grid">
+    <article class="summary-card">
+        <span class="summary-label">Completed Activities</span>
+        <strong id="completedActivities">0</strong>
+    </article>
+    <article class="summary-card">
+        <span class="summary-label">Remaining Activities</span>
+        <strong id="remainingActivities">0</strong>
+    </article>
+    <article class="summary-card">
+        <span class="summary-label">Next Focus</span>
+        <strong id="nextFocus">Not loaded yet</strong>
+    </article>
+    <article class="summary-card">
+        <span class="summary-label">Summary Refreshed</span>
+        <strong id="summaryRefreshedAt">Not loaded yet</strong>
+    </article>
+</section>
+
+<section class="layout-grid layout-grid-wide">
+    <article class="info-card">
+        <div class="section-heading">
+            <div>
+                <h2>Announcements</h2>
+                <p class="text-muted">This panel is replaced each time new data arrives.</p>
+            </div>
+            <button id="announcementsButton" class="button button-secondary" type="button">Refresh Announcements</button>
+        </div>
+        <div id="announcementsStatus" class="panel-status hidden" aria-live="polite"></div>
+        <div id="announcementsPanel" class="stack-list">
+            <p class="empty-state">Click refresh to load the latest announcements.</p>
+        </div>
+    </article>
+
+    <article class="info-card">
+        <div class="section-heading">
+            <div>
+                <h2>Resource Spotlight</h2>
+                <p class="text-muted">This card updates independently from the announcement list.</p>
+            </div>
+            <button id="spotlightButton" class="button button-secondary" type="button">Refresh Spotlight</button>
+        </div>
+        <div id="spotlightStatus" class="panel-status hidden" aria-live="polite"></div>
+        <div id="spotlightPanel" class="spotlight-card">
+            <p class="empty-state">Load the dashboard to view the current spotlight resource.</p>
+        </div>
+    </article>
+    
+</section>
+
+<section class="layout-grid">
+    <article class="info-card">
+        <div class="section-heading">
+            <div>
+                <h2>Student Check-In</h2>
+                <p class="text-muted">Submitting the form appends one new activity entry without clearing the list.</p>
+            </div>
+            <button id="summaryButton" class="button button-secondary" type="button">Refresh Summary</button>
+        </div>
+
+        <div id="summaryStatus" class="panel-status hidden" aria-live="polite"></div>
+
+        <form id="checkInForm" class="task-form">
+            <label for="activityName">Activity Name</label>
+            <input id="activityName" name="activityName" maxlength="60" required />
+
+            <label for="reflection">Reflection</label>
+            <textarea id="reflection" name="reflection" rows="4" maxlength="140" required></textarea>
+
+            <div class="action-row">
+                <button id="checkInButton" class="button button-primary" type="submit">Add Check-In</button>
+                <button id="activityButton" class="button button-secondary" type="button">Reload Activity Log</button>
+            </div>
+        </form>
+    </article>
+
+    <article class="info-card">
+        <div class="section-heading">
+            <div>
+                <h2>Activity Log</h2>
+                <p class="text-muted">New entries are appended to the top while earlier entries stay visible.</p>
+            </div>
+        </div>
+        <div id="activityStatus" class="panel-status hidden" aria-live="polite"></div>
+        <div id="activityLogPanel" class="stack-list">
+            <p class="empty-state">No activity log is shown yet.</p>
+        </div>
+    </article>
+</section>
+
+<section class="info-panel">
+    <h2>Section Update Rules</h2>
+    <ul class="mb-0">
+        <li>The announcements panel is fully replaced when its button is pressed.</li>
+        <li>The spotlight card is refreshed independently from the summary cards.</li>
+        <li>The activity log appends new entries after a successful form submission.</li>
+        <li>The form keeps its current state when other panels update.</li>
+    </ul>
+</section>
+
+@section Scripts {
+    <script src="~/js/partial-updates.js" asp-append-version="true"></script>
+}
