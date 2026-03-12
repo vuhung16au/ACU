@@ -1,0 +1,31 @@
+@model IEnumerable<ComprehensiveNavigation.Models.MenuItem>
+@using Microsoft.AspNetCore.Http
+
+@{
+    var currentPath = ViewContext.HttpContext.Request.Path.Value ?? "/";
+}
+
+<div class="position-sticky pt-3" style="top: 5rem;">
+    <ul class="nav flex-column">
+        @foreach (var menuGroup in Model)
+        {
+            <li class="nav-item mt-2">
+                <a class="nav-link text-uppercase fw-bold text-secondary" data-bs-toggle="collapse" href="#menu_@menuGroup.Title.Replace(" ", "")" role="button" aria-expanded="true" aria-controls="menu_@menuGroup.Title.Replace(" ", "")">
+                    @menuGroup.Title
+                </a>
+                <div class="collapse show" id="menu_@menuGroup.Title.Replace(" ", "")">
+                    <ul class="nav flex-column ms-3">
+                        @foreach (var item in menuGroup.Children)
+                        {
+                            bool isActive = currentPath == item.Url;
+                            var activeClass = isActive ? "text-primary fw-bold" : "text-body";
+                            <li class="nav-item">
+                                <a class="nav-link @activeClass py-1" href="@item.Url">@item.Title</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </li>
+        }
+    </ul>
+</div>

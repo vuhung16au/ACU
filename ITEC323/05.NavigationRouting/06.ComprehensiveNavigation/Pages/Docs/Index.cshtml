@@ -1,0 +1,29 @@
+@page
+@model ComprehensiveNavigation.Pages.Docs.IndexModel
+@{
+    ViewData["Title"] = "Documentation Overview";
+    Layout = "_DocsLayout";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <p class="lead">Welcome to the Comprehensive Navigation documentation. Here you will find guides on how the various routing and navigation mechanisms are implemented.</p>
+
+        <h3 class="mt-4">Sections</h3>
+        <div class="list-group list-group-flush mb-4 rounded shadow-sm border">
+            <a asp-page="/Docs/GettingStarted" class="list-group-item list-group-item-action p-3">
+                <h5 class="mb-1"><i class="bi bi-play-circle text-primary me-2"></i> Getting Started</h5>
+                <p class="mb-1 text-muted">Learn the basics of running this module.</p>
+            </a>
+            <a asp-page="/Docs/Installation" class="list-group-item list-group-item-action p-3">
+                <h5 class="mb-1"><i class="bi bi-box-seam text-success me-2"></i> Installation</h5>
+                <p class="mb-1 text-muted">Details on project setup and dependencies.</p>
+            </a>
+        </div>
+        
+        <div class="alert alert-info border-info">
+            <h5>Notice the Layout!</h5>
+            <p class="mb-0">This section uses a nested layout (`_DocsLayout.cshtml`) that wraps the main layout and injects a <code>SidebarViewComponent</code>.</p>
+        </div>
+    </div>
+</div>

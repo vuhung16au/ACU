@@ -1,0 +1,25 @@
+@page
+@model ComprehensiveNavigation.Pages.Docs.InstallationModel
+@{
+    ViewData["Title"] = "Installation";
+    Layout = "_DocsLayout";
+}
+
+<div>
+    <p>This application is built with ASP.NET Core 10.0 and requires no external databases.</p>
+
+    <h4>Prerequisites</h4>
+    <ul>
+        <li>.NET 10 SDK</li>
+        <li>A modern browser</li>
+    </ul>
+
+    <h4>Running the Application</h4>
+    <pre class="bg-light p-3 border rounded"><code>dotnet run --project 06.ComprehensiveNavigation.csproj</code></pre>
+
+    <hr class="my-4" />
+    
+    <div class="d-flex justify-content-between">
+        <a asp-page="/Docs/GettingStarted" class="btn btn-outline-secondary">&larr; Getting Started</a>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+@page
+@model SidebarNavigation.Pages.Products.IndexModel
+@{
+    ViewData["Title"] = "Products Sidebar Section";
+}
+
+<section class="content-card mb-3">
+    <h2 class="h4">Products Section</h2>
+    <p class="mb-0 text-secondary">
+        This page is the landing page for the <strong>Product Catalog</strong> sidebar section.
+        It demonstrates how a parent section can expand into several related child links.
+    </p>
+</section>
+
+<section class="product-list">
+    @foreach (var product in Model.Products)
+    {
+        <article class="product-item">
+            <h3>@product.Name</h3>
+            <p class="meta">Category: @product.Category | Price: @product.Price.ToString("C")</p>
+            <p>@product.Summary</p>
+            <div class="button-row">
+                <a class="button-link" asp-page="/Products/Details" asp-route-id="@product.Id">View details</a>
+                <a class="button-link secondary" asp-page="/Products/Edit" asp-route-id="@product.Id">Edit route</a>
+                <a class="button-link secondary" asp-page="/Products/Edit" asp-page-handler="Preview" asp-route-id="@product.Id">Preview handler</a>
+            </div>
+        </article>
+    }
+</section>

@@ -1,0 +1,143 @@
+@{
+    var currentPath = Context.Request.Path.Value ?? string.Empty;
+    var idPrefix = ViewData["SidebarIdPrefix"] as string ?? "sidebar";
+
+    bool IsCurrentPage(string pagePath)
+    {
+        if (string.Equals(pagePath, "/Index", StringComparison.OrdinalIgnoreCase))
+        {
+            return string.Equals(currentPath, "/", StringComparison.OrdinalIgnoreCase);
+        }
+
+        return string.Equals(currentPath, pagePath, StringComparison.OrdinalIgnoreCase);
+    }
+
+    bool IsInSection(params string[] pathPrefixes)
+    {
+        foreach (var prefix in pathPrefixes)
+        {
+            if (string.Equals(prefix, "/", StringComparison.OrdinalIgnoreCase))
+            {
+                if (string.Equals(currentPath, "/", StringComparison.OrdinalIgnoreCase))
+                {
+                    return true;
+                }
+
+                continue;
+            }
+
+            if (currentPath.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    string SidebarLinkClass(string pagePath)
+    {
+        return IsCurrentPage(pagePath) ? "sidebar-link active" : "sidebar-link";
+    }
+
+    string SectionButtonClass(bool isOpen)
+    {
+        return isOpen ? "sidebar-section-toggle" : "sidebar-section-toggle collapsed";
+    }
+
+    string CollapseClass(bool isOpen)
+    {
+        return isOpen ? "collapse show" : "collapse";
+    }
+
+    string Id(string name)
+    {
+        return $"{idPrefix}-{name}";
+    }
+
+    bool foundationOpen = IsInSection("/", "/Docs");
+    bool guidesOpen = IsInSection("/Docs/Guides");
+    bool productOpen = IsInSection("/Products");
+    bool publishingOpen = IsInSection("/Blog");
+    bool supportOpen = IsInSection("/Courses", "/About", "/Contact");
+}
+
+<nav class="sidebar-panel" aria-label="Sidebar navigation">
+    <div class="sidebar-header">
+        <p class="sidebar-eyebrow">FR5</p>
+        <h2 class="h5 mb-1">Sidebar Navigation</h2>
+        <p class="small text-secondary mb-0">Use the nested links below to explore fixed desktop and offcanvas mobile patterns.</p>
+    </div>
+
+    <div class="sidebar-body">
+        <div class="sidebar-section">
+            <button class="@SectionButtonClass(foundationOpen)" type="button" data-bs-toggle="collapse" data-bs-target="#@Id("foundation")" aria-expanded="@foundationOpen.ToString().ToLowerInvariant()" aria-controls="@Id("foundation")">
+                <span>Foundation</span>
+                <span class="sidebar-chevron" aria-hidden="true">▾</span>
+            </button>
+            <div class="@CollapseClass(foundationOpen)" id="@Id("foundation")">
+                <ul class="sidebar-list">
+                    <li><a class="@SidebarLinkClass("/Index")" asp-page="/Index">Overview</a></li>
+                    <li><a class="@SidebarLinkClass("/Docs/GettingStarted")" asp-page="/Docs/GettingStarted">Getting Started</a></li>
+                    <li>
+                        <button class="@SectionButtonClass(guidesOpen)" type="button" data-bs-toggle="collapse" data-bs-target="#@Id("guides")" aria-expanded="@guidesOpen.ToString().ToLowerInvariant()" aria-controls="@Id("guides")">
+                            <span>Guides</span>
+                            <span class="sidebar-chevron" aria-hidden="true">▾</span>
+                        </button>
+                        <div class="@CollapseClass(guidesOpen)" id="@Id("guides")">
+                            <ul class="sidebar-list sidebar-list-nested">
+                                <li><a class="@SidebarLinkClass("/Docs/Guides/SidebarPatterns")" asp-page="/Docs/Guides/SidebarPatterns">Sidebar Patterns</a></li>
+                                <li><a class="@SidebarLinkClass("/Docs/Guides/OffcanvasNavigation")" asp-page="/Docs/Guides/OffcanvasNavigation">Offcanvas Navigation</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="sidebar-section">
+            <button class="@SectionButtonClass(productOpen)" type="button" data-bs-toggle="collapse" data-bs-target="#@Id("products")" aria-expanded="@productOpen.ToString().ToLowerInvariant()" aria-controls="@Id("products")">
+                <span>Product Catalog</span>
+                <span class="sidebar-chevron" aria-hidden="true">▾</span>
+            </button>
+            <div class="@CollapseClass(productOpen)" id="@Id("products")">
+                <ul class="sidebar-list">
+                    <li><a class="@SidebarLinkClass("/Products")" asp-page="/Products/Index">All Products</a></li>
+                    <li><a class="@SidebarLinkClass("/Products/Category/Computers")" asp-page="/Products/Category" asp-route-name="Computers">Computers</a></li>
+                    <li><a class="@SidebarLinkClass("/Products/Category/Accessories")" asp-page="/Products/Category" asp-route-name="Accessories">Accessories</a></li>
+                    <li><a class="@SidebarLinkClass("/Products/Details/1")" asp-page="/Products/Details" asp-route-id="1">Product Details</a></li>
+                    <li><a class="@SidebarLinkClass("/Products/Edit/1")" asp-page="/Products/Edit" asp-route-id="1">Edit Product</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="sidebar-section">
+            <button class="@SectionButtonClass(publishingOpen)" type="button" data-bs-toggle="collapse" data-bs-target="#@Id("publishing")" aria-expanded="@publishingOpen.ToString().ToLowerInvariant()" aria-controls="@Id("publishing")">
+                <span>Publishing</span>
+                <span class="sidebar-chevron" aria-hidden="true">▾</span>
+            </button>
+            <div class="@CollapseClass(publishingOpen)" id="@Id("publishing")">
+                <ul class="sidebar-list">
+                    <li><a class="@SidebarLinkClass("/Blog")" asp-page="/Blog/Index">Recent Posts</a></li>
+                    <li><a class="@SidebarLinkClass("/Blog/Categories")" asp-page="/Blog/Categories">Categories</a></li>
+                    <li><a class="@SidebarLinkClass("/Blog/Archive/2026")" asp-page="/Blog/Archive" asp-route-year="2026">Archive 2026</a></li>
+                    <li><a class="@SidebarLinkClass("/Blog/2026/3/getting-started-with-routing")" asp-page="/Blog/Post" asp-route-year="2026" asp-route-month="3" asp-route-slug="getting-started-with-routing">Sample Post</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="sidebar-section">
+            <button class="@SectionButtonClass(supportOpen)" type="button" data-bs-toggle="collapse" data-bs-target="#@Id("support")" aria-expanded="@supportOpen.ToString().ToLowerInvariant()" aria-controls="@Id("support")">
+                <span>Support</span>
+                <span class="sidebar-chevron" aria-hidden="true">▾</span>
+            </button>
+            <div class="@CollapseClass(supportOpen)" id="@Id("support")">
+                <ul class="sidebar-list">
+                    <li><a class="@SidebarLinkClass("/Courses/Lookup")" asp-page="/Courses/Lookup" asp-route-code="ITEC323">Course Lookup</a></li>
+                    <li><a class="@SidebarLinkClass("/About")" asp-page="/About">About</a></li>
+                    <li><a class="@SidebarLinkClass("/Contact")" asp-page="/Contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>

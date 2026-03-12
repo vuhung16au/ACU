@@ -1,0 +1,8 @@
+@page "/sitemap.xml"
+@model ComprehensiveNavigation.Pages.SitemapModel
+@{
+    // Notice the @page directive uses a custom route template "/sitemap.xml"
+    // This allows the page to be accessed exactly as a search engine would expect it.
+    // The view itself is empty because the XML string is returned from the OnGet method
+    // using a ContentResult, meaning this Razor view is never executed/rendered.
+}

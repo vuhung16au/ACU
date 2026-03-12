@@ -1,0 +1,50 @@
+@model IEnumerable<ComprehensiveNavigation.Models.MenuItem>
+@using Microsoft.AspNetCore.Http
+
+@{
+    var currentPath = ViewContext.HttpContext.Request.Path.Value ?? "/";
+}
+
+<ul class="navbar-nav me-auto mb-2 mb-md-0">
+    @foreach (var item in Model)
+    {
+        bool isActive = item.ExactMatch 
+            ? currentPath == item.Url 
+            : currentPath.StartsWith(item.Url, System.StringComparison.OrdinalIgnoreCase);
+
+        var activeClass = isActive ? "active" : "";
+
+        if (item.HasChildren)
+        {
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle @activeClass" href="#" id="navbarDropdown_@item.Title.Replace(" ", "")" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    @if (!string.IsNullOrEmpty(item.Icon))
+                    {
+                        <i class="bi @item.Icon me-1"></i>
+                    }
+                    @item.Title
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown_@item.Title.Replace(" ", "")">
+                    @foreach (var child in item.Children)
+                    {
+                        bool isChildActive = currentPath == child.Url;
+                        var childActiveClass = isChildActive ? "active" : "";
+                        <li><a class="dropdown-item @childActiveClass" href="@child.Url">@child.Title</a></li>
+                    }
+                </ul>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item">
+                <a class="nav-link @activeClass" href="@item.Url">
+                    @if (!string.IsNullOrEmpty(item.Icon))
+                    {
+                        <i class="bi @item.Icon me-1"></i>
+                    }
+                    @item.Title
+                </a>
+            </li>
+        }
+    }
+</ul>

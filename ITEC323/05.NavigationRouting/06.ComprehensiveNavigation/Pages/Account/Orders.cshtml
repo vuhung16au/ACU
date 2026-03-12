@@ -1,0 +1,56 @@
+@page
+@model ComprehensiveNavigation.Pages.Account.OrdersModel
+@{
+    ViewData["Title"] = "My Orders";
+}
+
+<div class="container my-5">
+    @await Component.InvokeAsync("Breadcrumbs")
+    
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>My Orders</h1>
+        <a asp-page="/Index" class="btn btn-outline-secondary">Continue Shopping</a>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Total</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var order in Model.Orders)
+                        {
+                            <tr>
+                                <td>#@order.Id</td>
+                                <td>@order.Date.ToString("d")</td>
+                                <td>
+                                    <span class="badge bg-@(order.Status == "Delivered" ? "success" : "warning")">@order.Status</span>
+                                </td>
+                                <td>@order.Total.ToString("C")</td>
+                                <td>
+                                    <a asp-page="/Account/OrderDetails" asp-route-id="@order.Id" class="btn btn-sm btn-info">Details</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

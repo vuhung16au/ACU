@@ -1,0 +1,24 @@
+@page "{code:regex(^ITEC[0-9][0-9][0-9]$)}"
+@model SidebarNavigation.Pages.Courses.LookupModel
+@{
+    ViewData["Title"] = "Course Lookup";
+}
+
+<article class="detail-card">
+    <h2>Regex route constraint</h2>
+    <p>
+        This page only accepts course codes that match <code>ITEC</code> followed by exactly three digits.
+    </p>
+
+    <p><span class="route-chip">Route value</span> <code>code = @Model.Course!.Code</code></p>
+
+    <h3>@Model.Course.Title</h3>
+    <p>@Model.Course.Focus</p>
+
+    <div class="code-sample">
+        <strong>Valid example</strong>
+        <p><code>/Courses/Lookup/ITEC323</code></p>
+        <strong>Invalid example</strong>
+        <p><code>/Courses/Lookup/abc123</code></p>
+    </div>
+</article>

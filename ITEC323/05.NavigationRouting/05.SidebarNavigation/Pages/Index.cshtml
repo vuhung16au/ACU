@@ -1,0 +1,101 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Sidebar Navigation Overview";
+}
+
+<section class="hero-card mb-4">
+    <div class="row g-4 align-items-center">
+        <div class="col-lg-8">
+            <h2 class="display-6 fw-bold mb-3">Bootstrap Sidebar Navigation in Razor Pages</h2>
+            <p class="lead mb-2">
+                This project demonstrates a sticky desktop sidebar, nested collapsible sections,
+                active item highlighting, and mobile offcanvas behavior using Bootstrap 5.
+            </p>
+            <p class="mb-0 text-secondary">
+                Open the Docs, Products, Blog, and Support sections in the sidebar to see how a larger site can stay organized without a long flat menu.
+            </p>
+        </div>
+        <div class="col-lg-4">
+            <div class="row g-2 text-center">
+                <div class="col-6">
+                    <div class="bg-light border rounded p-3 h-100">
+                        <div class="h4 mb-1">4</div>
+                        <div class="small text-secondary">Sidebar Sections</div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="bg-light border rounded p-3 h-100">
+                        <div class="h4 mb-1">14</div>
+                        <div class="small text-secondary">Sidebar Items</div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="bg-light border rounded p-3">
+                        <div class="h4 mb-1">3</div>
+                        <div class="small text-secondary">Navigation Levels</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="row g-3 mb-4">
+    <div class="col-md-6">
+        <article class="content-card h-100">
+            <h3 class="h5">FR5 Acceptance Criteria Coverage</h3>
+            <ul class="mb-0">
+                <li>Fixed or sticky sidebar on desktop.</li>
+                <li>Collapsible menu sections using Bootstrap Collapse.</li>
+                <li>Bootstrap Offcanvas for mobile navigation.</li>
+                <li>Nested navigation items reaching 3 levels deep.</li>
+                <li>Current page and section highlighting in the sidebar.</li>
+            </ul>
+        </article>
+    </div>
+    <div class="col-md-6">
+        <article class="content-card h-100">
+            <h3 class="h5">Try These Sidebar Paths</h3>
+            <ul class="mb-0">
+                <li><a asp-page="/Docs/GettingStarted">Foundation -> Getting Started</a></li>
+                <li><a asp-page="/Docs/Guides/SidebarPatterns">Foundation -> Guides -> Sidebar Patterns</a></li>
+                <li><a asp-page="/Products/Category" asp-route-name="Computers">Product Catalog -> Computers</a></li>
+                <li><a asp-page="/Blog/Archive" asp-route-year="2026">Publishing -> Archive 2026</a></li>
+                <li><a asp-page="/Contact">Support -> Contact</a></li>
+            </ul>
+        </article>
+    </div>
+</section>
+
+<section class="content-card">
+    <h3 class="h5">Sidebar Design Notes</h3>
+    <div class="table-responsive">
+        <table class="table table-sm align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>Component</th>
+                    <th>Implementation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Desktop sidebar</td>
+                    <td><code>position: sticky</code> + shared partial view</td>
+                </tr>
+                <tr>
+                    <td>Mobile sidebar</td>
+                    <td><code>offcanvas offcanvas-start</code> opened from the top bar</td>
+                </tr>
+                <tr>
+                    <td>Collapsible groups</td>
+                    <td><code>data-bs-toggle="collapse"</code> on section buttons</td>
+                </tr>
+                <tr>
+                    <td>Active state</td>
+                    <td>Path checks in <code>_SidebarNavigation.cshtml</code></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>

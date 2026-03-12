@@ -1,0 +1,39 @@
+@page
+@model ComprehensiveNavigation.Pages.Products.IndexModel
+@{
+    ViewData["Title"] = "Products";
+}
+
+<div class="container my-5">
+    @await Component.InvokeAsync("Breadcrumbs")
+    
+    <h1 class="mb-4">All Products</h1>
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="list-group">
+                <a asp-page="/Products/Index" class="list-group-item list-group-item-action active">All Categories</a>
+                <a asp-page="/Products/Category" asp-route-category="Electronics" class="list-group-item list-group-item-action">Electronics</a>
+                <a asp-page="/Products/Category" asp-route-category="Books" class="list-group-item list-group-item-action">Books</a>
+                <a asp-page="/Products/Category" asp-route-category="Clothing" class="list-group-item list-group-item-action">Clothing</a>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                @foreach (var product in Model.Products)
+                {
+                    <div class="col">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">@product.Name</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">@product.Category</h6>
+                                <p class="card-text fw-bold text-success">@product.Price.ToString("C")</p>
+                                <a asp-page="/Products/Details" asp-route-id="@product.Id" class="btn btn-primary btn-sm">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

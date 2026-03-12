@@ -1,0 +1,106 @@
+@using Microsoft.AspNetCore.Mvc.ViewFeatures
+@{
+    var currentPath = Context.Request.Path.Value ?? string.Empty;
+
+    bool IsTopLinkActive(string pathPrefix)
+    {
+        if (pathPrefix == "/")
+        {
+            return string.Equals(currentPath, "/", StringComparison.OrdinalIgnoreCase);
+        }
+
+        return currentPath.StartsWith(pathPrefix, StringComparison.OrdinalIgnoreCase);
+    }
+
+    string TopLinkClass(string pathPrefix)
+    {
+        return IsTopLinkActive(pathPrefix) ? "nav-link active" : "nav-link";
+    }
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Sidebar Navigation</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-dark app-navbar shadow-sm" aria-label="Primary navigation">
+            <div class="container-xxl">
+                <div class="d-flex align-items-center gap-3">
+                    <button class="btn btn-outline-light d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar" aria-controls="mobileSidebar" aria-label="Open sidebar navigation">
+                        Menu
+                    </button>
+                    <a class="navbar-brand fw-semibold" asp-page="/Index">NR | 05.SidebarNavigation</a>
+                </div>
+
+                <div class="d-flex align-items-center gap-3">
+                    <ul class="navbar-nav flex-row d-none d-md-flex">
+                        <li class="nav-item">
+                            <a class="@TopLinkClass("/Docs")" asp-page="/Docs/GettingStarted">Docs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="@TopLinkClass("/Products")" asp-page="/Products/Index">Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="@TopLinkClass("/Blog")" asp-page="/Blog/Index">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="@TopLinkClass("/About")" asp-page="/About">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="@TopLinkClass("/Contact")" asp-page="/Contact">Contact</a>
+                        </li>
+                    </ul>
+
+                    <span class="navbar-text small text-white-50 d-none d-lg-inline">
+                        Sticky desktop sidebar, nested sections, offcanvas mobile
+                    </span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileSidebar" aria-labelledby="mobileSidebarLabel">
+        <div class="offcanvas-header border-bottom">
+            <h2 class="offcanvas-title h5 mb-0" id="mobileSidebarLabel">Sidebar Navigation</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body p-0">
+            @await Html.PartialAsync("_SidebarNavigation", viewData: new ViewDataDictionary(ViewData)
+            {
+                ["SidebarIdPrefix"] = "mobile"
+            })
+        </div>
+    </div>
+
+    <main class="container-xxl py-4">
+        <div class="mb-3 small text-secondary fw-semibold">05.NavigationRouting / 05.SidebarNavigation</div>
+        <div class="row g-4">
+            <aside class="col-lg-3 d-none d-lg-block">
+                @await Html.PartialAsync("_SidebarNavigation", viewData: new ViewDataDictionary(ViewData)
+                {
+                    ["SidebarIdPrefix"] = "desktop"
+                })
+            </aside>
+
+            <section class="col-12 col-lg-9">
+                @RenderBody()
+            </section>
+        </div>
+    </main>
+
+    <footer class="border-top bg-light">
+        <div class="container-xxl py-3 small text-secondary">
+            Demonstrates Bootstrap sticky sidebars, nested collapse sections, active-state styling, and mobile offcanvas navigation.
+        </div>
+    </footer>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

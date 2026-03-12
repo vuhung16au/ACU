@@ -1,0 +1,25 @@
+@page
+@model ComprehensiveNavigation.Pages.Docs.GettingStartedModel
+@{
+    ViewData["Title"] = "Getting Started";
+    Layout = "_DocsLayout";
+}
+
+<div>
+    <p>This guide helps you understand how the project is structured to offer robust routing.</p>
+    
+    <h4>Key Concepts Demonstrated</h4>
+    <ul>
+        <li><strong>Endpoint Routing:</strong> Default folder-based routing matches Razor Pages.</li>
+        <li><strong>Route Parameters:</strong> Used in Product Details (<code>@@page "{id:int}"</code>).</li>
+        <li><strong>View Components:</strong> Encapsulate logic for Menus, Breadcrumbs, and Sidebars.</li>
+        <li><strong>Programmatic Redirects:</strong> Encountered in the Admin Dashboard.</li>
+    </ul>
+
+    <hr class="my-4" />
+    
+    <div class="d-flex justify-content-between">
+        <a asp-page="/Docs/Index" class="btn btn-outline-secondary">&larr; Overview</a>
+        <a asp-page="/Docs/Installation" class="btn btn-primary">Next: Installation &rarr;</a>
+    </div>
+</div>

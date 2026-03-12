@@ -1,0 +1,50 @@
+@page "{category}"
+@model ComprehensiveNavigation.Pages.Products.CategoryModel
+@{
+    ViewData["Title"] = $"{Model.CategoryName} Products";
+}
+
+<div class="container my-5">
+    @await Component.InvokeAsync("Breadcrumbs")
+    
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>@Model.CategoryName</h1>
+        <a asp-page="/Products/Index" class="btn btn-outline-primary">All Products</a>
+    </div>
+
+    @if (!Model.Products.Any())
+    {
+        <div class="alert alert-info">No products found in category "@Model.CategoryName".</div>
+    }
+    else
+    {
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            @foreach (var product in Model.Products)
+            {
+                <div class="col">
+                    <div class="card h-100 shadow-sm border-@GetColorClass(product.Category)">
+                        <div class="card-body">
+                            <h5 class="card-title">@product.Name</h5>
+                            <span class="badge bg-@GetColorClass(product.Category) mb-2">@product.Category</span>
+                            <p class="card-text fw-bold text-success">@product.Price.ToString("C")</p>
+                            <a asp-page="/Products/Details" asp-route-id="@product.Id" class="btn btn-sm btn-outline-primary">View</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@functions {
+    string GetColorClass(string category)
+    {
+        return category.ToLower() switch
+        {
+            "electronics" => "primary",
+            "books" => "success",
+            "clothing" => "warning",
+            _ => "secondary"
+        };
+    }
+}

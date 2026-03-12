@@ -1,0 +1,52 @@
+@page
+@model AboutModel
+@{
+    ViewData["Title"] = "About Sidebar Navigation";
+}
+
+<section class="content-card">
+    <h2 class="h4">About this project</h2>
+    <p class="mb-0">
+        This stage of the module focuses on building professional sidebar navigation with Bootstrap.
+        Students learn how to group links into collapsible sections, support deeper page hierarchies,
+        and keep the current section visible across desktop and mobile layouts.
+    </p>
+</section>
+
+<section class="row g-3 mt-1">
+    <article class="col-md-6">
+        <div class="content-card h-100">
+            <h3 class="h5">What this module emphasizes</h3>
+            <ul class="mb-0">
+                <li>Sticky sidebar layout for larger page collections.</li>
+                <li>Bootstrap Collapse for expandable sections.</li>
+                <li>Bootstrap Offcanvas for mobile-friendly sidebar access.</li>
+                <li>Route-aware active item highlighting.</li>
+            </ul>
+        </div>
+    </article>
+
+    <article class="col-md-6">
+        <div class="content-card h-100">
+            <h3 class="h5">Quick links to test</h3>
+            <ul class="mb-0">
+                <li><a asp-page="/Docs/Guides/SidebarPatterns">Open a third-level Docs guide</a></li>
+                <li><a asp-page="/Products/Category" asp-route-name="Computers">Open a Product Catalog child page</a></li>
+                <li><a asp-page="/Blog/Archive" asp-route-year="2026">Open a Publishing archive page</a></li>
+            </ul>
+        </div>
+    </article>
+</section>
+
+<section class="content-card mt-3">
+    <h3 class="h5">Why sidebars matter</h3>
+    <p class="mb-0">
+        As projects grow, users need predictable navigation patterns. Well-structured sidebars improve discoverability,
+        reduce confusion, and keep hierarchy visible even when there are many related pages.
+    </p>
+    <div class="mt-3 d-flex gap-2 flex-wrap">
+        <a class="btn btn-primary" asp-page="/Docs/GettingStarted">Open docs section</a>
+        <a class="btn btn-outline-primary" asp-page="/Products/Index">Explore product catalog</a>
+        <a class="btn btn-outline-secondary" asp-page="/Contact">Open support page</a>
+    </div>
+</section>

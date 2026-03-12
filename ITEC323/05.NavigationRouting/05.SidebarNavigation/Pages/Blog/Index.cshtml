@@ -1,0 +1,31 @@
+@page
+@model SidebarNavigation.Pages.Blog.IndexModel
+@{
+    ViewData["Title"] = "Blog Sidebar Section";
+}
+
+<section class="content-card mb-3">
+    <h2 class="h4">Blog Section</h2>
+    <p class="mb-0 text-secondary">
+        This page is accessed from the <strong>Publishing</strong> sidebar section.
+        Use this section with <em>Categories</em>, <em>Archive</em>, and the sample post link to demonstrate grouped sidebar navigation.
+    </p>
+</section>
+
+<section class="post-list">
+    @foreach (var post in Model.Posts)
+    {
+        <article class="post-item">
+            <h3>@post.Title</h3>
+            <p class="meta">@post.Year / @post.Month | slug: @post.Slug</p>
+            <p>@post.Summary</p>
+            <a class="button-link"
+               asp-page="/Blog/Post"
+               asp-route-year="@post.Year"
+               asp-route-month="@post.Month"
+               asp-route-slug="@post.Slug">
+                Open friendly URL
+            </a>
+        </article>
+    }
+</section>

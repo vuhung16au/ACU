@@ -1,0 +1,44 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="px-4 py-5 my-5 text-center">
+    <i class="bi bi-compass display-1 text-primary"></i>
+    <h1 class="display-5 fw-bold text-body-emphasis">Comprehensive Navigation</h1>
+    <div class="col-lg-6 mx-auto">
+        <p class="lead mb-4">A complete demonstration of routing and navigation techniques in ASP.NET Core Razor Pages, featuring everything from tag helpers to sitemaps.</p>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <a asp-page="/Docs/GettingStarted" class="btn btn-primary btn-lg px-4 gap-3">Get Started</a>
+            <a asp-page="/Products/Index" class="btn btn-outline-secondary btn-lg px-4">View Products</a>
+        </div>
+    </div>
+</div>
+
+<div class="container px-4 py-5" id="features">
+    <h2 class="pb-2 border-bottom">Navigation Features</h2>
+    <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+        <div class="col">
+            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg p-4">
+                <i class="bi bi-list fs-1"></i>
+                <h3 class="pt-2 mt-2 mb-4 display-6 lh-1 fw-bold">Dynamic Menus</h3>
+                <p>Data-driven top navigation bar and documentation sidebar using ViewComponents.</p>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card card-cover h-100 overflow-hidden text-bg-primary rounded-4 shadow-lg p-4">
+                <i class="bi bi-link-45deg fs-1"></i>
+                <h3 class="pt-2 mt-2 mb-4 display-6 lh-1 fw-bold">Tag Helpers</h3>
+                <p>Elegant URL generation using `asp-page` and `asp-route-*` for robust linking.</p>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card card-cover h-100 overflow-hidden text-bg-success rounded-4 shadow-lg p-4">
+                <i class="bi bi-sign-turn-right fs-1"></i>
+                <h3 class="pt-2 mt-2 mb-4 display-6 lh-1 fw-bold">Routing Magic</h3>
+                <p>Route parameters, constraints, search, and redirects handled gracefully.</p>
+            </div>
+        </div>
+    </div>
+</div>
