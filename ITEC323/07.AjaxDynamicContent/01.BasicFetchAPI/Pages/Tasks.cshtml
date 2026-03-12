@@ -1,0 +1,128 @@
+@page
+@model TasksModel
+@{
+    ViewData["Title"] = "Fetch Demo";
+}
+
+<section class="hero-panel hero-panel-compact">
+    <span class="eyebrow">Fetch API CRUD</span>
+    <h1>Manage study tasks with asynchronous requests.</h1>
+    <p class="lead mb-0">
+        Use the buttons and form below to call the local API. The summary cards and task table update without a full page refresh.
+    </p>
+</section>
+
+<section class="status-strip">
+    <div id="messagePanel" class="message-panel hidden" role="status" aria-live="polite"></div>
+    <div id="loadingPanel" class="loading-panel hidden" role="status" aria-live="polite">
+        Loading data from the local API...
+    </div>
+</section>
+
+<section class="summary-grid" id="summarySection">
+    <article class="summary-card">
+        <span class="summary-label">Total Tasks</span>
+        <strong id="totalTasks">0</strong>
+    </article>
+    <article class="summary-card">
+        <span class="summary-label">Completed</span>
+        <strong id="completedTasks">0</strong>
+    </article>
+    <article class="summary-card">
+        <span class="summary-label">Pending</span>
+        <strong id="pendingTasks">0</strong>
+    </article>
+    <article class="summary-card">
+        <span class="summary-label">Last Refresh</span>
+        <strong id="generatedAt">Not loaded yet</strong>
+    </article>
+</section>
+
+<section class="layout-grid">
+    <article class="info-card">
+        <div class="section-heading">
+            <div>
+                <h2>Add Or Edit A Task</h2>
+                <p class="text-muted">The same form sends `POST` for new tasks and `PUT` for updates.</p>
+            </div>
+        </div>
+
+        <form id="taskForm" class="task-form">
+            <input type="hidden" id="taskId" />
+
+            <label for="title">Title</label>
+            <input id="title" name="title" maxlength="80" required />
+
+            <label for="category">Category</label>
+            <input id="category" name="category" maxlength="40" required />
+
+            <label for="dueDate">Due Date</label>
+            <input id="dueDate" name="dueDate" type="date" />
+
+            <label for="notes">Notes</label>
+            <textarea id="notes" name="notes" rows="4" maxlength="200"></textarea>
+
+            <label class="checkbox-row" for="isCompleted">
+                <input id="isCompleted" name="isCompleted" type="checkbox" />
+                Mark as completed
+            </label>
+
+            <div class="action-row">
+                <button id="saveButton" class="button button-primary" type="submit">Save Task</button>
+                <button id="resetButton" class="button button-secondary" type="button">Clear Form</button>
+            </div>
+        </form>
+    </article>
+
+    <article class="info-card">
+        <div class="section-heading">
+            <div>
+                <h2>Task List</h2>
+                <p class="text-muted">Only this section refreshes after each API request.</p>
+            </div>
+            <div class="action-row">
+                <button id="loadButton" class="button button-secondary" type="button">Load Tasks</button>
+                <button id="refreshButton" class="button button-secondary" type="button">Refresh Now</button>
+            </div>
+        </div>
+
+        <noscript>
+            <p class="message-panel message-warning">JavaScript must be enabled to use the Fetch API demo.</p>
+        </noscript>
+
+        <div class="table-wrap">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th>Status</th>
+                        <th>Due Date</th>
+                        <th>Updated</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="taskTableBody">
+                    <tr>
+                        <td colspan="6" class="empty-state">Click <strong>Load Tasks</strong> to request data from the API.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </article>
+</section>
+
+<section class="info-panel">
+    <h2>API Endpoints Used On This Page</h2>
+    <ul class="mb-0">
+        <li><code>GET /api/studytasks</code> returns every task as JSON.</li>
+        <li><code>GET /api/studytasks/summary</code> returns the dashboard counts.</li>
+        <li><code>POST /api/studytasks</code> creates a new task and returns <code>201 Created</code>.</li>
+        <li><code>PUT /api/studytasks/{id}</code> updates an existing task.</li>
+        <li><code>DELETE /api/studytasks/{id}</code> removes a task from memory.</li>
+    </ul>
+</section>
+
+@section Scripts {
+    <script src="~/js/fetch-demo.js" asp-append-version="true"></script>
+}

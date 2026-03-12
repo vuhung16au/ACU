@@ -1,0 +1,50 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<section class="hero-panel">
+    <span class="eyebrow">Week 7 Project 01</span>
+    <h1>Use the browser Fetch API to call a local ASP.NET Core JSON API.</h1>
+    <p class="lead">
+        This beginner-friendly project keeps the frontend and backend in one Razor Pages app so students can focus
+        on asynchronous requests, loading states, and dynamic page updates.
+    </p>
+    <div class="action-row">
+        <a class="button button-primary" asp-page="/Tasks">Open The Fetch Demo</a>
+        <a class="button button-secondary" href="/api/studytasks" target="_blank" rel="noreferrer">View Raw JSON</a>
+    </div>
+</section>
+
+<section class="card-grid">
+    <article class="info-card">
+        <h2>What students practise</h2>
+        <ul>
+            <li>Send `GET`, `POST`, `PUT`, and `DELETE` requests with `fetch()`.</li>
+            <li>Render JSON into the page without a full reload.</li>
+            <li>Show loading and error states while waiting for the server.</li>
+            <li>Refresh data automatically with simple polling.</li>
+        </ul>
+    </article>
+
+    <article class="info-card">
+        <h2>Why this app stays simple</h2>
+        <ul>
+            <li>No database is required because tasks live in memory.</li>
+            <li>No external API is required because the backend is local.</li>
+            <li>No JavaScript framework is required because plain Fetch API is enough.</li>
+            <li>No full-page refresh is required because only the task area updates.</li>
+        </ul>
+    </article>
+</section>
+
+<section class="info-panel">
+    <h2>Suggested classroom walkthrough</h2>
+    <ol>
+        <li>Load the task list and inspect the JSON response in DevTools.</li>
+        <li>Create a new task and notice the `201 Created` response.</li>
+        <li>Edit or delete a task and observe how only the table updates.</li>
+        <li>Wait 15 seconds and watch the automatic polling refresh the summary time.</li>
+    </ol>
+</section>

@@ -1,0 +1,33 @@
+@page
+@model PrivacyModel
+@{
+    ViewData["Title"] = "Privacy";
+}
+
+<section class="hero-panel hero-panel-compact">
+    <span class="eyebrow">Privacy And Security</span>
+    <h1>Why this example is safe for classroom use.</h1>
+    <p class="lead mb-0">
+        The project runs locally, stores data in memory for the current session only, and uses no external services or secrets.
+    </p>
+</section>
+
+<section class="card-grid">
+    <article class="info-card">
+        <h2>Data Handling</h2>
+        <ul>
+            <li>Tasks disappear when the app stops because they are not written to a database.</li>
+            <li>No personal student data is required to run the demo.</li>
+            <li>All requests stay inside the local ASP.NET Core application.</li>
+        </ul>
+    </article>
+
+    <article class="info-card">
+        <h2>CORS Note</h2>
+        <ul>
+            <li>A development CORS policy is registered in <code>Program.cs</code>.</li>
+            <li>This prepares students for later examples where frontend and backend use different ports.</li>
+            <li>For this project, requests are same-origin, so no extra browser setup is required.</li>
+        </ul>
+    </article>
+</section>

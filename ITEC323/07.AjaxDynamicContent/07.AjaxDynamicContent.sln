@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01.BasicFetchAPI", "01.BasicFetchAPI\01.BasicFetchAPI.csproj", "{28BA62D1-D866-2718-A383-0746BFFC649E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{28BA62D1-D866-2718-A383-0746BFFC649E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28BA62D1-D866-2718-A383-0746BFFC649E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28BA62D1-D866-2718-A383-0746BFFC649E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28BA62D1-D866-2718-A383-0746BFFC649E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6FA74DF7-D8EE-44A4-8739-93885C9A8F93}
+	EndGlobalSection
+EndGlobal
