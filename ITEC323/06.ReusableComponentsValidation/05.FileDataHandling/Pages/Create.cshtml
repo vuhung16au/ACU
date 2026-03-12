@@ -1,0 +1,58 @@
+@page
+@model CreateModel
+@{
+    ViewData["Title"] = "Add User";
+}
+
+<section class="hero-panel hero-panel-compact mb-4">
+    <span class="eyebrow">Create Form</span>
+    <h1>Validate first, then append the new user to CSV.</h1>
+    <p class="lead mb-0">The form below uses Data Annotations before any file operation runs.</p>
+</section>
+
+@if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+{
+    <section class="alert-panel mb-4">
+        <h2 class="h5">Save Error</h2>
+        <p class="mb-0">@Model.ErrorMessage</p>
+    </section>
+}
+
+<section class="form-panel mb-4">
+    <h2 class="h4">Add New User</h2>
+    <p>This form writes to <code>Data/users.csv</code> using <code>File.AppendAllTextAsync()</code>.</p>
+
+    <form method="post">
+        <div asp-validation-summary="All" class="validation-summary-errors mb-3"></div>
+
+        <div class="mb-3">
+            <label asp-for="NewUser.Name" class="form-label"></label>
+            <input asp-for="NewUser.Name" class="form-control" />
+            <span asp-validation-for="NewUser.Name" class="field-validation-error"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="NewUser.Email" class="form-label"></label>
+            <input asp-for="NewUser.Email" class="form-control" />
+            <span asp-validation-for="NewUser.Email" class="field-validation-error"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="NewUser.Phone" class="form-label"></label>
+            <input asp-for="NewUser.Phone" class="form-control" placeholder="0412345678" />
+            <span asp-validation-for="NewUser.Phone" class="field-validation-error"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="NewUser.DateOfBirth" class="form-label"></label>
+            <input asp-for="NewUser.DateOfBirth" class="form-control" />
+            <span asp-validation-for="NewUser.DateOfBirth" class="field-validation-error"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save User</button>
+    </form>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

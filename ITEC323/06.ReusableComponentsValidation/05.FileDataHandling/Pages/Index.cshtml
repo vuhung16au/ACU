@@ -1,0 +1,39 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<section class="hero-panel mb-4">
+    <span class="eyebrow">Week 6 Project 05</span>
+    <h1>Use files as a simple data source with safe validation and async I/O.</h1>
+    <p class="lead mb-0">
+        This project reads users from a CSV file, displays them in a table, and appends new users after validation.
+    </p>
+</section>
+
+<section class="row g-3 mb-4">
+    <div class="col-md-6">
+        <article class="info-card h-100">
+            <h2 class="h5">View Stored Users</h2>
+            <p>Load user records from <code>Data/users.csv</code> with asynchronous file reading.</p>
+            <a class="btn btn-primary" asp-page="/Users">Open User List</a>
+        </article>
+    </div>
+    <div class="col-md-6">
+        <article class="info-card h-100">
+            <h2 class="h5">Add New User</h2>
+            <p>Validate input, then append a new CSV line using async file writing.</p>
+            <a class="btn btn-outline-primary" asp-page="/Create">Open Create Form</a>
+        </article>
+    </div>
+</section>
+
+<section class="info-panel">
+    <h2 class="h5">What this project teaches</h2>
+    <ul class="mb-0">
+        <li>How to build cross-platform file paths with <code>Path.Combine</code>.</li>
+        <li>How to parse and format CSV data safely.</li>
+        <li>How to handle file errors without crashing the app.</li>
+    </ul>
+</section>

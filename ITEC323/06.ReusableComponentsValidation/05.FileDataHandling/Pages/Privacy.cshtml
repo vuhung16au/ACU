@@ -1,0 +1,20 @@
+﻿@page
+@model PrivacyModel
+@{
+    ViewData["Title"] = "Notes";
+}
+
+<section class="hero-panel hero-panel-compact mb-4">
+    <span class="eyebrow">Extra Notes</span>
+    <h1>Async file access keeps the app responsive while data is loaded or saved.</h1>
+    <p class="lead mb-0">CSV files are simple, but they still need validation and error handling.</p>
+</section>
+
+<section class="info-panel">
+    <h2 class="h5">Remember</h2>
+    <ul class="mb-0">
+        <li>Always validate user input before saving it to a file.</li>
+        <li>Handle missing files and locked files with friendly error messages.</li>
+        <li>Use the same path-building approach on Windows, macOS, and Linux.</li>
+    </ul>
+</section>
