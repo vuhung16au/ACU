@@ -1,0 +1,42 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<section class="hero-panel mb-4">
+    <span class="eyebrow">Week 6 Project 03</span>
+    <h1>Validate forms on both the client and the server.</h1>
+    <p class="lead mb-0">
+        This project shows how Data Annotations define rules, how Tag Helpers display messages, and how
+        <code>ModelState.IsValid</code> protects the server.
+    </p>
+</section>
+
+<section class="mb-4">
+    <div class="row g-3">
+        <div class="col-md-6">
+            <article class="info-card h-100">
+                <h2 class="h5">Registration Form</h2>
+                <p>Create a user profile with name, email, phone, and age validation.</p>
+                <a class="btn btn-primary" asp-page="/Register">Open Registration Form</a>
+            </article>
+        </div>
+        <div class="col-md-6">
+            <article class="info-card h-100">
+                <h2 class="h5">Contact Form</h2>
+                <p>Send a short message with inline field errors and a validation summary.</p>
+                <a class="btn btn-outline-primary" asp-page="/Contact">Open Contact Form</a>
+            </article>
+        </div>
+    </div>
+</section>
+
+<section class="info-panel">
+    <h2 class="h5">What this project teaches</h2>
+    <ul class="mb-0">
+        <li>How `[Required]`, `[EmailAddress]`, `[Phone]`, `[StringLength]`, and `[Range]` work together.</li>
+        <li>How `asp-for`, `asp-validation-for`, and `asp-validation-summary` connect models to Razor forms.</li>
+        <li>Why server-side checks still matter even when client-side validation is enabled.</li>
+    </ul>
+</section>

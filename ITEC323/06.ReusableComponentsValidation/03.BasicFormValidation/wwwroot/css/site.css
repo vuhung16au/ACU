@@ -1,0 +1,129 @@
+:root {
+  --brand-red: #a63d40;
+  --brand-orange: #f28f3b;
+  --brand-cream: #fbf7f0;
+  --brand-ink: #25303b;
+  --brand-border: #d9e2ec;
+}
+
+html {
+  font-size: 16px;
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at top right, rgba(242, 143, 59, 0.14), transparent 26rem),
+    linear-gradient(180deg, #fffdf9 0%, #f6f7fb 100%);
+  color: var(--brand-ink);
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus,
+.form-select:focus,
+.form-control:focus-visible {
+  box-shadow: 0 0 0 0.2rem rgba(166, 61, 64, 0.16);
+  border-color: var(--brand-red);
+}
+
+.site-header,
+.site-footer,
+.hero-panel,
+.info-panel,
+.info-card,
+.form-panel,
+.result-panel {
+  border: 1px solid var(--brand-border);
+  border-radius: 1rem;
+  background-color: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 16px 40px rgba(37, 48, 59, 0.06);
+}
+
+.site-header,
+.site-footer,
+.hero-panel,
+.info-panel,
+.info-card,
+.form-panel,
+.result-panel {
+  padding: 1.5rem;
+}
+
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.site-header a {
+  color: var(--brand-red);
+  text-decoration: none;
+}
+
+.site-header nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.site-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.site-footer {
+  margin-top: 1.5rem;
+  color: #52606d;
+}
+
+.hero-panel {
+  background: linear-gradient(135deg, rgba(166, 61, 64, 0.95), rgba(242, 143, 59, 0.92));
+  color: #fff;
+}
+
+.hero-panel-compact {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
+.eyebrow {
+  display: inline-block;
+  margin-bottom: 0.75rem;
+  color: #ffe8b6;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.info-card p,
+.form-panel p {
+  color: #52606d;
+}
+
+.validation-summary-errors ul {
+  margin-bottom: 0;
+}
+
+.field-validation-error,
+.validation-summary-errors {
+  color: var(--brand-red);
+}
+
+.input-validation-error {
+  border-color: var(--brand-red);
+}
+
+@media (max-width: 767.98px) {
+  .site-header {
+    flex-direction: column;
+    align-items: start;
+  }
+}

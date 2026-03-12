@@ -1,0 +1,52 @@
+@page
+@model ContactModel
+@{
+    ViewData["Title"] = "Contact";
+}
+
+<section class="hero-panel hero-panel-compact mb-4">
+    <span class="eyebrow">Contact Form</span>
+    <h1>Display field-level errors and a validation summary.</h1>
+    <p class="lead mb-0">This page demonstrates a second form using the same validation workflow.</p>
+</section>
+
+<section class="form-panel mb-4">
+    <h2 class="h4">Send a Message</h2>
+    <p>All validation messages come from the <code>ContactMessage</code> model.</p>
+
+    <form method="post" novalidate>
+        <div asp-validation-summary="All" class="validation-summary-errors mb-3"></div>
+
+        <div class="mb-3">
+            <label asp-for="Contact.Name" class="form-label"></label>
+            <input asp-for="Contact.Name" class="form-control" />
+            <span asp-validation-for="Contact.Name" class="field-validation-error"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Contact.Email" class="form-label"></label>
+            <input asp-for="Contact.Email" class="form-control" />
+            <span asp-validation-for="Contact.Email" class="field-validation-error"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Contact.Message" class="form-label"></label>
+            <textarea asp-for="Contact.Message" class="form-control" rows="5"></textarea>
+            <span asp-validation-for="Contact.Message" class="field-validation-error"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Send Message</button>
+    </form>
+</section>
+
+@if (!string.IsNullOrWhiteSpace(Model.SuccessMessage))
+{
+    <section class="result-panel">
+        <h2 class="h5">Success</h2>
+        <p class="mb-0">@Model.SuccessMessage</p>
+    </section>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
