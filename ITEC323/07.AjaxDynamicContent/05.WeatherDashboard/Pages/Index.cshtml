@@ -1,0 +1,48 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<section class="hero-panel">
+    <span class="eyebrow">Week 7 Project 05</span>
+    <h1>Build a local weather dashboard with mock data and automatic refresh.</h1>
+    <p class="lead">
+        This project simulates a weather service locally, then uses Fetch API and polling to keep the dashboard current without any external API.
+    </p>
+    <div class="action-row">
+        <a class="button button-primary" asp-page="/Dashboard">Open The Weather Dashboard</a>
+        <a class="button button-secondary" href="/api/weatherdashboard" target="_blank" rel="noreferrer">View Raw JSON</a>
+    </div>
+</section>
+
+<section class="card-grid">
+    <article class="info-card">
+        <h2>What students practise</h2>
+        <ul>
+            <li>Fetch local weather data from a mock API endpoint.</li>
+            <li>Refresh dashboard panels manually and automatically.</li>
+            <li>Use <code>setInterval()</code> for polling every 15 seconds.</li>
+            <li>Handle loading states and message updates while data changes.</li>
+        </ul>
+    </article>
+
+    <article class="info-card">
+        <h2>Why this stays beginner-friendly</h2>
+        <ul>
+            <li>No external weather API keys are required.</li>
+            <li>All data changes come from a local simulation service.</li>
+            <li>The same endpoint returns everything the dashboard needs.</li>
+        </ul>
+    </article>
+</section>
+
+<section class="info-panel">
+    <h2>Suggested walkthrough</h2>
+    <ol>
+        <li>Load the dashboard and inspect the weather JSON response.</li>
+        <li>Use the manual refresh button to compare the changing values.</li>
+        <li>Wait 15 seconds and watch the dashboard update automatically.</li>
+        <li>Stop the page and confirm the app still works fully offline.</li>
+    </ol>
+</section>

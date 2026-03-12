@@ -1,0 +1,86 @@
+@page
+@model DashboardModel
+@{
+    ViewData["Title"] = "Weather Dashboard";
+}
+
+<section class="hero-panel hero-panel-compact">
+    <span class="eyebrow">Mock Weather Dashboard</span>
+    <h1>Monitor changing local weather data.</h1>
+    <p class="lead mb-0">
+        The dashboard below uses local mock data that changes slightly on each request. A manual button and 15-second polling keep the display current.
+    </p>
+</section>
+
+<section class="status-strip">
+    <div id="messagePanel" class="message-panel hidden" role="status" aria-live="polite"></div>
+    <div id="loadingPanel" class="loading-panel hidden" role="status" aria-live="polite">
+        Loading weather data from the local simulation...
+    </div>
+</section>
+
+<section class="summary-grid">
+    <article class="summary-card">
+        <span class="summary-label">Dashboard Status</span>
+        <strong id="statusMessage">Waiting for data</strong>
+    </article>
+    <article class="summary-card">
+        <span class="summary-label">Last Refresh</span>
+        <strong id="refreshedAt">Not loaded yet</strong>
+    </article>
+    <article class="summary-card">
+        <span class="summary-label">Current Cities</span>
+        <strong id="cityCount">0</strong>
+    </article>
+    <article class="summary-card">
+        <span class="summary-label">Next Auto Refresh</span>
+        <strong>15 seconds</strong>
+    </article>
+</section>
+
+<section class="info-card dashboard-toolbar">
+    <div>
+        <h2>Manual Refresh</h2>
+        <p class="text-muted mb-0">Use this button to request fresh mock data immediately.</p>
+    </div>
+    <button id="refreshButton" class="button button-primary" type="button">Refresh Weather</button>
+</section>
+
+<section class="layout-grid layout-grid-wide">
+    <article class="info-card">
+        <div class="section-heading">
+            <div>
+                <h2>Current Conditions</h2>
+                <p class="text-muted">Each card shows the latest mock weather snapshot for one city.</p>
+            </div>
+        </div>
+        <div id="currentWeatherPanel" class="weather-grid">
+            <p class="empty-state">Weather cards will appear after the first request.</p>
+        </div>
+    </article>
+
+    <article class="info-card">
+        <div class="section-heading">
+            <div>
+                <h2>Three-Day Forecast</h2>
+                <p class="text-muted">The forecast list updates at the same time as the current conditions.</p>
+            </div>
+        </div>
+        <div id="forecastPanel" class="forecast-list">
+            <p class="empty-state">Forecast items will appear after the first request.</p>
+        </div>
+    </article>
+</section>
+
+<section class="info-panel">
+    <h2>Polling Notes</h2>
+    <ul class="mb-0">
+        <li>The page refreshes automatically every 15 seconds using <code>setInterval()</code>.</li>
+        <li>The manual refresh button is still available at any time.</li>
+        <li>The interval is cleared when the page unloads to avoid memory leaks.</li>
+    </ul>
+</section>
+
+@section Scripts {
+    <script src="~/js/weather-dashboard.js" asp-append-version="true"></script>
+}

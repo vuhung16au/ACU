@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - 05.WeatherDashboard</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="site-header">
+        <div class="container shell-header">
+            <a class="brand" asp-page="/Index">05.WeatherDashboard</a>
+            <nav class="site-nav">
+                <a asp-page="/Index">Home</a>
+                <a asp-page="/Dashboard">Weather Dashboard</a>
+                <a asp-page="/Privacy">Privacy</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container page-content">
+        @RenderBody()
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            Week 7 weather dashboard sample with local mock data and polling.
+        </div>
+    </footer>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
