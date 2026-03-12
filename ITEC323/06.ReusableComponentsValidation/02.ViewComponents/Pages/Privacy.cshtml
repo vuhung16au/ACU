@@ -1,0 +1,20 @@
+﻿@page
+@model PrivacyModel
+@{
+    ViewData["Title"] = "Notes";
+}
+
+<section class="hero-panel hero-panel-compact mb-4">
+    <span class="eyebrow">Extra Notes</span>
+    <h1>View Components keep logic and markup together without cluttering the page.</h1>
+    <p class="lead mb-0">Keep each component small, focused, and easy for beginners to follow.</p>
+</section>
+
+<section class="info-panel">
+    <h2 class="h5">Remember</h2>
+    <ul class="mb-0">
+        <li>Use a partial view for simple repeated markup.</li>
+        <li>Use a view component when markup needs supporting C# logic.</li>
+        <li>Render with the tag helper syntax after registering the assembly in <code>_ViewImports.cshtml</code>.</li>
+    </ul>
+</section>

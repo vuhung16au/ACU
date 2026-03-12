@@ -1,0 +1,10 @@
+@model ViewComponentsDemo.Models.UserProfile
+
+<section class="component-card">
+    <h2 class="h5 component-title">User Profile</h2>
+
+    <p class="mb-1"><strong>Name:</strong> @Model.Name</p>
+    <p class="mb-1"><strong>Role:</strong> @Model.Role</p>
+    <p class="mb-1"><strong>Progress:</strong> @Model.CourseProgressPercent%</p>
+    <p class="mb-0"><strong>Next Task:</strong> @Model.NextTask</p>
+</section>

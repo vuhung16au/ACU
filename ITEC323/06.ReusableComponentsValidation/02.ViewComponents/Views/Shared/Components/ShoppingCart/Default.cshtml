@@ -1,0 +1,11 @@
+@model ViewComponentsDemo.Models.ShoppingCartSummary
+
+<section class="component-card">
+    <h2 class="h5 component-title">Shopping Cart</h2>
+
+    <div class="component-stat">@Model.TotalItems</div>
+    <p class="muted-label mb-3">Total items ready for checkout</p>
+
+    <p class="mb-2"><strong>Total Cost:</strong> $@Model.TotalCost.ToString("0.00")</p>
+    <p class="mb-0"><strong>Highest Value Item:</strong> @Model.HighestValueItem</p>
+</section>

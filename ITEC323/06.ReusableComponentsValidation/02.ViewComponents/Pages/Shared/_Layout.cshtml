@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - View Components Demo</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="container py-4">
+        <header class="site-header">
+            <div>
+                <a class="site-title" asp-page="/Index">View Components Demo</a>
+                <div class="text-muted">Reusable UI with C# logic behind each component</div>
+            </div>
+
+            <nav aria-label="Main navigation">
+                <a asp-page="/Index">Home</a>
+                <a asp-page="/Dashboard">Dashboard</a>
+                <a asp-page="/Activity">Activity</a>
+            </nav>
+        </header>
+
+        <main role="main">
+            @RenderBody()
+        </main>
+
+        <footer class="site-footer">
+            <div class="d-flex flex-column flex-md-row justify-content-between gap-2">
+                <span>&copy; 2026 ACU ITEC323 View Components example</span>
+                <span>Components on this site are rendered with the <code>&lt;vc:...&gt;</code> tag helper syntax.</span>
+            </div>
+        </footer>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

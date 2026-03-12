@@ -1,0 +1,43 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<section class="hero-panel mb-4">
+    <span class="eyebrow">Week 6 Project 02</span>
+    <h1>Use View Components when reusable UI also needs backend logic.</h1>
+    <p class="lead mb-0">
+        These examples fetch data in C#, prepare a model, and render the result through a reusable Razor view.
+    </p>
+</section>
+
+<section class="mb-4">
+    <div class="section-heading">
+        <div>
+            <h2 class="h4 mb-1">Starter Dashboard</h2>
+            <p class="text-muted mb-0">This page combines all three view components in one layout.</p>
+        </div>
+    </div>
+
+    <div class="row g-3">
+        <div class="col-lg-4">
+            <vc:shopping-cart></vc:shopping-cart>
+        </div>
+        <div class="col-lg-4">
+            <vc:user-profile user-id="@Model.UserId"></vc:user-profile>
+        </div>
+        <div class="col-lg-4">
+            <vc:recent-items user-id="@Model.UserId" max-items="3"></vc:recent-items>
+        </div>
+    </div>
+</section>
+
+<section class="info-panel">
+    <h2 class="h5">Why not use a partial here?</h2>
+    <ul class="mb-0">
+        <li>The shopping cart calculates totals before rendering.</li>
+        <li>The user profile loads a specific record using a parameter.</li>
+        <li>The recent items component filters and limits data in C#.</li>
+    </ul>
+</section>
