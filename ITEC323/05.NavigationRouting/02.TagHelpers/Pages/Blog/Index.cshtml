@@ -1,0 +1,31 @@
+@page
+@model TagHelpers.Pages.Blog.IndexModel
+@{
+    ViewData["Title"] = "Blog";
+}
+
+<section class="panel">
+    <h2>Multiple route parameters with Tag Helpers</h2>
+    <p>
+        Blog links often need more than one value. Here, each link is built with
+        <code>asp-route-year</code>, <code>asp-route-month</code>, and <code>asp-route-slug</code>.
+    </p>
+</section>
+
+<section class="post-list">
+    @foreach (var post in Model.Posts)
+    {
+        <article class="post-item">
+            <h3>@post.Title</h3>
+            <p class="meta">@post.Year / @post.Month | slug: @post.Slug</p>
+            <p>@post.Summary</p>
+            <a class="button-link"
+               asp-page="/Blog/Post"
+               asp-route-year="@post.Year"
+               asp-route-month="@post.Month"
+               asp-route-slug="@post.Slug">
+                Open friendly URL
+            </a>
+        </article>
+    }
+</section>

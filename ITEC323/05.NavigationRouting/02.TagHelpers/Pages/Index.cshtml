@@ -1,0 +1,115 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Tag Helpers Overview";
+}
+
+<section class="hero panel">
+    <div>
+        <h2>Tag Helpers generate URLs for you</h2>
+        <p>
+            Instead of writing fragile hardcoded links, Razor Pages Tag Helpers build links from routes and page names.
+            This keeps navigation correct when routes change.
+        </p>
+        <p>
+            In this project you will use <code>asp-page</code>, <code>asp-route-*</code>, and
+            <code>asp-page-handler</code> in realistic examples.
+        </p>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat">
+            <strong>3</strong>
+            core Tag Helpers
+        </div>
+        <div class="stat">
+            <strong>6+</strong>
+            navigation samples
+        </div>
+        <div class="stat">
+            <strong>1</strong>
+            page handler demo
+        </div>
+    </div>
+</section>
+
+<table class="route-table" aria-label="Route mapping examples">
+    <thead>
+        <tr>
+            <th>Need</th>
+            <th>Hardcoded Link</th>
+            <th>Tag Helper Link</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Simple page navigation</td>
+            <td><code>&lt;a href="/About"&gt;About&lt;/a&gt;</code></td>
+            <td><code>&lt;a asp-page="/About"&gt;About&lt;/a&gt;</code></td>
+        </tr>
+        <tr>
+            <td>Single route parameter</td>
+            <td><code>&lt;a href="/Products/Details/5"&gt;Details&lt;/a&gt;</code></td>
+            <td><code>&lt;a asp-page="/Products/Details" asp-route-id="5"&gt;Details&lt;/a&gt;</code></td>
+        </tr>
+        <tr>
+            <td>Multiple route parameters</td>
+            <td><code>&lt;a href="/Blog/2026/3/my-post"&gt;Post&lt;/a&gt;</code></td>
+            <td><code>&lt;a asp-page="/Blog/Post" asp-route-year="2026" asp-route-month="3" asp-route-slug="my-post"&gt;Post&lt;/a&gt;</code></td>
+        </tr>
+        <tr>
+            <td>Named page handler</td>
+            <td><code>&lt;a href="/Products/Edit?handler=Preview&amp;id=2"&gt;Preview&lt;/a&gt;</code></td>
+            <td><code>&lt;a asp-page="/Products/Edit" asp-page-handler="Preview" asp-route-id="2"&gt;Preview&lt;/a&gt;</code></td>
+        </tr>
+    </tbody>
+</table>
+
+<section class="two-column">
+    <article class="panel">
+        <h3>Why use Tag Helpers?</h3>
+        <ol class="definition-list">
+            <li>Avoids broken links when route templates change.</li>
+            <li>Keeps route values explicit through <code>asp-route-*</code> attributes.</li>
+            <li>Works naturally with Razor Pages handlers.</li>
+            <li>Makes links easier to read and maintain in teams.</li>
+        </ol>
+    </article>
+
+    <article class="panel">
+        <h3>Try these live examples</h3>
+        <ul class="example-list">
+            <li><a asp-page="/About">asp-page: About</a></li>
+            <li><a asp-page="/Products/Details" asp-route-id="1">asp-route-id: Product 1 details</a></li>
+            <li><a asp-page="/Products/Edit" asp-route-id="3">asp-route-id: Edit Product 3</a></li>
+            <li><a asp-page="/Blog/Post" asp-route-year="2026" asp-route-month="3" asp-route-slug="getting-started-with-routing">Multiple asp-route-* values</a></li>
+            <li><a asp-page="/Products/Edit" asp-page-handler="Preview" asp-route-id="2">asp-page-handler: Preview Product 2</a></li>
+        </ul>
+    </article>
+</section>
+
+<section class="card-grid">
+    <article class="panel">
+        <h3>asp-page</h3>
+        <p>Targets a Razor Page by path instead of hardcoding URLs.</p>
+        <a class="button-link" asp-page="/Products/Index">Open products list</a>
+    </article>
+
+    <article class="panel">
+        <h3>asp-route-*</h3>
+        <p>Pass route values cleanly without manually concatenating strings.</p>
+        <a class="button-link" asp-page="/Products/Details" asp-route-id="2">Open product details</a>
+    </article>
+
+    <article class="panel">
+        <h3>Multiple route values</h3>
+        <p>Use several <code>asp-route-*</code> attributes to build friendly URLs.</p>
+        <a class="button-link" asp-page="/Blog/Post" asp-route-year="2026" asp-route-month="3" asp-route-slug="getting-started-with-routing">Open blog post</a>
+    </article>
+    
+    <article class="panel">
+        <h3>asp-page-handler</h3>
+        <p>Invoke a named page handler without hardcoding query strings.</p>
+        <a class="button-link" asp-page="/Products/Edit" asp-page-handler="Preview" asp-route-id="1">Open preview handler</a>
+    </article>
+</section>

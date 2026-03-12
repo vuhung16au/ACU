@@ -1,0 +1,48 @@
+@page
+@model AboutModel
+@{
+    ViewData["Title"] = "About Routing";
+}
+
+<section class="panel">
+    <h2>About this project</h2>
+    <p>
+        This project focuses on the routing rules that Razor Pages applies before any page content is rendered.
+        The goal is to make the relationship between <code>URLs</code>, <code>Pages</code>, and <code>OnGet(...)</code>
+        methods easy to see.
+    </p>
+</section>
+
+<section class="two-column">
+    <article class="panel">
+        <h3>Routing conventions used here</h3>
+        <ul class="link-list">
+            <li><code>Pages/Index.cshtml</code> maps to <code>/</code>.</li>
+            <li><code>Pages/About.cshtml</code> maps to <code>/About</code>.</li>
+            <li><code>Pages/Products/Index.cshtml</code> maps to <code>/Products</code>.</li>
+            <li>The <code>@@page</code> directive can add route parameters and constraints.</li>
+        </ul>
+    </article>
+
+    <article class="panel">
+        <h3>Constraint examples</h3>
+        <ul class="link-list">
+            <li><strong>Integer:</strong> <code>@@page "{id:int}"</code></li>
+            <li><strong>Optional:</strong> <code>@@page "{id:int?}"</code></li>
+            <li><strong>Regex:</strong> <code>@@page "{code:regex(^ITEC[0-9][0-9][0-9]$)}"</code></li>
+            <li><strong>Custom:</strong> <code>@@page "{year:int}/{month:int:range(1,12)}/{slug:slug}"</code></li>
+        </ul>
+    </article>
+</section>
+
+<section class="panel">
+    <h3>Why teach routing first?</h3>
+    <p>
+        Students often create links before understanding how a page is discovered. By learning routing first,
+        the next project on Tag Helpers becomes much easier because you already know what URL pattern each page expects.
+    </p>
+    <div class="button-row">
+        <a class="button-link" asp-page="/Products/Details" asp-route-id="1">See a required route value</a>
+        <a class="button-link secondary" href="/Blog/2026/4/why-friendly-urls-matter">See a friendly blog route</a>
+    </div>
+</section>

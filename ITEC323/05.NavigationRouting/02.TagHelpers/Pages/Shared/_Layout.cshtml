@@ -1,0 +1,56 @@
+﻿@{
+    var currentPath = Context.Request.Path.Value ?? string.Empty;
+
+    string GetLinkClass(string pathPrefix)
+    {
+        if (pathPrefix == "/")
+        {
+            return string.Equals(currentPath, "/", StringComparison.OrdinalIgnoreCase)
+                ? "nav-link active"
+                : "nav-link";
+        }
+
+        return currentPath.StartsWith(pathPrefix, StringComparison.OrdinalIgnoreCase)
+            ? "nav-link active"
+            : "nav-link";
+    }
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Tag Helpers</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+    <div class="site-shell">
+        <header class="site-header">
+            <div>
+                <p class="eyebrow">05.NavigationRouting</p>
+                <h1>02.TagHelpers</h1>
+                <p class="site-summary">Generate dynamic, route-safe links with asp-page, asp-route-*, and asp-page-handler.</p>
+            </div>
+
+            <nav aria-label="Primary navigation" class="site-nav">
+                <a class="@GetLinkClass("/")" asp-page="/Index">Home</a>
+                <a class="@GetLinkClass("/About")" asp-page="/About">About</a>
+                <a class="@GetLinkClass("/Products")" asp-page="/Products/Index">Products</a>
+                <a class="@GetLinkClass("/Blog")" asp-page="/Blog/Index">Blog</a>
+                <a class="@GetLinkClass("/Products/Edit")" asp-page="/Products/Edit" asp-page-handler="Preview" asp-route-id="1">Handler Demo</a>
+            </nav>
+        </header>
+
+        <main>
+            @RenderBody()
+        </main>
+
+        <footer class="site-footer">
+            <p>&copy; 2026 TagHelpers. This project focuses on dynamic URL generation with navigation Tag Helpers.</p>
+        </footer>
+    </div>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,29 @@
+@page
+@model TagHelpers.Pages.Products.IndexModel
+@{
+    ViewData["Title"] = "Products";
+}
+
+<section class="panel">
+    <h2>Tag Helper navigation examples</h2>
+    <p>
+        This page demonstrates three common patterns:
+        <code>asp-page</code>, <code>asp-route-id</code>, and <code>asp-page-handler</code>.
+    </p>
+</section>
+
+<section class="product-list">
+    @foreach (var product in Model.Products)
+    {
+        <article class="product-item">
+            <h3>@product.Name</h3>
+            <p class="meta">Category: @product.Category | Price: @product.Price.ToString("C")</p>
+            <p>@product.Summary</p>
+            <div class="button-row">
+                <a class="button-link" asp-page="/Products/Details" asp-route-id="@product.Id">View details</a>
+                <a class="button-link secondary" asp-page="/Products/Edit" asp-route-id="@product.Id">Edit route</a>
+                <a class="button-link secondary" asp-page="/Products/Edit" asp-page-handler="Preview" asp-route-id="@product.Id">Preview handler</a>
+            </div>
+        </article>
+    }
+</section>
