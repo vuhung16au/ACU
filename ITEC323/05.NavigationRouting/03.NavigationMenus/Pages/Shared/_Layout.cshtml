@@ -1,0 +1,104 @@
+﻿@{
+    var currentPath = Context.Request.Path.Value ?? string.Empty;
+
+    bool IsActive(string pathPrefix)
+    {
+        if (pathPrefix == "/")
+        {
+            return string.Equals(currentPath, "/", StringComparison.OrdinalIgnoreCase);
+        }
+
+        return currentPath.StartsWith(pathPrefix, StringComparison.OrdinalIgnoreCase);
+    }
+
+    string NavClass(string pathPrefix)
+    {
+        return IsActive(pathPrefix) ? "nav-link active" : "nav-link";
+    }
+
+    bool productsMenuActive = IsActive("/Products");
+    bool blogMenuActive = IsActive("/Blog");
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Navigation Menus</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm" aria-label="Primary navigation">
+            <div class="container-fluid">
+                <a class="navbar-brand fw-semibold" asp-page="/Index">NR | 03.NavigationMenus</a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="mainNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="@NavClass("/")" asp-page="/Index">Home</a>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle @(productsMenuActive ? "active" : string.Empty)" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Products
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" asp-page="/Products/Index">All Products</a></li>
+                                <li><a class="dropdown-item" asp-page="/Products/Category" asp-route-name="Computers">Computers</a></li>
+                                <li><a class="dropdown-item" asp-page="/Products/Category" asp-route-name="Audio">Audio</a></li>
+                                <li><a class="dropdown-item" asp-page="/Products/Category" asp-route-name="Accessories">Accessories</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle @(blogMenuActive ? "active" : string.Empty)" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Blog
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" asp-page="/Blog/Index">Recent Posts</a></li>
+                                <li><a class="dropdown-item" asp-page="/Blog/Categories">Categories</a></li>
+                                <li><a class="dropdown-item" asp-page="/Blog/Archive" asp-route-year="2026">Archive 2026</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="@NavClass("/Courses")" asp-page="/Courses/Lookup" asp-route-code="ITEC323">Courses</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="@NavClass("/About")" asp-page="/About">About</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="@NavClass("/Contact")" asp-page="/Contact">Contact</a>
+                        </li>
+                    </ul>
+
+                    <span class="navbar-text small text-white-50">Responsive Bootstrap Menu Demo</span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container py-4">
+        <div class="mb-3 small text-secondary fw-semibold">05.NavigationRouting / 03.NavigationMenus</div>
+        @RenderBody()
+    </main>
+
+    <footer class="border-top bg-light">
+        <div class="container py-3 small text-secondary">
+            Demonstrates Bootstrap navbar, dropdown menus, mobile toggler, and active link highlighting.
+        </div>
+    </footer>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

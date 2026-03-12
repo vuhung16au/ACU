@@ -1,0 +1,49 @@
+@page "{id:int?}"
+@model NavigationMenus.Pages.Products.EditModel
+@{
+    ViewData["Title"] = "Edit Product";
+}
+
+@if (Model.Product is null)
+{
+    <section class="empty-state">
+        <h2>asp-page-handler example</h2>
+        <p>
+            This page has an optional route parameter and a named page handler.
+            Use <code>asp-page-handler="Preview"</code> to invoke <code>OnGetPreview(int id)</code>.
+        </p>
+        <div class="button-row">
+            <a class="button-link" asp-page="/Products/Edit" asp-route-id="1">Edit product 1</a>
+            <a class="button-link secondary" asp-page="/Products/Edit" asp-route-id="2">Edit product 2</a>
+            <a class="button-link secondary" asp-page="/Products/Edit" asp-page-handler="Preview" asp-route-id="2">Preview product 2</a>
+        </div>
+    </section>
+}
+else
+{
+    <article class="detail-card">
+        <h2>@Model.Mode mode</h2>
+        <p><span class="route-chip">Route value</span> <code>id = @Model.Product.Id</code></p>
+        <p>
+            The current URL was generated with Tag Helpers. In preview mode, the URL includes
+            <code>?handler=Preview</code> automatically.
+        </p>
+
+        <h3>@Model.Product.Name</h3>
+        <p class="meta">Category: @Model.Product.Category | Price: @Model.Product.Price.ToString("C")</p>
+        <p>@Model.Product.Summary</p>
+
+        <div class="code-sample">
+            <strong>Compare generated links</strong>
+            <ul class="link-list">
+                <li><code>&lt;a asp-page="/Products/Edit" asp-route-id="@Model.Product.Id"&gt;Edit&lt;/a&gt;</code></li>
+                <li><code>&lt;a asp-page="/Products/Edit" asp-page-handler="Preview" asp-route-id="@Model.Product.Id"&gt;Preview&lt;/a&gt;</code></li>
+            </ul>
+        </div>
+
+        <div class="button-row">
+            <a class="button-link" asp-page="/Products/Edit" asp-route-id="@Model.Product.Id">Open edit mode</a>
+            <a class="button-link secondary" asp-page="/Products/Edit" asp-page-handler="Preview" asp-route-id="@Model.Product.Id">Open preview mode</a>
+        </div>
+    </article>
+}

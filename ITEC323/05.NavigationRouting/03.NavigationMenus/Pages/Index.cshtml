@@ -1,0 +1,101 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Navigation Menus Overview";
+}
+
+<section class="p-4 p-md-5 mb-4 bg-white border rounded-3 shadow-sm">
+    <div class="row g-4 align-items-center">
+        <div class="col-lg-8">
+            <h2 class="display-6 fw-bold mb-3">Bootstrap Navigation Menus in Razor Pages</h2>
+            <p class="lead mb-2">
+                This project demonstrates a responsive navbar with dropdown menus, active link highlighting,
+                and mobile-friendly behavior using Bootstrap 5.
+            </p>
+            <p class="mb-0 text-secondary">
+                Open this site on desktop and mobile widths to observe menu behavior and accessibility attributes.
+            </p>
+        </div>
+        <div class="col-lg-4">
+            <div class="row g-2 text-center">
+                <div class="col-6">
+                    <div class="bg-light border rounded p-3">
+                        <div class="h4 mb-1">2</div>
+                        <div class="small text-secondary">Dropdown Menus</div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="bg-light border rounded p-3">
+                        <div class="h4 mb-1">6</div>
+                        <div class="small text-secondary">Top-Level Links</div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="bg-light border rounded p-3">
+                        <div class="h4 mb-1">100%</div>
+                        <div class="small text-secondary">Bootstrap Responsive</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="row g-3 mb-4">
+    <div class="col-md-6">
+        <article class="h-100 p-4 bg-white border rounded-3 shadow-sm">
+            <h3 class="h5">Acceptance Criteria Coverage</h3>
+            <ul class="mb-0">
+                <li>Bootstrap navbar with brand and collapse toggler</li>
+                <li>At least 2 dropdown menus (Products, Blog)</li>
+                <li>Active link state for current page</li>
+                <li>Navigation works at desktop and mobile breakpoints</li>
+                <li>Menu items built with Razor Pages Tag Helpers</li>
+            </ul>
+        </article>
+    </div>
+    <div class="col-md-6">
+        <article class="h-100 p-4 bg-white border rounded-3 shadow-sm">
+            <h3 class="h5">Try These Menu Paths</h3>
+            <ul class="mb-0">
+                <li><a asp-page="/Products/Category" asp-route-name="Computers">Products > Computers</a></li>
+                <li><a asp-page="/Products/Category" asp-route-name="Audio">Products > Audio</a></li>
+                <li><a asp-page="/Blog/Categories">Blog > Categories</a></li>
+                <li><a asp-page="/Blog/Archive" asp-route-year="2026">Blog > Archive 2026</a></li>
+                <li><a asp-page="/Contact">Contact page link</a></li>
+            </ul>
+        </article>
+    </div>
+</section>
+
+<section class="p-4 bg-white border rounded-3 shadow-sm">
+    <h3 class="h5">Menu Design Notes</h3>
+    <div class="table-responsive">
+        <table class="table table-sm align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>Component</th>
+                    <th>Implementation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Navbar</td>
+                    <td><code>navbar navbar-expand-lg navbar-dark bg-primary</code></td>
+                </tr>
+                <tr>
+                    <td>Mobile menu</td>
+                    <td><code>navbar-toggler</code> + collapse target <code>#mainNav</code></td>
+                </tr>
+                <tr>
+                    <td>Dropdown menus</td>
+                    <td><code>nav-item dropdown</code> with <code>dropdown-menu</code></td>
+                </tr>
+                <tr>
+                    <td>Active state</td>
+                    <td>Path-prefix checks in shared layout helper</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>

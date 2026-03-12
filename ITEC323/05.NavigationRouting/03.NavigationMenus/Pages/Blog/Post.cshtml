@@ -1,0 +1,24 @@
+@page "/Blog/{year:int:min(2000)}/{month:int:range(1,12)}/{slug:slug}"
+@model NavigationMenus.Pages.Blog.PostModel
+@{
+    ViewData["Title"] = "Blog Post";
+}
+
+<article class="detail-card">
+    <h2>@Model.Post!.Title</h2>
+    <p class="meta">Published @Model.Post.Year / @Model.Post.Month</p>
+    <p>@Model.Post.Summary</p>
+
+    <div class="code-sample">
+        <strong>Route template</strong>
+        <p><code>@@page "{year:int:min(2000)}/{month:int:range(1,12)}/{slug:slug}"</code></p>
+        <p>
+            The <code>year</code> and <code>month</code> values use built-in constraints.
+            The <code>slug</code> part uses the custom constraint registered in <code>Program.cs</code>.
+        </p>
+    </div>
+
+    <div class="button-row">
+        <a class="button-link secondary" asp-page="/Blog/Index">Back to blog list</a>
+    </div>
+</article>

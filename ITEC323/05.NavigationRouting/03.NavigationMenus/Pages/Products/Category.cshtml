@@ -1,0 +1,26 @@
+@page "{name}"
+@model NavigationMenus.Pages.Products.CategoryModel
+@{
+    ViewData["Title"] = $"Category - {Model.CategoryName}";
+}
+
+<section class="p-4 bg-white border rounded-3 shadow-sm mb-3">
+    <h2 class="h4">Category: @Model.CategoryName</h2>
+    <p class="mb-0 text-secondary">
+        This page is reached from the Products dropdown menu and demonstrates child navigation paths.
+    </p>
+</section>
+
+<section class="row g-3">
+    @foreach (var product in Model.Products)
+    {
+        <div class="col-md-6">
+            <article class="p-3 bg-white border rounded-3 h-100">
+                <h3 class="h6">@product.Name</h3>
+                <p class="small text-secondary mb-2">@product.Category | @product.Price.ToString("C")</p>
+                <p class="mb-3">@product.Summary</p>
+                <a class="btn btn-sm btn-outline-primary" asp-page="/Products/Details" asp-route-id="@product.Id">View details</a>
+            </article>
+        </div>
+    }
+</section>

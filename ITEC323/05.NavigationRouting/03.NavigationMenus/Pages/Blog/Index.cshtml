@@ -1,0 +1,31 @@
+@page
+@model NavigationMenus.Pages.Blog.IndexModel
+@{
+    ViewData["Title"] = "Blog Menu Section";
+}
+
+<section class="p-4 bg-white border rounded-3 shadow-sm mb-3">
+    <h2 class="h4">Blog Section</h2>
+    <p>
+        This page is accessed from the <strong>Blog</strong> dropdown.
+        Use this section with <em>Categories</em> and <em>Archive</em> to demonstrate grouped menu navigation.
+    </p>
+</section>
+
+<section class="post-list">
+    @foreach (var post in Model.Posts)
+    {
+        <article class="post-item">
+            <h3>@post.Title</h3>
+            <p class="meta">@post.Year / @post.Month | slug: @post.Slug</p>
+            <p>@post.Summary</p>
+            <a class="button-link"
+               asp-page="/Blog/Post"
+               asp-route-year="@post.Year"
+               asp-route-month="@post.Month"
+               asp-route-slug="@post.Slug">
+                Open friendly URL
+            </a>
+        </article>
+    }
+</section>

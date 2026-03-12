@@ -1,0 +1,29 @@
+@page
+@model NavigationMenus.Pages.Products.IndexModel
+@{
+    ViewData["Title"] = "Products Menu Section";
+}
+
+<section class="p-4 bg-white border rounded-3 shadow-sm mb-3">
+    <h2 class="h4">Products Section</h2>
+    <p>
+        This page is a destination from the <strong>Products</strong> dropdown in the top navbar.
+        It demonstrates grouped navigation from parent menu to child links.
+    </p>
+</section>
+
+<section class="product-list">
+    @foreach (var product in Model.Products)
+    {
+        <article class="product-item">
+            <h3>@product.Name</h3>
+            <p class="meta">Category: @product.Category | Price: @product.Price.ToString("C")</p>
+            <p>@product.Summary</p>
+            <div class="button-row">
+                <a class="button-link" asp-page="/Products/Details" asp-route-id="@product.Id">View details</a>
+                <a class="button-link secondary" asp-page="/Products/Edit" asp-route-id="@product.Id">Edit route</a>
+                <a class="button-link secondary" asp-page="/Products/Edit" asp-page-handler="Preview" asp-route-id="@product.Id">Preview handler</a>
+            </div>
+        </article>
+    }
+</section>
