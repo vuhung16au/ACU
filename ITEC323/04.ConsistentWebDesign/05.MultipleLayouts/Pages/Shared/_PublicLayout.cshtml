@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title - Multiple Layouts</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+    @RenderSection("Styles", required: false)
+</head>
+<body class="layout-public">
+    <header class="public-header">
+        <div class="shell">
+            <h1>Multiple Layouts Demo</h1>
+            <p>Public pages use the default layout from the root _ViewStart.cshtml.</p>
+            <nav aria-label="Public navigation" class="nav-list">
+                <a href="/">Home</a>
+                <a href="/About">About</a>
+                <a href="/Print">Print View</a>
+                <a href="/Admin">Admin</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="shell main-area">
+        @RenderBody()
+    </main>
+
+    <footer class="public-footer">
+        <div class="shell">
+            <p>&copy; @DateTime.Now.Year Public layout</p>
+        </div>
+    </footer>
+
+    @if (IsSectionDefined("PageScripts"))
+    {
+        @RenderSection("PageScripts", required: false)
+    }
+</body>
+</html>

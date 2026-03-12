@@ -182,7 +182,7 @@ Acceptance Criteria:
 - Same functionality as BootstrapTheme
 - Side-by-side comparison capability
 
-### TODO: 04.PartialViews
+### 04.PartialViews
 - At least 5 partial views (nav, footer, sidebar, card, alert)
 - Demonstrates data passing to partials
 - Shows when/why to create partials

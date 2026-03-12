@@ -1,0 +1,38 @@
+@page
+@model AboutModel
+@{
+    ViewBag.Title = "About";
+}
+
+<section class="panel">
+    <h2>Public layout details</h2>
+    <p>This page stays on the public layout but adds page-specific script content through an optional section.</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Scenario</th>
+                <th>Technique</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Whole site default</td>
+                <td>Root `_ViewStart.cshtml`</td>
+            </tr>
+            <tr>
+                <td>Whole section override</td>
+                <td>Folder `_ViewStart.cshtml`</td>
+            </tr>
+            <tr>
+                <td>Single page override</td>
+                <td>Set `Layout` inside the page</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+@section PageScripts {
+    <script>
+        console.log('About page loaded with the public layout.');
+    </script>
+}

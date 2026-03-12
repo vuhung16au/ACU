@@ -1,0 +1,35 @@
+@page
+@model IndexModel
+@{
+    ViewBag.Title = "Home";
+}
+
+<section class="panel">
+    <h2>One app, multiple shells</h2>
+    <p>This home page uses the public layout because the root <code>_ViewStart.cshtml</code> sets <code>Layout = "_PublicLayout"</code>.</p>
+    <ul>
+        <li>Public pages use the default public layout.</li>
+        <li>Admin pages switch layouts at folder level.</li>
+        <li>The print page overrides the layout directly on the page.</li>
+    </ul>
+    <div class="link-row">
+        <a class="button-link" href="/About">See public section details</a>
+        <a class="button-link secondary" href="/Admin">Open admin area</a>
+        <a class="button-link tertiary" href="/Print">Open print view</a>
+    </div>
+</section>
+
+<section class="panel grid-two">
+    <article>
+        <h3>Layout priority</h3>
+        <ol>
+            <li>Page-level layout setting</li>
+            <li>Nearest folder `_ViewStart.cshtml`</li>
+            <li>Parent folder `_ViewStart.cshtml`</li>
+        </ol>
+    </article>
+    <article>
+        <h3>Why it matters</h3>
+        <p>You can keep the same routing model while changing the surrounding chrome for different sections of the app.</p>
+    </article>
+</section>

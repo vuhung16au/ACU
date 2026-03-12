@@ -1,0 +1,15 @@
+@model AlertViewModel
+@{
+    var toneClass = Model.Tone.ToLowerInvariant() switch
+    {
+        "success" => "alert alert-success",
+        "warning" => "alert alert-warning",
+        "danger" => "alert alert-danger",
+        _ => "alert alert-info"
+    };
+}
+
+<aside class="@toneClass" role="alert">
+    <h3>@Model.Title</h3>
+    <p>@Model.Message</p>
+</aside>

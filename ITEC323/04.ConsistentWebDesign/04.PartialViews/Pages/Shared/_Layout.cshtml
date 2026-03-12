@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title - Partial Views Demo</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+    <header class="site-header">
+        <div class="shell">
+            <h1>Partial Views Demo</h1>
+            <p>Reusable UI with Razor Pages and the DRY principle.</p>
+            <partial name="_Navigation" />
+        </div>
+    </header>
+
+    <main class="shell site-main">
+        @RenderBody()
+    </main>
+
+    <partial name="_Footer" />
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

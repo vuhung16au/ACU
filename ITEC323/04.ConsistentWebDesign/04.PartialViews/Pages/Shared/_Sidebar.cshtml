@@ -1,0 +1,12 @@
+@model SidebarViewModel
+
+<aside class="sidebar-box">
+    <h3>@Model.Title</h3>
+    <p>@Model.Description</p>
+    <ul>
+        @foreach (var item in Model.Items)
+        {
+            <li>@item</li>
+        }
+    </ul>
+</aside>

@@ -1,0 +1,42 @@
+@page
+@model IndexModel
+@{
+    ViewBag.Title = "Home";
+}
+
+<section class="page-panel">
+    <h2>Build pages from reusable pieces</h2>
+    <p>
+        This sample keeps the overall layout simple and uses partial views for repeated fragments.
+        The layout includes shared navigation and footer partials, while this page renders alert,
+        card, and sidebar partials with page-specific data.
+    </p>
+</section>
+
+<partial name="_Alert" model="Model.WelcomeAlert" />
+
+<section class="page-grid">
+    <div class="content-stack">
+        <section class="page-panel">
+            <h2>Feature cards</h2>
+            <p>Each card below uses the same partial view and a different model.</p>
+            <div class="card-grid">
+                @foreach (var card in Model.FeatureCards)
+                {
+                    <partial name="_FeatureCard" model="card" />
+                }
+            </div>
+        </section>
+
+        <section class="page-panel">
+            <h2>When to extract a partial</h2>
+            <ul>
+                <li>The same markup appears in more than one place.</li>
+                <li>The fragment has a clear job, like an alert or a card.</li>
+                <li>You want consistent HTML and styling with less maintenance.</li>
+            </ul>
+        </section>
+    </div>
+
+    <partial name="_Sidebar" model="Model.Sidebar" />
+</section>

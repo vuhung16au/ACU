@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title - Admin Layout</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+    @RenderSection("Styles", required: false)
+</head>
+<body class="layout-admin">
+    <div class="admin-shell">
+        <aside class="admin-sidebar">
+            <h1>Admin Area</h1>
+            <p>Pages inside `Pages/Admin` inherit this layout.</p>
+            <nav aria-label="Admin navigation" class="admin-nav">
+                <a href="/Admin">Dashboard</a>
+                <a href="/Admin/Reports">Reports</a>
+                <a href="/">Back to site</a>
+            </nav>
+        </aside>
+
+        <div class="admin-content-wrap">
+            <header class="admin-header">
+                <strong>@ViewBag.Title</strong>
+                <span>Folder-level layout override in action</span>
+            </header>
+
+            <main class="admin-content">
+                @RenderBody()
+            </main>
+
+            @if (IsSectionDefined("AdminTools"))
+            {
+                <section class="admin-tools">
+                    @RenderSection("AdminTools", required: false)
+                </section>
+            }
+        </div>
+    </div>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

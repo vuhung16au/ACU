@@ -1,0 +1,16 @@
+@page
+@model PrintModel
+@{
+    Layout = "_PrintLayout";
+    ViewBag.Title = "Print";
+}
+
+<section class="print-content">
+    <h1>Printable Summary</h1>
+    <p>This page overrides the layout directly, so it does not use the public or admin shell.</p>
+    <ul>
+        <li>Generated: @Model.GeneratedAt</li>
+        <li>Layout source: page-level override</li>
+        <li>Purpose: clean output for printing or export</li>
+    </ul>
+</section>

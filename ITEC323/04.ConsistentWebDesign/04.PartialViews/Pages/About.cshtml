@@ -1,0 +1,64 @@
+@page
+@model AboutModel
+@{
+    ViewBag.Title = "About";
+}
+
+<section class="page-panel">
+    <h2>About this sample</h2>
+    <p>
+        Partial views are best for repeated HTML fragments that do not need their own route.
+        They help you keep layouts and pages small while still sharing UI across the app.
+    </p>
+</section>
+
+<partial name="_Alert" model="Model.PageAlert" />
+
+<section class="page-grid">
+    <div class="content-stack">
+        <section class="page-panel">
+            <h2>What belongs in a partial?</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Good fit</th>
+                        <th>Why</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Navigation</td>
+                        <td>Shared across all pages.</td>
+                    </tr>
+                    <tr>
+                        <td>Footer</td>
+                        <td>One file controls the repeated closing content.</td>
+                    </tr>
+                    <tr>
+                        <td>Alert</td>
+                        <td>Same markup, different message and tone.</td>
+                    </tr>
+                    <tr>
+                        <td>Card</td>
+                        <td>Consistent structure with different data.</td>
+                    </tr>
+                    <tr>
+                        <td>Sidebar</td>
+                        <td>Reusable supporting content for multiple pages.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="page-panel">
+            <h2>What should stay as a page?</h2>
+            <ul>
+                <li>Anything that needs its own route, like Home or Contact.</li>
+                <li>Views with page-specific handlers and page model logic.</li>
+                <li>Content that is unique enough that reuse would add noise.</li>
+            </ul>
+        </section>
+    </div>
+
+    <partial name="_Sidebar" model="Model.Sidebar" />
+</section>

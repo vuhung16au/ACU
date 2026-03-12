@@ -1,0 +1,255 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #1f2937;
+}
+
+a {
+    color: inherit;
+}
+
+code {
+    background: #eef2ff;
+    border-radius: 6px;
+    padding: 0.15rem 0.4rem;
+}
+
+.shell {
+    width: min(1100px, calc(100% - 2rem));
+    margin: 0 auto;
+}
+
+.main-area {
+    padding: 2rem 0 3rem;
+}
+
+.panel {
+    background: #ffffff;
+    border: 1px solid #dbe4ee;
+    border-radius: 14px;
+    padding: 1.5rem;
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.06);
+    margin-bottom: 1.5rem;
+}
+
+.panel h2,
+.panel h3 {
+    margin-top: 0;
+}
+
+.grid-two {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.link-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.button-link {
+    display: inline-block;
+    padding: 0.75rem 1rem;
+    border-radius: 999px;
+    background: #0f766e;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.button-link.secondary {
+    background: #1d4ed8;
+}
+
+.button-link.tertiary {
+    background: #6b7280;
+}
+
+.layout-public {
+    background: #f8fafc;
+}
+
+.public-header {
+    background: #0f766e;
+    color: #f0fdfa;
+    padding: 1.5rem 0;
+}
+
+.public-header h1,
+.public-header p {
+    margin: 0;
+}
+
+.public-header p {
+    margin-top: 0.35rem;
+}
+
+.nav-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.nav-list a {
+    text-decoration: none;
+    color: #f0fdfa;
+    padding: 0.55rem 0.8rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.14);
+}
+
+.public-footer {
+    background: #0b5e57;
+    color: #d1fae5;
+    padding: 1rem 0;
+}
+
+.layout-admin {
+    background: #0f172a;
+    color: #e2e8f0;
+}
+
+.admin-shell {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+}
+
+.admin-sidebar {
+    padding: 1.5rem;
+    background: #111827;
+    border-right: 1px solid #1f2937;
+}
+
+.admin-sidebar h1,
+.admin-sidebar p {
+    margin-top: 0;
+}
+
+.admin-nav {
+    display: grid;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.admin-nav a {
+    text-decoration: none;
+    padding: 0.7rem 0.85rem;
+    border-radius: 10px;
+    background: #1f2937;
+}
+
+.admin-content-wrap {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    background: #172554;
+    border-bottom: 1px solid #1e3a8a;
+}
+
+.admin-content {
+    padding: 1.5rem;
+}
+
+.admin-panel {
+    background: #111827;
+    border-color: #374151;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.stat-card {
+    background: #172554;
+    border: 1px solid #1d4ed8;
+    border-radius: 12px;
+    padding: 1rem;
+}
+
+.stat-card strong {
+    display: block;
+    font-size: 1.75rem;
+}
+
+.admin-tools {
+    padding: 1rem 1.5rem 1.5rem;
+}
+
+.tool-strip {
+    background: #1e3a8a;
+    border-radius: 12px;
+    padding: 0.85rem 1rem;
+}
+
+.layout-print {
+    background: #e5e7eb;
+    color: #111827;
+}
+
+.print-sheet {
+    width: min(780px, calc(100% - 2rem));
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #ffffff;
+    border: 1px solid #d1d5db;
+}
+
+.print-content h1 {
+    margin-top: 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    border-bottom: 1px solid #dbe4ee;
+    padding: 0.75rem;
+    text-align: left;
+}
+
+@media (max-width: 820px) {
+    .grid-two,
+    .stats-grid,
+    .admin-shell {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-header {
+        flex-direction: column;
+    }
+}
+
+@media print {
+    .layout-print {
+        background: #ffffff;
+    }
+
+    .print-sheet {
+        width: 100%;
+        margin: 0;
+        border: 0;
+        padding: 0;
+    }
+}

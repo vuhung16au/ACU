@@ -1,0 +1,30 @@
+@page
+@model MultipleLayouts.Pages.Admin.IndexModel
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+<section class="panel admin-panel">
+    <h2>Admin dashboard</h2>
+    <p>This page uses the admin layout because the `Pages/Admin/_ViewStart.cshtml` file overrides the default layout for the whole folder.</p>
+    <div class="stats-grid">
+        <div class="stat-card">
+            <strong>3</strong>
+            <span>Layouts in this sample</span>
+        </div>
+        <div class="stat-card">
+            <strong>1</strong>
+            <span>Folder override</span>
+        </div>
+        <div class="stat-card">
+            <strong>1</strong>
+            <span>Page override</span>
+        </div>
+    </div>
+</section>
+
+@section AdminTools {
+    <div class="tool-strip">
+        <span>Admin tools section rendered only when defined.</span>
+    </div>
+}

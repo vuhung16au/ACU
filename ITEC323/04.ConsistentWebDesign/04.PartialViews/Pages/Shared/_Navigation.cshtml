@@ -1,0 +1,18 @@
+@{
+    var currentPath = Context?.Request.Path.Value ?? "/";
+
+    string GetLinkClass(string href)
+    {
+        return string.Equals(currentPath, href, StringComparison.OrdinalIgnoreCase)
+            ? "nav-link active"
+            : "nav-link";
+    }
+}
+
+<nav aria-label="Primary" class="site-nav">
+    <ul>
+        <li><a class="@GetLinkClass("/")" href="/">Home</a></li>
+        <li><a class="@GetLinkClass("/About")" href="/About">About</a></li>
+        <li><a class="@GetLinkClass("/Contact")" href="/Contact">Contact</a></li>
+    </ul>
+</nav>

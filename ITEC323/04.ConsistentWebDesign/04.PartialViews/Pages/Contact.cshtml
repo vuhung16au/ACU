@@ -1,0 +1,49 @@
+@page
+@model ContactModel
+@{
+    ViewBag.Title = "Contact";
+}
+
+<section class="page-panel">
+    <h2>Contact page</h2>
+    <p>
+        This page reuses the same alert and sidebar partials with different data.
+        The form markup stays local because it is specific to this page.
+    </p>
+</section>
+
+<partial name="_Alert" model="Model.ContactAlert" />
+
+<section class="page-grid">
+    <div class="content-stack">
+        <section class="page-panel">
+            <h2>Example form</h2>
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input id="name" name="name" type="text" placeholder="Your name" />
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input id="email" name="email" type="email" placeholder="you@example.com" />
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" placeholder="Ask a question about partial views"></textarea>
+                </div>
+                <button type="submit">Send</button>
+            </form>
+        </section>
+    </div>
+
+    <partial name="_Sidebar" model="Model.Sidebar" />
+</section>
+
+@section Scripts {
+    <script>
+        document.querySelector('.contact-form')?.addEventListener('submit', function (event) {
+            event.preventDefault();
+            alert('Demo form only. Focus here is partial view reuse.');
+        });
+    </script>
+}
