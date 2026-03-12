@@ -1,0 +1,30 @@
+@page "{id:int}"
+@model Breadcrumbs.Pages.Products.DetailsModel
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<article class="detail-card">
+    <h2>@Model.Product!.Name</h2>
+    <p class="text-secondary small mb-2">
+        Breadcrumb trail: <strong>Home &rsaquo; Products &rsaquo; @Model.Product.Name</strong>
+        — set manually in <code>OnGet()</code> via <code>ViewData["Breadcrumbs"]</code>.
+    </p>
+
+    <p><span class="route-chip">Route value</span> <code>id = @Model.ProductId</code></p>
+
+    <h3>@Model.Product!.Name</h3>
+    <p class="meta">Category: @Model.Product.Category | Price: @Model.Product.Price.ToString("C")</p>
+    <p>@Model.Product.Summary</p>
+
+    <div class="code-sample">
+        <strong>Current URL pattern</strong>
+        <p><code>/Products/Details/@Model.ProductId</code></p>
+        <p>The integer value is captured and passed into <code>OnGet(int id)</code>.</p>
+    </div>
+
+    <div class="button-row">
+        <a class="button-link" asp-page="/Products/Details" asp-route-id="1">Try ID 1</a>
+        <a class="button-link secondary" asp-page="/Products/Details" asp-route-id="3">Try ID 3</a>
+    </div>
+</article>

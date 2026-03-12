@@ -1,0 +1,23 @@
+@page "{year:int?}"
+@model Breadcrumbs.Pages.Blog.ArchiveModel
+@{
+    ViewData["Title"] = "Blog Archive";
+}
+
+<section class="p-4 bg-white border rounded-3 shadow-sm mb-3">
+    <h2 class="h4">Archive @Model.Year</h2>
+    <p class="text-secondary mb-0">This page demonstrates a dropdown child route with an optional year parameter.</p>
+</section>
+
+<section class="bg-white border rounded-3 shadow-sm p-3">
+    <ul class="mb-0">
+        @foreach (var post in Model.Posts)
+        {
+            <li>
+                <a asp-page="/Blog/Post" asp-route-year="@post.Year" asp-route-month="@post.Month" asp-route-slug="@post.Slug">
+                    @post.Title (@post.Year/@post.Month)
+                </a>
+            </li>
+        }
+    </ul>
+</section>

@@ -1,0 +1,32 @@
+@page "/Blog/{year:int:min(2000)}/{month:int:range(1,12)}/{slug:slug}"
+@model Breadcrumbs.Pages.Blog.PostModel
+@{
+    ViewData["Title"] = "Blog Post";
+}
+
+<article class="detail-card">
+    <h2>@Model.Post!.Title</h2>
+    <p class="text-secondary small mb-2">
+        Breadcrumb trail: <strong>Home &rsaquo; Blog &rsaquo; @Model.Post.Year &rsaquo; @(new DateTime(@Model.Post.Year, @Model.Post.Month, 1).ToString("MMMM")) &rsaquo; @Model.Post.Title</strong>
+        — a five-level manual trail set in <code>OnGet()</code>.
+    </p>
+    <p class="meta">Published @Model.Post.Year / @Model.Post.Month</p>
+    <p>@Model.Post.Summary</p>
+
+    <div class="code-sample">
+        <strong>Breadcrumb code in PostModel.OnGet()</strong>
+        <pre class="mb-0"><code>ViewData["Breadcrumbs"] = new List&lt;BreadcrumbItem&gt;
+{
+    new() { Text = "Home",        Url = "/" },
+    new() { Text = "Blog",        Url = "/Blog" },
+    new() { Text = year.ToString(), Url = $"/Blog/Archive/{year}" },
+    new() { Text = monthName },   // intermediate, no link
+    new() { Text = Post.Title,    IsActive = true }
+};</code></pre>
+    </div>
+
+    <div class="button-row">
+        <a class="button-link secondary" asp-page="/Blog/Index">Back to blog list</a>
+        <a class="button-link secondary" asp-page="/Blog/Archive" asp-route-year="@Model.Post.Year">Archive @Model.Post.Year</a>
+    </div>
+</article>

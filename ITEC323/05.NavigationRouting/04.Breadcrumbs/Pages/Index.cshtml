@@ -1,0 +1,112 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Breadcrumb Navigation Overview";
+}
+
+<section class="p-4 p-md-5 mb-4 bg-white border rounded-3 shadow-sm">
+    <div class="row g-4 align-items-center">
+        <div class="col-lg-8">
+            <h2 class="display-6 fw-bold mb-3">Breadcrumb Navigation in Razor Pages</h2>
+            <p class="lead mb-2">
+                This project demonstrates two approaches to breadcrumb navigation: manual trails set
+                in the PageModel via <code>ViewData["Breadcrumbs"]</code>, and automatic generation
+                derived from the URL path as a fallback.
+            </p>
+            <p class="mb-0 text-secondary">
+                Navigate to any product or blog page below to see the breadcrumb trail appear under
+                the navbar. Pages without manual crumbs use the auto-generated fallback.
+            </p>
+        </div>
+        <div class="col-lg-4">
+            <div class="row g-2 text-center">
+                <div class="col-6">
+                    <div class="bg-light border rounded p-3">
+                        <div class="h4 mb-1">2</div>
+                        <div class="small text-secondary">Approaches</div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="bg-light border rounded p-3">
+                        <div class="h4 mb-1">8+</div>
+                        <div class="small text-secondary">Breadcrumb Pages</div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="bg-light border rounded p-3">
+                        <div class="h4 mb-1">5</div>
+                        <div class="small text-secondary">Max Crumb Depth</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="row g-3 mb-4">
+    <div class="col-md-6">
+        <article class="h-100 p-4 bg-white border rounded-3 shadow-sm">
+            <h3 class="h5">FR4 Acceptance Criteria</h3>
+            <ul class="mb-0">
+                <li>Bootstrap breadcrumb component (<code>&lt;nav aria-label="breadcrumb"&gt;</code>)</li>
+                <li>Manual breadcrumbs via <code>ViewData["Breadcrumbs"]</code> in PageModel</li>
+                <li>Automatic breadcrumb generation from URL path</li>
+                <li>Breadcrumbs on at least 5 pages (all product &amp; blog pages)</li>
+                <li>Accessible markup with <code>aria-current="page"</code></li>
+            </ul>
+        </article>
+    </div>
+    <div class="col-md-6">
+        <article class="h-100 p-4 bg-white border rounded-3 shadow-sm">
+            <h3 class="h5">Try these breadcrumb trails</h3>
+            <ul class="mb-0">
+                <li><a asp-page="/Products/Index">Home &rsaquo; Products</a></li>
+                <li><a asp-page="/Products/Details" asp-route-id="1">Home &rsaquo; Products &rsaquo; Student Laptop</a></li>
+                <li><a asp-page="/Products/Category" asp-route-name="Computers">Home &rsaquo; Products &rsaquo; Computers</a></li>
+                <li><a asp-page="/Products/Edit" asp-route-id="1">Home &rsaquo; Products &rsaquo; Student Laptop &rsaquo; Edit</a></li>
+                <li>
+                    <a asp-page="/Blog/Post" asp-route-year="2026" asp-route-month="3" asp-route-slug="getting-started-with-routing">
+                        Home &rsaquo; Blog &rsaquo; 2026 &rsaquo; March &rsaquo; Getting Started with Routing
+                    </a>
+                </li>
+            </ul>
+        </article>
+    </div>
+</section>
+
+<section class="p-4 bg-white border rounded-3 shadow-sm">
+    <h3 class="h5">How breadcrumbs are set</h3>
+    <div class="table-responsive">
+        <table class="table table-sm align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>Page</th>
+                    <th>Approach</th>
+                    <th>Example trail</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Products/Details</td>
+                    <td>Manual</td>
+                    <td>Home &rsaquo; Products &rsaquo; <em>Product Name</em></td>
+                </tr>
+                <tr>
+                    <td>Products/Edit</td>
+                    <td>Manual (4 levels)</td>
+                    <td>Home &rsaquo; Products &rsaquo; <em>Name</em> &rsaquo; Edit</td>
+                </tr>
+                <tr>
+                    <td>Blog/Post</td>
+                    <td>Manual (5 levels)</td>
+                    <td>Home &rsaquo; Blog &rsaquo; 2026 &rsaquo; March &rsaquo; <em>Title</em></td>
+                </tr>
+                <tr>
+                    <td>About / Contact</td>
+                    <td>Auto (fallback)</td>
+                    <td>Home &rsaquo; <em>Segment</em></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>

@@ -1,0 +1,56 @@
+@page
+@model AboutModel
+@{
+    ViewData["Title"] = "About Breadcrumbs";
+}
+
+<section class="p-4 bg-white border rounded-3 shadow-sm">
+    <h2 class="h4">About this project</h2>
+    <p class="mb-0">
+        This stage of the module focuses on breadcrumb navigation. Students learn how to show
+        users where they are in the site hierarchy using the Bootstrap breadcrumb component,
+        and how breadcrumb data can be set manually or derived automatically from the URL.
+    </p>
+</section>
+
+<section class="row g-3 mt-1">
+    <article class="col-md-6">
+        <div class="p-4 bg-white border rounded-3 shadow-sm h-100">
+            <h3 class="h5">What this module emphasises</h3>
+            <ul class="mb-0">
+                <li>Bootstrap <code>&lt;ol class="breadcrumb"&gt;</code> markup</li>
+                <li>Accessible <code>aria-label="breadcrumb"</code> wrapping nav</li>
+                <li>Manual approach: <code>ViewData["Breadcrumbs"]</code> in PageModel</li>
+                <li>Auto approach: crumbs derived from URL segments in the layout</li>
+            </ul>
+        </div>
+    </article>
+
+    <article class="col-md-6">
+        <div class="p-4 bg-white border rounded-3 shadow-sm h-100">
+            <h3 class="h5">Pages with deep breadcrumb trails</h3>
+            <ul class="mb-0">
+                <li><a asp-page="/Products/Details" asp-route-id="1">Product details (3 levels)</a></li>
+                <li><a asp-page="/Products/Edit" asp-route-id="1">Product edit (4 levels)</a></li>
+                <li>
+                    <a asp-page="/Blog/Post" asp-route-year="2026" asp-route-month="3" asp-route-slug="getting-started-with-routing">
+                        Blog post (5 levels)
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </article>
+</section>
+
+<section class="p-4 bg-white border rounded-3 shadow-sm mt-3">
+    <h3 class="h5">Why menus matter</h3>
+    <p class="mb-0">
+        As projects grow, users need predictable navigation patterns. Well-structured menus improve discoverability,
+        reduce confusion, and keep page hierarchy clear across screen sizes.
+    </p>
+    <div class="mt-3 d-flex gap-2 flex-wrap">
+        <a class="btn btn-primary" asp-page="/Products/Index">Explore products section</a>
+        <a class="btn btn-outline-primary" asp-page="/Blog/Index">Explore blog section</a>
+        <a class="btn btn-outline-secondary" asp-page="/Contact">Open contact page</a>
+    </div>
+</section>
