@@ -1,0 +1,33 @@
+@page
+@model PrivacyModel
+@{
+    ViewData["Title"] = "Privacy";
+}
+
+<section class="hero-panel hero-panel-compact">
+    <span class="eyebrow">Privacy And Scope</span>
+    <h1>This sample remains local and classroom-focused.</h1>
+    <p class="lead mb-0">
+        The app stores its sample data in memory, returns small HTML fragments from the server, and uses a local offline teaching helper for the <code>hx-*</code> attributes.
+    </p>
+</section>
+
+<section class="card-grid">
+    <article class="info-card">
+        <h2>Local Data</h2>
+        <ul>
+            <li>No external API or database is required.</li>
+            <li>All notices, tips, and reflections reset when the app stops.</li>
+            <li>No student account data is collected.</li>
+        </ul>
+    </article>
+
+    <article class="info-card">
+        <h2>Offline HTMX Teaching Helper</h2>
+        <ul>
+            <li>The sample includes a small local script that supports the core HTMX attributes used in this lesson.</li>
+            <li>This keeps the project runnable without internet access.</li>
+            <li>The page markup stays declarative, which matches the learning goal.</li>
+        </ul>
+    </article>
+</section>

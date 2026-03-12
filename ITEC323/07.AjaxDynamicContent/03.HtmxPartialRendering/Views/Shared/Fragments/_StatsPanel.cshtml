@@ -1,0 +1,20 @@
+@model HtmxPartialRendering.Models.CourseStats
+
+<div class="stats-grid">
+    <div>
+        <span class="summary-label">Fragment Requests</span>
+        <strong>@Model.FragmentRequests</strong>
+    </div>
+    <div>
+        <span class="summary-label">Updated Sections</span>
+        <strong>@Model.UpdatedSections</strong>
+    </div>
+    <div>
+        <span class="summary-label">Teaching Note</span>
+        <strong>@Model.TeachingNote</strong>
+    </div>
+    <div>
+        <span class="summary-label">Refreshed At</span>
+        <strong>@Model.RefreshedAt.ToString("dd MMM yyyy HH:mm:ss")</strong>
+    </div>
+</div>

@@ -1,0 +1,7 @@
+@model HtmxPartialRendering.Models.CheckInMessage
+
+<article class="fragment-card">
+    <div class="fragment-meta">@Model.CreatedAt.ToString("dd MMM yyyy HH:mm")</div>
+    <h3>@Model.TaskName</h3>
+    <p class="mb-0">@Model.Reflection</p>
+</article>

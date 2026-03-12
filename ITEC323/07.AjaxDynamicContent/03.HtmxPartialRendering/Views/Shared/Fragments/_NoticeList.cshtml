@@ -1,0 +1,19 @@
+@model IReadOnlyList<HtmxPartialRendering.Models.CourseNotice>
+
+@if (Model.Count == 0)
+{
+    <p class="empty-state">No notices are available right now.</p>
+}
+else
+{
+    <div class="stack-list">
+    @foreach (var item in Model)
+    {
+        <article class="fragment-card">
+            <div class="fragment-meta">@item.Category · @item.PublishedAt.ToString("dd MMM yyyy HH:mm")</div>
+            <h3>@item.Title</h3>
+            <p class="mb-0">@item.Message</p>
+        </article>
+    }
+    </div>
+}

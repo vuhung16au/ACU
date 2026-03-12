@@ -1,0 +1,12 @@
+@model IReadOnlyList<string>
+
+<div class="fragment-card error-card">
+    <div class="fragment-meta">Validation Error</div>
+    <h3>Check The Form Values</h3>
+    <ul class="mb-0">
+    @foreach (var error in Model)
+    {
+        <li>@error</li>
+    }
+    </ul>
+</div>

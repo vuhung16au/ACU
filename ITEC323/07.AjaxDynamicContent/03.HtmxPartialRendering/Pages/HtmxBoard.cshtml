@@ -1,0 +1,126 @@
+@page
+@model HtmxBoardModel
+@{
+    ViewData["Title"] = "HTMX Board";
+}
+
+<section class="hero-panel hero-panel-compact">
+    <span class="eyebrow">HTMX Partial Rendering</span>
+    <h1>Let HTML attributes describe the request and update behavior.</h1>
+    <p class="lead mb-0">
+        Each action below requests an HTML fragment from the server. The target panel updates without a full page refresh.
+    </p>
+</section>
+
+<section class="summary-grid">
+    <article class="summary-card">
+        <span class="summary-label">Fragment Stats</span>
+        <div id="statsPanel"
+             hx-get="/fragments/stats"
+             hx-trigger="load"
+             hx-target="this"
+             hx-swap="innerHTML">
+            <p class="empty-state">Loading fragment statistics...</p>
+        </div>
+    </article>
+</section>
+
+<section class="layout-grid layout-grid-wide">
+    <article class="info-card">
+        <div class="section-heading">
+            <div>
+                <h2>Course Notices</h2>
+                <p class="text-muted">This panel uses <code>hx-get</code> to replace only the notice list.</p>
+            </div>
+            <button class="button button-secondary"
+                    hx-get="/fragments/notices"
+                    hx-target="#noticePanel"
+                    hx-swap="innerHTML"
+                    hx-indicator="#noticeLoading">
+                Refresh Notices
+            </button>
+        </div>
+        <div id="noticeLoading" class="inline-indicator htmx-indicator">Loading notices...</div>
+        <div id="noticePanel">
+            <p class="empty-state">Click the button to load the latest notice fragment.</p>
+        </div>
+    </article>
+
+    <article class="info-card">
+        <div class="section-heading">
+            <div>
+                <h2>Tip Spotlight</h2>
+                <p class="text-muted">This card refreshes independently from the notice list.</p>
+            </div>
+            <button class="button button-secondary"
+                    hx-get="/fragments/tip"
+                    hx-target="#tipPanel"
+                    hx-swap="innerHTML"
+                    hx-indicator="#tipLoading">
+                Load Tip
+            </button>
+        </div>
+        <div id="tipLoading" class="inline-indicator htmx-indicator">Loading tip...</div>
+        <div id="tipPanel" class="tip-shell">
+            <p class="empty-state">Load a tip to see server-rendered HTML appear here.</p>
+        </div>
+    </article>
+</section>
+
+<section class="layout-grid">
+    <article class="info-card">
+        <div class="section-heading">
+            <div>
+                <h2>Reflection Form</h2>
+                <p class="text-muted">The form posts to the server and appends one new entry to the feed.</p>
+            </div>
+        </div>
+
+        <form hx-post="/fragments/check-in"
+              hx-target="#reflectionFeed"
+              hx-swap="afterbegin"
+              hx-indicator="#formLoading"
+              class="task-form">
+            <label for="taskName">Completed Task</label>
+            <input id="taskName" name="TaskName" maxlength="60" required />
+
+            <label for="reflection">Reflection</label>
+            <textarea id="reflection" name="Reflection" rows="4" maxlength="160" required></textarea>
+
+            <div class="action-row">
+                <button class="button button-primary" type="submit">Post Reflection</button>
+                <span id="formLoading" class="inline-indicator htmx-indicator">Saving reflection...</span>
+            </div>
+        </form>
+    </article>
+
+    <article class="info-card">
+        <div class="section-heading">
+            <div>
+                <h2>Reflection Feed</h2>
+                <p class="text-muted">Use <code>afterbegin</code> so new server-rendered entries appear at the top.</p>
+            </div>
+            <button class="button button-secondary"
+                    hx-get="/fragments/feed"
+                    hx-target="#reflectionFeed"
+                    hx-swap="innerHTML"
+                    hx-indicator="#feedLoading">
+                Reload Feed
+            </button>
+        </div>
+        <div id="feedLoading" class="inline-indicator htmx-indicator">Loading feed...</div>
+        <div id="reflectionFeed">
+            <p class="empty-state">Reload the feed or post a reflection to show fragment updates.</p>
+        </div>
+    </article>
+</section>
+
+<section class="info-panel">
+    <h2>HTMX Attribute Checklist</h2>
+    <ul class="mb-0">
+        <li><code>hx-get</code> is used on buttons and the auto-loading stats panel.</li>
+        <li><code>hx-post</code> is used on the reflection form.</li>
+        <li><code>hx-target</code> points each response to a specific section.</li>
+        <li><code>hx-swap</code> uses both replacement and append behavior.</li>
+    </ul>
+</section>

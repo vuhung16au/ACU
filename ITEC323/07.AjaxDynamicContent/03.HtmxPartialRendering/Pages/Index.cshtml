@@ -1,0 +1,49 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<section class="hero-panel">
+    <span class="eyebrow">Week 7 Project 03</span>
+    <h1>Render server-side HTML fragments with declarative <code>hx-*</code> attributes.</h1>
+    <p class="lead">
+        This sample demonstrates the HTMX workflow: buttons and forms declare where requests go, where HTML is inserted,
+        and how loading indicators appear, without writing page-specific JavaScript.
+    </p>
+    <div class="action-row">
+        <a class="button button-primary" asp-page="/HtmxBoard">Open The HTMX Demo</a>
+        <a class="button button-secondary" href="/fragments/notices" target="_blank" rel="noreferrer">View A Fragment Response</a>
+    </div>
+</section>
+
+<section class="card-grid">
+    <article class="info-card">
+        <h2>What students practise</h2>
+        <ul>
+            <li>Use <code>hx-get</code>, <code>hx-post</code>, <code>hx-target</code>, and <code>hx-swap</code>.</li>
+            <li>Receive HTML fragments from the server instead of JSON.</li>
+            <li>Show loading indicators with declarative markup.</li>
+            <li>Append or replace content without custom page scripts.</li>
+        </ul>
+    </article>
+
+    <article class="info-card">
+        <h2>Why this project matters</h2>
+        <ul>
+            <li>The browser behavior stays simple because the HTML describes the request.</li>
+            <li>The server controls the rendered markup, which keeps the frontend lighter.</li>
+            <li>Students can compare this approach directly with the Fetch API projects.</li>
+        </ul>
+    </article>
+</section>
+
+<section class="info-panel">
+    <h2>Suggested walkthrough</h2>
+    <ol>
+        <li>Load the board and observe that the stats panel fills itself on page load.</li>
+        <li>Refresh the notices panel with <code>hx-get</code> and inspect the HTML fragment response.</li>
+        <li>Submit a reflection form with <code>hx-post</code> and watch a new feed item append to the top.</li>
+        <li>Check the loading indicator to see how request feedback appears without custom page logic.</li>
+    </ol>
+</section>
