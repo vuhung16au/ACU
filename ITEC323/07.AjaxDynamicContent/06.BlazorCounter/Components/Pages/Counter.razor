@@ -1,0 +1,100 @@
+@page "/counter"
+@implements IDisposable
+@inject CounterStateService CounterState
+
+<PageTitle>Counter</PageTitle>
+
+<section class="hero-panel hero-panel-compact">
+    <span class="eyebrow">Blazor Counter</span>
+    <h1>Increment and decrement the shared counter.</h1>
+    <p class="lead mb-0">
+        This component uses Blazor Server interactivity. Each button runs C# code, and the shared service updates all connected clients automatically.
+    </p>
+</section>
+
+<section class="summary-grid">
+    <article class="summary-card">
+        <span class="summary-label">Current Count</span>
+        <strong>@CounterState.CurrentCount</strong>
+    </article>
+    <article class="summary-card">
+        <span class="summary-label">Interaction Model</span>
+        <strong>Blazor Server</strong>
+    </article>
+    <article class="summary-card">
+        <span class="summary-label">State Source</span>
+        <strong>Singleton Service</strong>
+    </article>
+    <article class="summary-card">
+        <span class="summary-label">Sync Style</span>
+        <strong>SignalR Automatic</strong>
+    </article>
+</section>
+
+<section class="counter-panel">
+    <p class="counter-value">@CounterState.CurrentCount</p>
+    <div class="action-row">
+        <button class="button button-secondary" @onclick="DecreaseCounter">Decrement</button>
+        <button class="button button-primary" @onclick="IncreaseCounter">Increment</button>
+        <button class="button button-secondary" @onclick="ResetCounter">Reset</button>
+    </div>
+</section>
+
+<section class="info-panel">
+    <h2>What to notice</h2>
+    <ul class="mb-0">
+        <li>The button clicks call C# methods directly.</li>
+        <li>The page updates automatically after each state change.</li>
+        <li>If multiple clients are connected, they all observe the same counter value.</li>
+    </ul>
+</section>
+
+@code {
+    /// <summary>
+    /// Subscribes to state updates when the component starts.
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        CounterState.CounterChanged += HandleCounterChanged;
+    }
+
+    /// <summary>
+    /// Increases the shared counter value.
+    /// </summary>
+    private void IncreaseCounter()
+    {
+        CounterState.Increment();
+    }
+
+    /// <summary>
+    /// Decreases the shared counter value.
+    /// </summary>
+    private void DecreaseCounter()
+    {
+        CounterState.Decrement();
+    }
+
+    /// <summary>
+    /// Resets the shared counter value.
+    /// </summary>
+    private void ResetCounter()
+    {
+        CounterState.Reset();
+    }
+
+    /// <summary>
+    /// Refreshes the component after the shared counter changes.
+    /// </summary>
+    private void HandleCounterChanged()
+    {
+        _ = InvokeAsync(StateHasChanged);
+    }
+
+    /// <summary>
+    /// Removes the event subscription when the component is disposed.
+    /// </summary>
+    public void Dispose()
+    {
+        CounterState.CounterChanged -= HandleCounterChanged;
+    }
+}

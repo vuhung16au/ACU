@@ -1,0 +1,24 @@
+@inherits LayoutComponentBase
+
+<div class="app-shell">
+    <header class="site-header">
+        <div class="container shell-header">
+            <a class="brand" href="/">06.BlazorCounter</a>
+            <nav class="site-nav">
+                <NavLink href="/" Match="NavLinkMatch.All">Home</NavLink>
+                <NavLink href="/counter">Counter</NavLink>
+                <NavLink href="/privacy">Privacy</NavLink>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container page-content">
+        @Body
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            Week 7 Blazor Server sample with a shared interactive counter.
+        </div>
+    </footer>
+</div>

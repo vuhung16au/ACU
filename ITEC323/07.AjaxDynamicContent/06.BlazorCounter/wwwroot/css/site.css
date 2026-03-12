@@ -1,0 +1,231 @@
+:root {
+    --page-bg: #f2f1ec;
+    --surface: #fffdf8;
+    --surface-strong: #ffffff;
+    --line: #d8d4ca;
+    --text: #233038;
+    --muted: #5b686e;
+    --primary: #19665a;
+    --primary-dark: #124b43;
+    --secondary: #eef3ef;
+    --shadow: 0 14px 32px rgba(24, 34, 38, 0.08);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text);
+    background:
+        radial-gradient(circle at top left, rgba(25, 102, 90, 0.16), transparent 24%),
+        linear-gradient(180deg, #fbfaf5 0%, var(--page-bg) 100%);
+}
+
+a {
+    color: var(--primary);
+}
+
+.container {
+    width: min(1040px, calc(100% - 2rem));
+    margin: 0 auto;
+}
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    border-bottom: 1px solid rgba(216, 212, 202, 0.8);
+    background: rgba(255, 253, 248, 0.94);
+    backdrop-filter: blur(10px);
+}
+
+.shell-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 0;
+}
+
+.brand {
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.site-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.site-nav a {
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.site-nav a.active {
+    color: var(--primary-dark);
+}
+
+.page-content {
+    padding: 2rem 0 3rem;
+}
+
+.site-footer {
+    border-top: 1px solid var(--line);
+    padding: 1rem 0 2rem;
+    color: var(--muted);
+}
+
+.hero-panel,
+.info-card,
+.info-panel,
+.summary-card,
+.counter-panel {
+    border: 1px solid rgba(216, 212, 202, 0.9);
+    border-radius: 1.25rem;
+    background: rgba(255, 253, 248, 0.95);
+    box-shadow: var(--shadow);
+}
+
+.hero-panel {
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.hero-panel-compact,
+.info-card,
+.info-panel,
+.summary-card,
+.counter-panel {
+    padding: 1.5rem;
+}
+
+.eyebrow {
+    display: inline-block;
+    margin-bottom: 0.75rem;
+    color: var(--primary);
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+}
+
+.lead {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--muted);
+}
+
+.card-grid,
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.summary-label {
+    display: block;
+    margin-bottom: 0.6rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+.summary-card strong {
+    font-size: 1.2rem;
+}
+
+.counter-panel {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.counter-value {
+    margin: 0 0 1.5rem;
+    font-size: clamp(3rem, 10vw, 5rem);
+    font-weight: 800;
+    line-height: 1;
+}
+
+.action-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+}
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.8rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.18s ease, background-color 0.18s ease;
+}
+
+.button:hover:not(:disabled) {
+    transform: translateY(-1px);
+}
+
+.button-primary {
+    background: var(--primary);
+    color: #fff;
+}
+
+.button-primary:hover:not(:disabled) {
+    background: var(--primary-dark);
+}
+
+.button-secondary {
+    background: var(--secondary);
+    border-color: var(--line);
+    color: var(--text);
+}
+
+.mb-0 {
+    margin-bottom: 0;
+}
+
+@media (max-width: 760px) {
+    .shell-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 640px) {
+    .container {
+        width: min(100% - 1rem, 1040px);
+    }
+
+    .hero-panel,
+    .hero-panel-compact,
+    .info-card,
+    .info-panel,
+    .summary-card,
+    .counter-panel {
+        padding: 1.2rem;
+    }
+
+    .button {
+        width: 100%;
+    }
+
+    .site-nav {
+        width: 100%;
+    }
+
+    .site-nav a {
+        width: calc(50% - 0.5rem);
+    }
+}
