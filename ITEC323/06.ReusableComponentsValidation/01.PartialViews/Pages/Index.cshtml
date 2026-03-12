@@ -1,0 +1,46 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<partial name="_Header" />
+
+<section class="hero-panel mb-4">
+    <span class="eyebrow">Week 6 Project 01</span>
+    <h1>Build reusable Razor markup with Partial Views.</h1>
+    <p class="lead mb-0">
+        This page reuses a shared header, footer, and product card partials so students can see how repeated HTML
+        moves into one place.
+    </p>
+</section>
+
+<section class="mb-4">
+    <div class="section-heading">
+        <div>
+            <h2 class="h4 mb-1">Featured Products</h2>
+            <p class="text-muted mb-0">Each card below comes from the same <code>_ProductCard.cshtml</code> partial.</p>
+        </div>
+        <a class="btn btn-outline-primary" asp-page="/Products">View All Products</a>
+    </div>
+
+    <div class="row g-3">
+        @foreach (var product in Model.FeaturedProducts)
+        {
+            <div class="col-md-6 col-xl-4">
+                <partial name="_ProductCard" model="product" />
+            </div>
+        }
+    </div>
+</section>
+
+<section class="info-panel">
+    <h2 class="h5">Why use partial views?</h2>
+    <ul class="mb-0">
+        <li>One edit updates every page that uses the shared markup.</li>
+        <li>Pages stay shorter and easier to read.</li>
+        <li>Strongly-typed partials can safely display model data.</li>
+    </ul>
+</section>
+
+<partial name="_Footer" />

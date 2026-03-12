@@ -1,0 +1,28 @@
+@model PartialViews.Models.ContactInfo
+
+<div class="row g-3">
+    <div class="col-md-6">
+        <label asp-for="FullName" class="form-label"></label>
+        <input asp-for="FullName" class="form-control" placeholder="Jamie Chen" />
+    </div>
+
+    <div class="col-md-6">
+        <label asp-for="Email" class="form-label"></label>
+        <input asp-for="Email" class="form-control" placeholder="jamie@example.com" />
+    </div>
+
+    <div class="col-md-6">
+        <label asp-for="Topic" class="form-label"></label>
+        <select asp-for="Topic" class="form-select">
+            <option value="">Choose a topic</option>
+            <option>Project Help</option>
+            <option>Assessment Question</option>
+            <option>General Feedback</option>
+        </select>
+    </div>
+
+    <div class="col-12">
+        <label asp-for="Message" class="form-label"></label>
+        <textarea asp-for="Message" class="form-control" rows="4" placeholder="Write a short message here."></textarea>
+    </div>
+</div>

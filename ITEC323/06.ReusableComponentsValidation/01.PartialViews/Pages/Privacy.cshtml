@@ -1,0 +1,24 @@
+﻿@page
+@model PrivacyModel
+@{
+    ViewData["Title"] = "Notes";
+}
+
+<partial name="_Header" />
+
+<section class="hero-panel hero-panel-compact mb-4">
+    <span class="eyebrow">Extra Notes</span>
+    <h1>Use partial views for shared presentation, not business logic.</h1>
+    <p class="lead mb-0">This extra page is not part of the core task, but it keeps the scaffold complete and reinforces the lesson.</p>
+</section>
+
+<section class="info-panel">
+    <h2 class="h5">Remember</h2>
+    <ul class="mb-0">
+        <li>Partial Views help remove duplicated HTML.</li>
+        <li>They should stay focused on markup and display.</li>
+        <li>If a component needs C# logic or data loading, use a View Component instead.</li>
+    </ul>
+</section>
+
+<partial name="_Footer" />

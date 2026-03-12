@@ -1,0 +1,145 @@
+:root {
+  --brand-blue: #0d3b66;
+  --brand-gold: #f4a261;
+  --brand-cream: #f8f4ec;
+  --brand-slate: #243b53;
+  --brand-border: #d9e2ec;
+}
+
+html {
+  font-size: 16px;
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: linear-gradient(180deg, #fffdf8 0%, #f5f7fb 100%);
+  color: var(--brand-slate);
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus,
+.form-select:focus {
+  box-shadow: 0 0 0 0.2rem rgba(13, 59, 102, 0.15);
+  border-color: var(--brand-blue);
+}
+
+.site-header,
+.site-footer,
+.hero-panel,
+.info-panel,
+.product-card,
+.contact-panel,
+.contact-summary {
+  border: 1px solid var(--brand-border);
+  border-radius: 1rem;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 16px 40px rgba(36, 59, 83, 0.06);
+}
+
+.site-header,
+.site-footer,
+.hero-panel,
+.info-panel,
+.contact-panel,
+.contact-summary {
+  padding: 1.5rem;
+}
+
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.site-header a {
+  color: var(--brand-blue);
+  text-decoration: none;
+}
+
+.site-header nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.site-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.hero-panel {
+  background: linear-gradient(135deg, rgba(13, 59, 102, 0.96), rgba(36, 59, 83, 0.92));
+  color: #fff;
+}
+
+.hero-panel-compact {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
+.hero-panel h1 {
+  max-width: 40rem;
+  margin-bottom: 0.75rem;
+}
+
+.eyebrow {
+  display: inline-block;
+  margin-bottom: 0.75rem;
+  color: var(--brand-gold);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.product-card {
+  height: 100%;
+  padding: 1.25rem;
+}
+
+.product-card .badge {
+  background-color: rgba(13, 59, 102, 0.1);
+  color: var(--brand-blue);
+}
+
+.product-price {
+  color: var(--brand-blue);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.contact-panel {
+  margin-bottom: 1.5rem;
+}
+
+.site-footer {
+  margin-top: 1.5rem;
+  color: #52606d;
+}
+
+.site-footer a {
+  color: var(--brand-blue);
+}
+
+@media (max-width: 767.98px) {
+  .site-header,
+  .section-heading {
+    flex-direction: column;
+    align-items: start;
+  }
+}

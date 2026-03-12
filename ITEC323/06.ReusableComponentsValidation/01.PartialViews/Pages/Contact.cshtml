@@ -1,0 +1,39 @@
+@page
+@model ContactModel
+@{
+    ViewData["Title"] = "Contact";
+}
+
+<partial name="_Header" />
+
+<section class="hero-panel hero-panel-compact mb-4">
+    <span class="eyebrow">Contact Page</span>
+    <h1>Pass a form model into a reusable partial.</h1>
+    <p class="lead mb-0">The form fields live in <code>_ContactForm.cshtml</code> and are rendered on this page with one line.</p>
+</section>
+
+<section class="contact-panel">
+    <h2 class="h4">Contact the Teaching Team</h2>
+    <p class="text-muted">This form uses a strongly-typed partial so the field markup stays in one shared file.</p>
+
+    <form method="post">
+        <partial name="_ContactForm" for="Contact" />
+
+        <div class="mt-3">
+            <button type="submit" class="btn btn-primary">Send Message</button>
+        </div>
+    </form>
+</section>
+
+@if (Model.SubmittedContact is not null)
+{
+    <section class="contact-summary">
+        <h2 class="h5">Submitted Example</h2>
+        <p class="mb-1"><strong>Name:</strong> @Model.SubmittedContact.FullName</p>
+        <p class="mb-1"><strong>Email:</strong> @Model.SubmittedContact.Email</p>
+        <p class="mb-1"><strong>Topic:</strong> @Model.SubmittedContact.Topic</p>
+        <p class="mb-0"><strong>Message:</strong> @Model.SubmittedContact.Message</p>
+    </section>
+}
+
+<partial name="_Footer" />
