@@ -1,0 +1,82 @@
+@page
+@model SecurityModel
+@{
+    ViewData["Title"] = "Security";
+}
+
+<section class="hero-panel hero-panel-compact mb-4">
+    <span class="eyebrow">XSS Prevention</span>
+    <h1>Compare encoded, raw, and sanitized HTML output.</h1>
+    <p class="lead mb-0">The form below accepts HTML so students can see why raw rendering is risky.</p>
+</section>
+
+<section class="warning-panel mb-4">
+    <h2 class="h5">Important</h2>
+    <p class="mb-0">
+        This classroom example shows <code>@@Html.Raw()</code> only to explain the danger. Real applications should
+        avoid raw rendering unless the content is fully trusted and sanitised first.
+    </p>
+</section>
+
+<section class="form-panel mb-4">
+    <h2 class="h4">Blog Post / Bio Form</h2>
+    <p>Try safe HTML like <code>&lt;strong&gt;Hello&lt;/strong&gt;</code> or an attack example such as <code>&lt;img src=x onerror=alert('XSS')&gt;</code>.</p>
+
+    <form method="post">
+        <div asp-validation-summary="All" class="validation-summary-errors mb-3"></div>
+
+        <div class="mb-3">
+            <label asp-for="Input.Title" class="form-label"></label>
+            <input asp-for="Input.Title" class="form-control" />
+            <span asp-validation-for="Input.Title" class="field-validation-error"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Input.Content" class="form-label"></label>
+            <textarea asp-for="Input.Content" class="form-control" rows="7"></textarea>
+            <span asp-validation-for="Input.Content" class="field-validation-error"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Preview Content</button>
+    </form>
+</section>
+
+@if (Model.HasPreview)
+{
+    <section class="row g-3">
+        <div class="col-lg-4">
+            <article class="preview-panel h-100">
+                <h2 class="h5">Safe Output</h2>
+                <p class="small text-muted">Razor encodes HTML automatically.</p>
+                <div class="preview-box">@Model.OriginalContent</div>
+            </article>
+        </div>
+        <div class="col-lg-4">
+            <article class="preview-panel h-100">
+                <h2 class="h5">Unsafe Output</h2>
+                <p class="small text-muted">Using <code>@@Html.Raw()</code> on untrusted input can allow XSS.</p>
+                <div class="preview-box">@Html.Raw(Model.UnsafePreview)</div>
+            </article>
+        </div>
+        <div class="col-lg-4">
+            <article class="preview-panel h-100">
+                <h2 class="h5">Sanitized Output</h2>
+                <p class="small text-muted">Dangerous tags and attributes are removed before rendering.</p>
+                <div class="preview-box">@Html.Raw(Model.SanitizedPreview)</div>
+            </article>
+        </div>
+    </section>
+
+    <section class="info-panel mt-4">
+        <h2 class="h5">What happened?</h2>
+        <ul class="mb-0">
+            <li>The safe panel printed text only, so HTML tags were encoded.</li>
+            <li>The unsafe panel rendered the input as HTML, which is dangerous for untrusted content.</li>
+            <li>The sanitized panel removed script tags, event handlers, and <code>javascript:</code> URLs before rendering.</li>
+        </ul>
+    </section>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

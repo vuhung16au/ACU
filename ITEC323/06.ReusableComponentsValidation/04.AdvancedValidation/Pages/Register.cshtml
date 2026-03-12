@@ -1,0 +1,70 @@
+@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<section class="hero-panel hero-panel-compact mb-4">
+    <span class="eyebrow">Advanced Registration</span>
+    <h1>Use exact pattern rules for sensitive fields.</h1>
+    <p class="lead mb-0">This form combines regular expressions, compare validation, and a custom minimum age validator.</p>
+</section>
+
+<section class="form-panel mb-4">
+    <h2 class="h4">Create Secure Account</h2>
+    <p>Try invalid values to see how each rule blocks bad input before the form is accepted.</p>
+
+    <form method="post">
+        <div asp-validation-summary="All" class="validation-summary-errors mb-3"></div>
+
+        <div class="mb-3">
+            <label asp-for="Registration.Username" class="form-label"></label>
+            <input asp-for="Registration.Username" class="form-control" />
+            <span asp-validation-for="Registration.Username" class="field-validation-error"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Registration.MobileNumber" class="form-label"></label>
+            <input asp-for="Registration.MobileNumber" class="form-control" placeholder="0412345678" />
+            <span asp-validation-for="Registration.MobileNumber" class="field-validation-error"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Registration.PostalCode" class="form-label"></label>
+            <input asp-for="Registration.PostalCode" class="form-control" placeholder="2000" />
+            <span asp-validation-for="Registration.PostalCode" class="field-validation-error"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Registration.Password" class="form-label"></label>
+            <input asp-for="Registration.Password" class="form-control" />
+            <span asp-validation-for="Registration.Password" class="field-validation-error"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Registration.ConfirmPassword" class="form-label"></label>
+            <input asp-for="Registration.ConfirmPassword" class="form-control" />
+            <span asp-validation-for="Registration.ConfirmPassword" class="field-validation-error"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Registration.DateOfBirth" class="form-label"></label>
+            <input asp-for="Registration.DateOfBirth" class="form-control" />
+            <span asp-validation-for="Registration.DateOfBirth" class="field-validation-error"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit Registration</button>
+    </form>
+</section>
+
+@if (!string.IsNullOrWhiteSpace(Model.SuccessMessage))
+{
+    <section class="result-panel">
+        <h2 class="h5">Success</h2>
+        <p class="mb-0">@Model.SuccessMessage</p>
+    </section>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

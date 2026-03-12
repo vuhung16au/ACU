@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Advanced Validation Demo</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="container py-4">
+        <header class="site-header">
+            <div>
+                <a class="site-title" asp-page="/Index">Advanced Validation Demo</a>
+                <div class="text-muted">Regular expressions, custom validation, and safe HTML rendering</div>
+            </div>
+
+            <nav aria-label="Main navigation">
+                <a asp-page="/Index">Home</a>
+                <a asp-page="/Register">Register</a>
+                <a asp-page="/Security">Security</a>
+            </nav>
+        </header>
+
+        <main role="main">
+            @RenderBody()
+        </main>
+
+        <footer class="site-footer">
+            <div class="d-flex flex-column flex-md-row justify-content-between gap-2">
+                @* <span>&copy; 2026 ACU ITEC323 Advanced Validation example</span> *@
+                <span>Security demos compare encoded output, raw output, and sanitized output.</span>
+            </div>
+        </footer>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

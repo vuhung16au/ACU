@@ -1,0 +1,41 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<section class="hero-panel mb-4">
+    <span class="eyebrow">Week 6 Project 04</span>
+    <h1>Move beyond basic validation and start thinking about security.</h1>
+    <p class="lead mb-0">
+        This project adds regular expressions, password confirmation, a custom age validator,
+        and a classroom-safe XSS demonstration.
+    </p>
+</section>
+
+<section class="row g-3 mb-4">
+    <div class="col-md-6">
+        <article class="info-card h-100">
+            <h2 class="h5">Advanced Registration</h2>
+            <p>Validate Australian mobile numbers, password complexity, usernames, postal codes, and age rules.</p>
+            <a class="btn btn-primary" asp-page="/Register">Open Registration Demo</a>
+        </article>
+    </div>
+    <div class="col-md-6">
+        <article class="info-card h-100">
+            <h2 class="h5">XSS Prevention</h2>
+            <p>Compare automatic encoding, risky raw rendering, and simple HTML sanitisation.</p>
+            <a class="btn btn-outline-primary" asp-page="/Security">Open Security Demo</a>
+        </article>
+    </div>
+</section>
+
+<section class="info-panel">
+    <h2 class="h5">What changes in this project?</h2>
+    <ul class="mb-0">
+        <li>Regular expressions enforce exact formats instead of only basic types.</li>
+        <li>The compare attribute checks that password and confirmation match.</li>
+        <li>A custom validator calculates age from a birth date.</li>
+        <li>User HTML is treated carefully to avoid cross-site scripting issues.</li>
+    </ul>
+</section>
