@@ -1,0 +1,23 @@
+@{
+    var currentPath = Context?.Request.Path.Value ?? "/";
+
+    string ClassFor(string href)
+    {
+        return string.Equals(currentPath, href, StringComparison.OrdinalIgnoreCase)
+            ? "nav-link active"
+            : "nav-link";
+    }
+}
+
+<header class="site-header">
+    <div class="shell nav-wrap">
+        <a class="brand" href="/">DevPortfolio</a>
+        <nav class="site-nav" aria-label="Primary">
+            <a class="@ClassFor("/")" href="/">Home</a>
+            <a class="@ClassFor("/Projects")" href="/Projects">Projects</a>
+            <a class="@ClassFor("/Blog")" href="/Blog">Blog</a>
+            <a class="@ClassFor("/Contact")" href="/Contact">Contact</a>
+            <a class="@ClassFor("/Admin")" href="/Admin">Admin</a>
+        </nav>
+    </div>
+</header>

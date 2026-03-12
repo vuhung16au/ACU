@@ -1,0 +1,10 @@
+@model HeroViewModel
+
+<section class="hero-panel">
+    <h1>@Model.Title</h1>
+    <p>@Model.Subtitle</p>
+    <div class="hero-actions">
+        <a class="btn-primary" href="@Model.PrimaryActionUrl">@Model.PrimaryActionText</a>
+        <a class="btn-secondary" href="@Model.SecondaryActionUrl">@Model.SecondaryActionText</a>
+    </div>
+</section>

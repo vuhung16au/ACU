@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title - Admin Console</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body class="layout-admin">
+    <div class="admin-shell">
+        <aside class="admin-sidebar">
+            <h1>Admin Console</h1>
+            <p>Section-level layout override via `Pages/Admin/_ViewStart.cshtml`.</p>
+            <nav class="admin-nav" aria-label="Admin navigation">
+                <a href="/Admin">Overview</a>
+                <a href="/Admin/Content">Content</a>
+                <a href="/">Back to public site</a>
+            </nav>
+        </aside>
+
+        <div class="admin-main-wrap">
+            <header class="admin-header">
+                <strong>@ViewBag.Title</strong>
+                <span>Comprehensive Example</span>
+            </header>
+
+            <main class="admin-main">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

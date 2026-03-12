@@ -1,0 +1,16 @@
+@page
+@model ProjectsModel
+@{
+    ViewBag.Title = "Projects";
+}
+
+<section class="section-block">
+    <h2>Projects</h2>
+    <p>A reusable project card partial keeps this list clean and consistent.</p>
+    <div class="grid">
+        @foreach (var project in Model.Projects)
+        {
+            <partial name="_ProjectCard" model="project" />
+        }
+    </div>
+</section>

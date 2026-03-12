@@ -188,13 +188,13 @@ Acceptance Criteria:
 - Shows when/why to create partials
 - DRY principle in action
 
-### TODO: 05.MultipleLayouts
+### 05.MultipleLayouts
 - Minimum 3 layouts (public, admin, print)
 - Folder-level `_ViewStart.cshtml`
 - Page-level layout override example
 - Different styling per layout type
 
-### TODO: 06.ComprehensiveExample
+### 06.ComprehensiveExample
 - Real-world application (e.g., blog, portfolio, e-commerce)
 - Uses all previous concepts
 - Multiple layouts and extensive partials

@@ -1,0 +1,28 @@
+@page
+@model IndexModel
+@{
+    ViewBag.Title = "Home";
+}
+
+<partial name="_Hero" model="Model.Hero" />
+<partial name="_Callout" model="Model.Callout" />
+
+<section class="section-block">
+    <h2>Featured Projects</h2>
+    <div class="grid">
+        @foreach (var project in Model.FeaturedProjects)
+        {
+            <partial name="_ProjectCard" model="project" />
+        }
+    </div>
+</section>
+
+<section class="section-block">
+    <h2>Latest Articles</h2>
+    <div class="grid">
+        @foreach (var post in Model.FeaturedPosts)
+        {
+            <partial name="_PostCard" model="post" />
+        }
+    </div>
+</section>

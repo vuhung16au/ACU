@@ -1,0 +1,39 @@
+@page
+@model ContactModel
+@{
+    ViewBag.Title = "Contact";
+}
+
+<section class="section-block">
+    <h2>Contact</h2>
+    <p>Public layout + reusable callout + page-specific form content.</p>
+</section>
+
+<partial name="_Callout" model="Model.Callout" />
+
+<section class="section-block">
+    <form class="contact-form">
+        <div class="field">
+            <label for="name">Name</label>
+            <input id="name" type="text" placeholder="Your name" />
+        </div>
+        <div class="field">
+            <label for="email">Email</label>
+            <input id="email" type="email" placeholder="your.email@example.com" />
+        </div>
+        <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" rows="5" placeholder="Tell us about your project"></textarea>
+        </div>
+        <button type="submit">Send message</button>
+    </form>
+</section>
+
+@section PageScripts {
+    <script>
+        document.querySelector('.contact-form')?.addEventListener('submit', function (event) {
+            event.preventDefault();
+            alert('Demo form only.');
+        });
+    </script>
+}

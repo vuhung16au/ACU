@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title - Comprehensive Example</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+    @RenderSection("Styles", required: false)
+</head>
+<body class="layout-public">
+    <partial name="_Navigation" />
+
+    <main class="shell page-main">
+        @RenderBody()
+    </main>
+
+    <partial name="_Footer" />
+
+    @if (IsSectionDefined("PageScripts"))
+    {
+        @RenderSection("PageScripts", required: false)
+    }
+</body>
+</html>

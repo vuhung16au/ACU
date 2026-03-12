@@ -1,0 +1,14 @@
+@model CalloutViewModel
+@{
+    var toneClass = Model.Tone.ToLowerInvariant() switch
+    {
+        "success" => "callout success",
+        "warning" => "callout warning",
+        _ => "callout info"
+    };
+}
+
+<aside class="@toneClass" role="status">
+    <h3>@Model.Title</h3>
+    <p>@Model.Message</p>
+</aside>

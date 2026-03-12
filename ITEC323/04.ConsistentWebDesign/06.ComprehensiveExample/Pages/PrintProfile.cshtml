@@ -1,0 +1,16 @@
+@page
+@model PrintProfileModel
+@{
+    Layout = "_PrintLayout";
+    ViewBag.Title = "Print Profile";
+}
+
+<section class="print-block">
+    <h1>Developer Profile (Print)</h1>
+    <p>This page overrides layout at page-level for clean printable output.</p>
+    <ul>
+        <li>Generated: @Model.GeneratedAt</li>
+        <li>Role: Full-stack web developer</li>
+        <li>Focus: maintainable Razor Pages architecture</li>
+    </ul>
+</section>

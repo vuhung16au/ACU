@@ -1,0 +1,22 @@
+@page
+@model BlogModel
+@{
+    ViewBag.Title = "Blog";
+}
+
+<section class="section-block">
+    <h2>Blog</h2>
+    <p>Post cards are rendered from one shared partial with typed data.</p>
+    <div class="grid">
+        @foreach (var post in Model.Posts)
+        {
+            <partial name="_PostCard" model="post" />
+        }
+    </div>
+</section>
+
+@section PageScripts {
+    <script>
+        console.log('Blog page loaded with optional PageScripts section.');
+    </script>
+}
