@@ -1,0 +1,51 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<section class="hero-panel">
+    <span class="eyebrow">Week 8 Project 01</span>
+    <h1>Replace basic jQuery habits with modern vanilla JavaScript.</h1>
+    <p class="lead">
+        This Razor Pages sample focuses on browser APIs that every student should know first:
+        DOM selection, event handling, class manipulation, and simple client-side form validation.
+    </p>
+    <div class="action-row">
+        <a class="button button-primary" asp-page="/Playground">Open Vanilla JS Playground</a>
+        <a class="button button-secondary" href="https://developer.mozilla.org/en-US/docs/Web/API" target="_blank" rel="noreferrer">Browser API Reference</a>
+    </div>
+</section>
+
+<section class="card-grid">
+    <article class="info-card">
+        <h2>Learning Objectives</h2>
+        <ul>
+            <li>Use <code>querySelector</code> and <code>querySelectorAll</code> for DOM selection.</li>
+            <li>Attach events with <code>addEventListener</code>.</li>
+            <li>Toggle CSS classes with <code>classList</code>.</li>
+            <li>Understand <code>textContent</code> versus <code>innerHTML</code>.</li>
+            <li>Validate form input before updating the UI.</li>
+        </ul>
+    </article>
+
+    <article class="info-card">
+        <h2>Vanilla JavaScript Tips</h2>
+        <ul>
+            @foreach (var tip in Model.Tips)
+            {
+                <li>@tip</li>
+            }
+        </ul>
+    </article>
+</section>
+
+<section class="info-panel">
+    <h2>Suggested classroom walkthrough</h2>
+    <ol>
+        <li>Open the Playground page and inspect selected cards in DevTools.</li>
+        <li>Toggle the emphasis mode to observe <code>classList</code> in action.</li>
+        <li>Compare safe text updates and controlled HTML rendering.</li>
+        <li>Submit the form to add student cards without page reload.</li>
+    </ol>
+</section>

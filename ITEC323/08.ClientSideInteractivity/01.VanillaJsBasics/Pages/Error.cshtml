@@ -1,0 +1,25 @@
+﻿@page
+@model ErrorModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+<section class="info-panel">
+    <h1>Something went wrong</h1>
+    <p>
+        The app could not complete this request. In class, use this page to discuss how user-friendly
+        error messages differ from developer diagnostics.
+    </p>
+
+    @if (Model.ShowRequestId)
+    {
+        <p>
+            <strong>Request ID:</strong> <code>@Model.RequestId</code>
+        </p>
+    }
+
+    <p>
+        For local troubleshooting, set <code>ASPNETCORE_ENVIRONMENT=Development</code>
+        to see detailed exception output.
+    </p>
+</section>

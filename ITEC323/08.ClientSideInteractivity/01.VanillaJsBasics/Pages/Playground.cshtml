@@ -1,0 +1,84 @@
+@page
+@model PlaygroundModel
+@{
+    ViewData["Title"] = "Playground";
+}
+
+<section class="hero-panel hero-panel-compact">
+    <span class="eyebrow">Vanilla JS Practice</span>
+    <h1>Use native browser APIs to build interactivity.</h1>
+    <p class="lead mb-0">
+        This page intentionally avoids jQuery and frameworks. Focus on selectors, events,
+        class toggling, and safe content updates.
+    </p>
+</section>
+
+<section class="card-grid" id="demoCardContainer">
+    @for (var i = 0; i < Model.ExampleCards.Count; i++)
+    {
+        <article class="info-card demo-card" data-demo-card>
+            <h2>@Model.ExampleCards[i].Title</h2>
+            <p>@Model.ExampleCards[i].Description</p>
+            <button class="button button-secondary" type="button" data-select-card="@i">Select This Card</button>
+        </article>
+    }
+</section>
+
+<section class="info-panel">
+    <div class="section-heading">
+        <div>
+            <h2>classList + text updates</h2>
+            <p class="text-muted">Buttons below toggle classes and update text in real time.</p>
+        </div>
+        <div class="action-row">
+            <button id="toggleEmphasis" class="button button-secondary" type="button">Toggle Emphasis Theme</button>
+            <button id="clearSelection" class="button button-secondary" type="button">Clear Selection</button>
+        </div>
+    </div>
+
+    <p id="statusText" class="message-panel message-info" role="status" aria-live="polite">
+        No card selected yet.
+    </p>
+
+    <div class="split-panel">
+        <article class="info-card">
+            <h3>Safe Output (textContent)</h3>
+            <p id="safeOutput">Waiting for user input...</p>
+        </article>
+        <article class="info-card">
+            <h3>Formatted Output (innerHTML)</h3>
+            <p id="htmlOutput">Waiting for user input...</p>
+        </article>
+    </div>
+
+    <label for="outputInput">Type a short message</label>
+    <input id="outputInput" maxlength="60" placeholder="for example: Week 8 is interactive" />
+</section>
+
+<section class="info-panel">
+    <h2>Simple form validation + dynamic rendering</h2>
+    <p class="text-muted">
+        Submit this form to add a student card below. Validation runs in JavaScript first.
+    </p>
+
+    <form id="studentForm" class="task-form" novalidate>
+        <label for="studentName">Student name</label>
+        <input id="studentName" name="studentName" required maxlength="40" />
+
+        <label for="studentTopic">Favourite topic</label>
+        <input id="studentTopic" name="studentTopic" required maxlength="40" />
+
+        <div class="action-row">
+            <button id="addStudentButton" class="button button-primary" type="submit">Add Student Card</button>
+            <button id="resetStudentsButton" class="button button-secondary" type="button">Reset Cards</button>
+        </div>
+
+        <p id="formMessage" class="message-panel hidden" role="status" aria-live="polite"></p>
+    </form>
+
+    <div id="studentCards" class="card-grid mt-1"></div>
+</section>
+
+@section Scripts {
+    <script src="~/js/vanilla-basics.js" asp-append-version="true"></script>
+}
