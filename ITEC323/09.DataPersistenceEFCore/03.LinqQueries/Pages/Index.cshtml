@@ -1,0 +1,46 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="p-4 mb-4 bg-light rounded-3 border">
+    <h1 class="display-6">03.LinqQueries</h1>
+    <p class="mb-2">
+        This project focuses on practical LINQ patterns with Entity Framework Core.
+        It uses an in-memory provider so you can experiment quickly without external database setup.
+    </p>
+    <p class="mb-0">
+        Current product count in database: <strong>@Model.ProductCount</strong>
+    </p>
+</div>
+
+<div class="row g-3">
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="h5">Learning Objectives</h2>
+                <ul class="mb-0">
+                    <li>Filter and sort records with <code>Where</code> and <code>OrderBy</code>.</li>
+                    <li>Load related data with <code>Include</code>.</li>
+                    <li>Project and aggregate with <code>Select</code>, <code>GroupBy</code>, and <code>Sum</code>.</li>
+                    <li>Paginate with <code>Skip</code> and <code>Take</code>.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="h5">Try It Now</h2>
+                <ol class="mb-3">
+                    <li>Open the LINQ Explorer page.</li>
+                    <li>Inspect each section and match it to LINQ operators.</li>
+                    <li>Create or edit products, then revisit results.</li>
+                    <li>Try adding your own LINQ queries in PageModel code.</li>
+                </ol>
+                <a asp-page="/LinqQueries/Index" class="btn btn-primary">Open LINQ Explorer</a>
+            </div>
+        </div>
+    </div>
+</div>

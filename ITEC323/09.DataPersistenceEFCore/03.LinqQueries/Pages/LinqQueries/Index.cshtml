@@ -1,0 +1,142 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "LINQ Explorer";
+}
+
+<h1 class="h3">LINQ Explorer</h1>
+<p class="text-muted">This page demonstrates core LINQ operators with EF Core in-memory data.</p>
+
+<div class="row g-3 mb-3">
+    <div class="col-md-3">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="h6 text-muted">Total Products</h2>
+                <p class="display-6 mb-0">@Model.TotalProducts</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="h6 text-muted">Average Price</h2>
+                <p class="display-6 mb-0">@Model.AveragePrice.ToString("C")</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="h6 text-muted">Inventory Value</h2>
+                <p class="display-6 mb-0">@Model.TotalInventoryValue.ToString("C")</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="h6 text-muted">Any Premium?</h2>
+                <p class="display-6 mb-0">@(Model.HasPremiumProducts ? "Yes" : "No")</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-3">
+    <div class="col-lg-6">
+        <div class="card h-100">
+            <div class="card-header fw-semibold">Where + OrderBy</div>
+            <div class="card-body">
+                <ul class="mb-0">
+                    @foreach (var product in Model.AffordableProducts)
+                    {
+                        <li>@product.Name - @product.Price.ToString("C")</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="card h-100">
+            <div class="card-header fw-semibold">Include (Products + Reviews)</div>
+            <div class="card-body">
+                <ul class="mb-0">
+                    @foreach (var product in Model.ProductsWithReviews)
+                    {
+                        var reviewCount = product.Reviews.Count;
+                        <li>@product.Name - Reviews: @reviewCount</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="card h-100">
+            <div class="card-header fw-semibold">Select Projection</div>
+            <div class="card-body table-responsive">
+                <table class="table table-sm align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Stock</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.ProjectedProducts)
+                        {
+                            <tr>
+                                <td>@item.Name</td>
+                                <td>@item.StockQuantity</td>
+                                <td>@item.InventoryValue.ToString("C")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="card h-100">
+            <div class="card-header fw-semibold">GroupBy Summary</div>
+            <div class="card-body table-responsive">
+                <table class="table table-sm align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>Band</th>
+                            <th>Count</th>
+                            <th>Avg Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var band in Model.StockBands)
+                        {
+                            <tr>
+                                <td>@band.Band</td>
+                                <td>@band.ProductCount</td>
+                                <td>@band.AveragePrice.ToString("C")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mt-3">
+    <div class="card-header fw-semibold">Skip + Take (Page @Model.PageNumber)</div>
+    <div class="card-body">
+        <ul class="mb-3">
+            @foreach (var product in Model.PagedProducts)
+            {
+                <li>@product.Name</li>
+            }
+        </ul>
+        <a asp-page="./Index" asp-route-pageNumber="@(Model.PageNumber <= 1 ? 1 : Model.PageNumber - 1)" class="btn btn-outline-secondary btn-sm">Prev</a>
+        <a asp-page="./Index" asp-route-pageNumber="@(Model.PageNumber + 1)" class="btn btn-outline-primary btn-sm">Next</a>
+    </div>
+</div>
