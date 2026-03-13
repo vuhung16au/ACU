@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - 09.ComprehensiveApp</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="site-header">
+        <div class="container shell-header">
+            <a class="brand" asp-page="/Index">09.ComprehensiveApp</a>
+            <nav class="site-nav" aria-label="Main navigation">
+                <a asp-page="/Index">Overview</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container page-content" role="main">
+        @RenderBody()
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            Hybrid comparison app for Week 8 client-side interactivity (vanilla JS, Alpine, HTMX, Blazor, React, Vue).
+        </div>
+    </footer>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+

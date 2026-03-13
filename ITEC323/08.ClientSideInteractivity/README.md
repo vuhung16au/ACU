@@ -2,6 +2,10 @@
 
 ## Week 8 Learning Module
 
+### Demo / Screenshots
+
+![comprehensive demo](09.ComprehensiveApp/images/comprehensive.png)
+
 ### What We're Building
 
 Learn how to create highly responsive, interactive web applications using modern JavaScript approaches - from vanilla JS to enterprise frameworks.

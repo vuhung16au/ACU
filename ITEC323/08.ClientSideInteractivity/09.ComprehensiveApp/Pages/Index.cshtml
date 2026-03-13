@@ -1,0 +1,129 @@
+@page
+@model ComprehensiveApp.Pages.IndexModel
+@{
+    ViewData["Title"] = "Comprehensive Client-Side App";
+}
+
+<section class="hero-panel">
+    <span class="eyebrow">Week 8 Project 09</span>
+    <h1>See the same feature built with six different client-side approaches.</h1>
+    <p class="lead">
+        This comprehensive sample acts as a decision-making hub. It explains when to choose
+        vanilla JavaScript, Alpine.js, HTMX, Blazor, React, or Vue for a given scenario and
+        links to the dedicated module projects where each approach is implemented in more depth.
+    </p>
+    <div class="action-row">
+        <a class="button button-primary" href="#approach-comparison">Compare approaches</a>
+        <a class="button button-secondary" href="#practice-ideas">Practice ideas</a>
+    </div>
+</section>
+
+<section id="approach-comparison" class="card-grid two-col">
+    <article class="info-card">
+        <h2>Vanilla JavaScript</h2>
+        <p class="muted">
+            Start with the browser APIs you already have. Ideal for small, focused interactions
+            inside Razor Pages without extra dependencies.
+        </p>
+        <ul class="list-clean">
+            <li>Direct DOM access with <code>querySelector</code>.</li>
+            <li>Events via <code>addEventListener</code>.</li>
+            <li>Great for toggles, simple forms, or tiny widgets.</li>
+        </ul>
+        <p class="muted">
+            See the dedicated project: <strong>01.VanillaJsBasics</strong>.
+        </p>
+    </article>
+
+    <article class="info-card">
+        <h2>Alpine.js</h2>
+        <p class="muted">
+            Sprinkle reactivity with HTML attributes instead of large framework setup.
+            Good for dropdowns, modals, and small interactive regions.
+        </p>
+        <ul class="list-clean">
+            <li>Use <code>x-data</code>, <code>x-on</code>, and <code>x-show</code> inline.</li>
+            <li>Pairs well with server-rendered Razor Pages.</li>
+            <li>Keeps JavaScript logic close to the markup.</li>
+        </ul>
+        <p class="muted">
+            See the dedicated project: <strong>03.AlpineJsComponents</strong>.
+        </p>
+    </article>
+
+    <article class="info-card">
+        <h2>HTMX</h2>
+        <p class="muted">
+            Use HTML attributes to ask the server for partial updates. Ideal when the
+            server already owns the UI and you want AJAX without custom JavaScript.
+        </p>
+        <ul class="list-clean">
+            <li>Use <code>hx-get</code>, <code>hx-post</code>, and <code>hx-target</code>.</li>
+            <li>Great for CRUD tables and inline editing.</li>
+            <li>Keeps most logic in C# and Razor.</li>
+        </ul>
+        <p class="muted">
+            See the dedicated projects: <strong>04.HtmxPartialUpdates</strong> and <strong>05.HtmxAdvanced</strong>.
+        </p>
+    </article>
+
+    <article class="info-card">
+        <h2>Blazor Components</h2>
+        <p class="muted">
+            Write interactive UI in C# instead of JavaScript. Suitable when your team is
+            .NET-heavy and wants strong typing on both client and server.
+        </p>
+        <ul class="list-clean">
+            <li>Two-way binding with <code>@@bind</code>.</li>
+            <li>Components and cascading values for composition.</li>
+            <li>Good for complex forms and dashboards.</li>
+        </ul>
+        <p class="muted">
+            See the dedicated project: <strong>06.BlazorInteractive</strong>.
+        </p>
+    </article>
+
+    <article class="info-card">
+        <h2>React</h2>
+        <p class="muted">
+            Industry-standard SPA framework using components and hooks. Best for large,
+            highly interactive frontends with many reusable widgets.
+        </p>
+        <ul class="list-clean">
+            <li>Local state with <code>useState</code>.</li>
+            <li>Side effects and data loading with <code>useEffect</code>.</li>
+            <li>Thrives when you have many dynamic views.</li>
+        </ul>
+        <p class="muted">
+            See the dedicated project: <strong>07.ReactBasics</strong>.
+        </p>
+    </article>
+
+    <article class="info-card">
+        <h2>Vue</h2>
+        <p class="muted">
+            Progressive framework with template syntax and the Composition API. Often
+            feels lighter than React while still scaling to full SPAs.
+        </p>
+        <ul class="list-clean">
+            <li>Reactivity with <code>ref</code>, <code>reactive</code>, and <code>computed</code>.</li>
+            <li>Single File Components for structure.</li>
+            <li>Great fit when you prefer template-first thinking.</li>
+        </ul>
+        <p class="muted">
+            See the dedicated project: <strong>08.VueBasics</strong>.
+        </p>
+    </article>
+</section>
+
+<section id="practice-ideas" class="info-panel">
+    <h2>Practice ideas for comparison</h2>
+    <ol>
+        <li>Pick one feature (for example, a small study planner) and sketch it in pseudo-UI.</li>
+        <li>Implement the same feature with vanilla JavaScript inside Razor Pages.</li>
+        <li>Rebuild the feature with Alpine.js and then HTMX.</li>
+        <li>Try a Blazor component version and finally a small React or Vue widget.</li>
+        <li>Use the notes in <code>docs/Key-Takeaways.md</code> and the main FRD to reflect on trade-offs.</li>
+    </ol>
+</section>
+
