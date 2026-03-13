@@ -5,7 +5,7 @@
 - .NET 10 SDK installed
 - `dotnet ef` tool installed
 
-Install EF CLI tool if needed:
+Install[ EF CLI tool](https://learn.microsoft.com/en-us/ef/core/cli/dotnet) if needed:
 
 ```bash
 dotnet tool install --global dotnet-ef

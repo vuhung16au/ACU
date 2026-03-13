@@ -1,0 +1,46 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="p-4 mb-4 bg-light rounded-3 border">
+    <h1 class="display-6">02.PostgresDocker</h1>
+    <p class="mb-2">
+        This project introduces Entity Framework Core using a simple Product catalog.
+        You will define a model, configure <code>DbContext</code>, create migrations, and perform CRUD in Razor Pages.
+    </p>
+    <p class="mb-0">
+        Current product count in database: <strong>@Model.ProductCount</strong>
+    </p>
+</div>
+
+<div class="row g-3">
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="h5">Learning Objectives</h2>
+                <ul class="mb-0">
+                    <li>Create an entity class with data annotations.</li>
+                    <li>Configure PostgreSQL with EF Core in <code>Program.cs</code>.</li>
+                    <li>Use <code>dotnet ef</code> migrations.</li>
+                    <li>Perform async Create, Read, Update, and Delete operations.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="h5">Try It Now</h2>
+                <ol class="mb-3">
+                    <li>Start PostgreSQL with Docker Compose.</li>
+                    <li>Update the PostgreSQL database.</li>
+                    <li>Add products from the UI.</li>
+                    <li>Use edit, details, and delete pages.</li>
+                </ol>
+                <a asp-page="/Products/Index" class="btn btn-primary">Open Product Catalog</a>
+            </div>
+        </div>
+    </div>
+</div>
