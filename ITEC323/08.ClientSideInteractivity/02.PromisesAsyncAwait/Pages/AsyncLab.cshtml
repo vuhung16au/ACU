@@ -1,0 +1,125 @@
+@page
+@model AsyncLabModel
+@{
+    ViewData["Title"] = "Async Lab";
+}
+
+<section class="hero-panel hero-panel-compact">
+    <span class="eyebrow">Promises + Async/Await</span>
+    <h1>Call local APIs and update the page without reloading.</h1>
+    <p class="lead mb-0">
+        Use this page to compare Promise chains (`then/catch`) and `async/await`
+        while handling loading and error states.
+    </p>
+</section>
+
+<section class="status-strip">
+    <div id="loadingPanel" class="message-panel message-info hidden" role="status" aria-live="polite">
+        Loading data from the local API...
+    </div>
+    <div id="messagePanel" class="message-panel hidden" role="status" aria-live="polite"></div>
+</section>
+
+<section class="summary-grid">
+    <article class="summary-card">
+        <span class="summary-label">Total Sessions</span>
+        <strong id="totalSessions">0</strong>
+    </article>
+    <article class="summary-card">
+        <span class="summary-label">Completed</span>
+        <strong id="completedSessions">0</strong>
+    </article>
+    <article class="summary-card">
+        <span class="summary-label">Pending</span>
+        <strong id="pendingSessions">0</strong>
+    </article>
+    <article class="summary-card">
+        <span class="summary-label">Average Minutes</span>
+        <strong id="averageMinutes">0</strong>
+    </article>
+</section>
+
+<section class="layout-grid">
+    <article class="info-card">
+        <div class="section-heading">
+            <div>
+                <h2>Load Data</h2>
+                <p class="text-muted">Try both JavaScript async styles with the same API endpoint.</p>
+            </div>
+        </div>
+
+        <div class="action-row">
+            <button id="loadWithPromises" class="button button-secondary" type="button">Load With Promise Chain</button>
+            <button id="loadWithAsyncAwait" class="button button-primary" type="button">Load With Async/Await</button>
+            <button id="simulateError" class="button button-danger" type="button">Simulate API Error</button>
+        </div>
+
+        <p class="text-muted mt-1 mb-0">
+            API endpoints used: <code>GET /api/learningsessions</code>,
+            <code>GET /api/learningsessions/summary</code>,
+            and <code>GET /api/learningsessions/failure-demo</code>.
+        </p>
+    </article>
+
+    <article class="info-card">
+        <div class="section-heading">
+            <div>
+                <h2>Add Session (async/await)</h2>
+                <p class="text-muted">Submit the form to send a JSON <code>POST</code> request.</p>
+            </div>
+        </div>
+
+        <form id="sessionForm" class="task-form" novalidate>
+            <label for="studentName">Student Name</label>
+            <input id="studentName" maxlength="40" required />
+
+            <label for="topic">Topic</label>
+            <input id="topic" maxlength="50" required />
+
+            <label for="minutesStudied">Minutes Studied</label>
+            <input id="minutesStudied" type="number" min="5" max="180" value="30" required />
+
+            <label class="checkbox-row" for="isCompleted">
+                <input id="isCompleted" type="checkbox" />
+                Mark as completed
+            </label>
+
+            <div class="action-row">
+                <button class="button button-primary" type="submit">Create Session</button>
+                <button id="clearForm" class="button button-secondary" type="button">Clear Form</button>
+            </div>
+        </form>
+    </article>
+</section>
+
+<section class="info-card">
+    <div class="section-heading">
+        <div>
+            <h2>Learning Sessions</h2>
+            <p class="text-muted">Rows below are rendered from JSON responses.</p>
+        </div>
+    </div>
+
+    <div class="table-wrap">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Student</th>
+                    <th>Topic</th>
+                    <th>Minutes</th>
+                    <th>Status</th>
+                    <th>Updated</th>
+                </tr>
+            </thead>
+            <tbody id="sessionTableBody">
+                <tr>
+                    <td colspan="5" class="empty-state">Click a load button to fetch data from the local API.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="~/js/promises-async-demo.js" asp-append-version="true"></script>
+}

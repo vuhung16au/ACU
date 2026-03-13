@@ -1,0 +1,51 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<section class="hero-panel">
+    <span class="eyebrow">Week 8 Project 02</span>
+    <h1>Master asynchronous JavaScript with Promises and async/await.</h1>
+    <p class="lead">
+        This project uses a local ASP.NET Core JSON API so students can practice asynchronous
+        requests, loading feedback, and error handling without external dependencies.
+    </p>
+    <div class="action-row">
+        <a class="button button-primary" asp-page="/AsyncLab">Open Async Lab</a>
+        <a class="button button-secondary" href="/api/learningsessions" target="_blank" rel="noreferrer">View Raw JSON</a>
+    </div>
+</section>
+
+<section class="card-grid">
+    <article class="info-card">
+        <h2>Learning Objectives</h2>
+        <ul>
+            <li>Use Promise chains with <code>.then()</code>, <code>.catch()</code>, and <code>.finally()</code>.</li>
+            <li>Use <code>async</code>/<code>await</code> with <code>try/catch</code>.</li>
+            <li>Call local API endpoints using Fetch API and parse JSON.</li>
+            <li>Show loading states and user-friendly error messages.</li>
+            <li>Submit form data asynchronously with a JSON <code>POST</code> request.</li>
+        </ul>
+    </article>
+
+    <article class="info-card">
+        <h2>Quick API Reference</h2>
+        <ul>
+            <li><code>GET /api/learningsessions</code> returns all sessions.</li>
+            <li><code>GET /api/learningsessions/summary</code> returns dashboard counts.</li>
+            <li><code>POST /api/learningsessions</code> adds a new session.</li>
+            <li><code>GET /api/learningsessions/failure-demo</code> returns <code>500</code> for error practice.</li>
+        </ul>
+    </article>
+</section>
+
+<section class="info-panel">
+    <h2>Suggested classroom walkthrough</h2>
+    <ol>
+        <li>Load data using the Promise chain button and inspect responses in DevTools.</li>
+        <li>Repeat with async/await and compare code readability.</li>
+        <li>Trigger the failure endpoint and discuss user-facing error handling.</li>
+        <li>Create a new session and observe table and summary updates without page reload.</li>
+    </ol>
+</section>

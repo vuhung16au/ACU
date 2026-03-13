@@ -1,0 +1,25 @@
+﻿@page
+@model ErrorModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+<section class="info-panel">
+    <h1>Something went wrong</h1>
+    <p>
+        The app could not complete this request. In class, compare this user message with
+        technical details shown in development mode.
+    </p>
+
+    @if (Model.ShowRequestId)
+    {
+        <p>
+            <strong>Request ID:</strong> <code>@Model.RequestId</code>
+        </p>
+    }
+
+    <p>
+        For local debugging, set <code>ASPNETCORE_ENVIRONMENT=Development</code>
+        and restart the app.
+    </p>
+</section>
