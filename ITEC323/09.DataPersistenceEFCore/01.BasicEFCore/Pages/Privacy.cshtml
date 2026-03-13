@@ -1,0 +1,17 @@
+﻿@page
+@model PrivacyModel
+@{
+    ViewData["Title"] = "Data & Security Notes";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    This classroom project stores sample product data in a local SQLite database.
+    Do not place real credentials in source files.
+</p>
+
+<ul>
+    <li>Use User Secrets for sensitive values during development.</li>
+    <li>Use environment variables or a secure vault in production.</li>
+    <li>Avoid committing secrets to Git repositories.</li>
+</ul>

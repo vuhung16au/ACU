@@ -1,0 +1,33 @@
+@page "{id:int}"
+@model BasicEFCore.Pages.Products.DeleteModel
+@{
+    ViewData["Title"] = "Delete Product";
+}
+
+<h1 class="h3 text-danger">Delete Product</h1>
+<p class="text-muted">This action permanently removes the product from the database.</p>
+
+<div class="alert alert-warning">
+    <strong>Are you sure you want to delete this product?</strong>
+</div>
+
+<div class="card mb-3">
+    <div class="card-body">
+        <dl class="row mb-0">
+            <dt class="col-sm-3">Name</dt>
+            <dd class="col-sm-9">@Model.Product.Name</dd>
+
+            <dt class="col-sm-3">Price</dt>
+            <dd class="col-sm-9">@Model.Product.Price.ToString("C")</dd>
+
+            <dt class="col-sm-3">Stock</dt>
+            <dd class="col-sm-9">@Model.Product.StockQuantity</dd>
+        </dl>
+    </div>
+</div>
+
+<form method="post">
+    <input type="hidden" asp-for="Product.Id" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-page="Index" class="btn btn-outline-secondary">Cancel</a>
+</form>
