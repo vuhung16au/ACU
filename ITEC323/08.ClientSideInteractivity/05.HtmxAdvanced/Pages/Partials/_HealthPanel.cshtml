@@ -1,0 +1,20 @@
+@model HtmxAdvanced.Models.HealthSnapshot
+
+<div class="metrics-grid">
+    <article class="metric-card">
+        <h3>Poll Count</h3>
+        <p>@Model.PollCount</p>
+    </article>
+    <article class="metric-card">
+        <h3>Queue Depth</h3>
+        <p>@Model.QueueDepth</p>
+    </article>
+    <article class="metric-card">
+        <h3>Throughput / Minute</h3>
+        <p>@Model.ThroughputPerMinute</p>
+    </article>
+    <article class="metric-card">
+        <h3>Server Time</h3>
+        <p>@Model.GeneratedAtUtc.ToLocalTime().ToString("HH:mm:ss")</p>
+    </article>
+</div>

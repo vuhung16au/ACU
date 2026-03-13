@@ -1,0 +1,16 @@
+@model HtmxAdvanced.Models.FeedItem
+
+<article class="feed-card">
+    <header>
+        <span class="feed-tag">@Model.Category</span>
+        @if (Model.IsHighPriority)
+        {
+            <span class="feed-priority">Priority</span>
+        }
+    </header>
+    <h3>@Model.Title</h3>
+    <p>@Model.Summary</p>
+    <footer>
+        Updated @Model.UpdatedAtUtc.ToLocalTime().ToString("dd MMM HH:mm")
+    </footer>
+</article>

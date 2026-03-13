@@ -1,0 +1,91 @@
+@page
+@model HtmxAdvancedLabModel
+@{
+    ViewData["Title"] = "HTMX Advanced Lab";
+}
+
+<section class="hero-panel hero-panel-compact">
+    <span class="eyebrow">Week 8 Project 05</span>
+    <h1>Advanced HTMX patterns for production-like interactions.</h1>
+    <p class="lead mb-0">
+        This lab demonstrates live search with debouncing, infinite scrolling,
+        polling-based auto-refresh, and out-of-band updates that refresh multiple
+        page regions from one server response.
+    </p>
+</section>
+
+<section class="card-grid four-col">
+    <article class="info-card badge-card">
+        <code class="attr-badge">hx-trigger="keyup changed delay:400ms"</code>
+        <p>Debounced live search.</p>
+    </article>
+    <article class="info-card badge-card">
+        <code class="attr-badge">hx-trigger="revealed"</code>
+        <p>Infinite scroll load-more sentinel.</p>
+    </article>
+    <article class="info-card badge-card">
+        <code class="attr-badge">hx-trigger="every 8s"</code>
+        <p>Polling refresh without custom JS.</p>
+    </article>
+    <article class="info-card badge-card">
+        <code class="attr-badge">hx-swap-oob</code>
+        <p>Update summary cards outside target.</p>
+    </article>
+</section>
+
+<section class="info-panel">
+    <div class="section-heading">
+        <h2>Live Search + Infinite Feed</h2>
+        <span id="feed-spinner" class="htmx-indicator spinner" aria-label="Loading feed"></span>
+    </div>
+
+    <form id="search-form" class="search-shell" onsubmit="return false;">
+        <label for="q">Search by title, category, or summary</label>
+        <input id="q"
+               name="q"
+               type="search"
+               value="@Model.Query"
+               autocomplete="off"
+               placeholder="Try: timetable, portal, workshop"
+               hx-get="/HtmxAdvancedLab?handler=Feed"
+               hx-trigger="keyup changed delay:400ms, search"
+               hx-target="#feed-results"
+               hx-swap="innerHTML"
+               hx-include="#search-form"
+               hx-indicator="#feed-spinner" />
+    </form>
+
+    <div class="metrics-grid">
+        <article class="metric-card">
+            <h3>Visible Records</h3>
+            <p id="results-summary">Showing @Model.InitialFeed.VisibleCount of @Model.InitialFeed.TotalMatches records</p>
+        </article>
+        <article class="metric-card">
+            <h3>Total Matches</h3>
+            <p id="results-count">@Model.InitialFeed.TotalMatches</p>
+        </article>
+        <article class="metric-card">
+            <h3>Last Feed Refresh</h3>
+            <p id="results-updated">@Model.InitialFeed.GeneratedAtUtc.ToLocalTime().ToString("HH:mm:ss")</p>
+        </article>
+    </div>
+
+    <div id="feed-results" class="feed-results" hx-indicator="#feed-spinner">
+        @await Html.PartialAsync("Partials/_FeedChunk", Model.InitialFeed)
+    </div>
+</section>
+
+<section class="info-panel">
+    <div class="section-heading">
+        <h2>Polling Dashboard</h2>
+        <span class="text-muted">Auto refresh every 8 seconds</span>
+    </div>
+
+    <div id="health-panel"
+         hx-get="/HtmxAdvancedLab?handler=Health"
+         hx-trigger="load, every 8s"
+         hx-swap="innerHTML"
+         hx-indicator="#health-spinner"></div>
+
+    <span id="health-spinner" class="htmx-indicator spinner" aria-label="Refreshing health"></span>
+</section>

@@ -1,0 +1,40 @@
+@model HtmxAdvanced.Models.FeedQueryResult
+
+@if (Model.Items.Count == 0)
+{
+    <div class="empty-state">
+        <h3>No matches</h3>
+        <p>Try a broader query. Results update after a 400ms debounce delay.</p>
+    </div>
+}
+else
+{
+    <div class="feed-grid">
+        @foreach (var item in Model.Items)
+        {
+            @await Html.PartialAsync("Partials/_FeedItem", item)
+        }
+    </div>
+
+    @if (Model.HasMore)
+    {
+        <div class="load-more"
+             hx-get="/HtmxAdvancedLab?handler=Feed&page=@Model.NextPage"
+             hx-trigger="revealed"
+             hx-include="#search-form"
+             hx-swap="outerHTML"
+             hx-indicator="#feed-spinner">
+            Loading more records...
+        </div>
+    }
+}
+
+<div id="results-summary" hx-swap-oob="innerHTML">
+    Showing @Model.VisibleCount of @Model.TotalMatches records
+</div>
+<div id="results-count" hx-swap-oob="innerHTML">
+    @Model.TotalMatches
+</div>
+<div id="results-updated" hx-swap-oob="innerHTML">
+    @Model.GeneratedAtUtc.ToLocalTime().ToString("HH:mm:ss")
+</div>

@@ -1,0 +1,40 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<section class="hero-panel">
+    <span class="eyebrow">HTMX Advanced Patterns</span>
+    <h1>Move from basic partial swaps to richer interaction flows.</h1>
+    <p class="lead">
+        Project 05 focuses on patterns commonly used in dashboards and feeds:
+        debounced search, infinite scrolling, polling refresh, and out-of-band UI updates.
+    </p>
+    <div class="action-row">
+        <a class="button button-primary" asp-page="/HtmxAdvancedLab">Open Advanced Lab</a>
+        <a class="button button-secondary" href="https://htmx.org/docs/" target="_blank" rel="noreferrer">Read HTMX Docs</a>
+    </div>
+</section>
+
+<section class="card-grid">
+    <article class="info-card">
+        <h2>What you will practice</h2>
+        <ul>
+            <li>Live search with debounce delay via <code>hx-trigger</code>.</li>
+            <li>Infinite pagination using a revealed sentinel.</li>
+            <li>Polling with fixed intervals for automatic refresh.</li>
+            <li>Updating multiple UI regions from one response using <code>hx-swap-oob</code>.</li>
+        </ul>
+    </article>
+
+    <article class="info-card">
+        <h2>Suggested flow</h2>
+        <ol>
+            <li>Open the Advanced Lab and inspect Network traffic.</li>
+            <li>Type in the search box and observe delayed requests.</li>
+            <li>Scroll down to trigger next page loading automatically.</li>
+            <li>Watch dashboard metrics update every 8 seconds.</li>
+        </ol>
+    </article>
+</section>
