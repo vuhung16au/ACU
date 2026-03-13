@@ -1,0 +1,51 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<section class="hero-panel">
+    <span class="eyebrow">Week 8 Project 03</span>
+    <h1>Build lightweight interactivity with Alpine.js and Razor Pages.</h1>
+    <p class="lead">
+        Alpine.js gives you Vue-like reactivity directly in HTML attributes.
+        This project keeps server-rendered Razor Pages while adding simple reactive behavior.
+    </p>
+    <div class="action-row">
+        <a class="button button-primary" asp-page="/AlpineLab">Open Alpine Lab</a>
+        <a class="button button-secondary" href="https://alpinejs.dev/start-here" target="_blank" rel="noreferrer">Alpine Docs</a>
+    </div>
+</section>
+
+<section class="card-grid">
+    <article class="info-card">
+        <h2>Learning Objectives</h2>
+        <ul>
+            <li>Use <code>x-data</code> to create local component state.</li>
+            <li>Use <code>x-show</code> and <code>x-if</code> to conditionally display content.</li>
+            <li>Use <code>x-on</code> and <code>x-model</code> for events and form handling.</li>
+            <li>Build beginner components: dropdown, modal, tabs, accordion, and todo list.</li>
+            <li>Combine Razor rendering with client-side Alpine reactivity.</li>
+        </ul>
+    </article>
+
+    <article class="info-card">
+        <h2>Alpine Tips</h2>
+        <ul>
+            @foreach (var tip in Model.Tips)
+            {
+                <li>@tip</li>
+            }
+        </ul>
+    </article>
+</section>
+
+<section class="info-panel">
+    <h2>Suggested classroom walkthrough</h2>
+    <ol>
+        <li>Inspect one Alpine component and locate its <code>x-data</code> state object.</li>
+        <li>Toggle visibility in dropdown/modal to compare <code>x-show</code> and <code>x-if</code>.</li>
+        <li>Edit form fields and observe live preview with <code>x-model</code>.</li>
+        <li>Create todo items and discuss when Alpine is enough versus larger frameworks.</li>
+    </ol>
+</section>

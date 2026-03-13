@@ -1,0 +1,146 @@
+@page
+@model AlpineLabModel
+@{
+    ViewData["Title"] = "Alpine Lab";
+}
+
+<section class="hero-panel hero-panel-compact">
+    <span class="eyebrow">Alpine.js Practice</span>
+    <h1>Create reactive UI with declarative HTML attributes.</h1>
+    <p class="lead mb-0">
+        This page demonstrates lightweight Alpine components: counter, dropdown, modal, tabs,
+        accordion, and a small todo list.
+    </p>
+</section>
+
+<section class="card-grid">
+    @foreach (var example in Model.ExampleCards)
+    {
+        <article class="info-card">
+            <h2>@example.Title</h2>
+            <p><strong>Directive:</strong> <code>@example.Directive</code></p>
+            <p class="text-muted mb-0">@example.Description</p>
+        </article>
+    }
+</section>
+
+<section class="layout-grid">
+    <article class="info-card" x-data="{ count: 0 }">
+        <h2>Counter (<code>x-data</code> + <code>x-on</code>)</h2>
+        <p class="text-muted">State lives inside the component only.</p>
+        <div class="action-row">
+            <button class="button button-secondary" x-on:click="count--" type="button">-1</button>
+            <strong class="counter-value" x-text="count"></strong>
+            <button class="button button-primary" x-on:click="count++" type="button">+1</button>
+        </div>
+    </article>
+
+    <article class="info-card" x-data="{ open: false }">
+        <h2>Dropdown (<code>x-show</code>)</h2>
+        <button class="button button-secondary" x-on:click="open = !open" type="button">Toggle Dropdown</button>
+        <ul class="dropdown" x-show="open" x-transition.origin.top.left>
+            <li>Vanilla JS</li>
+            <li>Promises</li>
+            <li>Alpine.js</li>
+        </ul>
+    </article>
+</section>
+
+<section class="layout-grid">
+    <article class="info-card" x-data="{ showModal: false }">
+        <h2>Modal (<code>x-if</code>)</h2>
+        <button class="button button-primary" x-on:click="showModal = true" type="button">Open Modal</button>
+
+        <template x-if="showModal">
+            <div class="modal-backdrop" x-on:click.self="showModal = false">
+                <div class="modal-panel" x-transition>
+                    <h3>Alpine Modal</h3>
+                    <p>This modal exists in the DOM only while it is open.</p>
+                    <div class="action-row">
+                        <button class="button button-secondary" x-on:click="showModal = false" type="button">Close</button>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </article>
+
+    <article class="info-card" x-data="{ tab: 'overview' }">
+        <h2>Tabs (<code>x-show</code>)</h2>
+        <div class="action-row">
+            <button class="button button-secondary" x-on:click="tab = 'overview'" type="button">Overview</button>
+            <button class="button button-secondary" x-on:click="tab = 'syntax'" type="button">Syntax</button>
+            <button class="button button-secondary" x-on:click="tab = 'usage'" type="button">Usage</button>
+        </div>
+
+        <p x-show="tab === 'overview'">Alpine keeps interactive behavior close to your HTML.</p>
+        <p x-show="tab === 'syntax'">Directives start with <code>x-</code>, for example <code>x-data</code> and <code>x-model</code>.</p>
+        <p x-show="tab === 'usage'">Use Alpine for small-to-medium interactive areas in server-rendered pages.</p>
+    </article>
+</section>
+
+<section class="layout-grid">
+    <article class="info-card" x-data="{ active: 1 }">
+        <h2>Accordion</h2>
+        <button class="accordion-button" x-on:click="active = active === 1 ? 0 : 1" type="button">What is Alpine.js?</button>
+        <p class="accordion-body" x-show="active === 1">A lightweight JavaScript framework for adding reactivity directly in markup.</p>
+
+        <button class="accordion-button" x-on:click="active = active === 2 ? 0 : 2" type="button">When should I use it?</button>
+        <p class="accordion-body" x-show="active === 2">When you need simple interactivity without setting up a full SPA framework.</p>
+
+        <button class="accordion-button" x-on:click="active = active === 3 ? 0 : 3" type="button">How does it fit Razor?</button>
+        <p class="accordion-body" x-show="active === 3">Razor renders HTML first, then Alpine makes selected parts interactive.</p>
+    </article>
+
+    <article class="info-card" x-data="todoLab()">
+        <h2>Todo + Form Handling (<code>x-model</code>)</h2>
+
+        <label for="todoInput">New task</label>
+        <input id="todoInput" x-model="draft" maxlength="60" placeholder="for example: explain x-show" />
+
+        <div class="action-row mt-1">
+            <button class="button button-primary" x-on:click="addItem()" type="button">Add Task</button>
+            <button class="button button-secondary" x-on:click="clearItems()" type="button">Clear</button>
+        </div>
+
+        <p class="text-muted" x-show="items.length === 0">No tasks yet.</p>
+
+        <ul class="todo-list">
+            <template x-for="(item, index) in items" :key="index">
+                <li>
+                    <span x-text="item"></span>
+                    <button class="button button-secondary" x-on:click="removeItem(index)" type="button">Remove</button>
+                </li>
+            </template>
+        </ul>
+
+        <p class="message-panel message-info" x-show="draft.length > 0">
+            Live preview: <strong x-text="draft"></strong>
+        </p>
+    </article>
+</section>
+
+@section Scripts {
+    <script>
+        function todoLab() {
+            return {
+                draft: '',
+                items: ['Review x-data basics', 'Build dropdown component'],
+                addItem() {
+                    const trimmed = this.draft.trim();
+                    if (trimmed.length < 2) {
+                        return;
+                    }
+
+                    this.items.unshift(trimmed);
+                    this.draft = '';
+                },
+                removeItem(index) {
+                    this.items.splice(index, 1);
+                },
+                clearItems() {
+                    this.items = [];
+                }
+            };
+        }
+    </script>
+}
