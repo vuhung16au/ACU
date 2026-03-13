@@ -1,0 +1,50 @@
+@* _StudentRow.cshtml — Read-mode row for one student.
+   Rendered on full page load and after every update/cancel. *@
+@model HtmxPartialUpdates.Models.Student
+
+<tr id="student-row-@Model.Id">
+    <td class="col-id">@Model.Id</td>
+    <td>@Model.Name</td>
+    <td>@Model.Course</td>
+    <td>
+        <span class="grade-badge @(Model.Grade >= 75 ? "grade-pass" : "grade-fail")">
+            @Model.Grade
+        </span>
+    </td>
+    <td>
+        <span class="status-badge @(Model.IsActive ? "status-active" : "status-inactive")">
+            @(Model.IsActive ? "Active" : "Inactive")
+        </span>
+    </td>
+    <td class="col-actions">
+        <!--
+            hx-get     → loads the edit-mode partial for this row id
+            hx-target  → replaces this entire <tr> with the edit row
+            hx-swap    → outerHTML replaces the whole <tr>, not just its contents
+        -->
+        <button class="button button-secondary btn-sm"
+                hx-get="/HtmxLab?handler=EditRow&id=@Model.Id"
+                hx-target="#student-row-@Model.Id"
+                hx-swap="outerHTML"
+                hx-indicator="#table-spinner"
+                type="button">
+            Edit
+        </button>
+
+        <!--
+            hx-post    → calls OnPostDelete with this student's id
+            hx-target  → targets this <tr>
+            hx-swap    → outerHTML with an empty response removes the row entirely
+            hx-confirm → browser confirm dialog before sending
+        -->
+        <button class="button button-danger btn-sm"
+                hx-post="/HtmxLab?handler=Delete&id=@Model.Id"
+                hx-target="#student-row-@Model.Id"
+                hx-swap="outerHTML"
+                hx-confirm="Delete @Model.Name? This cannot be undone."
+                hx-indicator="#table-spinner"
+                type="button">
+            Delete
+        </button>
+    </td>
+</tr>

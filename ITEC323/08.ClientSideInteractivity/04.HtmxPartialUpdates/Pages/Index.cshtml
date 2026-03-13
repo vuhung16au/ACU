@@ -1,0 +1,53 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<section class="hero-panel">
+    <span class="eyebrow">Week 8 Project 04</span>
+    <h1>Partial page updates with HTMX and Razor Pages.</h1>
+    <p class="lead">
+        HTMX lets you add CRUD interactions to any HTML element using attributes like
+        <code>hx-get</code>, <code>hx-post</code>, <code>hx-target</code>, and <code>hx-swap</code>
+        — without writing JavaScript.
+    </p>
+    <div class="action-row">
+        <a class="button button-primary" asp-page="/HtmxLab">Open HTMX Lab</a>
+        <a class="button button-secondary" href="https://htmx.org/docs/" target="_blank" rel="noreferrer">HTMX Docs</a>
+    </div>
+</section>
+
+<section class="card-grid">
+    <article class="info-card">
+        <h2>Learning Objectives</h2>
+        <ul>
+            <li>Use <code>hx-get</code> and <code>hx-post</code> to make HTTP requests from HTML elements.</li>
+            <li>Use <code>hx-target</code> and <code>hx-swap</code> to control where responses appear.</li>
+            <li>Build a full CRUD table (Create, Read, Update, Delete) with inline editing.</li>
+            <li>Return partial views from Razor Pages handler methods.</li>
+            <li>Display loading indicators with <code>hx-indicator</code>.</li>
+        </ul>
+    </article>
+
+    <article class="info-card">
+        <h2>Key HTMX Attributes</h2>
+        <ul>
+            @foreach (var attr in Model.HtmxAttributes)
+            {
+                <li><code>@attr.Name</code> — @attr.Description</li>
+            }
+        </ul>
+    </article>
+</section>
+
+<section class="info-panel">
+    <h2>Suggested classroom walkthrough</h2>
+    <ol>
+        <li>Open the HTMX Lab and add a new student using the form at the bottom.</li>
+        <li>Inspect the Network tab in DevTools — notice only the table fragment is returned, not the full page.</li>
+        <li>Click <strong>Edit</strong> on a row and modify a field, then confirm the row swaps inline.</li>
+        <li>Delete a student and observe the row removal with <code>hx-swap="outerHTML"</code>.</li>
+        <li>Discuss: when is HTMX a better choice than Alpine.js or a full SPA framework?</li>
+    </ol>
+</section>

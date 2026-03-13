@@ -1,0 +1,125 @@
+@page
+@model HtmxLabModel
+@{
+    ViewData["Title"] = "HTMX Lab";
+}
+
+<section class="hero-panel hero-panel-compact">
+    <span class="eyebrow">HTMX Practice</span>
+    <h1>CRUD table with partial page updates — no custom JavaScript.</h1>
+    <p class="lead mb-0">
+        Add, edit, and delete students. Each action replaces only the affected table row,
+        not the whole page. Open DevTools → Network to see small HTML fragments returned
+        instead of full page reloads.
+    </p>
+</section>
+
+<!-- Quick-reference attribute badges -->
+<section class="card-grid three-col">
+    <article class="info-card badge-card">
+        <code class="attr-badge">hx-get</code>
+        <p>Load the edit row when clicking <strong>Edit</strong>.</p>
+    </article>
+    <article class="info-card badge-card">
+        <code class="attr-badge">hx-post</code>
+        <p>Submit create, update, or delete actions.</p>
+    </article>
+    <article class="info-card badge-card">
+        <code class="attr-badge">hx-target</code>
+        <p>Tell HTMX which element to replace with the response.</p>
+    </article>
+    <article class="info-card badge-card">
+        <code class="attr-badge">hx-swap</code>
+        <p>Control <em>how</em> the response HTML is inserted.</p>
+    </article>
+    <article class="info-card badge-card">
+        <code class="attr-badge">hx-indicator</code>
+        <p>Show a loading spinner while the request is in flight.</p>
+    </article>
+    <article class="info-card badge-card">
+        <code class="attr-badge">hx-confirm</code>
+        <p>Ask the user to confirm before sending a delete request.</p>
+    </article>
+</section>
+
+<!-- Student CRUD table -->
+<section class="info-panel">
+    <div class="section-heading">
+        <h2>Students</h2>
+        <!-- Loading indicator — visible only while an HTMX request is running -->
+        <span id="table-spinner" class="htmx-indicator spinner" aria-label="Loading…"></span>
+    </div>
+
+    <div class="table-wrapper">
+        <table class="data-table" aria-label="Student records">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Course</th>
+                    <th scope="col">Grade</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody id="student-tbody"
+                   hx-indicator="#table-spinner">
+                @foreach (var student in Model.Students)
+                {
+                    @await Html.PartialAsync("Partials/_StudentRow", student)
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<!-- Add student form -->
+<section class="info-panel">
+    <h2>Add a new student</h2>
+    <p class="text-muted">
+        This form uses <code>hx-post</code> + <code>hx-target="#student-tbody"</code> +
+        <code>hx-swap="afterbegin"</code> to prepend the new row without reloading the page.
+    </p>
+
+    <!--
+        hx-post   → calls OnPostCreate handler
+        hx-target → insert the returned partial at the top of the table body
+        hx-swap   → afterbegin means "prepend" (new row appears first)
+        hx-on::after-request → clear the form after a successful response
+    -->
+    <form id="create-form"
+          hx-post="/HtmxLab?handler=Create"
+          hx-target="#student-tbody"
+          hx-swap="afterbegin"
+          hx-indicator="#form-spinner"
+          hx-on::after-request="if(event.detail.successful) this.reset()">
+
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="add-name">Name <span class="required">*</span></label>
+                <input id="add-name" name="name" type="text" required maxlength="80"
+                       placeholder="e.g. Mia Chen" />
+            </div>
+            <div class="form-group">
+                <label for="add-course">Course <span class="required">*</span></label>
+                <input id="add-course" name="course" type="text" required maxlength="80"
+                       placeholder="e.g. Web Development" />
+            </div>
+            <div class="form-group">
+                <label for="add-grade">Grade (0–100)</label>
+                <input id="add-grade" name="grade" type="number" min="0" max="100" value="75" />
+            </div>
+            <div class="form-group form-group-check">
+                <label>
+                    <input name="isActive" type="checkbox" value="true" checked />
+                    Active
+                </label>
+            </div>
+        </div>
+
+        <div class="action-row mt-1">
+            <button class="button button-primary" type="submit">Add Student</button>
+            <span id="form-spinner" class="htmx-indicator spinner" aria-label="Saving…"></span>
+        </div>
+    </form>
+</section>

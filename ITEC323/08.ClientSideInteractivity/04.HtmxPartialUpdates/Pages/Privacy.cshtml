@@ -1,0 +1,17 @@
+﻿@page
+@model PrivacyModel
+@{
+    ViewData["Title"] = "Privacy Policy";
+}
+
+<section class="hero-panel">
+    <h1>@ViewData["Title"]</h1>
+    <p class="lead">
+        This is an educational sample application. No personal data is collected or stored
+        beyond the in-memory student records used for the HTMX CRUD demonstration.
+        All data is reset each time the application restarts.
+    </p>
+    <div class="action-row">
+        <a class="button button-secondary" asp-page="/Index">Back to Home</a>
+    </div>
+</section>

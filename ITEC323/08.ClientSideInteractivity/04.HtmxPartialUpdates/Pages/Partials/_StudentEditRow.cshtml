@@ -1,0 +1,67 @@
+@* _StudentEditRow.cshtml — Inline edit form for one student.
+   Swapped in when the user clicks Edit. On Save/Cancel it swaps back to _StudentRow. *@
+@model HtmxPartialUpdates.Models.Student
+
+<tr id="student-row-@Model.Id" class="edit-row">
+    <td class="col-id">@Model.Id</td>
+
+    <!-- Name input -->
+    <td>
+        <input class="field-input" name="name" type="text"
+               value="@Model.Name" maxlength="80" required
+               aria-label="Student name" />
+    </td>
+
+    <!-- Course input -->
+    <td>
+        <input class="field-input" name="course" type="text"
+               value="@Model.Course" maxlength="80" required
+               aria-label="Course name" />
+    </td>
+
+    <!-- Grade input -->
+    <td>
+        <input class="field-input field-grade" name="grade" type="number"
+               value="@Model.Grade" min="0" max="100"
+               aria-label="Grade" />
+    </td>
+
+    <!-- isActive checkbox -->
+    <td>
+        <label class="check-label">
+            <input name="isActive" type="checkbox" value="true"
+                   @(Model.IsActive ? "checked" : "") />
+            Active
+        </label>
+    </td>
+
+    <!-- Save / Cancel -->
+    <td class="col-actions">
+        <!--
+            hx-post    → calls OnPostUpdate with the id in the query string
+            hx-include → includes all inputs inside this <tr> in the request body
+            hx-target  → replaces this row with the returned read-mode partial
+            hx-swap    → outerHTML replaces the whole <tr>
+        -->
+        <button class="button button-primary btn-sm"
+                hx-post="/HtmxLab?handler=Update&id=@Model.Id"
+                hx-include="closest tr"
+                hx-target="#student-row-@Model.Id"
+                hx-swap="outerHTML"
+                hx-indicator="#table-spinner"
+                type="button">
+            Save
+        </button>
+
+        <!--
+            Cancel — fetches the read-mode partial for this id without saving.
+        -->
+        <button class="button button-secondary btn-sm"
+                hx-get="/HtmxLab?handler=ViewRow&id=@Model.Id"
+                hx-target="#student-row-@Model.Id"
+                hx-swap="outerHTML"
+                type="button">
+            Cancel
+        </button>
+    </td>
+</tr>
