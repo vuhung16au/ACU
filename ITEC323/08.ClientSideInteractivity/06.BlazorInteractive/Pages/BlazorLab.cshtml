@@ -1,0 +1,57 @@
+@page
+@model BlazorLabModel
+@{
+    ViewData["Title"] = "Blazor Lab";
+}
+
+<section class="hero-panel">
+    <span class="eyebrow">Blazor Interactive Lab</span>
+    <h1>Interactive islands inside a Razor Pages app.</h1>
+    <p class="lead">
+        Each card below is a Blazor component rendered in server mode.
+        Students can practice binding, events, parameters, cascading values,
+        and server calls without building a full SPA shell.
+    </p>
+</section>
+
+<section class="info-panel">
+    <h2>What this lab demonstrates</h2>
+    <ul>
+        @foreach (var item in Model.Highlights)
+        {
+            <li>@item</li>
+        }
+    </ul>
+</section>
+
+<section class="island-grid">
+    <div class="island-card">
+        <component type="typeof(BlazorInteractive.Components.CounterIsland)"
+                   render-mode="ServerPrerendered"
+                   param-Title='@("Counter Island")'
+                   param-StartingValue="3" />
+    </div>
+
+    <div class="island-card">
+        <component type="typeof(BlazorInteractive.Components.GradeCalculatorIsland)"
+                   render-mode="ServerPrerendered"
+                   param-Title='@("Weighted Grade Calculator")' />
+    </div>
+
+    <div class="island-card">
+        <component type="typeof(BlazorInteractive.Components.PlannerWizardIsland)"
+                   render-mode="ServerPrerendered"
+                   param-Title='@("Study Planner Wizard")' />
+    </div>
+
+    <div class="island-card">
+        <component type="typeof(BlazorInteractive.Components.CascadingContextIsland)"
+                   render-mode="ServerPrerendered" />
+    </div>
+
+    <div class="island-card">
+        <component type="typeof(BlazorInteractive.Components.AnnouncementsIsland)"
+                   render-mode="ServerPrerendered"
+                   param-Title='@("Live Announcements")' />
+    </div>
+</section>

@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - 06.BlazorInteractive</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="site-header">
+        <div class="container shell-header">
+            <a class="brand" asp-page="/Index">06.BlazorInteractive</a>
+            <nav class="site-nav" aria-label="Main navigation">
+                <a asp-page="/Index">Home</a>
+                <a asp-page="/BlazorLab">Blazor Lab</a>
+                <a asp-page="/Privacy">Privacy</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container page-content" role="main">
+        @RenderBody()
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            Week 8 client-side interactivity sample focused on Blazor interactive components.
+        </div>
+    </footer>
+
+    <script src="~/_framework/blazor.server.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

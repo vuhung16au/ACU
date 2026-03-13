@@ -1,0 +1,67 @@
+@using BlazorInteractive.Models
+@inject HttpClient Http
+
+<h3>@Title</h3>
+<p class="muted">Fetches live announcements from a minimal API endpoint in the same app.</p>
+
+<div class="action-row">
+    <button class="button button-primary" @onclick="LoadAnnouncements" disabled="@_loading">Load announcements</button>
+</div>
+
+@if (_loading)
+{
+    <p>Loading...</p>
+}
+else if (!string.IsNullOrWhiteSpace(_error))
+{
+    <p class="error">@_error</p>
+}
+else if (_items.Count == 0)
+{
+    <p>No announcements loaded yet.</p>
+}
+else
+{
+    <ul class="announcement-list">
+        @foreach (var item in _items)
+        {
+            <li>
+                <strong>@item.Title</strong>
+                <div class="muted">@item.Audience • @item.Mode</div>
+                <div class="muted">@item.StartsAtUtc.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</div>
+            </li>
+        }
+    </ul>
+}
+
+@code {
+    [Parameter] public string Title { get; set; } = "API Data Fetch Demo";
+
+    private readonly List<AnnouncementDto> _items = [];
+    private bool _loading;
+    private string _error = string.Empty;
+
+    private async Task LoadAnnouncements()
+    {
+        _loading = true;
+        _error = string.Empty;
+
+        try
+        {
+            var result = await Http.GetFromJsonAsync<List<AnnouncementDto>>("/api/announcements");
+            _items.Clear();
+            if (result is not null)
+            {
+                _items.AddRange(result);
+            }
+        }
+        catch (Exception ex)
+        {
+            _error = $"Unable to load announcements: {ex.Message}";
+        }
+        finally
+        {
+            _loading = false;
+        }
+    }
+}

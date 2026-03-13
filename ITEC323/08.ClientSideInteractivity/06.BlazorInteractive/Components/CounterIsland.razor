@@ -1,0 +1,22 @@
+<h3>@Title</h3>
+<p class="muted">Demonstrates <code>@@onclick</code> and local component state.</p>
+<p class="metric">@count</p>
+<div class="action-row">
+    <button class="button button-primary" @onclick="Increment">Increment</button>
+    <button class="button button-secondary" @onclick="Reset">Reset</button>
+</div>
+
+@code {
+    [Parameter] public string Title { get; set; } = "Counter";
+    [Parameter] public int StartingValue { get; set; }
+
+    private int count;
+
+    protected override void OnInitialized()
+    {
+        count = StartingValue;
+    }
+
+    private void Increment() => count++;
+    private void Reset() => count = StartingValue;
+}

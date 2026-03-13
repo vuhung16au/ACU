@@ -1,0 +1,42 @@
+<h3>@Title</h3>
+<p class="muted">Demonstrates two-way binding with <code>@@bind</code> and <code>@@onchange</code>.</p>
+
+<div class="field">
+    <label>Assessment score (0-100)</label>
+    <input type="number" min="0" max="100" @bind="Score" @bind:event="oninput" />
+</div>
+
+<div class="field">
+    <label>Weight (%)</label>
+    <select @bind="Weight">
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="30">30</option>
+        <option value="40">40</option>
+        <option value="50">50</option>
+    </select>
+</div>
+
+<p>
+    Weighted contribution:
+    <strong>@(Math.Round(Score * Weight / 100.0, 2))</strong>
+</p>
+<p><span class="pill">Last change: @_lastChangedAt.ToString("HH:mm:ss")</span></p>
+
+@code {
+    [Parameter] public string Title { get; set; } = "Grade Calculator";
+
+    private int Score { get; set; } = 78;
+    private int _weight = 30;
+    private int Weight
+    {
+        get => _weight;
+        set
+        {
+            _weight = value;
+            _lastChangedAt = DateTime.Now;
+        }
+    }
+
+    private DateTime _lastChangedAt = DateTime.Now;
+}

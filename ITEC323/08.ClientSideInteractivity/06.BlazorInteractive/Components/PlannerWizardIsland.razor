@@ -1,0 +1,63 @@
+<h3>@Title</h3>
+<p class="muted">A simple multi-step planner to show progressive UI state with bound inputs.</p>
+
+@if (_step == 1)
+{
+    <div class="field">
+        <label>Goal</label>
+        <input @bind="_goal" placeholder="Finish Blazor mini-demo" />
+    </div>
+}
+else if (_step == 2)
+{
+    <div class="field">
+        <label>Estimated study hours</label>
+        <input type="number" min="1" max="20" @bind="_hours" />
+    </div>
+}
+else
+{
+    <div class="field">
+        <label>Notes</label>
+        <textarea rows="3" @bind="_notes"></textarea>
+    </div>
+}
+
+<div class="action-row">
+    <button class="button button-secondary" @onclick="Previous" disabled="@(_step == 1)">Back</button>
+    <button class="button button-primary" @onclick="Next">@(_step < 3 ? "Next" : "Finish")</button>
+</div>
+
+@if (_completed)
+{
+    <p><strong>Plan saved:</strong> @_goal, @_hours h, @_notes</p>
+}
+
+@code {
+    [Parameter] public string Title { get; set; } = "Planner Wizard";
+
+    private int _step = 1;
+    private bool _completed;
+    private string _goal = "";
+    private int _hours = 4;
+    private string _notes = "";
+
+    private void Next()
+    {
+        if (_step < 3)
+        {
+            _step++;
+            return;
+        }
+
+        _completed = true;
+    }
+
+    private void Previous()
+    {
+        if (_step > 1)
+        {
+            _step--;
+        }
+    }
+}

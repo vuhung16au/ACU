@@ -1,0 +1,43 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<section class="hero-panel">
+    <span class="eyebrow">Week 8 Project 06</span>
+    <h1>Build interactive UI with C# components in Blazor.</h1>
+    <p class="lead">
+        This project demonstrates the Blazor interactive islands pattern inside Razor Pages.
+        Students can build rich UI behavior with <code>@@bind</code>, <code>@@onclick</code>,
+        <code>@@onchange</code>, component parameters, and cascading values.
+    </p>
+    <div class="action-row">
+        <a class="button button-primary" asp-page="/BlazorLab">Open Blazor Lab</a>
+        <a class="button button-secondary" href="https://learn.microsoft.com/aspnet/core/blazor/" target="_blank" rel="noreferrer">Blazor Docs</a>
+    </div>
+</section>
+
+<section class="card-grid two-col">
+    <article class="info-card">
+        <h2>Learning Focus</h2>
+        <ul>
+            <li>Use <code>@@bind</code> for two-way data binding.</li>
+            <li>Handle events with <code>@@onclick</code> and <code>@@onchange</code>.</li>
+            <li>Pass data into components via parameters.</li>
+            <li>Share values through a cascading context.</li>
+            <li>Fetch server data from Blazor components.</li>
+        </ul>
+    </article>
+
+    <article class="info-card">
+        <h2>Suggested Walkthrough</h2>
+        <ol>
+            <li>Increase the counter and inspect UI updates.</li>
+            <li>Adjust calculator inputs and verify live totals.</li>
+            <li>Edit the planner form and observe bound values.</li>
+            <li>Review cascading cohort info across components.</li>
+            <li>Refresh announcements fetched from the API endpoint.</li>
+        </ol>
+    </article>
+</section>

@@ -1,0 +1,13 @@
+@using BlazorInteractive.Models
+
+@if (Context is not null)
+{
+    <p>
+        <span class="pill">@Context.Cohort</span>
+        <span class="muted">Focus: @Context.FocusTopic</span>
+    </p>
+}
+
+@code {
+    [CascadingParameter] public StudyContext? Context { get; set; }
+}

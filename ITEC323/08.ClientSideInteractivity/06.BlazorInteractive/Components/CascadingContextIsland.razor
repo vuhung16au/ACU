@@ -1,0 +1,16 @@
+@using BlazorInteractive.Models
+
+<h3>Cascading Value Demo</h3>
+<p class="muted">Parent component provides context shared with children.</p>
+
+<CascadingValue Value="_context">
+    <CohortBadge />
+</CascadingValue>
+
+@code {
+    private readonly StudyContext _context = new()
+    {
+        Cohort = "ITEC323 - Week 8",
+        FocusTopic = "Interactive components with C#"
+    };
+}
