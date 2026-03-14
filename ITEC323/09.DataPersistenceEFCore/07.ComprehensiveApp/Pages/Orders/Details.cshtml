@@ -1,0 +1,70 @@
+@page "{id:int}"
+@model DetailsModel
+@{
+    ViewData["Title"] = "Order Details";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3 mb-0">Order #@Model.Order.Id</h1>
+    <a asp-page="Index" class="btn btn-outline-secondary">Back to Orders</a>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="h5">Customer</h2>
+                <p class="mb-1"><strong>@Model.Order.Customer?.FullName</strong></p>
+                <p class="mb-1">@Model.Order.Customer?.Email</p>
+                <p class="mb-0 text-muted">@Model.Order.Customer?.City</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="h5">Order Summary</h2>
+                <p class="mb-1">Status: <strong>@Model.Order.Status</strong></p>
+                <p class="mb-1">Placed: @Model.Order.OrderDateUtc.ToString("yyyy-MM-dd HH:mm") UTC</p>
+                <p class="mb-0">Total: <strong>@Model.Order.TotalAmount.ToString("C")</strong></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <h2 class="h5">Line Items</h2>
+        <div class="table-responsive">
+            <table class="table table-striped align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Unit Price</th>
+                        <th>Line Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Order.OrderItems)
+                    {
+                        <tr>
+                            <td>@item.Product?.Name</td>
+                            <td>@item.Quantity</td>
+                            <td>@item.UnitPrice.ToString("C")</td>
+                            <td>@((item.UnitPrice * item.Quantity).ToString("C"))</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        @if (!string.IsNullOrWhiteSpace(Model.Order.Notes))
+        {
+            <div class="mt-3">
+                <h3 class="h6">Notes</h3>
+                <p class="mb-0">@Model.Order.Notes</p>
+            </div>
+        }
+    </div>
+</div>

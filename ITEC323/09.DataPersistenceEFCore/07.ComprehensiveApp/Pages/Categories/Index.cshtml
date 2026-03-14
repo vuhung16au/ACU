@@ -1,0 +1,38 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3 mb-0">Categories</h1>
+    <a asp-page="Create" class="btn btn-primary">Create Category</a>
+</div>
+
+<p class="text-muted">Categories demonstrate one-to-many relationships and dropdown binding in product forms.</p>
+
+<div class="table-responsive">
+    <table class="table table-striped table-hover align-middle">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Products</th>
+                <th class="text-end">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var category in Model.Categories)
+            {
+                <tr>
+                    <td>@category.Name</td>
+                    <td>@category.ProductCount</td>
+                    <td class="text-end">
+                        <a asp-page="Details" asp-route-id="@category.Id" class="btn btn-sm btn-outline-secondary">Details</a>
+                        <a asp-page="Edit" asp-route-id="@category.Id" class="btn btn-sm btn-outline-primary">Edit</a>
+                        <a asp-page="Delete" asp-route-id="@category.Id" class="btn btn-sm btn-outline-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

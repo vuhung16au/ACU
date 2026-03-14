@@ -1,0 +1,5 @@
+.env
+.env.local
+*.env
+!.env.example
+secrets.json

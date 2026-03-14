@@ -1,0 +1,136 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Reports";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3 mb-0">Reports</h1>
+    <span class="text-muted">LINQ summaries across orders, products, and categories</span>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-6 col-xl-3">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="text-muted small">Average Order Value</div>
+                <div class="display-6 fs-2">@Model.AverageOrderValue.ToString("C")</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="text-muted small">Pending Orders</div>
+                <div class="display-6 fs-2">@(Model.HasPendingOrders ? "Yes" : "No")</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-3">
+    <div class="col-lg-6">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="h5">Revenue by Category</h2>
+                <div class="table-responsive">
+                    <table class="table table-sm align-middle mb-0">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Qty Sold</th>
+                                <th>Revenue</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var summary in Model.RevenueByCategory)
+                            {
+                                <tr>
+                                    <td>@summary.CategoryName</td>
+                                    <td>@summary.QuantitySold</td>
+                                    <td>@summary.Revenue.ToString("C")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="h5">Top Products</h2>
+                <div class="table-responsive">
+                    <table class="table table-sm align-middle mb-0">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Qty Sold</th>
+                                <th>Revenue</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var summary in Model.TopProducts)
+                            {
+                                <tr>
+                                    <td>@summary.ProductName</td>
+                                    <td>@summary.QuantitySold</td>
+                                    <td>@summary.Revenue.ToString("C")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="h5">Inventory Alerts</h2>
+                @if (!Model.InventoryAlerts.Any())
+                {
+                    <p class="text-muted mb-0">No low-stock products found.</p>
+                }
+                else
+                {
+                    <ul class="mb-0">
+                        @foreach (var item in Model.InventoryAlerts)
+                        {
+                            <li>@item.ProductName (@item.CategoryName) - @item.StockQuantity left</li>
+                        }
+                    </ul>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="h5">Top Customers</h2>
+                <div class="table-responsive">
+                    <table class="table table-sm align-middle mb-0">
+                        <thead>
+                            <tr>
+                                <th>Customer</th>
+                                <th>Orders</th>
+                                <th>Total Spend</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var summary in Model.TopCustomers)
+                            {
+                                <tr>
+                                    <td>@summary.CustomerName</td>
+                                    <td>@summary.OrderCount</td>
+                                    <td>@summary.TotalSpend.ToString("C")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

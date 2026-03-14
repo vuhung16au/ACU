@@ -1,0 +1,19 @@
+﻿@page
+@model PrivacyModel
+@{
+    ViewData["Title"] = "Data & Security Notes";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    This classroom project stores sample store data in a local PostgreSQL database.
+    The application expects credentials from User Secrets or environment variables, not source-controlled files.
+</p>
+
+<ul>
+    <li>Use <code>dotnet user-secrets set</code> for development secrets.</li>
+    <li>Use <code>ConnectionStrings__DefaultConnection</code> in production.</li>
+    <li>Keep <code>.env</code> out of Git with <code>.gitignore</code>.</li>
+    <li>Use data annotations and Razor validation helpers to reject bad input early.</li>
+    <li>Let EF Core parameterize queries instead of building SQL manually.</li>
+</ul>

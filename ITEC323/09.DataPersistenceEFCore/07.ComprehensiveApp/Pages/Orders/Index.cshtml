@@ -1,0 +1,43 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Orders";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3 mb-0">Orders</h1>
+    <a asp-page="Create" class="btn btn-primary">Create Order</a>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped table-hover align-middle">
+        <thead>
+            <tr>
+                <th>Order</th>
+                <th>Customer</th>
+                <th>Status</th>
+                <th>Items</th>
+                <th>Total</th>
+                <th class="text-end">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model.Orders)
+            {
+                <tr>
+                    <td>
+                        #@order.Id<br />
+                        <span class="text-muted">@order.OrderDateUtc.ToString("yyyy-MM-dd HH:mm") UTC</span>
+                    </td>
+                    <td>@order.Customer?.FullName</td>
+                    <td>@order.Status</td>
+                    <td>@order.OrderItems.Sum(item => item.Quantity)</td>
+                    <td>@order.TotalAmount.ToString("C")</td>
+                    <td class="text-end">
+                        <a asp-page="Details" asp-route-id="@order.Id" class="btn btn-sm btn-outline-secondary">Details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

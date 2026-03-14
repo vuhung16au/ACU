@@ -1,0 +1,51 @@
+@page
+@model CreateModel
+@{
+    ViewData["Title"] = "Create Order";
+}
+
+<h1 class="h3">Create Order</h1>
+<p class="text-muted">This page demonstrates model binding, change tracking, and saving related records in one request.</p>
+
+<div class="row">
+    <div class="col-lg-7">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="OrderInput.CustomerId" class="form-label"></label>
+                <select asp-for="OrderInput.CustomerId" asp-items="Model.CustomerOptions" class="form-select">
+                    <option value="">-- Select Customer --</option>
+                </select>
+                <span asp-validation-for="OrderInput.CustomerId" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="OrderInput.ProductId" class="form-label"></label>
+                <select asp-for="OrderInput.ProductId" asp-items="Model.ProductOptions" class="form-select">
+                    <option value="">-- Select Product --</option>
+                </select>
+                <span asp-validation-for="OrderInput.ProductId" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="OrderInput.Quantity" class="form-label"></label>
+                <input asp-for="OrderInput.Quantity" class="form-control" />
+                <span asp-validation-for="OrderInput.Quantity" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="OrderInput.Notes" class="form-label"></label>
+                <textarea asp-for="OrderInput.Notes" rows="3" class="form-control"></textarea>
+                <span asp-validation-for="OrderInput.Notes" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Place Order</button>
+            <a asp-page="Index" class="btn btn-outline-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

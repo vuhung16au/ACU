@@ -1,0 +1,19 @@
+@page "{id:int}"
+@model DeleteModel
+@{
+    ViewData["Title"] = "Delete Category";
+}
+
+<h1 class="h3">Delete Category</h1>
+
+<div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+<div class="alert alert-warning">
+    <strong>@Model.Category.Name</strong> currently has @Model.Category.Products.Count product(s).
+</div>
+
+<form method="post">
+    <input type="hidden" asp-for="Category.Id" />
+    <button type="submit" class="btn btn-danger">Delete Category</button>
+    <a asp-page="Index" class="btn btn-outline-secondary">Cancel</a>
+</form>

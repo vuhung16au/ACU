@@ -1,0 +1,149 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="p-4 mb-4 bg-light rounded-3 border">
+    <h1 class="display-6">07.ComprehensiveApp</h1>
+    <p class="mb-2">
+        This final Week 9 project combines secure PostgreSQL configuration, related data,
+        EF Core CRUD, change tracking, and LINQ reporting in one classroom-friendly store dashboard.
+    </p>
+    <p class="mb-0">
+        The app starts with seeded categories, customers, products, and orders so you can explore the full workflow immediately.
+    </p>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-sm-6 col-xl-3">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="text-muted small">Products</div>
+                <div class="display-6">@Model.ProductCount</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-xl-3">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="text-muted small">Categories</div>
+                <div class="display-6">@Model.CategoryCount</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-xl-3">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="text-muted small">Customers</div>
+                <div class="display-6">@Model.CustomerCount</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-xl-3">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="text-muted small">Revenue</div>
+                <div class="display-6 fs-2">@Model.TotalRevenue.ToString("C")</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-3">
+    <div class="col-lg-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="h5">Integrated Concepts</h2>
+                <ul class="mb-0">
+                    <li>Secure PostgreSQL configuration with User Secrets and <code>.env</code>.</li>
+                    <li>One-to-many relationships across products, categories, customers, and orders.</li>
+                    <li>Change tracking when creating orders and reducing stock.</li>
+                    <li>LINQ summaries for revenue, top products, and stock alerts.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="h5">Explore the App</h2>
+                <ol class="mb-3">
+                    <li>Browse the product catalog with related categories.</li>
+                    <li>Create a new category or edit seeded inventory.</li>
+                    <li>Place an order and watch stock update automatically.</li>
+                    <li>Open the reports page to inspect grouped revenue data.</li>
+                </ol>
+                <div class="d-flex gap-2 flex-wrap">
+                    <a asp-page="/Products/Index" class="btn btn-primary">Products</a>
+                    <a asp-page="/Orders/Create" class="btn btn-outline-primary">New Order</a>
+                    <a asp-page="/Reports/Index" class="btn btn-outline-secondary">Reports</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="h5">Low Stock Alerts</h2>
+                @if (!Model.LowStockProducts.Any())
+                {
+                    <p class="text-muted mb-0">All products are above the reorder threshold.</p>
+                }
+                else
+                {
+                    <ul class="mb-0">
+                        @foreach (var product in Model.LowStockProducts)
+                        {
+                            <li>@product.Name (@product.Category?.Name) - @product.StockQuantity left</li>
+                        }
+                    </ul>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mt-4">
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="h5 mb-0">Recent Orders</h2>
+            <span class="text-muted">@Model.OrderCount total orders</span>
+        </div>
+        @if (!Model.RecentOrders.Any())
+        {
+            <p class="text-muted mb-0">No orders have been created yet.</p>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-sm align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>Order</th>
+                            <th>Customer</th>
+                            <th>Status</th>
+                            <th>Items</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var order in Model.RecentOrders)
+                        {
+                            <tr>
+                                <td>
+                                    <a asp-page="/Orders/Details" asp-route-id="@order.Id">#@order.Id</a><br />
+                                    <span class="text-muted">@order.OrderDateUtc.ToString("yyyy-MM-dd HH:mm") UTC</span>
+                                </td>
+                                <td>@order.Customer?.FullName</td>
+                                <td>@order.Status</td>
+                                <td>@order.OrderItems.Sum(item => item.Quantity)</td>
+                                <td>@order.TotalAmount.ToString("C")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>
