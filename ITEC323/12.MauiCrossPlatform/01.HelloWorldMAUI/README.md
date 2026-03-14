@@ -15,6 +15,8 @@ The app includes:
 
 ![HelloWorld MAUI demo](images/hello-world-maui.gif)
 
+![HelloWorld MAUI Android iOS macOS demo](images/hello-world-maui-android-iso-macos.gif)
+
 ## Learning Objectives
 
 By completing this project, you will be able to:
@@ -60,7 +62,20 @@ dotnet build 12.MauiCrossPlatform/01.HelloWorldMAUI/HelloWorldMAUI.csproj -f net
 
 # Alternatively, navigate to project folder first
 cd 12.MauiCrossPlatform/01.HelloWorldMAUI
+
+# Run on Mac Catalyst
 dotnet build -t:Run -f net10.0-maccatalyst
+
+# Run on Android (optional, requires emulator)
+dotnet build -t:Run -f net10.0-android
+
+# Run on iOS Simulator (optional, requires Xcode and Simulator)
+# Start Simulator first, then target the currently booted device.
+dotnet build HelloWorldMAUI.csproj -t:Run -f net10.0-ios -p:_DeviceName=:v2:udid=$(xcrun simctl list devices booted | awk -F '[()]' '/Booted/{print $2; exit}')
+
+# If no simulator is booted:
+open -a Simulator
+xcrun simctl list devices available
 
 # Or from root with full path
 dotnet build -t:Run --project 12.MauiCrossPlatform/01.HelloWorldMAUI/HelloWorldMAUI.csproj -f net10.0-maccatalyst

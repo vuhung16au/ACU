@@ -33,6 +33,11 @@ dotnet build -f net10.0-maccatalyst
 # Build for Android
 dotnet build -f net10.0-android
 
+# Build for iOS (optional, requires Xcode and Simulator)
+dotnet build -f net10.0-ios
+
+# Build for WebAssembly (optional)
+dotnet build -f net10.0-wasm
 # Build for all platforms (optional)
 dotnet build
 ```
@@ -53,6 +58,10 @@ dotnet build -t:Run -f net10.0-maccatalyst
 # Run on Android (optional, requires emulator)
 dotnet build -t:Run -f net10.0-android
 
+# Run on iOS Simulator (optional, requires Xcode and Simulator)
+dotnet build HelloWorldMAUI.csproj -t:Run -f net10.0-ios -p:_DeviceName=:v2:udid=$(xcrun simctl list devices booted | awk -F '[()]' '/Booted/{print $2; exit}')
+
+
 # Run on all platforms (optional)
 dotnet build -t:Run
 ```
@@ -71,7 +80,34 @@ Start an Android emulator first, then run:
 dotnet build -t:Run --project 12.MauiCrossPlatform/01.HelloWorldMAUI/HelloWorldMAUI.csproj -f net10.0-android
 ```
 
-## 5. Explore Important Files
+## 5. Run On iOS Simulator (macOS)
+
+From repository root:
+
+```bash
+cd 12.MauiCrossPlatform/01.HelloWorldMAUI
+```
+
+Start Simulator:
+
+```bash
+open -a Simulator
+```
+
+Run on iOS:
+
+```bash
+dotnet build HelloWorldMAUI.csproj -t:Run -f net10.0-ios -p:_DeviceName=:v2:udid=$(xcrun simctl list devices booted | awk -F '[()]' '/Booted/{print $2; exit}')
+```
+
+If you need to target a specific simulator:
+
+```bash
+xcrun simctl list devices available
+dotnet build HelloWorldMAUI.csproj -t:Run -f net10.0-ios -p:_DeviceName=:v2:udid=<SIMULATOR_UDID>
+```
+
+## 6. Explore Important Files
 
 - `MainPage.xaml`: UI layout (labels, image, buttons)
 - `MainPage.xaml.cs`: click event handlers and counter logic
@@ -91,6 +127,37 @@ dotnet workload install maui
 
 - Start emulator manually in Android Studio
 - Or run Mac Catalyst target first
+
+### Error: iOS simulator unavailable or not detected
+
+```bash
+open -a Simulator
+xcrun simctl list devices available
+```
+
+If Simulator still does not show up, ensure Xcode CLI tools are selected:
+
+```bash
+xcode-select -p
+sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+```
+
+### Error MT1206: Could not find simulator runtime iOS-26-2
+
+This means the default launch target is stale (for example iOS 26.2) while your installed runtime is different (for example iOS 26.3).
+
+Use the booted simulator UDID explicitly:
+
+```bash
+dotnet build HelloWorldMAUI.csproj -t:Run -f net10.0-ios -p:_DeviceName=:v2:udid=$(xcrun simctl list devices booted | awk -F '[()]' '/Booted/{print $2; exit}')
+```
+
+If needed, list and pick a specific device:
+
+```bash
+xcrun simctl list devices available
+dotnet build HelloWorldMAUI.csproj -t:Run -f net10.0-ios -p:_DeviceName=:v2:udid=<SIMULATOR_UDID>
+```
 
 ### Error: Build fails after SDK changes
 
