@@ -5,6 +5,7 @@ This repository contains supplementary code and examples for **ITEC323 - Web and
 ## 🚧 Work in Progress
 
 This repository is actively being developed and updated with new examples and projects throughout the semester.
+Folders with names `20+`, such as `20-Kotlin` and `21-Blazor`, are work in progress and may change as new materials are prepared.
 
 ## 📋 About
 
@@ -21,22 +22,29 @@ ITEC323/
 ├── README.md                    # This file
 ├── LICENSE.md                   # MIT License
 ├── ITEC323.sln                  # Visual Studio solution file
-├── 00.00.DotnetOverview/        # .NET fundamentals and concepts
-│   ├── README.md
-│   ├── BuildTools.md            # Build tools comparison (Maven vs .NET)
-│   └── UnitTest.md              # Unit testing in .NET
-├── 00.SetupDotnet/              # .NET setup instructions
-├── AspNetHelloWorld/            # ASP.NET Core web application example
-│   ├── Program.cs
-│   ├── README.md
-│   └── docs/
-├── DotNetHelloWorldCLI/         # .NET console application example
-│   ├── src/
-│   ├── docs/
-│   ├── README.md
-│   └── FRD.md
+├── 00.DotnetOverview/           # .NET fundamentals and supporting notes
+├── 00.SetupDevelopmentEnvironments/
+│                                  # Setup instructions for student machines
+├── 01.HelloDotnet/              # Week 1
+├── 02.HTML-CSS/                 # Week 2
+├── 03.CSharp-Razorpages/        # Week 3
+├── 04.ConsistentWebDesign/      # Week 4
+├── 05.NavigationRouting/        # Week 5
+├── 06.ReusableComponentsValidation/
+│                                  # Week 6
+├── 07.AjaxDynamicContent/       # Week 7
+├── 08.ClientSideInteractivity/  # Week 8
+├── 09.DataPersistenceEFCore/    # Week 9
+├── 10.AndroidKotlinJetpackCompose/
+│                                  # Week 10 Android apps
+├── 11.AndroidGreetingApps/      # Week 11 Android hands-on practice
+├── 12.MauiCrossPlatform/        # Week 12
+├── 20-Kotlin/                   # Work in progress
+├── 21-Blazor/                   # Work in progress
 └── .vscode/                     # VS Code configuration
 ```
+
+The main teaching materials are organised into 12 folders for the 12 teaching weeks: `01.` through `12.`.
 
 ## 🚀 How to Build and Run
 
@@ -47,15 +55,17 @@ ITEC323/
 
 ### Building the Solution
 
-To build all projects in the solution:
+To build all .NET projects in the solution for weeks 1-9 and 12:
 
 ```bash
 # Navigate to the repository root
 cd ITEC323
 
 # Build all projects
-dotnet build ITEC323.sln
+dotnet build ITEC323.sln -v minimal
 ```
+
+Weeks 10 and 11 contain Android projects, so they are not included in the root `.sln` build.
 
 ### Running Individual Projects
 
@@ -88,38 +98,33 @@ dotnet restore
 
 This repository includes examples and code for the following topics covered in ITEC323:
 
-### .NET Fundamentals
-- ✅ Getting Started with .NET
-- ✅ Building an ASP.NET Website
+### Weekly Structure
+- Week 1: Hello .NET
+- Week 2: HTML and CSS
+- Week 3: C# and Razor Pages
+- Week 4: Consistent Web Design
+- Week 5: Navigation and Routing
+- Week 6: Reusable Components and Validation
+- Week 7: AJAX and Dynamic Content
+- Week 8: Client-side Interactivity
+- Week 9: Data Persistence with EF Core
+- Week 10: Android Kotlin Jetpack Compose
+- Week 11: Android Greeting Apps
+- Week 12: MAUI Cross-Platform Apps
 
-### Web Development
-- Designing Web Pages
-- Working with ASP.NET Server Controls
-- Programming ASP.NET Web Pages
-- Creating Consistent Looking Websites
-- Navigation and User Control
-
-### User Input and Validation
-- Validating User Input
-- ASP.NET Validation Controls
-
-### Advanced Web Technologies
-- jQuery and AJAX
-- Data-bound Controls
-
-### Mobile Development
-- Introduction to Android Mobile Development
+### Work In Progress
+- `20-Kotlin`
+- `21-Blazor`
 
 ## 📖 Individual Project Documentation
 
-Each project folder contains its own documentation:
+Each weekly folder contains its own examples and documentation:
 
-- [**00.00.DotnetOverview/README.md**](00.00.DotnetOverview/README.md) - .NET fundamentals and concepts
-  - [BuildTools.md](00.00.DotnetOverview/BuildTools.md) - Build tools comparison for Java developers
-  - [UnitTest.md](00.00.DotnetOverview/UnitTest.md) - Unit testing in .NET
-- [**AspNetHelloWorld/README.md**](AspNetHelloWorld/README.md) - ASP.NET Core web application details
-- [**DotNetHelloWorldCLI/README.md**](DotNetHelloWorldCLI/README.md) - Console application details
-- [**00.SetupDotnet/README.md**](00.SetupDotnet/README.md) - .NET setup guide
+- [**00.DotnetOverview/README.md**](00.DotnetOverview/README.md) - .NET overview notes
+- [**00.SetupDevelopmentEnvironments/README.md**](00.SetupDevelopmentEnvironments/README.md) - setup guide
+- [**01.HelloDotnet/**](01.HelloDotnet) to [**12.MauiCrossPlatform/**](12.MauiCrossPlatform) - weekly teaching materials
+- [**20-Kotlin/**](20-Kotlin) - work in progress
+- [**21-Blazor/**](21-Blazor) - work in progress
 
 ## 🛠️ Development
 
