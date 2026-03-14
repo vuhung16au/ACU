@@ -1,0 +1,46 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="p-4 mb-4 bg-light rounded-3 border">
+    <h1 class="display-6">06.SecureConnections</h1>
+    <p class="mb-2">
+        This project focuses on secure configuration for database access.
+        The connection string is intentionally excluded from source-controlled app settings.
+    </p>
+    <p class="mb-0">
+        Current product count in database: <strong>@Model.ProductCount</strong>
+    </p>
+</div>
+
+<div class="row g-3">
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="h5">Learning Objectives</h2>
+                <ul class="mb-0">
+                    <li>Initialize and use <code>dotnet user-secrets</code>.</li>
+                    <li>Read secure configuration in <code>Program.cs</code>.</li>
+                    <li>Use environment variables for production-style overrides.</li>
+                    <li>Keep secrets out of Git and appsettings files.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="h5">Try It Now</h2>
+                <ol class="mb-3">
+                    <li>Start PostgreSQL with Docker Compose using <code>.env</code>.</li>
+                    <li>Set <code>ConnectionStrings:DefaultConnection</code> in User Secrets.</li>
+                    <li>Apply migrations securely.</li>
+                    <li>Open the app and verify CRUD still works.</li>
+                </ol>
+                <a asp-page="/Products/Index" class="btn btn-primary">Open Product Catalog</a>
+            </div>
+        </div>
+    </div>
+</div>
