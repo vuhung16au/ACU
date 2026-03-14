@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ShellNavigation.Views.HomePage"
+             x:Name="HomePageRoot"
+             Title="Task List">
+
+    <Grid RowDefinitions="Auto,Auto,*" Padding="20" RowSpacing="12">
+        <Label Grid.Row="0"
+               Text="Shell Navigation"
+               Style="{StaticResource Headline}"
+               SemanticProperties.HeadingLevel="Level1" />
+
+        <Label Grid.Row="1"
+               Text="{Binding StatusMessage, Mode=OneWay}"
+               FontSize="16"
+               HorizontalTextAlignment="Center"
+               AutomationId="HomeStatusLabel" />
+
+        <CollectionView Grid.Row="2"
+                        ItemsSource="{Binding Tasks, Mode=OneWay}"
+                        SelectionMode="None"
+                        AutomationId="TaskCollectionView">
+            <CollectionView.EmptyView>
+                <Label Text="No tasks found."
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border Margin="0,4"
+                            Padding="12"
+                            StrokeShape="RoundRectangle 12">
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="{Binding Title, Mode=OneWay}"
+                                   FontAttributes="Bold"
+                                   FontSize="18" />
+                            <Label Text="{Binding Description, Mode=OneWay}"
+                                   LineBreakMode="TailTruncation"
+                                   MaxLines="2" />
+                            <Button Text="View Detail"
+                                    Command="{Binding Source={x:Reference HomePageRoot}, Path=BindingContext.OpenDetailCommand}"
+                                    CommandParameter="{Binding .}"
+                                    AutomationId="OpenDetailButton" />
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+
+</ContentPage>

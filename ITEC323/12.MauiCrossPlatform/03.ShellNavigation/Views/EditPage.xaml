@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ShellNavigation.Views.EditPage"
+             Title="Edit Task">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="12">
+            <Label Text="Edit Route"
+                   Style="{StaticResource SubHeadline}"
+                   SemanticProperties.HeadingLevel="Level1" />
+
+            <Label Text="{Binding StatusMessage, Mode=OneWay}"
+                   AutomationId="EditStatusLabel" />
+
+            <Label Text="Title" FontAttributes="Bold" />
+            <Entry Text="{Binding Title, Mode=TwoWay}"
+                   Placeholder="Task title"
+                   AutomationId="EditTitleEntry" />
+
+            <Label Text="Description" FontAttributes="Bold" />
+            <Editor Text="{Binding Description, Mode=TwoWay}"
+                    Placeholder="Task description"
+                    AutoSize="TextChanges"
+                    AutomationId="EditDescriptionEditor" />
+
+            <HorizontalStackLayout Spacing="12">
+                <Label Text="Completed" VerticalOptions="Center" />
+                <Switch IsToggled="{Binding IsCompleted, Mode=TwoWay}"
+                        AutomationId="EditCompletedSwitch" />
+            </HorizontalStackLayout>
+
+            <Button Text="Save"
+                    Command="{Binding SaveCommand}"
+                    AutomationId="SaveEditButton" />
+
+            <Button Text="Cancel"
+                    Command="{Binding CancelCommand}"
+                    AutomationId="CancelEditButton" />
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
