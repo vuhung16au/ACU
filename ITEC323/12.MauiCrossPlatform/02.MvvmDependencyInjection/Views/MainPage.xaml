@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MvvmDependencyInjection.Views.MainPage"
+             Title="MVVM + Dependency Injection">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="24,24"
+            Spacing="16">
+            <Image
+                Source="dotnet_bot.png"
+                HeightRequest="140"
+                Aspect="AspectFit"
+                SemanticProperties.Description="dot net bot in a submarine number ten" />
+
+            <Label
+                Text="MVVM + DI in .NET MAUI"
+                Style="{StaticResource Headline}"
+                SemanticProperties.HeadingLevel="Level1" />
+
+            <Label
+                Text="This page binds to MainViewModel using CommunityToolkit attributes."
+                FontSize="18"
+                SemanticProperties.HeadingLevel="Level2"
+                HorizontalTextAlignment="Center"
+                SemanticProperties.Description="MVVM page with dependency injection" />
+
+            <Label
+                Text="Your name"
+                FontAttributes="Bold"
+                AutomationId="LearnerNameLabel" />
+
+            <!-- Two-way binding keeps Entry text and ViewModel.LearnerName in sync. -->
+            <Entry
+                Placeholder="Type your name"
+                Text="{Binding LearnerName, Mode=TwoWay}"
+                ReturnType="Done"
+                ClearButtonVisibility="WhileEditing"
+                AutomationId="LearnerNameEntry" />
+
+            <!-- StatusMessage is updated by commands and by name changes. -->
+            <Label
+                Text="{Binding StatusMessage, Mode=OneWay}"
+                HorizontalTextAlignment="Center"
+                FontSize="16"
+                AutomationId="StatusLabel" />
+
+            <Label
+                Text="{Binding ClickCount, StringFormat='Current count: {0}'}"
+                HorizontalTextAlignment="Center"
+                AutomationId="CounterValueLabel" />
+
+            <!-- IncrementCommand executes logic in MainViewModel instead of code-behind. -->
+            <Button
+                Text="{Binding CounterButtonText}"
+                SemanticProperties.Hint="Increments the counter through a relay command"
+                Command="{Binding IncrementCommand}"
+                HorizontalOptions="Fill"
+                AutomationId="IncrementButton" />
+
+            <Button
+                Text="Reset"
+                Command="{Binding ResetCommand}"
+                HorizontalOptions="Fill"
+                AutomationId="ResetButton" />
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
