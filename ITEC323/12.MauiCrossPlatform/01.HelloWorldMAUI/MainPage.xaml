@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HelloWorldMAUI.MainPage"
+             Title="Hello World MAUI">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="24,24"
+            Spacing="16">
+            <Image
+                Source="dotnet_bot.png"
+                HeightRequest="140"
+                Aspect="AspectFit"
+                SemanticProperties.Description="dot net bot in a submarine number ten" />
+
+            <Label
+                Text="Hello, .NET MAUI!"
+                Style="{StaticResource Headline}"
+                SemanticProperties.HeadingLevel="Level1" />
+
+            <Label
+                Text="This is your first cross-platform app using C# and XAML."
+                Style="{StaticResource SubHeadline}"
+                FontSize="20"
+                SemanticProperties.HeadingLevel="Level2"
+                SemanticProperties.Description="Welcome to dot net Multi platform App U I" />
+
+            <Label
+                x:Name="StatusLabel"
+                Text="Press the button to update this message."
+                HorizontalTextAlignment="Center"
+                FontSize="16"
+                AutomationId="StatusLabel" />
+
+            <Button
+                x:Name="CounterBtn"
+                Text="Tap to Count" 
+                SemanticProperties.Hint="Counts the number of times you click"
+                Clicked="OnCounterClicked"
+                HorizontalOptions="Fill"
+                AutomationId="CounterButton" />
+
+            <Button
+                Text="Reset Counter"
+                Clicked="OnResetClicked"
+                HorizontalOptions="Fill"
+                AutomationId="ResetButton" />
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

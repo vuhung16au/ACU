@@ -148,6 +148,12 @@ Ensure students have MAUI workload installed:
 dotnet workload install maui
 ```
 
+## Versions
+
+- .NET SDK: 10.0 
+- MAUI: Latest stable version at time of course development (check Microsoft docs for updates)
+- C#: 14 
+
 ## Resources
 - [Microsoft MAUI Documentation](https://learn.microsoft.com/en-us/dotnet/maui/)
 - [.NET Community Toolkit MVVM](https://learn.microsoft.com/en-us/dotnet/communitytoolkit/mvvm/)
