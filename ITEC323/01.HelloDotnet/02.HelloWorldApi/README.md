@@ -229,9 +229,3 @@ This project follows the ITEC323 educational principles:
 - **Well Documented**: Every concept is explained
 - **Hands-On**: Learn by doing and experimenting
 - **Foundation Building**: Prepares you for advanced topics
-
----
-
-**Course**: ITEC323 - Application Development  
-**Institution**: Australian Catholic University (ACU)  
-**Last Updated**: February 2026

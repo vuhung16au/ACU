@@ -1,13 +1,6 @@
 # Functional Requirements Document (FRD)
 ## Hello World Blazor Application
 
-**Project Name**: Hello World Blazor  
-**Version**: 1.0  
-**Date**: February 2026  
-**Course**: ITEC323 - Application Development  
-**Institution**: Australian Catholic University (ACU)
-
----
 
 ## 1. Purpose
 
@@ -385,7 +378,3 @@ This document requires approval from:
 - [ ] Technical Lead
 - [ ] Documentation Team
 
----
-
-**Document Status**: Draft  
-**Next Review Date**: Start of next semester

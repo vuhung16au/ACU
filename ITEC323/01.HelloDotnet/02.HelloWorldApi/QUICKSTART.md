@@ -355,8 +355,3 @@ If you can see "Hello World!" in your browser, congratulations! You've successfu
 
 You're now ready to build more complex APIs!
 
----
-
-**Course**: ITEC323 - Application Development  
-**Institution**: Australian Catholic University (ACU)  
-**Last Updated**: February 2026

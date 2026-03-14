@@ -18,7 +18,7 @@ Expected output: `10.0.x`
 ## Step 1: Run the project
 
 ```bash
-cd /Users/vuhung/00.Work/02.ACU/github/ITEC323/05.NavigationRouting
+cd 05.NavigationRouting
 dotnet run
 ```
 

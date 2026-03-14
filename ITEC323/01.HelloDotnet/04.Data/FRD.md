@@ -1,14 +1,6 @@
 # Functional Requirements Document (FRD)
 ## Hello World Data Application (EF Core + SQLite)
 
-**Project Name**: Hello World Data  
-**Version**: 1.0  
-**Date**: February 2026  
-**Course**: ITEC323 - Application Development  
-**Institution**: Australian Catholic University (ACU)
-
----
-
 ## 1. Purpose
 
 The purpose of this application is to introduce first-time learners to data-driven .NET development using Entity Framework Core and SQLite in a simple console application.

@@ -1,7 +1,7 @@
 # 04.HtmxPartialUpdates
 
 Week 8, Project 04 — **HTMX Partial Updates**  
-Part of the [08.ClientSideInteractivity](../) module for ITEC323 at ACU.
+Part of the [08.ClientSideInteractivity](../) module for ITEC323.
 
 ## What this project teaches
 

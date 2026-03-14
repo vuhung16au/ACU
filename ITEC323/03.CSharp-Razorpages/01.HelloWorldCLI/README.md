@@ -78,9 +78,3 @@ If you encounter any issues:
 1. Verify your .NET SDK is installed: `dotnet --version`
 2. Check the [QUICKSTART.md](QUICKSTART.md) for detailed instructions
 3. Review the [docs/Key-Takeaways.md](docs/Key-Takeaways.md) for concept explanations
-
----
-
-**Course**: ITEC323 - Software Technologies  
-**Institution**: Australian Catholic University (ACU)  
-**Last Updated**: March 2026

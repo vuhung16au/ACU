@@ -1,13 +1,6 @@
 # Functional Requirements Document (FRD)
 ## Hello World API Application
 
-**Project Name**: Hello World API  
-**Version**: 1.0  
-**Date**: February 2026  
-**Course**: ITEC323 - Application Development  
-**Institution**: Australian Catholic University (ACU)
-
----
 
 ## 1. Purpose
 
@@ -601,32 +594,5 @@ These features are intentionally omitted but could be added in future projects:
 - [REST API Design](https://restfulapi.net/)
 - [Web API Best Practices](https://docs.microsoft.com/azure/architecture/best-practices/api-design)
 
-### Course Materials
-- ITEC323 Course Handbook
-- Week 1 Lecture: Introduction to Web APIs
-- Week 1 Lab: Building Your First API
 
----
 
-## 12. Revision History
-
-| Version | Date | Author | Changes |
-|---------|------|--------|---------|
-| 1.0 | Feb 2026 | ITEC323 Team | Initial version |
-
----
-
-## 13. Approval
-
-This document will be reviewed and approved by:
-
-- **Course Coordinator**: ITEC323
-- **Technical Reviewer**: ACU Development Team
-- **Educational Reviewer**: ACU Teaching Team
-
----
-
-**Document Status**: Approved for Teaching  
-**Next Review**: Start of Next Semester  
-**Course**: ITEC323 - Application Development  
-**Institution**: Australian Catholic University (ACU)

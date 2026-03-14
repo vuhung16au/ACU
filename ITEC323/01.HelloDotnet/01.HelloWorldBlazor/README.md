@@ -122,8 +122,3 @@ For issues or questions:
 2. Review the [docs/](docs/) folder for detailed explanations
 3. Refer to the official Blazor documentation
 
----
-
-**Course**: ITEC323 - Application Development  
-**Institution**: Australian Catholic University (ACU)  
-**Last Updated**: February 2026

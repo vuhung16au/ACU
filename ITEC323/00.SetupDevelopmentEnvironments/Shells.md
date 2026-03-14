@@ -243,7 +243,3 @@ chmod 755 /usr/local/share/zsh/site-functions
 - **Zsh Documentation**: [https://zsh.sourceforge.io/](https://zsh.sourceforge.io/)
 - **Oh My Posh** (PowerShell): [https://ohmyposh.dev/](https://ohmyposh.dev/)
 
----
-
-**Last Updated**: February 2026  
-**Course**: ITEC323, ACU

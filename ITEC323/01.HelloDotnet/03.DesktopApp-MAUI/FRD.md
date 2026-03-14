@@ -1,13 +1,6 @@
 # Functional Requirements Document (FRD)
 ## Hello World MAUI Desktop Application
 
-**Project Name**: Hello World MAUI Desktop App  
-**Version**: 1.0  
-**Date**: February 2026  
-**Course**: ITEC323 - Application Development  
-**Institution**: Australian Catholic University (ACU)
-
----
 
 ## 1. Purpose
 

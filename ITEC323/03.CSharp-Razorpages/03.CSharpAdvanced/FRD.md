@@ -1,15 +1,6 @@
 # Functional Requirements Document (FRD)
 # C# Advanced Concepts
 
-**Project Name**: C# Advanced Concepts Console Application  
-**Project Code**: `03.CSharpAdvanced`  
-**Course**: ITEC323 - Software Technologies  
-**Institution**: Australian Catholic University (ACU)  
-**Version**: 1.0  
-**Date**: March 8, 2026  
-**Status**: Active Learning Resource
-
----
 
 ## 1. Purpose
 
@@ -19,7 +10,7 @@ The **C# Advanced Concepts** project is an educational console application desig
 
 ### 1.2 Target Audience
 
-- **Primary**: ITEC323 students at ACU
+- **Primary**: ITEC323 students
 - **Skill Level**: Beginners who have completed basic C# fundamentals (variables, loops, arrays, control flow)
 - **Prerequisites**: Understanding of [01.HelloWorldCLI](../01.HelloWorldCLI/) and [02.CSharpCore](../02.CSharpCore/)
 
@@ -874,12 +865,3 @@ These are NOT part of current scope but may be added in future versions:
 - [.NET API Reference](https://learn.microsoft.com/en-us/dotnet/api/)
 - [AGENTS.md](../../AGENTS.md) - Project contribution guidelines
 
----
-
-**Course**: ITEC323 - Software Technologies  
-**Institution**: Australian Catholic University (ACU)  
-**Project**: `03.CSharp/03.CSharpAdvanced/`  
-**Document**: Functional Requirements Document (FRD)  
-**Version**: 1.0  
-**Last Updated**: March 8, 2026  
-**Status**: ✅ Complete and Approved

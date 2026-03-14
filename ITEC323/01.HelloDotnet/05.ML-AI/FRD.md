@@ -4,8 +4,7 @@
 **Project Name**: Hello World AI Chat  
 **Version**: 1.0  
 **Date**: February 2026  
-**Course**: ITEC323 - Application Development  
-**Institution**: Australian Catholic University (ACU)
+**Course**: ITEC323 
 
 ---
 

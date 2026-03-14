@@ -33,7 +33,7 @@ Build must complete with no errors.
 ## Step 3: Run
 
 ```bash
-dotnet run --project /Users/vuhung/00.Work/02.ACU/github/ITEC323/05.NavigationRouting/02.TagHelpers/02.TagHelpers.csproj
+dotnet run --project /path/to/02.TagHelpers.csproj
 ```
 
 Then open the URL shown in the terminal.
@@ -89,7 +89,7 @@ Ensure .NET 10 is available.
 Run with another URL:
 
 ```bash
-dotnet run --project /Users/vuhung/00.Work/02.ACU/github/ITEC323/05.NavigationRouting/02.TagHelpers/02.TagHelpers.csproj --urls "http://localhost:5056"
+dotnet run --project /path/to/02.TagHelpers.csproj --urls "http://localhost:5056"
 ```
 
 ### Handler link does not work

@@ -4,7 +4,7 @@ This document provides guidelines for AI coding agents (Cursor, Copilot, Antigra
 
 ## Overview
 
-This repository contains educational materials and projects for the ITEC323 unit at ACU (Australian Catholic University). The projects cover .NET and Android development, targeting students who are learning these technologies for the first time.
+This repository contains educational materials and projects for the ITEC323 unit. The projects cover .NET and Android development, targeting students who are learning these technologies for the first time.
 
 **Target Audience**: First-time learners of .NET and Android development  
 **Educational Focus**: Keep all code, documentation, and examples simple, clear, and beginner-friendly
@@ -321,10 +321,3 @@ These guidelines should evolve with the course:
 - Updates are made when new technologies or patterns are introduced
 - Android-specific guidelines will be expanded when that coursework begins
 - Feedback from students and instructors helps improve these guidelines
-
----
-
-**Last Updated**: February 2026  
-**Maintained by**: ITEC323 Course Team, ACU
-
-For questions or suggestions about these guidelines, please open an issue in the repository.

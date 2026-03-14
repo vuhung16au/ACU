@@ -1,7 +1,7 @@
 # 05.HtmxAdvanced
 
 Week 8, Project 05 - **Advanced HTMX Patterns**  
-Part of the [08.ClientSideInteractivity](../) module for ITEC323 at ACU.
+Part of the [08.ClientSideInteractivity](../) module for ITEC323.
 
 ## What this project teaches
 

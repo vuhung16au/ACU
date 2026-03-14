@@ -1,21 +1,13 @@
 # Functional Requirements Document (FRD)
 ## C# Core Concepts Demonstration
 
-**Project Name**: CSharpCore  
-**Version**: 1.0  
-**Date**: March 2026  
-**Author**: ITEC323 Course Team, ACU  
-**Status**: ✅ Complete and Verified
-
----
-
 ## 1. Purpose
 
 ### 1.1 Overview
 The C# Core Concepts project is an educational console application designed to demonstrate and teach fundamental C# programming concepts through practical, executable examples. This project serves as a comprehensive learning resource for students beginning their journey with C# and .NET development.
 
 ### 1.2 Target Audience
-- First-year computer science students at ACU
+- Computer science students (all levels)
 - Students enrolled in ITEC323 (Software Technologies)
 - Self-learners new to C# programming
 - Developers transitioning from other languages to C#
@@ -813,9 +805,3 @@ name = Alice
 |---------|------|--------|---------|
 | 1.0 | March 2026 | ITEC323 Team | Initial creation and complete implementation |
 
----
-
-**Course**: ITEC323 - Software Technologies  
-**Institution**: Australian Catholic University (ACU)  
-**Project Location**: `03.CSharp/02.CSharpCore/`  
-**Last Updated**: March 2026

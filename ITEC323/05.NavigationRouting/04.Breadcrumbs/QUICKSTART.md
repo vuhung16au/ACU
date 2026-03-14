@@ -126,7 +126,7 @@ Build should complete without errors.
 ## Step 3: Run the Project
 
 ```bash
-dotnet run --project /Users/vuhung/00.Work/02.ACU/github/ITEC323/05.NavigationRouting/03.NavigationMenus/03.NavigationMenus.csproj
+dotnet run --project /path/to/03.NavigationMenus.csproj
 ```
 
 Open the local URL shown in the terminal.
@@ -194,5 +194,5 @@ Check that Bootstrap JS is loaded in layout:
 Run on another port:
 
 ```bash
-dotnet run --project /Users/vuhung/00.Work/02.ACU/github/ITEC323/05.NavigationRouting/03.NavigationMenus/03.NavigationMenus.csproj --urls "http://localhost:5063"
+dotnet run --project 03.NavigationMenus/03.NavigationMenus.csproj --urls "http://localhost:5063"
 ```

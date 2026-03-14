@@ -548,8 +548,3 @@ The new Blazor Web App template can use either or both!
 
 **Questions or feedback?** Refer to the main [README.md](../README.md) or consult your instructor.
 
----
-
-**Last Updated**: February 2026  
-**Course**: ITEC323 - Application Development  
-**Institution**: Australian Catholic University (ACU)

@@ -910,10 +910,3 @@ Now that you understand minimal APIs, try:
    - Learn Entity Framework Core
    - Store and retrieve data
 
----
-
-**Course**: ITEC323 - Application Development  
-**Institution**: Australian Catholic University (ACU)  
-**Last Updated**: February 2026
-
-This document is designed to grow with you. As you learn more concepts, refer back to this guide to deepen your understanding.

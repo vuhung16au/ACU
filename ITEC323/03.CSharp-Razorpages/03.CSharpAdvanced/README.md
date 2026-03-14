@@ -1,11 +1,5 @@
 # C# Advanced Concepts
 
-**Course**: ITEC323 - Software Technologies  
-**Institution**: Australian Catholic University (ACU)  
-**Version**: 1.0  
-**Last Updated**: March 8, 2026
-
----
 
 ## 📖 Overview
 
@@ -438,8 +432,6 @@ For AI contributors: Refer to [AGENTS.md](../../AGENTS.md) for contribution guid
 ---
 
 ## 📜 License
-
-This project is part of the ITEC323 course materials at Australian Catholic University (ACU).
 
 See [LICENSE.md](../../LICENSE.md) in the repository root for details.
 

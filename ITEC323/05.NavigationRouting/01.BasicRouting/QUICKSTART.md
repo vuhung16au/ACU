@@ -154,7 +154,7 @@ dotnet --list-sdks
 Run on a different port:
 
 ```bash
-dotnet run --project /Users/vuhung/00.Work/02.ACU/github/ITEC323/05.NavigationRouting/01.BasicRouting/01.BasicRouting.csproj --urls "http://localhost:5055"
+dotnet run --project 01.BasicRouting/01.BasicRouting.csproj --urls "http://localhost:5055"
 ```
 
 ### Route Returns 404

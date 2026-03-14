@@ -1,6 +1,6 @@
 # ITEC323 - Web and Mobile Application Development
 
-This repository contains supplementary code and examples for **ITEC323 - Web and Mobile Application Development** at ACU.
+This repository contains supplementary code and examples for **ITEC323**
 
 ## 🚧 Work in Progress
 

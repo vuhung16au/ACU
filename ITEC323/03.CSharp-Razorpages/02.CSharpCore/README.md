@@ -210,9 +210,3 @@ If you encounter any issues:
 - [C# Programming Guide](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/)
 - [.NET CLI Reference](https://docs.microsoft.com/en-us/dotnet/core/tools/)
 
----
-
-**Course**: ITEC323 - Software Technologies  
-**Institution**: Australian Catholic University (ACU)  
-**Target Audience**: Beginners learning C# for the first time  
-**Last Updated**: March 2026

@@ -162,8 +162,3 @@ If after reading all documentation you still have questions:
 
 Remember: Confusion is part of learning. Don't be discouraged if concepts don't click immediately!
 
----
-
-**Course**: ITEC323 - Application Development  
-**Institution**: Australian Catholic University (ACU)  
-**Last Updated**: February 2026

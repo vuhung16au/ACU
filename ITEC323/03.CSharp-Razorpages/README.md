@@ -1,8 +1,6 @@
 # C# Programming Fundamentals
 
-**Course**: ITEC323 - Software Technologies  
-**Institution**: Australian Catholic University (ACU)  
-**Last Updated**: March 8, 2026
+**Course**: ITEC323 
 
 ---
 
@@ -383,8 +381,6 @@ For AI contributors: Please refer to [AGENTS.md](../../AGENTS.md) for contributi
 ---
 
 ## 📜 License
-
-This project is part of the ITEC323 course materials at Australian Catholic University (ACU).
 
 For license information, see [LICENSE.md](../../LICENSE.md) in the repository root.
 
