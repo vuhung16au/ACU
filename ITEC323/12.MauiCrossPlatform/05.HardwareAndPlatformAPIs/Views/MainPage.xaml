@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HardwareAndPlatformAPIs.Views.MainPage"
+             Title="Hardware and Platform APIs">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="16">
+
+            <VerticalStackLayout Spacing="6">
+                <Label Text="Hardware and Platform APIs"
+                       Style="{StaticResource Headline}"
+                       SemanticProperties.HeadingLevel="Level1" />
+                <Label Text="{Binding StatusMessage, Mode=OneWay}"
+                       FontSize="15"
+                       AutomationId="StatusLabel" />
+                <ActivityIndicator IsRunning="{Binding IsBusy, Mode=OneWay}"
+                                   IsVisible="{Binding IsBusy, Mode=OneWay}"
+                                   HorizontalOptions="Start" />
+            </VerticalStackLayout>
+
+            <Border Padding="14" StrokeShape="RoundRectangle 12">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Camera &amp; Photo Library"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           SemanticProperties.HeadingLevel="Level2" />
+
+                    <Image Source="{Binding CapturedPhotoPath, Mode=OneWay}"
+                           IsVisible="{Binding HasPhoto, Mode=OneWay}"
+                           Aspect="AspectFit"
+                           HeightRequest="220"
+                           HorizontalOptions="Center"
+                           AutomationId="CapturedImage" />
+
+                    <Border x:Name="PhotoPlaceholder"
+                            HeightRequest="100"
+                            BackgroundColor="{AppThemeBinding Light=#F0F0F0, Dark=#2A2A2A}"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 8"
+                            AutomationId="PhotoPlaceholder"
+                            IsVisible="True">
+                        <Label Text="No photo yet - tap a button below"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               TextColor="{AppThemeBinding Light=#888888, Dark=#AAAAAA}" />
+                    </Border>
+
+                    <Label Text="{Binding PhotoStatus, Mode=OneWay}"
+                           FontSize="13"
+                           AutomationId="PhotoStatusLabel" />
+
+                    <HorizontalStackLayout Spacing="10">
+                        <Button Text="Take Photo"
+                                Command="{Binding TakePhotoCommand}"
+                                AutomationId="TakePhotoButton" />
+                        <Button Text="Pick from Gallery"
+                                Command="{Binding PickPhotoCommand}"
+                                AutomationId="PickPhotoButton" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Padding="14" StrokeShape="RoundRectangle 12">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="GPS Location"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           SemanticProperties.HeadingLevel="Level2" />
+
+                    <Grid ColumnDefinitions="Auto,*"
+                          RowDefinitions="Auto,Auto,Auto"
+                          ColumnSpacing="8"
+                          RowSpacing="4">
+                        <Label Grid.Row="0" Grid.Column="0"
+                               Text="Latitude:"
+                               FontAttributes="Bold"
+                               VerticalTextAlignment="Center" />
+                        <Label Grid.Row="0" Grid.Column="1"
+                               Text="{Binding Latitude, Mode=OneWay, StringFormat='{0:F6}'}"
+                               AutomationId="LatitudeLabel" />
+
+                        <Label Grid.Row="1" Grid.Column="0"
+                               Text="Longitude:"
+                               FontAttributes="Bold"
+                               VerticalTextAlignment="Center" />
+                        <Label Grid.Row="1" Grid.Column="1"
+                               Text="{Binding Longitude, Mode=OneWay, StringFormat='{0:F6}'}"
+                               AutomationId="LongitudeLabel" />
+
+                        <Label Grid.Row="2" Grid.Column="0"
+                               Text="Accuracy:"
+                               FontAttributes="Bold"
+                               VerticalTextAlignment="Center" />
+                        <Label Grid.Row="2" Grid.Column="1"
+                               Text="{Binding AccuracyMetres, Mode=OneWay, StringFormat='{0:F0} m'}"
+                               AutomationId="AccuracyLabel" />
+                    </Grid>
+
+                    <Label Text="{Binding LocationStatus, Mode=OneWay}"
+                           FontSize="13"
+                           AutomationId="LocationStatusLabel" />
+
+                    <Button Text="Get Location"
+                            Command="{Binding GetLocationCommand}"
+                            HorizontalOptions="Start"
+                            AutomationId="GetLocationButton" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Padding="14" StrokeShape="RoundRectangle 12">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="File System"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           SemanticProperties.HeadingLevel="Level2" />
+
+                    <Label Text="Type a note below, then save it. Use Load to retrieve it." />
+
+                    <Border StrokeShape="RoundRectangle 8" Padding="4">
+                        <Editor Text="{Binding FileContent, Mode=TwoWay}"
+                                Placeholder="Enter text to save..."
+                                AutoSize="TextChanges"
+                                MinimumHeightRequest="80"
+                                AutomationId="FileContentEditor" />
+                    </Border>
+
+                    <Label Text="{Binding FileStatus, Mode=OneWay}"
+                           FontSize="13"
+                           AutomationId="FileStatusLabel" />
+
+                    <HorizontalStackLayout Spacing="10">
+                        <Button Text="Save to File"
+                                Command="{Binding SaveFileCommand}"
+                                AutomationId="SaveFileButton" />
+                        <Button Text="Load from File"
+                                Command="{Binding LoadFileCommand}"
+                                AutomationId="LoadFileButton" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
