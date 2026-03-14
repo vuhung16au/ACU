@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LayoutsAndCollections.Views.MainPage"
+             x:Name="MainPageRoot"
+             Title="Layouts + Collections">
+
+    <Grid Padding="16"
+          RowSpacing="12"
+          RowDefinitions="Auto,Auto,Auto,*">
+
+        <VerticalStackLayout Grid.Row="0" Spacing="8">
+            <Label Text="Advanced Layouts and Collections"
+                   Style="{StaticResource Headline}"
+                   SemanticProperties.HeadingLevel="Level1" />
+            <Label Text="{Binding StatusMessage, Mode=OneWay}"
+                   FontSize="15"
+                   AutomationId="StatusLabel" />
+        </VerticalStackLayout>
+
+        <Border Grid.Row="1"
+                Padding="12"
+                StrokeShape="RoundRectangle 12">
+            <Grid ColumnDefinitions="Auto,*"
+                  RowDefinitions="Auto,Auto,Auto"
+                  ColumnSpacing="10"
+                  RowSpacing="10">
+                <Label Grid.Row="0"
+                       Grid.Column="0"
+                       Text="Title"
+                       VerticalTextAlignment="Center"
+                       FontAttributes="Bold" />
+                <Entry Grid.Row="0"
+                       Grid.Column="1"
+                       Text="{Binding NewItemTitle, Mode=TwoWay}"
+                       Placeholder="Collection item title"
+                       AutomationId="TitleEntry" />
+
+                <Label Grid.Row="1"
+                       Grid.Column="0"
+                       Text="Details"
+                       VerticalTextAlignment="Start"
+                       FontAttributes="Bold" />
+                <Editor Grid.Row="1"
+                        Grid.Column="1"
+                        Text="{Binding NewItemDescription, Mode=TwoWay}"
+                        Placeholder="Describe the layout concept"
+                        AutoSize="TextChanges"
+                        MinimumHeightRequest="70"
+                        AutomationId="DescriptionEditor" />
+
+                <Label Grid.Row="2"
+                       Grid.Column="0"
+                       Text="Category"
+                       VerticalTextAlignment="Center"
+                       FontAttributes="Bold" />
+                <Picker Grid.Row="2"
+                        Grid.Column="1"
+                        ItemsSource="{Binding Categories, Mode=OneWay}"
+                        SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"
+                        AutomationId="CategoryPicker" />
+            </Grid>
+        </Border>
+
+        <HorizontalStackLayout Grid.Row="2"
+                               Spacing="10">
+            <Button Text="Add Item"
+                    Command="{Binding AddItemCommand}"
+                    HorizontalOptions="Fill"
+                    AutomationId="AddItemButton" />
+            <Button Text="Clear List"
+                    Command="{Binding ClearItemsCommand}"
+                    HorizontalOptions="Fill"
+                    AutomationId="ClearListButton" />
+        </HorizontalStackLayout>
+
+        <RefreshView Grid.Row="3"
+                     Command="{Binding RefreshCommand}"
+                     IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
+                     AutomationId="ItemsRefreshView">
+            <CollectionView ItemsSource="{Binding Items, Mode=OneWay}"
+                            SelectionMode="None"
+                            ItemSizingStrategy="MeasureAllItems"
+                            AutomationId="ItemsCollectionView">
+                <CollectionView.EmptyView>
+                    <VerticalStackLayout Padding="20"
+                                         Spacing="8"
+                                         HorizontalOptions="Center"
+                                         VerticalOptions="Center">
+                        <Label Text="No collection items yet."
+                               FontAttributes="Bold"
+                               HorizontalTextAlignment="Center" />
+                        <Label Text="Add an item above, or pull down to refresh."
+                               HorizontalTextAlignment="Center" />
+                    </VerticalStackLayout>
+                </CollectionView.EmptyView>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="0,0,0,10"
+                                Padding="10"
+                                StrokeShape="RoundRectangle 10">
+                            <Grid ColumnDefinitions="56,*"
+                                  RowDefinitions="Auto,Auto,Auto"
+                                  ColumnSpacing="10"
+                                  RowSpacing="4">
+                                <Image Grid.RowSpan="3"
+                                       Source="dotnet_bot.png"
+                                       HeightRequest="52"
+                                       WidthRequest="52"
+                                       Aspect="AspectFill" />
+
+                                <Label Grid.Column="1"
+                                       Text="{Binding Title, Mode=OneWay}"
+                                       FontSize="17"
+                                       FontAttributes="Bold" />
+
+                                <Label Grid.Row="1"
+                                       Grid.Column="1"
+                                       Text="{Binding Description, Mode=OneWay}"
+                                       LineBreakMode="WordWrap"
+                                       MaxLines="3" />
+
+                                <HorizontalStackLayout Grid.Row="2"
+                                                       Grid.Column="1"
+                                                       Spacing="8">
+                                    <Label Text="{Binding Category, StringFormat='Category: {0}'}"
+                                           FontSize="12" />
+                                    <Label Text="{Binding UpdatedAt, StringFormat='Updated: {0:HH:mm:ss}'}"
+                                           FontSize="12" />
+                                    <Label Text="{Binding IsFeatured, StringFormat='Featured: {0}'}"
+                                           FontSize="12" />
+                                </HorizontalStackLayout>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </Grid>
+
+</ContentPage>
