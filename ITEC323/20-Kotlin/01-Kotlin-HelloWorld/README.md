@@ -33,4 +33,4 @@ See [QUICKSTART.md](QUICKSTART.md) for instructions on how to build and run this
 
 ## License
 
-This is a sample project for educational purposes.
+For license information, see [LICENSE.md](../../LICENSE.md) in the repository root.

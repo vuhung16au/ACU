@@ -57,4 +57,4 @@ Then visit **http://localhost:5150**.
 
 ## License
 
-Use as needed for learning or reference.
+For license information, see [LICENSE.md](../../LICENSE.md) in the repository root.
