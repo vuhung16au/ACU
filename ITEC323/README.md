@@ -50,7 +50,7 @@ The main teaching materials are organised into 12 folders for the 12 teaching we
 
 ### Prerequisites
 
-- [.NET SDK](https://dotnet.microsoft.com/download) (version 6.0 or later)
+- [.NET SDK](https://dotnet.microsoft.com/download) (version 10.0 or later)
 - A code editor (Visual Studio, Visual Studio Code, or JetBrains Rider)
 
 ### Building the Solution
@@ -148,6 +148,3 @@ This repository is licensed under the MIT License. See [LICENSE.md](LICENSE.md) 
 
 This repository is for educational purposes as part of the ITEC323 unit at ACU.
 
-## 👥 Contributing
-
-This is a course repository. Students should follow their instructor's guidelines for contributions and submissions.
