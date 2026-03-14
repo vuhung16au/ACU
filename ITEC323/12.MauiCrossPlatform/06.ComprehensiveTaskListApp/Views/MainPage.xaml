@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:ComprehensiveTaskListApp.Models"
+             xmlns:viewModels="clr-namespace:ComprehensiveTaskListApp.ViewModels"
+             x:Class="ComprehensiveTaskListApp.Views.MainPage"
+             x:DataType="viewModels:TaskListViewModel"
+             x:Name="TaskListRoot"
+             Title="Task List">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add"
+                     Order="Primary"
+                     Command="{Binding AddTaskCommand}"
+                     AutomationId="AddTaskToolbarButton" />
+    </ContentPage.ToolbarItems>
+
+    <Grid Padding="16"
+          RowDefinitions="Auto,*"
+          RowSpacing="12">
+
+        <VerticalStackLayout Grid.Row="0" Spacing="4">
+            <Label Text="Comprehensive Task List"
+                   Style="{StaticResource Headline}"
+                   SemanticProperties.HeadingLevel="Level1" />
+            <Label Text="{Binding StatusMessage, Mode=OneWay}"
+                   FontSize="14"
+                   AutomationId="TaskStatusLabel" />
+        </VerticalStackLayout>
+
+        <RefreshView Grid.Row="1"
+                     Command="{Binding RefreshCommand}"
+                     IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
+                     AutomationId="TasksRefreshView">
+            <CollectionView ItemsSource="{Binding Tasks, Mode=OneWay}"
+                            SelectionMode="None"
+                            AutomationId="TasksCollectionView">
+                <CollectionView.EmptyView>
+                    <VerticalStackLayout Padding="20"
+                                         Spacing="8"
+                                         HorizontalOptions="Center"
+                                         VerticalOptions="Center">
+                        <Label Text="No tasks available."
+                               FontAttributes="Bold"
+                               HorizontalTextAlignment="Center" />
+                        <Label Text="Tap Add to create your first task."
+                               HorizontalTextAlignment="Center" />
+                    </VerticalStackLayout>
+                </CollectionView.EmptyView>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:TaskItem">
+                        <Border Margin="0,0,0,10"
+                                Padding="12"
+                                StrokeShape="RoundRectangle 12">
+                            <Grid RowDefinitions="Auto,Auto,Auto"
+                                  ColumnDefinitions="*,Auto"
+                                  RowSpacing="6"
+                                  ColumnSpacing="10">
+                                <Label Grid.Row="0"
+                                       Grid.Column="0"
+                                       Text="{Binding Title, Mode=OneWay}"
+                                       FontAttributes="Bold"
+                                       FontSize="17"
+                                       LineBreakMode="TailTruncation">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label"
+                                                     Binding="{Binding IsCompleted}"
+                                                     Value="True">
+                                            <Setter Property="TextDecorations" Value="Strikethrough" />
+                                            <Setter Property="Opacity" Value="0.7" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+
+                                <Label Grid.Row="1"
+                                       Grid.Column="0"
+                                       Text="{Binding Description, Mode=OneWay}"
+                                       MaxLines="2"
+                                       LineBreakMode="WordWrap" />
+
+                                <Label Grid.Row="2"
+                                       Grid.Column="0"
+                                       FontSize="12"
+                                       Text="{Binding UpdatedAtUtc, StringFormat='Updated: {0:dd MMM yyyy HH:mm}'}" />
+
+                                <VerticalStackLayout Grid.Row="0"
+                                                     Grid.RowSpan="3"
+                                                     Grid.Column="1"
+                                                     Spacing="6">
+                                    <Button Text="Toggle"
+                                            Command="{Binding Source={x:Reference TaskListRoot}, Path=BindingContext.ToggleCompletedCommand}"
+                                            CommandParameter="{Binding .}"
+                                            AutomationId="ToggleTaskButton" />
+                                    <Button Text="Edit"
+                                            Command="{Binding Source={x:Reference TaskListRoot}, Path=BindingContext.EditTaskCommand}"
+                                            CommandParameter="{Binding .}"
+                                            AutomationId="EditTaskButton" />
+                                    <Button Text="Delete"
+                                            Command="{Binding Source={x:Reference TaskListRoot}, Path=BindingContext.DeleteTaskCommand}"
+                                            CommandParameter="{Binding .}"
+                                            AutomationId="DeleteTaskButton" />
+                                </VerticalStackLayout>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </Grid>
+</ContentPage>

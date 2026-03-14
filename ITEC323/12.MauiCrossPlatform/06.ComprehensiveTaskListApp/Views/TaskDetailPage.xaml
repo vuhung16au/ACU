@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:ComprehensiveTaskListApp.ViewModels"
+             x:Class="ComprehensiveTaskListApp.Views.TaskDetailPage"
+             x:DataType="viewModels:TaskDetailViewModel"
+             Title="{Binding PageTitle, Mode=OneWay}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Save"
+                     Order="Primary"
+                     Command="{Binding SaveCommand}"
+                     AutomationId="SaveTaskToolbarButton" />
+    </ContentPage.ToolbarItems>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16"
+                             Spacing="12">
+
+            <Label Text="{Binding PageTitle, Mode=OneWay}"
+                   Style="{StaticResource Headline}"
+                   SemanticProperties.HeadingLevel="Level1" />
+
+            <Label Text="Title"
+                   FontAttributes="Bold" />
+            <Entry Text="{Binding Title, Mode=TwoWay}"
+                   Placeholder="Task title"
+                   AutomationId="TaskTitleEntry" />
+
+            <Label Text="Description"
+                   FontAttributes="Bold" />
+            <Editor Text="{Binding Description, Mode=TwoWay}"
+                    Placeholder="Task details"
+                    AutoSize="TextChanges"
+                    MinimumHeightRequest="120"
+                    AutomationId="TaskDescriptionEditor" />
+
+            <HorizontalStackLayout Spacing="8">
+                <CheckBox IsChecked="{Binding IsCompleted, Mode=TwoWay}"
+                          AutomationId="TaskCompletedCheckBox" />
+                <Label Text="Completed"
+                       VerticalTextAlignment="Center" />
+            </HorizontalStackLayout>
+
+            <Label Text="{Binding StatusMessage, Mode=OneWay}"
+                   FontSize="14"
+                   AutomationId="TaskDetailStatusLabel" />
+
+            <Grid ColumnDefinitions="*,*"
+                  ColumnSpacing="10">
+                <Button Grid.Column="0"
+                        Text="Save"
+                        Command="{Binding SaveCommand}"
+                        AutomationId="SaveTaskButton" />
+                <Button Grid.Column="1"
+                        Text="Cancel"
+                        Command="{Binding CancelCommand}"
+                        AutomationId="CancelTaskButton" />
+            </Grid>
+
+            <Button Text="Delete"
+                    Command="{Binding DeleteTaskCommand}"
+                    IsVisible="{Binding IsEditMode, Mode=OneWay}"
+                    AutomationId="DeleteTaskDetailButton" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
