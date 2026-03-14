@@ -1,0 +1,46 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="p-4 mb-4 bg-light rounded-3 border">
+    <h1 class="display-6">05.ScaffoldingCRUD</h1>
+    <p class="mb-2">
+        This project focuses on ASP.NET Core scaffolding tools for fast CRUD generation.
+        It also demonstrates related data loading with categories using <code>Include()</code>.
+    </p>
+    <p class="mb-0">
+        Current product count in database: <strong>@Model.ProductCount</strong>
+    </p>
+</div>
+
+<div class="row g-3">
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="h5">Learning Objectives</h2>
+                <ul class="mb-0">
+                    <li>Install and use <code>dotnet-aspnet-codegenerator</code>.</li>
+                    <li>Configure SQLite with EF Core in <code>Program.cs</code>.</li>
+                    <li>Generate scaffolded CRUD pages and customize them.</li>
+                    <li>Load related category data with <code>.Include()</code>.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="h5">Try It Now</h2>
+                <ol class="mb-3">
+                    <li>Install scaffolding tools.</li>
+                    <li>Run code generator commands from QUICKSTART.</li>
+                    <li>Open Products and test CRUD pages.</li>
+                    <li>Check category dropdown and related data display.</li>
+                </ol>
+                <a asp-page="/Products/Index" class="btn btn-primary">Open Product Catalog</a>
+            </div>
+        </div>
+    </div>
+</div>
