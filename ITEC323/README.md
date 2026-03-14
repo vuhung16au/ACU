@@ -146,5 +146,3 @@ Simply open the `ITEC323.sln` file in Visual Studio, and all projects will be lo
 
 This repository is licensed under the MIT License. See [LICENSE.md](LICENSE.md) for details.
 
-This repository is for educational purposes as part of the ITEC323 unit at ACU.
-
