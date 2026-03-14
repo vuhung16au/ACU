@@ -1,4 +1,4 @@
-Creating a Blazor application using the .NET CLI is the fastest way to get started. In modern .NET (like .NET 8, 9, or 10), Microsoft consolidated the templates into a single, unified `blazor` template that handles both server-side and client-side rendering.
+Creating a Blazor application using the .NET CLI is the fastest way to get started. In modern .NET (like .NET 10), Microsoft consolidated the templates into a single, unified `blazor` template that handles both server-side and client-side rendering.
 
 Here is how you can create, run, and customize your first Blazor "Hello World" application from the command line.
 

@@ -47,7 +47,7 @@ All steps are designed for **beginners**.
 2. Select **Create a new project**.
 3. Choose **ASP.NET Core Web App** (Razor Pages).
 4. Name the project **Week4Lab2Assignment**.
-5. Choose **.NET 8.0** as the target framework.
+5. Choose **.NET 10.0** as the target framework.
 6. Click **Create**.
 
 ---

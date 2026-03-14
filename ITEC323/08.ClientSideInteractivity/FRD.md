@@ -134,12 +134,12 @@ Provide students with practical knowledge of modern client-side web development 
 
 #### NFR5: Integration
 - All examples integrate with ASP.NET Core
-- Use .NET 8.0 LTS (compatible with .NET 9)
+- Use .NET 10.0
 - Follow established repository patterns
 
 ### 5. Constraints
 
-- **Technology:** Must use .NET 8.0+ and modern JavaScript (ES6+)
+- **Technology:** Must use .NET 10.0 and modern JavaScript (ES6+)
 - **Time:** One week (5 days) of instruction
 - **Audience:** First-time learners of advanced client-side techniques
 - **Environment:** Development on Windows, macOS, or Linux

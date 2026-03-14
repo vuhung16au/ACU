@@ -94,13 +94,13 @@ This is a simple "Hello World" application that:
 **Description**: The application must work with current .NET versions.  
 **Criteria**:
 - Targets .NET 10.0
-- Compatible with .NET 8.0 LTS and later
+- Compatible with .NET 10.0
 - Successfully tested on .NET 10.0.103
 
 ## 5. Technical Constraints
 
 - **Language**: C# only
-- **Framework**: .NET 10.0 (with backward compatibility to .NET 8.0 LTS)
+- **Framework**: .NET 10.0
 - **IDE**: Developed and tested with Visual Studio Code
 - **Build System**: .NET CLI (`dotnet` command)
 - **Operating System**: Verified on macOS (should work on Windows and Linux)
@@ -108,7 +108,7 @@ This is a simple "Hello World" application that:
 ## 6. Dependencies
 
 This project has no external dependencies beyond the .NET SDK:
-- .NET 10.0 SDK (or .NET 8.0 LTS or later)
+- .NET 10.0 SDK
 - No NuGet packages required
 - No third-party libraries
 

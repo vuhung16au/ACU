@@ -39,7 +39,7 @@ Brief description of what this project does and demonstrates.
 - Objective 3
 
 ## Prerequisites
-- .NET 8.0 SDK or later
+- .NET 10.0 SDK
 - [Other requirements]
 
 ## Quick Start
@@ -50,7 +50,7 @@ See [QUICKSTART.md](QUICKSTART.md) for setup and running instructions.
 - [Detailed Documentation](docs/)
 
 ## Technology Stack
-- .NET 8.0 / ASP.NET Core
+- .NET 10.0 / ASP.NET Core
 - [Other technologies]
 ```
 
@@ -353,10 +353,10 @@ When documenting version-specific features:
 
 ```markdown
 ## Requirements
-- .NET 8.0 SDK or later (tested with .NET 8.0 and .NET 9.0)
-- Compatible with C# 12
+- .NET 10.0 SDK
+- Compatible with C# 14
 
-> **Note**: This project targets .NET 8.0 (LTS) but is compatible with .NET 9.0.
+> **Note**: This project targets .NET 10.0 and uses C# 14.
 ```
 
 ## Examples

@@ -226,16 +226,16 @@ When building, specify platform:
 
 ```bash
 # Build for Android
-dotnet build -f net8.0-android
+dotnet build -f net10.0-android
 
 # Build for iOS
-dotnet build -f net8.0-ios
+dotnet build -f net10.0-ios
 
 # Build for macOS
-dotnet build -f net8.0-maccatalyst
+dotnet build -f net10.0-maccatalyst
 
 # Build for Windows
-dotnet build -f net8.0-windows10.0.19041.0
+dotnet build -f net10.0-windows10.0.19041.0
 ```
 
 ## Why Single Project?

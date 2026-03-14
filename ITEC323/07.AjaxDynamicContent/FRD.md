@@ -265,8 +265,8 @@ Students must demonstrate ability to:
 ## 6. Technical Constraints
 
 ### TC1: Technology Stack
-- ASP.NET Core 8.0 (compatible with .NET 9)
-- C# 12
+- ASP.NET Core 10.0
+- C# 14
 - Razor Pages and Blazor Server
 - JavaScript ES6+
 - Bootstrap 5.3

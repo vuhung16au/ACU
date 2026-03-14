@@ -24,7 +24,7 @@ By exploring this project, you will learn:
 
 Before you begin, ensure you have:
 
-- **.NET 10.0 SDK** (or .NET 8.0 LTS or later) installed on your system
+- **.NET 10.0 SDK** installed on your system
 - A **code editor** such as Visual Studio Code, Visual Studio, or Rider
 - Basic understanding of **command-line interfaces** (Terminal/Command Prompt)
 

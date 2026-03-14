@@ -319,7 +319,7 @@ public class User
 
 ## Technology Stack
 
-- **.NET 10.0** (LTS compatible with .NET 8/9)
+- **.NET 10.0**
 - **Razor Pages** (not MVC)
 - **Bootstrap 5** for styling
 - **jQuery Unobtrusive Validation** for client-side

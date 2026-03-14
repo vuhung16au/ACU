@@ -76,7 +76,7 @@ This single command will build (if necessary) and run your application.
 ### `dotnet build`
 - **Purpose**: Compiles your source code into executable files
 - **When to use**: When you want to check for compilation errors without running
-- **Output location**: `bin/Debug/net8.0/`
+- **Output location**: `bin/Debug/net10.0/`
 
 ### `dotnet run`
 - **Purpose**: Builds and executes your application

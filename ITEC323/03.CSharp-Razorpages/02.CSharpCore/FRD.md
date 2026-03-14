@@ -476,7 +476,7 @@ By studying and running this project, students will:
 
 **Requirements:**
 - NFR-3.1: Must target .NET 10.0 LTS
-- NFR-3.2: Must be compatible with .NET 8.0 and 9.0
+- NFR-3.2: Must align with .NET 10.0 and C# 14
 - NFR-3.3: Must run on Windows, macOS, and Linux
 - NFR-3.4: Must use only .NET base class libraries
 - NFR-3.5: No external dependencies or NuGet packages

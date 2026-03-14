@@ -70,7 +70,7 @@ DotNetHelloWorldCLI is a minimal console application that prints a message to th
 - **Project Type:** Console Application
 
 ### 5.2 Dependencies
-- .NET SDK (version 6.0 or later)
+- .NET 10.0 SDK
 
 ---
 

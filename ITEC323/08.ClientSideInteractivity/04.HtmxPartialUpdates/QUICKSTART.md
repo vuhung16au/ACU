@@ -4,7 +4,7 @@
 
 | Tool | Version |
 | --- | --- |
-| .NET SDK | 8.0 or later (project targets .NET 10) |
+| .NET SDK | 10.0 or later |
 | Browser | Chrome, Edge, Firefox, or Safari (any modern version) |
 | Internet | Required — HTMX is loaded from CDN |
 

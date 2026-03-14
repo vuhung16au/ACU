@@ -89,7 +89,7 @@ There are three hosting models:
 |---|---|---|
 | **Blazor Server** | On the server | UI events sent over WebSocket (SignalR). Requires a constant server connection. |
 | **Blazor WebAssembly (WASM)** | In the browser | C# compiled to WASM; runs offline. Larger initial download. |
-| **Blazor Web App (.NET 8+)** | Both (per-component) | The modern default. You choose interactivity per component. |
+| **Blazor Web App (.NET 10+)** | Both (per-component) | The modern default. You choose interactivity per component. |
 
 A Blazor component (`.razor` file) combines template and logic:
 

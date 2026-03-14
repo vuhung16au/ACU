@@ -69,7 +69,7 @@ Demonstrate advanced Razor Pages concepts including Entity Framework Core, SQLit
 - Progressive complexity
 
 ### NFR4: Compatibility
-- Target .NET 10.0 (compatible with .NET 8.0+)
+- Target .NET 10.0
 - Cross-platform (Windows, macOS, Linux)
 - Standard web browser compatibility
 

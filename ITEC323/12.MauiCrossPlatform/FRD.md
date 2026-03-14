@@ -22,7 +22,7 @@ By completing this module, students will be able to:
 ## Prerequisites
 - C# programming proficiency (Week 3-6 content)
 - Understanding of MVVM and dependency injection (from ASP.NET Core)
-- .NET 8.0 SDK with MAUI workload installed
+- .NET 10.0 SDK with MAUI workload installed
 - Android emulator or macOS/Windows for testing
 - Visual Studio, Visual Studio for Mac, or VS Code with C# Dev Kit
 
@@ -245,7 +245,7 @@ Students successfully complete the module when they can:
 ---
 
 ## Dependencies
-- .NET 8.0 SDK (LTS) with MAUI workload
+- .NET 10.0 SDK (LTS) with MAUI workload
 - Android SDK API 24+ (Android 7.0 Nougat or higher)
 - Visual Studio 2022, VS for Mac, or VS Code with C# Dev Kit
 - Android emulator or physical device for testing

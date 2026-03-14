@@ -13,7 +13,7 @@ This repository contains educational materials and projects for the ITEC323 unit
 
 | Area | Key Points | Detailed Guide |
 |------|-----------|----------------|
-| **Code** | • C# for .NET, Java for Android<br>• .NET 8.0 LTS (compatible with .NET 9)<br>• PascalCase classes/methods, camelCase variables<br>• Keep it simple for beginners | [Code Generation Guidelines](docs/agents/code-generation.md) |
+| **Code** | • C# for .NET, Java for Android<br>• .NET 10.0 / C# 14<br>• PascalCase classes/methods, camelCase variables<br>• Keep it simple for beginners | [Code Generation Guidelines](docs/agents/code-generation.md) |
 | **Docs** | • XML comments on all public members<br>• README, QUICKSTART, FRD for each project<br>• Explain "why", not just "what" | [Documentation Guidelines](docs/agents/documentation.md) |
 | **Tests** | • xUnit for .NET, JUnit for Android<br>• Tests in `tests/` folder<br>• Descriptive test names<br>• AAA pattern (Arrange-Act-Assert) | [Testing Guidelines](docs/agents/testing.md) |
 
@@ -84,9 +84,9 @@ ProjectName/
 ### 4. Technology Standards
 
 #### .NET Projects
-- **Target Framework**: .NET 8.0 (LTS)
-- **Compatibility**: Must work with .NET 9
-- **Language**: C#
+- **Target Framework**: .NET 10.0 (LTS)
+- **Compatibility**: Must work with .NET 10
+- **Language**: C# 14
 - **Testing**: xUnit with FluentAssertions
 - **Project Types**: Console apps, ASP.NET Core web apps, class libraries
 
@@ -216,7 +216,7 @@ public void GetStudentById_ValidId_ReturnsStudent()
    - [ ] No sensitive information in code
    - [ ] `dotnet build` runs without errors (when applicable)
    - [ ] `dotnet run` runs without errors (when applicable)
-   - [ ] Builds successfully with .NET 8.0 and .NET 9
+   - [ ] Builds successfully with .NET 10.0 and C# 14
 
 ## Detailed Guidelines
 

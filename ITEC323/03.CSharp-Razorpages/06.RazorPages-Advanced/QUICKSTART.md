@@ -4,7 +4,7 @@ Follow these steps to get the RazorPages Advanced project running on your machin
 
 ## Prerequisites
 
-- .NET 8.0 SDK or later installed
+- .NET 10.0 SDK installed
 - Terminal/Command Prompt access
 - Web browser
 

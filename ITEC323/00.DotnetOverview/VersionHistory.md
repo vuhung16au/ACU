@@ -37,8 +37,8 @@ Microsoft releases new versions of .NET and C# together every year in November. 
 ## For ITEC323 Students
 
 ### Current Recommendation
-- **Primary**: .NET 8 (LTS) - Most stable for learning
-- **Compatible**: .NET 9 and .NET 10 - All course materials work with these versions
+- **Primary**: .NET 10 - Current course standard
+- **Language**: C# 14
 
 ### Why This Matters
 When you see code examples or tutorials online, check which .NET version they target. The core concepts remain the same, but newer versions may have additional features or slightly different syntax.
@@ -72,5 +72,4 @@ dotnet --list-sdks
 
 ---
 
-**Note**: This course uses .NET 8.0 (LTS) as the primary framework, but all examples are compatible with .NET 9 and .NET 10.
-
+**Note**: This course uses .NET 10.0 with C# 14 as the standard for all current examples.

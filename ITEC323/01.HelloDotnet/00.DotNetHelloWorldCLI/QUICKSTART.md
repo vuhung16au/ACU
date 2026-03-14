@@ -6,7 +6,7 @@ This guide will help you run the DotNetHelloWorldCLI application quickly.
 
 Before running this application, ensure you have:
 
-- **.NET SDK** (version 6.0 or later) installed on your machine
+- **.NET 10.0 SDK** installed on your machine
   - To check if .NET is installed, run: `dotnet --version`
   - To install .NET, visit: https://dotnet.microsoft.com/download
 

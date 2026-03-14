@@ -63,7 +63,7 @@ Both do the same thing, but minimal APIs are more concise!
 
 To work with this project, you'll need:
 
-- **.NET 8.0 SDK or later** (this project targets .NET 10.0)
+- **.NET 10.0 SDK**
 - A code editor such as **Visual Studio Code**, **Visual Studio**, or **Rider**
 - A modern web browser (Chrome, Edge, Firefox, or Safari)
 - Basic understanding of HTTP and C# syntax
@@ -78,7 +78,7 @@ To work with this project, you'll need:
 
 - **Framework**: ASP.NET Core Minimal API
 - **Language**: C#
-- **Target Framework**: .NET 10.0 (compatible with .NET 8.0 and 9.0)
+- **Target Framework**: .NET 10.0
 - **Runtime**: Kestrel web server
 - **Template**: `web` (minimal API template)
 

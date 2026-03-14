@@ -93,7 +93,7 @@ A complete demonstration of core C# programming concepts with 15 dedicated modul
 
 Before starting, ensure you have:
 
-1. **.NET SDK 10.0** (or .NET 8.0+)
+1. **.NET SDK 10.0**
    ```bash
    dotnet --version
    # Should show: 10.0.103 or higher

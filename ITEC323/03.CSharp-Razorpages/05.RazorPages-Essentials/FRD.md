@@ -3,7 +3,7 @@
 
 **Version**: 1.0  
 **Date**: February 2026  
-**Target Framework**: .NET 8.0 / .NET 10.0
+**Target Framework**: .NET 10.0
 
 ---
 
@@ -53,7 +53,7 @@ An educational web app teaching ASP.NET Core Razor Pages fundamentals: forms, va
 
 ## Technical Requirements
 
-- Works with .NET 8.0 and .NET 10.0
+- Works with .NET 10.0
 - Runs on Windows, macOS, and Linux
 - Works in modern browsers
 - Clean, well-commented code for learning

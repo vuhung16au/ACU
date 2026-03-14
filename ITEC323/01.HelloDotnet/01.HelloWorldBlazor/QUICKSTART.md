@@ -185,7 +185,7 @@ When you run the application, you'll see several log messages:
 
 **Solution**: Either:
 1. Install .NET 10 SDK (recommended)
-2. Or edit `HelloWorldBlazor.csproj` and change `<TargetFramework>net10.0</TargetFramework>` to `net8.0` or `net9.0`
+2. Ensure the project continues to target `net10.0` and that the .NET 10 SDK is installed
 
 ### Issue 3: Browser Shows "Connection Refused"
 

@@ -34,7 +34,7 @@ Or any version `10.0.x`, `9.0.x`, or `8.0.x`
 
 **If .NET is not installed**:
 - Download from: https://dotnet.microsoft.com/download
-- Install .NET SDK 10.0 (or .NET 8.0 LTS minimum)
+- Install .NET SDK 10.0
 - Restart your terminal after installation
 - Run `dotnet --version` again to verify
 
@@ -364,7 +364,7 @@ myBook.DisplayInfo();
 
 **Solution**:
 1. Install .NET SDK from https://dotnet.microsoft.com/download
-2. Choose .NET 10.0 SDK (or .NET 8.0 LTS)
+2. Choose .NET 10.0 SDK
 3. Restart your terminal/command prompt
 4. Verify with `dotnet --version`
 

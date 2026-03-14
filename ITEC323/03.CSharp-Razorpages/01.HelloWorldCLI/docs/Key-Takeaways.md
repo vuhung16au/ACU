@@ -253,7 +253,7 @@ The `.csproj` file defines how your project is built:
 **Key settings explained:**
 
 - **OutputType**: `Exe` creates a console application (vs. `Library` for DLLs)
-- **TargetFramework**: Specifies .NET version (`net10.0` for .NET 10.0, `net8.0` for .NET 8.0)
+- **TargetFramework**: Specifies .NET version (`net10.0` for .NET 10.0)
 - **ImplicitUsings**: `disable` means you must explicitly add `using` statements
 - **Nullable**: `enable` helps catch null reference errors at compile time
 

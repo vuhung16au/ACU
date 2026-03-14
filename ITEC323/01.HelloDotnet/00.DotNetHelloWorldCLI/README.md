@@ -33,7 +33,7 @@ See [QUICKSTART.md](QUICKSTART.md) for instructions on how to run this applicati
 
 ## Requirements
 
-- .NET SDK (version 6.0 or later)
+- .NET 10.0 SDK
 
 ## About
 

@@ -67,7 +67,7 @@ By exploring this project, you will learn:
 
 ## Prerequisites
 
-- .NET 8.0 SDK or later (compatible with .NET 9, .NET 10)
+- .NET 10.0 SDK
 - Code editor (VS Code, Visual Studio, or Rider)
 - Basic understanding of C# and web development
 

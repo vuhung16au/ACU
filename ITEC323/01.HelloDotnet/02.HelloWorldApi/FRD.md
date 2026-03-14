@@ -204,7 +204,7 @@ info: Microsoft.Hosting.Lifetime[0]
 - Project file (`.csproj`) is valid
 - All C# syntax is correct
 - No compiler warnings for the application code
-- Compatible with .NET 8.0, 9.0, and 10.0
+- Targeted for .NET 10.0
 
 **Technical Details**:
 - Targets .NET 10.0
@@ -402,7 +402,7 @@ dotnet run --urls "http://localhost:8080"
 
 **Requirements**:
 - Runs on Windows, macOS, and Linux
-- Compatible with .NET 8.0, 9.0, and 10.0
+- Targeted for .NET 10.0
 - No platform-specific code
 - Uses standard .NET APIs only
 - Paths use platform-agnostic format
@@ -411,7 +411,7 @@ dotnet run --urls "http://localhost:8080"
 - Test on Windows 10/11
 - Test on macOS (Intel and Apple Silicon)
 - Test on Linux (Ubuntu, Fedora)
-- Test with .NET 8.0 and 10.0
+- Test with .NET 10.0
 
 ---
 
@@ -436,7 +436,7 @@ dotnet run --urls "http://localhost:8080"
 
 ### 5.1 Platform Constraints
 - **Operating System**: Windows, macOS, or Linux
-- **.NET Version**: .NET 8.0 or later (targets 10.0)
+- **.NET Version**: .NET 10.0
 - **Web Server**: Kestrel (included with ASP.NET Core)
 - **IDE**: Any code editor (VS Code, Visual Studio, Rider, etc.)
 

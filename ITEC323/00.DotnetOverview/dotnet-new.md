@@ -41,8 +41,8 @@ dotnet run
 
 ### Create a Project with Specific Framework
 ```bash
-# Target .NET 8.0 (LTS)
-dotnet new webapp -n MyApp -f net8.0
+# Target .NET 10.0
+dotnet new webapp -n MyApp -f net10.0
 
 # Target .NET 10.0 (Current)
 dotnet new webapp -n MyApp -f net10.0
@@ -106,9 +106,9 @@ dotnet new install <package-name>
 ### 2. Target Framework
 For ITEC323, always use:
 ```bash
-dotnet new webapp -n MyApp -f net8.0
+dotnet new webapp -n MyApp -f net10.0
 ```
-- **net8.0** = .NET 8.0 LTS (Long Term Support)
+- **net10.0** = .NET 10.0
 - Compatible with .NET 10.0
 - Industry standard for 2026
 
@@ -145,7 +145,7 @@ dotnet new webapp -n MyApp --use-program-main
 |--------|-------------|---------|
 | `-n, --name` | Project name | `-n MyApp` |
 | `-o, --output` | Output directory | `-o ./src/MyApp` |
-| `-f, --framework` | Target framework | `-f net8.0` |
+| `-f, --framework` | Target framework | `-f net10.0` |
 | `--no-https` | Disable HTTPS | Simpler for local dev |
 | `--dry-run` | Preview without creating | Test before creating |
 
@@ -175,7 +175,7 @@ dir MyApp   # Windows
 dotnet new console -n MyApp
 
 # Web app (Razor Pages)
-dotnet new webapp -n MyWebApp -f net8.0
+dotnet new webapp -n MyWebApp -f net10.0
 
 # Test project
 dotnet new xunit -n MyApp.Tests

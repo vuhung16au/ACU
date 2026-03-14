@@ -126,7 +126,7 @@ Before starting this project, you should:
 
 1. **Complete [02.CSharpCore](../02.CSharpCore/)** - Understand variables, data types, operators, control flow, loops, and arrays
 
-2. **Have .NET SDK 10.0 installed** (or .NET 8.0+)
+2. **Have .NET SDK 10.0 installed**
    ```bash
    dotnet --version
    # Should show: 10.0.103 or higher

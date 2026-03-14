@@ -104,7 +104,7 @@ Blazor has three hosting models:
 |---|---|---|
 | **Blazor Server** | On the server | Fast startup; requires live connection |
 | **Blazor WebAssembly (WASM)** | In the browser | Works offline; larger initial download |
-| **Blazor Web App (.NET 8+)** | Both (per component) | Modern default; most flexible |
+| **Blazor Web App (.NET 10+)** | Both (per component) | Modern default; most flexible |
 
 **Best for**: Dashboards, real-time apps, interactive forms, SPAs where you want to stay in C# end-to-end.
 

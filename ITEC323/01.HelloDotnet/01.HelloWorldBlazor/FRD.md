@@ -120,7 +120,7 @@ This application will NOT:
 - Root component is `App.razor`
 
 **Technical Details**:
-- Follows .NET 8+ Blazor conventions
+- Follows modern Blazor conventions on .NET 10
 - Uses the modern unified Blazor template structure
 - Organizes files logically for educational clarity
 
@@ -138,7 +138,7 @@ This application will NOT:
 - No compiler warnings related to critical issues
 
 **Technical Details**:
-- Targets .NET 10.0 (compatible with .NET 8.0 and 9.0)
+- Targets .NET 10.0
 - Uses standard .NET SDK Web template
 - Implicit usings enabled
 - Nullable reference types enabled
@@ -160,7 +160,7 @@ This application will NOT:
 **Description**: The application must work across supported platforms.
 
 **Requirements**:
-- Compatible with .NET 8.0, 9.0, and 10.0
+- Targeted for .NET 10.0
 - Runs on Windows, macOS, and Linux
 - Works with modern browsers (Chrome, Edge, Firefox, Safari)
 - Supports both HTTP and HTTPS protocols
@@ -211,7 +211,7 @@ This application will NOT:
 ### 5.1 Technology Stack
 - **Framework**: ASP.NET Core Blazor
 - **Target Framework**: .NET 10.0
-- **Language**: C# 12
+- **Language**: C# 14
 - **Template**: Blazor Web App (`dotnet new blazor`)
 - **Web Server**: Kestrel
 
@@ -273,7 +273,7 @@ All dependencies are included in the default Blazor template:
 
 ### 7.1 Technical Constraints
 - Must use the official .NET Blazor template
-- Must target .NET 8.0 or later
+- Must target .NET 10.0
 - Must work without additional NuGet packages
 - Must use standard Blazor conventions
 

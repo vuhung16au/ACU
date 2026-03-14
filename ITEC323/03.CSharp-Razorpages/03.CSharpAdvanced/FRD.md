@@ -561,7 +561,7 @@ Caught ArgumentException: Age must be between 0 and 120
 **Status**: ✅ Met
 
 #### Requirements
-- Must build and run on .NET 8.0+
+- Must build and run on .NET 10.0
 - Must be compatible with .NET 10.0
 - Must work on Windows, macOS, and Linux
 - No platform-specific dependencies
@@ -617,7 +617,7 @@ The project is successful if:
 ### Technical Constraints
 
 - **Language**: C# only
-- **Framework**: .NET 10.0 (compatible with .NET 8.0+)
+- **Framework**: .NET 10.0
 - **Project Type**: Console Application
 - **Dependencies**: System, System.IO (built-in only)
 - **Output**: Console text only (no GUI)

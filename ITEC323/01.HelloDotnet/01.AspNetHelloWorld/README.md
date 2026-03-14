@@ -21,7 +21,7 @@ See **[QUICKSTART.md](QUICKSTART.md)** for the shortest path to run the app.
 
 ## Requirements
 
-- [.NET 10 SDK](https://dotnet.microsoft.com/download) (or .NET 8+; adjust target in the project file if needed)
+- [.NET 10 SDK](https://dotnet.microsoft.com/download)
 
 ## Build and run (from project folder)
 

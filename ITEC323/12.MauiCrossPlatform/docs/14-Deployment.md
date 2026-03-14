@@ -60,7 +60,7 @@ Edit `Platforms/Android/AndroidManifest.xml`:
 **AAB (Android App Bundle)** is required for Play Store:
 
 ```bash
-dotnet publish -f net8.0-android -c Release \
+dotnet publish -f net10.0-android -c Release \
   -p:AndroidPackageFormat=aab \
   -p:AndroidKeyStore=true \
   -p:AndroidSigningKeyStore=my-release-key.keystore \
@@ -69,17 +69,17 @@ dotnet publish -f net8.0-android -c Release \
   -p:AndroidSigningStorePass=YOUR_STORE_PASSWORD
 ```
 
-**Output**: `bin/Release/net8.0-android/publish/com.yourcompany.yourapp-Signed.aab`
+**Output**: `bin/Release/net10.0-android/publish/com.yourcompany.yourapp-Signed.aab`
 
 ### 4. Build APK (Sideloading)
 
 For direct distribution:
 
 ```bash
-dotnet publish -f net8.0-android -c Release
+dotnet publish -f net10.0-android -c Release
 ```
 
-**Output**: `bin/Release/net8.0-android/publish/com.yourcompany.yourapp-Signed.apk`
+**Output**: `bin/Release/net10.0-android/publish/com.yourcompany.yourapp-Signed.apk`
 
 ### 5. Google Play Store Submission
 
@@ -147,7 +147,7 @@ Edit `Platforms/iOS/Info.plist`:
 
 **Command Line**:
 ```bash
-dotnet publish -f net8.0-ios -c Release
+dotnet publish -f net10.0-ios -c Release
 ```
 
 **Visual Studio**: 
@@ -194,11 +194,11 @@ Edit `Platforms/Windows/Package.appxmanifest`:
 ### 2. Build Release Package
 
 ```bash
-dotnet publish -f net8.0-windows10.0.19041.0 -c Release \
+dotnet publish -f net10.0-windows10.0.19041.0 -c Release \
   -p:GenerateAppxPackageOnBuild=true
 ```
 
-**Output**: `bin/Release/net8.0-windows10.0.19041.0/publish/`
+**Output**: `bin/Release/net10.0-windows10.0.19041.0/publish/`
 
 ### 3. Microsoft Store Submission
 
@@ -395,7 +395,7 @@ Consider adding analytics:
 VERSION_CODE=1
 VERSION_NAME="1.0.0"
 
-dotnet publish -f net8.0-android -c Release \
+dotnet publish -f net10.0-android -c Release \
   -p:AndroidPackageFormat=aab \
   -p:ApplicationVersion=$VERSION_CODE \
   -p:ApplicationDisplayVersion=$VERSION_NAME \
@@ -405,7 +405,7 @@ dotnet publish -f net8.0-android -c Release \
   -p:AndroidSigningKeyPass=$ANDROID_KEY_PASSWORD \
   -p:AndroidSigningStorePass=$ANDROID_STORE_PASSWORD
 
-echo "Build complete: bin/Release/net8.0-android/publish/"
+echo "Build complete: bin/Release/net10.0-android/publish/"
 ```
 
 ### iOS Release Script
@@ -416,7 +416,7 @@ echo "Build complete: bin/Release/net8.0-android/publish/"
 VERSION="1.0.0"
 BUILD_NUMBER=1
 
-dotnet publish -f net8.0-ios -c Release \
+dotnet publish -f net10.0-ios -c Release \
   -p:ApplicationVersion=$BUILD_NUMBER \
   -p:ApplicationDisplayVersion=$VERSION
 

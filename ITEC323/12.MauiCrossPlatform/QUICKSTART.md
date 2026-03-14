@@ -6,7 +6,7 @@ This guide walks you through setting up your development environment for .NET MA
 
 ## Prerequisites
 - **Operating System**: macOS, Windows, or Linux (macOS recommended for full platform support)
-- **.NET 8.0 SDK** installed
+- **.NET 10.0 SDK** installed
 - **8 GB RAM** minimum (16 GB recommended for Android emulator)
 - **20 GB free disk space** (for Android SDK and tools)
 
@@ -141,7 +141,7 @@ dotnet restore
 ### Run on macOS (Mac Catalyst)
 ```bash
 # Build and run on macOS
-dotnet build -t:Run -f net8.0-maccatalyst
+dotnet build -t:Run -f net10.0-maccatalyst
 ```
 
 **Expected Result**: A window opens with "Hello, World!" and a counter button.
@@ -164,7 +164,7 @@ emulator -avd Pixel5 &
 #### Deploy and Run App
 ```bash
 # Build and deploy to running emulator
-dotnet build -t:Run -f net8.0-android
+dotnet build -t:Run -f net10.0-android
 ```
 
 **Expected Result**: App installs and launches on Android emulator with "Hello, World!" screen.
@@ -191,7 +191,7 @@ adb devices
 # ABC123XYZ    device
 
 # Build and deploy
-dotnet build -t:Run -f net8.0-android
+dotnet build -t:Run -f net10.0-android
 ```
 
 ---
@@ -287,14 +287,14 @@ dotnet clean                           # Clean build artifacts
 dotnet restore                         # Restore NuGet packages
 
 # Platform-Specific Build
-dotnet build -f net8.0-android         # Build for Android
-dotnet build -f net8.0-ios             # Build for iOS
-dotnet build -f net8.0-maccatalyst     # Build for macOS
-dotnet build -f net8.0-windows10.0.19041.0  # Build for Windows
+dotnet build -f net10.0-android         # Build for Android
+dotnet build -f net10.0-ios             # Build for iOS
+dotnet build -f net10.0-maccatalyst     # Build for macOS
+dotnet build -f net10.0-windows10.0.19041.0  # Build for Windows
 
 # Run Commands
-dotnet build -t:Run -f net8.0-android          # Run on Android
-dotnet build -t:Run -f net8.0-maccatalyst      # Run on macOS
+dotnet build -t:Run -f net10.0-android          # Run on Android
+dotnet build -t:Run -f net10.0-maccatalyst      # Run on macOS
 
 # Device Management
 adb devices                            # List connected Android devices

@@ -23,7 +23,7 @@ Build native mobile and desktop applications from a single C# codebase using .NE
 Before starting this module, you should have:
 - ✅ Completed C# fundamentals (Week 3-6)
 - ✅ Understanding of MVVM and dependency injection (from ASP.NET Core)
-- ✅ .NET 8.0 SDK installed
+- ✅ .NET 10.0 SDK installed
 - ✅ MAUI workload installed (`dotnet workload install maui`)
 - ✅ Android emulator or physical device for testing
 
@@ -105,8 +105,8 @@ Before starting this module, you should have:
 
 | Technology | Purpose | Documentation |
 |------------|---------|---------------|
-| **.NET 8.0 (LTS)** | Runtime and SDK | [Microsoft Docs](https://learn.microsoft.com/en-us/dotnet/maui/) |
-| **C# 12** | Programming language | [C# Guide](https://learn.microsoft.com/en-us/dotnet/csharp/) |
+| **.NET 10.0** | Runtime and SDK | [Microsoft Docs](https://learn.microsoft.com/en-us/dotnet/maui/) |
+| **C# 14** | Programming language | [C# Guide](https://learn.microsoft.com/en-us/dotnet/csharp/) |
 | **.NET MAUI** | Cross-platform UI framework | [MAUI Docs](https://learn.microsoft.com/en-us/dotnet/maui/) |
 | **XAML** | UI markup language | [XAML Overview](https://learn.microsoft.com/en-us/dotnet/maui/xaml/) |
 | **Community Toolkit** | MVVM helpers | [Toolkit MVVM](https://learn.microsoft.com/en-us/dotnet/communitytoolkit/mvvm/) |
@@ -143,10 +143,10 @@ cd MyFirstMauiApp
 dotnet build
 
 # Run on macOS
-dotnet build -t:Run -f net8.0-maccatalyst
+dotnet build -t:Run -f net10.0-maccatalyst
 
 # Run on Android emulator
-dotnet build -t:Run -f net8.0-android
+dotnet build -t:Run -f net10.0-android
 ```
 
 ## Development Environment Setup
@@ -170,10 +170,10 @@ dotnet build -t:Run -f net8.0-android
 
 | Platform | Framework Moniker | Run Command |
 |----------|-------------------|-------------|
-| **Android** | `net8.0-android` | `dotnet build -t:Run -f net8.0-android` |
-| **iOS** | `net8.0-ios` | `dotnet build -t:Run -f net8.0-ios` |
-| **macOS** | `net8.0-maccatalyst` | `dotnet build -t:Run -f net8.0-maccatalyst` |
-| **Windows** | `net8.0-windows10.0.19041.0` | `dotnet build -t:Run -f net8.0-windows10.0.19041.0` |
+| **Android** | `net10.0-android` | `dotnet build -t:Run -f net10.0-android` |
+| **iOS** | `net10.0-ios` | `dotnet build -t:Run -f net10.0-ios` |
+| **macOS** | `net10.0-maccatalyst` | `dotnet build -t:Run -f net10.0-maccatalyst` |
+| **Windows** | `net10.0-windows10.0.19041.0` | `dotnet build -t:Run -f net10.0-windows10.0.19041.0` |
 
 ## Common Commands
 
@@ -182,10 +182,10 @@ dotnet build -t:Run -f net8.0-android
 dotnet build
 
 # Build for specific platform
-dotnet build -f net8.0-android
+dotnet build -f net10.0-android
 
 # Run on Android
-dotnet build -t:Run -f net8.0-android
+dotnet build -t:Run -f net10.0-android
 
 # Clean build artifacts
 dotnet clean

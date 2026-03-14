@@ -4,7 +4,7 @@ Get AspNetHelloWorld running in under a minute.
 
 ## Prerequisites
 
-- [.NET SDK](https://dotnet.microsoft.com/download) installed (e.g. .NET 10 or .NET 8)
+- [.NET SDK](https://dotnet.microsoft.com/download) installed (.NET 10)
 
 ## Option A: You already have the project
 

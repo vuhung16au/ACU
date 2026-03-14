@@ -19,7 +19,7 @@ By completing this project, you will learn:
 
 ## 📋 Prerequisites
 
-- .NET 8.0 SDK or later
+- .NET 10.0 SDK
 - A code editor (VS Code, Visual Studio, or Rider)
 - Basic understanding of C# and HTML
 - Completion of [04.RazorPages-HelloWorld](../04.RazorPages-HelloWorld/) project

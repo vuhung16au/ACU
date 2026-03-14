@@ -216,7 +216,7 @@ Module must include:
 ## Constraints
 
 - Must use ASP.NET Core Razor Pages (not MVC)
-- Must target .NET 8.0 LTS (compatible with .NET 9.0)
+- Must target .NET 10.0
 - Must work on Windows, macOS, and Linux
 - No JavaScript frameworks (Vue, React) - keep it simple
 - Focus on server-side rendering

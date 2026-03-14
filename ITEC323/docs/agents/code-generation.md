@@ -12,7 +12,7 @@ This document provides specific guidelines for AI coding agents (Cursor, Copilot
 
 ### Language and Framework
 - **Primary Language**: C# for all .NET projects
-- **Target Framework**: .NET 8.0 (LTS) with compatibility for .NET 9
+- **Target Framework**: .NET 10.0
 - **Project Types**: Console applications, ASP.NET Core web applications, class libraries
 
 ### Naming Conventions

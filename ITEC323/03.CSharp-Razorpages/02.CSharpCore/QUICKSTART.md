@@ -282,7 +282,7 @@ dotnet build --help
 
 ## Running with Different .NET Versions
 
-This project targets .NET 10.0 but is compatible with .NET 8.0 LTS and later.
+This project targets .NET 10.0 and uses C# 14.
 
 To verify compatibility:
 ```bash
