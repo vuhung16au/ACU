@@ -1,0 +1,46 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="p-4 mb-4 bg-light rounded-3 border">
+    <h1 class="display-6">04.MongoDBDocker</h1>
+    <p class="mb-2">
+        This project introduces MongoDB document persistence using the MongoDB C# Driver.
+        You will run MongoDB in Docker and perform async CRUD operations in Razor Pages.
+    </p>
+    <p class="mb-0">
+        Current product count in database: <strong>@Model.ProductCount</strong>
+    </p>
+</div>
+
+<div class="row g-3">
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="h5">Learning Objectives</h2>
+                <ul class="mb-0">
+                    <li>Create an entity class with data annotations.</li>
+                    <li>Configure MongoDB Driver in <code>Program.cs</code>.</li>
+                    <li>Understand document-based storage in NoSQL.</li>
+                    <li>Perform async Create, Read, Update, and Delete operations.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="h5">Try It Now</h2>
+                <ol class="mb-3">
+                    <li>Start MongoDB with Docker Compose.</li>
+                    <li>Run the web app and open Products.</li>
+                    <li>Add products from the UI.</li>
+                    <li>Use edit, details, and delete pages.</li>
+                </ol>
+                <a asp-page="/Products/Index" class="btn btn-primary">Open Product Catalog</a>
+            </div>
+        </div>
+    </div>
+</div>
