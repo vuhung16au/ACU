@@ -15,6 +15,9 @@ This repository contains educational materials and projects for the ITEC323 unit
 |------|-----------|----------------|
 | **Code** | • C# for .NET, Java for Android<br>• .NET 10.0 / C# 14<br>• PascalCase classes/methods, camelCase variables<br>• Keep it simple for beginners | [Code Generation Guidelines](docs/agents/code-generation.md) |
 | **.NET App Skills** | • Prefer ASP.NET Core Razor Pages for beginner web apps<br>• Teach clear interaction design, UI, and UX basics<br>• Build responsive layouts for MAUI, Razor, and Blazor<br>• Apply simple web and backend security practices | [\.NET App Implementation Guidelines](docs/agents/dotnet-app-implementation.md) |
+| **Interaction Design** | • Design for clarity before decoration<br>• Keep navigation predictable<br>• Show clear feedback for user actions | [Interaction Design Guidelines](docs/agents/interaction-design.md) |
+| **Responsive Design** | • Support phone, tablet, and desktop layouts<br>• Use flexible layouts and readable spacing<br>• Keep critical actions visible on smaller screens | [Responsive Design Guidelines](docs/ragents/esponsive-design.md) |
+| **Security** | • Keep secrets out of source control<br>• Validate input and encode output<br>• Use parameterized data access and authorization checks | [Security Guidelines](docs/agents/security.md) |
 | **Docs** | • XML comments on all public members<br>• README, QUICKSTART, FRD for each project<br>• Explain "why", not just "what" | [Documentation Guidelines](docs/agents/documentation.md) |
 | **Tests** | • xUnit for .NET, JUnit for Android<br>• Tests in `tests/` folder<br>• Descriptive test names<br>• AAA pattern (Arrange-Act-Assert) | [Testing Guidelines](docs/agents/testing.md) |
 
@@ -93,9 +96,9 @@ ProjectName/
 
 #### .NET App Skills
 - **Razor Pages first**: Prefer ASP.NET Core Razor Pages for beginner-friendly web apps
-- **Interaction design**: Keep navigation, forms, and feedback simple, clear, and consistent
-- **Responsive design**: Support phone, tablet, and desktop layouts in .NET MAUI, Razor, and Blazor
-- **Security basics**: Validate input, encode output, parameterize queries, and protect APIs and forms
+- **Interaction design**: Follow the [Interaction Design Guidelines](docs/agents/interaction-design.md)
+- **Responsive design**: Follow the [Responsive Design Guidelines](docs/ragents/esponsive-design.md)
+- **Security basics**: Follow the [Security Guidelines](docs/agents/security.md)
 
 #### Android Projects
 - **Primary Language**: Java
@@ -107,24 +110,7 @@ ProjectName/
 
 ### 5. Security Best Practices
 
-**Never include in code**:
-- ❌ API keys
-- ❌ Connection strings
-- ❌ Passwords or credentials
-- ❌ Tokens or secrets
-
-**Always use**:
-- ✅ Environment variables
-- ✅ Configuration files
-- ✅ Secure credential storage
-
-```csharp
-// ❌ Bad: Hardcoded
-var apiKey = "sk_live_abc123xyz";
-
-// ✅ Good: From configuration
-var apiKey = configuration["ApiSettings:ApiKey"];
-```
+See the [Security Guidelines](docs/agents/security.md) for the repository security policy, including secrets handling, input validation, output encoding, authorization, and safe data access.
 
 ### 6. Testing Requirements
 
@@ -244,6 +230,24 @@ Short guidance for:
 - Teaching interaction design, UI, and UX fundamentals
 - Creating responsive layouts for .NET MAUI, Razor, and Blazor
 - Applying simple web, API, and database security practices
+
+### 🧭 [Interaction Design Guidelines](docs/agents/interaction-design.md)
+Focused guidance for:
+- Designing clear, beginner-friendly screens and flows
+- Keeping navigation, forms, and feedback consistent
+- Reducing confusion through simple interaction patterns
+
+### 📱 [Responsive Design Guidelines](docs/ragents/esponsive-design.md)
+Focused guidance for:
+- Building layouts that work on phone, tablet, and desktop screens
+- Using flexible layouts in MAUI, Razor, and Blazor
+- Keeping text readable and actions visible across breakpoints
+
+### 🔒 [Security Guidelines](docs/agents/security.md)
+Focused guidance for:
+- Keeping secrets out of source control
+- Validating input and encoding output
+- Using safe data access and authorization checks
 
 ### 📚 [Documentation Guidelines](docs/agents/documentation.md)  
 Comprehensive guide for:
