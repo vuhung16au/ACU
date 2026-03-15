@@ -14,6 +14,7 @@ This repository contains educational materials and projects for the ITEC323 unit
 | Area | Key Points | Detailed Guide |
 |------|-----------|----------------|
 | **Code** | • C# for .NET, Java for Android<br>• .NET 10.0 / C# 14<br>• PascalCase classes/methods, camelCase variables<br>• Keep it simple for beginners | [Code Generation Guidelines](docs/agents/code-generation.md) |
+| **.NET App Skills** | • Prefer ASP.NET Core Razor Pages for beginner web apps<br>• Teach clear interaction design, UI, and UX basics<br>• Build responsive layouts for MAUI, Razor, and Blazor<br>• Apply simple web and backend security practices | [\.NET App Implementation Guidelines](docs/agents/dotnet-app-implementation.md) |
 | **Docs** | • XML comments on all public members<br>• README, QUICKSTART, FRD for each project<br>• Explain "why", not just "what" | [Documentation Guidelines](docs/agents/documentation.md) |
 | **Tests** | • xUnit for .NET, JUnit for Android<br>• Tests in `tests/` folder<br>• Descriptive test names<br>• AAA pattern (Arrange-Act-Assert) | [Testing Guidelines](docs/agents/testing.md) |
 
@@ -89,6 +90,12 @@ ProjectName/
 - **Language**: C# 14
 - **Testing**: xUnit with FluentAssertions
 - **Project Types**: Console apps, ASP.NET Core web apps, class libraries
+
+#### .NET App Skills
+- **Razor Pages first**: Prefer ASP.NET Core Razor Pages for beginner-friendly web apps
+- **Interaction design**: Keep navigation, forms, and feedback simple, clear, and consistent
+- **Responsive design**: Support phone, tablet, and desktop layouts in .NET MAUI, Razor, and Blazor
+- **Security basics**: Validate input, encode output, parameterize queries, and protect APIs and forms
 
 #### Android Projects
 - **Primary Language**: Java
@@ -230,6 +237,13 @@ Detailed instructions for:
 - Structuring projects
 - Security best practices
 - Code quality standards
+
+### 🌐 [\.NET App Implementation Guidelines](docs/agents/dotnet-app-implementation.md)
+Short guidance for:
+- Building beginner-friendly ASP.NET Core Razor Pages apps
+- Teaching interaction design, UI, and UX fundamentals
+- Creating responsive layouts for .NET MAUI, Razor, and Blazor
+- Applying simple web, API, and database security practices
 
 ### 📚 [Documentation Guidelines](docs/agents/documentation.md)  
 Comprehensive guide for:

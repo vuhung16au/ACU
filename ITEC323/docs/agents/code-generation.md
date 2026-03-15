@@ -99,6 +99,17 @@ ProjectName/
 3. **Error Handling**: Use try-catch with specific exception types, provide meaningful error messages
 4. **LINQ**: Use for collection operations, but keep queries simple and readable
 
+### .NET App Implementation
+
+When building .NET apps with user interfaces:
+
+- Prefer **ASP.NET Core Razor Pages** for beginner web applications
+- Keep interaction design simple, clear, and easy to follow
+- Make layouts responsive in **.NET MAUI**, **Razor**, and **Blazor**
+- Apply secure defaults such as input validation, output encoding, and parameterized data access
+
+See the [\.NET App Implementation Guidelines](dotnet-app-implementation.md) for focused guidance.
+
 ## Android Code Generation
 
 ### Language and Framework
