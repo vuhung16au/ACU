@@ -34,13 +34,13 @@ cd 04.ConsistentWebDesign/01.BasicLayout
 The project has no external dependencies, but you can run this to ensure everything is set up:
 
 ```bash
-dotnet restore
+dotnet restore 01.BasicLayout.sln
 ```
 
 ## Step 3: Build the Project
 
 ```bash
-dotnet build
+dotnet build 01.BasicLayout.sln
 ```
 
 

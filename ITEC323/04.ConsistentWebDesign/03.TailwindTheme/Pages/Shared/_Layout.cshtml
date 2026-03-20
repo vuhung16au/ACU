@@ -30,12 +30,30 @@
 <body class="min-h-screen bg-slate-50 text-slate-900">
     <header class="bg-white shadow-sm border-b border-slate-200">
         <nav class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-4">
-            <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div class="flex items-center justify-between">
                 <a href="/" class="text-xl font-bold text-brand-700">Tailwind Demo</a>
-                <ul class="flex flex-wrap items-center gap-2 text-sm font-medium">
+                
+                <!-- Hamburger Button (Mobile) -->
+                <button id="menu-toggle" class="lg:hidden flex items-center px-3 py-2 border border-slate-300 rounded text-slate-700 hover:border-brand-700 hover:text-brand-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+                
+                <!-- Desktop Menu -->
+                <ul class="hidden lg:flex items-center gap-2 text-sm font-medium">
                     <li><a href="/" class="rounded-md px-3 py-2 text-slate-700 hover:bg-brand-50 hover:text-brand-700">Home</a></li>
                     <li><a href="/Components" class="rounded-md px-3 py-2 text-slate-700 hover:bg-brand-50 hover:text-brand-700">Components</a></li>
                     <li><a href="/Grid" class="rounded-md px-3 py-2 text-slate-700 hover:bg-brand-50 hover:text-brand-700">Layout Utilities</a></li>
+                </ul>
+            </div>
+            
+            <!-- Mobile Menu (Hidden by default) -->
+            <div id="mobile-menu" class="hidden lg:hidden mt-4">
+                <ul class="flex flex-col space-y-2 text-sm font-medium">
+                    <li><a href="/" class="block rounded-md px-3 py-2 text-slate-700 hover:bg-brand-50 hover:text-brand-700">Home</a></li>
+                    <li><a href="/Components" class="block rounded-md px-3 py-2 text-slate-700 hover:bg-brand-50 hover:text-brand-700">Components</a></li>
+                    <li><a href="/Grid" class="block rounded-md px-3 py-2 text-slate-700 hover:bg-brand-50 hover:text-brand-700">Layout Utilities</a></li>
                 </ul>
             </div>
         </nav>
@@ -52,5 +70,13 @@
     </footer>
 
     @RenderSection("Scripts", required: false)
+    
+    <script>
+        // Hamburger menu toggle
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
 </body>
 </html>
