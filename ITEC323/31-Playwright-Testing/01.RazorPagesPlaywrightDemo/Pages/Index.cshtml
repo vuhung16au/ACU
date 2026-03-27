@@ -1,0 +1,60 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Form Demo";
+}
+
+<section class="panel">
+    <h2>Student Form Demo</h2>
+    <p>
+        Enter a name, an email, and a favourite programming language.
+        After you submit the form, the page will show the values back to you.
+    </p>
+
+    <form method="post" class="form-grid">
+        <div class="field-group">
+            <label asp-for="Submission.Name"></label>
+            <input asp-for="Submission.Name" class="form-input" />
+        </div>
+
+        <div class="field-group">
+            <label asp-for="Submission.Email"></label>
+            <input asp-for="Submission.Email" class="form-input" />
+        </div>
+
+        <div class="field-group">
+            <label asp-for="Submission.FavoriteLanguage"></label>
+            <select asp-for="Submission.FavoriteLanguage" class="form-input">
+                <option value="">Unselected</option>
+                <option>Java</option>
+                <option>Python</option>
+                <option>C#</option>
+            </select>
+        </div>
+
+        <button type="submit" class="submit-button">Submit</button>
+    </form>
+</section>
+
+@if (Model.HasSubmission)
+{
+    <section class="panel result-panel" id="submitted-values">
+        <h2>Submitted Values</h2>
+        <p>The form has been submitted. The values below are shown for confirmation.</p>
+
+        <dl class="result-list">
+            <div>
+                <dt>Name</dt>
+                <dd>@Model.SubmittedForm.Name</dd>
+            </div>
+            <div>
+                <dt>Email</dt>
+                <dd>@Model.SubmittedForm.Email</dd>
+            </div>
+            <div>
+                <dt>Favourite Language</dt>
+                <dd>@(string.IsNullOrWhiteSpace(Model.SubmittedForm.FavoriteLanguage) ? "Unselected" : Model.SubmittedForm.FavoriteLanguage)</dd>
+            </div>
+        </dl>
+    </section>
+}
