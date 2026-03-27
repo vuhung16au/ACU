@@ -12,7 +12,8 @@ DOTNET_TARGETS = \
 	07.AjaxDynamicContent \
 	08.ClientSideInteractivity \
 	09.DataPersistenceEFCore \
-	12.MauiCrossPlatform
+	12.MauiCrossPlatform \
+	22-Unit-Testing
 
 ANDROID_PROJECTS = \
 	10.AndroidKotlinJetpackCompose \
