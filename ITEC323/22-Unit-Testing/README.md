@@ -37,6 +37,7 @@ This module focuses on:
 - `01.RazorPagesUnitTesting` - a Razor Pages sample form with unit-tested validation and submission logic
 - `02.MockingDependencies` - a follow-up project that teaches mocked dependencies and interaction verification
 - `03.AsyncUnitTesting` - a follow-up project that teaches async unit testing with awaited dependencies and async mocks
+- `04.ExceptionTesting` - a follow-up project that teaches thrown exceptions and failure-path unit tests
 
 ## Technology Stack
 
