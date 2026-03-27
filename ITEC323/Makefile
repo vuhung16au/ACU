@@ -13,6 +13,7 @@ DOTNET_TARGETS = \
 	08.ClientSideInteractivity \
 	09.DataPersistenceEFCore \
 	12.MauiCrossPlatform \
+	22-MinimalAPIs-REST \
 	22-Unit-Testing
 
 ANDROID_PROJECTS = \
