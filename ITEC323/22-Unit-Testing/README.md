@@ -35,6 +35,7 @@ This module focuses on:
 ## Project Structure
 
 - `01.RazorPagesUnitTesting` - a Razor Pages sample form with unit-tested validation and submission logic
+- `02.MockingDependencies` - a follow-up project that teaches mocked dependencies and interaction verification
 
 ## Technology Stack
 
