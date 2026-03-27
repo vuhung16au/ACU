@@ -1,11 +1,11 @@
 {
   "$schema": "https://json.schemastore.org/launchsettings.json",
   "profiles": {
-    "HelloMinimalApiDemo": {
+    "ComprehensiveMinimalApiDemo": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
-      "applicationUrl": "http://localhost:5622",
+      "applicationUrl": "http://localhost:5627",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

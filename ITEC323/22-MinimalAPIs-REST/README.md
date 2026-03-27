@@ -24,7 +24,7 @@ The focus is on helping you understand how to create simple HTTP APIs without th
 - JSON
 - REST-style HTTP endpoints
 
-## Planned Structure
+## Projects
 
 - `01.HelloMinimalApi`
 - `02.RouteAndQueryParameters`
@@ -32,6 +32,8 @@ The focus is on helping you understand how to create simple HTTP APIs without th
 - `04.CrudWithInMemoryData`
 - `05.ErrorHandlingAndStatusCodes`
 - `06.ComprehensiveMinimalApi`
+
+Each project builds on the previous one while keeping the examples short and approachable for first-time .NET students.
 
 ## Goal
 
