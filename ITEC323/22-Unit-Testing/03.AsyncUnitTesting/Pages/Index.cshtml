@@ -1,0 +1,73 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Form Demo";
+}
+
+<section class="panel">
+    <h2>Async Unit Testing Form</h2>
+    <p>
+        This version keeps the same familiar form, but the duplicate-email rule is checked asynchronously.
+        That lets students practise testing <code>Task</code>-based methods with mocks.
+    </p>
+
+    <form method="post" class="form-grid" novalidate>
+        @if (Model.Errors.Count > 0)
+        {
+            <div class="validation-summary" role="alert">
+                <p>Please fix the following problems:</p>
+                <ul>
+                    @foreach (var error in Model.Errors)
+                    {
+                        <li>@error</li>
+                    }
+                </ul>
+            </div>
+        }
+
+        <div class="field-group">
+            <label asp-for="Submission.Name">Name</label>
+            <input asp-for="Submission.Name" class="form-input" />
+        </div>
+
+        <div class="field-group">
+            <label asp-for="Submission.Email">Email</label>
+            <input asp-for="Submission.Email" class="form-input" />
+        </div>
+
+        <div class="field-group">
+            <label asp-for="Submission.FavoriteLanguage">Favourite Language</label>
+            <select asp-for="Submission.FavoriteLanguage" class="form-input">
+                <option value="">Unselected</option>
+                <option>Java</option>
+                <option>Python</option>
+                <option>C#</option>
+            </select>
+        </div>
+
+        <button type="submit" class="submit-button">Submit</button>
+    </form>
+</section>
+
+@if (Model.HasSubmission)
+{
+    <section class="panel result-panel" id="submitted-values">
+        <h2>Submitted Values</h2>
+        <p>The values below are shown after the asynchronous validation finishes successfully.</p>
+
+        <dl class="result-list">
+            <div>
+                <dt>Name</dt>
+                <dd>@Model.Result.Name</dd>
+            </div>
+            <div>
+                <dt>Email</dt>
+                <dd>@Model.Result.Email</dd>
+            </div>
+            <div>
+                <dt>Favourite Language</dt>
+                <dd>@Model.Result.FavoriteLanguage</dd>
+            </div>
+        </dl>
+    </section>
+}
