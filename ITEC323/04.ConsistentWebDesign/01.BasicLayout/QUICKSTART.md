@@ -20,7 +20,7 @@ If not installed, download from: https://dotnet.microsoft.com/download
 ## Step 1: Navigate to Project Directory
 
 ```bash
-cd /path/to/ITEC323/04.ConsistentWebDesign/01.BasicLayout
+cd 04.ConsistentWebDesign/01.BasicLayout
 ```
 
 Or from the repository root:
