@@ -18,5 +18,12 @@ This project is a lightweight interactive typography experiment. A dragon-like c
 ## How to Run
 Open [kinematic-typography.html](/Users/vuhung/Desktop/kinematic-typography/kinematic-typography.html) in any modern web browser.
 
+## Record an Animated WebP
+1. Install dependencies with `npm install`
+2. Install Playwright's Chromium browser with `npx playwright install chromium`
+3. Run `npm run record`
+
+The script opens `kinematic-typography.html` at `600x800`, moves the mouse randomly for 5 seconds, saves a `.webm` recording, and converts it to `artifacts/kinematic-typography.webp`.
+
 ## Conclusion
 This project shows how simple web technologies can combine motion, typography, maths, and visual storytelling into a compact interactive art piece.

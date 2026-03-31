@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Craft of UI: 3D Split Flap w/ GSAP</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap");
+
+      :root {
+        --bg-top: hsl(213 42% 10%);
+        --bg-bottom: hsl(223 48% 4%);
+        --panel: hsl(216 14% 9%);
+        --panel-edge: hsl(216 12% 22%);
+        --slot-face: hsl(0 0% 16%);
+        --slot-shine: hsl(0 0% 100% / 0.08);
+        --slot-shadow: hsl(0 0% 0% / 0.45);
+        --text: hsl(0 0% 95%);
+        --accent: hsl(44 82% 49%);
+        --muted: hsl(0 0% 73%);
+        --perspective: 1.35;
+        --line-length: 10;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        min-height: 100%;
+      }
+
+      body {
+        margin: 0;
+        display: grid;
+        place-items: center;
+        background:
+          radial-gradient(circle at top, hsl(210 45% 18%), transparent 42%),
+          linear-gradient(180deg, var(--bg-top), var(--bg-bottom));
+        color: var(--text);
+        font-family: "Roboto Mono", monospace;
+        overflow: hidden;
+      }
+
+      .scene {
+        width: min(92vw, 980px);
+        display: grid;
+        gap: 1.5rem;
+        justify-items: center;
+      }
+
+      .title {
+        margin: 0;
+        font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: hsl(0 0% 100% / 0.72);
+      }
+
+      .board-shell {
+        width: min(92vw, 760px);
+        padding: clamp(1rem, 2vw, 1.25rem);
+        border-radius: 1.5rem;
+        background:
+          linear-gradient(180deg, hsl(216 12% 20%), hsl(216 14% 8%)),
+          var(--panel);
+        box-shadow:
+          0 2rem 5rem hsl(0 0% 0% / 0.45),
+          inset 0 1px 0 hsl(0 0% 100% / 0.12),
+          inset 0 -1px 0 hsl(0 0% 0% / 0.5);
+        border: 1px solid var(--panel-edge);
+      }
+
+      .board {
+        display: flex;
+        flex-direction: column;
+        gap: 0.55rem;
+        padding: 0.65rem;
+        border-radius: 1rem;
+        background:
+          linear-gradient(180deg, hsl(0 0% 100% / 0.04), transparent),
+          hsl(0 0% 7%);
+        box-shadow: inset 0 0 0 1px hsl(0 0% 100% / 0.05);
+      }
+
+      .flip-line {
+        display: flex;
+        gap: 0.5ch;
+        justify-content: flex-start;
+      }
+
+      .flip {
+        width: 1.5ch;
+        height: 1lh;
+        font-size: clamp(2rem, 4.3vw, 3.4rem);
+        line-height: 1.1;
+        color: var(--color, var(--text));
+        display: inline-block;
+        position: relative;
+        text-align: center;
+        transform-style: preserve-3d;
+        perspective: calc(var(--perspective) * 1em);
+      }
+
+      .flip::before,
+      .flip::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        width: calc(10% - 0.05em);
+        height: calc(20% - 0.05em);
+        translate: 0 -50%;
+        background: hsl(0 0% 0% / 0.55);
+        border-radius: 999px;
+        z-index: 6;
+      }
+
+      .flip::before {
+        left: 0;
+      }
+
+      .flip::after {
+        right: 0;
+      }
+
+      .flip > div {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        transform-style: preserve-3d;
+        background:
+          radial-gradient(100% 100% at 50% 100%, var(--slot-shine), transparent),
+          linear-gradient(180deg, hsl(0 0% 24%), var(--slot-face));
+        box-shadow:
+          inset 0 1px 0 hsl(0 0% 100% / 0.08),
+          inset 0 -1px 0 hsl(0 0% 0% / 0.3);
+      }
+
+      .flip > div::after {
+        content: attr(data-char);
+        position: absolute;
+        left: 50%;
+        translate: -50% 0;
+        text-transform: uppercase;
+        text-shadow: 0 1px 0 var(--slot-shadow);
+      }
+
+      .flip > div:nth-of-type(odd) {
+        clip-path: polygon(
+          0 0,
+          100% 0,
+          100% 40%,
+          calc(90% + 0.025em) 40%,
+          calc(90% + 0.025em) 48%,
+          calc(10% - 0.025em) 48%,
+          calc(10% - 0.025em) 40%,
+          0 40%
+        );
+      }
+
+      .flip > div:nth-of-type(even) {
+        clip-path: polygon(
+          0 52%,
+          calc(10% - 0.025em) 52%,
+          calc(10% - 0.025em) 60%,
+          calc(90% + 0.025em) 60%,
+          calc(90% + 0.025em) 52%,
+          100% 52%,
+          100% 100%,
+          0 100%
+        );
+      }
+
+      .flip > div:nth-of-type(1)::after,
+      .flip > div:nth-of-type(3)::after {
+        top: 0;
+      }
+
+      .flip > div:nth-of-type(2)::after,
+      .flip > div:nth-of-type(4)::after {
+        bottom: 0;
+      }
+
+      .flip > div:nth-of-type(1) {
+        z-index: 4;
+        transform-origin: 50% 48%;
+      }
+
+      .flip > div:nth-of-type(2) {
+        z-index: 2;
+        transform: rotateX(-180deg);
+        transform-origin: 50% 52%;
+        backface-visibility: hidden;
+      }
+
+      .flip > div:nth-of-type(3) {
+        z-index: 3;
+        backface-visibility: hidden;
+      }
+
+      .flip > div:nth-of-type(4) {
+        z-index: 1;
+      }
+
+      .controls {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      button {
+        appearance: none;
+        border: 0;
+        border-radius: 999px;
+        padding: 0.85rem 1.35rem;
+        background: linear-gradient(180deg, hsl(41 95% 56%), hsl(39 89% 48%));
+        color: hsl(220 33% 8%);
+        font: inherit;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
+        box-shadow:
+          0 0.8rem 1.8rem hsl(40 90% 40% / 0.35),
+          inset 0 1px 0 hsl(0 0% 100% / 0.35);
+      }
+
+      @media (max-width: 640px) {
+        .scene {
+          gap: 1rem;
+        }
+
+        .board-shell {
+          width: 96vw;
+          padding: 0.8rem;
+        }
+
+        .board {
+          gap: 0.4rem;
+          padding: 0.45rem;
+        }
+
+        .flip-line {
+          gap: 0.36ch;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="scene">
+      <h1 class="title">Craft of UI: 3D Split Flap w/ GSAP</h1>
+
+      <section class="board-shell" aria-label="3D split flap departure board demo">
+        <div class="board" id="board"></div>
+      </section>
+
+      <div class="controls">
+        <button id="replay" type="button">Replay Animation</button>
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+    <script>
+      const LINE_LENGTH = 10;
+      const DEFAULT_CHARACTERS = "abcdefghijklmnopqrstuvwxyz !";
+      const boardData = [
+        { text: "ACU", pad: 1, alignment: "left", color: "hsl(0 0% 95%)" },
+        { text: "ITEC", pad: 2, alignment: "right", color: "hsl(0 0% 95%)" },
+        { text: "NEW UI", pad: 3, alignment: "right", color: "hsl(0 0% 95%)" },
+        { text: "DROPPED", pad: 4, alignment: "right", color: "hsl(44 82% 49%)" },
+      ];
+
+      class FlipSlot {
+        constructor(options = {}) {
+          const {
+            characters = DEFAULT_CHARACTERS,
+            color = "hsl(0 0% 95%)",
+            pad = 0,
+          } = options;
+
+          this.characters = Array.from(` ${characters} `);
+          this.colorSet = color;
+          this.pad = pad;
+          this.element = this.create();
+          this.generateTimeline();
+        }
+
+        create() {
+          const element = document.createElement("div");
+          element.className = "flip";
+          element.style.setProperty("--color", this.colorSet);
+
+          for (let i = 0; i < 4; i += 1) {
+            const flap = document.createElement("div");
+            flap.dataset.char = " ";
+            element.appendChild(flap);
+          }
+
+          return element;
+        }
+
+        set color(value) {
+          this.colorSet = value;
+          this.element.style.setProperty("--color", value);
+        }
+
+        set chars(value) {
+          this.characters = Array.from(` ${value} `);
+          this.generateTimeline();
+        }
+
+        syncCharacter(index) {
+          const character = this.characters[index] ?? " ";
+          const [foldTop, foldBottom, unfoldTop, unfoldBottom] = this.element.children;
+
+          foldTop.dataset.char = character;
+          unfoldBottom.dataset.char = character;
+
+          const previousIndex = index === 0 ? this.characters.length - 1 : index - 1;
+          const previousChar = this.characters[previousIndex] ?? " ";
+
+          foldBottom.dataset.char = previousChar;
+          unfoldTop.dataset.char = previousChar;
+        }
+
+        generateTimeline() {
+          this.scrubber = { index: 0 };
+          this.syncCharacter(0);
+        }
+
+        setCharacterImmediately(character) {
+          const chars = this.characters;
+          const desiredIndex = chars.indexOf(character) >= 0 ? chars.indexOf(character) : 0;
+          this.scrubber.index = desiredIndex;
+          this.syncCharacter(desiredIndex);
+        }
+
+        flip(character, delay = 0) {
+          const chars = this.characters;
+          const currentIndex = Math.round(this.scrubber.index) % chars.length;
+          const desiredIndex = chars.indexOf(character) >= 0 ? chars.indexOf(character) : 0;
+          const shift =
+            currentIndex > desiredIndex
+              ? chars.length - 1 - currentIndex + desiredIndex
+              : desiredIndex - currentIndex;
+          const padding = currentIndex === desiredIndex ? 0 : this.pad * (chars.length - 1);
+          const targetIndex = currentIndex + shift + padding;
+          const duration = 0.9 + shift * 0.06 + this.pad * 0.08;
+
+          gsap.to(this.scrubber, {
+            delay,
+            duration,
+            ease: "power2.inOut",
+            index: targetIndex,
+            onUpdate: () => {
+              const nextIndex =
+                ((Math.round(this.scrubber.index) % chars.length) + chars.length) % chars.length;
+              this.syncCharacter(nextIndex);
+            },
+            onComplete: () => {
+              this.scrubber.index = desiredIndex;
+              this.syncCharacter(desiredIndex);
+            },
+          });
+
+          const [foldTop, foldBottom, unfoldTop, unfoldBottom] = this.element.children;
+
+          gsap
+            .timeline({ delay })
+            .fromTo(
+              foldTop,
+              { rotateX: 0 },
+              { rotateX: 180, duration: 0.23, ease: "power1.in" }
+            )
+            .set(foldTop, { rotateX: 0 })
+            .fromTo(
+              unfoldTop,
+              { rotateX: 0 },
+              { rotateX: 180, duration: 0.23, ease: "power1.out" },
+              "<"
+            )
+            .set(unfoldTop, { rotateX: 0 })
+            .fromTo(
+              foldBottom,
+              { rotateX: -180 },
+              { rotateX: 0, duration: 0.23, ease: "power1.out" },
+              "<"
+            )
+            .set(foldBottom, { rotateX: -180 })
+            .fromTo(
+              unfoldBottom,
+              { rotateX: 0 },
+              { rotateX: 0, duration: 0.23 },
+              "<"
+            );
+
+          return delay + duration;
+        }
+      }
+
+      class FlipLine {
+        constructor(options = {}) {
+          const { length = LINE_LENGTH, pad = 0, color = "hsl(0 0% 95%)" } = options;
+
+          this.length = length;
+          this.pad = pad;
+          this.color = color;
+          this.flips = [];
+          this.element = document.createElement("div");
+          this.element.className = "flip-line";
+          this.setup();
+        }
+
+        setup() {
+          this.element.innerHTML = "";
+          this.flips = [];
+
+          for (let index = 0; index < this.length; index += 1) {
+            const slot = new FlipSlot({
+              pad: this.pad,
+              color: this.color,
+            });
+            this.element.appendChild(slot.element);
+            this.flips.push(slot);
+          }
+        }
+
+        run(text) {
+          const letters = Array.from(text.toLowerCase().padEnd(this.length, " "));
+          let longest = 0;
+          for (let index = 0; index < this.length; index += 1) {
+            longest = Math.max(longest, this.flips[index].flip(letters[index] ?? " ", index / 10));
+          }
+          return longest;
+        }
+
+        settle(text) {
+          const letters = Array.from(text.toLowerCase().padEnd(this.length, " "));
+          for (let index = 0; index < this.length; index += 1) {
+            this.flips[index].setCharacterImmediately(letters[index] ?? " ");
+          }
+        }
+      }
+
+      const board = document.getElementById("board");
+      const lines = boardData.map((config) => {
+        const line = new FlipLine({
+          length: LINE_LENGTH,
+          pad: config.pad,
+          color: config.color,
+        });
+
+        board.appendChild(line.element);
+        return { config, line };
+      });
+
+      function buildText(config) {
+        const trimmed = config.text.slice(0, LINE_LENGTH);
+        return config.alignment === "right"
+          ? trimmed.padStart(LINE_LENGTH, " ")
+          : trimmed.padEnd(LINE_LENGTH, " ");
+      }
+
+      function blankBoard() {
+        lines.forEach(({ line }) => line.settle(""));
+      }
+
+      function playBoardAnimation() {
+        blankBoard();
+        let longest = 0;
+
+        lines.forEach(({ config, line }, index) => {
+          const lineDelay = 0.28 + index * 0.32;
+          gsap.delayedCall(lineDelay, () => {
+            const lineDuration = line.run(buildText(config));
+            longest = Math.max(longest, lineDelay + lineDuration);
+          });
+        });
+
+        const settleDelay = longest + 0.4;
+        gsap.delayedCall(settleDelay, () => {
+          lines.forEach(({ config, line }) => {
+            line.settle(buildText(config));
+          });
+        });
+
+        const totalDuration = settleDelay + 1.8;
+        window.boardAnimationDuration = totalDuration;
+        return totalDuration;
+      }
+
+      window.playBoardAnimation = playBoardAnimation;
+      window.boardAnimationDuration = 9;
+
+      document.getElementById("replay").addEventListener("click", playBoardAnimation);
+
+      window.addEventListener("load", () => {
+        gsap.delayedCall(0.45, playBoardAnimation);
+      });
+    </script>
+  </body>
+</html>

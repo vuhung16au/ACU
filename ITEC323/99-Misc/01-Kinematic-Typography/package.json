@@ -1,0 +1,12 @@
+{
+  "name": "kinematic-typography-recorder",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Playwright recorder for the kinematic typography demo.",
+  "scripts": {
+    "record": "/opt/homebrew/bin/node scripts/record-kinematic-typography.js"
+  },
+  "dependencies": {
+    "playwright": "^1.53.0"
+  }
+}

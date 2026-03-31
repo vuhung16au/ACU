@@ -1,0 +1,12 @@
+{
+  "name": "css3d-departure-board",
+  "version": "1.0.0",
+  "private": true,
+  "description": "3D split flap departure board demo with GSAP and Playwright recording.",
+  "scripts": {
+    "record": "node scripts/record-split-flap.js"
+  },
+  "dependencies": {
+    "playwright": "^1.53.0"
+  }
+}
