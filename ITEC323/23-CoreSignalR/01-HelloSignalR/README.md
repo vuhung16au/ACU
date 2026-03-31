@@ -16,6 +16,10 @@ The sample is adapted from the official Microsoft Learn tutorial for ASP.NET Cor
 
 ![Student and Teacher chat](images/localhost-chat.png)
 
+---
+
+- [Youtube demo](https://youtu.be/kd3khqcsHOs)
+
 ## Learning Objectives
 
 By working through this project, students will learn how to:
