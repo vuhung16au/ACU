@@ -2,18 +2,18 @@
 
 ## Overview
 
-This project is a small demo inspired by [Craft of UI: 3D Split Flap w/ GSAP](https://codepen.io/jh3y/pen/yyLmeJd).
-
-It shows a 3D split-flap style departure board with these lines:
+This project shows a 3D split-flap style departure board with these lines:
 
 - `ACU`
 - `ITEC`
 - `NEW UI`
 - `DROPPED`
 
+Watch a [Demo on YouTube](https://youtu.be/-uFvb6gBrs4)
+
 ## Run
 
-Open [index.html](/Users/vuhung/00.Work/02.ACU/github/ITEC323/99-Misc/02-CSS3D-Departure-Board/index.html) in a browser.
+Open [index.html](index.html) in a browser.
 
 ## Record With Playwright
 
