@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kinematic Typography</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #050505;
+            overflow: hidden;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="canvas"></canvas>
+
+<script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    const textBlocks = [
+        "The universe begins as a compression of possibility, a silent equation poised at the edge of ignition before the first visible pulse of time. In that impossible density, matter, light, and direction remain folded together like symbols waiting for their proof. The first instant of becoming is not merely an explosion, but a release of structure, a vast unwinding of hidden order into observable space. Every later galaxy, orbit, and wave can be traced back to this original pressure of potential.",
+        "From the big bang outward, geometry becomes destiny: expanding space sketches circles, arcs, and gradients that turn abstract maths into a readable cosmos. Distances are not empty gaps but elastic intervals, stretched by motion and measured by light. Curvature shapes the routes of planets, the spread of radiation, and the architecture of entire clusters. The universe writes itself in angles, ratios, symmetries, and elegant deviations from symmetry.",
+        "Visualisation lets us witness impossible scales, translating stellar birth, dark distance, and cosmic drift into structures the eye can follow and the mind can test. Through diagrams, fields, and glowing trajectories, invisible relationships become legible. Density maps reveal where matter gathers, color gradients expose temperature and age, and layered motion makes deep time feel immediate. What cannot be held physically can still be navigated visually, frame by frame, surface by surface.",
+        "Animation gives those structures breath, revealing how matter swirls, cools, and clusters as if the night sky were solving itself frame by frame. Motion transforms theory into intuition: a nebula condenses, a wave propagates, a system stabilizes, and we suddenly understand what static diagrams could only suggest. Temporal change shows causality in action, turning distant astrophysics into something almost tactile. The cosmos becomes not a frozen image, but a living sequence of transitions.",
+        "A dragon threads through this model like a mythic vector, its body tracing curves that feel half constellation, half theorem, half living comet. It glides across the dark field as if it were a force line made flesh, bending language and light around its passing. Each segment of its spine implies momentum, direction, and ancient intelligence, as though a legend had been rewritten in coordinates and velocity. The creature becomes both narrator and disturbance, a symbolic engine moving through cosmic logic.",
+        "Each word behaves like a small celestial mass, nudged by force fields and spring logic, shifting around the dragon as though language itself had gravity. Sentences do not sit still; they orbit, recoil, compress, and relax in response to proximity. Typography becomes a system of bodies under influence, where meaning is shaped not only by syntax but by motion, pressure, and spatial negotiation. Reading turns into an act of observing interactions inside a responsive universe.",
+        "Numbers hide inside the spectacle: radius, velocity, interpolation, and harmonic motion quietly govern the glow behind every elegant disruption. Beneath the cinematic surface, formulas decide how far a word drifts, how fast it returns, and how smoothly the dragon tail resolves its path. Mathematics does not reduce the wonder of the scene; it gives wonder repeatable behavior. Equations become the invisible bones of the animation, carrying beauty with rigorous precision.",
+        "The scene becomes a bridge between astrophysics and art, where mathematical order does not flatten wonder but amplifies it into something tangible and luminous. Scientific ideas gain atmosphere, while visual design gains a deeper internal logic. The result is neither pure simulation nor pure illustration, but a hybrid language in which data, myth, and motion reinforce one another. It invites the viewer to feel that understanding and enchantment can occupy the same space.",
+        "In that meeting point of universe, dragon, and code, typography stops being static text and becomes a kinetic map of creation in motion. Words resemble particles, paragraphs become star fields, and composition behaves like a responsive cosmology. The page no longer functions as a passive surface; it acts like an instrument that visualises force, rhythm, and emergence. What begins as language ends as an animated cosmos, shaped by mathematics and awakened by a dragon's path."
+    ];
+
+    // Handle resizing
+    function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        initText();
+    }
+    window.addEventListener('resize', resize);
+
+    let words = [];
+    let fontSize = 14;
+    let lineHeight = 28;
+    let padding = 40;
+
+    function getLayoutConfig() {
+        const width = canvas.width;
+        const height = canvas.height;
+        const mobile = width < 700;
+        const tablet = width < 1100;
+        const columns = mobile ? 1 : tablet ? 2 : 3;
+
+        fontSize = mobile ? 14 : tablet ? 15 : 16;
+        lineHeight = mobile ? 24 : 28;
+        padding = mobile ? 18 : tablet ? 28 : 40;
+
+        return {
+            columns,
+            rows: Math.ceil(textBlocks.length / columns),
+            cellGapX: mobile ? 10 : 22,
+            cellGapY: mobile ? 14 : 18,
+            usableHeight: height - padding * 2
+        };
+    }
+
+    // Initialize text
+    function initText() {
+        words = [];
+        const layout = getLayoutConfig();
+        ctx.font = `${fontSize}px Arial`;
+        const cellWidth = (canvas.width - padding * 2 - layout.cellGapX * (layout.columns - 1)) / layout.columns;
+        const cellHeight = (layout.usableHeight - layout.cellGapY * (layout.rows - 1)) / layout.rows;
+
+        for (let i = 0; i < textBlocks.length; i++) {
+            const column = i % layout.columns;
+            const row = Math.floor(i / layout.columns);
+            const blockWords = textBlocks[i].split(' ');
+            const cellX = padding + column * (cellWidth + layout.cellGapX);
+            const cellY = padding + row * (cellHeight + layout.cellGapY);
+            const maxX = cellX + cellWidth;
+            const maxY = cellY + cellHeight;
+
+            let currentX = cellX;
+            let currentY = cellY + fontSize;
+
+            for (const wordText of blockWords) {
+                const metrics = ctx.measureText(wordText + " ");
+                const wordWidth = metrics.width;
+
+                if (currentX + wordWidth > maxX) {
+                    currentX = cellX;
+                    currentY += lineHeight;
+                }
+
+                if (currentY > maxY) {
+                    break;
+                }
+
+                words.push({
+                    text: wordText,
+                    baseX: currentX,
+                    baseY: currentY,
+                    x: currentX,
+                    width: wordWidth
+                });
+
+                currentX += wordWidth;
+            }
+        }
+    }
+
+    // Dragon / Mouse tracking setup
+    const mouse = { x: -1000, y: -1000 };
+    window.addEventListener('mousemove', (e) => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+    });
+    window.addEventListener('touchmove', (e) => {
+        const touch = e.touches[0];
+        if (!touch) return;
+        mouse.x = touch.clientX;
+        mouse.y = touch.clientY;
+    }, { passive: true });
+    window.addEventListener('touchend', () => {
+        mouse.x = -1000;
+        mouse.y = -1000;
+    });
+    resize();
+
+    // Dragon Kinematics setup (the tail)
+    const segments = 40; // Number of joints in the dragon
+    const segmentLength = 8;
+    const dragonPoints = [];
+    for (let i = 0; i < segments; i++) {
+        dragonPoints.push({ x: canvas.width / 2, y: canvas.height / 2 });
+    }
+
+    function lerp(start, end, amount) {
+        return start + (end - start) * amount;
+    }
+
+    function drawDragon() {
+        const head = dragonPoints[0];
+
+        ctx.save();
+        ctx.globalCompositeOperation = 'screen';
+
+        for (let i = segments - 1; i >= 0; i--) {
+            const point = dragonPoints[i];
+            const t = 1 - i / (segments - 1);
+            const radius = lerp(2, canvas.width < 700 ? 14 : 20, t);
+
+            const glow = ctx.createRadialGradient(
+                point.x,
+                point.y,
+                radius * 0.2,
+                point.x,
+                point.y,
+                radius * 1.8
+            );
+            glow.addColorStop(0, 'rgba(255, 245, 220, 0.95)');
+            glow.addColorStop(0.35, 'rgba(255, 150, 60, 0.9)');
+            glow.addColorStop(0.7, 'rgba(255, 80, 20, 0.45)');
+            glow.addColorStop(1, 'rgba(255, 80, 20, 0)');
+
+            ctx.fillStyle = glow;
+            ctx.beginPath();
+            ctx.arc(point.x, point.y, radius * 1.8, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.fillStyle = i === 0 ? '#ffe8b5' : `rgba(255, ${Math.round(lerp(95, 170, t))}, 40, 0.95)`;
+            ctx.beginPath();
+            ctx.arc(point.x, point.y, radius, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        const neck = dragonPoints[2] || head;
+        const angle = Math.atan2(head.y - neck.y, head.x - neck.x);
+        const headRadius = canvas.width < 700 ? 16 : 22;
+
+        ctx.strokeStyle = 'rgba(255, 190, 90, 0.8)';
+        ctx.lineWidth = 2;
+        ctx.lineCap = 'round';
+
+        for (const direction of [-1, 1]) {
+            ctx.beginPath();
+            ctx.moveTo(
+                head.x - Math.cos(angle) * headRadius * 0.2,
+                head.y - Math.sin(angle) * headRadius * 0.2
+            );
+            ctx.quadraticCurveTo(
+                head.x + Math.cos(angle + direction * 0.85) * headRadius * 1.1,
+                head.y + Math.sin(angle + direction * 0.85) * headRadius * 1.1,
+                head.x + Math.cos(angle + direction * 1.3) * headRadius * 1.9,
+                head.y + Math.sin(angle + direction * 1.3) * headRadius * 1.9
+            );
+            ctx.stroke();
+        }
+
+        ctx.fillStyle = '#fff6d5';
+        ctx.beginPath();
+        ctx.arc(
+            head.x + Math.cos(angle - 0.45) * headRadius * 0.45,
+            head.y + Math.sin(angle - 0.45) * headRadius * 0.45,
+            Math.max(1.8, headRadius * 0.12),
+            0,
+            Math.PI * 2
+        );
+        ctx.arc(
+            head.x + Math.cos(angle + 0.45) * headRadius * 0.45,
+            head.y + Math.sin(angle + 0.45) * headRadius * 0.45,
+            Math.max(1.8, headRadius * 0.12),
+            0,
+            Math.PI * 2
+        );
+        ctx.fill();
+
+        ctx.restore();
+    }
+
+    // Animation Loop
+    function animate() {
+        // Clear screen with a slight trail effect
+        ctx.fillStyle = 'rgba(5, 5, 5, 1)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // 1. UPDATE DRAGON KINEMATICS
+        dragonPoints[0].x = mouse.x;
+        dragonPoints[0].y = mouse.y;
+
+        for (let i = 1; i < segments; i++) {
+            let dx = dragonPoints[i - 1].x - dragonPoints[i].x;
+            let dy = dragonPoints[i - 1].y - dragonPoints[i].y;
+            let distance = Math.sqrt(dx * dx + dy * dy);
+
+            // Pull the segment towards the previous one
+            if (distance > segmentLength) {
+                let ratio = segmentLength / distance;
+                dragonPoints[i].x = dragonPoints[i - 1].x - dx * ratio;
+                dragonPoints[i].y = dragonPoints[i - 1].y - dy * ratio;
+            }
+        }
+
+        // 2. UPDATE AND DRAW TEXT (The Math from the screenshot)
+        ctx.font = `100 ${fontSize}px sans-serif`;
+        ctx.textBaseline = "middle";
+        
+        const interactionRadius = canvas.width < 700 ? 100 : 150; // How fat the dragon's forcefield is
+        const lerpSpeed = 0.15; // How fast words snap back to position
+
+        ctx.fillStyle = 'rgba(150, 150, 150, 0.8)';
+
+        for (let i = 0; i < words.length; i++) {
+            const word = words[i];
+            let targetX = word.baseX;
+
+            // Find distance to the dragon's head (mouse)
+            let dy = word.baseY - mouse.y;
+            let dx = word.baseX - mouse.x;
+
+            // If the word's Y position is within the radius of the dragon
+            if (Math.abs(dy) < interactionRadius) {
+                
+                // This is the core formula mentioned in the post: sqrt(r^2 - dy^2)
+                // It calculates how much horizontal displacement is needed at this specific Y height
+                let exclusionDistance = Math.sqrt(Math.pow(interactionRadius, 2) - Math.pow(dy, 2));
+
+                if (Math.abs(dx) < exclusionDistance) {
+                    // Push left or right depending on which side of the center the word is
+                    if (dx < 0) {
+                        targetX = mouse.x - exclusionDistance; // Push left
+                    } else {
+                        targetX = mouse.x + exclusionDistance; // Push right
+                    }
+                }
+            }
+
+            // LERP (Linear Interpolation) to smoothly animate to the targetX
+            word.x += (targetX - word.x) * lerpSpeed;
+
+            // Draw the word
+            ctx.fillText(word.text, word.x, word.baseY);
+        }
+
+        // 3. DRAW DRAGON
+        drawDragon();
+
+        requestAnimationFrame(animate);
+    }
+
+    // Start
+    document.fonts.ready.then(() => {
+        initText();
+        animate();
+    });
+
+</script>
+</body>
+</html>
