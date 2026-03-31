@@ -1,0 +1,47 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Hello SignalR";
+}
+
+<section class="hero">
+    <p class="eyebrow">23-CoreSignalR / 01-HelloSignalR</p>
+    <h1>ASP.NET Core SignalR in one small chat demo</h1>
+    <p class="lead">
+        This page follows the Microsoft Learn SignalR tutorial and keeps the code short so students can focus on the
+        core idea: one browser sends a message, and every connected browser receives it immediately.
+    </p>
+</section>
+
+<section class="chat-layout">
+    <article class="panel">
+        <h2>Try it</h2>
+        <p class="panel-text">Open this page in two browser tabs. Send a message in one tab and watch both tabs update.</p>
+
+        <div class="field-group">
+            <label for="userInput">Name</label>
+            <input id="userInput" type="text" value="Student" maxlength="40" />
+        </div>
+
+        <div class="field-group">
+            <label for="messageInput">Message</label>
+            <input id="messageInput" type="text" value="Hello from SignalR!" maxlength="120" />
+        </div>
+
+        <div class="actions">
+            <button id="sendButton" type="button" disabled>Send Message</button>
+            <span id="statusMessage" class="status" aria-live="polite">Connecting to the hub...</span>
+        </div>
+    </article>
+
+    <article class="panel">
+        <h2>Messages</h2>
+        <p class="panel-text">New messages appear here without reloading the page.</p>
+        <ul id="messagesList" class="messages"></ul>
+    </article>
+</section>
+
+@section Scripts {
+    <script src="~/js/signalr/signalr.min.js" asp-append-version="true"></script>
+    <script src="~/js/chat.js" asp-append-version="true"></script>
+}

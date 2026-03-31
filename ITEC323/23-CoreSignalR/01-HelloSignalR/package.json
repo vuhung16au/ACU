@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@microsoft/signalr": "^10.0.0",
+    "playwright": "^1.58.2"
+  }
+}
