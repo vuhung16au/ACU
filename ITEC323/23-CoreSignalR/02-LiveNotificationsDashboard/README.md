@@ -12,6 +12,7 @@ The sample is designed to feel more practical than a chat app while still stayin
 
 ![dashboard demo](images/dashboard-demo.png)
 
+[Youtube demo](https://youtu.be/ydUKbSGw3KQ)
 
 ## Learning Objectives
 
