@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="01-HelloSignalR/01-HelloSignalR.csproj" />
+  <Project Path="02-LiveNotificationsDashboard/02-LiveNotificationsDashboard.csproj" />
 </Solution>

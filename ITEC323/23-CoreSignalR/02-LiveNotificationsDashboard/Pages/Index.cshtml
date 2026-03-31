@@ -1,0 +1,82 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Live Notifications Dashboard";
+}
+
+<section class="hero">
+    <p class="eyebrow">23-CoreSignalR / 02-LiveNotificationsDashboard</p>
+    <h1>Real-time notifications for a live dashboard</h1>
+    <p class="lead">
+        This sample moves beyond chat and shows how SignalR can push live status updates, alerts, and success messages
+        to every connected browser at the same time.
+    </p>
+</section>
+
+<section class="summary-grid" aria-label="Notification summary">
+    <article class="summary-card">
+        <span class="summary-label">Total Events</span>
+        <strong id="totalCount" class="summary-value">0</strong>
+    </article>
+    <article class="summary-card summary-card-info">
+        <span class="summary-label">Info</span>
+        <strong id="infoCount" class="summary-value">0</strong>
+    </article>
+    <article class="summary-card summary-card-success">
+        <span class="summary-label">Success</span>
+        <strong id="successCount" class="summary-value">0</strong>
+    </article>
+    <article class="summary-card summary-card-warning">
+        <span class="summary-label">Warning</span>
+        <strong id="warningCount" class="summary-value">0</strong>
+    </article>
+</section>
+
+<section class="dashboard-layout">
+    <article class="panel control-panel">
+        <div class="panel-heading">
+            <div>
+                <h2>Trigger Demo Events</h2>
+                <p class="panel-text">These buttons simulate server-side activity. Every connected dashboard will update instantly.</p>
+            </div>
+            <span id="connectionStatus" class="status-badge">Connecting...</span>
+        </div>
+
+        <div class="button-grid">
+            <button type="button" class="event-button event-button-info" data-title="New submission received" data-message="A student uploaded a new project to the class portal." data-severity="info" data-source="Assessment">
+                Simulate Submission
+            </button>
+            <button type="button" class="event-button event-button-success" data-title="Deployment completed" data-message="The latest demo site was published successfully." data-severity="success" data-source="Deployment">
+                Simulate Success
+            </button>
+            <button type="button" class="event-button event-button-warning" data-title="Background job warning" data-message="The nightly import job is taking longer than expected." data-severity="warning" data-source="Operations">
+                Simulate Warning
+            </button>
+        </div>
+
+        <div class="notes-box">
+            <h3>What to observe</h3>
+            <ul>
+                <li>The server background service adds new events every few seconds.</li>
+                <li>Manual button clicks broadcast to all connected clients.</li>
+                <li>The dashboard summary counts update without reloading the page.</li>
+            </ul>
+        </div>
+    </article>
+
+    <article class="panel feed-panel">
+        <div class="panel-heading">
+            <div>
+                <h2>Live Notification Feed</h2>
+                <p class="panel-text">Newest events appear first so users can spot important changes quickly.</p>
+            </div>
+        </div>
+
+        <ul id="notificationsList" class="notification-list"></ul>
+    </article>
+</section>
+
+@section Scripts {
+    <script src="~/js/signalr/signalr.min.js" asp-append-version="true"></script>
+    <script src="~/js/notifications.js" asp-append-version="true"></script>
+}
