@@ -1,0 +1,87 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "CI/CD Overview";
+}
+
+<section class="hero">
+    <div>
+        <p class="eyebrow">50-CICD-GitHubActions</p>
+        <h1>Build confidence with a CI pipeline before you automate deployment.</h1>
+        <p class="hero-copy">
+            This lesson shows students where GitHub Actions stops and where manual Azure CLI deployment begins.
+            The workflow builds the repo, runs tests for this lesson, and publishes an artifact. Deployment stays manual on purpose.
+        </p>
+    </div>
+    <div class="hero-card">
+        <h2>Lesson boundary</h2>
+        <dl class="hero-stats">
+            <div>
+                <dt>Automated stages</dt>
+                <dd>@Model.AutomatedStageCount</dd>
+            </div>
+            <div>
+                <dt>Manual stages</dt>
+                <dd>@Model.ManualStageCount</dd>
+            </div>
+            <div>
+                <dt>Trigger</dt>
+                <dd>Push to <code>main</code></dd>
+            </div>
+        </dl>
+    </div>
+</section>
+
+<section class="content-grid">
+    <article class="panel">
+        <div class="panel-heading">
+            <div>
+                <p class="eyebrow">Continuous Integration</p>
+                <h2>What GitHub Actions handles</h2>
+            </div>
+            <span class="pill pill-automated">Automated</span>
+        </div>
+
+        <div class="stage-list">
+            @foreach (var stage in Model.WorkflowStages)
+            {
+                <section class="stage-card">
+                    <div class="stage-header">
+                        <h3>@stage.Name</h3>
+                        <span class="pill @(stage.IsAutomated ? "pill-automated" : "pill-manual")">
+                            @(stage.IsAutomated ? "GitHub Actions" : "Manual step")
+                        </span>
+                    </div>
+                    <p>@stage.Description</p>
+                    <p class="stage-output"><strong>Output:</strong> @stage.Output</p>
+                </section>
+            }
+        </div>
+    </article>
+
+    <article class="panel">
+        <div class="panel-heading">
+            <div>
+                <p class="eyebrow">Continuous Delivery</p>
+                <h2>What students run with Azure CLI</h2>
+            </div>
+            <span class="pill pill-manual">Manual</span>
+        </div>
+
+        <ol class="command-list">
+            @foreach (var step in Model.DeploymentSteps)
+            {
+                <li>
+                    <h3>@step.Title</h3>
+                    <p>@step.Purpose</p>
+                    <pre><code>@step.Command</code></pre>
+                </li>
+            }
+        </ol>
+
+        <p class="callout">
+            The artifact from GitHub Actions becomes the input to this manual deployment workflow.
+            Students can debug each CLI command before they ever move the step into automation.
+        </p>
+    </article>
+</section>

@@ -17,7 +17,8 @@ DOTNET_TARGETS = \
 	22-Unit-Testing \
 	32-AI-Integration \
 	33-SPA-Integration \
-	34-React-SPA-Integration
+	34-React-SPA-Integration \
+	50-CICD-GitHubActions/50-CICD-GitHubActions.sln
 
 ANDROID_PROJECTS = \
 	10.AndroidKotlinJetpackCompose \

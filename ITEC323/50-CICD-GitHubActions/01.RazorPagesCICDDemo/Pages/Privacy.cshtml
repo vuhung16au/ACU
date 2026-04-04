@@ -1,0 +1,31 @@
+@page
+@model PrivacyModel
+@{
+    ViewData["Title"] = "Troubleshooting";
+}
+
+<section class="panel panel-single">
+    <div class="panel-heading">
+        <div>
+            <p class="eyebrow">Manual deployment support</p>
+            <h1>Azure App Service troubleshooting notes</h1>
+        </div>
+        <span class="pill pill-manual">Manual debugging</span>
+    </div>
+
+    <p>
+        These are the common issues students should check before trying to automate deployment in GitHub Actions.
+        Manual deployment is intentionally part of the lesson so they can see the exact failure point.
+    </p>
+
+    <div class="troubleshooting-list">
+        @foreach (var tip in Model.TroubleshootingTips)
+        {
+            <article class="tip-card">
+                <h2>@tip.Issue</h2>
+                <p><strong>What it looks like:</strong> @tip.Symptom</p>
+                <p><strong>How to fix it:</strong> @tip.Resolution</p>
+            </article>
+        }
+    </div>
+</section>
