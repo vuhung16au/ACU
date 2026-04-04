@@ -1,0 +1,54 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Concurrency Conflicts";
+}
+
+<section class="hero-card">
+    <p class="eyebrow">40-Advanced-EFCore</p>
+    <h2>Optimistic concurrency without mystery</h2>
+    <p class="lead">
+        This sample lets students trigger a real conflict, inspect the generated SQL, and practice a user-friendly resolution flow.
+    </p>
+
+    <div class="hero-actions">
+        <a class="button-primary" asp-page="/Products/Index">Open Product List</a>
+        <a class="button-secondary" asp-page="/Diagnostics/Index">Inspect SQL</a>
+    </div>
+</section>
+
+<section class="grid-panels">
+    <article class="panel">
+        <h3>What Students Learn</h3>
+        <ul>
+            <li>Why last-write-wins is risky.</li>
+            <li>How EF Core uses a concurrency token in the `WHERE` clause.</li>
+            <li>How to show database values and attempted values side by side.</li>
+        </ul>
+    </article>
+
+    <article class="panel">
+        <h3>Suggested Demo</h3>
+        <ol>
+            <li>Open the same product in two browser tabs.</li>
+            <li>Save tab A.</li>
+            <li>Save tab B.</li>
+            <li>Review the conflict and pick a resolution.</li>
+        </ol>
+    </article>
+
+    <article class="panel">
+        <h3>What Goes Wrong</h3>
+        <p>
+            Both users start from the same original row version. The first save changes the record and increments the version.
+            The second save still tries to update the older version, so EF Core refuses to overwrite the newer data silently.
+        </p>
+    </article>
+
+    <article class="panel">
+        <h3>Database Tooling</h3>
+        <p>
+            Use pgAdmin or Azure Data Studio to inspect the `Products` table while the app is running. Compare what you see there with the SQL shown on the diagnostics page.
+        </p>
+    </article>
+</section>

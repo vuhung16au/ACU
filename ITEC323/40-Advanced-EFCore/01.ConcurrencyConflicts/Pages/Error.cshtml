@@ -1,0 +1,17 @@
+@page
+@model ErrorModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+<section class="panel">
+    <h2>Something went wrong</h2>
+    <p>The lesson app could not complete the request.</p>
+
+    @if (Model.ShowRequestId)
+    {
+        <p><strong>Request ID:</strong> <code>@Model.RequestId</code></p>
+    }
+
+    <p>When debugging locally, check the terminal logs for the SQL that EF Core generated before the error occurred.</p>
+</section>

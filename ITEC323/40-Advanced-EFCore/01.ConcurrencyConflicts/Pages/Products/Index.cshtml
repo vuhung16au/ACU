@@ -1,0 +1,44 @@
+@page
+@model ConcurrencyConflicts.Pages.Products.IndexModel
+@{
+    ViewData["Title"] = "Products";
+}
+
+<section class="page-header">
+    <div>
+        <p class="eyebrow">Concurrency Demo</p>
+        <h2>Editable products</h2>
+        <p>Open one product in two tabs to simulate overlapping edits.</p>
+    </div>
+    <a class="button-secondary" asp-page="/Diagnostics/Index">View SQL diagnostics</a>
+</section>
+
+<section class="panel">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Version</th>
+                <th>Last Modified (UTC)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var product in Model.Products)
+        {
+            <tr>
+                <td>@product.Name</td>
+                <td>@product.Price.ToString("C")</td>
+                <td>@product.QuantityInStock</td>
+                <td>@product.Version</td>
+                <td>@product.LastModifiedUtc.ToString("u")</td>
+                <td>
+                    <a asp-page="/Products/Edit" asp-route-id="@product.Id">Edit @product.Name</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</section>

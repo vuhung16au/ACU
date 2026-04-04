@@ -1,0 +1,161 @@
+@page "{id:int}"
+@model ConcurrencyConflicts.Pages.Products.EditModel
+@{
+    ViewData["Title"] = "Edit Product";
+}
+
+<section class="page-header">
+    <div>
+        <p class="eyebrow">Conflict Resolution</p>
+        <h2>Edit @Model.Input.Name</h2>
+        <p>Save the same row in two tabs to trigger a concurrency conflict.</p>
+    </div>
+    <a class="button-secondary" asp-page="/Products/Index">Back to Products</a>
+</section>
+
+@if (!string.IsNullOrWhiteSpace(Model.StatusMessage))
+{
+    <section class="status-message">@Model.StatusMessage</section>
+}
+
+@if (Model.Conflict is not null)
+{
+    <section class="conflict-banner">
+        <h3>Concurrency conflict detected</h3>
+        <p>
+            Another user saved this record after you loaded the form. Compare your attempted values with the database values below.
+        </p>
+    </section>
+}
+
+<section class="grid-panels explanation-grid">
+    <article class="panel">
+        <h3>The problem</h3>
+        <p>
+            Two people edited the same product using the same starting data. The first person already saved a newer version,
+            so your browser is now holding stale values.
+        </p>
+    </article>
+
+    <article class="panel">
+        <h3>Why EF Core blocks the save</h3>
+        <p>
+            EF Core sends the original <strong>Version</strong> in the update <code>WHERE</code> clause. If that version no longer matches,
+            the database row count is zero and EF Core raises a concurrency exception instead of overwriting newer data.
+        </p>
+    </article>
+
+    <article class="panel">
+        <h3>How to resolve it</h3>
+        <p>
+            Refresh if you want the newest database values, overwrite only if your changes should win, or cancel and review the record list first.
+        </p>
+    </article>
+</section>
+
+<section class="panel split-layout">
+    <form method="post" class="editor-form">
+        <input type="hidden" asp-for="Input.Id" />
+        <input type="hidden" asp-for="Input.Version" />
+        <input type="hidden" asp-for="Input.DatabaseVersion" />
+
+        <div asp-validation-summary="ModelOnly" class="validation-summary"></div>
+
+        <label asp-for="Input.Name"></label>
+        <input asp-for="Input.Name" />
+        <span asp-validation-for="Input.Name"></span>
+
+        <label asp-for="Input.Price"></label>
+        <input asp-for="Input.Price" />
+        <span asp-validation-for="Input.Price"></span>
+
+        <label asp-for="Input.QuantityInStock"></label>
+        <input asp-for="Input.QuantityInStock" />
+        <span asp-validation-for="Input.QuantityInStock"></span>
+
+        <label asp-for="Input.Notes"></label>
+        <textarea asp-for="Input.Notes" rows="4"></textarea>
+        <span asp-validation-for="Input.Notes"></span>
+
+        <div class="button-row">
+            <button type="submit" name="action" value="save" class="button-primary">Save Changes</button>
+
+            @if (Model.Conflict is not null)
+            {
+                <button type="submit" name="action" value="overwrite" class="button-danger">Overwrite Database Values</button>
+                <button type="submit" name="action" value="refresh" class="button-secondary">Refresh Current Values</button>
+            }
+
+            <a asp-page="/Products/Index" class="button-secondary">Cancel</a>
+        </div>
+    </form>
+
+    <aside class="side-panel">
+        <h3>Current Form Snapshot</h3>
+        <dl class="summary-list">
+            <dt>Loaded Version</dt>
+            <dd>@Model.Input.Version</dd>
+            <dt>Latest Database Version</dt>
+            <dd>@Model.Input.DatabaseVersion</dd>
+        </dl>
+
+        <p class="small-note">
+            EF Core includes the original version in the `WHERE` clause. If the row version has changed, the update affects zero rows and EF Core raises a concurrency exception.
+        </p>
+
+        <div class="version-callout">
+            <strong>Teaching tip:</strong>
+            Ask students which version this browser loaded and which version currently exists in the database after the other tab saves.
+        </div>
+    </aside>
+</section>
+
+@if (Model.Conflict is not null)
+{
+    <section class="panel">
+        <h3>Attempted vs database values</h3>
+        <p class="small-note">
+            The left column shows the stale values this browser tried to save. The right column shows the newer values already committed by the other browser tab.
+        </p>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Field</th>
+                    <th>Your Attempt</th>
+                    <th>Database Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Name</td>
+                    <td>@Model.Conflict.AttemptedValues.Name</td>
+                    <td>@Model.Conflict.DatabaseValues.Name</td>
+                </tr>
+                <tr>
+                    <td>Price</td>
+                    <td>@Model.Conflict.AttemptedValues.Price.ToString("C")</td>
+                    <td>@Model.Conflict.DatabaseValues.Price.ToString("C")</td>
+                </tr>
+                <tr>
+                    <td>Stock</td>
+                    <td>@Model.Conflict.AttemptedValues.QuantityInStock</td>
+                    <td>@Model.Conflict.DatabaseValues.QuantityInStock</td>
+                </tr>
+                <tr>
+                    <td>Notes</td>
+                    <td>@Model.Conflict.AttemptedValues.Notes</td>
+                    <td>@Model.Conflict.DatabaseValues.Notes</td>
+                </tr>
+                <tr>
+                    <td>Version</td>
+                    <td>@Model.Conflict.AttemptedValues.Version</td>
+                    <td>@Model.Conflict.DatabaseValues.Version</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

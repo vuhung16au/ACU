@@ -1,0 +1,39 @@
+@page
+@model ConcurrencyConflicts.Pages.Diagnostics.IndexModel
+@{
+    ViewData["Title"] = "Diagnostics";
+}
+
+<section class="page-header">
+    <div>
+        <p class="eyebrow">SQL Diagnostics</p>
+        <h2>Inspect the generated SQL</h2>
+        <p>Use this page while the app is running so students can connect the UI behavior to the SQL EF Core sends to PostgreSQL.</p>
+    </div>
+    <a class="button-secondary" asp-page="/Products/Index">Back to Products</a>
+</section>
+
+<section class="grid-panels">
+    <article class="panel">
+        <h3>Product list query</h3>
+        <pre><code>@Model.ProductsSql</code></pre>
+    </article>
+
+    <article class="panel">
+        <h3>Sample update statement</h3>
+        <pre><code>@Model.UpdateSql</code></pre>
+        <p class="small-note">
+            The important part is <code>AND "Version" = @@p7</code>. That predicate stops EF Core from silently overwriting a newer row version.
+        </p>
+    </article>
+
+    <article class="panel">
+        <h3>Explain this to students</h3>
+        <ul>
+            <li>The browser loaded version <strong>3</strong>.</li>
+            <li>Another user already saved version <strong>4</strong>.</li>
+            <li>The update with version <strong>3</strong> affects zero rows.</li>
+            <li>EF Core raises <code>DbUpdateConcurrencyException</code>.</li>
+        </ul>
+    </article>
+</section>

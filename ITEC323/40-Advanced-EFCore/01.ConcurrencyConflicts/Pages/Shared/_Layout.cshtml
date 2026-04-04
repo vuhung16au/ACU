@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Concurrency Conflicts</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="site-shell">
+        <div class="shell-inner">
+            <div>
+                <p class="site-kicker">ITEC323 • 40-Advanced-EFCore</p>
+                <h1>Concurrency Conflicts</h1>
+                <p class="site-subtitle">EF Core optimistic concurrency with PostgreSQL, SQL inspection, and a friendly conflict workflow.</p>
+            </div>
+            <nav class="top-nav">
+                <a asp-page="/Index">Overview</a>
+                <a asp-page="/Products/Index">Products</a>
+                <a asp-page="/Diagnostics/Index">Diagnostics</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page-shell">
+        @RenderBody()
+    </main>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
