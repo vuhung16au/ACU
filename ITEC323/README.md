@@ -41,6 +41,13 @@ ITEC323/
 ├── 12.MauiCrossPlatform/        # Week 12
 ├── 20-Kotlin/                   # Work in progress
 ├── 21-Blazor/                   # Work in progress
+├── 22-MinimalAPIs-REST/         # Supplementary Minimal API examples
+├── 22-Unit-Testing/             # Supplementary unit testing examples
+├── 23-CoreSignalR/              # Supplementary SignalR examples
+├── 30-Responsive-Design/        # Supplementary responsive design examples
+├── 31-Playwright-Testing/       # Supplementary browser automation examples
+├── 32-AI-Integration/           # Supplementary AI integration examples
+├── 33-SPA-Integration/          # Supplementary Angular + ASP.NET Core example
 └── .vscode/                     # VS Code configuration
 ```
 
@@ -116,6 +123,15 @@ This repository includes examples and code for the following topics covered in I
 - `20-Kotlin`
 - `21-Blazor`
 
+### Supplementary Modules
+- `22-MinimalAPIs-REST`
+- `22-Unit-Testing`
+- `23-CoreSignalR`
+- `30-Responsive-Design`
+- `31-Playwright-Testing`
+- `32-AI-Integration`
+- `33-SPA-Integration`
+
 ## 📖 Individual Project Documentation
 
 Each weekly folder contains its own examples and documentation:
@@ -125,6 +141,7 @@ Each weekly folder contains its own examples and documentation:
 - [**01.HelloDotnet/**](01.HelloDotnet) to [**12.MauiCrossPlatform/**](12.MauiCrossPlatform) - weekly teaching materials
 - [**20-Kotlin/**](20-Kotlin) - work in progress
 - [**21-Blazor/**](21-Blazor) - work in progress
+- [**33-SPA-Integration/**](33-SPA-Integration) - Angular and ASP.NET Core SPA integration sample
 
 ## 🛠️ Development
 
@@ -145,4 +162,3 @@ Simply open the `ITEC323.sln` file in Visual Studio, and all projects will be lo
 ## 📝 License
 
 This repository is licensed under the MIT License. See [LICENSE.md](LICENSE.md) for details.
-
