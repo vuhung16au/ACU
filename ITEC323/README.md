@@ -48,6 +48,7 @@ ITEC323/
 ├── 31-Playwright-Testing/       # Supplementary browser automation examples
 ├── 32-AI-Integration/           # Supplementary AI integration examples
 ├── 33-SPA-Integration/          # Supplementary Angular + ASP.NET Core example
+├── 34-React-SPA-Integration/    # Supplementary React + ASP.NET Core example
 └── .vscode/                     # VS Code configuration
 ```
 
@@ -131,6 +132,7 @@ This repository includes examples and code for the following topics covered in I
 - `31-Playwright-Testing`
 - `32-AI-Integration`
 - `33-SPA-Integration`
+- `34-React-SPA-Integration`
 
 ## 📖 Individual Project Documentation
 
@@ -142,6 +144,7 @@ Each weekly folder contains its own examples and documentation:
 - [**20-Kotlin/**](20-Kotlin) - work in progress
 - [**21-Blazor/**](21-Blazor) - work in progress
 - [**33-SPA-Integration/**](33-SPA-Integration) - Angular and ASP.NET Core SPA integration sample
+- [**34-React-SPA-Integration/**](34-React-SPA-Integration) - React and ASP.NET Core SPA integration sample
 
 ## 🛠️ Development
 

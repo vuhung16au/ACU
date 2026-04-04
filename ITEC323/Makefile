@@ -16,7 +16,8 @@ DOTNET_TARGETS = \
 	22-MinimalAPIs-REST \
 	22-Unit-Testing \
 	32-AI-Integration \
-	33-SPA-Integration
+	33-SPA-Integration \
+	34-React-SPA-Integration
 
 ANDROID_PROJECTS = \
 	10.AndroidKotlinJetpackCompose \
