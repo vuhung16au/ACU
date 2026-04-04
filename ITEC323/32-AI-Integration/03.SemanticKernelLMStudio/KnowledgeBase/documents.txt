@@ -1,0 +1,15 @@
+Artificial Intelligence is the simulation of human intelligence processes by computer systems. These processes include learning, reasoning, and self-correction. AI has applications in healthcare, finance, transportation, and education.
+
+Machine Learning is a subset of AI that enables systems to learn and improve from experience without being explicitly programmed. Common types include supervised learning, unsupervised learning, and reinforcement learning.
+
+Deep Learning uses artificial neural networks with multiple layers to process data. It has revolutionized image recognition, natural language processing, and speech recognition.
+
+Natural Language Processing allows computers to understand, interpret, and generate human language. Applications include chatbots, translation, sentiment analysis, and question-answering systems.
+
+Semantic Kernel is a lightweight SDK that helps developers connect large language models to application code. It supports prompt execution, chat completion, plugins, memory, and agent-style orchestration.
+
+LM Studio is a desktop application that lets you run large language models locally on your computer. It provides an OpenAI-compatible API endpoint at localhost on port 1234 for local development and testing.
+
+Vector embeddings represent text as numerical vectors in a high-dimensional space. Texts with related meaning tend to have vectors that appear closer together, which makes similarity search possible.
+
+Retrieval-Augmented Generation combines document retrieval with language model generation. It grounds answers in relevant source material before the model writes a response.

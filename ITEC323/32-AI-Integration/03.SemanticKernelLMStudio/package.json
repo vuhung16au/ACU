@@ -1,0 +1,19 @@
+{
+  "name": "03.semantickernellmstudio",
+  "version": "1.0.0",
+  "description": "This project demonstrates how to connect an ASP.NET Core Minimal API to a local LM Studio server by using Microsoft Semantic Kernel.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "playwright": "^1.59.1"
+  }
+}
