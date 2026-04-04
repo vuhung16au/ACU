@@ -1,0 +1,63 @@
+@page
+@model NPlusOne.Pages.Orders.IndexModel
+@{
+    ViewData["Title"] = "Orders";
+}
+
+<section class="page-header">
+    <div>
+        <p class="eyebrow">Realistic Page Example</p>
+        <h2>Improved order summaries</h2>
+        <p>This page uses the improved projected query instead of the repeated-query workflow shown in the lab.</p>
+    </div>
+    <a class="button-secondary" asp-page="/QueryLab/Index">Back to Query Lab</a>
+</section>
+
+<section class="grid-panels">
+    <article class="panel">
+        <h3>Why this page is better</h3>
+        <ul>
+            <li>The UI asks for summaries, not full entity graphs.</li>
+            <li>The query runs with <code>AsNoTracking()</code>.</li>
+            <li>Related data is aggregated in SQL instead of loaded one loop at a time.</li>
+        </ul>
+    </article>
+
+    <article class="panel">
+        <h3>Teaching question</h3>
+        <p>How many extra commands would the page trigger if it loaded items and products one order at a time?</p>
+    </article>
+</section>
+
+<section class="panel">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Order</th>
+                <th>Customer</th>
+                <th>Ordered</th>
+                <th>Items</th>
+                <th>Total</th>
+                <th>Products</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model.Orders)
+            {
+                <tr>
+                    <td>#@order.OrderId</td>
+                    <td>@order.CustomerName</td>
+                    <td>@order.OrderedAtUtc.ToString("u")</td>
+                    <td>@order.ItemCount</td>
+                    <td>@order.TotalValue.ToString("C")</td>
+                    <td>@string.Join(", ", order.ProductNames)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>
+
+<section class="panel">
+    <h3>Generated SQL for this page</h3>
+    <pre><code>@Model.GeneratedSql</code></pre>
+</section>

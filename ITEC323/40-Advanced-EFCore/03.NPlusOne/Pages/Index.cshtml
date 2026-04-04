@@ -1,0 +1,43 @@
+@page
+@model NPlusOne.Pages.IndexModel
+@{
+    ViewData["Title"] = "N+1 Query Problem";
+}
+
+<section class="hero-card">
+    <p class="eyebrow">40-Advanced-EFCore</p>
+    <h2>Readable code can still hide expensive query patterns</h2>
+    <p class="lead">
+        This lesson shows how a loop over orders can quietly turn into many extra database queries, and how projection or better loading strategies remove that hidden cost.
+    </p>
+
+    <div class="hero-actions">
+        <a class="button-primary" asp-page="/QueryLab/Index">Open Query Lab</a>
+        <a class="button-secondary" asp-page="/Orders/Index">View Orders Page</a>
+    </div>
+</section>
+
+<section class="grid-panels">
+    <article class="panel">
+        <h3>What the N+1 problem means</h3>
+        <p>
+            One query loads the parent rows. Then the page triggers one more query per parent row, and sometimes even more for each child row. The code looks tidy, but the database workload grows quickly.
+        </p>
+    </article>
+
+    <article class="panel">
+        <h3>What students should watch</h3>
+        <ul>
+            <li>How many SQL commands actually run</li>
+            <li>Whether the page asks for whole entities or only the fields it needs</li>
+            <li>How the improved version changes both query count and SQL shape</li>
+        </ul>
+    </article>
+
+    <article class="panel">
+        <h3>Teaching tip</h3>
+        <p>
+            Ask students to predict the SQL count before they look at the results. That helps them connect the page loop to the hidden query cost.
+        </p>
+    </article>
+</section>

@@ -1,0 +1,72 @@
+@page
+@model NPlusOne.Pages.QueryLab.IndexModel
+@{
+    ViewData["Title"] = "Query Lab";
+}
+
+<section class="page-header">
+    <div>
+        <p class="eyebrow">Query Lab</p>
+        <h2>Naive repeated queries vs improved loading</h2>
+        <p>This page counts the SQL commands executed for each workflow so students can see how the N+1 pattern grows.</p>
+    </div>
+    <a class="button-secondary" asp-page="/Orders/Index">See the improved orders page</a>
+</section>
+
+<section class="grid-panels">
+    <article class="panel">
+        <h3>The hidden problem</h3>
+        <p>
+            The page first loads a set of orders. Then it loops through each order and asks the database for its items. Then it loops again and asks for each product. That is the classic N+1 pattern.
+        </p>
+    </article>
+
+    <article class="panel">
+        <h3>What the improved version does</h3>
+        <p>
+            The improved query projects directly into the shape the UI needs, so EF Core can do much more work in SQL and send fewer commands overall.
+        </p>
+    </article>
+</section>
+
+<section class="comparison-grid">
+    <article class="comparison-box comparison-box-bad">
+        <h3>@Model.Lab.Naive.Title</h3>
+        <p class="metric-pill">SQL commands: @Model.Lab.Naive.QueryCount</p>
+        <p>@Model.Lab.Naive.Explanation</p>
+
+        <h4>Preview order summaries</h4>
+        <ul>
+            @foreach (var order in Model.Lab.Naive.Orders)
+            {
+                <li>Order #@order.OrderId • @order.CustomerName • @order.ItemCount items • @order.TotalValue.ToString("C")</li>
+            }
+        </ul>
+
+        <h4>Captured SQL</h4>
+        @foreach (var sql in Model.Lab.Naive.SqlStatements)
+        {
+            <pre><code>@sql</code></pre>
+        }
+    </article>
+
+    <article class="comparison-box comparison-box-good">
+        <h3>@Model.Lab.Improved.Title</h3>
+        <p class="metric-pill">SQL commands: @Model.Lab.Improved.QueryCount</p>
+        <p>@Model.Lab.Improved.Explanation</p>
+
+        <h4>Preview order summaries</h4>
+        <ul>
+            @foreach (var order in Model.Lab.Improved.Orders)
+            {
+                <li>Order #@order.OrderId • @order.CustomerName • @order.ItemCount items • @order.TotalValue.ToString("C")</li>
+            }
+        </ul>
+
+        <h4>Captured SQL</h4>
+        @foreach (var sql in Model.Lab.Improved.SqlStatements)
+        {
+            <pre><code>@sql</code></pre>
+        }
+    </article>
+</section>
