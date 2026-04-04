@@ -1,0 +1,32 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: itec323_advanced_efcore_postgres
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-advanced_efcore_shared}
+      POSTGRES_USER: ${POSTGRES_USER:-advanced_efcore_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-advanced_efcore_password}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - advanced_efcore_postgres_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4:9.3
+    container_name: itec323_advanced_efcore_pgadmin
+    depends_on:
+      - postgres
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-admin@example.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin123}
+      PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION: "False"
+    ports:
+      - "${PGADMIN_PORT:-5050}:80"
+    volumes:
+      - advanced_efcore_pgadmin_data:/var/lib/pgadmin
+
+volumes:
+  advanced_efcore_postgres_data:
+  advanced_efcore_pgadmin_data:

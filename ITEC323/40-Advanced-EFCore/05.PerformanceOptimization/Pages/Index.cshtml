@@ -1,0 +1,42 @@
+@page
+@model PerformanceOptimization.Pages.IndexModel
+@{
+    ViewData["Title"] = "Performance Optimization";
+}
+
+<section class="hero-card">
+    <p class="eyebrow">Performance workflow</p>
+    <h1>Optimize EF Core by measuring, inspecting, and simplifying the query.</h1>
+    <p class="lead">
+        This lesson starts with a deliberately heavy reporting query, then improves it in stages. Students can inspect the generated SQL,
+        compare row counts, and see why projection, <code>AsNoTracking()</code>, pagination, and compiled queries matter.
+    </p>
+    <div class="hero-actions">
+        <a class="button-primary" asp-page="/OptimizationLab">Open the optimization lab</a>
+        <a class="button-secondary" asp-page="/Products/Index">Open the optimized leaderboard</a>
+    </div>
+</section>
+
+<section class="grid-panels">
+    <article class="panel">
+        <h2>What is wrong with the baseline?</h2>
+        <p>
+            The baseline query loads full <code>Product</code> entities and every related <code>SaleRecord</code>, then performs the ranking in memory.
+            That creates unnecessary database reads, larger network payloads, and extra EF Core tracking work.
+        </p>
+    </article>
+    <article class="panel">
+        <h2>How do we improve it?</h2>
+        <p>
+            We move filtering and aggregation into SQL, project only the fields the page needs, disable tracking for read-only work, and page the results.
+            After those bigger wins, we show a compiled query for a repeated hot path.
+        </p>
+    </article>
+    <article class="panel">
+        <h2>What should students inspect?</h2>
+        <p>
+            Read the SQL shown in the lab, then paste it into pgAdmin or Azure Data Studio and run <code>EXPLAIN ANALYZE</code>.
+            Compare the work PostgreSQL performs before and after the optimization.
+        </p>
+    </article>
+</section>

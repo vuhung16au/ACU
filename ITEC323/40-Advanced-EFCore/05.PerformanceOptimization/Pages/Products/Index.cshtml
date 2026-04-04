@@ -1,0 +1,60 @@
+@page
+@model PerformanceOptimization.Pages.Products.IndexModel
+@{
+    ViewData["Title"] = "Optimized Products";
+}
+
+<section class="panel">
+    <div class="page-header">
+        <div>
+            <p class="eyebrow">Optimized leaderboard</p>
+            <h2>Read-only page with projection, <code>AsNoTracking()</code>, pagination, and a compiled query.</h2>
+        </div>
+        <div class="benchmark-chip">
+            <span>Page</span>
+            <strong>@Model.PageNumber</strong>
+        </div>
+    </div>
+
+    <p>
+        This page reuses the optimized query shape from the lab. It asks PostgreSQL for only the columns needed on screen and limits the
+        result to one page at a time.
+    </p>
+
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Units (30d)</th>
+                <th>Revenue (30d)</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var row in Model.Rows)
+        {
+            <tr>
+                <td>@row.ProductName</td>
+                <td>@row.CategoryName</td>
+                <td>$@row.Price.ToString("0.00")</td>
+                <td>@row.QuantityInStock</td>
+                <td>@row.UnitsSoldLast30Days</td>
+                <td>$@row.RevenueLast30Days.ToString("0.00")</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+    <div class="button-row">
+        <a class="button-secondary" asp-page="/Products/Index" asp-route-pageNumber="@(Math.Max(Model.PageNumber - 1, 1))">Previous page</a>
+        <a class="button-secondary" asp-page="/Products/Index" asp-route-pageNumber="@(Model.PageNumber + 1)">Next page</a>
+        <a class="button-primary" asp-page="/OptimizationLab/Index">Back to the lab</a>
+    </div>
+</section>
+
+<section class="panel">
+    <h2>Generated SQL for this page</h2>
+    <pre>@Model.GeneratedSql</pre>
+</section>

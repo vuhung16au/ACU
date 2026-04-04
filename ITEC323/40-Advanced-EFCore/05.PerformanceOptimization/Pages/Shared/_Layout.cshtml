@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Performance Optimization</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="site-shell">
+        <div class="shell-inner">
+            <p class="site-kicker">ITEC323 • 40-Advanced-EFCore</p>
+            <h1 class="site-title">Performance Optimization</h1>
+            <p class="site-subtitle">
+                Benchmark a slow EF Core query, inspect the SQL it generates, and improve it with focused changes that students can explain.
+            </p>
+            <nav class="top-nav">
+                <a asp-page="/Index">Overview</a>
+                <a asp-page="/OptimizationLab/Index">Optimization Lab</a>
+                <a asp-page="/Products/Index">Optimized Products</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page-shell">
+        @RenderBody()
+    </main>
+</body>
+</html>

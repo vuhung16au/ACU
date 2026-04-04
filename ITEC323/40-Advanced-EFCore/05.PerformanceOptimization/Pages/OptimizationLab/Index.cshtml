@@ -1,0 +1,98 @@
+@page
+@model PerformanceOptimization.Pages.OptimizationLab.IndexModel
+@{
+    ViewData["Title"] = "Optimization Lab";
+    var baselineTouched = Model.LabPage.BaselineScenario?.EstimatedRowsTouched ?? 0;
+}
+
+<section class="panel">
+    <div class="page-header">
+        <div>
+            <p class="eyebrow">Benchmark lab</p>
+            <h2>Start with the slow query, then improve one thing at a time.</h2>
+        </div>
+        <div class="benchmark-chip">
+            <span>Revenue filter</span>
+            <strong>$@Model.LabPage.MinimumRevenue.ToString("0.00")</strong>
+        </div>
+    </div>
+
+    <p>
+        The recent sales window starts at <strong>@Model.LabPage.RecentWindowUtc.ToString("u")</strong>. Each stage below shows its own SQL,
+        benchmark time, and why the change matters.
+    </p>
+</section>
+
+<section class="benchmark-grid">
+@foreach (var scenario in Model.LabPage.Scenarios)
+{
+    <article class="comparison-box">
+        <div class="metric-strip">
+            <div>
+                <span class="metric-label">Time</span>
+                <strong>@scenario.DurationMilliseconds ms</strong>
+            </div>
+            <div>
+                <span class="metric-label">Visible rows</span>
+                <strong>@scenario.VisibleRows</strong>
+            </div>
+            <div>
+                <span class="metric-label">Rows touched</span>
+                <strong>@scenario.EstimatedRowsTouched</strong>
+            </div>
+            <div>
+                <span class="metric-label">Row reduction</span>
+                <strong>@scenario.CalculateRowReductionPercent(baselineTouched)%</strong>
+            </div>
+        </div>
+
+        <h3>@scenario.Title</h3>
+        <p>@scenario.Summary</p>
+        <p class="explanation"><strong>Why this matters:</strong> @scenario.WhatImproved</p>
+
+        <h4>Example LINQ</h4>
+        <pre>@scenario.CodeSnippet</pre>
+
+        <h4>Generated SQL</h4>
+        <pre>@scenario.Sql</pre>
+    </article>
+}
+</section>
+
+<section class="grid-panels">
+    <article class="panel">
+        <h2>Optimized preview</h2>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Category</th>
+                    <th>Units (30d)</th>
+                    <th>Revenue (30d)</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var row in Model.LabPage.OptimizedPreview)
+            {
+                <tr>
+                    <td>@row.ProductName</td>
+                    <td>@row.CategoryName</td>
+                    <td>@row.UnitsSoldLast30Days</td>
+                    <td>$@row.RevenueLast30Days.ToString("0.00")</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </article>
+
+    <article class="panel">
+        <h2>Index-aware discussion</h2>
+        <p>@Model.LabPage.IndexDiscussion</p>
+        <p>
+            Copy the optimized SQL into pgAdmin or Azure Data Studio and prepend <code>EXPLAIN ANALYZE</code> to inspect the actual plan.
+        </p>
+        <div class="button-row">
+            <a class="button-primary" asp-page="/Products/Index">Open the optimized leaderboard</a>
+        </div>
+    </article>
+</section>
