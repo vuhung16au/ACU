@@ -1,0 +1,45 @@
+name: dotnet-ci-main-demo-disabled
+
+on:
+  # Demo only:
+  # this workflow is intentionally disabled from automatic execution
+  # so students can study the YAML without triggering paid CI runs.
+  workflow_dispatch:
+
+jobs:
+  build-test-publish:
+    name: Build, test, and publish demo artifact
+    runs-on: macos-15
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Install .NET MAUI workload for repo build compatibility
+        run: dotnet workload install maui --skip-manifest-update
+
+      - name: Restore and build the repository
+        run: make build-dotnet DOTNET=dotnet
+
+      - name: Run CI/CD lesson tests
+        run: dotnet test 50-CICD-GitHubActions/50-CICD-GitHubActions.sln -v minimal
+
+      - name: Publish Razor Pages CI/CD demo
+        run: dotnet publish 50-CICD-GitHubActions/01.RazorPagesCICDDemo/01.RazorPagesCICDDemo.csproj -c Release -o ./published/01.RazorPagesCICDDemo
+
+      - name: Upload published artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: 01-RazorPagesCICDDemo-publish
+          path: ./published/01.RazorPagesCICDDemo
+
+  # Future extension point:
+  # A later lesson could add a deployment job here that downloads the published artifact,
+  # signs in to Azure with GitHub secrets, and deploys to App Service automatically.
+  # This module intentionally stops at artifact creation so students learn the Azure CLI
+  # deployment commands and troubleshooting workflow first.
