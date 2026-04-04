@@ -1,0 +1,78 @@
+@page
+@model EfficientLINQ.Pages.Products.IndexModel
+@{
+    ViewData["Title"] = "Products";
+}
+
+<section class="page-header">
+    <div>
+        <p class="eyebrow">Realistic Page Example</p>
+        <h2>Paged product list</h2>
+        <p>This page uses a projected, read-only, paged query instead of loading every product into memory.</p>
+    </div>
+    <a class="button-secondary" asp-page="/QueryLab/Index">Back to Query Lab</a>
+</section>
+
+<section class="grid-panels">
+    <article class="panel">
+        <h3>Why this page is efficient</h3>
+        <ul>
+            <li>Read-only query with <code>AsNoTracking()</code></li>
+            <li>Projection to a lightweight view model</li>
+            <li>Ordered result with <code>Skip</code> and <code>Take</code></li>
+        </ul>
+    </article>
+
+    <article class="panel">
+        <h3>Page summary</h3>
+        <p>Total products: <strong>@Model.TotalCount</strong></p>
+        <p>Current page: <strong>@Model.PageNumber</strong></p>
+        <p>Items on page: <strong>@Model.Products.Count</strong></p>
+    </article>
+    
+    <article class="panel">
+        <h3>Teaching question</h3>
+        <p>What extra columns would PostgreSQL return if we loaded the whole entity instead of just the table fields needed on this screen?</p>
+    </article>
+</section>
+
+<section class="panel">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Stock</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model.Products)
+            {
+                <tr>
+                    <td>@product.Name</td>
+                    <td>@product.CategoryName</td>
+                    <td>@product.Price.ToString("C")</td>
+                    <td>@product.QuantityInStock</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="button-row">
+        @if (Model.PageNumber > 1)
+        {
+            <a class="button-secondary" asp-page="/Products/Index" asp-route-pageNumber="@(Model.PageNumber - 1)">Previous Page</a>
+        }
+
+        @if (Model.PageNumber * Model.PageSize < Model.TotalCount)
+        {
+            <a class="button-primary" asp-page="/Products/Index" asp-route-pageNumber="@(Model.PageNumber + 1)">Next Page</a>
+        }
+    </div>
+</section>
+
+<section class="panel">
+    <h3>Generated SQL for this page</h3>
+    <pre><code>@Model.GeneratedSql</code></pre>
+</section>

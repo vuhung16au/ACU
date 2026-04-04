@@ -1,0 +1,45 @@
+@page
+@model EfficientLINQ.Pages.IndexModel
+@{
+    ViewData["Title"] = "Efficient LINQ";
+}
+
+<section class="hero-card">
+    <p class="eyebrow">40-Advanced-EFCore</p>
+    <h2>Write LINQ that asks for less</h2>
+    <p class="lead">
+        This lesson shows how small LINQ choices change SQL shape, network payload, and query cost. The focus is not “clever EF Core”, but clearer requests to PostgreSQL.
+    </p>
+
+    <div class="hero-actions">
+        <a class="button-primary" asp-page="/QueryLab/Index">Open Query Lab</a>
+        <a class="button-secondary" asp-page="/Products/Index">View Product Page</a>
+    </div>
+</section>
+
+<section class="grid-panels">
+    <article class="panel">
+        <h3>Patterns covered</h3>
+        <ul>
+            <li>Projection instead of full entity loading</li>
+            <li>`AsNoTracking` for read-only queries</li>
+            <li>Server-side filtering and sorting</li>
+            <li>`Skip` and `Take` for paging</li>
+            <li>`GroupBy` translation to SQL</li>
+        </ul>
+    </article>
+
+    <article class="panel">
+        <h3>What goes wrong</h3>
+        <p>
+            Slow pages often start with an innocent `ToListAsync()`, then keep filtering and shaping data in memory. That wastes database bandwidth and makes the application do work the database could do faster.
+        </p>
+    </article>
+
+    <article class="panel">
+        <h3>What students should notice</h3>
+        <p>
+            The improved query is usually shorter, not longer. It simply asks for the right rows and columns at the right time.
+        </p>
+    </article>
+</section>

@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-- Shared PostgreSQL services running from [`40-Advanced-EFCore`](/Users/vuhung/00.Work/02.ACU/github/ITEC323/40-Advanced-EFCore)
+- Shared PostgreSQL services running from [`40-Advanced-EFCore`](../)
 - .NET 10 SDK
 
 ## Run The Project

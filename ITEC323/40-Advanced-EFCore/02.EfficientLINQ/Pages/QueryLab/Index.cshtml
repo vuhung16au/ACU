@@ -1,0 +1,53 @@
+@page
+@model EfficientLINQ.Pages.QueryLab.IndexModel
+@{
+    ViewData["Title"] = "Query Lab";
+}
+
+<section class="page-header">
+    <div>
+        <p class="eyebrow">Query Lab</p>
+        <h2>Bad query shape vs better query shape</h2>
+        <p>Each example shows the problem, the improved query, and the SQL that EF Core sends to PostgreSQL.</p>
+    </div>
+    <a class="button-secondary" asp-page="/Products/Index">See the realistic product page</a>
+</section>
+
+@foreach (var example in Model.Lab.Comparisons)
+{
+    <section class="panel example-card">
+        <div class="example-header">
+            <div>
+                <h3>@example.Title</h3>
+                <p class="small-note">@example.Problem</p>
+            </div>
+            <p class="highlight-note">@example.WhyBetter</p>
+        </div>
+
+        <div class="comparison-grid">
+            <article class="comparison-box comparison-box-bad">
+                <h4>Inefficient version</h4>
+                <p class="metric-pill">@example.BadMetric</p>
+                <pre><code>@example.BadCode</code></pre>
+                <pre><code>@example.BadSql</code></pre>
+            </article>
+
+            <article class="comparison-box comparison-box-good">
+                <h4>Improved version</h4>
+                <p class="metric-pill">@example.GoodMetric</p>
+                <pre><code>@example.GoodCode</code></pre>
+                <pre><code>@example.GoodSql</code></pre>
+            </article>
+        </div>
+
+        <div class="preview-panel">
+            <h4>Preview rows</h4>
+            <ul>
+                @foreach (var row in example.PreviewRows)
+                {
+                    <li>@row</li>
+                }
+            </ul>
+        </div>
+    </section>
+}

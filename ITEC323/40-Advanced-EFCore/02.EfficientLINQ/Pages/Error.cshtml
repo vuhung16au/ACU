@@ -1,0 +1,15 @@
+@page
+@model EfficientLINQ.Pages.ErrorModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+<section class="panel">
+    <h2>Something went wrong</h2>
+    <p>The Efficient LINQ lesson could not complete the request.</p>
+
+    @if (Model.ShowRequestId)
+    {
+        <p><strong>Request ID:</strong> <code>@Model.RequestId</code></p>
+    }
+</section>
