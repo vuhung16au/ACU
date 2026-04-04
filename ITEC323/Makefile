@@ -14,7 +14,8 @@ DOTNET_TARGETS = \
 	09.DataPersistenceEFCore \
 	12.MauiCrossPlatform \
 	22-MinimalAPIs-REST \
-	22-Unit-Testing
+	22-Unit-Testing \
+	32-AI-Integration
 
 ANDROID_PROJECTS = \
 	10.AndroidKotlinJetpackCompose \

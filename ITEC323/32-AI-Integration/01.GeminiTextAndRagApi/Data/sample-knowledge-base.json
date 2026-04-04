@@ -1,0 +1,44 @@
+[
+  {
+    "Id": "doc-1",
+    "Title": "Minimal APIs",
+    "Category": "ASP.NET Core",
+    "Content": "Minimal APIs are a lightweight way to build HTTP APIs in ASP.NET Core. They reduce ceremony by defining endpoints directly in Program.cs and work well for small services, demos, and beginner projects.",
+    "Keywords": [ "minimal api", "asp.net", "http", "endpoint", "program.cs" ]
+  },
+  {
+    "Id": "doc-2",
+    "Title": "Dependency Injection",
+    "Category": "Architecture",
+    "Content": "Dependency injection helps classes receive the services they need instead of creating dependencies directly. In ASP.NET Core, services are registered in the container and supplied to endpoint handlers or classes when needed.",
+    "Keywords": [ "dependency injection", "services", "di", "container", "constructor" ]
+  },
+  {
+    "Id": "doc-3",
+    "Title": "What RAG Means",
+    "Category": "AI",
+    "Content": "Retrieval-Augmented Generation combines document retrieval with text generation. The application first finds relevant documents, then includes their content in the prompt so the model can answer with grounded context.",
+    "Keywords": [ "rag", "retrieval", "generation", "context", "grounded" ]
+  },
+  {
+    "Id": "doc-4",
+    "Title": "Why Use .env.local",
+    "Category": "Security",
+    "Content": "API keys should stay out of source control. A .env.local file keeps secrets on the developer machine while .gitignore prevents accidental commits. This approach is safer than hardcoding secrets in Program.cs or appsettings.json.",
+    "Keywords": [ "api key", ".env.local", "secret", "security", "gitignore" ]
+  },
+  {
+    "Id": "doc-5",
+    "Title": "Prompt Context",
+    "Category": "Prompting",
+    "Content": "Prompt context gives the model background information that narrows the answer. Good context can improve relevance, reduce unsupported guesses, and help the response stay focused on the task.",
+    "Keywords": [ "prompt", "context", "relevance", "grounding", "accuracy" ]
+  },
+  {
+    "Id": "doc-6",
+    "Title": "Local Knowledge Base",
+    "Category": "Data",
+    "Content": "A local knowledge base can be stored in a JSON file for simple demos. This keeps setup easy because the project does not require a database, embedding model, or vector store to explain the main RAG idea.",
+    "Keywords": [ "json", "knowledge base", "local file", "documents", "simple" ]
+  }
+]

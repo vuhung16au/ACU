@@ -1,0 +1,76 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Chat";
+}
+
+<section class="panel intro-panel">
+    <h2>Ask The RAG Chat</h2>
+    <p>
+        Type a question about the sample knowledge base. The app retrieves matching local documents,
+        sends that context to Gemini, and shows the answer with its sources.
+    </p>
+</section>
+
+<section class="panel composer-panel">
+    <form method="post" asp-page-handler="Ask" class="composer-form" novalidate>
+        @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+        {
+            <div class="validation-summary" role="alert">
+                <p>@Model.ErrorMessage</p>
+            </div>
+        }
+
+        <label asp-for="Input.Question" class="field-label">Your question</label>
+        <textarea asp-for="Input.Question" class="question-input" rows="4" placeholder="For example: Why should I keep my API key in .env.local?"></textarea>
+
+        <div class="button-row">
+            <button type="submit" class="submit-button">Ask Gemini</button>
+            <button type="submit" asp-page-handler="Clear" class="secondary-button">Clear chat</button>
+        </div>
+    </form>
+</section>
+
+<section class="chat-stack">
+    @if (Model.Conversation.Count == 0)
+    {
+        <section class="panel empty-panel">
+            <h2>No messages yet</h2>
+            <p>Your conversation will appear here after you submit a question.</p>
+        </section>
+    }
+    else
+    {
+        @foreach (var exchange in Model.Conversation)
+        {
+            <article class="panel chat-turn">
+                <div class="bubble bubble-user">
+                    <p class="bubble-label">You</p>
+                    <p>@exchange.Question</p>
+                </div>
+
+                <div class="bubble bubble-assistant">
+                    <p class="bubble-label">Gemini + RAG</p>
+                    <p>@exchange.Answer</p>
+                </div>
+
+                @if (exchange.Sources.Count > 0)
+                {
+                    <section class="sources-panel">
+                        <h3>Sources</h3>
+                        <div class="sources-grid">
+                            @foreach (var source in exchange.Sources)
+                            {
+                                <article class="source-card">
+                                    <p class="source-title">@source.Title</p>
+                                    <p class="source-category">@source.Category</p>
+                                    <p class="source-excerpt">@source.Excerpt</p>
+                                </article>
+                            }
+                        </div>
+                    </section>
+                }
+            </article>
+        }
+    }
+</section>
