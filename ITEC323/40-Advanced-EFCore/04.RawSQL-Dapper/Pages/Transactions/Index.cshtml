@@ -1,0 +1,47 @@
+@page
+@model RawSQLDapper.Pages.Transactions.IndexModel
+@{
+    ViewData["Title"] = "Transactions";
+}
+
+<section class="page-header">
+    <div>
+        <p class="eyebrow">Shared Transaction Demo</p>
+        <h2>One transaction, two data-access tools</h2>
+        <p>This page updates stock with EF Core and writes an audit entry with Dapper inside the same transaction.</p>
+    </div>
+    <a class="button-secondary" asp-page="/Products/Index">View products after the demo</a>
+</section>
+
+<section class="grid-panels">
+    <article class="panel">
+        <h3>Why share the transaction?</h3>
+        <p>If one write succeeds and the other fails, the data becomes inconsistent. Sharing the transaction means both changes commit together or both roll back.</p>
+    </article>
+
+    <article class="panel">
+        <h3>What this demo does</h3>
+        <ol>
+            <li>Loads a product with EF Core</li>
+            <li>Increases its stock by 5</li>
+            <li>Uses Dapper to insert an audit row on the same database connection and transaction</li>
+        </ol>
+    </article>
+</section>
+
+<section class="panel">
+    <form method="post">
+        <button type="submit" class="button-primary">Run Shared Transaction Demo</button>
+    </form>
+</section>
+
+@if (Model.Result is not null)
+{
+    <section class="panel transaction-result">
+        <h3>Transaction committed</h3>
+        <p><strong>Product:</strong> @Model.Result.ProductName</p>
+        <p><strong>New stock:</strong> @Model.Result.NewQuantityInStock</p>
+        <p><strong>Audit message:</strong> @Model.Result.AuditMessage</p>
+        <pre><code>@Model.Result.AuditInsertSql</code></pre>
+    </section>
+}

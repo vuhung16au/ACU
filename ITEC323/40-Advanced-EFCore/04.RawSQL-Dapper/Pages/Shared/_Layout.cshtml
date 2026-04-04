@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Raw SQL with Dapper</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="site-shell">
+        <div class="shell-inner">
+            <div>
+                <p class="site-kicker">ITEC323 • 40-Advanced-EFCore</p>
+                <h1>Raw SQL with Dapper</h1>
+                <p class="site-subtitle">EF Core for entities, Dapper for SQL-first reporting, and one shared transaction when both are needed.</p>
+            </div>
+            <nav class="top-nav">
+                <a asp-page="/Index">Overview</a>
+                <a asp-page="/Reports/Index">Reports</a>
+                <a asp-page="/Transactions/Index">Transactions</a>
+                <a asp-page="/Products/Index">Products</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page-shell">
+        @RenderBody()
+    </main>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

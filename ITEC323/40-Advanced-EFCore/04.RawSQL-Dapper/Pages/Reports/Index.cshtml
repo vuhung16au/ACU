@@ -1,0 +1,80 @@
+@page
+@model RawSQLDapper.Pages.Reports.IndexModel
+@{
+    ViewData["Title"] = "Reports";
+}
+
+<section class="page-header">
+    <div>
+        <p class="eyebrow">Reports Comparison</p>
+        <h2>EF Core projection vs Dapper SQL</h2>
+        <p>The two approaches return the same sales summary, but one is expressed as LINQ and the other is written directly in SQL.</p>
+    </div>
+    <a class="button-secondary" asp-page="/Transactions/Index">See the shared transaction demo</a>
+</section>
+
+<section class="grid-panels">
+    <article class="panel">
+        <h3>Why Dapper helps here</h3>
+        <p>This report is naturally grouped, joined, and ordered in SQL. Dapper lets the lesson show that shape directly instead of hiding it behind more abstraction.</p>
+    </article>
+
+    <article class="panel">
+        <h3>Why EF Core still matters</h3>
+        <p>The EF Core version is still productive and safe, especially when the team prefers C# expressions and strong model-based refactoring.</p>
+    </article>
+</section>
+
+<section class="comparison-grid">
+    <article class="comparison-box comparison-box-ef">
+        <h3>EF Core report</h3>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Category</th>
+                    <th>Units Sold</th>
+                    <th>Revenue</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var row in Model.ReportPage.EfCoreRows)
+                {
+                    <tr>
+                        <td>@row.ProductName</td>
+                        <td>@row.CategoryName</td>
+                        <td>@row.UnitsSold</td>
+                        <td>@row.Revenue.ToString("C")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <pre><code>@Model.ReportPage.EfCoreSql</code></pre>
+    </article>
+
+    <article class="comparison-box comparison-box-dapper">
+        <h3>Dapper report</h3>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Category</th>
+                    <th>Units Sold</th>
+                    <th>Revenue</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var row in Model.ReportPage.DapperRows)
+                {
+                    <tr>
+                        <td>@row.ProductName</td>
+                        <td>@row.CategoryName</td>
+                        <td>@row.UnitsSold</td>
+                        <td>@row.Revenue.ToString("C")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <pre><code>@Model.ReportPage.DapperSql</code></pre>
+    </article>
+</section>

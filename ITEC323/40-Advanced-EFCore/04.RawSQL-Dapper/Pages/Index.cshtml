@@ -1,0 +1,35 @@
+@page
+@model RawSQLDapper.Pages.IndexModel
+@{
+    ViewData["Title"] = "Raw SQL with Dapper";
+}
+
+<section class="hero-card">
+    <p class="eyebrow">40-Advanced-EFCore</p>
+    <h2>Use SQL directly when the query is already SQL-shaped</h2>
+    <p class="lead">
+        This lesson compares an EF Core reporting projection with a Dapper query and then shows how both tools can participate in one shared transaction.
+    </p>
+
+    <div class="hero-actions">
+        <a class="button-primary" asp-page="/Reports/Index">Open Reports Comparison</a>
+        <a class="button-secondary" asp-page="/Transactions/Index">Open Transaction Demo</a>
+    </div>
+</section>
+
+<section class="grid-panels">
+    <article class="panel">
+        <h3>When EF Core fits well</h3>
+        <p>Entity-centric pages, updates, and normal CRUD flows are still a comfortable fit for EF Core.</p>
+    </article>
+
+    <article class="panel">
+        <h3>When Dapper helps</h3>
+        <p>Read-heavy reporting queries with explicit grouping and joins are often easier to reason about as SQL.</p>
+    </article>
+
+    <article class="panel">
+        <h3>Important safety rule</h3>
+        <p>Every raw SQL example in this lesson stays parameterized. No string concatenation is used to build SQL.</p>
+    </article>
+</section>

@@ -1,0 +1,15 @@
+@page
+@model RawSQLDapper.Pages.ErrorModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+<section class="panel">
+    <h2>Something went wrong</h2>
+    <p>The Raw SQL with Dapper lesson could not complete the request.</p>
+
+    @if (Model.ShowRequestId)
+    {
+        <p><strong>Request ID:</strong> <code>@Model.RequestId</code></p>
+    }
+</section>

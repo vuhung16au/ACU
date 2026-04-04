@@ -1,0 +1,43 @@
+@page
+@model RawSQLDapper.Pages.Products.IndexModel
+@{
+    ViewData["Title"] = "Products";
+}
+
+<section class="page-header">
+    <div>
+        <p class="eyebrow">EF Core-Friendly Page</p>
+        <h2>Product stock overview</h2>
+        <p>This page stays firmly in EF Core territory because it is entity-centric and easy to express as a normal tracked or read-only query.</p>
+    </div>
+    <a class="button-secondary" asp-page="/Reports/Index">Back to reports</a>
+</section>
+
+<section class="panel">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Stock</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model.Products)
+            {
+                <tr>
+                    <td>@product.Name</td>
+                    <td>@product.CategoryName</td>
+                    <td>@product.Price.ToString("C")</td>
+                    <td>@product.QuantityInStock</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>
+
+<section class="panel">
+    <h3>Generated SQL for this page</h3>
+    <pre><code>@Model.GeneratedSql</code></pre>
+</section>
