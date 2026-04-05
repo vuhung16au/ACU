@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JWT Auth Demo</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .box { border: 1px solid #ccc; padding: 15px; width: 300px; margin-bottom: 20px; }
+        input { display: block; margin-bottom: 10px; width: 90%; }
+        button { padding: 5px 15px; margin-right: 10px; }
+        #output { background: #eee; padding: 10px; min-height: 50px; white-space: pre; }
+    </style>
+</head>
+<body>
+    <h1>JWT Authentication Demo</h1>
+    
+    <div class="box">
+        <h3>Register / Login</h3>
+        <input type="email" id="email" placeholder="Email (e.g. user@example.com)">
+        <input type="password" id="password" placeholder="Password (e.g. password123)">
+        <button id="btnRegister">Register</button>
+        <button id="btnLogin">Login</button>
+    </div>
+
+    <div class="box">
+        <h3>Protected Area</h3>
+        <button id="btnProfile">Get Profile</button>
+    </div>
+
+    <h3>Output:</h3>
+    <div id="output">Waiting for action...</div>
+
+    <script>
+        let token = '';
+
+        function log(msg) {
+            const out = document.getElementById('output');
+            out.innerText += "\n[ACTION RESULT]:\n" + (typeof msg === 'string' ? msg : JSON.stringify(msg, null, 2)) + "\n";
+        }
+
+        document.getElementById('btnRegister').onclick = async () => {
+            const body = { email: email.value, password: password.value };
+            const res = await fetch('/api/auth/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+            });
+            log(await res.json());
+        };
+
+        document.getElementById('btnLogin').onclick = async () => {
+            const body = { email: email.value, password: password.value };
+            const res = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+            });
+            
+            if (res.ok) {
+                const data = await res.json();
+                token = data.token;
+                log('Logged in successfully. Token: ' + token.substring(0, 20) + '...');
+            } else {
+                log('Login failed');
+            }
+        };
+
+        document.getElementById('btnProfile').onclick = async () => {
+             const res = await fetch('/api/user/profile', {
+                headers: { 'Authorization': 'Bearer ' + token }
+            });
+            if (res.ok) {
+                log(await res.json());
+            } else {
+                log('Unauthorized! Status: ' + res.status);
+            }
+        };
+    </script>
+</body>
+</html>

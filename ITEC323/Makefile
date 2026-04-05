@@ -15,6 +15,7 @@ DOTNET_TARGETS = \
 	12.MauiCrossPlatform \
 	22-MinimalAPIs-REST \
 	22-Unit-Testing \
+	24-Identity-JWT-Auth/24-Identity-JWT-Auth.sln \
 	32-AI-Integration \
 	33-SPA-Integration \
 	34-React-SPA-Integration \

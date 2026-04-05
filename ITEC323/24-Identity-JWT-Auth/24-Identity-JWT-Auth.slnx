@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/01.JwtAuthAPI/" />
+  <Folder Name="/01.JwtAuthAPI/tests/">
+    <Project Path="01.JwtAuthAPI/tests/01.JwtAuthAPI.Tests/01.JwtAuthAPI.Tests.csproj" />
+  </Folder>
+  <Project Path="01.JwtAuthAPI/01.JwtAuthAPI.csproj" />
+</Solution>
