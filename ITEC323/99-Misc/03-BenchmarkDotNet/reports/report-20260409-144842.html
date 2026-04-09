@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Benchmark Report - .NET 9 vs .NET 10</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root { --bg:#f3efe7; --card:#fffdf8; --ink:#1f2b31; --muted:#5f6f76; --line:#ddd2c3; --accent:#155f49; --accent-dark:#114d3b; --accent-soft:#edf3f0; --good:#155f49; --warn:#ac6e18; }
+    body { margin:0; font-family: 'Iowan Old Style', 'Palatino Linotype', serif; background: radial-gradient(circle at top right, rgba(21, 95, 73, 0.14), transparent 30%), linear-gradient(180deg, #fbf8f3 0%, var(--bg) 100%); color: var(--ink); }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 2rem 1rem 3rem; }
+    .hero { background: radial-gradient(circle at 10% 10%, rgba(21, 95, 73, 0.14), #fffdf8 42%), #fff; border: 1px solid var(--line); border-radius: 18px; padding: 1.25rem 1.5rem; box-shadow: 0 14px 30px rgba(25, 39, 44, 0.08); }
+    h1 { margin: 0; font-size: clamp(1.5rem, 2.3vw, 2.2rem); letter-spacing: .01em; }
+    p { color: var(--muted); }
+    .chart-card { margin-top: 1rem; background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 1rem 1rem 1.25rem; box-shadow: 0 14px 30px rgba(25, 39, 44, 0.08); }
+    .chart-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem; margin-bottom: 1rem; }
+    .chart-title { margin: 0; font-size: 1.1rem; }
+    .chart-note { margin: 0; font-size: .92rem; color: var(--muted); }
+    .dataset-picker { display: flex; align-items: center; gap: .65rem; }
+    .dataset-picker label { font-weight: 700; color: var(--accent-dark); }
+    .dataset-picker select { appearance: none; border: 1px solid var(--line); border-radius: 999px; background: var(--accent-soft); color: var(--ink); padding: .6rem .9rem; font: inherit; }
+    .chart-shell { position: relative; min-height: 420px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 1rem; background: var(--card); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+    th, td { padding: .75rem .65rem; text-align: left; border-bottom: 1px solid #e7dfd4; font-size: .95rem; }
+    th { background: var(--accent-soft); color: var(--accent-dark); font-weight: 700; }
+    tr:hover td { background: #f8fafc; }
+    .num { text-align: right; font-variant-numeric: tabular-nums; }
+    .good { color: var(--good); font-weight: 700; }
+    .warn { color: var(--warn); font-weight: 700; }
+    @media (max-width: 720px) { .chart-shell { min-height: 340px; } th, td { font-size: .83rem; padding: .55rem .45rem; } }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <h1>.NET 9 vs .NET 10 Sort Benchmarks</h1>
+      <p>Generated at 20260409-144842. Lower mean time is better. Ratio is computed as .NET9 / .NET10.</p>
+    </section>
+    <section class="chart-card">
+      <div class="chart-toolbar">
+        <div>
+          <h2 class="chart-title">Grouped Runtime Chart</h2>
+          <p class="chart-note">X axis shows sorting algorithms. Y axis shows mean runtime in milliseconds for .NET 9 and .NET 10.</p>
+        </div>
+        <div class="dataset-picker">
+          <label for="datasetSelect">Dataset</label>
+          <select id="datasetSelect"></select>
+        </div>
+      </div>
+      <div class="chart-shell">
+        <canvas id="benchmarkChart"></canvas>
+      </div>
+    </section>
+    <table>
+      <thead>
+        <tr><th>Algorithm</th><th>Dataset</th><th class="num">.NET 9 Mean (ms)</th><th class="num">.NET 10 Mean (ms)</th><th class="num">Speedup Ratio</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>BubbleSort</td>
+          <td>random_1000.txt</td>
+          <td class="num">0.5627</td>
+          <td class="num">0.5255</td>
+          <td class="num good">1.071x</td>
+        </tr>
+        <tr>
+          <td>BubbleSort</td>
+          <td>random_10000.txt</td>
+          <td class="num">57.1161</td>
+          <td class="num">49.6462</td>
+          <td class="num good">1.150x</td>
+        </tr>
+        <tr>
+          <td>BubbleSort</td>
+          <td>random_100000.txt</td>
+          <td class="num">0.0000</td>
+          <td class="num">0.0000</td>
+          <td class="num warn">n/a</td>
+        </tr>
+        <tr>
+          <td>BubbleSort</td>
+          <td>random_1000000.txt</td>
+          <td class="num">0.0000</td>
+          <td class="num">0.0000</td>
+          <td class="num warn">n/a</td>
+        </tr>
+        <tr>
+          <td>BubbleSort</td>
+          <td>random_3000.txt</td>
+          <td class="num">4.6814</td>
+          <td class="num">4.6581</td>
+          <td class="num good">1.005x</td>
+        </tr>
+        <tr>
+          <td>BubbleSort</td>
+          <td>random_5000.txt</td>
+          <td class="num">12.9618</td>
+          <td class="num">12.1633</td>
+          <td class="num good">1.066x</td>
+        </tr>
+        <tr>
+          <td>BubbleSort</td>
+          <td>random_50000.txt</td>
+          <td class="num">0.0000</td>
+          <td class="num">0.0000</td>
+          <td class="num warn">n/a</td>
+        </tr>
+        <tr>
+          <td>BubbleSort</td>
+          <td>random_500000.txt</td>
+          <td class="num">0.0000</td>
+          <td class="num">0.0000</td>
+          <td class="num warn">n/a</td>
+        </tr>
+        <tr>
+          <td>CountingSort</td>
+          <td>random_1000.txt</td>
+          <td class="num">0.1916</td>
+          <td class="num">0.1536</td>
+          <td class="num good">1.247x</td>
+        </tr>
+        <tr>
+          <td>CountingSort</td>
+          <td>random_10000.txt</td>
+          <td class="num">0.3113</td>
+          <td class="num">0.2614</td>
+          <td class="num good">1.191x</td>
+        </tr>
+        <tr>
+          <td>CountingSort</td>
+          <td>random_100000.txt</td>
+          <td class="num">1.1221</td>
+          <td class="num">1.0346</td>
+          <td class="num good">1.085x</td>
+        </tr>
+        <tr>
+          <td>CountingSort</td>
+          <td>random_1000000.txt</td>
+          <td class="num">5.6402</td>
+          <td class="num">5.1545</td>
+          <td class="num good">1.094x</td>
+        </tr>
+        <tr>
+          <td>CountingSort</td>
+          <td>random_3000.txt</td>
+          <td class="num">0.2080</td>
+          <td class="num">0.1781</td>
+          <td class="num good">1.168x</td>
+        </tr>
+        <tr>
+          <td>CountingSort</td>
+          <td>random_5000.txt</td>
+          <td class="num">0.2190</td>
+          <td class="num">0.1957</td>
+          <td class="num good">1.119x</td>
+        </tr>
+        <tr>
+          <td>CountingSort</td>
+          <td>random_50000.txt</td>
+          <td class="num">0.6347</td>
+          <td class="num">0.5549</td>
+          <td class="num good">1.144x</td>
+        </tr>
+        <tr>
+          <td>CountingSort</td>
+          <td>random_500000.txt</td>
+          <td class="num">3.5065</td>
+          <td class="num">3.1027</td>
+          <td class="num good">1.130x</td>
+        </tr>
+        <tr>
+          <td>InsertionSort</td>
+          <td>random_1000.txt</td>
+          <td class="num">0.1647</td>
+          <td class="num">0.1266</td>
+          <td class="num good">1.301x</td>
+        </tr>
+        <tr>
+          <td>InsertionSort</td>
+          <td>random_10000.txt</td>
+          <td class="num">16.0025</td>
+          <td class="num">11.8728</td>
+          <td class="num good">1.348x</td>
+        </tr>
+        <tr>
+          <td>InsertionSort</td>
+          <td>random_100000.txt</td>
+          <td class="num">0.0000</td>
+          <td class="num">0.0000</td>
+          <td class="num warn">n/a</td>
+        </tr>
+        <tr>
+          <td>InsertionSort</td>
+          <td>random_1000000.txt</td>
+          <td class="num">0.0000</td>
+          <td class="num">0.0000</td>
+          <td class="num warn">n/a</td>
+        </tr>
+        <tr>
+          <td>InsertionSort</td>
+          <td>random_3000.txt</td>
+          <td class="num">1.4298</td>
+          <td class="num">1.0835</td>
+          <td class="num good">1.320x</td>
+        </tr>
+        <tr>
+          <td>InsertionSort</td>
+          <td>random_5000.txt</td>
+          <td class="num">3.9170</td>
+          <td class="num">2.9683</td>
+          <td class="num good">1.320x</td>
+        </tr>
+        <tr>
+          <td>InsertionSort</td>
+          <td>random_50000.txt</td>
+          <td class="num">0.0000</td>
+          <td class="num">0.0000</td>
+          <td class="num warn">n/a</td>
+        </tr>
+        <tr>
+          <td>InsertionSort</td>
+          <td>random_500000.txt</td>
+          <td class="num">0.0000</td>
+          <td class="num">0.0000</td>
+          <td class="num warn">n/a</td>
+        </tr>
+        <tr>
+          <td>MergeSort</td>
+          <td>random_1000.txt</td>
+          <td class="num">0.0163</td>
+          <td class="num">0.0156</td>
+          <td class="num good">1.043x</td>
+        </tr>
+        <tr>
+          <td>MergeSort</td>
+          <td>random_10000.txt</td>
+          <td class="num">0.5199</td>
+          <td class="num">0.5242</td>
+          <td class="num warn">0.992x</td>
+        </tr>
+        <tr>
+          <td>MergeSort</td>
+          <td>random_100000.txt</td>
+          <td class="num">6.8190</td>
+          <td class="num">6.9170</td>
+          <td class="num warn">0.986x</td>
+        </tr>
+        <tr>
+          <td>MergeSort</td>
+          <td>random_1000000.txt</td>
+          <td class="num">79.6510</td>
+          <td class="num">79.0609</td>
+          <td class="num good">1.007x</td>
+        </tr>
+        <tr>
+          <td>MergeSort</td>
+          <td>random_3000.txt</td>
+          <td class="num">0.1143</td>
+          <td class="num">0.1214</td>
+          <td class="num warn">0.942x</td>
+        </tr>
+        <tr>
+          <td>MergeSort</td>
+          <td>random_5000.txt</td>
+          <td class="num">0.2212</td>
+          <td class="num">0.2269</td>
+          <td class="num warn">0.975x</td>
+        </tr>
+        <tr>
+          <td>MergeSort</td>
+          <td>random_50000.txt</td>
+          <td class="num">3.2292</td>
+          <td class="num">3.2163</td>
+          <td class="num good">1.004x</td>
+        </tr>
+        <tr>
+          <td>MergeSort</td>
+          <td>random_500000.txt</td>
+          <td class="num">38.5955</td>
+          <td class="num">37.9156</td>
+          <td class="num good">1.018x</td>
+        </tr>
+        <tr>
+          <td>QuickSort</td>
+          <td>random_1000.txt</td>
+          <td class="num">0.0121</td>
+          <td class="num">0.0118</td>
+          <td class="num good">1.026x</td>
+        </tr>
+        <tr>
+          <td>QuickSort</td>
+          <td>random_10000.txt</td>
+          <td class="num">0.3861</td>
+          <td class="num">0.3544</td>
+          <td class="num good">1.090x</td>
+        </tr>
+        <tr>
+          <td>QuickSort</td>
+          <td>random_100000.txt</td>
+          <td class="num">5.1366</td>
+          <td class="num">4.8819</td>
+          <td class="num good">1.052x</td>
+        </tr>
+        <tr>
+          <td>QuickSort</td>
+          <td>random_1000000.txt</td>
+          <td class="num">57.7126</td>
+          <td class="num">56.8449</td>
+          <td class="num good">1.015x</td>
+        </tr>
+        <tr>
+          <td>QuickSort</td>
+          <td>random_3000.txt</td>
+          <td class="num">0.0848</td>
+          <td class="num">0.0805</td>
+          <td class="num good">1.053x</td>
+        </tr>
+        <tr>
+          <td>QuickSort</td>
+          <td>random_5000.txt</td>
+          <td class="num">0.1614</td>
+          <td class="num">0.1621</td>
+          <td class="num warn">0.996x</td>
+        </tr>
+        <tr>
+          <td>QuickSort</td>
+          <td>random_50000.txt</td>
+          <td class="num">2.3143</td>
+          <td class="num">2.3189</td>
+          <td class="num warn">0.998x</td>
+        </tr>
+        <tr>
+          <td>QuickSort</td>
+          <td>random_500000.txt</td>
+          <td class="num">27.7805</td>
+          <td class="num">27.4986</td>
+          <td class="num good">1.010x</td>
+        </tr>
+        <tr>
+          <td>RadixSort</td>
+          <td>random_1000.txt</td>
+          <td class="num">0.0215</td>
+          <td class="num">0.0208</td>
+          <td class="num good">1.034x</td>
+        </tr>
+        <tr>
+          <td>RadixSort</td>
+          <td>random_10000.txt</td>
+          <td class="num">0.2335</td>
+          <td class="num">0.2269</td>
+          <td class="num good">1.029x</td>
+        </tr>
+        <tr>
+          <td>RadixSort</td>
+          <td>random_100000.txt</td>
+          <td class="num">3.2110</td>
+          <td class="num">3.2147</td>
+          <td class="num warn">0.999x</td>
+        </tr>
+        <tr>
+          <td>RadixSort</td>
+          <td>random_1000000.txt</td>
+          <td class="num">30.0125</td>
+          <td class="num">29.6345</td>
+          <td class="num good">1.013x</td>
+        </tr>
+        <tr>
+          <td>RadixSort</td>
+          <td>random_3000.txt</td>
+          <td class="num">0.0632</td>
+          <td class="num">0.0632</td>
+          <td class="num warn">0.999x</td>
+        </tr>
+        <tr>
+          <td>RadixSort</td>
+          <td>random_5000.txt</td>
+          <td class="num">0.1139</td>
+          <td class="num">0.0991</td>
+          <td class="num good">1.149x</td>
+        </tr>
+        <tr>
+          <td>RadixSort</td>
+          <td>random_50000.txt</td>
+          <td class="num">1.6291</td>
+          <td class="num">1.5762</td>
+          <td class="num good">1.034x</td>
+        </tr>
+        <tr>
+          <td>RadixSort</td>
+          <td>random_500000.txt</td>
+          <td class="num">15.6432</td>
+          <td class="num">15.2912</td>
+          <td class="num good">1.023x</td>
+        </tr>
+        <tr>
+          <td>SelectionSort</td>
+          <td>random_1000.txt</td>
+          <td class="num">0.2377</td>
+          <td class="num">0.2392</td>
+          <td class="num warn">0.994x</td>
+        </tr>
+        <tr>
+          <td>SelectionSort</td>
+          <td>random_10000.txt</td>
+          <td class="num">17.8168</td>
+          <td class="num">17.8338</td>
+          <td class="num warn">0.999x</td>
+        </tr>
+        <tr>
+          <td>SelectionSort</td>
+          <td>random_100000.txt</td>
+          <td class="num">0.0000</td>
+          <td class="num">0.0000</td>
+          <td class="num warn">n/a</td>
+        </tr>
+        <tr>
+          <td>SelectionSort</td>
+          <td>random_1000000.txt</td>
+          <td class="num">0.0000</td>
+          <td class="num">0.0000</td>
+          <td class="num warn">n/a</td>
+        </tr>
+        <tr>
+          <td>SelectionSort</td>
+          <td>random_3000.txt</td>
+          <td class="num">1.7763</td>
+          <td class="num">1.8111</td>
+          <td class="num warn">0.981x</td>
+        </tr>
+        <tr>
+          <td>SelectionSort</td>
+          <td>random_5000.txt</td>
+          <td class="num">4.6521</td>
+          <td class="num">4.6635</td>
+          <td class="num warn">0.998x</td>
+        </tr>
+        <tr>
+          <td>SelectionSort</td>
+          <td>random_50000.txt</td>
+          <td class="num">0.0000</td>
+          <td class="num">0.0000</td>
+          <td class="num warn">n/a</td>
+        </tr>
+        <tr>
+          <td>SelectionSort</td>
+          <td>random_500000.txt</td>
+          <td class="num">0.0000</td>
+          <td class="num">0.0000</td>
+          <td class="num warn">n/a</td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+  <script>
+    const tableRows = Array.from(document.querySelectorAll('tbody tr')).map((row) => {
+      const cells = row.querySelectorAll('td');
+      const parseValue = (text) => {
+        const value = Number.parseFloat(text);
+        return Number.isFinite(value) && value > 0 ? value : null;
+      };
+      return {
+        algorithm: cells[0].textContent.trim(),
+        dataset: cells[1].textContent.trim(),
+        net9: parseValue(cells[2].textContent.trim()),
+        net10: parseValue(cells[3].textContent.trim())
+      };
+    });
+    const datasets = [...new Set(tableRows.map((row) => row.dataset))].sort((left, right) => {
+      const extractSize = (name) => Number.parseInt(name.replace(/\D/g, ''), 10);
+      return extractSize(left) - extractSize(right);
+    });
+    const datasetSelect = document.getElementById('datasetSelect');
+    datasets.forEach((dataset) => {
+      const option = document.createElement('option');
+      option.value = dataset;
+      option.textContent = dataset;
+      datasetSelect.appendChild(option);
+    });
+    const defaultDataset = datasets.includes('random_10000.txt') ? 'random_10000.txt' : datasets[0];
+    datasetSelect.value = defaultDataset;
+    const chart = new Chart(document.getElementById('benchmarkChart'), {
+      type: 'bar',
+      data: {
+        labels: [],
+        datasets: [
+          {
+            label: '.NET 9 Mean (ms)',
+            data: [],
+            backgroundColor: 'rgba(21, 95, 73, 0.88)',
+            borderColor: '#114d3b',
+            borderWidth: 1.5,
+            borderRadius: 8
+          },
+          {
+            label: '.NET 10 Mean (ms)',
+            data: [],
+            backgroundColor: 'rgba(102, 171, 141, 0.9)',
+            borderColor: '#3f7f68',
+            borderWidth: 1.5,
+            borderRadius: 8
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: {
+            labels: {
+              color: '#1f2b31',
+              font: { size: 13, family: 'Palatino Linotype, Iowan Old Style, serif' }
+            }
+          },
+          tooltip: {
+            callbacks: {
+              label: (context) => `${context.dataset.label}: ${context.raw === null ? 'not available' : context.raw.toFixed(4) + ' ms'}`
+            }
+          }
+        },
+        scales: {
+          x: { ticks: { color: '#1f2b31' }, grid: { display: false } },
+          y: {
+            beginAtZero: true,
+            ticks: { color: '#5f6f76', callback: (value) => `${value} ms` },
+            title: {
+              display: true,
+              text: 'Mean Runtime (ms)',
+              color: '#114d3b',
+              font: { weight: 'bold' }
+            },
+            grid: { color: 'rgba(221, 210, 195, 0.8)' }
+          }
+        }
+      }
+    });
+    const renderDataset = (datasetName) => {
+      const rows = tableRows.filter((row) => row.dataset === datasetName);
+      chart.data.labels = rows.map((row) => row.algorithm);
+      chart.data.datasets[0].data = rows.map((row) => row.net9);
+      chart.data.datasets[1].data = rows.map((row) => row.net10);
+      chart.update();
+    };
+    datasetSelect.addEventListener('change', (event) => {
+      renderDataset(event.target.value);
+    });
+    renderDataset(defaultDataset);
+  </script>
+</body>
+</html>
