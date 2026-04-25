@@ -298,6 +298,176 @@ input {
   display: none !important;
 }
 
+/* ── ITEC Signup form ─────────────────────────────────────────────────── */
+
+.layout-grid-narrow {
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+.field-group {
+  margin-bottom: 1.1rem;
+}
+
+.field-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 0.3rem;
+}
+
+.field-header label {
+  margin-bottom: 0;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+}
+
+.field-hint {
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.hint-ok {
+  color: var(--muted);
+}
+
+.hint-error {
+  color: #c0392b;
+}
+
+.input-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.input-row input {
+  flex: 1;
+}
+
+.btn-inline {
+  flex-shrink: 0;
+  min-height: 2.4rem;
+  padding: 0.55rem 0.9rem;
+  border-radius: 0.8rem;
+}
+
+input.input-error,
+textarea.input-error {
+  border-color: #c0392b;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(192, 57, 43, 0.15);
+}
+
+textarea {
+  width: 100%;
+  padding: 0.75rem 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: 0.8rem;
+  font: inherit;
+  color: var(--text);
+  background: #fff;
+  resize: vertical;
+}
+
+.field-select {
+  width: 100%;
+  padding: 0.75rem 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: 0.8rem;
+  font: inherit;
+  color: var(--text);
+  background: #fff;
+  appearance: auto;
+}
+
+.validation-msg {
+  margin: 0.3rem 0 0;
+  font-size: 0.85rem;
+  color: #c0392b;
+  font-weight: 600;
+}
+
+.validation-ok {
+  color: #1a7a4a;
+}
+
+.field-check {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.check-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.check-label input[type="checkbox"] {
+  width: auto;
+  accent-color: var(--primary);
+}
+
+.button-disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.button-disabled:hover {
+  transform: none;
+}
+
+.message-warn {
+  background: var(--warning);
+  border-color: var(--warning-line);
+}
+
+.message-success {
+  background: var(--success);
+  border-color: var(--success-line);
+}
+
+.state-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+.state-table th {
+  text-align: left;
+  padding: 0.45rem 0.6rem;
+  border-bottom: 2px solid var(--line);
+  color: var(--muted);
+  font-weight: 700;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.state-table td {
+  padding: 0.45rem 0.6rem;
+  border-bottom: 1px solid var(--line);
+  vertical-align: middle;
+}
+
+.state-table td.ok {
+  color: #1a7a4a;
+  font-weight: 700;
+}
+
+.state-table td.err {
+  color: #c0392b;
+  font-weight: 700;
+}
+
 @media (max-width: 700px) {
   .hero-panel,
   .hero-panel-compact,

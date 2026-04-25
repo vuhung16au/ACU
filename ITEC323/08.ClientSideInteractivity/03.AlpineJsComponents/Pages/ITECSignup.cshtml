@@ -1,0 +1,280 @@
+@page
+@model ITECSignupModel
+@{
+    ViewData["Title"] = "ITEC Signup Form";
+}
+
+<section class="hero-panel hero-panel-compact">
+    <span class="eyebrow">Alpine.js Validation</span>
+    <h1>ITEC Signup Form</h1>
+    <p class="lead mb-0">
+        Real-time client-side validation using <code>x-model</code>, computed properties, and
+        reactive Alpine state — no form submission required.
+    </p>
+</section>
+
+<section class="card-grid">
+    <article class="info-card">
+        <h2>Validation Rules</h2>
+        <ul>
+            <li><strong>Username</strong> — 3–15 characters, letters &amp; digits only</li>
+            <li><strong>Password</strong> — toggleable show/hide</li>
+            <li><strong>Confirm Password</strong> — must match password exactly</li>
+            <li><strong>Short Bio</strong> — minimum 20 characters</li>
+        </ul>
+    </article>
+    <article class="info-card">
+        <h2>Directives Used</h2>
+        <ul>
+            <li><code>x-data</code> — component state object</li>
+            <li><code>x-model</code> — two-way input binding</li>
+            <li><code>x-show</code> — conditional visibility</li>
+            <li><code>x-bind</code> — dynamic attribute/class binding</li>
+            <li><code>x-on:click</code> — event handler</li>
+        </ul>
+    </article>
+</section>
+
+<section class="layout-grid layout-grid-narrow">
+    <article class="info-card" x-data="itecSignup()" x-cloak>
+        <h2>ITEC Signup Form</h2>
+
+        @* ── Username ─────────────────────────────────────────────── *@
+        <div class="field-group">
+            <div class="field-header">
+                <label for="username">Username:</label>
+                <span class="field-hint"
+                      :class="usernameCharsLeft < 0 ? 'hint-error' : 'hint-ok'"
+                      x-text="usernameCharsLeft + ' characters remaining'">
+                </span>
+            </div>
+            <input id="username"
+                   type="text"
+                   x-model="username"
+                   maxlength="15"
+                   placeholder="3–15 alphanumeric characters"
+                   :class="{ 'input-error': username.length > 0 && !isUsernameValid }" />
+            <p class="validation-msg" x-show="username.length > 0 && username.length < 3">
+                Username must be at least 3 characters.
+            </p>
+            <p class="validation-msg" x-show="username.length > 0 && hasSpecialChars">
+                Username may only contain letters and digits.
+            </p>
+        </div>
+
+        @* ── Password ──────────────────────────────────────────────── *@
+        <div class="field-group">
+            <label for="password">Password:</label>
+            <div class="input-row">
+                <input id="password"
+                       :type="showPassword ? 'text' : 'password'"
+                       x-model="password"
+                       placeholder="Enter a password"
+                       :class="{ 'input-error': password.length > 0 && !isPasswordValid }" />
+                <button class="button button-secondary btn-inline"
+                        type="button"
+                        x-on:click="showPassword = !showPassword"
+                        :aria-label="showPassword ? 'Hide password' : 'Show password'">
+                    <span x-text="showPassword ? 'Hide' : 'Show'"></span>
+                </button>
+            </div>
+            <p class="validation-msg" x-show="password.length > 0 && !isPasswordValid">
+                Password must be at least 6 characters.
+            </p>
+        </div>
+
+        @* ── Confirm Password ─────────────────────────────────────── *@
+        <div class="field-group">
+            <label for="confirm">Confirm Password:</label>
+            <input id="confirm"
+                   :type="showPassword ? 'text' : 'password'"
+                   x-model="confirm"
+                   placeholder="Re-enter your password"
+                   :class="{ 'input-error': confirm.length > 0 && !passwordsMatch }" />
+            <p class="validation-msg" x-show="confirm.length > 0 && !passwordsMatch">
+                Passwords do not match.
+            </p>
+            <p class="validation-msg validation-ok" x-show="confirm.length > 0 && passwordsMatch">
+                Passwords match.
+            </p>
+        </div>
+
+        @* ── Belt Color ────────────────────────────────────────────── *@
+        <div class="field-group">
+            <label for="belt">Belt Color:</label>
+            <select id="belt" x-model="belt" class="field-select">
+                @foreach (var color in Model.BeltColors)
+                {
+                    <option value="@color">@color</option>
+                }
+            </select>
+        </div>
+
+        @* ── Short Bio ─────────────────────────────────────────────── *@
+        <div class="field-group">
+            <div class="field-header">
+                <label for="bio">Short Bio:</label>
+                <span class="field-hint hint-ok"
+                      x-text="(100 - bio.length) + ' characters remaining'">
+                </span>
+            </div>
+            <textarea id="bio"
+                      x-model="bio"
+                      maxlength="100"
+                      rows="3"
+                      placeholder="Tell us about yourself (at least 20 characters)"
+                      :class="{ 'input-error': bio.length > 0 && !isBioValid }"></textarea>
+            <p class="validation-msg" x-show="bio.length > 0 && !isBioValid">
+                Bio must be at least 20 characters.
+            </p>
+        </div>
+
+        @* ── Newsletter ────────────────────────────────────────────── *@
+        <div class="field-group field-check">
+            <label class="check-label">
+                <input type="checkbox" x-model="newsletter" />
+                Sign up for the newsletter
+            </label>
+        </div>
+
+        @* ── Submit ────────────────────────────────────────────────── *@
+        <div class="action-row mt-1">
+            <button class="button button-primary"
+                    type="button"
+                    :disabled="!isFormValid"
+                    :class="{ 'button-disabled': !isFormValid }"
+                    x-on:click="submitted = true">
+                Register
+            </button>
+            <button class="button button-secondary" type="button" x-on:click="reset()">
+                Reset
+            </button>
+        </div>
+
+        <div class="message-panel message-info mt-1"
+             x-show="submitted && isFormValid"
+             x-transition>
+            <strong>Welcome, <span x-text="username"></span>!</strong>
+            Your ITEC profile (<span x-text="belt"></span> belt) has been created.
+        </div>
+
+        <div class="message-panel message-warn mt-1"
+             x-show="submitted && !isFormValid"
+             x-transition>
+            Please fix the validation errors before submitting.
+        </div>
+    </article>
+
+    @* ── Live State Inspector ──────────────────────────────────────────── *@
+    <article class="info-card" x-data="itecSignup()" x-cloak>
+        <h2>Live State Inspector</h2>
+        <p class="text-muted">
+            This panel shares the same Alpine component to show reactive state in real time as you type
+            in the form on the left.
+        </p>
+        <p class="text-muted" style="font-size:0.85rem">
+            <em>Note: because these are two separate Alpine components, the state panels below are
+            independent. The form is the authoritative component.</em>
+        </p>
+
+        <table class="state-table">
+            <thead>
+                <tr><th>Field</th><th>Value</th><th>Valid?</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>username</td>
+                    <td><code x-text="username || '—'"></code></td>
+                    <td :class="isUsernameValid ? 'ok' : 'err'" x-text="isUsernameValid ? '✓' : '✗'"></td>
+                </tr>
+                <tr>
+                    <td>password</td>
+                    <td><code x-text="password ? '•'.repeat(password.length) : '—'"></code></td>
+                    <td :class="isPasswordValid ? 'ok' : 'err'" x-text="isPasswordValid ? '✓' : '✗'"></td>
+                </tr>
+                <tr>
+                    <td>confirm</td>
+                    <td><code x-text="confirm ? '•'.repeat(confirm.length) : '—'"></code></td>
+                    <td :class="passwordsMatch && confirm.length > 0 ? 'ok' : 'err'"
+                        x-text="passwordsMatch && confirm.length > 0 ? '✓' : '✗'"></td>
+                </tr>
+                <tr>
+                    <td>belt</td>
+                    <td><code x-text="belt"></code></td>
+                    <td class="ok">✓</td>
+                </tr>
+                <tr>
+                    <td>bio</td>
+                    <td><code x-text="bio.length + ' chars'"></code></td>
+                    <td :class="isBioValid ? 'ok' : 'err'" x-text="isBioValid ? '✓' : '✗'"></td>
+                </tr>
+                <tr>
+                    <td>newsletter</td>
+                    <td><code x-text="newsletter ? 'yes' : 'no'"></code></td>
+                    <td class="ok">✓</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p class="message-panel mt-1"
+           :class="isFormValid ? 'message-success' : 'message-warn'">
+            Form is <strong x-text="isFormValid ? 'valid — ready to submit' : 'not yet valid'"></strong>
+        </p>
+    </article>
+</section>
+
+@section Scripts {
+    <script>
+        function itecSignup() {
+            return {
+                username:     '',
+                password:     '',
+                confirm:      '',
+                belt:         'white',
+                bio:          '',
+                newsletter:   false,
+                showPassword: false,
+                submitted:    false,
+
+                get usernameCharsLeft() {
+                    return 15 - this.username.length;
+                },
+                get hasSpecialChars() {
+                    return /[^a-zA-Z0-9]/.test(this.username);
+                },
+                get isUsernameValid() {
+                    return this.username.length >= 3
+                        && this.username.length <= 15
+                        && !this.hasSpecialChars;
+                },
+                get isPasswordValid() {
+                    return this.password.length >= 6;
+                },
+                get passwordsMatch() {
+                    return this.password.length > 0
+                        && this.confirm === this.password;
+                },
+                get isBioValid() {
+                    return this.bio.length >= 20;
+                },
+                get isFormValid() {
+                    return this.isUsernameValid
+                        && this.isPasswordValid
+                        && this.passwordsMatch
+                        && this.isBioValid;
+                },
+
+                reset() {
+                    this.username     = '';
+                    this.password     = '';
+                    this.confirm      = '';
+                    this.belt         = 'white';
+                    this.bio          = '';
+                    this.newsletter   = false;
+                    this.showPassword = false;
+                    this.submitted    = false;
+                }
+            };
+        }
+    </script>
+}
