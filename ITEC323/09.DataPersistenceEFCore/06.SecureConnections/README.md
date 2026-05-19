@@ -7,8 +7,6 @@ Beginner-friendly ASP.NET Core Razor Pages project that demonstrates secure data
 ![Secure Connections demo](images/secure-connections-small.gif)
 
 
-
-
 ## Learning Objectives
 
 - Configure PostgreSQL without committing connection strings.
@@ -24,7 +22,6 @@ Beginner-friendly ASP.NET Core Razor Pages project that demonstrates secure data
 - `UserSecretsId` configured in project file
 - Secure runtime lookup of `ConnectionStrings:DefaultConnection`
 - Existing CRUD pages working without secrets in `appsettings.json`
-
 
 ## Project Structure
 

@@ -23,7 +23,7 @@ This is useful when you want to build or run the app without opening Android Stu
 
 ### Step 1 – Navigate to the project directory
 
-All Gradle commands must be run from inside `01.HelloWorldKotlin/`, where `gradlew` lives:
+All Gradle commands must be run from inside `01.HelloWorldKotlin/`, where `gradle` wrapper - `gradlew` (or `gradlew.bat` on Windows) lives:
 
 ```bash
 cd 10.AndroidKotlinJetpackCompose/01.HelloWorldKotlin
