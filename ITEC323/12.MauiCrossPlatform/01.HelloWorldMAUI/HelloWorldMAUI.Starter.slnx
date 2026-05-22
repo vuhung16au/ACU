@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="HelloWorldMAUI.csproj" />
+  <Project Path="HelloWorldMAUI.Shared/HelloWorldMAUI.Shared.csproj" />
+  <Project Path="HelloWorldMAUI.Web/HelloWorldMAUI.Web.csproj" />
+</Solution>

@@ -1,13 +1,133 @@
-# AI Agent Contribution Guidelines
+# AGENTS.md
 
-This document provides guidelines for AI coding agents (Cursor, Copilot, Antigravity, etc.) contributing to the ITEC323 repository.
+This file provides guidance to WARP (warp.dev) when working with code in this repository.
 
-## Overview
+## Repository Overview
 
-This repository contains educational materials and projects for the ITEC323 unit. The projects cover .NET and Android development, targeting students who are learning these technologies for the first time.
+ITEC323 is a Web and Mobile Application Development course repository. Content is split across 12 weekly teaching folders (`01.`–`12.`) plus supplementary modules (`20+`, `22+`, `30+`, `31+`). Two distinct tech stacks coexist:
 
-**Target Audience**: First-time learners of .NET and Android development  
-**Educational Focus**: Keep all code, documentation, and examples simple, clear, and beginner-friendly
+- **.NET** (C# 14 / .NET 10): Weeks 1–9, 12, and modules `20+`/`22+`/`30+`/`31+`
+- **Android** (Kotlin + Jetpack Compose, Gradle): Weeks 10–11
+
+## Build Commands
+
+```bash
+# Build all .NET targets and all Android projects
+make build
+
+# .NET only (iterates DOTNET_TARGETS list in Makefile)
+make build-dotnet
+
+# Android only — auto-selects Java 17 via /usr/libexec/java_home
+make build-android
+
+# Root .NET solution (weeks 1–9 and 12; excludes Android)
+dotnet build ITEC323.sln -v minimal
+
+# A specific module's own solution
+dotnet build 22-Unit-Testing/22-Unit-Testing.sln
+
+# A single Android project
+cd 10.AndroidKotlinJetpackCompose/01.HelloWorldKotlin && ./gradlew build
+
+# Clean
+make clean
+```
+
+## Run Commands
+
+```bash
+# Razor Pages / Minimal API / Blazor web app — open http://localhost:5000
+dotnet run --project 03.CSharp-Razorpages/04.RazorPages-HelloWorld/RazorPagesHelloWorld.csproj
+
+# Console app
+dotnet run --project 01.HelloDotnet/00.DotNetHelloWorldCLI/src/DotNetHelloWorldCLI
+```
+
+## Test Commands
+
+```bash
+# All tests in a module
+dotnet test 22-Unit-Testing/22-Unit-Testing.sln
+
+# Tests for a single project
+dotnet test 22-Unit-Testing/01.RazorPagesUnitTesting/tests/01.RazorPagesUnitTesting.Tests/
+
+# Single test by name
+dotnet test --filter "MethodName_Scenario_ExpectedBehavior" 22-Unit-Testing/22-Unit-Testing.sln
+```
+
+### Playwright tests (module `31-Playwright-Testing`)
+
+Playwright tests require browser binaries installed once after restoring packages:
+
+```bash
+cd 31-Playwright-Testing/01.RazorPagesPlaywrightDemo/tests/01.RazorPagesPlaywrightDemo.Tests
+dotnet restore && dotnet build
+# Install browsers (macOS/Linux — no PowerShell needed):
+pwsh bin/Debug/net10.0/playwright.ps1 install
+dotnet test
+```
+
+The Razor Pages app under test must be running separately before executing Playwright tests.
+
+## Architecture
+
+### Solution structure
+
+`ITEC323.sln` (root) references all .NET projects from weeks 1–9 and 12. Weeks 10–11 are Gradle-based Android projects excluded from the root `.sln`. Every weekly folder also has its own dedicated `.sln`. The `Makefile`'s `DOTNET_TARGETS` list is the authoritative list of .NET modules built by `make build-dotnet`.
+
+### .NET project layout
+
+Each .NET project follows a consistent pattern:
+
+```
+WeekFolder/ProjectName/
+├── ProjectName.csproj
+├── Program.cs            ← DI/service registration for web apps
+├── Pages/                ← Razor Pages (PageModel with OnGet/OnPost)
+├── Models/               ← data models
+├── Services/             ← business logic registered via DI
+├── Data/                 ← EF Core DbContext + Migrations/ (week 9+)
+├── wwwroot/              ← static assets
+├── tests/
+│   └── ProjectName.Tests/  ← xUnit + FluentAssertions
+├── README.md
+├── QUICKSTART.md
+└── FRD.md
+```
+
+ASP.NET Core Razor Pages is the primary web pattern. Services are registered in `Program.cs` using the built-in DI container and injected into PageModels via constructor injection.
+
+### EF Core (week 9 — `09.DataPersistenceEFCore`)
+
+`Data/` contains the `DbContext`; migrations live under `Migrations/`. The module includes variants for SQLite, PostgreSQL (Docker), MongoDB (Docker), and a comprehensive app combining them.
+
+### MAUI (week 12 — `12.MauiCrossPlatform`)
+
+Single codebase targeting multiple platforms. MVVM + DI is introduced in `02.MvvmDependencyInjection`; Shell navigation in `03.ShellNavigation`; hardware/platform APIs in `05.HardwareAndPlatformAPIs`.
+
+### Android (weeks 10–11)
+
+Each sub-project is a standalone Gradle project. `build-projects.sh` orchestrates `./gradlew build` across all sub-projects and auto-detects Java 17 via `/usr/libexec/java_home -v 17` (required for Android Gradle builds).
+
+### Testing modules
+
+- **`22-Unit-Testing`**: xUnit + FluentAssertions. Covers basic unit tests, mocking with Moq (`02.MockingDependencies`), async tests (`03.AsyncUnitTesting`), and exception testing (`04.ExceptionTesting`). Test projects always live at `<ProjectName>/tests/<ProjectName>.Tests/`.
+- **`31-Playwright-Testing`**: Browser automation with Microsoft Playwright + xUnit. Tests automate the browser against a live-running app and can capture screenshots and `.webm` video recordings.
+
+## Code Standards
+
+- **Target framework**: .NET 10.0, C# 14; Android API 24+ minimum
+- **Web**: ASP.NET Core Razor Pages preferred for new beginner projects
+- **Naming**: `PascalCase` for classes/methods/properties, `camelCase` for locals/params, `_camelCase` for private fields
+- **XML doc comments** on all public members; inline comments explain *why*, not *what*
+- **Tests**: named `MethodName_Scenario_ExpectedBehavior`, AAA pattern (Arrange-Act-Assert)
+- Each new project requires `README.md`, `QUICKSTART.md`, and `FRD.md`
+
+## Supplementary Guidelines
+
+Detailed guidance for code generation, documentation, interaction design, responsive design, security, and testing is in `docs/agents/`.
 
 ## Quick Reference
 

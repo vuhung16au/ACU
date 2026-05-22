@@ -1,6 +1,6 @@
 # QUICKSTART - 01.HelloWorldMAUI
 
-Follow this guide to build and run your first MAUI app.
+Follow this guide to build and run the native MAUI app and the browser version.
 
 ## 1. Verify Prerequisites
 
@@ -11,7 +11,7 @@ dotnet workload list
 
 Confirm:
 
-- .NET SDK is 10.0 or higher
+- .NET SDK is `10.0.x`
 - `maui` workload is installed
 
 If needed:
@@ -20,26 +20,28 @@ If needed:
 dotnet workload install maui
 ```
 
-## 2. Build The Project
-
-From repository root:
+## 2. Move Into The Project Folder
 
 ```bash
 cd 12.MauiCrossPlatform/01.HelloWorldMAUI
+```
 
-# Build for macOS (Mac Catalyst)
-dotnet build -f net10.0-maccatalyst
+## 3. Restore The Starter Solution
 
-# Build for Android
-dotnet build -f net10.0-android
+```bash
+make restore
+```
 
-# Build for iOS (optional, requires Xcode and Simulator)
-dotnet build -f net10.0-ios
+This restores:
 
-# Build for WebAssembly (optional)
-dotnet build -f net10.0-wasm
-# Build for all platforms (optional)
-dotnet build
+- `HelloWorldMAUI.csproj`
+- `HelloWorldMAUI.Shared/HelloWorldMAUI.Shared.csproj`
+- `HelloWorldMAUI.Web/HelloWorldMAUI.Web.csproj`
+
+## 4. Build The Browser Version
+
+```bash
+make build-web
 ```
 
 Expected result:
@@ -48,74 +50,123 @@ Expected result:
 Build succeeded.
 ```
 
-## 3. Run On macOS (Mac Catalyst)
+## 5. Run The Browser Version
 
 ```bash
-
-# Run on Mac Catalyst
-dotnet build -t:Run -f net10.0-maccatalyst
-
-# Run on Android (optional, requires emulator)
-dotnet build -t:Run -f net10.0-android
-
-# Run on iOS Simulator (optional, requires Xcode and Simulator)
-dotnet build HelloWorldMAUI.csproj -t:Run -f net10.0-ios -p:_DeviceName=:v2:udid=$(xcrun simctl list devices booted | awk -F '[()]' '/Booted/{print $2; exit}')
-
-
-# Run on all platforms (optional)
-dotnet build -t:Run
+make run-web
 ```
 
-What to test:
+Then open the local URL shown in the terminal, usually:
 
-1. The app window opens with a title and welcome text.
-2. Tap `Tap to Count` and confirm the button text updates.
-3. Tap `Reset Counter` and confirm the state resets.
+```text
+http://localhost:5xxx
+```
 
-## 4. Run On Android (Optional)
+What to test in the browser:
 
-Start an Android emulator first, then run:
+1. The page shows the Hello World MAUI heading.
+2. Click `Tap to Count` and confirm the text changes.
+3. Click `Reset Counter` and confirm the message resets.
+
+## 6. Build The Native MAUI App
+
+### Mac Catalyst
 
 ```bash
-dotnet build -t:Run --project 12.MauiCrossPlatform/01.HelloWorldMAUI/HelloWorldMAUI.csproj -f net10.0-android
+make build-maccatalyst
 ```
 
-## 5. Run On iOS Simulator (macOS)
-
-From repository root:
+### Android
 
 ```bash
-cd 12.MauiCrossPlatform/01.HelloWorldMAUI
+make build-android
 ```
 
-Start Simulator:
+### iOS
 
 ```bash
-open -a Simulator
+make build-ios
 ```
 
-Run on iOS:
+### Windows
 
 ```bash
-dotnet build HelloWorldMAUI.csproj -t:Run -f net10.0-ios -p:_DeviceName=:v2:udid=$(xcrun simctl list devices booted | awk -F '[()]' '/Booted/{print $2; exit}')
+make build-windows
 ```
 
-If you need to target a specific simulator:
+### Default native host for the current OS
 
 ```bash
-xcrun simctl list devices available
-dotnet build HelloWorldMAUI.csproj -t:Run -f net10.0-ios -p:_DeviceName=:v2:udid=<SIMULATOR_UDID>
+make build-native
 ```
 
-## 6. Explore Important Files
+## 7. Run The Native MAUI App
 
-- `MainPage.xaml`: UI layout (labels, image, buttons)
-- `MainPage.xaml.cs`: click event handlers and counter logic
-- `MauiProgram.cs`: startup configuration
-- `App.xaml`: shared styles and colors
-- `Platforms/`: platform-specific code
+### Mac Catalyst
+
+```bash
+make run-maccatalyst
+```
+
+### Android
+
+```bash
+make run-android
+```
+
+### iOS Simulator
+
+```bash
+make run-ios
+```
+
+## 8. Understand The Starter Structure
+
+- `HelloWorldMAUI.csproj`: native MAUI host
+- `HelloWorldMAUI.Shared/`: shared Razor UI, styles, and shared state
+- `HelloWorldMAUI.Web/`: browser host built with ASP.NET Core
+- `HelloWorldMAUI.Starter.slnx`: starter solution containing all three projects
+- `Makefile`: standard entrypoints for restore, build, and run
+- `MainPage.xaml`: hosts the shared UI inside `BlazorWebView`
+
+## 9. Important Note About `dotnet build -f net10.0-browser`
+
+This command does **not** apply to this project:
+
+```bash
+dotnet build -f net10.0-browser
+```
+
+Reason:
+
+- this project is still a MAUI app for native targets
+- the browser experience is provided by the separate `HelloWorldMAUI.Web` project
+- the browser workflow uses `dotnet build` and `dotnet run` on that web project instead
+
+Use this instead:
+
+```bash
+make build-web
+make run-web
+```
 
 ## Common Issues
+
+### Error: `NETSDK1005` for `net10.0-browser`
+
+Example:
+
+```text
+Assets file ... doesn't have a target for 'net10.0-browser'
+```
+
+This happens because `HelloWorldMAUI.csproj` does not target `net10.0-browser`.
+Use the web host project instead:
+
+```bash
+make build-web
+make run-web
+```
 
 ### Error: MAUI workload missing
 
@@ -125,8 +176,8 @@ dotnet workload install maui
 
 ### Error: Android emulator/device unavailable
 
-- Start emulator manually in Android Studio
-- Or run Mac Catalyst target first
+- Start the emulator manually in Android Studio
+- Or run the Mac Catalyst target first
 
 ### Error: iOS simulator unavailable or not detected
 
@@ -135,58 +186,26 @@ open -a Simulator
 xcrun simctl list devices available
 ```
 
-If Simulator still does not show up, ensure Xcode CLI tools are selected:
+If needed, target a specific simulator:
 
 ```bash
-xcode-select -p
-sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
-```
-
-### Error MT1206: Could not find simulator runtime iOS-26-2
-
-This means the default launch target is stale (for example iOS 26.2) while your installed runtime is different (for example iOS 26.3).
-
-Use the booted simulator UDID explicitly:
-
-```bash
-dotnet build HelloWorldMAUI.csproj -t:Run -f net10.0-ios -p:_DeviceName=:v2:udid=$(xcrun simctl list devices booted | awk -F '[()]' '/Booted/{print $2; exit}')
-```
-
-If needed, list and pick a specific device:
-
-```bash
-xcrun simctl list devices available
 dotnet build HelloWorldMAUI.csproj -t:Run -f net10.0-ios -p:_DeviceName=:v2:udid=<SIMULATOR_UDID>
 ```
 
-### Error: Build fails after SDK changes
+### Error: Build fails after SDK or package changes
 
 ```bash
-dotnet clean 12.MauiCrossPlatform/01.HelloWorldMAUI/HelloWorldMAUI.csproj
-dotnet restore 12.MauiCrossPlatform/01.HelloWorldMAUI/HelloWorldMAUI.csproj
-dotnet build 12.MauiCrossPlatform/01.HelloWorldMAUI/HelloWorldMAUI.csproj -f net10.0-maccatalyst
+make clean
+make restore
+make build-web
+make build-native
 ```
-
-### Error: Xcode version mismatch for Mac Catalyst
-
-Symptom example:
-
-```text
-error This version of .NET for MacCatalyst requires Xcode <version>. The current version of Xcode is <version>.
-```
-
-For this project, a compatibility setting is already included in `HelloWorldMAUI.csproj` (`ValidateXcodeVersion=false` for iOS and Mac Catalyst), so builds can continue when Xcode is newer than the SDK-pinned version.
-
-If you still see the error:
-
-1. Clean and rebuild the project.
-2. Confirm you are using this project's `.csproj` file.
-3. Update .NET SDK/workloads to the latest patch version.
 
 ## Success Checklist
 
-- Project builds successfully
-- App runs on at least one platform
-- Counter button updates UI text
-- Reset button restores default state
-- You can explain the role of `MauiProgram.cs`, `App.xaml`, `MainPage.xaml`, and `Platforms/`
+- Browser project builds successfully
+- Browser version runs locally
+- Native MAUI app builds for at least one platform
+- Counter button updates the UI
+- Reset button restores the default message
+- You can explain the role of the native host, shared UI project, and web host

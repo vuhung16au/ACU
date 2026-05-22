@@ -1,0 +1,47 @@
+@page "/"
+@inject CounterState CounterState
+
+<PageTitle>Hello World MAUI</PageTitle>
+
+<section class="hero">
+    <img class="hero-image" src="_content/HelloWorldMAUI.Shared/images/lesson-bot.svg" alt="Decorative lesson mascot" />
+
+    <div class="hero-copy">
+        <p class="eyebrow">Cross-platform lesson</p>
+        <h1>Hello, .NET MAUI!</h1>
+        <p class="lead">
+            This beginner-friendly sample now uses one shared Razor UI so the same counter lesson can run
+            inside the MAUI app and in a browser.
+        </p>
+    </div>
+</section>
+
+<section class="interaction-panel">
+    <p class="status-text" aria-live="polite">@CounterState.StatusMessage</p>
+
+    <div class="button-row">
+        <button class="primary-button" @onclick="OnCounterClicked">@CounterState.ButtonText</button>
+        <button class="secondary-button" @onclick="OnResetClicked">Reset Counter</button>
+    </div>
+
+    <div class="concept-box">
+        <h2>What this teaches</h2>
+        <ul>
+            <li>Shared UI can power both native and web experiences.</li>
+            <li>Button events update state and refresh the interface automatically.</li>
+            <li>Students can compare MAUI shell hosting with browser hosting in one example.</li>
+        </ul>
+    </div>
+</section>
+
+@code {
+    private void OnCounterClicked()
+    {
+        CounterState.Increment();
+    }
+
+    private void OnResetClicked()
+    {
+        CounterState.Reset();
+    }
+}

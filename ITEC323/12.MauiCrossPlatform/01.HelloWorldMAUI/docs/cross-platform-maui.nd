@@ -1,0 +1,107 @@
+# Cross-Platform MAUI With Shared .NET Code
+
+## Summary
+
+If the goal is to use the same .NET codebase to build:
+
+- iOS apps
+- Android apps
+- Windows apps
+- macOS apps
+- a web app
+
+then the best .NET approach is:
+
+- .NET MAUI for native app hosts
+- Blazor for the shared UI layer
+- shared C# class libraries for business logic, models, validation, and state
+
+This is the closest .NET equivalent to the Flutter "one codebase, many targets" workflow.
+
+## Key Conclusion
+
+Use `Blazor`, not `Razor Pages`, when the main goal is to share the same app UI across:
+
+- mobile
+- desktop
+- browser
+
+`Razor Pages` is better for traditional server-rendered web applications.
+`Blazor` is better for reusable component-based UI that can run both:
+
+- inside a MAUI native shell with `BlazorWebView`
+- in a browser through a Blazor web host
+
+## Recommended Project Shape
+
+```text
+MyApp/
+├── MyApp/                # .NET MAUI host for iOS, Android, Windows, macOS
+├── MyApp.Shared/         # Shared Razor components and shared app logic
+└── MyApp.Web/            # Blazor web host
+```
+
+## What Should Be Shared
+
+These parts usually share well across every target:
+
+- Razor components
+- app state
+- view models
+- DTOs and domain models
+- validation rules
+- service interfaces
+- business logic
+
+## What Usually Stays Platform-Specific
+
+These parts often need target-specific implementations:
+
+- camera access
+- file system paths
+- notifications
+- sensors
+- app permissions
+- native menus, windows, and lifecycle hooks
+
+## Practical Rule Of Thumb
+
+Choose this:
+
+- `MAUI + Blazor Hybrid + Blazor Web`
+
+Avoid relying on this if you want the same UI everywhere:
+
+- MAUI XAML by itself
+
+Why:
+
+- MAUI XAML is strong for native app UI
+- but MAUI XAML does not also become the browser UI
+- Blazor components can be reused across native and web
+
+## Decision Guide
+
+Choose `Blazor` when you want:
+
+- one app-like UI across web and native
+- reusable components across all targets
+- a Flutter-like mental model in .NET
+
+Choose `Razor Pages` when you want:
+
+- a classic ASP.NET Core website
+- server-rendered pages
+- form-heavy page-based workflows
+- teaching traditional web app patterns
+
+## Final Recommendation
+
+For a Flutter-like cross-platform strategy in .NET:
+
+1. Use `.NET MAUI` as the native app host.
+2. Use `Blazor` as the shared UI layer.
+3. Use a shared library for state, models, and business logic.
+4. Keep only device-specific integrations in platform-specific code.
+
+That gives the highest level of shared code across iOS, Android, Windows, macOS, and the web while staying inside the standard .NET ecosystem.

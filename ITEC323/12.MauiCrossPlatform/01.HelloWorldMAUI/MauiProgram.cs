@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using HelloWorldMAUI.Shared.Services;
 
 namespace HelloWorldMAUI;
 
@@ -22,7 +23,11 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
 
+		builder.Services.AddMauiBlazorWebView();
+		builder.Services.AddSingleton<CounterState>();
+
 #if DEBUG
+		builder.Services.AddBlazorWebViewDeveloperTools();
 		builder.Logging.AddDebug();
 #endif
 

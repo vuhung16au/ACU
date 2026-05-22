@@ -1,0 +1,4 @@
+.status-bar-safe-area {
+    background: #512bd4;
+    height: env(safe-area-inset-top);
+}
