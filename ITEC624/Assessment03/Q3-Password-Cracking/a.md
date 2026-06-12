@@ -1,1 +1,0 @@
-Hint: Password is the fav color, all small letters.

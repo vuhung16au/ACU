@@ -1,2 +1,0 @@
-# Alternative key file
-K = "crypto"

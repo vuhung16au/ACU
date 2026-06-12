@@ -1,2 +1,0 @@
-# Test key found by brute force
-K = "NB"
