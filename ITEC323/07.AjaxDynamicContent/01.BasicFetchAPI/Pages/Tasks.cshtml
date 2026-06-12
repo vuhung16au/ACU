@@ -33,6 +33,10 @@
         <strong id="pendingTasks">0</strong>
     </article>
     <article class="summary-card">
+        <span class="summary-label">Cancelled</span>
+        <strong id="cancelledTasks">0</strong>
+    </article>
+    <article class="summary-card">
         <span class="summary-label">Last Refresh</span>
         <strong id="generatedAt">Not loaded yet</strong>
     </article>
@@ -62,10 +66,12 @@
             <label for="notes">Notes</label>
             <textarea id="notes" name="notes" rows="4" maxlength="200"></textarea>
 
-            <label class="checkbox-row" for="isCompleted">
-                <input id="isCompleted" name="isCompleted" type="checkbox" />
-                Mark as completed
-            </label>
+            <label for="status">Status</label>
+            <select id="status" name="status" required>
+                <option value="Pending">Pending</option>
+                <option value="Completed">Completed</option>
+                <option value="Cancelled">Cancelled</option>
+            </select>
 
             <div class="action-row">
                 <button id="saveButton" class="button button-primary" type="submit">Save Task</button>

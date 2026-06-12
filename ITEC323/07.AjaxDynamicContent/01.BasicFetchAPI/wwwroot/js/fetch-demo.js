@@ -4,7 +4,7 @@ const titleInput = document.getElementById("title");
 const categoryInput = document.getElementById("category");
 const dueDateInput = document.getElementById("dueDate");
 const notesInput = document.getElementById("notes");
-const isCompletedInput = document.getElementById("isCompleted");
+const statusInput = document.getElementById("status");
 const saveButton = document.getElementById("saveButton");
 const resetButton = document.getElementById("resetButton");
 const loadButton = document.getElementById("loadButton");
@@ -15,6 +15,7 @@ const taskTableBody = document.getElementById("taskTableBody");
 const totalTasks = document.getElementById("totalTasks");
 const completedTasks = document.getElementById("completedTasks");
 const pendingTasks = document.getElementById("pendingTasks");
+const cancelledTasks = document.getElementById("cancelledTasks");
 const generatedAt = document.getElementById("generatedAt");
 
 let isBusy = false;
@@ -57,7 +58,7 @@ function getTaskPayload() {
         category: categoryInput.value.trim(),
         dueDate: dueDateInput.value || null,
         notes: notesInput.value.trim() || null,
-        isCompleted: isCompletedInput.checked
+        status: statusInput.value
     };
 }
 
@@ -126,9 +127,14 @@ function renderTasks(tasks) {
 
     taskTableBody.innerHTML = tasks
         .map((task) => {
-            const statusClass = task.isCompleted ? "status-complete" : "status-pending";
-            const statusLabel = task.isCompleted ? "Completed" : "Pending";
-            const toggleLabel = task.isCompleted ? "Mark Pending" : "Mark Complete";
+            let statusClass = "status-pending";
+            let statusLabel = task.status;
+            
+            if (task.status === "Completed") {
+                statusClass = "status-complete";
+            } else if (task.status === "Cancelled") {
+                statusClass = "status-cancelled";
+            }
 
             return `
                 <tr>
@@ -143,7 +149,7 @@ function renderTasks(tasks) {
                     <td>
                         <div class="table-actions">
                             <button class="button button-secondary row-action" type="button" data-action="edit" data-id="${task.id}">Edit</button>
-                            <button class="button button-secondary row-action" type="button" data-action="toggle" data-id="${task.id}">${toggleLabel}</button>
+                            <button class="button button-secondary row-action" type="button" data-action="toggle" data-id="${task.id}">Cycle Status</button>
                             <button class="button button-danger row-action" type="button" data-action="delete" data-id="${task.id}">Delete</button>
                         </div>
                     </td>
@@ -156,6 +162,7 @@ function renderSummary(summary) {
     totalTasks.textContent = summary.totalTasks;
     completedTasks.textContent = summary.completedTasks;
     pendingTasks.textContent = summary.pendingTasks;
+    cancelledTasks.textContent = summary.cancelledTasks;
     generatedAt.textContent = formatDateTime(summary.generatedAt);
 }
 
@@ -165,7 +172,7 @@ function fillForm(task) {
     categoryInput.value = task.category;
     dueDateInput.value = task.dueDate ? task.dueDate.slice(0, 10) : "";
     notesInput.value = task.notes ?? "";
-    isCompletedInput.checked = task.isCompleted;
+    statusInput.value = task.status;
     saveButton.textContent = "Update Task";
     showMessage(`Editing task #${task.id}. Change the fields and click Update Task.`, "warning");
     titleInput.focus();
@@ -272,6 +279,14 @@ async function toggleTask(taskId) {
         return;
     }
 
+    // Cycle through statuses: Pending -> Completed -> Cancelled -> Pending
+    let newStatus = "Pending";
+    if (task.status === "Pending") {
+        newStatus = "Completed";
+    } else if (task.status === "Completed") {
+        newStatus = "Cancelled";
+    }
+
     setBusyState(true);
 
     try {
@@ -285,7 +300,7 @@ async function toggleTask(taskId) {
                 category: task.category,
                 dueDate: task.dueDate,
                 notes: task.notes,
-                isCompleted: !task.isCompleted
+                status: newStatus
             })
         }).then(parseApiResponse);
 

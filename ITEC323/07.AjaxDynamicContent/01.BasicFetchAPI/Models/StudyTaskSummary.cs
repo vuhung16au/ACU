@@ -21,6 +21,11 @@ public class StudyTaskSummary
     public int PendingTasks { get; set; }
 
     /// <summary>
+    /// Gets or sets the number of cancelled tasks.
+    /// </summary>
+    public int CancelledTasks { get; set; }
+
+    /// <summary>
     /// Gets or sets the time the summary was generated.
     /// </summary>
     public DateTime GeneratedAt { get; set; }

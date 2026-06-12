@@ -25,7 +25,7 @@ public class StudyTaskService
                 Category = "Reading",
                 DueDate = DateTime.Today.AddDays(1),
                 Notes = "Focus on GET, POST, PUT, and DELETE examples.",
-                IsCompleted = false,
+                Status = "Pending",
                 LastUpdated = DateTime.Now.AddMinutes(-40)
             },
             new StudyTaskItem
@@ -35,7 +35,7 @@ public class StudyTaskService
                 Category = "Practice",
                 DueDate = DateTime.Today.AddDays(2),
                 Notes = "Open the Network tab and inspect JSON responses.",
-                IsCompleted = true,
+                Status = "Completed",
                 LastUpdated = DateTime.Now.AddMinutes(-25)
             },
             new StudyTaskItem
@@ -45,7 +45,7 @@ public class StudyTaskService
                 Category = "Reflection",
                 DueDate = DateTime.Today.AddDays(3),
                 Notes = "Describe why repeated requests can keep a page updated.",
-                IsCompleted = false,
+                Status = "Pending",
                 LastUpdated = DateTime.Now.AddMinutes(-10)
             }
         ];
@@ -98,7 +98,7 @@ public class StudyTaskService
                 Category = request.Category.Trim(),
                 DueDate = request.DueDate,
                 Notes = string.IsNullOrWhiteSpace(request.Notes) ? null : request.Notes.Trim(),
-                IsCompleted = request.IsCompleted,
+                Status = request.Status,
                 LastUpdated = DateTime.Now
             };
 
@@ -129,7 +129,7 @@ public class StudyTaskService
             task.Category = request.Category.Trim();
             task.DueDate = request.DueDate;
             task.Notes = string.IsNullOrWhiteSpace(request.Notes) ? null : request.Notes.Trim();
-            task.IsCompleted = request.IsCompleted;
+            task.Status = request.Status;
             task.LastUpdated = DateTime.Now;
 
             return CloneTask(task);
@@ -165,13 +165,16 @@ public class StudyTaskService
     {
         lock (_syncRoot)
         {
-            var completedTasks = _tasks.Count(task => task.IsCompleted);
+            var completedTasks = _tasks.Count(task => task.Status == "Completed");
+            var pendingTasks = _tasks.Count(task => task.Status == "Pending");
+            var cancelledTasks = _tasks.Count(task => task.Status == "Cancelled");
 
             return new StudyTaskSummary
             {
                 TotalTasks = _tasks.Count,
                 CompletedTasks = completedTasks,
-                PendingTasks = _tasks.Count - completedTasks,
+                PendingTasks = pendingTasks,
+                CancelledTasks = cancelledTasks,
                 GeneratedAt = DateTime.Now
             };
         }
@@ -186,7 +189,7 @@ public class StudyTaskService
             Category = task.Category,
             DueDate = task.DueDate,
             Notes = task.Notes,
-            IsCompleted = task.IsCompleted,
+            Status = task.Status,
             LastUpdated = task.LastUpdated
         };
     }

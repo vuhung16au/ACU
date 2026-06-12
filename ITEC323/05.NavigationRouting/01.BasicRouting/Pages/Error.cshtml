@@ -4,8 +4,18 @@
     ViewData["Title"] = "Error";
 }
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
+
+<h1 class="text-danger">Page Not Found (404)</h1>
+<h2 class="text-danger">Sorry, the page you requested does not exist.</h2>
+
+<p>
+    Please check the URL or <a asp-page="/Index">go back to the Home page</a>.
+</p>
+
+<hr />
+
+<!-- Original error details for other errors -->
+@* The following is shown for non-404 errors or in development mode. *@
 
 @if (Model.ShowRequestId)
 {

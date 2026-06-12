@@ -31,9 +31,9 @@ public class StudyTaskItem
     public string? Notes { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether the task has been completed.
+    /// Gets or sets the task status (Pending, Completed, or Cancelled).
     /// </summary>
-    public bool IsCompleted { get; set; }
+    public string Status { get; set; } = "Pending";
 
     /// <summary>
     /// Gets or sets the last time the task was changed.

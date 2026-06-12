@@ -335,6 +335,11 @@ code {
     color: #785c14;
 }
 
+.status-cancelled {
+    background: #e0e0e0;
+    color: #666;
+}
+
 .table-actions {
     display: flex;
     flex-wrap: wrap;

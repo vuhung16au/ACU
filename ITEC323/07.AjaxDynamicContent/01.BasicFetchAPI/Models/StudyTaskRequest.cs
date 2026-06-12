@@ -33,7 +33,8 @@ public class StudyTaskRequest
     public string? Notes { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether the task is complete.
+    /// Gets or sets the task status (Pending, Completed, or Cancelled).
     /// </summary>
-    public bool IsCompleted { get; set; }
+    [Required]
+    public string Status { get; set; } = "Pending";
 }
