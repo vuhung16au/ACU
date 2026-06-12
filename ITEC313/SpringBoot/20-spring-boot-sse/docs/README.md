@@ -1,3 +1,0 @@
-# Docs
-
-- [Concepts](concepts.md)

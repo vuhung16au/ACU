@@ -1,5 +1,0 @@
-John Doe,25,50000,Engineering
-Jane Smith,30,60000,Marketing
-Bob Johnson,35,75000,Management
-Alice Brown,28,55000,IT
-Charlie Wilson,32,65000,Sales 

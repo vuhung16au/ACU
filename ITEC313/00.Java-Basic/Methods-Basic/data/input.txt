@@ -1,5 +1,0 @@
-# input.txt
-# Sample input data for Methods-Basic project
-10
-20
-30 

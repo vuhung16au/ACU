@@ -1,3 +1,0 @@
-# input.txt
-# This file is included for completeness.
-# Method overloading examples do not require input data. 

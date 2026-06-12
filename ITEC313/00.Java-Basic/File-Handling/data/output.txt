@@ -1,4 +1,0 @@
-Hello from Java File Handling!
-This is line 2
-This is line 3
-Current time: Fri Jul 11 22:21:26 AEST 2025

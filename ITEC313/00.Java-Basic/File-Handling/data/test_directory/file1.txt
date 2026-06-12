@@ -1,2 +1,0 @@
-Content of file1.txt
-Created at: Fri Jul 11 22:21:13 AEST 2025
