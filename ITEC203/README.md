@@ -1,1 +1,2 @@
-Additional teaching materials for ITEC203: Introduction to Data Science and Machine Learning
+This project has been moved to a [new repository](https://github.com/vuhung16au/ACU-ITEC203). You can find the updated project at the following link:
+[ACU-ITEC203](https://github.com/vuhung16au/ACU-ITEC203)
