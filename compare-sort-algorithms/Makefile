@@ -1,6 +1,6 @@
 # Makefile for Sorting Algorithm Comparison Project
 
-.PHONY: all build run analyze visualize docs clean venv venv-clean data scripts check-php-files
+.PHONY: all build run analyze analyse visualize visualise docs clean venv venv-clean data scripts check-php-files
 
 # Directories
 SRC_DIR := src
@@ -73,7 +73,7 @@ venv-clean:
 
 # Generate test datasets
 data: venv
-	python3 $(SCRIPTS_DIR)/generate_data.py
+	.venv/bin/python3 $(SCRIPTS_DIR)/generate_data.py
 
 # Build sorting algorithm implementations
 build: $(C_BUBBLE) $(CPP_BUBBLE) $(JAVA_BUBBLE) $(RUST_BUBBLE) $(RUST_INSERTION) $(RUST_SELECTION) $(RUST_MERGE) $(RUST_QUICK) $(RUST_COUNTING) $(RUST_RADIX) $(CSHARP_BUBBLE) $(CSHARP_INSERTION) $(CSHARP_SELECTION) $(CSHARP_MERGE) $(CSHARP_QUICK) $(CSHARP_COUNTING) $(CSHARP_RADIX)
@@ -115,27 +115,27 @@ $(CSHARP_BUBBLE) $(CSHARP_INSERTION) $(CSHARP_SELECTION) $(CSHARP_MERGE) $(CSHAR
 
 # Run performance comparisons
 run: data build
-	python3 $(SCRIPTS_DIR)/run_comparison.py
+	.venv/bin/python3 $(SCRIPTS_DIR)/run_comparison.py
 
 # Analyze results
 analyse: analyze
 analyze: run
 	mkdir -p $(ANALYSIS_DIR)
-	python3 $(SCRIPTS_DIR)/analyze_results.py
+	.venv/bin/python3 $(SCRIPTS_DIR)/analyze_results.py
 
 # Generate JSON results from analysis
 generate-json-results: 
-	python3 $(SCRIPTS_DIR)/generate-json-results.py
+	.venv/bin/python3 $(SCRIPTS_DIR)/generate-json-results.py
 
 # Visualize results
 visualise: visualize
 visualize: analyze
 	mkdir -p $(DOCS_DIR)
-	python3 $(SCRIPTS_DIR)/visualize_results.py
+	.venv/bin/python3 $(SCRIPTS_DIR)/visualize_results.py
 
 # Update documentation
 docs: visualize
-	python3 $(SCRIPTS_DIR)/update_docs.py
+	.venv/bin/python3 $(SCRIPTS_DIR)/update_docs.py
 
 # Run all scripts in sequence with proper dependencies
 scripts: venv data build run analyze visualize docs

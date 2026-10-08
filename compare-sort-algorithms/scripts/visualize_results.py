@@ -99,7 +99,9 @@ g.add_legend(bbox_to_anchor=(1.02, 0.5), loc='center left', frameon=True)
 plt.tight_layout(rect=(0, 0, 0.8, 1))  # Leave space for legend
 
 # Save the figure to the images directory
-output_path = os.path.join(BASE_DIR, 'images', 'sorting_performance_loglog.png')
+img_dir = os.path.join(BASE_DIR, 'images')
+os.makedirs(img_dir, exist_ok=True)
+output_path = os.path.join(img_dir, 'sorting_performance_loglog.png')
 g.figure.savefig(output_path, bbox_inches='tight')
 print(f"Plot saved to {output_path}")
 # plt.show()  # Disabled as requested

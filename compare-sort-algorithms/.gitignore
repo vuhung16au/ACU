@@ -95,3 +95,10 @@ Thumbs.db
 ehthumbs.db
 Desktop.ini
 $RECYCLE.BIN/
+
+# Compiled binaries for C, C++, and Rust
+src/*_c
+src/*_cpp
+src/*_rust
+
+.local/
